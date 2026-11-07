@@ -47,7 +47,17 @@ say so and a `NOTICE` file will carry the attribution.
 
 624 of 1 238 capabilities (50 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing), concentrated where icons live: transforms (15/17), animation
 (33/40), state machines (59/61), drawing and paint (110/125), input (80/93), host API (74/125),
-and data binding (157/169). Text, layout and scripting remain for later phases. `MATRIX.md` has the per-category table.
+and data binding (157/169). `MATRIX.md` has the per-category table.
+
+**Scope (owner triage, 2026-11-07).** Anima is a smaller, agent-native Rive for animated web UI in
+general, and it runs only in web pages: where the browser already does something well (ARIA and
+focus, text shaping and fonts, text editing, page layout), Anima binds to it instead of
+reimplementing it. Progress is reported against the in-scope rows — every row except maybe-later and
+won't-do: **624 of 883 in-scope capabilities are done (71 %)**, next to 624 of 1 238 (50 %) for the
+full matrix. Out of scope: scripting (P9), visual editor tooling, layout beyond a minimal subset and
+Rive's WASM build variants (won't do, with reasons); GPU backends and effects (P10) are maybe later.
+Remaining in-scope work: P3b accessibility and headless agent tools, P6 text, P7 minimal layout and
+host fit, P8 rigging. Every changed row and its reason: [`triage-2026-11-07.md`](triage-2026-11-07.md).
 
 ## Module split and size budgets
 

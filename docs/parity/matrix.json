@@ -695,9 +695,10 @@
   "capability": "Authored frame grid",
   "construct": "new: optional authoring frame grid compiled to seconds",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/frame-grid",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "animation.graph-editor",
@@ -705,9 +706,10 @@
   "capability": "Value graph editing",
   "construct": "new: graph editor for timeline tracks",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/graph-editor",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "animation.hold-interpolation",
@@ -985,9 +987,10 @@
   "capability": "Script interpolators",
   "construct": "new: script easing reference",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/script-interpolator",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "animation.script-seek-normalized",
@@ -995,9 +998,10 @@
   "capability": "Normalized script seeking",
   "construct": "new: script timeline seek in seconds or normalized time",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/script-seek-normalized",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "animation.seek",
@@ -1235,9 +1239,10 @@
   "capability": "Image encoding: astc",
   "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/assets-image-encoding-astc",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "assets.image-encoding-bc7",
@@ -1245,9 +1250,10 @@
   "capability": "Image encoding: bc7",
   "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/assets-image-encoding-bc7",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "assets.image-encoding-etc2rgba",
@@ -1255,9 +1261,10 @@
   "capability": "Image encoding: etc2Rgba",
   "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/assets-image-encoding-etc2rgba",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "assets.image-encoding-jpeg",
@@ -1295,9 +1302,10 @@
   "capability": "Image encoding controls",
   "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md)",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "assets.image-filter-bilinear",
@@ -1486,9 +1494,10 @@
   "capability": "Script binary lookup",
   "construct": "new: assets.<name> / build.assets.<name>: named script-blob resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/assets-script-blob",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "assets.storage-embedded",
@@ -1576,9 +1585,10 @@
   "capability": "Per-instance layout size",
   "construct": "new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds",
   "module": "components",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/components-layout-size",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "components.leaf-fit",
@@ -1656,9 +1666,10 @@
   "capability": "Component list layout inheritance",
   "construct": "new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds",
   "module": "components",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/components-list-layout-inheritance",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "components.list-map",
@@ -1786,9 +1797,10 @@
   "capability": "Script-created artboard instance",
   "construct": "new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds",
   "module": "components",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/components-script-instance",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "components.stateful-input-animation",
@@ -1906,9 +1918,10 @@
   "capability": "Bind script inputs",
   "construct": "TODO: modules/data/capabilities/data-bind-script-inputs/registry.ts; spec/SPEC.md (Bind script inputs); modules/data/capabilities/data-bind-script-inputs/example.animl",
   "module": "data",
-  "status": "planned",
+  "status": "wont-do",
   "test": "TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "data.bind-text",
@@ -2446,9 +2459,10 @@
   "capability": "Editor preview instance",
   "construct": "TODO: modules/data/capabilities/data-editor-preview-instance/registry.ts; spec/SPEC.md (Editor preview instance); modules/data/capabilities/data-editor-preview-instance/example.animl",
   "module": "data",
-  "status": "planned",
+  "status": "wont-do",
   "test": "TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "data.enum-members",
@@ -3266,19 +3280,21 @@
   "capability": "Script model API",
   "construct": "TODO: modules/data/capabilities/data-script-model-api/registry.ts; spec/SPEC.md (Script model API); modules/data/capabilities/data-script-model-api/example.animl",
   "module": "data",
-  "status": "planned",
+  "status": "wont-do",
   "test": "TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "data.scripted-converter",
   "category": "data",
   "capability": "Scripted conversion",
-  "status": "planned",
+  "status": "wont-do",
   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
-  "phase": "P9",
+  "phase": "—",
   "module": "data",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)"
+  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "data.state-action-trigger",
@@ -3716,9 +3732,10 @@
   "capability": "Flatten brush spines",
   "construct": "new: flatten brush to path command",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/brush-flatten",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.brush-pressure",
@@ -3726,9 +3743,10 @@
   "capability": "Pressure-sensitive drawing",
   "construct": "new: pressure input in authoring brush",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/brush-pressure",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.brush-smoothing",
@@ -3736,9 +3754,10 @@
   "capability": "Brush refitting",
   "construct": "new: brush profile refitting command",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/brush-smoothing",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.brush-speed",
@@ -3746,9 +3765,10 @@
   "capability": "Speed-sensitive drawing",
   "construct": "new: speed-based authoring brush profile",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/brush-speed",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.brush-tips",
@@ -3756,9 +3776,10 @@
   "capability": "Brush nib shapes",
   "construct": "new: brush.nib authoring setting",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/brush-tips",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.circle",
@@ -3936,9 +3957,10 @@
   "capability": "Freehand brush authoring",
   "construct": "new: brush authoring tool producing path outlines",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/freehand-brush",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.freehand-eraser",
@@ -3946,9 +3968,10 @@
   "capability": "Eraser authoring",
   "construct": "new: eraser geometry operation",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/freehand-eraser",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.freehand-pencil",
@@ -3956,9 +3979,10 @@
   "capability": "Pencil authoring",
   "construct": "new: pencil authoring tool producing paths",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/freehand-pencil",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.geometry-clip",
@@ -4266,9 +4290,10 @@
   "capability": "Mask quality",
   "construct": "vector SVG mask (no raster resolution setting)",
   "module": "canvas",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "drawing-paint.mask-source-draws",
@@ -4426,9 +4451,10 @@
   "capability": "Path measurements",
   "construct": "new: path measure API in grid units",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/path-measure",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "drawing-paint.polygon",
@@ -4496,9 +4522,10 @@
   "capability": "Procedural path construction",
   "construct": "new: script Path API",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/script-path-api",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "drawing-paint.script-render-paint",
@@ -4506,9 +4533,10 @@
   "capability": "Procedural paint objects",
   "construct": "new: script paint factory",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/script-render-paint",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "drawing-paint.scripted-path-effects",
@@ -4516,9 +4544,10 @@
   "capability": "Procedural path effects",
   "construct": "new: paint.effects script reference",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/scripted-path-effects",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "drawing-paint.shape-builder-subtract",
@@ -4526,9 +4555,10 @@
   "capability": "Subtract shape regions",
   "construct": "new: path geometry subtraction authoring operation",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/shape-builder-subtract",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.shape-builder-union",
@@ -4536,9 +4566,10 @@
   "capability": "Merge shape regions",
   "construct": "new: path geometry union authoring operation",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/shape-builder-union",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "drawing-paint.shared-effects",
@@ -4866,10 +4897,10 @@
   "capability": "Script event context",
   "construct": "Deferred to P9: no script VM/context exists.",
   "module": "events",
-  "status": "planned",
+  "status": "wont-do",
   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json)",
-  "phase": "P9",
-  "reason": "No scripting VM or event context exists; implement alongside P9 scripting."
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "events.state-end",
@@ -4957,9 +4988,10 @@
   "capability": "Live artboards as GPU textures",
   "construct": "new: live artboards as gpu textures through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-artboard-textures",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.backends",
@@ -4967,9 +4999,10 @@
   "capability": "GPU renderer backends",
   "construct": "new: gpu renderer backends through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-backends",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.bind-layouts",
@@ -5021,9 +5054,10 @@
   "capability": "Offscreen vector canvas",
   "construct": "new: offscreen vector canvas through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-canvas-pass",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.canvases",
@@ -5031,9 +5065,10 @@
   "capability": "Script GPU canvases",
   "construct": "new: script gpu canvases through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-canvases",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.depth",
@@ -5096,9 +5131,10 @@
   "capability": "Direct GPU target access",
   "construct": "new: direct gpu target access through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-host-target",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.lifetime",
@@ -5172,9 +5208,10 @@
   "capability": "Multipass image effects",
   "construct": "new: multipass image effects through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-post-processing",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.rasterization",
@@ -5204,9 +5241,10 @@
   "capability": "Shader assets and stages",
   "construct": "new: shader assets and stages through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-shaders",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.stencil",
@@ -5313,9 +5351,10 @@
   "capability": "Web GPU canvas opt-in",
   "construct": "new: web gpu canvas opt-in through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/gpu-web-opt-in",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "gpu.write-mask",
@@ -5984,9 +6023,10 @@
   "capability": "GPU canvas opt-in",
   "construct": "new: optional GPU Canvas extension",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/gpu-canvas",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.hidden-tab",
@@ -6004,9 +6044,10 @@
   "capability": "Inkbleed antialiasing",
   "construct": "new: optional GPU antialiasing mode",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/inkbleed",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.keyboard-focus",
@@ -6024,9 +6065,10 @@
   "capability": "Explicit layout bounds",
   "construct": "new: layout viewport rectangle",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "browser/layout-bounds",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "host-api.layout-scale",
@@ -6034,9 +6076,10 @@
   "capability": "Layout scale factor",
   "construct": "new: <anima-icon layout-scale>",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "browser/layout-scale",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "host-api.legacy-boolean-input",
@@ -6184,9 +6227,10 @@
   "capability": "Multiple artboards on one canvas",
   "construct": "new: scene instances composed within an Anima surface",
   "module": "canvas",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/multi-artboard-canvas",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.multi-state-machine",
@@ -6288,9 +6332,10 @@
   "capability": "OffscreenCanvas target",
   "construct": "new: offscreen raster renderer",
   "module": "canvas",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/offscreen-surface",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.pause",
@@ -6378,9 +6423,10 @@
   "capability": "Worker-based replay",
   "construct": "new: worker replay backend",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/replay-worker",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.reset",
@@ -6468,9 +6514,10 @@
   "capability": "Share GPU context",
   "construct": "new: shared GPU surface pool",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/shared-offscreen-renderer",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "host-api.single-redraw",
@@ -6558,9 +6605,10 @@
   "capability": "WASM parallel configuration",
   "construct": "new: optional worker budget configuration",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "browser/wasm-parallelism",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "host-api.wasm-preload",
@@ -6578,9 +6626,10 @@
   "capability": "Self-host WASM",
   "construct": "new: optional backend loader URLs",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "browser/wasm-url",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "input.align-preserve",
@@ -6988,9 +7037,10 @@
   "capability": "Script pointer claims",
   "construct": "new: pointer event.claim({opaque})",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/input-hit-claims",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "input.hit-occlusion-query",
@@ -7268,9 +7318,10 @@
   "capability": "Script listener actions",
   "construct": "new: listener action script reference",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/input-script-action",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "input.scroll-script",
@@ -7278,9 +7329,10 @@
   "capability": "Script scroll handlers",
   "construct": "new: script pointerScroll hook and event.claim()",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/input-scroll-script",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "input.semantic-decrease",
@@ -7528,9 +7580,10 @@
   "capability": "Animated layout reflow",
   "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-animated-reflow",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.artboard-alignment",
@@ -7538,9 +7591,10 @@
   "capability": "Artboard alignment",
   "construct": "new: artboard alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-artboard-alignment",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.aspect-ratio",
@@ -7548,9 +7602,10 @@
   "capability": "Aspect ratio sizing",
   "construct": "new: aspect ratio sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-aspect-ratio",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.borders",
@@ -7558,9 +7613,10 @@
   "capability": "Layout borders",
   "construct": "new: layout borders with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-borders",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.clip",
@@ -7568,9 +7624,10 @@
   "capability": "Clipped layout overflow",
   "construct": "new: clipped layout overflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-clip",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.containers",
@@ -7588,9 +7645,10 @@
   "capability": "Layout corner radii",
   "construct": "new: layout corner radii with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-corners",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.edge-pinning",
@@ -7598,9 +7656,10 @@
   "capability": "Edge constraints",
   "construct": "new: edge constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-edge-pinning",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.fill-sizing",
@@ -7628,9 +7687,10 @@
   "capability": "Flex line alignment",
   "construct": "new: flex line alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-flex-align-content",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.flex-align-items",
@@ -7648,9 +7708,10 @@
   "capability": "Flex base size",
   "construct": "new: flex base size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-flex-basis",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.flex-direction",
@@ -7668,9 +7729,10 @@
   "capability": "Flex growth and shrinkage",
   "construct": "new: flex growth and shrinkage through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-flex-grow-shrink",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.flex-justify",
@@ -7688,9 +7750,10 @@
   "capability": "Two-dimensional grid",
   "construct": "new: two-dimensional grid with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-grid",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.grid-list",
@@ -7698,9 +7761,10 @@
   "capability": "Lists filling grid cells",
   "construct": "new: lists filling grid cells with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-grid-list",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.grid-minmax",
@@ -7708,9 +7772,10 @@
   "capability": "Bounded grid tracks",
   "construct": "new: bounded grid tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-grid-minmax",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.grid-placement",
@@ -7718,9 +7783,10 @@
   "capability": "Grid placement and spans",
   "construct": "new: grid placement and spans with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-grid-placement",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.grid-tracks",
@@ -7728,9 +7794,10 @@
   "capability": "Explicit and implicit tracks",
   "construct": "new: explicit and implicit tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-grid-tracks",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.hug-sizing",
@@ -7758,9 +7825,10 @@
   "capability": "Transforms after layout",
   "construct": "new: transforms after layout with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-layout-transforms",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.n-slicing",
@@ -7768,9 +7836,10 @@
   "capability": "N-slice resizing",
   "construct": "new: n-slice resizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-n-slicing",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.nested-artboards",
@@ -7778,9 +7847,10 @@
   "capability": "Responsive nested artboards",
   "construct": "new: responsive nested artboards with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-nested-artboards",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.paint",
@@ -7808,9 +7878,10 @@
   "capability": "Relative and absolute positioning",
   "construct": "new: relative and absolute positioning with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-positioning",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-axis",
@@ -7818,9 +7889,10 @@
   "capability": "Scroll constraints",
   "construct": "new: scroll constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-axis",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-bar",
@@ -7828,9 +7900,10 @@
   "capability": "Bound scrollbar",
   "construct": "new: bound scrollbar with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-bar",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-binding",
@@ -7838,9 +7911,10 @@
   "capability": "Programmatic scroll position",
   "construct": "new: programmatic scroll position with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-binding",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-clamped",
@@ -7848,9 +7922,10 @@
   "capability": "Clamped scrolling",
   "construct": "new: clamped scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-clamped",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-elastic",
@@ -7858,9 +7933,10 @@
   "capability": "Elastic fling scrolling",
   "construct": "new: elastic fling scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-elastic",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-infinite",
@@ -7868,9 +7944,10 @@
   "capability": "Infinite scrolling",
   "construct": "new: infinite scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-infinite",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-input",
@@ -7878,9 +7955,10 @@
   "capability": "Scroll gesture tuning",
   "construct": "new: scroll gesture tuning with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-input",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-snap",
@@ -7888,9 +7966,10 @@
   "capability": "Scroll snapping",
   "construct": "new: scroll snapping with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-snap",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.scroll-virtualize",
@@ -7898,9 +7977,10 @@
   "capability": "Scroll virtualization",
   "construct": "new: scroll virtualization with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-scroll-virtualize",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.self-alignment",
@@ -7928,9 +8008,10 @@
   "capability": "Component image slicing",
   "construct": "new: component image slicing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-slice-component",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.slice-vector",
@@ -7938,9 +8019,10 @@
   "capability": "Vector group slicing",
   "construct": "new: vector group slicing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-slice-vector",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.spacing",
@@ -7958,9 +8040,10 @@
   "capability": "Overlapping stack layout",
   "construct": "new: overlapping stack layout with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-stack",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.units",
@@ -7968,9 +8051,10 @@
   "capability": "Layout units",
   "construct": "new: layout units with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-units",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.visibility",
@@ -7988,9 +8072,10 @@
   "capability": "Flex wrapping",
   "construct": "new: flex wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-wrap",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "layout.writing-direction",
@@ -7998,9 +8083,10 @@
   "capability": "Layout writing direction",
   "construct": "new: layout writing direction with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/layout-writing-direction",
-  "phase": "P7"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
  },
  {
   "id": "platforms.android-bitmap",
@@ -8524,9 +8610,10 @@
   "capability": "@rive-app/react-webgl2",
   "construct": "new: @rive-app/react-webgl2",
   "module": "web",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "platform/react-webgl2",
-  "phase": "P3b"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later."
  },
  {
   "id": "platforms.runtime-versioning",
@@ -8545,9 +8632,10 @@
   "capability": "Threaded WASM availability",
   "construct": "new: Threaded WASM availability",
   "module": "web",
-  "status": "planned",
+  "status": "wont-do",
   "test": "platform/threaded-wasm",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
  },
  {
   "id": "platforms.tvos",
@@ -8631,9 +8719,10 @@
   "capability": "Web Canvas Lite",
   "construct": "new: Web Canvas Lite",
   "module": "web",
-  "status": "planned",
+  "status": "wont-do",
   "test": "platform/web-canvas-lite",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
  },
  {
   "id": "platforms.web-canvas-single",
@@ -8641,9 +8730,10 @@
   "capability": "Web embedded WASM build",
   "construct": "new: Web embedded WASM build",
   "module": "web",
-  "status": "planned",
+  "status": "wont-do",
   "test": "platform/web-canvas-single",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
  },
  {
   "id": "platforms.web-layer-masks",
@@ -8651,9 +8741,10 @@
   "capability": "Web layer-mask backend",
   "construct": "new: Web layer-mask backend",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "platform/web-layer-masks",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "platforms.web-webgl-legacy",
@@ -8672,9 +8763,10 @@
   "capability": "Web WebGL2",
   "construct": "new: Web WebGL2",
   "module": "gpu",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "platform/web-webgl2",
-  "phase": "P10"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser."
  },
  {
   "id": "platforms.webgl2-advanced",
@@ -8682,9 +8774,10 @@
   "capability": "@rive-app/webgl2-advanced",
   "construct": "new: optional webgl2-advanced backend entry",
   "module": "web",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "platform/webgl2-advanced",
-  "phase": "P3b"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later."
  },
  {
   "id": "platforms.webgl2-threads",
@@ -8692,9 +8785,10 @@
   "capability": "@rive-app/webgl2-threads",
   "construct": "new: optional webgl2-threads backend entry",
   "module": "web",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "platform/webgl2-threads",
-  "phase": "P3b"
+  "phase": "later",
+  "reason": "Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later."
  },
  {
   "id": "rigging.bone-chains",
@@ -8933,9 +9027,10 @@
   "capability": "Script time advancement",
   "construct": "new: script time advancement through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-advance",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.animation-control",
@@ -8943,9 +9038,10 @@
   "capability": "Script animation control",
   "construct": "new: script animation control through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-animation-control",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.arguments",
@@ -8953,9 +9049,10 @@
   "capability": "Host script arguments",
   "construct": "new: host script arguments through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-arguments",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.artboard-instance",
@@ -8963,9 +9060,10 @@
   "capability": "Script artboard instances",
   "construct": "new: script artboard instances through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-artboard-instance",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.artboard-path",
@@ -8973,9 +9071,10 @@
   "capability": "Artboard path extraction",
   "construct": "new: artboard path extraction through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-artboard-path",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.async",
@@ -8983,9 +9082,10 @@
   "capability": "Cancelable asynchronous tasks",
   "construct": "new: cancelable asynchronous tasks through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-async",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.atomics",
@@ -9015,9 +9115,10 @@
   "capability": "Script audio playback",
   "construct": "new: script audio playback through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-audio-playback",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.audio-processor",
@@ -9036,9 +9137,10 @@
   "capability": "Boxed value wrappers",
   "construct": "new: script standard-library support for boxed value wrappers; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-boxing",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.byte-buffers",
@@ -9046,9 +9148,10 @@
   "capability": "Binary buffer operations",
   "construct": "new: script standard-library support for binary buffer operations; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-byte-buffers",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.capture-settling",
@@ -9056,9 +9159,10 @@
   "capability": "Settled headless captures",
   "construct": "new: settled headless captures through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-capture-settling",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.clocks",
@@ -9066,9 +9170,10 @@
   "capability": "Clock and calendar APIs",
   "construct": "new: clock and calendar apis through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-clocks",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.color-utils",
@@ -9076,9 +9181,10 @@
   "capability": "Script color operations",
   "construct": "new: script standard-library support for script color operations; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-color-utils",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.condition",
@@ -9086,9 +9192,10 @@
   "capability": "Script transition predicate",
   "construct": "new: script transition predicate through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-condition",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.context-assets",
@@ -9096,9 +9203,10 @@
   "capability": "Script asset lookup",
   "construct": "new: script asset lookup through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-context-assets",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.context-data",
@@ -9106,9 +9214,10 @@
   "capability": "Script data context",
   "construct": "new: script data context through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-context-data",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.converter",
@@ -9116,9 +9225,10 @@
   "capability": "Forward binding converter",
   "construct": "new: forward binding converter through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-converter",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.converter-values",
@@ -9126,9 +9236,10 @@
   "capability": "Typed converter values",
   "construct": "new: script standard-library support for typed converter values; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-converter-values",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.data-properties",
@@ -9136,9 +9247,10 @@
   "capability": "Script view-model properties",
   "construct": "new: script view-model properties through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-data-properties",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.debugging",
@@ -9146,9 +9258,10 @@
   "capability": "Script debugging",
   "construct": "new: script debugging through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-debugging",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.dispose",
@@ -9156,9 +9269,10 @@
   "capability": "Script teardown",
   "construct": "new: script teardown through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-dispose",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.draw-visitor",
@@ -9166,9 +9280,10 @@
   "capability": "Custom artboard draw visitor",
   "construct": "new: custom artboard draw visitor through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-draw-visitor",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.drawable",
@@ -9176,9 +9291,10 @@
   "capability": "Custom drawable hook",
   "construct": "new: custom drawable hook through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-drawable",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.dynamic-values",
@@ -9186,9 +9302,10 @@
   "capability": "Dynamic value bridge",
   "construct": "new: script standard-library support for dynamic value bridge; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-dynamic-values",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.editor-format-parse",
@@ -9229,9 +9346,10 @@
   "capability": "Script execution budgets",
   "construct": "new: script execution budgets through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-execution-budget",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.feature-detection",
@@ -9239,9 +9357,10 @@
   "capability": "Runtime script feature checks",
   "construct": "new: script standard-library support for runtime script feature checks; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-feature-detection",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.file-decode",
@@ -9249,9 +9368,10 @@
   "capability": "Script file decoding",
   "construct": "new: script file decoding through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-file-decode",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.formatting",
@@ -9259,9 +9379,10 @@
   "capability": "Script string formatting",
   "construct": "new: script standard-library support for script string formatting; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-formatting",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.forward-input",
@@ -9269,9 +9390,10 @@
   "capability": "Forwarded component input",
   "construct": "new: forwarded component input through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-forward-input",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.gamepad-hooks",
@@ -9279,9 +9401,10 @@
   "capability": "Script gamepad hooks",
   "construct": "new: script gamepad hooks through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-gamepad-hooks",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.gesture-claim",
@@ -9289,9 +9412,10 @@
   "capability": "Pointer and scroll claiming",
   "construct": "new: script standard-library support for pointer and scroll claiming; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-gesture-claim",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.gradients",
@@ -9299,9 +9423,10 @@
   "capability": "Procedural gradients",
   "construct": "new: script standard-library support for procedural gradients; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-gradients",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.image-decode",
@@ -9309,9 +9434,10 @@
   "capability": "Script image decoding",
   "construct": "new: script image decoding through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-image-decode",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.init",
@@ -9319,9 +9445,10 @@
   "capability": "Script initialization",
   "construct": "new: script initialization through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-init",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.interpolator",
@@ -9329,9 +9456,10 @@
   "capability": "Custom interpolation curve",
   "construct": "new: custom interpolation curve through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-interpolator",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.interpolator-values",
@@ -9339,9 +9467,10 @@
   "capability": "Custom value interpolation",
   "construct": "new: custom value interpolation through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-interpolator-values",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.invalidate",
@@ -9349,9 +9478,10 @@
   "capability": "Script invalidation",
   "construct": "new: script invalidation through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-invalidate",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.jobs",
@@ -9370,9 +9500,10 @@
   "capability": "Script JSON parsing",
   "construct": "new: script standard-library support for script json parsing; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-json",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.keyboard-hook",
@@ -9380,9 +9511,10 @@
   "capability": "Script keyboard hook",
   "construct": "new: script keyboard hook through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-keyboard-hook",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.lane-capabilities",
@@ -9412,9 +9544,10 @@
   "capability": "Custom layout measurement",
   "construct": "new: custom layout measurement through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-layout-measure",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.layout-resize",
@@ -9422,9 +9555,10 @@
   "capability": "Custom layout resize",
   "construct": "new: custom layout resize through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-layout-resize",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.list-mutations",
@@ -9432,9 +9566,10 @@
   "capability": "Script list mutation",
   "construct": "new: script list mutation through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-list-mutations",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.listener",
@@ -9442,9 +9577,10 @@
   "capability": "Script listener action",
   "construct": "new: script listener action through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-listener",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.luau",
@@ -9452,9 +9588,10 @@
   "capability": "Luau scripting",
   "construct": "new: Anima's own sandboxed script language, chosen in the scripting phase (reasoning goes into the spec)",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-luau",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.matrix-2d",
@@ -9462,9 +9599,10 @@
   "capability": "Script 2D matrix math",
   "construct": "new: script standard-library support for script 2d matrix math; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-matrix-2d",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.matrix-3d",
@@ -9483,9 +9621,10 @@
   "capability": "Script model creation",
   "construct": "new: script model creation through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-model-create",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.modulated-draw",
@@ -9493,9 +9632,10 @@
   "capability": "Modulated artboard drawing",
   "construct": "new: modulated artboard drawing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-modulated-draw",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.module-imports",
@@ -9503,9 +9643,10 @@
   "capability": "Script module composition",
   "construct": "new: script module composition through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-module-imports",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.network-fetch",
@@ -9557,9 +9698,10 @@
   "capability": "Procedural paths",
   "construct": "new: procedural paths through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-path-construction",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.path-effect",
@@ -9567,9 +9709,10 @@
   "capability": "Custom path effect",
   "construct": "new: custom path effect through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-path-effect",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.patterns",
@@ -9577,9 +9720,10 @@
   "capability": "Script pattern matching",
   "construct": "new: script standard-library support for script pattern matching; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-patterns",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.pointer-hooks",
@@ -9587,9 +9731,10 @@
   "capability": "Script pointer hooks",
   "construct": "new: script pointer hooks through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-pointer-hooks",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.ports",
@@ -9608,9 +9753,10 @@
   "capability": "Script property listeners",
   "construct": "new: script property listeners through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-property-observers",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.randomness",
@@ -9618,9 +9764,10 @@
   "capability": "Seeded script randomness",
   "construct": "new: seeded script randomness through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-randomness",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.renderer-clip",
@@ -9628,9 +9775,10 @@
   "capability": "Script clipping",
   "construct": "new: script clipping through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-renderer-clip",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.renderer-images",
@@ -9638,9 +9786,10 @@
   "capability": "Script image drawing",
   "construct": "new: script image drawing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-renderer-images",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.renderer-instancing",
@@ -9670,9 +9819,10 @@
   "capability": "Procedural path drawing",
   "construct": "new: procedural path drawing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-renderer-path",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.renderer-state",
@@ -9680,9 +9830,10 @@
   "capability": "Renderer state stack",
   "construct": "new: renderer state stack through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-renderer-state",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.reverse-converter",
@@ -9690,9 +9841,10 @@
   "capability": "Reverse binding converter",
   "construct": "new: reverse binding converter through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-reverse-converter",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.rings",
@@ -9722,9 +9874,10 @@
   "capability": "Sandboxed script execution",
   "construct": "new: sandboxed script execution through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-sandbox",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.scene-query",
@@ -9732,9 +9885,10 @@
   "capability": "Scene hierarchy queries",
   "construct": "new: scene hierarchy queries through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-scene-query",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.scene-transforms",
@@ -9742,9 +9896,10 @@
   "capability": "Scene transform editing",
   "construct": "new: scene transform editing through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-scene-transforms",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.script-inputs",
@@ -9752,9 +9907,10 @@
   "capability": "Typed script inputs and triggers",
   "construct": "new: typed script inputs and triggers through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-script-inputs",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.script-paint",
@@ -9762,9 +9918,10 @@
   "capability": "Procedural paint configuration",
   "construct": "new: script standard-library support for procedural paint configuration; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-script-paint",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.scroll-hook",
@@ -9772,9 +9929,10 @@
   "capability": "Script scrolling hook",
   "construct": "new: script scrolling hook through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-scroll-hook",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.shared-blobs",
@@ -9815,9 +9973,10 @@
   "capability": "Asynchronous timed waits",
   "construct": "new: asynchronous timed waits through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-sleep",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.snapshots",
@@ -9836,9 +9995,10 @@
   "capability": "Script text entry hook",
   "construct": "new: script text entry hook through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-text-hook",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.transition",
@@ -9846,9 +10006,10 @@
   "capability": "Custom component transition",
   "construct": "new: custom component transition through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-transition",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.unit-tests",
@@ -9856,9 +10017,10 @@
   "capability": "Headless script tests",
   "construct": "new: headless script tests through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-unit-tests",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.update",
@@ -9866,9 +10028,10 @@
   "capability": "Script update hook",
   "construct": "new: script update hook through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/scripting-update",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.utf8-byte-strings",
@@ -9876,9 +10039,10 @@
   "capability": "UTF-8 byte string compatibility",
   "construct": "new: script standard-library support for utf-8 byte string compatibility; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-utf8-byte-strings",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.vectors",
@@ -9886,9 +10050,10 @@
   "capability": "Script vector math",
   "construct": "new: script standard-library support for script vector math; language choice remains open",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/script-vectors",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "scripting.wasm-language",
@@ -10138,9 +10303,10 @@
   "capability": "Script transition conditions",
   "construct": "new: when script guard reference",
   "module": "script",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/condition-script",
-  "phase": "P9"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "state-machine.condition-trigger",
@@ -10998,9 +11164,10 @@
   "capability": "Bidirectional text control",
   "construct": "new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/text-script-direction",
-  "phase": "P6"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "text.script-glyphs",
@@ -11008,9 +11175,10 @@
   "capability": "Glyph inspection",
   "construct": "new: glyph inspection with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/text-script-glyphs",
-  "phase": "P6"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "text.script-hit-testing",
@@ -11018,9 +11186,10 @@
   "capability": "Text hit testing",
   "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/text-script-hit-testing",
-  "phase": "P6"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "text.script-shaping",
@@ -11028,9 +11197,10 @@
   "capability": "Scripted text shaping",
   "construct": "new: scripted text shaping with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "planned",
+  "status": "wont-do",
   "test": "oracle/text-script-shaping",
-  "phase": "P6"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "text.sizing-auto-height",
@@ -11256,9 +11426,10 @@
   "capability": "Preserve debugger session on rebuild",
   "construct": "new: stable debug IDs across preview reloads",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/debug-rebuild",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.device-preview",
@@ -11343,9 +11514,10 @@
   "capability": "Visual scene hierarchy",
   "construct": "new: Visual scene hierarchy",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/editor-hierarchy",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.editor-import",
@@ -11438,9 +11610,10 @@
   "capability": "Visual property editing",
   "construct": "new: Visual property editing",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/editor-property-inspector",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.editor-psd-import",
@@ -11459,9 +11632,10 @@
   "capability": "Editable SVG import",
   "construct": "new: Editable SVG import",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/editor-svg-import",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.editor-timeline",
@@ -11469,9 +11643,10 @@
   "capability": "Visual timeline and work area",
   "construct": "new: Visual timeline and work area",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/editor-timeline",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.editor-vector-authoring",
@@ -11532,9 +11707,10 @@
   "capability": "Editor export: PNG sequence",
   "construct": "new: Editor export: PNG sequence",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/export-png-sequence",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.export-svg",
@@ -11552,9 +11728,10 @@
   "capability": "Editor export: SVG sequence",
   "construct": "new: Editor export: SVG sequence",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/export-svg-sequence",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.export-webm",
@@ -11573,9 +11750,10 @@
   "capability": "Retain unstartable script fixtures",
   "construct": "new: negative script fixture harness",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/failed-script-fixtures",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.gpu-validation-manifest",
@@ -11744,9 +11922,10 @@
   "capability": "Headless worker settling",
   "construct": "new: deterministic capture worker barriers",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/headless-settle-jobs",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): Anima has no worker jobs to settle; the player's settled state already reports idle."
  },
  {
   "id": "tooling.headless-time",
@@ -11805,9 +11984,10 @@
   "capability": "Inspect editor-only properties",
   "construct": "new: anima inspect --all --scene",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/inspect-editor-properties",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "tooling.inspect-summary",
@@ -12227,9 +12407,10 @@
   "capability": "Script build constants and arguments",
   "construct": "new: anima script defines and host arguments",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-build-constants",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.script-debugger",
@@ -12237,9 +12418,10 @@
   "capability": "Script debugger",
   "construct": "new: playground script debugging",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-debugger",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.script-memory-bounds",
@@ -12247,10 +12429,10 @@
   "capability": "Script memory bounds policy",
   "construct": "new: script memory isolation policy",
   "module": "tooling",
-  "status": "deferred",
+  "status": "wont-do",
   "test": "cli/script-memory-bounds",
-  "reason": "Requires a chosen script engine and memory model before specifying the host contract.",
-  "phase": "P3b"
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it.",
+  "phase": "—"
  },
  {
   "id": "tooling.script-network-permission",
@@ -12258,9 +12440,10 @@
   "capability": "Script network opt-in",
   "construct": "new: explicit script network capability",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-network-permission",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.script-release-build",
@@ -12268,9 +12451,10 @@
   "capability": "Optimized script builds",
   "construct": "new: explicit development/release script profiles",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-release-build",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.script-test-runner",
@@ -12278,9 +12462,10 @@
   "capability": "Script test runner",
   "construct": "new: anima test",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-test-runner",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.script-thread-controls",
@@ -12288,9 +12473,10 @@
   "capability": "Script thread budgets",
   "construct": "new: capture script concurrency policy",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "cli/script-thread-controls",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
  },
  {
   "id": "tooling.seed",
@@ -12415,7 +12601,7 @@
   "module": "data",
   "status": "planned",
   "test": "conformance/computed-transform-values",
-  "phase": "P7"
+  "phase": "P3b"
  },
  {
   "id": "transforms.draw-order",
@@ -12453,9 +12639,10 @@
   "capability": "Freeze transforms",
   "construct": "new: authoring command to reposition a group origin and compensate child transforms",
   "module": "tooling",
-  "status": "planned",
+  "status": "wont-do",
   "test": "conformance/freeze-transform",
-  "phase": "P3b"
+  "phase": "—",
+  "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
  },
  {
   "id": "transforms.groups",

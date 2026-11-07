@@ -8,31 +8,34 @@ its phase, and the test that proves it. Phases, modules and size budgets are exp
 
 Statuses: **done** (specified and implemented) · **spec'd** (specified or reserved, not implemented) ·
 **planned** (scheduled in a phase) · **deferred** (planned, cannot be designed yet) · **maybe-later**
-(inventoried, kept possible, not scheduled) · **wont-do** (conflicts with the project guardrails).
+(inventoried, kept possible, not scheduled) · **wont-do** (conflicts with the project guardrails, or out of
+scope by the owner's triage of 2026-11-07).
 
 ## Summary
 
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Drawing and paint | 125 | 110 |  | 15 |  |  |  |
-| Transforms and draw order | 17 | 15 |  | 2 |  |  |  |
-| Animation | 40 | 33 |  | 7 |  |  |  |
-| State machines | 61 | 59 |  | 2 |  |  |  |
-| Listeners and input | 93 | 80 |  | 13 |  |  |  |
-| Data: view models, binding, converters | 169 | 157 |  | 12 |  |  |  |
-| Events | 18 | 17 |  | 1 |  |  |  |
-| Components | 30 | 23 |  | 7 |  |  |  |
-| Text | 61 |  |  | 61 |  |  |  |
-| Layout | 49 |  |  | 49 |  |  |  |
+| Drawing and paint | 125 | 110 |  |  |  | 1 | 14 |
+| Transforms and draw order | 17 | 15 |  | 1 |  |  | 1 |
+| Animation | 40 | 33 |  | 3 |  |  | 4 |
+| State machines | 61 | 59 |  | 1 |  |  | 1 |
+| Listeners and input | 93 | 80 |  | 10 |  |  | 3 |
+| Data: view models, binding, converters | 169 | 157 |  | 8 |  |  | 4 |
+| Events | 18 | 17 |  |  |  |  | 1 |
+| Components | 30 | 23 |  | 4 |  |  | 3 |
+| Text | 61 |  |  | 57 |  |  | 4 |
+| Layout | 49 |  |  | 15 |  |  | 34 |
 | Rigging | 23 |  |  | 22 |  | 1 |  |
-| Scripting | 96 |  |  | 71 |  | 25 |  |
-| GPU | 35 |  |  | 8 |  | 27 |  |
-| Assets | 50 | 35 |  | 14 |  | 1 |  |
+| Scripting | 96 |  |  |  |  | 25 | 71 |
+| GPU | 35 |  |  |  |  | 35 |  |
+| Assets | 50 | 35 |  | 9 |  | 5 | 1 |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
-| Host runtime API | 125 | 74 |  | 47 |  | 4 |  |
-| Platforms | 64 | 2 |  | 8 |  | 54 |  |
-| Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **624** | **0** | **447** | **1** | **163** | **3** |
+| Host runtime API | 125 | 74 |  | 37 |  | 11 | 3 |
+| Platforms | 64 | 2 |  |  |  | 59 | 3 |
+| Tooling | 119 | 14 |  | 34 |  | 51 | 20 |
+| **Total** | **1238** | **624** | **0** | **259** | **0** | **188** | **167** |
+
+**Progress:** 624 of 883 in-scope capabilities done (71 %); 624 of 1238 in the full matrix (50 %).
 
 | Phase | Rows |
 |---|---:|
@@ -40,7 +43,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P1](#p1) — Done: AniML, the authoring markup | 1 |
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
-| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 160 |
+| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 124 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
 | [P4c](#p4c) — Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus | 95 |
@@ -50,13 +53,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text | 80 |
-| [P7](#p7) — Layout | 73 |
+| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 76 |
+| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 34 |
 | [P8](#p8) — Rigging | 25 |
-| [P9](#p9) — Scripting | 88 |
-| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 22 |
-| [Maybe / later](#maybe-later) | 163 |
-| [Won't do](#wont-do) | 3 |
+| [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
+| [P10](#p10) — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) | 0 |
+| [Maybe / later](#maybe-later) | 188 |
+| [Won't do](#wont-do) | 167 |
 
 ## P0 — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) <a id="p0"></a>
 
@@ -260,33 +263,11 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ## P3b — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras <a id="p3b"></a>
 
-### Drawing and paint
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `drawing-paint.brush-flatten` | Flatten brush spines | new: flatten brush to path command | tooling | planned | oracle/brush-flatten |
-| `drawing-paint.brush-pressure` | Pressure-sensitive drawing | new: pressure input in authoring brush | tooling | planned | oracle/brush-pressure |
-| `drawing-paint.brush-smoothing` | Brush refitting | new: brush profile refitting command | tooling | planned | oracle/brush-smoothing |
-| `drawing-paint.brush-speed` | Speed-sensitive drawing | new: speed-based authoring brush profile | tooling | planned | oracle/brush-speed |
-| `drawing-paint.brush-tips` | Brush nib shapes | new: brush.nib authoring setting | tooling | planned | conformance/brush-tips |
-| `drawing-paint.freehand-brush` | Freehand brush authoring | new: brush authoring tool producing path outlines | tooling | planned | oracle/freehand-brush |
-| `drawing-paint.freehand-eraser` | Eraser authoring | new: eraser geometry operation | tooling | planned | oracle/freehand-eraser |
-| `drawing-paint.freehand-pencil` | Pencil authoring | new: pencil authoring tool producing paths | tooling | planned | oracle/freehand-pencil |
-| `drawing-paint.shape-builder-subtract` | Subtract shape regions | new: path geometry subtraction authoring operation | tooling | planned | oracle/shape-builder-subtract |
-| `drawing-paint.shape-builder-union` | Merge shape regions | new: path geometry union authoring operation | tooling | planned | oracle/shape-builder-union |
-
 ### Transforms and draw order
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `transforms.freeze-transform` | Freeze transforms | new: authoring command to reposition a group origin and compensate child transforms | tooling | planned | conformance/freeze-transform |
-
-### Animation
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `animation.frame-grid` | Authored frame grid | new: optional authoring frame grid compiled to seconds | tooling | planned | conformance/frame-grid |
-| `animation.graph-editor` | Value graph editing | new: graph editor for timeline tracks | tooling | planned | oracle/graph-editor |
+| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
 
 ### State machines
 
@@ -311,7 +292,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `data.editor-preview-instance` | Editor preview instance | TODO: modules/data/capabilities/data-editor-preview-instance/registry.ts; spec/SPEC.md (Editor preview instance); modules/data/capabilities/data-editor-preview-instance/example.animl | data | planned | TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance |
 | `data.host-artboard` | Set model artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | data | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |
 | `data.host-color` | Color host access | new: player.data API for color host access | data | planned | oracle/data-host-color |
 | `data.host-nested-paths` | Typed nested paths | new: player.data API for typed nested paths | data | planned | oracle/data-host-nested-paths |
@@ -413,72 +393,44 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |
 | `host-api.stop` | Stop selected playback | new: <anima-icon>.stop(name) | web | planned | browser/stop |
 
-### Platforms
+### Tooling
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `platforms.react-webgl2` | @rive-app/react-webgl2 | new: @rive-app/react-webgl2 | web | planned | platform/react-webgl2 |
-| `platforms.threaded-wasm` | Threaded WASM availability | new: Threaded WASM availability | web | planned | platform/threaded-wasm |
-| `platforms.web-canvas-lite` | Web Canvas Lite | new: Web Canvas Lite | web | planned | platform/web-canvas-lite |
-| `platforms.web-canvas-single` | Web embedded WASM build | new: Web embedded WASM build | web | planned | platform/web-canvas-single |
-| `platforms.webgl2-advanced` | @rive-app/webgl2-advanced | new: optional webgl2-advanced backend entry | web | planned | platform/webgl2-advanced |
-| `platforms.webgl2-threads` | @rive-app/webgl2-threads | new: optional webgl2-threads backend entry | web | planned | platform/webgl2-threads |
-
-### Tooling
-
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `tooling.benchmark` | Headless benchmark | new: anima bench | tooling | planned | cli/benchmark |  |
-| `tooling.data-breakpoints` | Data write breakpoints | new: inspector break-on-change | tooling | planned | cli/data-breakpoints |  |
-| `tooling.data-debugger` | Live data inspection and editing | new: playground data inspector | tooling | planned | cli/data-debugger |  |
-| `tooling.debug-rebuild` | Preserve debugger session on rebuild | new: stable debug IDs across preview reloads | tooling | planned | cli/debug-rebuild |  |
-| `tooling.editor-hierarchy` | Visual scene hierarchy | new: Visual scene hierarchy | tooling | planned | cli/editor-hierarchy |  |
-| `tooling.editor-property-inspector` | Visual property editing | new: Visual property editing | tooling | planned | cli/editor-property-inspector |  |
-| `tooling.editor-svg-import` | Editable SVG import | new: Editable SVG import | tooling | planned | cli/editor-svg-import |  |
-| `tooling.editor-timeline` | Visual timeline and work area | new: Visual timeline and work area | tooling | planned | cli/editor-timeline |  |
-| `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |  |
-| `tooling.export-png-sequence` | Editor export: PNG sequence | new: Editor export: PNG sequence | tooling | planned | cli/export-png-sequence |  |
-| `tooling.export-svg-sequence` | Editor export: SVG sequence | new: Editor export: SVG sequence | tooling | planned | cli/export-svg-sequence |  |
-| `tooling.failed-script-fixtures` | Retain unstartable script fixtures | new: negative script fixture harness | tooling | planned | cli/failed-script-fixtures |  |
-| `tooling.headless-artboard` | Capture artboard choice | new: anima render --scene | tooling | planned | cli/headless-artboard |  |
-| `tooling.headless-audio` | Offline audio rendering | new: anima render --audio --rate --channels | tooling | planned | cli/headless-audio |  |
-| `tooling.headless-command-session` | Persistent headless command session | new: anima session --commands with reload and captures | tooling | planned | cli/headless-command-session |  |
-| `tooling.headless-data` | Set bound data | new: sample data path=value | tooling | planned | cli/headless-data |  |
-| `tooling.headless-data-dump` | Bound data snapshots | new: anima sample --data | tooling | planned | cli/headless-data-dump |  |
-| `tooling.headless-data-filter` | Filtered data snapshots | new: anima sample --filter | tooling | planned | cli/headless-data-filter |  |
-| `tooling.headless-data-stream` | Data change recording | new: anima sample --data-every | tooling | planned | cli/headless-data-stream |  |
-| `tooling.headless-fit` | Capture fit choice | new: anima render --fit | tooling | planned | cli/headless-fit |  |
-| `tooling.headless-gamepad` | Synthetic gamepad | new: sample gamepad commands | tooling | planned | cli/headless-gamepad |  |
-| `tooling.headless-key` | Synthetic keyboard | new: sample key commands | tooling | planned | cli/headless-key |  |
-| `tooling.headless-pointer` | Synthetic pointer gestures | new: sample compound pointer gestures including drag | tooling | planned | cli/headless-pointer |  |
-| `tooling.headless-scale` | Capture downscaling | new: anima render --scale | tooling | planned | cli/headless-scale |  |
-| `tooling.headless-semantic-actions` | Accessible action replay | new: sample semantic-action command | tooling | planned | cli/headless-semantic-actions |  |
-| `tooling.headless-semantics` | Accessible tree capture | new: anima inspect --semantics | tooling | planned | cli/headless-semantics |  |
-| `tooling.headless-settle-jobs` | Headless worker settling | new: deterministic capture worker barriers | tooling | planned | cli/headless-settle-jobs |  |
-| `tooling.headless-touch` | Synthetic multitouch | new: sample touch commands with pointer IDs | tooling | planned | cli/headless-touch |  |
-| `tooling.headless-viewport` | Capture viewport override | new: anima render --viewport WIDTHxHEIGHT | tooling | planned | cli/headless-viewport |  |
-| `tooling.headless-wheel` | Synthetic wheel and trackpad | new: sample wheel/trackpad commands | tooling | planned | cli/headless-wheel |  |
-| `tooling.inspect-editor-properties` | Inspect editor-only properties | new: anima inspect --all --scene | tooling | planned | cli/inspect-editor-properties |  |
-| `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |  |
-| `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |  |
-| `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |  |
-| `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |  |
-| `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |  |
-| `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |  |
-| `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |  |
-| `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |  |
-| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |  |
-| `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |  |
-| `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |  |
-| `tooling.script-build-constants` | Script build constants and arguments | new: anima script defines and host arguments | tooling | planned | cli/script-build-constants |  |
-| `tooling.script-debugger` | Script debugger | new: playground script debugging | tooling | planned | cli/script-debugger |  |
-| `tooling.script-memory-bounds` | Script memory bounds policy | new: script memory isolation policy | tooling | deferred | cli/script-memory-bounds | Requires a chosen script engine and memory model before specifying the host contract. |
-| `tooling.script-network-permission` | Script network opt-in | new: explicit script network capability | tooling | planned | cli/script-network-permission |  |
-| `tooling.script-release-build` | Optimized script builds | new: explicit development/release script profiles | tooling | planned | cli/script-release-build |  |
-| `tooling.script-test-runner` | Script test runner | new: anima test | tooling | planned | cli/script-test-runner |  |
-| `tooling.script-thread-controls` | Script thread budgets | new: capture script concurrency policy | tooling | planned | cli/script-thread-controls |  |
-| `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |  |
-| `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |  |
+| `tooling.benchmark` | Headless benchmark | new: anima bench | tooling | planned | cli/benchmark |
+| `tooling.data-breakpoints` | Data write breakpoints | new: inspector break-on-change | tooling | planned | cli/data-breakpoints |
+| `tooling.data-debugger` | Live data inspection and editing | new: playground data inspector | tooling | planned | cli/data-debugger |
+| `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |
+| `tooling.headless-artboard` | Capture artboard choice | new: anima render --scene | tooling | planned | cli/headless-artboard |
+| `tooling.headless-audio` | Offline audio rendering | new: anima render --audio --rate --channels | tooling | planned | cli/headless-audio |
+| `tooling.headless-command-session` | Persistent headless command session | new: anima session --commands with reload and captures | tooling | planned | cli/headless-command-session |
+| `tooling.headless-data` | Set bound data | new: sample data path=value | tooling | planned | cli/headless-data |
+| `tooling.headless-data-dump` | Bound data snapshots | new: anima sample --data | tooling | planned | cli/headless-data-dump |
+| `tooling.headless-data-filter` | Filtered data snapshots | new: anima sample --filter | tooling | planned | cli/headless-data-filter |
+| `tooling.headless-data-stream` | Data change recording | new: anima sample --data-every | tooling | planned | cli/headless-data-stream |
+| `tooling.headless-fit` | Capture fit choice | new: anima render --fit | tooling | planned | cli/headless-fit |
+| `tooling.headless-gamepad` | Synthetic gamepad | new: sample gamepad commands | tooling | planned | cli/headless-gamepad |
+| `tooling.headless-key` | Synthetic keyboard | new: sample key commands | tooling | planned | cli/headless-key |
+| `tooling.headless-pointer` | Synthetic pointer gestures | new: sample compound pointer gestures including drag | tooling | planned | cli/headless-pointer |
+| `tooling.headless-scale` | Capture downscaling | new: anima render --scale | tooling | planned | cli/headless-scale |
+| `tooling.headless-semantic-actions` | Accessible action replay | new: sample semantic-action command | tooling | planned | cli/headless-semantic-actions |
+| `tooling.headless-semantics` | Accessible tree capture | new: anima inspect --semantics | tooling | planned | cli/headless-semantics |
+| `tooling.headless-touch` | Synthetic multitouch | new: sample touch commands with pointer IDs | tooling | planned | cli/headless-touch |
+| `tooling.headless-viewport` | Capture viewport override | new: anima render --viewport WIDTHxHEIGHT | tooling | planned | cli/headless-viewport |
+| `tooling.headless-wheel` | Synthetic wheel and trackpad | new: sample wheel/trackpad commands | tooling | planned | cli/headless-wheel |
+| `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |
+| `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |
+| `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |
+| `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |
+| `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |
+| `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |
+| `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |
+| `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |
+| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |
+| `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |
+| `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |
+| `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |
+| `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |
 
 ## P4a — Done: paint and composite on the module system and the draw layer <a id="p4a"></a>
 
@@ -1160,7 +1112,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `platforms.web-canvas` | Web Canvas2D | @anima-format/web/canvas; HTML renderer="canvas"; draw-frame Canvas2D; raster findings remain (modules/canvas/test/web/RESULTS.md) | canvas | done | modules/canvas/test/web/canvas.test.ts; spec/conformance/platforms-web-canvas; tests/oracle/platforms-web-canvas/rive/README.md (host oracle skip) |
 
-## P6 — Text <a id="p6"></a>
+## P6 — Text, on the browser (shaping, FontFace, DOM-backed input) <a id="p6"></a>
 
 ### Listeners and input
 
@@ -1228,10 +1180,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `text.range-units` | Glyph range units | new: glyph range units with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-units |
 | `text.rich-runs` | Rich text runs | new: rich text runs with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-rich-runs |
 | `text.run-list` | Data-driven run lists | new: data-driven run lists with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-run-list |
-| `text.script-direction` | Bidirectional text control | new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-direction |
-| `text.script-glyphs` | Glyph inspection | new: glyph inspection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-glyphs |
-| `text.script-hit-testing` | Text hit testing | new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-hit-testing |
-| `text.script-shaping` | Scripted text shaping | new: scripted text shaping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-shaping |
 | `text.sizing-auto-height` | Width-constrained text | new: width-constrained text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-height |
 | `text.sizing-auto-width` | Content-sized text | new: content-sized text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-width |
 | `text.sizing-fixed` | Fixed text box | new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-fixed |
@@ -1267,13 +1215,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.text-input` | Text and IME bridge | new: DOM-backed text input bridge | text | planned | browser/text-input |
 | `host-api.text-run` | Text run access | new: named text run access | text | planned | browser/text-run |
 
-## P7 — Layout <a id="p7"></a>
-
-### Transforms and draw order
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
+## P7 — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit <a id="p7"></a>
 
 ### Data: view models, binding, converters
 
@@ -1281,66 +1223,25 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |
 
-### Components
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-layout-size |
-| `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-layout-inheritance |
-
 ### Layout
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `layout.alignment` | Container alignment | new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-alignment |
-| `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-animated-reflow |
-| `layout.artboard-alignment` | Artboard alignment | new: artboard alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-artboard-alignment |
-| `layout.aspect-ratio` | Aspect ratio sizing | new: aspect ratio sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-aspect-ratio |
-| `layout.borders` | Layout borders | new: layout borders with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-borders |
-| `layout.clip` | Clipped layout overflow | new: clipped layout overflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-clip |
 | `layout.containers` | Nested layout containers | new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-containers |
-| `layout.corners` | Layout corner radii | new: layout corner radii with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-corners |
-| `layout.edge-pinning` | Edge constraints | new: edge constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-edge-pinning |
 | `layout.fill-sizing` | Weighted fill sizing | new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fill-sizing |
 | `layout.fixed-sizing` | Fixed dimensions | new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fixed-sizing |
-| `layout.flex-align-content` | Flex line alignment | new: flex line alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-align-content |
 | `layout.flex-align-items` | Flex item alignment | new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-align-items |
-| `layout.flex-basis` | Flex base size | new: flex base size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-basis |
 | `layout.flex-direction` | Flex rows and columns | new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-direction |
-| `layout.flex-grow-shrink` | Flex growth and shrinkage | new: flex growth and shrinkage through a separate optional module; seconds, degrees and grid units at the format boundary | layout | planned | oracle/layout-flex-grow-shrink |
 | `layout.flex-justify` | Main-axis distribution | new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-justify |
-| `layout.grid` | Two-dimensional grid | new: two-dimensional grid with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-grid |
-| `layout.grid-list` | Lists filling grid cells | new: lists filling grid cells with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-grid-list |
-| `layout.grid-minmax` | Bounded grid tracks | new: bounded grid tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-grid-minmax |
-| `layout.grid-placement` | Grid placement and spans | new: grid placement and spans with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-grid-placement |
-| `layout.grid-tracks` | Explicit and implicit tracks | new: explicit and implicit tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-grid-tracks |
 | `layout.hug-sizing` | Content hugging | new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-hug-sizing |
 | `layout.intrinsic` | Intrinsic sizing | new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-intrinsic |
-| `layout.layout-transforms` | Transforms after layout | new: transforms after layout with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-layout-transforms |
-| `layout.n-slicing` | N-slice resizing | new: n-slice resizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-n-slicing |
-| `layout.nested-artboards` | Responsive nested artboards | new: responsive nested artboards with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-nested-artboards |
 | `layout.paint` | Painted layout boxes | new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-paint |
 | `layout.participants` | Leaf layout participation | new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-participants |
-| `layout.positioning` | Relative and absolute positioning | new: relative and absolute positioning with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-positioning |
-| `layout.scroll-axis` | Scroll constraints | new: scroll constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-axis |
-| `layout.scroll-bar` | Bound scrollbar | new: bound scrollbar with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-bar |
-| `layout.scroll-binding` | Programmatic scroll position | new: programmatic scroll position with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-binding |
-| `layout.scroll-clamped` | Clamped scrolling | new: clamped scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-clamped |
-| `layout.scroll-elastic` | Elastic fling scrolling | new: elastic fling scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-elastic |
-| `layout.scroll-infinite` | Infinite scrolling | new: infinite scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-infinite |
-| `layout.scroll-input` | Scroll gesture tuning | new: scroll gesture tuning with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-input |
-| `layout.scroll-snap` | Scroll snapping | new: scroll snapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-snap |
-| `layout.scroll-virtualize` | Scroll virtualization | new: scroll virtualization with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-scroll-virtualize |
 | `layout.self-alignment` | Per-item alignment | new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-self-alignment |
 | `layout.size-bounds` | Minimum and maximum size | new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-size-bounds |
-| `layout.slice-component` | Component image slicing | new: component image slicing through a separate optional module; seconds, degrees and grid units at the format boundary | layout | planned | oracle/layout-slice-component |
-| `layout.slice-vector` | Vector group slicing | new: vector group slicing through a separate optional module; seconds, degrees and grid units at the format boundary | layout | planned | oracle/layout-slice-vector |
 | `layout.spacing` | Gaps margins and padding | new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-spacing |
-| `layout.stack` | Overlapping stack layout | new: overlapping stack layout with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-stack |
-| `layout.units` | Layout units | new: layout units with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-units |
 | `layout.visibility` | Layout display participation | new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-visibility |
-| `layout.wrap` | Flex wrapping | new: flex wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-wrap |
-| `layout.writing-direction` | Layout writing direction | new: layout writing direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-writing-direction |
 
 ### Host runtime API
 
@@ -1364,8 +1265,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |
 | `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |
 | `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |
-| `host-api.layout-bounds` | Explicit layout bounds | new: layout viewport rectangle | layout | planned | browser/layout-bounds |
-| `host-api.layout-scale` | Layout scale factor | new: <anima-icon layout-scale> | layout | planned | browser/layout-scale |
 
 ## P8 — Rigging <a id="p8"></a>
 
@@ -1404,198 +1303,19 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `rigging.translation` | Translation constraint | new: translation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-translation |
 | `rigging.weights` | Vertex bone weights | new: vertex bone weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-weights |
 
-## P9 — Scripting <a id="p9"></a>
+## P9 — Scripting — won't do (owner triage, 2026-11-07) <a id="p9"></a>
 
-### Drawing and paint
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `drawing-paint.path-measure` | Path measurements | new: path measure API in grid units | script | planned | conformance/path-measure |
-| `drawing-paint.script-path-api` | Procedural path construction | new: script Path API | script | planned | conformance/script-path-api |
-| `drawing-paint.script-render-paint` | Procedural paint objects | new: script paint factory | script | planned | conformance/script-render-paint |
-| `drawing-paint.scripted-path-effects` | Procedural path effects | new: paint.effects script reference | script | planned | conformance/scripted-path-effects |
-
-### Animation
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `animation.script-interpolator` | Script interpolators | new: script easing reference | script | planned | conformance/script-interpolator |
-| `animation.script-seek-normalized` | Normalized script seeking | new: script timeline seek in seconds or normalized time | script | planned | conformance/script-seek-normalized |
-
-### State machines
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `state-machine.condition-script` | Script transition conditions | new: when script guard reference | script | planned | conformance/condition-script |
-
-### Listeners and input
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `input.hit-claims` | Script pointer claims | new: pointer event.claim({opaque}) | script | planned | conformance/input-hit-claims |
-| `input.script-action` | Script listener actions | new: listener action script reference | script | planned | conformance/input-script-action |
-| `input.scroll-script` | Script scroll handlers | new: script pointerScroll hook and event.claim() | script | planned | conformance/input-scroll-script |
-
-### Data: view models, binding, converters
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `data.bind-script-inputs` | Bind script inputs | TODO: modules/data/capabilities/data-bind-script-inputs/registry.ts; spec/SPEC.md (Bind script inputs); modules/data/capabilities/data-bind-script-inputs/example.animl | data | planned | TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs |
-| `data.script-model-api` | Script model API | TODO: modules/data/capabilities/data-script-model-api/registry.ts; spec/SPEC.md (Script model API); modules/data/capabilities/data-script-model-api/example.animl | data | planned | TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api |
-| `data.scripted-converter` | Scripted conversion | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | planned | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending |
-
-### Events
-
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `events.script-event-context` | Script event context | Deferred to P9: no script VM/context exists. | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json) | No scripting VM or event context exists; implement alongside P9 scripting. |
-
-### Components
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-script-instance |
-
-### Scripting
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `scripting.advance` | Script time advancement | new: script time advancement through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-advance |
-| `scripting.animation-control` | Script animation control | new: script animation control through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-animation-control |
-| `scripting.arguments` | Host script arguments | new: host script arguments through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-arguments |
-| `scripting.artboard-instance` | Script artboard instances | new: script artboard instances through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-artboard-instance |
-| `scripting.artboard-path` | Artboard path extraction | new: artboard path extraction through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-artboard-path |
-| `scripting.async` | Cancelable asynchronous tasks | new: cancelable asynchronous tasks through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-async |
-| `scripting.audio-playback` | Script audio playback | new: script audio playback through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-audio-playback |
-| `scripting.boxing` | Boxed value wrappers | new: script standard-library support for boxed value wrappers; language choice remains open | script | planned | oracle/script-boxing |
-| `scripting.byte-buffers` | Binary buffer operations | new: script standard-library support for binary buffer operations; language choice remains open | script | planned | oracle/script-byte-buffers |
-| `scripting.capture-settling` | Settled headless captures | new: settled headless captures through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-capture-settling |
-| `scripting.clocks` | Clock and calendar APIs | new: clock and calendar apis through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-clocks |
-| `scripting.color-utils` | Script color operations | new: script standard-library support for script color operations; language choice remains open | script | planned | oracle/script-color-utils |
-| `scripting.condition` | Script transition predicate | new: script transition predicate through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-condition |
-| `scripting.context-assets` | Script asset lookup | new: script asset lookup through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-context-assets |
-| `scripting.context-data` | Script data context | new: script data context through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-context-data |
-| `scripting.converter` | Forward binding converter | new: forward binding converter through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-converter |
-| `scripting.converter-values` | Typed converter values | new: script standard-library support for typed converter values; language choice remains open | script | planned | oracle/script-converter-values |
-| `scripting.data-properties` | Script view-model properties | new: script view-model properties through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-data-properties |
-| `scripting.debugging` | Script debugging | new: script debugging through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-debugging |
-| `scripting.dispose` | Script teardown | new: script teardown through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-dispose |
-| `scripting.draw-visitor` | Custom artboard draw visitor | new: custom artboard draw visitor through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-draw-visitor |
-| `scripting.drawable` | Custom drawable hook | new: custom drawable hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-drawable |
-| `scripting.dynamic-values` | Dynamic value bridge | new: script standard-library support for dynamic value bridge; language choice remains open | script | planned | oracle/script-dynamic-values |
-| `scripting.execution-budget` | Script execution budgets | new: script execution budgets through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-execution-budget |
-| `scripting.feature-detection` | Runtime script feature checks | new: script standard-library support for runtime script feature checks; language choice remains open | script | planned | oracle/script-feature-detection |
-| `scripting.file-decode` | Script file decoding | new: script file decoding through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-file-decode |
-| `scripting.formatting` | Script string formatting | new: script standard-library support for script string formatting; language choice remains open | script | planned | oracle/script-formatting |
-| `scripting.forward-input` | Forwarded component input | new: forwarded component input through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-forward-input |
-| `scripting.gamepad-hooks` | Script gamepad hooks | new: script gamepad hooks through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-gamepad-hooks |
-| `scripting.gesture-claim` | Pointer and scroll claiming | new: script standard-library support for pointer and scroll claiming; language choice remains open | script | planned | oracle/script-gesture-claim |
-| `scripting.gradients` | Procedural gradients | new: script standard-library support for procedural gradients; language choice remains open | script | planned | oracle/script-gradients |
-| `scripting.image-decode` | Script image decoding | new: script image decoding through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-image-decode |
-| `scripting.init` | Script initialization | new: script initialization through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-init |
-| `scripting.interpolator` | Custom interpolation curve | new: custom interpolation curve through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-interpolator |
-| `scripting.interpolator-values` | Custom value interpolation | new: custom value interpolation through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-interpolator-values |
-| `scripting.invalidate` | Script invalidation | new: script invalidation through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-invalidate |
-| `scripting.json` | Script JSON parsing | new: script standard-library support for script json parsing; language choice remains open | script | planned | oracle/script-json |
-| `scripting.keyboard-hook` | Script keyboard hook | new: script keyboard hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-keyboard-hook |
-| `scripting.layout-measure` | Custom layout measurement | new: custom layout measurement through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-layout-measure |
-| `scripting.layout-resize` | Custom layout resize | new: custom layout resize through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-layout-resize |
-| `scripting.list-mutations` | Script list mutation | new: script list mutation through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-list-mutations |
-| `scripting.listener` | Script listener action | new: script listener action through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-listener |
-| `scripting.luau` | Luau scripting | new: Anima's own sandboxed script language, chosen in the scripting phase (reasoning goes into the spec) | script | planned | oracle/scripting-luau |
-| `scripting.matrix-2d` | Script 2D matrix math | new: script standard-library support for script 2d matrix math; language choice remains open | script | planned | oracle/script-matrix-2d |
-| `scripting.model-create` | Script model creation | new: script model creation through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-model-create |
-| `scripting.modulated-draw` | Modulated artboard drawing | new: modulated artboard drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-modulated-draw |
-| `scripting.module-imports` | Script module composition | new: script module composition through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-module-imports |
-| `scripting.path-construction` | Procedural paths | new: procedural paths through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-path-construction |
-| `scripting.path-effect` | Custom path effect | new: custom path effect through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-path-effect |
-| `scripting.patterns` | Script pattern matching | new: script standard-library support for script pattern matching; language choice remains open | script | planned | oracle/script-patterns |
-| `scripting.pointer-hooks` | Script pointer hooks | new: script pointer hooks through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-pointer-hooks |
-| `scripting.property-observers` | Script property listeners | new: script property listeners through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-property-observers |
-| `scripting.randomness` | Seeded script randomness | new: seeded script randomness through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-randomness |
-| `scripting.renderer-clip` | Script clipping | new: script clipping through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-renderer-clip |
-| `scripting.renderer-images` | Script image drawing | new: script image drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-renderer-images |
-| `scripting.renderer-path` | Procedural path drawing | new: procedural path drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-renderer-path |
-| `scripting.renderer-state` | Renderer state stack | new: renderer state stack through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-renderer-state |
-| `scripting.reverse-converter` | Reverse binding converter | new: reverse binding converter through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-reverse-converter |
-| `scripting.sandbox` | Sandboxed script execution | new: sandboxed script execution through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-sandbox |
-| `scripting.scene-query` | Scene hierarchy queries | new: scene hierarchy queries through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-scene-query |
-| `scripting.scene-transforms` | Scene transform editing | new: scene transform editing through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-scene-transforms |
-| `scripting.script-inputs` | Typed script inputs and triggers | new: typed script inputs and triggers through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-script-inputs |
-| `scripting.script-paint` | Procedural paint configuration | new: script standard-library support for procedural paint configuration; language choice remains open | script | planned | oracle/script-script-paint |
-| `scripting.scroll-hook` | Script scrolling hook | new: script scrolling hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-scroll-hook |
-| `scripting.sleep` | Asynchronous timed waits | new: asynchronous timed waits through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-sleep |
-| `scripting.text-hook` | Script text entry hook | new: script text entry hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-text-hook |
-| `scripting.transition` | Custom component transition | new: custom component transition through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-transition |
-| `scripting.unit-tests` | Headless script tests | new: headless script tests through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-unit-tests |
-| `scripting.update` | Script update hook | new: script update hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | planned | oracle/scripting-update |
-| `scripting.utf8-byte-strings` | UTF-8 byte string compatibility | new: script standard-library support for utf-8 byte string compatibility; language choice remains open | script | planned | oracle/script-utf8-byte-strings |
-| `scripting.vectors` | Script vector math | new: script standard-library support for script vector math; language choice remains open | script | planned | oracle/script-vectors |
-
-### Assets
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `assets.script-blob` | Script binary lookup | new: assets.<name> / build.assets.<name>: named script-blob resource setting | assets | planned | oracle/assets-script-blob |
-
-### Host runtime API
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.wasm-parallelism` | WASM parallel configuration | new: optional worker budget configuration | script | planned | browser/wasm-parallelism |
-
-## P10 — GPU effects and the canvas/WebGL renderer <a id="p10"></a>
-
-### Drawing and paint
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `drawing-paint.mask-resolution` | Mask quality | vector SVG mask (no raster resolution setting) | canvas | planned | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-
-### GPU
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `gpu.artboard-textures` | Live artboards as GPU textures | new: live artboards as gpu textures through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-artboard-textures |
-| `gpu.backends` | GPU renderer backends | new: gpu renderer backends through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-backends |
-| `gpu.canvas-pass` | Offscreen vector canvas | new: offscreen vector canvas through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-canvas-pass |
-| `gpu.canvases` | Script GPU canvases | new: script gpu canvases through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-canvases |
-| `gpu.host-target` | Direct GPU target access | new: direct gpu target access through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-host-target |
-| `gpu.post-processing` | Multipass image effects | new: multipass image effects through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-post-processing |
-| `gpu.shaders` | Shader assets and stages | new: shader assets and stages through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-shaders |
-| `gpu.web-opt-in` | Web GPU canvas opt-in | new: web gpu canvas opt-in through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-web-opt-in |
-
-### Assets
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `assets.image-encoding-astc` | Image encoding: astc | new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting | assets | planned | oracle/assets-image-encoding-astc |
-| `assets.image-encoding-bc7` | Image encoding: bc7 | new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting | assets | planned | oracle/assets-image-encoding-bc7 |
-| `assets.image-encoding-etc2rgba` | Image encoding: etc2Rgba | new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting | assets | planned | oracle/assets-image-encoding-etc2rgba |
-| `assets.image-export-controls` | Image encoding controls | SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md | assets | planned | modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md) |
-
-### Host runtime API
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.gpu-canvas` | GPU canvas opt-in | new: optional GPU Canvas extension | gpu | planned | browser/gpu-canvas |
-| `host-api.inkbleed` | Inkbleed antialiasing | new: optional GPU antialiasing mode | gpu | planned | browser/inkbleed |
-| `host-api.multi-artboard-canvas` | Multiple artboards on one canvas | new: scene instances composed within an Anima surface | canvas | planned | browser/multi-artboard-canvas |
-| `host-api.offscreen-surface` | OffscreenCanvas target | new: offscreen raster renderer | canvas | planned | browser/offscreen-surface |
-| `host-api.replay-worker` | Worker-based replay | new: worker replay backend | gpu | planned | browser/replay-worker |
-| `host-api.shared-offscreen-renderer` | Share GPU context | new: shared GPU surface pool | gpu | planned | browser/shared-offscreen-renderer |
-| `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
-
-### Platforms
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `platforms.web-layer-masks` | Web layer-mask backend | new: Web layer-mask backend | gpu | planned | platform/web-layer-masks |
-| `platforms.web-webgl2` | Web WebGL2 | new: Web WebGL2 | gpu | planned | platform/web-webgl2 |
+## P10 — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) <a id="p10"></a>
 
 ## Maybe / later <a id="maybe-later"></a>
 
 Fully inventoried and kept possible by a portable spec, but not scheduled in the main phases.
+
+### Drawing and paint
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `drawing-paint.mask-resolution` | Mask quality | vector SVG mask (no raster resolution setting) | canvas | maybe-later | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 
 ### Rigging
 
@@ -1637,23 +1357,30 @@ Fully inventoried and kept possible by a portable spec, but not scheduled in the
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
+| `gpu.artboard-textures` | Live artboards as GPU textures | new: live artboards as gpu textures through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-artboard-textures | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `gpu.backends` | GPU renderer backends | new: gpu renderer backends through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-backends | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.bind-layouts` | GPU resource layouts | new: gpu resource layouts through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-bind-layouts | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.blend` | Per-target blending | new: per-target blending through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-blend | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.blob-upload` | Bulk GPU upload | new: bulk gpu upload through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-blob-upload | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.buffers` | GPU vertex index and uniform buffers | new: gpu vertex index and uniform buffers through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-buffers | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+| `gpu.canvas-pass` | Offscreen vector canvas | new: offscreen vector canvas through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-canvas-pass | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `gpu.canvases` | Script GPU canvases | new: script gpu canvases through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-canvases | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.depth` | Depth testing and bias | new: depth testing and bias through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-depth | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.draw` | GPU direct and indexed draws | new: gpu direct and indexed draws through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-draw | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.dynamic-state` | Dynamic GPU draw state | new: dynamic gpu draw state through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-dynamic-state | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.feature-query` | GPU capability queries | new: gpu capability queries through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-feature-query | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.groups` | GPU resource binding groups | new: gpu resource binding groups through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-groups | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+| `gpu.host-target` | Direct GPU target access | new: direct gpu target access through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-host-target | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.lifetime` | Explicit GPU resource lifetime | new: explicit gpu resource lifetime through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-lifetime | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.manifest` | GPU descriptor validation output | new: gpu descriptor validation output through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-manifest | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.multi-target` | Multiple color outputs | new: multiple color outputs through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-multi-target | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.multisampling` | Multisampling and resolve | new: multisampling and resolve through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-multisampling | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.passes` | Custom render passes | new: custom render passes through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-passes | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.pipeline-topology` | Primitive assembly | new: primitive assembly through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-pipeline-topology | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+| `gpu.post-processing` | Multipass image effects | new: multipass image effects through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-post-processing | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.rasterization` | Face orientation and culling | new: face orientation and culling through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-rasterization | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.samplers` | GPU texture sampling | new: gpu texture sampling through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-samplers | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+| `gpu.shaders` | Shader assets and stages | new: shader assets and stages through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-shaders | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.stencil` | Two-sided stencil testing | new: two-sided stencil testing through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-stencil | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.stencil-portability` | Stencil pass portability | new: stencil pass portability through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-stencil-portability | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.texture-kinds` | Volume array and cube textures | new: volume array and cube textures through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-texture-kinds | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
@@ -1663,22 +1390,34 @@ Fully inventoried and kept possible by a portable spec, but not scheduled in the
 | `gpu.vector-pipeline` | GPU vector rendering pipeline | new: gpu vector rendering pipeline through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-vector-pipeline | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.vertex-layouts` | Vertex input layouts | new: vertex input layouts through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-vertex-layouts | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.viewports` | GPU viewport and scissor | new: gpu viewport and scissor through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-viewports | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+| `gpu.web-opt-in` | Web GPU canvas opt-in | new: web gpu canvas opt-in through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-web-opt-in | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `gpu.write-mask` | Color write masks | new: color write masks through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-write-mask | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 
 ### Assets
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
+| `assets.image-encoding-astc` | Image encoding: astc | new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting | assets | maybe-later | oracle/assets-image-encoding-astc | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `assets.image-encoding-bc7` | Image encoding: bc7 | new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting | assets | maybe-later | oracle/assets-image-encoding-bc7 | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `assets.image-encoding-etc2rgba` | Image encoding: etc2Rgba | new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting | assets | maybe-later | oracle/assets-image-encoding-etc2rgba | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `assets.image-export-controls` | Image encoding controls | SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md | assets | maybe-later | modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md) | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `assets.psd-layers` | Photoshop layers | new: assets.<name> / build.assets.<name>: named psd-layers resource setting | assets | maybe-later | oracle/assets-psd-layers | Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0). |
 
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
+| `host-api.gpu-canvas` | GPU canvas opt-in | new: optional GPU Canvas extension | gpu | maybe-later | browser/gpu-canvas | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `host-api.inkbleed` | Inkbleed antialiasing | new: optional GPU antialiasing mode | gpu | maybe-later | browser/inkbleed | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `host-api.multi-artboard-canvas` | Multiple artboards on one canvas | new: scene instances composed within an Anima surface | canvas | maybe-later | browser/multi-artboard-canvas | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `host-api.native-asset-loader` | Native asset loader hook | new: Native asset loader hook | native | maybe-later | browser/native-asset-loader | A native embedding API is lower priority than the web runtime. |
 | `host-api.native-audio-device` | Audio engine configuration | new: Audio engine configuration | native | maybe-later | browser/native-audio-device | Native audio device integration is outside the initial web workflow. |
 | `host-api.native-audio-mix` | External audio mixer | new: External audio mixer | native | maybe-later | browser/native-audio-mix | A native audio mixer is lower priority than browser audio. |
 | `host-api.native-audio-renderer` | Custom audio source callback | new: Custom audio source callback | native | maybe-later | browser/native-audio-renderer | Native real-time audio callbacks do not serve the primary web workflow. |
+| `host-api.offscreen-surface` | OffscreenCanvas target | new: offscreen raster renderer | canvas | maybe-later | browser/offscreen-surface | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `host-api.replay-worker` | Worker-based replay | new: worker replay backend | gpu | maybe-later | browser/replay-worker | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `host-api.shared-offscreen-renderer` | Share GPU context | new: shared GPU surface pool | gpu | maybe-later | browser/shared-offscreen-renderer | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | maybe-later | browser/wasm-url | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 
 ### Platforms
 
@@ -1730,6 +1469,7 @@ Fully inventoried and kept possible by a portable spec, but not scheduled in the
 | `platforms.react-native-gpu` | React Native GPU Canvas | new: React Native GPU Canvas | native | maybe-later | platform/react-native-gpu | Native and game integrations are lower priority than personal web authoring. |
 | `platforms.react-native-masks` | React Native mask differences | new: React Native mask differences | native | maybe-later | platform/react-native-masks | Native and game integrations are lower priority than personal web authoring. |
 | `platforms.react-pre-render-binding` | React binding before first frame | new: React binding before first frame | data | maybe-later | platform/react-pre-render-binding | Native runtimes are lower priority than the web runtime; the spec stays portable so they remain possible. |
+| `platforms.react-webgl2` | @rive-app/react-webgl2 | new: @rive-app/react-webgl2 | web | maybe-later | platform/react-webgl2 | Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later. |
 | `platforms.runtime-versioning` | Runtime and asset compatibility | new: Runtime and asset compatibility | core | maybe-later | platform/runtime-versioning | Native runtimes are lower priority than the web runtime; the spec stays portable so they remain possible. |
 | `platforms.tvos` | Apple tvOS | new: Apple tvOS | native | maybe-later | platform/tvos | Native and game integrations are lower priority than personal web authoring. |
 | `platforms.unity` | Unity integration | new: Unity integration | native | maybe-later | platform/unity | Native and game integrations are lower priority than personal web authoring. |
@@ -1737,7 +1477,11 @@ Fully inventoried and kept possible by a portable spec, but not scheduled in the
 | `platforms.unreal` | Unreal integration | new: Unreal integration | native | maybe-later | platform/unreal | Native and game integrations are lower priority than personal web authoring. |
 | `platforms.unreal-platforms` | Unreal desktop and console targets | new: Unreal desktop and console targets | native | maybe-later | platform/unreal-platforms | Native and game integrations are lower priority than personal web authoring. |
 | `platforms.visionos` | Apple visionOS | new: Apple visionOS | native | maybe-later | platform/visionos | Native and game integrations are lower priority than personal web authoring. |
+| `platforms.web-layer-masks` | Web layer-mask backend | new: Web layer-mask backend | gpu | maybe-later | platform/web-layer-masks | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
 | `platforms.web-webgl-legacy` | Legacy WebGL package | new: Legacy WebGL package | gpu | maybe-later | platform/web-webgl-legacy | A legacy backend offers little value beside modern web backends. |
+| `platforms.web-webgl2` | Web WebGL2 | new: Web WebGL2 | gpu | maybe-later | platform/web-webgl2 | Maybe later (owner triage, 2026-11-07): GPU backends and effects; Anima renders with SVG and Canvas2D in the browser. |
+| `platforms.webgl2-advanced` | @rive-app/webgl2-advanced | new: optional webgl2-advanced backend entry | web | maybe-later | platform/webgl2-advanced | Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later. |
+| `platforms.webgl2-threads` | @rive-app/webgl2-threads | new: optional webgl2-threads backend entry | web | maybe-later | platform/webgl2-threads | Maybe later (owner triage, 2026-11-07): WebGL renderer package; GPU work is maybe-later. |
 
 ### Tooling
 
@@ -1801,6 +1545,170 @@ Only capabilities that conflict with the project guardrails.
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
+| `animation.frame-grid` | Authored frame grid | new: optional authoring frame grid compiled to seconds | tooling | wont-do | conformance/frame-grid | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `animation.graph-editor` | Value graph editing | new: graph editor for timeline tracks | tooling | wont-do | oracle/graph-editor | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `animation.script-interpolator` | Script interpolators | new: script easing reference | script | wont-do | conformance/script-interpolator | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `animation.script-seek-normalized` | Normalized script seeking | new: script timeline seek in seconds or normalized time | script | wont-do | conformance/script-seek-normalized | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `assets.script-blob` | Script binary lookup | new: assets.<name> / build.assets.<name>: named script-blob resource setting | assets | wont-do | oracle/assets-script-blob | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | wont-do | oracle/components-layout-size | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | wont-do | oracle/components-list-layout-inheritance | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | wont-do | oracle/components-script-instance | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `data.bind-script-inputs` | Bind script inputs | TODO: modules/data/capabilities/data-bind-script-inputs/registry.ts; spec/SPEC.md (Bind script inputs); modules/data/capabilities/data-bind-script-inputs/example.animl | data | wont-do | TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `data.editor-preview-instance` | Editor preview instance | TODO: modules/data/capabilities/data-editor-preview-instance/registry.ts; spec/SPEC.md (Editor preview instance); modules/data/capabilities/data-editor-preview-instance/example.animl | data | wont-do | TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `data.script-model-api` | Script model API | TODO: modules/data/capabilities/data-script-model-api/registry.ts; spec/SPEC.md (Script model API); modules/data/capabilities/data-script-model-api/example.animl | data | wont-do | TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `data.scripted-converter` | Scripted conversion | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | wont-do | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.brush-flatten` | Flatten brush spines | new: flatten brush to path command | tooling | wont-do | oracle/brush-flatten | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.brush-pressure` | Pressure-sensitive drawing | new: pressure input in authoring brush | tooling | wont-do | oracle/brush-pressure | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.brush-smoothing` | Brush refitting | new: brush profile refitting command | tooling | wont-do | oracle/brush-smoothing | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.brush-speed` | Speed-sensitive drawing | new: speed-based authoring brush profile | tooling | wont-do | oracle/brush-speed | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.brush-tips` | Brush nib shapes | new: brush.nib authoring setting | tooling | wont-do | conformance/brush-tips | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.freehand-brush` | Freehand brush authoring | new: brush authoring tool producing path outlines | tooling | wont-do | oracle/freehand-brush | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.freehand-eraser` | Eraser authoring | new: eraser geometry operation | tooling | wont-do | oracle/freehand-eraser | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.freehand-pencil` | Pencil authoring | new: pencil authoring tool producing paths | tooling | wont-do | oracle/freehand-pencil | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.path-measure` | Path measurements | new: path measure API in grid units | script | wont-do | conformance/path-measure | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.script-path-api` | Procedural path construction | new: script Path API | script | wont-do | conformance/script-path-api | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.script-render-paint` | Procedural paint objects | new: script paint factory | script | wont-do | conformance/script-render-paint | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.scripted-path-effects` | Procedural path effects | new: paint.effects script reference | script | wont-do | conformance/scripted-path-effects | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.shape-builder-subtract` | Subtract shape regions | new: path geometry subtraction authoring operation | tooling | wont-do | oracle/shape-builder-subtract | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `drawing-paint.shape-builder-union` | Merge shape regions | new: path geometry union authoring operation | tooling | wont-do | oracle/shape-builder-union | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `events.script-event-context` | Script event context | Deferred to P9: no script VM/context exists. | events | wont-do | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json) | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `host-api.layout-bounds` | Explicit layout bounds | new: layout viewport rectangle | layout | wont-do | browser/layout-bounds | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `host-api.layout-scale` | Layout scale factor | new: <anima-icon layout-scale> | layout | wont-do | browser/layout-scale | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `host-api.wasm-parallelism` | WASM parallel configuration | new: optional worker budget configuration | script | wont-do | browser/wasm-parallelism | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `input.hit-claims` | Script pointer claims | new: pointer event.claim({opaque}) | script | wont-do | conformance/input-hit-claims | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `input.script-action` | Script listener actions | new: listener action script reference | script | wont-do | conformance/input-script-action | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `input.scroll-script` | Script scroll handlers | new: script pointerScroll hook and event.claim() | script | wont-do | conformance/input-scroll-script | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-animated-reflow | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.artboard-alignment` | Artboard alignment | new: artboard alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-artboard-alignment | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.aspect-ratio` | Aspect ratio sizing | new: aspect ratio sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-aspect-ratio | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.borders` | Layout borders | new: layout borders with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-borders | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.clip` | Clipped layout overflow | new: clipped layout overflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-clip | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.corners` | Layout corner radii | new: layout corner radii with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-corners | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.edge-pinning` | Edge constraints | new: edge constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-edge-pinning | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.flex-align-content` | Flex line alignment | new: flex line alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-flex-align-content | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.flex-basis` | Flex base size | new: flex base size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-flex-basis | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.flex-grow-shrink` | Flex growth and shrinkage | new: flex growth and shrinkage through a separate optional module; seconds, degrees and grid units at the format boundary | layout | wont-do | oracle/layout-flex-grow-shrink | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.grid` | Two-dimensional grid | new: two-dimensional grid with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-grid | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.grid-list` | Lists filling grid cells | new: lists filling grid cells with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-grid-list | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.grid-minmax` | Bounded grid tracks | new: bounded grid tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-grid-minmax | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.grid-placement` | Grid placement and spans | new: grid placement and spans with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-grid-placement | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.grid-tracks` | Explicit and implicit tracks | new: explicit and implicit tracks with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-grid-tracks | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.layout-transforms` | Transforms after layout | new: transforms after layout with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-layout-transforms | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.n-slicing` | N-slice resizing | new: n-slice resizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-n-slicing | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.nested-artboards` | Responsive nested artboards | new: responsive nested artboards with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-nested-artboards | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.positioning` | Relative and absolute positioning | new: relative and absolute positioning with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-positioning | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-axis` | Scroll constraints | new: scroll constraints with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-axis | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-bar` | Bound scrollbar | new: bound scrollbar with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-bar | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-binding` | Programmatic scroll position | new: programmatic scroll position with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-binding | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-clamped` | Clamped scrolling | new: clamped scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-clamped | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-elastic` | Elastic fling scrolling | new: elastic fling scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-elastic | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-infinite` | Infinite scrolling | new: infinite scrolling with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-infinite | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-input` | Scroll gesture tuning | new: scroll gesture tuning with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-input | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-snap` | Scroll snapping | new: scroll snapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-snap | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.scroll-virtualize` | Scroll virtualization | new: scroll virtualization with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-scroll-virtualize | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.slice-component` | Component image slicing | new: component image slicing through a separate optional module; seconds, degrees and grid units at the format boundary | layout | wont-do | oracle/layout-slice-component | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.slice-vector` | Vector group slicing | new: vector group slicing through a separate optional module; seconds, degrees and grid units at the format boundary | layout | wont-do | oracle/layout-slice-vector | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.stack` | Overlapping stack layout | new: overlapping stack layout with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-stack | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.units` | Layout units | new: layout units with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-units | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.wrap` | Flex wrapping | new: flex wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-wrap | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `layout.writing-direction` | Layout writing direction | new: layout writing direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-writing-direction | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
+| `platforms.threaded-wasm` | Threaded WASM availability | new: Threaded WASM availability | web | wont-do | platform/threaded-wasm | Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants. |
+| `platforms.web-canvas-lite` | Web Canvas Lite | new: Web Canvas Lite | web | wont-do | platform/web-canvas-lite | Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants. |
+| `platforms.web-canvas-single` | Web embedded WASM build | new: Web embedded WASM build | web | wont-do | platform/web-canvas-single | Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants. |
+| `scripting.advance` | Script time advancement | new: script time advancement through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-advance | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.animation-control` | Script animation control | new: script animation control through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-animation-control | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.arguments` | Host script arguments | new: host script arguments through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-arguments | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.artboard-instance` | Script artboard instances | new: script artboard instances through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-artboard-instance | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.artboard-path` | Artboard path extraction | new: artboard path extraction through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-artboard-path | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.async` | Cancelable asynchronous tasks | new: cancelable asynchronous tasks through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-async | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.audio-playback` | Script audio playback | new: script audio playback through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-audio-playback | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.boxing` | Boxed value wrappers | new: script standard-library support for boxed value wrappers; language choice remains open | script | wont-do | oracle/script-boxing | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.byte-buffers` | Binary buffer operations | new: script standard-library support for binary buffer operations; language choice remains open | script | wont-do | oracle/script-byte-buffers | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.capture-settling` | Settled headless captures | new: settled headless captures through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-capture-settling | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.clocks` | Clock and calendar APIs | new: clock and calendar apis through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-clocks | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.color-utils` | Script color operations | new: script standard-library support for script color operations; language choice remains open | script | wont-do | oracle/script-color-utils | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.condition` | Script transition predicate | new: script transition predicate through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-condition | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.context-assets` | Script asset lookup | new: script asset lookup through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-context-assets | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.context-data` | Script data context | new: script data context through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-context-data | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.converter` | Forward binding converter | new: forward binding converter through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-converter | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.converter-values` | Typed converter values | new: script standard-library support for typed converter values; language choice remains open | script | wont-do | oracle/script-converter-values | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.data-properties` | Script view-model properties | new: script view-model properties through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-data-properties | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.debugging` | Script debugging | new: script debugging through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-debugging | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.dispose` | Script teardown | new: script teardown through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-dispose | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.draw-visitor` | Custom artboard draw visitor | new: custom artboard draw visitor through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-draw-visitor | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.drawable` | Custom drawable hook | new: custom drawable hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-drawable | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.dynamic-values` | Dynamic value bridge | new: script standard-library support for dynamic value bridge; language choice remains open | script | wont-do | oracle/script-dynamic-values | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.execution-budget` | Script execution budgets | new: script execution budgets through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-execution-budget | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.feature-detection` | Runtime script feature checks | new: script standard-library support for runtime script feature checks; language choice remains open | script | wont-do | oracle/script-feature-detection | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.file-decode` | Script file decoding | new: script file decoding through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-file-decode | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.formatting` | Script string formatting | new: script standard-library support for script string formatting; language choice remains open | script | wont-do | oracle/script-formatting | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.forward-input` | Forwarded component input | new: forwarded component input through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-forward-input | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.gamepad-hooks` | Script gamepad hooks | new: script gamepad hooks through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-gamepad-hooks | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.gesture-claim` | Pointer and scroll claiming | new: script standard-library support for pointer and scroll claiming; language choice remains open | script | wont-do | oracle/script-gesture-claim | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.gradients` | Procedural gradients | new: script standard-library support for procedural gradients; language choice remains open | script | wont-do | oracle/script-gradients | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.image-decode` | Script image decoding | new: script image decoding through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-image-decode | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.init` | Script initialization | new: script initialization through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-init | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.interpolator` | Custom interpolation curve | new: custom interpolation curve through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-interpolator | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.interpolator-values` | Custom value interpolation | new: custom value interpolation through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-interpolator-values | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.invalidate` | Script invalidation | new: script invalidation through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-invalidate | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.json` | Script JSON parsing | new: script standard-library support for script json parsing; language choice remains open | script | wont-do | oracle/script-json | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.keyboard-hook` | Script keyboard hook | new: script keyboard hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-keyboard-hook | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.layout-measure` | Custom layout measurement | new: custom layout measurement through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-layout-measure | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.layout-resize` | Custom layout resize | new: custom layout resize through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-layout-resize | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.list-mutations` | Script list mutation | new: script list mutation through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-list-mutations | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.listener` | Script listener action | new: script listener action through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-listener | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.luau` | Luau scripting | new: Anima's own sandboxed script language, chosen in the scripting phase (reasoning goes into the spec) | script | wont-do | oracle/scripting-luau | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.matrix-2d` | Script 2D matrix math | new: script standard-library support for script 2d matrix math; language choice remains open | script | wont-do | oracle/script-matrix-2d | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.model-create` | Script model creation | new: script model creation through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-model-create | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.modulated-draw` | Modulated artboard drawing | new: modulated artboard drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-modulated-draw | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.module-imports` | Script module composition | new: script module composition through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-module-imports | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.path-construction` | Procedural paths | new: procedural paths through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-path-construction | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.path-effect` | Custom path effect | new: custom path effect through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-path-effect | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.patterns` | Script pattern matching | new: script standard-library support for script pattern matching; language choice remains open | script | wont-do | oracle/script-patterns | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.pointer-hooks` | Script pointer hooks | new: script pointer hooks through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-pointer-hooks | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.property-observers` | Script property listeners | new: script property listeners through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-property-observers | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.randomness` | Seeded script randomness | new: seeded script randomness through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-randomness | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.renderer-clip` | Script clipping | new: script clipping through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-renderer-clip | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.renderer-images` | Script image drawing | new: script image drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-renderer-images | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.renderer-path` | Procedural path drawing | new: procedural path drawing through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-renderer-path | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.renderer-state` | Renderer state stack | new: renderer state stack through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-renderer-state | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.reverse-converter` | Reverse binding converter | new: reverse binding converter through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-reverse-converter | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.sandbox` | Sandboxed script execution | new: sandboxed script execution through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-sandbox | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.scene-query` | Scene hierarchy queries | new: scene hierarchy queries through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-scene-query | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.scene-transforms` | Scene transform editing | new: scene transform editing through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-scene-transforms | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.script-inputs` | Typed script inputs and triggers | new: typed script inputs and triggers through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-script-inputs | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.script-paint` | Procedural paint configuration | new: script standard-library support for procedural paint configuration; language choice remains open | script | wont-do | oracle/script-script-paint | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.scroll-hook` | Script scrolling hook | new: script scrolling hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-scroll-hook | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.sleep` | Asynchronous timed waits | new: asynchronous timed waits through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-sleep | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.text-hook` | Script text entry hook | new: script text entry hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-text-hook | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.transition` | Custom component transition | new: custom component transition through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-transition | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.unit-tests` | Headless script tests | new: headless script tests through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-unit-tests | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.update` | Script update hook | new: script update hook through a separate optional module; seconds, degrees and grid units at the format boundary | script | wont-do | oracle/scripting-update | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.utf8-byte-strings` | UTF-8 byte string compatibility | new: script standard-library support for utf-8 byte string compatibility; language choice remains open | script | wont-do | oracle/script-utf8-byte-strings | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `scripting.vectors` | Script vector math | new: script standard-library support for script vector math; language choice remains open | script | wont-do | oracle/script-vectors | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `state-machine.condition-script` | Script transition conditions | new: when script guard reference | script | wont-do | conformance/condition-script | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `text.script-direction` | Bidirectional text control | new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-direction | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `text.script-glyphs` | Glyph inspection | new: glyph inspection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-glyphs | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `text.script-hit-testing` | Text hit testing | new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-hit-testing | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `text.script-shaping` | Scripted text shaping | new: scripted text shaping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-shaping | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `tooling.binary-rive-io` | Rive binary import/export | new: no .riv reader or writer | tooling | wont-do | cli/binary-rive-io | The guardrails prohibit reading, writing or converting .riv files. |
+| `tooling.debug-rebuild` | Preserve debugger session on rebuild | new: stable debug IDs across preview reloads | tooling | wont-do | cli/debug-rebuild | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.editor-hierarchy` | Visual scene hierarchy | new: Visual scene hierarchy | tooling | wont-do | cli/editor-hierarchy | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.editor-property-inspector` | Visual property editing | new: Visual property editing | tooling | wont-do | cli/editor-property-inspector | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.editor-svg-import` | Editable SVG import | new: Editable SVG import | tooling | wont-do | cli/editor-svg-import | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.editor-timeline` | Visual timeline and work area | new: Visual timeline and work area | tooling | wont-do | cli/editor-timeline | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.export-png-sequence` | Editor export: PNG sequence | new: Editor export: PNG sequence | tooling | wont-do | cli/export-png-sequence | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.export-svg-sequence` | Editor export: SVG sequence | new: Editor export: SVG sequence | tooling | wont-do | cli/export-svg-sequence | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
+| `tooling.failed-script-fixtures` | Retain unstartable script fixtures | new: negative script fixture harness | tooling | wont-do | cli/failed-script-fixtures | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.headless-settle-jobs` | Headless worker settling | new: deterministic capture worker barriers | tooling | wont-do | cli/headless-settle-jobs | Won't do (owner triage, 2026-11-07): Anima has no worker jobs to settle; the player's settled state already reports idle. |
+| `tooling.inspect-editor-properties` | Inspect editor-only properties | new: anima inspect --all --scene | tooling | wont-do | cli/inspect-editor-properties | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
 | `tooling.rive-account-operations` | Rive account interoperability | new: no Rive account integration | tooling | wont-do | cli/rive-account-operations | Rive account features are explicitly outside the permitted scope; generic hosting remains a separate maybe-later option. |
+| `tooling.script-build-constants` | Script build constants and arguments | new: anima script defines and host arguments | tooling | wont-do | cli/script-build-constants | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-debugger` | Script debugger | new: playground script debugging | tooling | wont-do | cli/script-debugger | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-memory-bounds` | Script memory bounds policy | new: script memory isolation policy | tooling | wont-do | cli/script-memory-bounds | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-network-permission` | Script network opt-in | new: explicit script network capability | tooling | wont-do | cli/script-network-permission | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-release-build` | Optimized script builds | new: explicit development/release script profiles | tooling | wont-do | cli/script-release-build | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-test-runner` | Script test runner | new: anima test | tooling | wont-do | cli/script-test-runner | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `tooling.script-thread-controls` | Script thread budgets | new: capture script concurrency policy | tooling | wont-do | cli/script-thread-controls | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `tooling.watermark-content` | Watermark and signed account output | new: no account watermark content | tooling | wont-do | cli/watermark-content | Watermark content and Rive account enforcement conflict with the project guardrails. |
+| `transforms.freeze-transform` | Freeze transforms | new: authoring command to reposition a group origin and compensate child transforms | tooling | wont-do | conformance/freeze-transform | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |

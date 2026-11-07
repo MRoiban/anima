@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for web UI. P5b done on branch p5b → PR; then owner scope triage (memory scope-triage), then P3b, P6, P7 minimal, P8.
-State: parity 624/1238; core+web 20,362; full 109.1/128 KB; benchmark AniML 6/6, Rive 5/6; perf = main.
-Next: PR p5b → main when CI green; merge; then the triage as its own docs/plan PR.
+Goal: smaller, agent-native Rive for animated web UI. P5b merged (PR #17). Scope triage on branch scope-triage → PR; then P3b (a11y + agent tools), P6 text, P7 minimal layout, P8 rigging.
+State: in scope 624/883 done (71 %); full matrix 624/1238 (50 %). core+web 20,362; full 109.1/128 KB (P3b+P6+P7 estimate 127–134 KB → size round before P6).
+Next: triage PR green → merge; then P3b design.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; leave merged worktrees behind.
 
 ## Log
@@ -170,3 +170,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 [claude]: merged P5b-9 (canvas seam root cause: replayed models inherited allocated tree slots without frame records → dense allocation/retirement; componentpaint 1968/5120). Registered component paint centrally: module capture was 20×20, central oracle needs 240×240 → re-captured scaled scene with CLI 1.9.1; result max 55, edge columns identical, Rive spreads edges 1 px (render-to-texture sampling; nearest control max 97) → recorded as finding (cause measured, not fully isolated). Canvas suite 2276/2276, oracle 0, full 111,723 B
 - 2026-11-07 [claude]: perf p5b vs main, in-process alternating, pinned, load ~4 (min): bell frame 32.5/31.6 µs (p25 33.7/33.0), composite 20.9/20.3, toolbar 22.0/22.1 µs; bell compile 1.74/1.73 ms, toolbar compile 3.26/3.30 ms, quarter-prefix 139/140 ms → no regression. Launched P5b-11 parity bookkeeping
 - 2026-11-07 [claude]: merged P5b-11 parity (624/1238, 77 done, 16 moved; audit: 0 done rows citing TODO/pending). LOG P5b entry + PLAN closed
+- 2026-11-07 [claude]: PR #17 (P5b) green → merged (33e8d21). Applied owner scope triage on scope-triage: 164 won't-do, 25 maybe-later, 1 moved P7→P3b, kept P3b 124 / P6 76 / P7 34 / P8 25; in-scope 624/883 (71 %); MATRIX shows in-scope progress; parity test policy now accepts owner-triage won't-do; scaffolder test row frame-grid → tooling.seed; PLAN phase list + size estimates
