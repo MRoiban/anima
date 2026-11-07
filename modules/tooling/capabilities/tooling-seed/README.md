@@ -1,6 +1,6 @@
 # Deterministic random seed
 
-Status: partial — parity row remains planned.
+Status: implementation complete; parity remains planned until P3b phase closure.
 
 Tooling-only commands add no JSON/AniML authoring fields; runtime registry spellings are not
 applicable. Both source formats use the same script/API. Contract: spec/SPEC.md §11.2; guide:
@@ -12,4 +12,5 @@ Independent conformance: spec/conformance/tooling-input-data. Native comparisons
 oracle skips (including protocol limits and the reload retention difference):
 modules/tooling/oracle/README.md. Measurements and final verification: modules/tooling/REPORT.md.
 
-Pending: machine and convert use private random streams; seed validates but explicitly rejects random documents under the runtime-size freeze.
+Core owns the shared seeded source; existing unseeded sequences are preserved. Exact conformance
+and API/script/CLI tests are in spec/conformance/tooling-seed and tooling-leftovers.test.ts.

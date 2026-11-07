@@ -1,3 +1,4 @@
-data break $count
-data set $count 3
-advance 0
+data break $count == 0
+data set $count 7
+data set $count 0
+advance 1

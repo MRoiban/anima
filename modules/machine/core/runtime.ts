@@ -63,18 +63,15 @@ export class MachinePolicy implements PlaybackPolicy {
   readonly originalTransitions = new WeakMap<TransitionM, TransitionM>();
   readonly previous = new Map<string, import('../../../packages/core/src/load.ts').Value>();
   readonly slots: Map<string, number>;
-  #seed: number;
 
   constructor(p: Player, base?: PlaybackPolicy) {
     this.p = p;
     this.base = base;
     this.slots = new Map(p.addrs.map((a, i) => [a, i]));
-    this.#seed = p.model.doc.machineSeed ?? 0x6d2b79f5;
     for (const [n, i] of p.model.inputs) if (i.type !== 'trigger') this.previous.set(n, i.def);
   }
   random(): number {
-    this.#seed = (Math.imul(this.#seed, 1664525) + 1013904223) >>> 0;
-    return this.#seed / 4294967296;
+    return this.p.randomSource.next(this.p.model.doc.machineSeed ?? 0x6d2b79f5, 'machine');
   }
   get busy(): boolean {
     return !!this.base?.busy;

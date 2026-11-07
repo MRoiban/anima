@@ -1,2 +1,6 @@
 seed 42
-snapshot $count
+advance 0
+snapshot
+seed 42
+advance 0
+snapshot

@@ -1,3 +1,4 @@
+import { installRandom } from '../../../packages/core/src/random.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { NAME } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
@@ -142,7 +143,8 @@ export const convert: Module & {
   after,
   converterRegistry,
   createConverterRunner,
-  init(registry) {
+  init(registry, shared) {
+    installRandom(shared.Player);
     const bind = registry.get('bind') as typeof import('../../bind/core/index.ts').bind | undefined;
     if (bind) installFunctions(bind.parse, bind.registerFunction);
     return { ...convert, init: undefined, prepare: integration(registry, createConverterRunner) };

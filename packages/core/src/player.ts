@@ -31,7 +31,9 @@ import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
-import { VERBOSE as V } from './flags.ts';
+import { VERBOSE } from './flags.ts';
+import type { RandomSource } from './random.ts';
+import { stampEvent, stampEntryEvent, beginStep, endStep } from './event-capture.ts';
 
 export interface AnimaEvent {
   name: string;
@@ -135,6 +137,9 @@ export const mixValues = (a: Value, b: Value, w: number): Value =>
         : lerpColor(a, b as RGBA, w);
 
 export class Player {
+  /** Installed by random-capable modules; the base runtime does not allocate a source. */
+  declare readonly randomSource: RandomSource;
+  readonly seed?: number;
   readonly model: Model;
   readonly playbackPolicy?: PlaybackPolicy;
   /** Optional module wake callback, installed by a host. */
@@ -171,7 +176,8 @@ export class Player {
   #pressMoved = 0;
   #flat = new Map<number, { pts: number[]; closed: boolean }[]>();
 
-  constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
+  constructor(model: Model, opts: { reducedMotion?: boolean; seed?: number } = {}) {
+    this.seed = opts.seed;
     this.model = model;
     this.drawVersions = model.nodes.map(() => 0);
     this.#reduced = this.reducedMotion = !!opts.reducedMotion;
@@ -219,7 +225,7 @@ export class Player {
     const inp = this.model.inputs.get(name);
     if (!inp || !types.includes(inp.type))
       throw new Error(
-        V
+        VERBOSE
           ? inp
             ? `anima: input "${name}" is ${inp.type}`
             : `anima: no input "${name}"`
@@ -233,7 +239,7 @@ export class Player {
     const inp = this.#input(name, ['bool', 'number', 'string', 'color']);
     if (inp.readonly)
       throw new Error(
-        V
+        VERBOSE
           ? `anima: input "${name}" is read-only (read-only-path): write its source properties instead`
           : 'anima: ' + name,
       );
@@ -243,7 +249,7 @@ export class Player {
         ? typeof value === 'boolean'
         : typeof value === 'number' && Number.isFinite(value))
     ))
-      throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
+      throw new Error(VERBOSE ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
 
@@ -522,6 +528,7 @@ export class Player {
 
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
     if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
+    if (VERBOSE) beginStep(dt);
     const events = this.#entryEvents;
     this.#entryEvents = [];
     this.time += dt;
@@ -663,6 +670,7 @@ export class Player {
       (nested?.settled ?? true) &&
       !this.#pending.size &&
       this.#layers.every((L) => this.#atRest(L));
+    if (VERBOSE) endStep();
     return { events, settled: this.#lastSettled };
   }
 
@@ -839,7 +847,14 @@ export class Player {
           }
     });
     found.sort((x, y) => x[0] - y[0]);
-    for (const [, te, name] of found) events.push({ name, layer: L.m.name, time: te });
+    for (const [at, te, name] of found) {
+      const event = { name, layer: L.m.name, time: te };
+      if (VERBOSE) {
+        if (closed) stampEntryEvent(event, (at - b) / st.speed);
+        else stampEvent(event, (at - a) / (b - a));
+      }
+      events.push(event);
+    }
   }
 
   #localTime(L: LayerRun): number | null {

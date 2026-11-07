@@ -1,3 +1,7 @@
+import { installRandom } from './random.ts';
+import { captureStep } from './script-events.ts';
+import { occurrence, eventSource, type CapturedEvent } from './event-capture.ts';
+import { traceWrites } from './script-writes.ts';
 import { formatHex } from './color.ts';
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
@@ -36,6 +40,8 @@ export interface ScriptOptions {
   all?: boolean;
   semantics?: boolean;
   seed?: number;
+  /** Tooling events with absolute occurrence times and their declaring asset scope. */
+  onEvents?: (events: CapturedEvent[]) => void;
 }
 export interface ScriptDiagnostic {
   code: string;
@@ -49,12 +55,13 @@ class Breakpoint extends Error {}
 
 /** Persistent, tooling-only script interpreter. No browser runtime hooks are installed. */
 export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
-  const p = new Player(model, { reducedMotion: opts.reducedMotion });
+  installRandom(Player);
+  const p = new Player(model, opts);
   const out: Snapshot[] = [];
   const output: unknown[] = [];
   const diagnostics: ScriptDiagnostic[] = [];
   const instances = new Map<string, TimelineInstance>();
-  const journal: Operation[] = [];
+  const journal: { op: Operation; writer: string }[] = [];
   const watched = new Map<string, string | undefined>();
   const changedData = new Set<string>();
   const breaks = new Map<string, { value?: unknown }>();
@@ -64,10 +71,11 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
   let line = 0;
   let writer = 'script';
   let lastWriter = writer;
-  let seed = opts.seed ?? 0;
+  let seed = opts.seed;
+  let replaying = false;
   const act = (op: Operation) => {
     op(p, instances);
-    journal.push(op);
+    journal.push({ op, writer });
     lastWriter = writer;
   };
   const data = (player = p) => {
@@ -160,47 +168,57 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
   };
   const step = (dt: number) => {
     if (breaks.size) {
-      const probe = new Player(model, { reducedMotion: opts.reducedMotion });
+      const probe = new Player(model, opts);
       const handles = new Map<string, TimelineInstance>();
-      for (const op of journal) op(probe, handles);
-      const writers: string[] = [];
-      const original = probe.act.bind(probe);
-      probe.act = (action) => {
-        if (
-          action.set.some(([path]) => breaks.has(path)) ||
-          action.toggle.some((path) => breaks.has(path))
-        )
-          writers.push('listener/action: ' + JSON.stringify(action));
-        original(action);
-      };
-      probe.step(dt);
-      for (const [path, condition] of breaks) {
-        const before = data().get(dataPath(path)),
-          after = data(probe).get(dataPath(path));
-        if (
-          JSON.stringify(before) !== JSON.stringify(after) &&
-          (!('value' in condition) || JSON.stringify(after) === JSON.stringify(condition.value))
-        ) {
-          for (const [name, timeline] of model.timelines.entries())
-            if (timeline.tracks.some((t) => t.addr === path || t.addr === dataPath(path)))
-              writers.push('timeline: ' + name);
-          if (model.doc.bind?.[path]) writers.push('binding: /bind/' + path);
+      const trace = traceWrites(probe, (write) => {
+        if (replaying) return;
+        for (const [path, condition] of breaks) {
+          if (
+            dataPath(path) !== write.path ||
+            ('value' in condition &&
+              JSON.stringify(write.value) !== JSON.stringify(condition.value))
+          )
+            continue;
           diagnostics.push({
             code: 'script-breakpoint',
             pointer: `/script/${line - 1}`,
-            message: `${path} would change from ${JSON.stringify(before)} to ${JSON.stringify(after)}`,
+            message: `${path} would write ${JSON.stringify(write.value)} (before ${JSON.stringify(write.before)})`,
             hint: 'use data break clear, then advance to resume',
-            writer: writers.length ? writers : [lastWriter],
+            writer: [write.writer],
           });
           stopped = true;
           throw new Breakpoint();
         }
+      });
+      try {
+        // Replay establishes pending writes with their original script provenance. Only trap
+        // the proposed step: historical writes have already been accepted by the live player.
+        replaying = true;
+        for (const { op, writer } of journal) trace.run(writer, () => op(probe, handles));
+        replaying = false;
+        trace.run(lastWriter, () => probe.step(dt));
+      } finally {
+        replaying = false;
+        trace.close();
       }
     }
-    const r = p.step(dt);
-    journal.push((player) => {
-      player.step(dt);
+    const r = opts.onEvents ? captureStep(() => p.step(dt)) : p.step(dt);
+    journal.push({
+      op: (player) => {
+        player.step(dt);
+      },
+      writer,
     });
+    opts.onEvents?.(
+      r.events.map((event) => {
+        const e = event as CapturedEvent;
+        return {
+          ...e,
+          time: p.time - dt + dt * (e[occurrence] ?? 0),
+          [eventSource]: e[eventSource] ?? model,
+        };
+      }),
+    );
     events.push(...r.events);
     settled = r.settled;
     for (const [path, previous] of watched) {
@@ -300,12 +318,8 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             )
               throw new ScriptError('seed must be a uint32 integer', line);
             seed = Number(args[0]);
-            // Random runtime sources have independent private streams. Do not silently claim control.
-            if (/"kind":"random"|random\s*\(|"operation":"random"/.test(JSON.stringify(model.doc)))
-              throw new ScriptError(
-                'seed is not supported for machine/convert random streams yet',
-                line,
-              );
+            const nextSeed = seed;
+            act((player) => player.randomSource.reset(nextSeed));
             break;
           }
           case 'data': {

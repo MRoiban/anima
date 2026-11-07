@@ -295,7 +295,13 @@ it('reports each static wiring category with a pointer and hint', async () => {
         inputs: { unused: { type: 'bool' } },
         components: { orphan: {} },
         machine: { layers: { main: { initial: 'start', states: { start: {}, lost: {} } } } },
-        data: { models: { Unused: { properties: { value: { type: 'number' } } } } },
+        data: {
+          model: 'Selected',
+          models: {
+            Selected: { properties: {} },
+            Unused: { properties: { value: { type: 'number' } } },
+          },
+        },
         listeners: [{ target: 'missing' }],
       },
       nodes: [],

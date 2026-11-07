@@ -1,3 +1,4 @@
+import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
 import { findProject, projectSource } from './project.ts';
 import { doctor } from './doctor.ts';
@@ -842,20 +843,15 @@ async function render(
   if (o.at !== undefined && (!Number.isFinite(Number(o.at)) || Number(o.at) < 0))
     throw new Usage('--at takes nonnegative seconds');
   const script = scriptText(o.script as string, o.eval as string) ?? '';
-  const { player, snapshots } = runScript(
-    model,
-    o.audio
-      ? script
-          .split('\n')
-          .flatMap((line) => [line, 'snapshot'])
-          .join('\n') + '\nsnapshot'
-      : script,
-    {
-      reducedMotion: !!o['reduced-motion'],
-    },
-  );
-  const queuedEvents = player.step(0).events; // apply inputs the script queued, so frame 0 shows them
-  const finalEvents = o.at ? player.step(Number(o.at)).events : [];
+  const audioEvents: import('../../core/src/event-capture.ts').CapturedEvent[] = [];
+  const session = createScriptSession(model, {
+    ...scriptOptions(o),
+    onEvents: (events) => audioEvents.push(...events),
+  });
+  session.execute(script);
+  session.execute('advance 0'); // apply queued inputs before the first rendered frame
+  if (o.at) session.execute('advance ' + Number(o.at));
+  const player = session.player;
   if (compare) {
     if (o.sheet || (out && !out.endsWith('.png')))
       throw new Usage('--compare takes a single frame and optional -o diff.png');
@@ -884,7 +880,7 @@ async function render(
     let span = o.over ? Number(o.over) : 0;
     if (!span) {
       // Until the player settles (at most 10 s), measured on a copy.
-      const probe = runScript(model, script, { reducedMotion: !!o['reduced-motion'] }).player;
+      const probe = runScript(model, script, scriptOptions(o)).player;
       probe.step(0);
       if (o.at) probe.step(Number(o.at));
       while (span < 10) {
@@ -905,7 +901,7 @@ async function render(
     }
     svg = sheetSVG(frames, look, size >= 240 ? 160 : size);
   } else svg = frameSVG(player, look, size);
-  if (!o.sheet) svg = viewportSVG(svg, width!, height!, fit, scale);
+  if (!o.sheet) svg = viewportSVG(svg, width!, height!, fit, scale, look.background);
   const png = out?.endsWith('.png') || o.probe ? toPNG(svg) : undefined;
   let probes;
   if (o.probe) {
@@ -915,20 +911,7 @@ async function render(
       throw new Usage((e as Error).message);
     }
   }
-  if (o.audio)
-    writeFileSync(
-      String(o.audio),
-      await mixAudio(
-        model,
-        [
-          ...snapshots.flatMap((s) => s.events.map((e) => ({ ...e, time: s.time }))),
-          ...queuedEvents.map((e) => ({ ...e, time: player.time - (o.at ? Number(o.at) : 0) })),
-          ...finalEvents.map((e) => ({ ...e, time: player.time })),
-        ],
-        player.time,
-        f,
-      ),
-    );
+  if (o.audio) writeFileSync(String(o.audio), await mixAudio(model, audioEvents, player.time, f));
   if (out) writeFileSync(out, out.endsWith('.png') ? png! : svg);
   if (o.probe) {
     io.out(JSON.stringify({ wrote: out, time: player.time, probes }));

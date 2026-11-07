@@ -1,0 +1,5 @@
+<anima version="0.1" name="tooling-headless-fit-none" grid="240">
+  <rect id="backdrop" x0="0" y0="0" width="240" height="240" fill="#1d1d1d"/>
+  <rect id="red" x0="60" y0="90" width="120" height="60" fill="#ff0000"/>
+  <rect id="blue" x0="90" y0="105" width="60" height="30" fill="#0000ff"/>
+</anima>

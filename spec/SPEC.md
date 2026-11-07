@@ -452,10 +452,10 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 | `data set <$path> <value>` | Queue a typed public host-data handle write; applies on the next step. JSON strings, bools, numbers, colors and lists are accepted according to the property type. |
 | `data dump [prefix …]` | Print `{data: {path: value}}` as one JSON line. No prefixes selects all; multiple prefixes form a union. Includes named instance paths and default scalar aliases. |
 | `data watch <$path …>` | Remember current values. Each later snapshot carries a `data` object of watched values changed since the previous snapshot (or watch registration). |
-| `data break <$path> [== value]` | Preflight each next step by replay on an isolated player. If the final value would change (and optionally equals the condition), stop before applying the step live, report `script-breakpoint`, before/after values and writer candidates. |
+| `data break <$path> [== value]` | Preflight each next step by instrumented replay on an isolated player. Stop before applying the step live at the first write (including same-value or overwritten writes, optionally matching the condition), reporting `script-breakpoint`, old/written values and the actual writer. |
 | `data break clear` | Clear all breakpoints; a session can then advance the pending step. |
 | `expect <address\|$path\|input> ==\|!=\|<\|>\|~ <value>` | Compare applied values; `~` is absolute numeric error ≤ 1e-6. Failure emits `script-expect` with pointer and hint; execution continues. |
-| `seed <n>` | Parse a uint32 seed (default 0). **Incomplete:** machine/convert private random streams cannot yet be seeded through tooling; explicit seed on a random document is a script error. Their existing runtime defaults remain unchanged. |
+| `seed <n>` | Reset the shared core uint32 random source for this player and nested stepping to n. The player constructor option `seed` and CLI `--seed` initialize the same source. Without an explicit seed, existing deterministic machine/converter defaults are preserved. |
 | `snapshot [--all] [--semantics] [address …]` | Print one JSON line. `--all` adds unanimated animatable properties and persistent inputs. `--semantics` appends `player.semantics()` or errors clearly if unavailable. Explicit addresses accept static properties too. |
 
 `instance <id> <timeline> [mix]`, `timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]`
@@ -475,9 +475,11 @@ snapshots and diagnostics. A bad request does not end the process. `quit` replie
 data values through public handles and steps at 0. Its reply lists restored/skipped paths; failed
 reload retains the old interpreter. Breakpoints pause the current command, and the next request
 may inspect/edit data or clear them. Preflight replays all prior operations, so its cost grows with
-history and includes the next step. Writer reporting lists matching timeline/binding sources or
-the last script operation, rather than claiming runtime write instrumentation. Same-value and
-transient overwritten writes are not trapped; the stronger write-breakpoint parity row stays open.
+history and includes the next step. Tooling instruments instance setters and queued operations in
+the replay player, capturing writes before mutation, including same-value and transient writes.
+Writers identify a script line, listener pointer, state/transition action pointer or the actual
+binding write function. Timeline-driven reverse writes identify the binding that stores the value.
+Instrumentation is absent from shipped data/host bundles.
 
 `anima bench <file> [-s script] [--frames N] [--format=json]` measures source compilation/loading
 once, then renderer-neutral `Player.step(1/60)` and `drawFrame` separately for N frames (default
@@ -487,7 +489,7 @@ floor(N×0.5) and floor(N×0.95), capped at N−1. Script setup, filesystem I/O 
 DOM and raster/GPU work are not frame costs. This follows the measurement boundary in
 `tools/perf.ts`; see also `docs/research/rive-web-runtime.md` on native/GPU versus host overhead.
 Both session and bench accept `--seed`, `--all`, `--semantics` and `--reduced-motion`; seed has
-the current limitation above. These are local tooling commands, with no shipped runtime additions.
+the shared source semantics above. Debugging and audio capture instrumentation are tooling-only.
 
 A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
 "events": [...], "settled": bool}`: `time` is the total step time so far, `values` holds every
@@ -1893,9 +1895,12 @@ Every player owns an unsigned 32-bit seed, `machineSeed` at the document root, d
 `0x6d2b79f5` (1831565813). Before each choice:
 `seed = (1664525 * seed + 1013904223) mod 2^32`, using integer multiplication;
 `u = seed / 4294967296`. Choose the first eligible edge whose cumulative weight exceeds
-`u * sum(weights)`. Players, component instances and named-machine players never share RNG
-state. Identical applied inputs, seed and step sequence produce identical choices. This
-portable LCG is independent of Rive's unseeded native selection.
+`u * sum(weights)`. Without an explicit player/script seed, players, component instances and
+named-machine players keep independent RNG state. An explicitly seeded root shares its core
+source with nested stepping in authored order. Identical applied inputs, seed and step sequence produce identical choices. This
+portable LCG is independent of Rive's unseeded native selection. With an explicit player/script
+seed, machine and converter draws share one core source in evaluation order; the explicit seed
+overrides `machineSeed`. Without it, the machine stream and converter stream retain these legacy defaults.
 
 ### Actions and completion
 
@@ -2507,6 +2512,8 @@ expression parser. Random is evaluated within the formula context; unscoped rand
 a formula return zero. Math functions are available to ordinary bindings whenever convert is
 installed. Random uses independently implemented uint32 LCG
 `seed = (1664525 * seed + 1013904223) mod 2^32`, output seed/2^32; the stream is shared per player in authored evaluation order, while sites/bindings cache separately.
+An explicit player/script seed joins this stream with machine draws through the core source, in
+evaluation order. Reseeding resets the source, preserving existing once/on-change site caches.
 `always` advances on evaluation, `once` caches per site, `on-change` invalidates when the incoming
 value changes under Object.is. Repeated evaluation of unchanged input retains the cached value.
 
@@ -2690,7 +2697,8 @@ data, converters and component declarations as the web component root selector. 
 the selected root's own inputs and nodes. Unknown names are usage errors.
 `--viewport WxH` sets positive integer output dimensions (default `--size` square).
 `--fit contain` (default) centres a uniform fit, `cover` centres and crops, `fill` stretches,
-and `none` keeps one output pixel per view-box unit, anchored at the view-box origin.
+and `none` centres the authored view box with one output pixel per view-box unit.
+An explicit background covers the entire output viewport, including letterbox regions.
 `--scale k` accepts finite `0 < k ≤ 1`, rounds each output dimension to the nearest integer,
 with a minimum of one pixel. Fit is computed before downscaling. These options apply to single
 frames; contact sheets reject viewport, fit and scale overrides.
@@ -2700,11 +2708,14 @@ frames; contact sheets reject viewport, fit and scale overrides.
 origin at the top left; channels are 0–255 including alpha. Out-of-bounds or malformed points
 are usage errors. Probes can be requested without an output file.
 
-`--audio out.wav` mixes script audio events at their delivery step timestamps, with clip start/end and per-event
+`--audio out.wav` mixes script audio events at their exact occurrence within each step, with clip start/end and per-event
 and document volume into stereo, 48 kHz signed 16-bit PCM using Chromium's `OfflineAudioContext`.
 The output duration is the player's final time, at least one sample; clips are truncated there.
-Audio sources must be local or base64 data URIs. Currently this offline resolver supports root
-assets; scoped component/repeat assets are not supported and unresolved assets fail explicitly.
+Audio sources must be local or base64 data URIs. Assets and document gains resolve in the emitting
+player’s catalog, including inherited and shadowed component/repeat catalogs. Tooling captures source
+clock crossing fractions before loop folding; the script session’s `onEvents` callback receives
+absolute times and the emitting model via symbol metadata. Ordinary event JSON and shipped browser
+bundles are unchanged. Unresolved assets fail explicitly.
 The Chromium launch is lazy and always closed, including failures. Missing/unlaunchable Chromium
 reports `build-encoder-unavailable` with a browser installation hint. It is not silently replaced
 by a muted WAV.

@@ -31,8 +31,10 @@ compared by the `P3b native observations` tests in `packages/cli/test/agent-tool
   GPU path is not a faithful numerical counterpart to renderer-neutral JS step/draw costs. Statistics,
   units, frame count, errors and output formats are unit tested. Measurement follows tools/perf.ts;
   see docs/research/rive-web-runtime.md on native versus host overhead.
-- `tooling.seed`: pending, not skipped as complete. Existing machine/convert streams are private;
-  explicit --seed fails clearly for random documents. A shared runtime source remains necessary.
-- `tooling.data-breakpoints`: pending. Current replay traps final value changes before the live step;
-  it does not observe same-value or intermediate overwritten writes. Writer candidates are reported,
-  without claiming exact instrumentation of every runtime writer.
+- `tooling.seed`: shared core source implemented. Native seed is for script random; no matching
+  control of native transition selection exists. Exact LCG shared machine/converter tests and
+  `spec/conformance/tooling-seed` provide independent evidence; see the central skip note.
+- `tooling.data-breakpoints`: exact write instrumentation is tooling-only. The native command
+  protocol has no stop-before-write breakpoint/provenance output. Central skip note records this
+  limit; same-value/transient, script/listener/action/binding writes and live-state preservation
+  are independently tested in `packages/cli/test/tooling-leftovers.test.ts`.

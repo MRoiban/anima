@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import type { Model, AnimaEvent } from '@anima-format/core';
+import { eventSource, type CapturedEvent } from '../../core/src/event-capture.ts';
 import { ImageEncoder } from './encode.ts';
 /** Offline stereo, 48 kHz, signed 16-bit PCM. Events carry absolute player timestamps. */
 export async function mixAudio(
@@ -16,9 +17,8 @@ export async function mixAudio(
     const clips = events
       .filter((e) => e.audio)
       .map((e) => {
-        if (e.name.includes('.'))
-          throw Error('offline audio does not yet resolve scoped component/repeat assets');
-        const a = model.doc.assets?.[e.audio!];
+        const scope = (e as CapturedEvent)[eventSource] ?? model;
+        const a = scope.doc.assets?.[e.audio!];
         if (!a || a.type !== 'audio') throw Error('cannot resolve audio asset ' + e.audio);
         if (/^[a-z][a-z\d+.-]*:/i.test(a.source) && !a.source.startsWith('data:'))
           throw Error('offline audio requires local or data URI assets');
@@ -30,7 +30,7 @@ export async function mixAudio(
           time: e.time,
           start: a.start ?? 0,
           end: a.end,
-          volume: (e.volume ?? 1) * (model.doc.audioVolumes?.[e.audio!] ?? 1),
+          volume: (e.volume ?? 1) * (scope.doc.audioVolumes?.[e.audio!] ?? 1),
         };
       });
     const channels = await page.evaluate(
@@ -79,7 +79,7 @@ export async function mixAudio(
     throw Object.assign(new Error((error as Error).message), {
       code: 'event-audio-load',
       pointer: '/assets',
-      hint: 'check local/base64 audio source, clip bounds and root asset scope',
+      hint: 'check local/base64 audio source, clip bounds and declaring asset scope',
     });
   } finally {
     await encoder.close();

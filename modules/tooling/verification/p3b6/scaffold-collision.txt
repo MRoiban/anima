@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96bce90d
+
+ ❯ |unit| tools/new-capability.test.ts (4 tests | 1 failed) 73244ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 67842ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node /home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/vitest.mjs run --config vitest.scope.config.ts --reporter=json --outputFile=pending-report.json
+ ❯ cp.execFileSync ../../../../../../tmp/p3b6/observe-child.cjs:5:25
+ ❯ tools/new-capability.test.ts:88:5
+     86|       { cwd: root, stdio: 'inherit' },
+     87|     );
+     88|     execFileSync(
+       |     ^
+     89|       process.execPath,
+     90|       [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  10:48:57
+   Duration  75.61s (tests 97%, transform 1%, import 1%)

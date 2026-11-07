@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "The permitted native headless command protocol exposes no stop-before-write breakpoint or writer provenance capture. Same-value/transient writes, listener/action/binding provenance and live-state preservation are independently tested in the script interpreter.",
+  "tests": ["packages/cli/test/tooling-leftovers.test.ts"],
+  "captureEvidence": ["modules/tooling/oracle/rive/session.txt"]
+}
