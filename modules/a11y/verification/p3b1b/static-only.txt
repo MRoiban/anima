@@ -1,0 +1,2 @@
+Static-only load: pass; semantics installed; action/diff methods absent.
+[{"id":"label","role":"text","states":{},"bounds":[1,2,4,4],"actions":[],"children":[],"label":"Static label"}]

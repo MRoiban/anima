@@ -2677,5 +2677,8 @@ copying runtime code or adopting a binary/native publishing path.
 ## a11y
 
 Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md).
-P3b-1 is a partial implementation, blocked on its 2,048 B core budget. No parity
-completion is claimed; the web overlay remains wave 2. Root §10 is unchanged.
+P3b-1b split interaction, diffs and focus policy into `a11y-actions` (runtime key
+`a11yactions`). The tree/validation module remains partial and blocked on its 2,048 B
+core budget (measured 3,002 B); the companion adds 828 B over its imported a11y entry
+against 1,024 B. No parity completion is claimed; the web overlay remains wave 2.
+Root §10 is unchanged.

@@ -3,9 +3,10 @@ import type { Module } from '../../../packages/core/src/modules.ts';
 import { drawFrame } from '../../../packages/core/src/draw.ts';
 import { apply, mul, IDENTITY, type Mat } from '../../../packages/core/src/geom.ts';
 import { parsePath, flatten } from '../../../packages/core/src/path.ts';
-import type { A11yConfig, SemanticNode, SemanticDiff } from './types.ts';
+import type { A11yConfig, SemanticNode } from './types.ts';
 import { states } from './registry.ts';
-interface Entry {
+import { flat } from './tree.ts';
+export interface Entry {
   p: Player;
   i: number;
   id: string;
@@ -16,40 +17,22 @@ interface Entry {
   visible: boolean;
   bounds: SemanticNode['bounds'];
 }
-interface Cache {
+export interface Cache {
   signature: string;
   tree: SemanticNode[];
   entries: Entry[];
 }
 const caches = new WeakMap<Player, Cache>();
 const installed = new WeakSet<object>();
-const flat = (tree: SemanticNode[]): SemanticNode[] =>
-  tree.flatMap((n) => [n, ...flat(n.children)]);
-const interactive = 'button checkbox switch radio slider tab link list-item'.split(' ');
 const resolve = (p: Player, value: unknown) =>
   typeof value === 'string' ? (p.get(value) ?? value) : value;
-const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
-export function semanticDiff(prev: SemanticNode[], next: SemanticNode[]): SemanticDiff {
-  const a = new Map(flat(prev).map((n) => [n.id, n]));
-  const b = new Map(flat(next).map((n) => [n.id, n]));
-  return {
-    added: [...b.keys()].filter((id) => !a.has(id)),
-    removed: [...a.keys()].filter((id) => !b.has(id)),
-    changed: [...b].flatMap(([id, n]) => {
-      const old = a.get(id);
-      if (!old) return [];
-      const keys = [...new Set([...Object.keys(old), ...Object.keys(n)])].filter((k) =>
-        k === 'children'
-          ? !equal(
-              old.children.map((c) => c.id),
-              n.children.map((c) => c.id),
-            )
-          : !equal(old[k as keyof SemanticNode], n[k as keyof SemanticNode]),
-      );
-      return keys.length ? [{ id, keys }] : [];
-    }),
-  };
-}
+/** Shared through the active registry, including separately bundled action entries. */
+export const runtime: {
+  caches: typeof caches;
+  flat: typeof flat;
+  resolve: typeof resolve;
+  update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
+} = { caches, flat, resolve };
 function box(points: [number, number][]): SemanticNode['bounds'] {
   const xs = points.map((p) => p[0]),
     ys = points.map((p) => p[1]);
@@ -60,7 +43,6 @@ function box(points: [number, number][]): SemanticNode['bounds'] {
 export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
   if (installed.has(P.prototype)) return;
   installed.add(P.prototype);
-  P.prototype.semanticDiff = semanticDiff;
   P.prototype.semantics = function () {
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
@@ -163,28 +145,10 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         if (key !== 'hidden' && d[key] !== undefined) Object.assign(n.states, { [key]: d[key] });
       if (d.checkedMixed) n.states.checked = 'mixed';
       if (c.live && c.live !== 'off') n.states.live = c.live;
-      if (!d.disabled) {
-        if (
-          c.activate ||
-          ['checked', 'pressed', 'selected'].some(
-            (k) => typeof c[k as keyof A11yConfig] === 'string',
-          )
-        )
-          n.actions.push('tap');
-        if (c.role === 'slider') {
-          n.min = c.min ?? 0;
-          n.max = c.max ?? 100;
-          n.step = c.step ?? 1;
-          if (!d.readonly) n.actions.push('increase', 'decrease');
-        }
-        if (e.p.focusItems?.().some((f) => f.id === e.p.model.nodes[e.i]!.id))
-          n.actions.push('focus');
-      }
-      if (n.actions.includes('focus')) {
-        const focused = this.focused;
-        let at = entries.find((e) => e.id === focused);
-        while (at && at.id !== e.id) at = entries.find((e) => e.id === at!.parent);
-        n.states.focused = !!at;
+      if (!d.disabled && c.role === 'slider') {
+        n.min = c.min ?? 0;
+        n.max = c.max ?? 100;
+        n.step = c.step ?? 1;
       }
       let parent = entries.find((entry) => entry.id === e.parent);
       while (parent && !nodes.has(parent.id))
@@ -198,54 +162,17 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       list.forEach((n) => prune(n.children));
     };
     prune(tree);
-    const live = flat(tree);
-    if (this.focused && !live.some((n) => n.id === this.focused && n.actions.includes('focus'))) {
-      const previous = old?.entries ?? entries;
-      let ancestor = previous.find((e) => e.id === this.focused);
-      while (ancestor && !live.some((n) => n.id === ancestor!.id && n.actions.includes('focus')))
-        ancestor = previous.find((e) => e.id === ancestor!.parent);
-      const order = previous.findIndex((e) => e.id === this.focused);
-      const next =
-        live.find(
-          (n) => n.actions.includes('focus') && entries.findIndex((e) => e.id === n.id) > order,
-        ) ?? live.find((n) => n.actions.includes('focus'));
-      this.focusTarget?.(ancestor?.id ?? next?.id ?? null);
+    const cache = { signature, tree, entries };
+    caches.set(this, cache);
+    if (runtime.update?.(this, cache, old)) {
       caches.delete(this);
       return this.semantics();
     }
-    caches.set(this, { signature, tree, entries });
     return tree;
   };
-  P.prototype.semanticAction = function (id, action) {
-    const node = flat(this.semantics()).find((n) => n.id === id);
-    if (!node?.actions.includes(action)) return false;
-    if (action === 'focus') return this.focusTarget?.(id) ?? false;
-    const e = caches.get(this)!.entries.find((e) => e.id === id)!;
-    const c = e.config!;
-    if (action === 'tap') {
-      if (c.readonly && resolve(e.p, c.readonly)) return false;
-      const key =
-        c.activate ?? [c.checked, c.pressed, c.selected].find((v) => typeof v === 'string');
-      if (typeof key !== 'string') return false;
-      if (e.p.model.inputs.get(key)?.type === 'trigger') e.p.fire(key);
-      else e.p.set(key, !e.p.get(key));
-    } else {
-      const value = Math.max(
-        node.min!,
-        Math.min(node.max!, Number(node.value) + (action === 'increase' ? 1 : -1) * node.step!),
-      );
-      if (value === node.value) return false;
-      e.p.set(c.value!, value);
-    }
-    return true;
-  };
 }
-export function prepare(model: import('../../../packages/core/src/load.ts').Model, focus: boolean) {
+export function prepare(model: import('../../../packages/core/src/load.ts').Model) {
   if (!model.nodes.some((n) => n.raw.a11y)) return;
-  if (focus)
-    for (const n of model.nodes)
-      if (n.raw.a11y && interactive.includes(n.raw.a11y.role) && !n.raw.focus)
-        n.raw = { ...n.raw, focus: { tabStops: true, bounds: n.raw.a11y.bounds } };
   const previous = model.afterStep;
   model.afterStep = (p) => {
     previous?.(p);

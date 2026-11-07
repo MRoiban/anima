@@ -34,6 +34,7 @@ import { lists } from '../../../modules/lists/core/index.ts';
 import { listsSVG } from '../../../modules/lists/core/svg.ts';
 import { a11y } from '../../../modules/a11y/core/index.ts';
 import { a11ySVG } from '../../../modules/a11y/core/svg.ts';
+import { a11yActions } from '../../../modules/a11y-actions/core/index.ts';
 import { nested } from '../../../modules/nested/core/index.ts';
 import { nestedSVG } from '../../../modules/nested/core/svg.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
@@ -75,6 +76,7 @@ if (VERBOSE) {
   registerSVGBackend('lists', listsSVG);
   registerModule(a11y);
   registerSVGBackend('a11y', a11ySVG);
+  registerModule(a11yActions);
   registerModule(nested);
   registerSVGBackend('nested', nestedSVG);
   registerModule(surface);

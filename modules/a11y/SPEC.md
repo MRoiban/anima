@@ -1,7 +1,8 @@
 # Node accessibility (P3b draft; partial implementation)
 
 This chapter specifies the P3b design contract. Implementation is blocked on size:
-its first measured registration entry adds 3,624 B versus the 2,048 B core limit.
+after the P3b-1b split its registration entry adds 3,002 B versus the 2,048 B core limit.
+The companion `a11y-actions` adds 828 B over `a11y` (1,024 B limit).
 The implementation below is a prototype, not a completed capability. Root document
 `a11y` in SPEC §10 retains its existing shape, validation and behavior.
 
@@ -40,8 +41,8 @@ modal on dialog/alert-dialog. Disabled and hidden apply to all roles.
 
 ## Shared tree and actions
 
-`SemanticNode`, `SemanticAction`, `SemanticDiff` are exported from the module's core
-entry. `test/fixtures/tree.json` is the wave-2 contract, checked by
+`SemanticNode`, `SemanticAction`, `SemanticDiff` are exported as types from the core
+entry. `semanticDiff` is exported as a function from `@anima-format/core/a11y-actions`. `test/fixtures/tree.json` is the wave-2 contract, checked by
 `test/core/semantics.test.ts`. The tree is an ordered forest. Every node has id,
 role, states, world-grid bounds [x,y,w,h], actions and children; optional fields are
 label, hint, value (string/number), level, href, min, max, step. States include
@@ -55,11 +56,11 @@ dotted. Intended bounds are transformed painted bounds, or an explicit local box
 The tree is cached across unchanged reads and steps; changed semantic inputs,
 geometry or focus invalidate it. Hosts must treat returned snapshots as read-only.
 
-`semanticDiff(previous,next)` and `player.semanticDiff` return added and removed ids
+With `a11y-actions` registered, `semanticDiff(previous,next)` and `player.semanticDiff` return added and removed ids
 in tree order, and `{id,keys}` changes in next-tree order. Children compare immediate
 child ids; a descendant's state change does not also mark its ancestors changed.
 
-`semanticAction(id,action)` rejects missing ids or unavailable actions with false.
+With `a11y-actions` registered, `semanticAction(id,action)` rejects missing ids or unavailable actions with false.
 Tap fires activate or toggles its bool; absent activate it toggles the first bound
 checked/pressed/selected field. Increase/decrease add/subtract step and clamp value
 to min/max. Writes are queued for the next step. Disabled controls expose no actions;
@@ -97,3 +98,35 @@ Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 `docs/research/rive-animation-and-state.md` (deterministic queued actions),
 `docs/research/rive-web-runtime.md` (separate core semantics and platform overlay).
 No source algorithms or documentation text from Rive were copied.
+
+
+## P3b-1b module seam (partial, budget blocked)
+
+`@anima-format/web/a11y` registers validation, registry shapes and the static semantic
+forest. It installs only `player.semantics()`. Static snapshots have empty action
+arrays and no derived focus state. Node slider min/max/step metadata remains in the base
+tree, with the prototype's disabled-node omission retained.
+
+`@anima-format/web/a11y-actions` imports the base web entry and registers its
+companion afterward (`after: ['a11y']`). It adds action descriptions, semanticAction,
+semanticDiff, synthesized focus configuration, ancestor focus states and retargeting.
+The runtime registry key is `a11yactions`, following the existing `host-values` /
+`hostvalues` convention: core's current module-name grammar rejects hyphens. Core
+consumers register both modules; either arrival order is supported. Initialization
+defers until the base is present. The browser entry loads its dependency.
+Root document a11y behavior is unchanged.
+
+The base module exposes an internal `runtime` seam on the active registry entry.
+The companion reads this seam during init; it does not import a second runtime cache
+into a separately bundled entry. A post-build callback decorates the tree and may
+request a rebuild after changing focus. Both tree traversal and diffs use one shared
+flatten helper; actions reuse core's clamp. Headless commands remain tooling-only and
+are imported by neither browser entry. The companion's 1,024 B budget is incremental
+over its imported base entry, as with other layered module entries.
+
+This split implements the platform separation described in
+`docs/research/rive-web-runtime.md` and the shared-registry discipline described in
+`docs/research/rive-format-and-graph.md`; no external algorithm is ported. No public
+capability is closed by the split. See REPORT.md for the failed fixed budget and
+unchanged remaining gaps. Completion, including dependency-aware invalidation and
+late-registration coverage, requires further work after the budget decision.

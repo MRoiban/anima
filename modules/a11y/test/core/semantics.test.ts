@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import '@anima-format/core/all';
 import { load, Player, runScript } from '@anima-format/core';
 import { compile, decompile } from '@anima-format/markup';
-import { semanticDiff, type SemanticNode } from '../../core/index.ts';
+import type { SemanticNode } from '../../core/index.ts';
+import { semanticDiff } from '../../../a11y-actions/core/index.ts';
 const source = `<anima version="0.1" name="semantic-contract" grid="20" requires="a11y focus">
   <bool name="checked"/><bool name="mixed" default="true"/><bool name="hidden"/>
   <number name="volume" default="40"/>

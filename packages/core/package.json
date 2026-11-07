@@ -31,6 +31,7 @@
     "./host-edit": "./src/modules/host-edit/index.ts",
     "./lists": "./src/modules/lists/index.ts",
     "./a11y": "./src/modules/a11y/index.ts",
+    "./a11y-actions": "./src/modules/a11y-actions/index.ts",
     "./nested": "./src/modules/nested/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",

@@ -32,6 +32,7 @@ export const webEntries = [
   'host-edit',
   'lists',
   'a11y',
+  'a11y-actions',
   'nested',
   'mix',
   'componentpaint',
@@ -66,6 +67,7 @@ export const webOwners: Record<string, string> = {
   'host-edit': 'host-edit',
   lists: 'lists',
   a11y: 'a11y',
+  'a11y-actions': 'a11y-actions',
   nested: 'nested',
   surface: 'surface',
   'markup-surface': 'surface',
@@ -111,6 +113,7 @@ export const moduleBudgets: {
   { name: 'host-edit', budget: 4096 },
   { name: 'lists', budget: 6144 },
   { name: 'a11y', budget: 2048 },
+  { name: 'a11y-actions', budget: 1024, over: 'a11y' },
   { name: 'nested', budget: 5120 },
   { name: 'mix', budget: 5120 },
   { name: 'componentpaint', budget: 5120 },
@@ -631,6 +634,10 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['a11y-tree-visibility'],
+  },
+  'a11y-actions': {
+    tests: ['modules/a11y/test/**/*.test.ts', 'modules/a11y-actions/test/**/*.test.ts'],
+    conformance: [],
   },
   nested: {
     tests: [

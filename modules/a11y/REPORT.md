@@ -1,3 +1,108 @@
+# P3b-1b split checkpoint — budget blocked
+
+Status: **blocked** on the explicit size stop. Branch `t3/a11y-actions-size-split`.
+Prototype merged with `git merge --no-ff t3/p3b-a11y-module` (merge `1bfca8e`).
+The prior P3b-1 report below is historical. No parity statuses changed, no rows are
+closed, and no new oracle captures or completed conformance probes are claimed.
+
+## Split delivered
+
+- `a11y`: registry, load validation, tree/state/visibility/modal/bounds prototype,
+  and semantics cache. `a11y-actions`: descriptions/dispatch, diffs, synthesized focus,
+  ancestor states and retarget prototype, ordered after `a11y`.
+- Shared registry-owned cache seam supports separate bundle identity; one flatten
+  helper, core clamp and existing matrix/path helpers are reused. Repository search
+  found no existing exported painted/group/path-extrema bounds helper to reuse.
+  Bounds completion was deferred after the failed size round.
+- Headless commands stay tooling-only; no browser entry imports commands.ts.
+- Scaffold dry and real invocations both rejected `--module a11y-actions` under the
+  existing hyphen restriction (evidence in verification/p3b1b/scaffold*.txt). Module
+  files were added manually and all adapters/tables/exports regenerated.
+- Public module/folder `a11y-actions` uses the runtime key `a11yactions`, as existing
+  hyphenated modules do, avoiding any further base-runtime name-rule growth.
+
+## Size guard (min+gzip B)
+
+| Entry | Before split | After split | Fixed guard |
+|---|---:|---:|---:|
+| a11y | 3,623 | 3,002 | 2,048 — **FAIL (+954)** |
+| a11y-actions | absent | 828 over a11y | 1,024 — pass |
+| core+web | 20,369 | 20,369 | 20,369 — pass |
+| data (untouched) | 8,032 | 8,032 | must not grow — pass |
+| bind (untouched) | 2,038 | 2,038 | must not grow — pass |
+| components (untouched) | 4,047 | 4,047 | must not grow — pass |
+| full-featured | 114,392 | 114,584 | 131,072 — pass |
+
+The companion imports a11y, so its manifest measures the incremental dependency
+layer with `over: 'a11y'`, as paint-sampling/paint and host/host-values do. The base
+still fails even with this accounting. No budget, measurement tool, protected input,
+finding, benchmark record or parity status was changed. The split adds 192 B to the
+full-featured total; it is an ownership seam, not a claimed net byte reduction.
+
+## Verification
+
+Final focused scope: 966 pass, 445 skipped/filtered, 1 TODO, zero failures.
+Static-only load smoke check passes; action/diff methods are absent as intended.
+Typecheck (all nine projects), targeted ESLint/Prettier, generated wiring, schema,
+480 active AniML builds and 36 browser entries pass. Strict oracle exits 0:
+253 cases / 449 samples, zero failing completed samples; 24 existing finding /
+intentional-difference records retained. No new native comparison is claimed.
+`node tools/size.ts` exits 1 solely for a11y (3,002 > 2,048 B); other gates pass.
+The first split measured 2,993 B, but review caught slider metadata being exposed
+while disabled. Restoring prototype behavior produced the final 3,002 B result.
+Separate-bundle browser registration and late-registration invalidation remain
+unverified; shared registry ownership is implemented but not a completion claim.
+
+`node tools/perf.ts` exits 0: bell compile 7.32 ms, 9,040 prefixes 2,119 ms,
+bell frame 136.1 µs, composite 86.3 µs, toolbar frame 105.4 µs, toolbar compile
+12.51 ms. Shared load remained elevated (~16–31 during checks); these are not quiet
+paired measurements. The ≤3% regression target remains **unverified**.
+
+First broad changed scope: 7,390 pass / 3 fail / 45 TODO, 223 files pass /
+2 fail / 13 skipped, in 599.06 seconds. A genuine third failure was the companion
+reading the a11y seam before the base arrived. Init now defers until that peer is
+registered, retaining arbitrary registration order. This adds 7 B to the companion
+(821 → 828 B). The first order recheck timed out at the unchanged 30-second limit
+under concurrent checks and load ~23. With those checks finished, the isolated
+order test passes all 12 permutations in 21.04 seconds (1 test / 1 file). This
+subsequent timeout is classified as contention-only on that evidence; the initial
+TypeError was real and fixed.
+
+Final frozen-source changed scope passes: **7,393 pass / 0 fail / 45 TODO**,
+225 files pass / 13 skipped, in 524.66 seconds. This resolves all three first-run
+failures. No first-run failure is waived; no failing test or expectation was removed.
+
+Two standalone-demo assertions initially ran before browser artifacts were ready. After rebuilding,
+both Chromium/Firefox tests pass alone (2 pass / 72 filtered); these are artifact
+ordering failures, not classified as load-only. No timeout or expectation changed.
+Initial focused a11y/a11y-actions scope: 966 pass, 445 skipped/filtered, 1 existing
+TODO, zero failures. Core tsc and targeted ESLint pass. The scope tool rejects
+`--maxWorkers=2`; verification uses supported Vitest `VITEST_MAX_WORKERS=2` without
+changing configuration, timeouts or tests.
+
+## Closure evidence and remaining rows
+
+**No row is closure-ready:** the required size gate fails. Every row listed in the
+historical report stays planned and open. Prototype-only evidence remains
+`test/core/semantics.test.ts` (tree contract/actions/diffs/focus),
+`test/core/diagnostics.test.ts`, `test/cli/sample.test.ts`, and the AniML/ANI contract
+example. It does not meet the complete capability definition of done.
+
+Unchanged pending work: group painted bounds and path/stroke extrema, nested/repeated
+order and dotted focus, transparent modal scope, semantic traversal restrictions,
+ancestor machine conditions, read-dependency and structural invalidation, read-only
+data action edges, complete traits/defaults/Solo, filtered snapshots, and all required
+independent conformance and logical-tree native captures. Late registration after a
+cached static read also needs coverage before declaring the seam complete. The
+native CLI was not invoked during this checkpoint; its headless capability remains
+as documented by P3b-1, not a reason to skip logical-tree oracles.
+
+All DOM rows remain wave 2 as requested, including live-region/low-level semantics
+DOM integration. Stop reason is the user-requested post-split guard, before feature
+expansion; no enlarged or third module was introduced.
+
+---
+
 # P3b-1 partial checkpoint — blocked by the 2 KB budget
 
 Status: partial. Do not merge as a completed capability. Branch `t3/p3b-a11y-module`.

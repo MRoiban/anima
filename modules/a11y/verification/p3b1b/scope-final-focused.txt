@@ -1,0 +1,21 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-actions --no-browser
+
+Scopes: a11y, a11y-actions
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (a11y-tree-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0cdb0393
+
+
+ Test Files  5 passed | 2 skipped (7)
+      Tests  966 passed | 445 skipped | 1 todo (1412)
+   Start at  09:45:35
+   Duration  4.38s (import 41%, tests 37%, transform 21%, worker 1%)
