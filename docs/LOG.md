@@ -2307,3 +2307,45 @@ setup timeouts are retained in the report; no thresholds, timeouts or existing b
 Benchmark files/parity statuses/protected inputs and other owners' runtimes are untouched. Fresh
 benchmark rerun remains required for the phase gate. Branch-only commit; no push, PR or merge.
 See modules/assets/P5B-10-REPORT.md and verification/p5b10/ for details and full outputs.
+
+## P5b — lists, assets, host editing (2026-11-07)
+
+- **New modules** (own folders and budgets): `lists` — `<repeat>` over a data list or a count, one
+  component instance per item kept by identity through insert/remove/swap (state survives), model →
+  component maps, item size, per-item data context, `$index`, `$parent`; `host-edit` — list editing,
+  instance management, globals, colour/enum/image/component handles, root component selection,
+  `ready`, document cache; `host-values` — typed handles split out of `host`, with one shared write
+  queue so host and host-edit writes apply in call order; `media` + `assetio` (split from `assets`) —
+  audio/blob loading, audio clips, fetch policy, loader metadata; `nested` — instance time remap and
+  quantize, leaf fit, component outputs, component-valued data; `componentpaint` — a live component
+  as a fill (SVG pattern, canvas offscreen). Image sampling (nearest/bilinear, clamp/repeat/mirror,
+  `fit="resize"`) in `paint`/`canvas`. CLI: sniffing and validation, PNG/JPEG/WebP encoding (one
+  lazily loaded Chromium per command), `export="false"`, `anima import` for SVG and Lottie,
+  `anima library update`. Data: typed literals and functions in guards (`"happy"`, `#d97757`,
+  `asset("photo")`, `component("row")`), colour format patterns, trigger destinations, data
+  keyframes, exported instances.
+- **Bugs fixed on the way**: CLI start-up paid for Playwright on every command (lazy import; the
+  module-order check went from 4.5 s back to main's 2.5–2.8 s per order); replayed nested models
+  inherited draw-tree slots without frame records (canvas crash, both engines); repeated-row audio
+  was silent in the browser (handler skipped list-owned players); `build --embed` skipped
+  component-local assets; three explicit clamp findings (now max 0).
+- **Decisions**: an image with no wrap control keeps its pre-P5b fitted footprint; `derive`'s
+  read-only computed properties are an intentional difference (Rive accepts and keeps the write);
+  library update stays in scope (a local CLI command, not an editor workflow).
+- **Oracle** (strict exit 0, 253 cases): lists 8 exact, host-edit 16 exact, derive/bind logic 9
+  exact; findings recorded with numbers — component paint at 240 × 240 (edges identical, Rive spreads
+  them by 1 px, max 55), nested quantize (delta 1, native precision), fractional SVG clamp
+  (rasterisation, max 164), bilinear and JPEG (encoder/rasteriser, isolated by native-data controls).
+- **Benchmark** (playlist): AniML 5/6 → **6/6** after P5b-10 (67-line scene, 7 min 53 s); Rive 5/6
+  strict (386 lines, 7 min 46 s; its audio clip lookup failed silently, trims pre-cut).
+- **Numbers** (main after P4e → P5b): core + web 20 109 → 20 362 B (+253: typed guard functions,
+  player-aware sampling, the source-loader hook, data-extras guard parsing); full-featured
+  93.6 → 109.1 KB / 128 KB (ceiling raised by the owner); Rive-class 114.5 KB / 250 KB. Module sizes:
+  lists 4 573, host-edit 3 437, host-values 1 211, host 3 463, media 2 665, assetio 659, assets 1 713,
+  nested 4 514, componentpaint 1 968, data 8 034 / 8 192, components 4 051 / 4 096, bind
+  2 038 / 2 048. Perf vs main, in-process alternating, pinned (min): bell frame 32.5 / 31.6 µs,
+  composite 20.9 / 20.3, toolbar 22.0 / 22.1 µs; bell compile 1.74 / 1.73 ms, toolbar 3.26 / 3.30 ms;
+  prefix sweep 139 / 140 ms — no regression.
+- **Parity**: 77 rows done (624 / 1 238); 16 moved to P3b/P10; 19 moved before work began.
+- **Process**: 88 finished-agent worktrees (12 GB) filled the root disk and killed a wave at launch;
+  worktrees are now removed after each merge.

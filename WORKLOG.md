@@ -1,11 +1,10 @@
 # Work log
 
 ## Now
-Goal: independent P5b AniML playlist rerun completed; local branch only.
-Verified: six brief items; 17 CLI runs; next-frame host edits20 assertions; browser audio3/3.
-Evidence: docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/REPORT.md and evidence/.
-Next: owner reviews benchmark artifacts; no runtime changes needed by this run.
-Don't: push/PR/merge, read other run sources/native binaries/oracles, or publish.
+Goal: smaller, agent-native Rive for web UI. P5b done on branch p5b → PR; then owner scope triage (memory scope-triage), then P3b, P6, P7 minimal, P8.
+State: parity 624/1238; core+web 20,362; full 109.1/128 KB; benchmark AniML 6/6, Rive 5/6; perf = main.
+Next: PR p5b → main when CI green; merge; then the triage as its own docs/plan PR.
+Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; leave merged worktrees behind.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -170,3 +169,4 @@ Don't: push/PR/merge, read other run sources/native binaries/oracles, or publish
 - 2026-11-07 01:33 [P5b-9]: final unchanged-source scope5687/31TODO and explicit canvas2270 pass; measurements/static/generated all exit0; all1,238 statuses/3,910 old oracle files/canvas classifier unchanged. Report and evidence finalized; local commit prepared (evidence: verification/{scope,canvas,checks,audit}.txt).
 - 2026-11-07 [claude]: merged P5b-9 (canvas seam root cause: replayed models inherited allocated tree slots without frame records → dense allocation/retirement; componentpaint 1968/5120). Registered component paint centrally: module capture was 20×20, central oracle needs 240×240 → re-captured scaled scene with CLI 1.9.1; result max 55, edge columns identical, Rive spreads edges 1 px (render-to-texture sampling; nearest control max 97) → recorded as finding (cause measured, not fully isolated). Canvas suite 2276/2276, oracle 0, full 111,723 B
 - 2026-11-07 [claude]: perf p5b vs main, in-process alternating, pinned, load ~4 (min): bell frame 32.5/31.6 µs (p25 33.7/33.0), composite 20.9/20.3, toolbar 22.0/22.1 µs; bell compile 1.74/1.73 ms, toolbar compile 3.26/3.30 ms, quarter-prefix 139/140 ms → no regression. Launched P5b-11 parity bookkeeping
+- 2026-11-07 [claude]: merged P5b-11 parity (624/1238, 77 done, 16 moved; audit: 0 done rows citing TODO/pending). LOG P5b entry + PLAN closed
