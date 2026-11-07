@@ -1,0 +1,24 @@
+{
+  "anima": "0.1",
+  "name": "role-slider",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "amount": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "label": "Example",
+        "value": "amount",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

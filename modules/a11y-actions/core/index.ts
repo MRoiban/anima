@@ -9,6 +9,7 @@ import { semanticDiff } from './diff.ts';
 export { semanticDiff } from './diff.ts';
 export * from '../../a11y/core/types.ts';
 const installed = new WeakSet<object>();
+const focusInstalled = new WeakSet<object>();
 export const a11yActions: Module = {
   name: 'a11yactions',
   after,
@@ -58,6 +59,34 @@ export const a11yActions: Module = {
       return false;
     };
     const P = shared.Player;
+    if (modules.has('focus') && !focusInstalled.has(P.prototype)) {
+      focusInstalled.add(P.prototype);
+      const items = P.prototype.focusItems;
+      if (items)
+        P.prototype.focusItems = function (all) {
+          if (!caches.has(this) && this.model.doc.requires?.includes('a11y')) this.semantics();
+          const cache = caches.get(this);
+          return items
+            .call(this, all)
+            .filter(
+              (n) =>
+                all ||
+                !cache?.entries.some(
+                  (e) =>
+                    e.id === n.id &&
+                    e.config &&
+                    (e.data.disabled || !flat(cache.tree).some((v) => v.id === n.id)),
+                ),
+            );
+        };
+      P.prototype.machineFocus = function (id) {
+        return (
+          this.focused === id ||
+          (!!this.model.doc.requires?.includes('a11y') &&
+            flat(this.semantics()).some((n) => n.id === id && n.states.focused))
+        );
+      };
+    }
     if (!installed.has(P.prototype)) {
       installed.add(P.prototype);
       P.prototype.semanticDiff = semanticDiff;

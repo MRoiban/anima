@@ -27,3 +27,5 @@ tree; the command protocol has no `focus` command; key actions need initial focu
 The final scene has an explicit state-entry target and keyboard listeners. Earlier
 failed sessions are retained in `../../verification/p3b7/` and not treated as evidence
 of behavior. Existing oracle findings and thresholds were not edited.
+
+[P3b-9] New action/property probes and their measured differences are documented in [P3B9.md](P3B9.md). The original captures above remain unchanged.

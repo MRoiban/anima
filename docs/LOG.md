@@ -2373,3 +2373,13 @@ module ≤ 8 KB. The ceilings are final through P8; the size round before P6 mus
 sum by ≥ 5 % and reset budgets to ~10 % headroom. Values on `p3b` when the gates went in: core+web
 20 585 B, largest of 27 scenes 51 741 B (P5b playlist rerun), app-UI 90 688 B, runtime sum
 109 458 B, authoring 11 950 B, Rive-class 114 940 B.
+
+### [P3b-9] Semantic closure evidence (partial)
+
+Added 35 independent role/state/property/trait/focus conformance probes and native
+action/property captures; the shared report lists 44 closure-ready and 18 open rows,
+all phase statuses still planned. Bound heading levels round-trip in AniML and JSON.
+The action companion filters semantic focus targets and exposes ancestor conditions
+without changing focus core or base web bytes. Exact bounds, repeated/late-compiled
+focus and dependency/range/input gaps remain explicit; see modules/a11y/REPORT.md.
+Size: a11y 2,038→2,045 B, actions826→960; full118,861→119,005; base20,585 unchanged.

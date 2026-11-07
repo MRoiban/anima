@@ -1,0 +1,37 @@
+{
+  "anima": "0.1",
+  "name": "state-readonly",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "flag": {
+      "type": "bool"
+    },
+    "amount": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "control",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "activate": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "value": "amount",
+        "readonly": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

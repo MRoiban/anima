@@ -1,0 +1,8 @@
+<anima version="0.1" name="role-none" grid="20" requires="a11y focus">
+  <group id="wrapper">
+    <a11y role="none"/>
+    <group id="item">
+      <a11y role="text" label="Lifted" bounds="1 2 3 4"/>
+    </group>
+  </group>
+</anima>

@@ -1,0 +1,16 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[11:50:43.388] rive  deferred replay: inline
+[11:50:43.399] rive  built (408 bytes, 10ms, 0 errors, 0 warnings)
+[11:50:43.399] rive  showing Heading [1/1]
+[11:50:43.399] rive  viewport 100x100 @1x
+ok advance
+[11:50:43.399] rive  wrote frames/before.json
+ok semantics: frames/before.json
+ok semantic-action
+ok advance
+ok advance
+[11:50:43.400] rive  wrote frames/after.json
+ok semantics: frames/after.json
+[11:50:43.400] rive  wrote frames/data.json
+ok data-dump: frames/data.json
+ok quit

@@ -4,23 +4,12 @@ Implementation is ready; final regression verification is recorded below. The
 controlled performance comparison remains unverified under shared-machine load. Parity statuses remain
 planned, as required for unfinished P3b. No PR, package publication or main push.
 
-## Per-row closure evidence
+## Current closure evidence [P3b-9]
 
-All test titles below refer to `test/web/overlay.test.ts`, run in Chromium and
-Firefox. Its `ariaSnapshot()` assertions inspect the browser accessibility tree.
-Every row has the host-only oracle disposition in `oracle/SKIP.md`.
-
-| Row | Closure evidence |
-| --- | --- |
-| a11y.web-overlay | `maps every role...`, `native controls and an actual accessibility tree`, `positions nested bounds...`, `native keyboard activation...`, `uses native radio arrow behaviour` |
-| a11y.overlay-policy | `supports overlay opt-out and restore...`; APIs and events remain active without elements |
-| a11y.focus-sync | `unifies focus proxies and synchronizes DOM and logical focus`, `attaches after separately bundled focus/actions...`, `retains the focus module single-stop policy...` |
-| a11y.roving-focus | `supports tab-list roving, Home/End and disabled skipping with and without focus`; core item order and traversal reused |
-| host-api.semantic-overlay | `uses diffs, preserves identity...`, `does not mutate unchanged semantic elements...`, state removal and string-value contract probe |
-| host-api.keyboard-focus | native keyboard/radio/range and tab-list tests; native Tab entry/exit with focus; single-stop policy |
-| host-api.low-level-focus | focusNext/focusPrevious in `unifies focus proxies...`; existing focusTarget/focusTraverse core policy retained |
-| a11y.state-live-region (DOM half) | every-role polite live text, assertive live region and attribute removal in the tree-contract probe |
-| host-api.low-level-semantics (DOM half) | detached read-only icon.semantics, semanticAction, actual diff events, opt-out, reload/destroy |
+The one current row table is at the end of [a11y/REPORT.md](../a11y/REPORT.md).
+It incorporates the browser test evidence from this report and the new core/native
+probes. All parity statuses stay planned. The following sections are historical
+P3b-8 implementation/verification records; P3b-9 did not change overlay runtime code.
 
 No new format grammar, fields, registry entries, diagnostics or deterministic
 Player.step behavior are introduced. The inherited `a11y` registry supports both

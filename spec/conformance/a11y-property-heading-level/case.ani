@@ -1,0 +1,26 @@
+{
+  "anima": "0.1",
+  "name": "property-heading-level",
+  "grid": 20,
+  "requires": ["a11y"],
+  "inputs": {
+    "depth": {
+      "type": "number",
+      "default": 2,
+      "min": 1,
+      "max": 6
+    }
+  },
+  "nodes": [
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "heading",
+        "level": "depth",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

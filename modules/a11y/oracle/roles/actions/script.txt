@@ -1,0 +1,8 @@
+focus target button
+snapshot --semantics
+semantic button tap
+snapshot --semantics
+semantic slider increase
+snapshot --semantics
+semantic slider decrease
+snapshot --semantics

@@ -1,0 +1,10 @@
+advance 0
+snapshot --semantics
+semantic item increase
+snapshot --semantics
+semantic item increase
+snapshot --semantics
+semantic item decrease
+snapshot --semantics
+semantic item focus
+snapshot --semantics

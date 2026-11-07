@@ -59,3 +59,18 @@ it('maps an AniML role/state diagnostic to the authored field', () => {
     }),
   );
 });
+it.each([
+  ['missing', 'unknown-input'],
+  ['b', 'input-type'],
+] as const)('[P3b-9] diagnoses heading level binding %s', (level, code) => {
+  const result = load(raw({ role: 'heading', level }));
+  expect(result.model).toBeUndefined();
+  expect(result.diagnostics).toContainEqual(
+    expect.objectContaining({
+      code,
+      pointer: '/nodes/0/a11y/level',
+      message: expect.any(String),
+      hint: expect.any(String),
+    }),
+  );
+});

@@ -26,11 +26,8 @@ export function validate(model: Model, d: Diags) {
         d.err(code, p + '/a11y/' + key, V && message, V && hint);
       for (const [k, v] of Object.entries(c)) {
         const input = typeof v === 'string' && model.inputs.get(v);
-        const binding =
-          states.includes(k) ||
-          k === 'checkedMixed' ||
-          k === 'activate' ||
-          (k === 'value' && c.role === 'slider');
+        const numeric = k === 'level' || (k === 'value' && c.role === 'slider');
+        const binding = states.includes(k) || k === 'checkedMixed' || k === 'activate' || numeric;
         const text = ['label', 'hint', 'value'].includes(k);
         if (typeof v === 'string' && (binding || (text && (v.startsWith('$') || input)))) {
           if (v.startsWith('$') && !model.doc.requires?.includes('data'))
@@ -48,7 +45,7 @@ export function validate(model: Model, d: Diags) {
                 ? ['bool', 'trigger']
                 : states.includes(k) || k === 'checkedMixed'
                   ? ['bool']
-                  : c.role === 'slider' && k === 'value'
+                  : numeric
                     ? ['number']
                     : ['string']
             ).includes(input.type)
@@ -62,7 +59,7 @@ export function validate(model: Model, d: Diags) {
                   (k === 'activate'
                     ? 'bool or trigger'
                     : binding
-                      ? k === 'value'
+                      ? numeric
                         ? 'number'
                         : 'bool'
                       : 'string'),

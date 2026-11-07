@@ -1,0 +1,5 @@
+advance 0
+snapshot --semantics
+set $title "After"
+advance 0
+snapshot --semantics

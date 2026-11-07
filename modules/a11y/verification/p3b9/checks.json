@@ -1,0 +1,85 @@
+{
+  "tag": "P3b-9",
+  "status": "partial",
+  "checks": {
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- changed": {
+      "exit": 0,
+      "pass": 7918,
+      "fail": 0,
+      "todo": 43,
+      "filesPassed": 239,
+      "filesSkipped": 13
+    },
+    "VITEST_MAX_WORKERS=1 npm run test:scope -- a11y a11y-actions a11y-dom focus conformance oracle": {
+      "exit": 0,
+      "pass": 2038,
+      "fail": 0,
+      "todo": 31
+    },
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- markup --no-browser": {
+      "exit": 0,
+      "pass": 2677,
+      "fail": 0
+    },
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- a11y --no-browser (last native heading test)": {
+      "exit": 0,
+      "pass": 1128,
+      "fail": 0,
+      "todo": 1
+    },
+    "node tools/modules.ts --check": {
+      "exit": 0
+    },
+    "npm run typecheck": {
+      "exit": 0
+    },
+    "targeted ESLint": {
+      "exit": 0
+    },
+    "staged Prettier": {
+      "exit": 0
+    },
+    "node tools/build-animl.ts --check": {
+      "exit": 0,
+      "sources": 532
+    },
+    "node tools/oracle.ts --strict": {
+      "exit": 0,
+      "completedCases": 258,
+      "samples": 467,
+      "failedSamples": 0
+    },
+    "node tools/size.ts": {
+      "exit": 0
+    },
+    "node tools/perf.ts": {
+      "exit": 0,
+      "controlledRegressionVerified": false
+    }
+  },
+  "bytes": {
+    "core+web": [20585, 20585],
+    "a11y": [2038, 2045],
+    "a11y-actions": [826, 960],
+    "markup-a11y": [970, 970],
+    "a11y-dom": [1900, 1897],
+    "focus": [4081, 4081],
+    "markup": [8007, 8007],
+    "data": [7982, 7982],
+    "bind": [2036, 2036],
+    "components": [4053, 4053],
+    "full-featured": [118861, 119005]
+  },
+  "phaseStatusesChanged": 0,
+  "closureReadyRows": 44,
+  "openRows": 18,
+  "problems": [
+    "Exact painted bounds are unfinished.",
+    "Dotted repeat focus and focus synthesis after late compilation remain.",
+    "Dependency collection/owner replacement remain; minimal base refresh exceeded budget by2B.",
+    "Standalone string inputs, queued range increments and narrower-limit no-op reporting remain.",
+    "Solo/native visibility coverage incomplete.",
+    "Components inherited baseline exceeds historical4051B by2B; unchanged.",
+    "Controlled timing regression unverified."
+  ]
+}

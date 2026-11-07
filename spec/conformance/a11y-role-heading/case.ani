@@ -1,0 +1,19 @@
+{
+  "anima": "0.1",
+  "name": "role-heading",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "nodes": [
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "heading",
+        "label": "Example",
+        "level": 2,
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

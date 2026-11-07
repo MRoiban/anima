@@ -1,8 +1,8 @@
 # Node accessibility (P3b draft; partial implementation)
 
 This chapter specifies the P3b design contract. The bounded implementation is partial:
-`a11y` measures 2,038 / 2,048 B, `a11y-actions` 826 / 1,024 B and
-`markup-a11y` 971 / 1,024 B. Root document `a11y` in SPEC §10 retains its
+`a11y` measures 2,045 / 2,048 B, `a11y-actions` 960 / 1,024 B and
+`markup-a11y` 970 / 1,024 B. Root document `a11y` in SPEC §10 retains its
 existing shape, validation and behavior. See REPORT.md for remaining gaps.
 
 ## Authoring
@@ -14,7 +14,7 @@ Every node can have `a11y`, declared with `requires: ["a11y"]`, or an AniML
 |---|---|---|
 | role | role | button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none |
 | label, hint, value | same | literal string or string input name; `$path` reads data when declared and loaded; slider value requires a number input/path |
-| level | level | integer 1–6; heading only |
+| level | level | integer 1–6 or number input/data path; heading only; bound AniML values are JSON strings (`&quot;depth&quot;`) |
 | href | href | string; link only |
 | checked | checked | bool literal, bool input name or `$path` |
 | checkedMixed | checked-mixed | bool literal/input/path; checkbox only; true overrides checked with `mixed` |
@@ -52,7 +52,7 @@ readonly, modal, focused, live (`polite`/`assertive`). No DOM objects are expose
 role none. Hidden/invisible subtrees are excluded, opacity does not hide. A modal
 sibling suppresses its siblings. IDs in component instances and repeated rows are
 dotted. Intended bounds are transformed painted bounds, or an explicit local box.
-Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
+The current core keeps explicit bounds or a geometry union; it does not add painted-stroke extents. Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
 The tree is cached across unchanged reads and steps; changed semantic inputs,
 geometry or focus invalidate it. Late registration of the action companion invalidates a cached static tree. Hosts must treat returned snapshots as read-only. This currently compares resolved signatures after collecting entries, rather than using dependency subscriptions.
 
@@ -67,6 +67,12 @@ to min/max. Writes are queued for the next step. Disabled controls expose no act
 readonly controls expose no edit actions, including when the binding names a read-only data input such as list length. They may still expose focus. Focus delegates to the optional focus module.
 Focusable ancestors report focused; hidden focus retargets toward a focusable ancestor,
 then the next focusable node in tree order, then clears. Focus/traversal stays in focus.
+[P3b-9] When focus and the companion are registered, eligible items exclude
+semantic hidden, disabled and modal-suppressed nodes, including on the first read.
+`focusItems(true)` still exposes structural items for cleanup. Machine focus
+conditions include focusable semantic ancestors; focus-only documents retain their
+existing behavior. All twelve module arrival orders are verified. Synthesizing focus
+for already compiled models after late registration and dotted repeat targets remain open.
 
 ## Headless commands (SPEC §11.2 extension)
 
@@ -98,21 +104,37 @@ and may name a trigger or writable bool. Numeric input/data constraints still ap
 after the semantic range clamp. These rules do not infer text labels or add fields
 to the shared tree contract.
 
-No parity row is closed. Completed independent conformance probes cover simple
-painted group bounds, dotted component/repeat ordering through shrink/hide, and
-read-only semantic/data action descriptions and dispatch. The native roles probe
-compares 16 roles, labels, simple bounds and seven state projections across three
-focus snapshots. It does not establish semantic action availability, exact path
-bounds or all focus policies. Pending oracle markers stay pending.
+[P3b-9] Independent conformance now covers every role (including none/heading),
+state changes through semantic actions, a legal role × state trait matrix, live
+politeness during label changes, bound properties, range clamps and focus ancestry.
+`test/core/closure.test.ts` covers filtered inspection and structural/reorder diffs.
+Native captures compare states/values around tap/increase/decrease plus properties,
+remaining states, heading metadata and the none/modal seams; see oracle/roles/.
+Parity statuses remain planned until P3b closes.
 
-Remaining work: exact path/stroke bounds and curve extrema; painted-group bounds
-independent of child semantic overrides; nested/repeated focus ordering and dotted
-targets; semantic hidden/disabled/modal restrictions in traversal; ancestor machine
-conditions; dependency-driven collection and identical-signature owner replacement;
-late focus registration on already compiled models; Solo visibility; complete
-role/trait/default evidence; native tap/increase/decrease and remaining state/focus
-captures. Filtered `semantics <id>` works and is tested. The DOM overlay is owned
-by P3b-8 and is outside this implementation.
+## Painted-bounds seam [P3b-9]
+
+The decided completion seam keeps exact painted extents out of the core: the DOM
+overlay should measure the drawn element in the browser (`getBBox` or
+`getBoundingClientRect`, stroke included), while the tooling-only `semantics`
+command should use CLI geometry for exact path/stroke extents. Explicit authored
+boxes always win. This binds renderer-specific geometry to its owning platform,
+following `docs/research/rive-web-runtime.md`, and protects the 2,048 B core budget.
+
+This seam is **not implemented or closure-ready in this change**. Chromium's
+`getBBox({stroke:true})` ignores the stroke option on the installed engine; Firefox
+honors it. The tooling helper has exact cubic centerline extrema but no exact
+stroke outline helper; resvg's bbox is conservative (e.g. butt caps), not exact.
+Consequently the current overlay/CLI retain core geometry boxes, and
+`a11y.tree-bounds` remains open. Browser measurements and the remaining work are
+recorded in REPORT.md; no approximation is advertised as exact.
+
+Remaining work: exact painted bounds in overlay and tooling; dotted repeat focus;
+dependency-driven collection and same-signature owner replacement; late focus
+registration after cached reads; Solo/native visibility; direct native ancestor
+condition coverage. Bound heading values must remain integers 1–6; input/data
+writers own that constraint, as the registry validates the binding type and literal
+range rather than installing another runtime range policy.
 
 Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 `docs/research/rive-format-and-graph.md` (registry discipline),
@@ -151,7 +173,5 @@ over its imported base entry, as with other layered module entries.
 
 This split follows the platform separation described in
 `docs/research/rive-web-runtime.md` and the shared-registry discipline described in
-`docs/research/rive-format-and-graph.md`; no external algorithm is ported. No public
-capability is closed by the split. See REPORT.md for the 2,104 B centered-stroke
-probe that exceeded the fixed budget and was reverted. Completion requires further
-budget/ownership work by the orchestrator; no additional runtime module was added.
+`docs/research/rive-format-and-graph.md`; no external algorithm is ported. The phase statuses remain planned. See REPORT.md for the 2,104 B centered-stroke
+probe that exceeded the fixed budget and was reverted. Remaining work and measured limits are recorded in REPORT.md; no additional runtime module was added.

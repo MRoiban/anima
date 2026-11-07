@@ -3324,9 +3324,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -5218,9 +5225,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -7115,9 +7129,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -9039,9 +9060,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -10946,9 +10974,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -11588,9 +11623,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -12333,9 +12375,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -14098,9 +14147,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -16009,9 +16065,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -17921,9 +17984,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -19823,9 +19893,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -21067,9 +21144,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
@@ -22354,9 +22438,16 @@
                   "type": "string"
                 },
                 "level": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 6
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "href": {
                   "type": "string"
