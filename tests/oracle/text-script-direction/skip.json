@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "Native Text schema exposes no authored direction override (recorded local schema observation). The retained P6 capability binds explicit ltr/rtl/auto to browser directionality; derived native scripting queries are won't-do with the VM. A Latin screenshot cannot test a forced override. Independent SVG attributes and actual Canvas direction are tested in both engines.",
+  "tests": [
+    "modules/text-effects/test/core/effects.test.ts",
+    "modules/text-effects/test/web/effects.test.ts",
+    "spec/conformance/text-script-direction"
+  ],
+  "captureEvidence": ["tests/oracle/text-script-direction/rive/schema-observation.json"]
+}

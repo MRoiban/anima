@@ -1,5 +1,8 @@
 # P6-7 implementation report
 
+P6-9a closure follow-up: [current report](../../tests/oracle/P6-9a-REPORT.md). This document
+records the earlier implementation delivery.
+
 Status: **partial**. Implementation is complete for the requested host/listener hit API,
 inferred names, and measured text layout bounds. Two rows have unresolved parity gaps; the closure-ready hit row awaits phase promotion.
 Branch: `t3/implement-p6-7`, base `0fd483b8`. Branch-only commit; no push or PR.

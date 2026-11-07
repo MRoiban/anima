@@ -1,5 +1,6 @@
-<anima version="0.1" name="text-range-run" grid="20" requires="text texteffects">
-  <text id="label">
+<anima version="0.1" name="text-range-run" grid="20" requires="text texteffects assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="label" line-height="1" x="4" y="4">
     <style id="s" size="1"/>
     <run id="first" text="ab " style="s"/>
     <run id="last" text="cd" style="s"/>

@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-background-fit" grid="20" requires="text texteffects">
+  <text id="label" sizing="fixed" overflow="fit" wrap="false" background="{&quot;first&quot;:&quot;#ff0000&quot;}" width="1.5" height="0.5" line-height="1">
+    <style id="s" size="1"/>
+    <run id="first" text="abc" style="s"/>
+  </text>
+</anima>

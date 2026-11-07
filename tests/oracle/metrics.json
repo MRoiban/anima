@@ -11889,5 +11889,201 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "text-modifier-translation",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-rotation",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 16,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-scale",
+    "threshold": 16,
+    "maxOverPercent": 0.034722222222222224,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 63,
+        "over": 18,
+        "overPercent": 0.03125,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-opacity",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 8,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-origin",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-variation",
+    "threshold": 16,
+    "maxOverPercent": 0.017361111111111112,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-units",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-falloff",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-easing",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-combine",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-run",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-background",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-background-fit",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
   }
 ]

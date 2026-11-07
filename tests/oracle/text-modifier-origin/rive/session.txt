@@ -1,0 +1,8 @@
+ok screenshot: frames/0.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:48:22.908] rive  deferred replay: inline
+[23:48:22.911] rive  built (8209 bytes, 3ms, 0 errors, 0 warnings)
+[23:48:22.912] rive  showing Probe [1/1]
+[23:48:22.912] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:48:22.919] rive  wrote frames/0.png

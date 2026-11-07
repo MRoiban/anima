@@ -2,14 +2,17 @@
   "anima": "0.1",
   "name": "text-background",
   "grid": 20,
-  "requires": ["text", "texteffects"],
+  "requires": ["text", "texteffects", "assets", "fonts"],
   "nodes": [
     {
       "id": "label",
       "type": "text",
+      "x": 4,
+      "y": 4,
       "background": {
         "first": "#ff0000"
       },
+      "lineHeight": 1,
       "styles": {
         "s": {
           "size": 1
@@ -28,5 +31,11 @@
         }
       ]
     }
-  ]
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
 }

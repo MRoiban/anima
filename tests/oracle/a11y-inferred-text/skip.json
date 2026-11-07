@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "Intentional Anima accessibility difference: two native controls paint ABC but leave the unlabelled text/container semantic labels empty. The specified browser-oriented consumer supplies visible resolved text instead, preserving explicit labels including empty labels. A native inference-equivalence oracle is therefore inapplicable; original captures and independent binding/visibility/host/nested tests document the difference.",
+  "tests": [
+    "modules/a11y/test/core/text-hit.test.ts",
+    "modules/a11y-dom/test/web/text-hit.test.ts",
+    "spec/conformance/a11y-inferred-text"
+  ],
+  "captureEvidence": [
+    "modules/a11y/oracle/text/rive/frames/tree.json",
+    "modules/a11y/oracle/text/rive/frames/no-child-semantic.json",
+    "modules/a11y/oracle/text/rive/scene.rml",
+    "modules/a11y/oracle/text/rive/control.rml.txt",
+    "modules/a11y/TEXT.md"
+  ]
+}

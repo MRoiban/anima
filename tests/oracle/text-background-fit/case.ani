@@ -1,0 +1,46 @@
+{
+  "anima": "0.1",
+  "name": "text-background-fit",
+  "grid": 20,
+  "requires": ["text", "texteffects", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "sizing": "fixed",
+      "overflow": "fit",
+      "wrap": false,
+      "background": {
+        "first": "#ff0000"
+      },
+      "width": 1.35,
+      "height": 0.5,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

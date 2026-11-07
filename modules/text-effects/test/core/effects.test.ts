@@ -253,3 +253,14 @@ it('backgrounds bound all glyph advance intervals when tracking reverses their o
   const expected = JSON.parse(readFileSync(base + 'effects.expected.json', 'utf8'));
   expect(data.backgrounds).toEqual(expected.backgrounds);
 });
+
+it('fitted backgrounds scale line metrics with advance intervals', () => {
+  const dir = 'spec/conformance/text-background-fit/';
+  const c = compile(readFileSync(dir + 'case.animl', 'utf8'));
+  expect(c.diagnostics).toEqual([]);
+  const { data } = drawing(c.doc!);
+  // Fixed measurer: width 3, height 1 into a 1.5 x 0.5 box gives uniform scale 0.5.
+  expect(data.layout.scale).toBe(0.5);
+  const expected = JSON.parse(readFileSync(dir + 'effects.expected.json', 'utf8'));
+  expect(data.backgrounds).toEqual(expected.backgrounds);
+});

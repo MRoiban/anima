@@ -5,4 +5,6 @@ Implementation: `modules/text-effects/core/registry.ts`, `modules/text-effects/S
 Independent fixed-measurer numeric expectations: `spec/conformance/text-script-direction/effects.expected.json`.
 Diagnostics, both spellings and CLI schema/render checks: module test suites.
 
-Not closure-ready: native authoring has no direction override; skip rationale awaits review. Row remains planned.
+P6-9a closes the retained browser scope with an evidenced no-authored-counterpart skip.
+Both engines verify ltr/rtl/auto. Native scripting queries remain won't-do. See
+`tests/oracle/TEXT-EFFECTS-PROBES.md` and the direction skip.json.

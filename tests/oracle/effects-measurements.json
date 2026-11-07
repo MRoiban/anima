@@ -1,0 +1,86 @@
+[
+  {
+    "name": "text-modifier-translation",
+    "maxDiff": 32,
+    "over": 4,
+    "overPercent": 0.006944444444444444
+  },
+  {
+    "name": "text-modifier-rotation",
+    "maxDiff": 16,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "text-modifier-scale",
+    "maxDiff": 63,
+    "over": 18,
+    "overPercent": 0.03125
+  },
+  {
+    "name": "text-modifier-opacity",
+    "maxDiff": 8,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "text-modifier-origin",
+    "maxDiff": 32,
+    "over": 4,
+    "overPercent": 0.006944444444444444
+  },
+  {
+    "name": "text-modifier-variation",
+    "maxDiff": 32,
+    "over": 8,
+    "overPercent": 0.013888888888888888
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "text-range-units",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  },
+  {
+    "name": "text-range-falloff",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  },
+  {
+    "name": "text-range-easing",
+    "maxDiff": 32,
+    "over": 4,
+    "overPercent": 0.006944444444444444
+  },
+  {
+    "name": "text-range-combine",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  },
+  {
+    "name": "text-range-run",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  },
+  {
+    "name": "text-background",
+    "maxDiff": 32,
+    "over": 4,
+    "overPercent": 0.006944444444444444
+  },
+  {
+    "name": "text-background-fit",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  }
+]

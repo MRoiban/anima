@@ -76,3 +76,20 @@ Layout identity participates in the semantic dependency cache. Bound run/style/b
 host run edits and font-measurer revisions refresh inferred labels/bounds and semantic diffs.
 The DOM overlay consumes this same forest, recreating its detached layer after renderer rebuilds
 without stepping the player or consuming queued inputs. No geometry is guessed from CSS size.
+
+## P6-9a native disposition
+
+Inferred naming is an intentional Anima accessibility difference, preserving the specified
+browser-oriented contract above. Two local headless controls paint `AB` + `C`, yet native text
+and container labels remain empty; an explicit `Override` survives. Removing the child's semantic
+annotation still leaves the parent unnamed and omits the text child. Sources, command files,
+raw semantic dumps and PNGs are retained in [the native evidence](oracle/text/README.md).
+Anima returns `ABC` for the unlabelled text and its container. Supplying useful accessible names
+from visible text is the intended behavior; changing this to empty native labels would lose that
+contract. Explicit labels, including empty strings, continue to win. The difference is covered
+by independent semantic conformance and both-engine overlay tests, not a passing native-label
+comparison. `a11y.inferred-text` closes with this evidenced no-equivalent-comparison disposition.
+
+`a11y.tree-bounds` stays planned. This optional consumer supplies exact layout boxes, while exact
+painted path/stroke extents require the platform/tooling work recorded in a11y's spec. Neither the
+native line-gap observation nor this broader missing implementation is hidden by a tolerance.

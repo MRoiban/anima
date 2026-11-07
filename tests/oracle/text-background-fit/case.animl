@@ -1,0 +1,8 @@
+<anima version="0.1" name="text-background-fit" grid="20" requires="text texteffects assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="label" sizing="fixed" overflow="fit" wrap="false" background="{&quot;first&quot;:&quot;#ff0000&quot;}" width="1.35" height="0.5" line-height="1" x="4" y="4">
+    <style id="s" size="1"/>
+    <run id="first" text="ab " style="s"/>
+    <run id="last" text="cd" style="s"/>
+  </text>
+</anima>

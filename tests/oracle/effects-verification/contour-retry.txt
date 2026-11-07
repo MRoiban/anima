@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-9c7619f2
+
+ ❯ |unit| modules/contour/test/core/raster-evidence.test.ts (2 tests | 1 failed) 6945ms
+   × confines all native path raster findings to the stroke fringe and checks recorded evidence 6593ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/contour/test/core/raster-evidence.test.ts > confines all native path raster findings to the stroke fringe and checks recorded evidence
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/contour/test/core/raster-evidence.test.ts:5:1
+      3| import { measureRaster } from '../../../paint/probes/raster.ts';
+      4| import { measureAngular } from '../../../paint/probes/angular.ts';
+      5| it('confines all native path raster findings to the stroke fringe and …
+       | ^
+      6|   const results = measureRaster();
+      7|   expect(results).toEqual(JSON.parse(readFileSync('modules/paint/probe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  00:17:33
+   Duration  20.04s (transform 41%, tests 36%, import 23%)
