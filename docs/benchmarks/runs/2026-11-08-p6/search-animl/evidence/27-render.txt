@@ -1,0 +1,1 @@
+wrote docs/benchmarks/runs/2026-11-08-p6/search-animl/evidence/text.svg

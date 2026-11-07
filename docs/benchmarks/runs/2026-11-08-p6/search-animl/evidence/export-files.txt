@@ -1,0 +1,4 @@
+export/index.html
+export/search.ani
+export/anima.js
+Export was a tooling probe; removed to keep only the scene and tested host harness.
