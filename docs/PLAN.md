@@ -300,13 +300,47 @@ and an oracle test against Rive.
   - Open: `data` is near its budget (7 420 / 8 192 B after `derive` took bytes out), `bind` at
     2 048 / 2 048 B and `host` at 4 042 / 4 096 B — split before the next change to any of them;
     fresh Rive captures need the Rive CLI updated to 1.9.1 (owner decision).
-- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
-      whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
-- [ ] P6 Text.
-- [ ] P7 Layout.
-- [ ] P8 Rigging (on the canvas backend: bones, skinning, meshes).
-- [ ] P9 Scripting.
-- [ ] P10 GPU effects and the WebGL renderer.
+**Scope and order after P5b** (owner triage, 2026-11-07; rows and reasons in
+`docs/parity/triage-2026-11-07.md`). Anima is a smaller, agent-native Rive for animated web UI in general;
+where the browser already does something well, Anima binds to it instead of reimplementing it.
+Progress is reported against the in-scope rows: **624 of 883 done (71 %)**, next to 624 of 1 238 (50 %)
+for the full matrix. Size estimates are min+gzip against the full-featured ceiling of 128 KB
+(131 072 B; 111 723 B now, so about 18.9 KB of headroom); heavy modules count toward Rive-class
+(250 KB) instead.
+
+- [ ] P3b Accessibility and headless agent tools (124 rows). Real ARIA and focus on `<anima-icon>`
+      and its hosts (roles; pressed/checked/disabled/selected states; labels bound to data; focus),
+      not an emulation of Rive's semantics system. Agent tools in the CLI: synthetic pointer/key/
+      wheel/gamepad input, setting and snapshotting bound data, image comparison and pixel probes, a
+      deterministic seed, accessibility-tree capture, schema search, a persistent command session;
+      the P5b benchmark follow-ups (`asset(...)` in bindings, `icon.src` as a property, unanimated
+      values in `sample`); the P5b data/host leftovers. Decide whether switching to reduced motion
+      stops in-progress loops at once (P4b benchmark). **Estimate:** a11y module 3–4 KB in the
+      full-featured page; agent tools are CLI-only (0 KB). → ~113 KB.
+- [ ] P6 Text on the browser (76 rows; the 4 `text.script-*` rows went with scripting). Shaping,
+      fonts (`FontFace`), bidi, OpenType features and variable axes from the browser (`measureText`,
+      SVG text, `Intl.Segmenter`); per-glyph modifiers and ranges kept; DOM-backed text input (a
+      native field over the drawn text, caret and selection drawn from the native selection);
+      build-time subsetting, Google Fonts import, text to outlines. The design records how the CLI
+      renders text without a browser. Separate modules (text, text effects, text input, fonts).
+      **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
+      which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
+- [ ] P7 Minimal layout and host fit (34 rows): hug content, padding/gaps, min/max, fixed sizes,
+      row/column stacks with alignment and distribution, nested containers, painted layout boxes,
+      layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
+      button whose background grows with a label of changing length. **Estimate:** 3–4 KB (host
+      fit/alignment mostly in the existing web element).
+- [ ] P8 Rigging (25 rows): bones, constraints, IK, skinning, meshes and vertex weights, as optional
+      **heavy** modules on the canvas backend. **Estimate:** 8–11 KB, counted toward Rive-class
+      (114.5 KB now) rather than the full-featured page.
+- P9 Scripting: **won't do** (a runtime VM is the largest size and security cost; expressions,
+  `derive` and the host page's JavaScript cover it). P10 GPU (WebGL/WebGPU backends, multipass effects,
+  BC7, worker replay, self-hosted WASM): **maybe later**. Also won't do: visual editor tooling, layout
+  beyond the minimal subset, Rive's WASM build variants.
+- **Risk — the 128 KB ceiling:** at the upper estimates, P3b + P6 + P7 reach ~133 KB. Before P6, a
+  size round across the modules (shared helpers duplicated in several modules), and P6 counting text
+  input as heavy (only pages with editable text load it) keep the page near 125 KB. If the P6 design
+  still estimates more than 128 KB, that is the owner's call.
 - Maybe / later: native runtimes, editor round-trip, cloud tooling, low-level GPU, 3D (inventoried,
   not scheduled).
 

@@ -83,11 +83,11 @@ export const PHASES: [string, string][] = [
     'Done: lists, assets, host editing, typed data guards, live keyframes and component controls',
   ],
   ['Pc', 'Done: the canvas backend (minimal), brought forward from P10'],
-  ['P6', 'Text'],
-  ['P7', 'Layout'],
+  ['P6', 'Text, on the browser (shaping, FontFace, DOM-backed input)'],
+  ['P7', 'Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit'],
   ['P8', 'Rigging'],
-  ['P9', 'Scripting'],
-  ['P10', 'GPU effects and the canvas/WebGL renderer'],
+  ['P9', "Scripting — won't do (owner triage, 2026-11-07)"],
+  ['P10', 'GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07)'],
 ];
 
 /** Phases whose rows are all done. */
@@ -206,7 +206,8 @@ export function matrixMd(rows: Row[]): string {
     '',
     "Statuses: **done** (specified and implemented) · **spec'd** (specified or reserved, not implemented) ·",
     '**planned** (scheduled in a phase) · **deferred** (planned, cannot be designed yet) · **maybe-later**',
-    '(inventoried, kept possible, not scheduled) · **wont-do** (conflicts with the project guardrails).',
+    '(inventoried, kept possible, not scheduled) · **wont-do** (conflicts with the project guardrails, or out of',
+    "scope by the owner's triage of 2026-11-07).",
     '',
     '## Summary',
     '',
@@ -219,6 +220,15 @@ export function matrixMd(rows: Row[]): string {
   }
   lines.push(
     `| **Total** | **${rows.length}** | ${STATUSES.map((s) => `**${st(rows, s)}**`).join(' | ')} |`,
+    '',
+  );
+  // Progress is measured against the in-scope rows (owner, 2026-11-07): everything except
+  // maybe-later and won't-do. The full-matrix figure stays next to it.
+  const done = st(rows, 'done');
+  const inScope = count(rows, (r) => !['maybe-later', 'wont-do'].includes(r.anima.status));
+  lines.push(
+    `**Progress:** ${done} of ${inScope} in-scope capabilities done (${Math.round((100 * done) / inScope)} %); ` +
+      `${done} of ${rows.length} in the full matrix (${Math.round((100 * done) / rows.length)} %).`,
     '',
   );
   lines.push('| Phase | Rows |', '|---|---:|');

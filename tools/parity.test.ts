@@ -17,9 +17,11 @@ describe('docs/parity', () => {
       );
   });
 
-  it('wont-do is used only for guardrail conflicts', () => {
+  it('wont-do is used only for guardrail conflicts and owner scope decisions', () => {
+    // Owner, 2026-11-07: scope triage adds owner-decided won't-do rows (scripting, editor tooling,
+    // layout beyond the minimal subset); each still carries its reason.
     const wont = rows.filter((r) => r.anima.status === 'wont-do');
     for (const r of wont)
-      expect(r.anima.reason, r.id).toMatch(/guardrail|\.riv|watermark|account/i);
+      expect(r.anima.reason, r.id).toMatch(/guardrail|\.riv|watermark|account|owner triage/i);
   });
 });
