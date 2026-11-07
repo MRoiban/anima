@@ -116,8 +116,11 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 ### P3b findings → actions
 
 Gate: AniML 4/6 is below Rive (5/6). Both misses are bugs except the one that needs text:
-- **Item 1 (visible labels from data)** needs text, which is P6 by the owner's plan; recorded as a
-  known in-scope gap, not fixed in P3b. The settings card is rerun after P6.
+- **Item 1 (visible labels from data): owner-accepted gap, not a regression** (owner, 2026-11-07).
+  It needs text, which is P6; a quick label in P3b would be thrown away or settle text design before
+  the P6 design, and add bytes to full modules. The settings card is rerun after P6 (a P6 exit
+  criterion), so the P6 benchmark covers text bound to data. The AniML rerun before the P3b PR must
+  reach at least 5/6, item 1 being the only miss.
 - **Item 3 (spoken value)**: add a slider value text separate from the numeric value (P3b-10), then
   rerun AniML before the PR merges.
 - **Discoverability** (P3b-10): `docs a11y` / `docs a11y-dom` topics and `docs --list`; `schema a11y`

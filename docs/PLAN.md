@@ -337,6 +337,9 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       native field over the drawn text, caret and selection drawn from the native selection);
       build-time subsetting, Google Fonts import, text to outlines. The design records how the CLI
       renders text without a browser. Separate modules (text, text effects, text input, fonts).
+      **Exit criterion (owner, 2026-11-07):** rerun the P3b settings-card benchmark; its item 1 (visible
+      labels bound to data, an owner-accepted P3b gap) must be met, so the P6 benchmark covers text
+      bound to data.
       **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
       which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
 - [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner): hug content, padding/gaps, min/max, fixed sizes,
