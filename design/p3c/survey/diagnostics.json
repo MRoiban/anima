@@ -1,0 +1,127 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "owner": "paint",
+      "files": ["modules/paint/core/index.ts"],
+      "bytes": 109782,
+      "saving": 189
+    },
+    {
+      "owner": "composite",
+      "files": ["modules/composite/core/index.ts"],
+      "bytes": 109876,
+      "saving": 95
+    },
+    {
+      "owner": "bind",
+      "files": ["modules/bind/core/index.ts"],
+      "bytes": 109962,
+      "saving": 9
+    },
+    {
+      "owner": "surface",
+      "files": ["modules/surface/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "components",
+      "files": ["modules/components/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "input",
+      "files": ["modules/input/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "motion",
+      "files": ["modules/motion/core/index.ts"],
+      "bytes": 109964,
+      "saving": 7
+    },
+    {
+      "owner": "events",
+      "files": ["modules/events/core/index.ts"],
+      "bytes": 109775,
+      "saving": 196
+    },
+    {
+      "owner": "machine",
+      "files": ["modules/machine/core/index.ts"],
+      "bytes": 109789,
+      "saving": 182
+    },
+    {
+      "owner": "contour",
+      "files": ["modules/contour/core/effects.ts", "modules/contour/core/index.ts"],
+      "bytes": 109746,
+      "saving": 225
+    },
+    {
+      "owner": "data",
+      "files": ["modules/data/core/bindings.ts", "modules/data/core/compile.ts"],
+      "bytes": 109829,
+      "saving": 142
+    },
+    {
+      "owner": "convert",
+      "files": [
+        "modules/convert/core/converters.ts",
+        "modules/convert/core/index.ts",
+        "modules/convert/core/types.ts"
+      ],
+      "bytes": 109582,
+      "saving": 389
+    },
+    {
+      "owner": "derive",
+      "files": ["modules/derive/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "data-host",
+      "files": ["modules/data-host/core/index.ts"],
+      "bytes": 109953,
+      "saving": 18
+    },
+    {
+      "owner": "lists",
+      "files": ["modules/lists/core/context.ts", "modules/lists/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "a11y",
+      "files": ["modules/a11y/core/validate.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "nested",
+      "files": ["modules/nested/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "mix",
+      "files": ["modules/mix/core/index.ts"],
+      "bytes": 109945,
+      "saving": 26
+    },
+    {
+      "owner": "componentpaint",
+      "files": ["modules/componentpaint/core/index.ts"],
+      "bytes": 109966,
+      "saving": 5
+    },
+    {
+      "owner": "combined",
+      "bytes": 108403
+    }
+  ]
+}

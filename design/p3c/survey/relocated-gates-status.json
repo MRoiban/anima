@@ -1,0 +1,4 @@
+{
+  "status": 1,
+  "stderr": "markup: 12046 B min+gzip incremental (budget 8192 B) — over\npaint-sampling: 1083 B min+gzip over web+paint (budget 1024 B) — over\n"
+}

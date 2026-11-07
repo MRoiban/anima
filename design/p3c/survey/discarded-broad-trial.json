@@ -1,0 +1,13 @@
+{
+  "status": "discarded as a ticket estimate",
+  "reason": "The initial combined guard sweep included core/web and authoring files as well as the intended runtime module owners. The corrected combined sweep is restricted to runtime module owners.",
+  "observed": {
+    "coreWeb": 20615,
+    "runtimeSum": 108340,
+    "authoringAddon": 11950,
+    "a11yDelta": 2049,
+    "a11yBudget": 2048,
+    "sizeExitCode": 1
+  },
+  "finding": "No-growth and per-module budgets must be checked even for reductions in the union: subtracting a changed base can increase a module delta. No source changes from this trial are retained."
+}

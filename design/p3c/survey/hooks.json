@@ -1,0 +1,75 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "owner": "paint",
+      "files": ["modules/paint/web/index.ts"],
+      "bytes": 110386,
+      "saving": -415
+    },
+    {
+      "owner": "surface",
+      "files": ["modules/surface/web/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "components",
+      "files": ["modules/components/web/index.ts"],
+      "bytes": 109246,
+      "saving": 725
+    },
+    {
+      "owner": "bind",
+      "files": ["modules/bind/web/index.ts"],
+      "bytes": 109838,
+      "saving": 133
+    },
+    {
+      "owner": "convert",
+      "files": ["modules/convert/web/index.ts"],
+      "bytes": 109685,
+      "saving": 286
+    },
+    {
+      "owner": "events",
+      "files": ["modules/events/web/index.ts"],
+      "bytes": 109563,
+      "saving": 408
+    },
+    {
+      "owner": "focus",
+      "files": ["modules/focus/web/index.ts"],
+      "bytes": 109357,
+      "saving": 614
+    },
+    {
+      "owner": "motion",
+      "files": ["modules/motion/web/index.ts"],
+      "bytes": 109370,
+      "saving": 601
+    },
+    {
+      "owner": "data",
+      "files": ["modules/data/web/index.ts"],
+      "bytes": 108550,
+      "saving": 1421
+    },
+    {
+      "owner": "combined",
+      "files": [
+        "modules/bind/web/index.ts",
+        "modules/components/web/index.ts",
+        "modules/convert/web/index.ts",
+        "modules/data/web/index.ts",
+        "modules/events/web/index.ts",
+        "modules/focus/web/index.ts",
+        "modules/motion/web/index.ts",
+        "modules/paint/web/index.ts",
+        "modules/surface/web/index.ts"
+      ],
+      "bytes": 105510,
+      "saving": 4461
+    }
+  ]
+}

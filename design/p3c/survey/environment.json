@@ -1,0 +1,13 @@
+{
+  "head": "24d437e9243028f8955c35084a7eea7e9f7446ed",
+  "node": "v24.22.0",
+  "platform": "linux",
+  "arch": "x64",
+  "measurement": "gzip level 9, original bundle(), original module order, original flags, no property mangling",
+  "sha256": {
+    "tools/size.ts": "f35639f8c729ccdd7047c9743eb7bcf7ea22b9bcd92cb355a4151bd273d555b1",
+    "tools/browser-build.ts": "545dc41cb99177503fe4257ad4c2f7176c34ffd48d0f8c72f12c838cd57ace36",
+    "tools/modules.generated.ts": "1f223ebbab911e38626bd00558e5703d6e295b6d32da6964362a935646170d78",
+    "package-lock.json": "05fd1d6c8dddddc9e374a217ee11c9d8148bb6d137e1130ed8f822bc80e0d0db"
+  }
+}
