@@ -1,0 +1,11 @@
+{
+  "backgrounds": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 3,
+      "height": 1,
+      "color": "#ff0000"
+    }
+  ]
+}

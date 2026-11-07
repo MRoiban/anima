@@ -40,7 +40,8 @@
     "./mix": "./src/modules/mix/index.ts",
     "./componentpaint": "./src/modules/componentpaint/index.ts",
     "./text": "./src/modules/text/index.ts",
-    "./text-host": "./src/modules/text/host.ts"
+    "./text-host": "./src/modules/text/host.ts",
+    "./text-effects": "./src/modules/text-effects/index.ts"
   },
   "files": [
     "src"

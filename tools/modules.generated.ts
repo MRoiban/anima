@@ -47,6 +47,8 @@ export const webEntries = [
   'text',
   'text-host',
   'markup-text',
+  'text-effects',
+  'markup-text-effects',
 ];
 export const webOwners: Record<string, string> = {
   assetio: 'assetio',
@@ -95,6 +97,8 @@ export const webOwners: Record<string, string> = {
   text: 'text',
   'text-host': 'text',
   'markup-text': 'text',
+  'text-effects': 'text-effects',
+  'markup-text-effects': 'text-effects',
 };
 export const moduleBudgets: {
   name: string;
@@ -179,6 +183,8 @@ export const moduleBudgets: {
   { name: 'text', budget: 6144 },
   { name: 'text-host', budget: 1024, over: 'index' },
   { name: 'markup-text', budget: 1024, over: 'markup', authoring: true },
+  { name: 'text-effects', budget: 4096, over: 'text' },
+  { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
 ];
 export const moduleScopes = {
   assetio: {
@@ -852,6 +858,31 @@ export const moduleScopes = {
       'text-vertical-alignment',
       'text-vertical-trim',
       'text-word-break',
+    ],
+  },
+  'text-effects': {
+    tests: [
+      'modules/text-effects/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: [
+      'text-modifier-translation',
+      'text-modifier-rotation',
+      'text-modifier-scale',
+      'text-modifier-opacity',
+      'text-modifier-origin',
+      'text-modifier-variation',
+      'text-modifier-follow-path',
+      'text-range-units',
+      'text-range-falloff',
+      'text-range-easing',
+      'text-range-combine',
+      'text-range-run',
+      'text-background',
+      'text-script-direction',
     ],
   },
   tooling: {

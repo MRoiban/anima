@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-background-negative-tracking" grid="20" requires="text texteffects">
+  <text id="label" background="{&quot;first&quot;:{&quot;color&quot;:&quot;#ff0000&quot;,&quot;radius&quot;:0.2}}">
+    <style id="s" size="1" tracking="-10"/>
+    <run id="first" text="abc" style="s"/>
+  </text>
+</anima>

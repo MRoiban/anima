@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "text-script-direction",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "direction": "rtl",
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

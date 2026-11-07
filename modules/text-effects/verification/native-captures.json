@@ -1,0 +1,80 @@
+[
+  {
+    "name": "text-modifier-translation",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-rotation",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-scale",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-opacity",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-origin",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-variation",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-range-units",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-range-falloff",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-range-combine",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-range-run",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-background",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  },
+  {
+    "name": "text-range-easing",
+    "exit": 0,
+    "capture": true,
+    "runtimeError": false
+  }
+]

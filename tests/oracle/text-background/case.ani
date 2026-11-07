@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "text-background",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "background": {
+        "first": "#ff0000"
+      },
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

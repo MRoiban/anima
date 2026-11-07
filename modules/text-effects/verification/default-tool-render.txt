@@ -1,0 +1,1 @@
+{"code":0,"out":["wrote /tmp/p6-5/final-title-tool.png"],"err":[]}

@@ -25297,6 +25297,198 @@
               "type": "number",
               "minimum": 0
             },
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "units": {
+                    "type": "string",
+                    "enum": [
+                      "glyphs",
+                      "words",
+                      "lines"
+                    ]
+                  },
+                  "falloff": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "ease": {
+                    "type": "string"
+                  },
+                  "combine": {
+                    "type": "string",
+                    "enum": [
+                      "add",
+                      "intersect",
+                      "subtract",
+                      "max",
+                      "replace"
+                    ]
+                  },
+                  "run": {
+                    "type": "string"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "rotate": {
+                    "type": "number"
+                  },
+                  "scaleX": {
+                    "type": "number"
+                  },
+                  "scaleY": {
+                    "type": "number"
+                  },
+                  "opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "amount": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "originX": {
+                    "type": "number"
+                  },
+                  "originY": {
+                    "type": "number"
+                  },
+                  "axes": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[\\x20-\\x7e]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "number"
+                    }
+                  },
+                  "followPath": {
+                    "type": "string"
+                  },
+                  "pathOffset": {
+                    "type": "number"
+                  },
+                  "ranges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "start": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "units": {
+                          "type": "string",
+                          "enum": [
+                            "glyphs",
+                            "words",
+                            "lines"
+                          ]
+                        },
+                        "falloff": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "ease": {
+                          "type": "string"
+                        },
+                        "combine": {
+                          "type": "string",
+                          "enum": [
+                            "add",
+                            "intersect",
+                            "subtract",
+                            "max",
+                            "replace"
+                          ]
+                        },
+                        "run": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "feature": "texteffects"
+            },
+            "background": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "radius": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "texteffects"
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "ltr",
+                "rtl"
+              ],
+              "feature": "texteffects"
+            },
             "focus": {
               "type": "object",
               "properties": {

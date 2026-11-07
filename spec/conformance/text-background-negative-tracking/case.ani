@@ -1,0 +1,31 @@
+{
+  "anima": "0.1",
+  "name": "text-background-negative-tracking",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "background": {
+        "first": {
+          "color": "#ff0000",
+          "radius": 0.2
+        }
+      },
+      "styles": {
+        "s": {
+          "size": 1,
+          "tracking": -10
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abc",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

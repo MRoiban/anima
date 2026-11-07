@@ -1,0 +1,3 @@
+index 21136
+text 27189
+text-effects 30550

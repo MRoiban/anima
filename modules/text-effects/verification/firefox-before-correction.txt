@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fbf935b6
+
+ ❯ |browser| modules/text-effects/test/web/effects.test.ts (4 tests | 1 failed | 2 skipped) 54015ms
+   × Firefox effects text→text-effects→canvas: SVG/canvas transforms, opacity, auto direction and retained animation 30032ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text-effects/test/web/effects.test.ts > Firefox effects text→text-effects→canvas: SVG/canvas transforms, opacity, auto direction and retained animation
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text-effects/test/web/effects.test.ts:28:43
+     26|     ['text-effects', 'canvas', 'text'],
+     27|   ])
+     28|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     29|       `${name} effects ${order.join('→')}: SVG/canvas transforms, opac…
+     30|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 2 skipped (4)
+   Start at  21:45:04
+   Duration  60.30s (tests 91%, import 8%, transform 1%)

@@ -1,0 +1,180 @@
+{
+  "branch": "t3/implement-p6-5",
+  "base": "777c0a5d",
+  "status": "partial; final broad leaves one unresolved deadline failure after isolated retry",
+  "rowsClosed": [],
+  "rowsPlanned": [
+    "text.background",
+    "text.modifier-follow-path",
+    "text.modifier-opacity",
+    "text.modifier-origin",
+    "text.modifier-rotation",
+    "text.modifier-scale",
+    "text.modifier-translation",
+    "text.modifier-variation",
+    "text.range-combine",
+    "text.range-easing",
+    "text.range-falloff",
+    "text.range-run",
+    "text.range-units",
+    "text.script-direction"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:scope -- text-effects --browser=chromium",
+      "exit": 0,
+      "passed": 2929,
+      "filtered": 550,
+      "conformanceCases": 15
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run --project unit modules/text-effects/test/core",
+      "exit": 0,
+      "passed": 36
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run --project browser modules/text-effects/test/web/effects.test.ts -t Firefox",
+      "exit": 0,
+      "passed": 2,
+      "filtered": 2,
+      "earlierRun": {
+        "passed": 1,
+        "timeouts": 1,
+        "limitMs": 30000
+      }
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+      "exit": 1,
+      "passed": 8779,
+      "failed": 2,
+      "todo": 102,
+      "passedFiles": 274,
+      "failedFiles": 2,
+      "skippedFiles": 13,
+      "engines": ["chromium", "firefox"],
+      "failures": [
+        "module-order 30000ms timeout (persists isolated)",
+        "base Chromium offscreen navigation4000ms timeout (passes isolated)"
+      ]
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx tsc -p packages/core/test; npx tsc -p packages/web/test",
+      "exit": 0
+    },
+    {
+      "command": "npx eslint modules/text-effects modules/text/core/svg.ts tools/new-capability.ts packages/markup/test/{compile,corpus,decompile}.test.ts",
+      "exit": 0
+    },
+    {
+      "command": "node tools/modules.ts --check",
+      "exit": 0
+    },
+    {
+      "command": "npm run gen; node tools/parity.ts --check; node tools/build-animl.ts --check; node tools/build-web.ts --check",
+      "exit": 0
+    },
+    {
+      "command": "npx prettier --check (all owned/changed supported sources, goldens and metadata)",
+      "exit": 0
+    },
+    {
+      "command": "node tools/size.ts",
+      "exit": 0
+    },
+    {
+      "command": "node tools/oracle.ts --strict",
+      "exit": 0,
+      "acceptedCases": 266,
+      "acceptedSamples": 475,
+      "newRawCaptures": 13,
+      "newRawCapturesAccepted": false
+    },
+    {
+      "command": "node tools/perf.ts",
+      "exit": 0,
+      "controlledThreePercentComparison": "unverified under shared load"
+    },
+    {
+      "command": "direct fresh-process module-order helper, 12 orders",
+      "exit": 0,
+      "equalHashes": 12,
+      "elapsedMs": 51005.89,
+      "unitDeadlineMs": 30000,
+      "unitDeadlinePassed": false
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run --project browser modules/text-effects/test/web/effects.test.ts",
+      "exit": 0,
+      "passed": 4,
+      "engines": ["chromium", "firefox"],
+      "lateTextAfterLoad": true
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run --project unit packages/core/test/module-order.test.ts",
+      "exit": 1,
+      "failed": 1,
+      "reason": "30000ms timeout; no deadline relaxation"
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run --project browser packages/web/test/browser.test.ts -t Chromium.*pauses off-screen mid-ring",
+      "exit": 0,
+      "passed": 1,
+      "filtered": 79
+    }
+  ],
+  "bidi": {
+    "with": 30550,
+    "without": 30400,
+    "delta": 150,
+    "limit": 150,
+    "method": "same terse esbuild/terser/gzip options with source variants supplied virtually, no measurement-tool/input/threshold edits"
+  },
+  "sizes": {
+    "text": [6053, 6053, 6144],
+    "text-effects-over-text": [0, 3361, 4096],
+    "markup-text-effects-over-markup-text": [0, 0, 256]
+  },
+  "gates": {
+    "core+web": [21136, 21136, 24576],
+    "largest-scene": [53201, 53201, 65536],
+    "app-UI-fixed-set": [94068, 94068, 131072],
+    "runtime-sum": [113443, 116653, 163840],
+    "authoring": [15226, 15226, 16384],
+    "heavy": [119089, 122306, 256000]
+  },
+  "limitations": [
+    "Native raw layout/pivot/falloff differences need resolution and accepted oracle manifest registration.",
+    "Direction has no authorable native override; skip rationale awaits owner review.",
+    "Canvas arbitrary variation axes are incomplete; wght uses font weight.",
+    "Controlled performance comparison is unverified.",
+    "Final module-order test exceeds unchanged30000ms deadline in broad and isolated runs; direct semantic comparison is recorded separately, not promoted to a passing timed test."
+  ],
+  "developmentFailures": [
+    "Missing tooling packages restored with npm ci.",
+    "Scaffolder rejected hyphenated module folder; minimal seam plus predeclared manifest fixed it.",
+    "Initial structural/numeric tests exposed missing generated AniML artifacts, test API mistakes, attribute alias collision and independent decompile recovery gaps; corrected without relaxing assertions.",
+    "Initial native packed flag attributes were inert (inspect mask0); boolean authoring flags corrected and inspected (translation mask4), recaptured.",
+    "Native screenshot folder and command cwd mistakes corrected; no generated binaries read or committed.",
+    "First broad8767pass/6fail/102TODO: real companion-before-text registration crash fixed using deferred entries. Five other failures were timers; two browser retries pass, first scaffolder/pivot retries still time out. Second runtime-frozen broad run active.",
+    "Negative tracking produced backgroundwidth\u221217: failing regression captured, fixed using union of glyph advance intervals; added a15th conformance probe and corpus546. Owner text budget update then removed all text edits; focused2929pass and both-engine4/4pass include a late text bundle after load. An intermediate no-seam source had an extra brace and unguarded non-text backend dispatch; corrected before final variant, native-canvas6/6pass."
+  ],
+  "ownerBudgetUpdate": {
+    "integrationText": 6142,
+    "textSourceEdits": false,
+    "localTextBefore": 6053,
+    "localTextAfter": 6053,
+    "p6Merged": false,
+    "approach": "own companion SVG backend and post-draw subtree adapter; base text and canvas sources unchanged"
+  },
+  "finalApiCleanup": {
+    "change": "pathSampler stays internal, no public re-export",
+    "coreCliPassed": 36,
+    "indexTextEffectsBundlesByteIdentical": true,
+    "evidence": "bundle-proof.json"
+  }
+}
