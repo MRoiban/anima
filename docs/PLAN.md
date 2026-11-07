@@ -354,6 +354,30 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       BF-2 evidence: `modules/a11y-dom/BF2-REPORT.md`; B2 trigger-button failure and B7
       visible paint at default opacity did not reproduce on the current branch; retained
       regression scenes document these distinctions and the decided overlay policy.
+      Second report (2026-11-07, anima-kit.mc2.onl, built on p3c; `anima-kit` 3ee3000, read-only).
+      Duplicates closed: finding 8 square host = B8 (fixed on p6); "activate unreliable without
+      focus" = B2 (BF-4 re-runs the kit's own case); "overlay magnifies range thumbs" = B7 (BF-4
+      re-checks at the kit's scale).
+      - [ ] B9 (perf, BF-3) `icon.load(doc)` recompiles the whole document per host (~55 ms per
+            100–200 KB doc; 92 hosts 5.1 s): compile once per document, choose the root per host.
+      - [ ] B10 (crash, BF-3) a model compiled for root A loaded with `component="B"` throws
+            `anima: pop` from `Player.fire`: work with the root chosen at load, or a clear diagnostic.
+      - [ ] B11 (BF-3) off-screen hosts show model defaults on their first visible frame after
+            data writes made off screen: apply pending data and step once before the first paint.
+      - [ ] B12 (BF-3) on a settled host a data write updates a derived bool but the guarded layer
+            changes state only on the next write (one-step lag).
+      - [ ] B13 (BF-3) `unknown-feature at /requires/N` doesn't name the module to import.
+      - [ ] B14 (BF-4) `rect corners` draws quadratic corners, not circular arcs (≠ `rx`, CSS).
+      - [ ] B15 (BF-4) every radio overlay is a tab stop; a radio group must be one tab stop with
+            roving arrows (APG).
+      - [ ] B16 (BF-4) host/overlay stops key and pointer events from bubbling to page listeners.
+      - [ ] B17 (BF-4) role vocabulary lacks progressbar, meter, status and a controls relation
+            (dialog modal and expanded exist: check discoverability).
+      - [ ] B18 (BF-4, docs) animating a bound value with easing: the interpolate converter
+            (`data.interpolate-number`) exists but the kit didn't find it; recipe in the authoring
+            guide and `anima docs`, verified on a geometry bind.
+      - [ ] B19 (BF-4) "write into data paths is broken": no details in the report; reproduce
+            listener/`input.write-*` writes into data paths, or report not reproduced.
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
