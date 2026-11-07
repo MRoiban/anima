@@ -37,3 +37,7 @@ import './text.ts';
 import './text-effects.ts';
 import './text-hit.ts';
 import './text-host.ts';
+import './text-input.ts';
+import './text-input-canvas.ts';
+import './text-input-clipboard.ts';
+import './text-input-svg.ts';

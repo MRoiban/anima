@@ -176,6 +176,21 @@ function recover(root: Element): Obj {
     }
     for (const child of elements(e)) {
       const a = attrs(child);
+      // seam(P6-6): independently recover field attribute names and primitive types.
+      if (child.name === 'text-input') {
+        const field = base(child);
+        for (const [key, value] of Object.entries(a)) {
+          const jsonKey = key.replace(/-([a-z])/g, (_match, letter: string) =>
+            letter.toUpperCase(),
+          );
+          field[jsonKey] = ['editable', 'multiline', 'obscured', 'selectOnFocus'].includes(jsonKey)
+            ? value === 'true'
+            : ['maxLength', 'maxLines', 'selectionRadius'].includes(jsonKey)
+              ? Number(value)
+              : value;
+        }
+        o.textInput = field;
+      }
       if (child.name === 'focus') {
         const focus = base(child);
         for (const [key, value] of Object.entries(a)) {
@@ -583,6 +598,8 @@ function check(source: string | object) {
       // seam(P6-5): registry-defined structural text modifiers.
       'text-effect',
       'text-range',
+      // seam(P6-6): new registry-owned field child.
+      'text-input',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

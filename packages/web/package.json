@@ -56,7 +56,12 @@
     "./markup-text": "./src/markup-text.ts",
     "./text-effects": "./src/text-effects.ts",
     "./texteffects": "./src/texteffects.ts",
-    "./markup-text-effects": "./src/markup-text-effects.ts"
+    "./markup-text-effects": "./src/markup-text-effects.ts",
+    "./text-input": "./src/text-input.ts",
+    "./text-input-svg": "./src/text-input-svg.ts",
+    "./text-input-clipboard": "./src/text-input-clipboard.ts",
+    "./text-input-canvas": "./src/text-input-canvas.ts",
+    "./markup-text-input": "./src/markup-text-input.ts"
   },
   "files": [
     "src"

@@ -50,6 +50,8 @@ import { text } from '../../../modules/text/core/index.ts';
 import { textSVG } from '../../../modules/text/core/svg.ts';
 import { textEffects } from '../../../modules/text-effects/core/index.ts';
 import { textEffectsSVG } from '../../../modules/text-effects/core/svg.ts';
+import { textinput } from '../../../modules/text-input/core/index.ts';
+import { textinputSVG } from '../../../modules/text-input/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -99,4 +101,6 @@ if (VERBOSE) {
   registerSVGBackend('text', textSVG);
   registerModule(textEffects);
   registerSVGBackend('text-effects', textEffectsSVG);
+  registerModule(textinput);
+  registerSVGBackend('text-input', textinputSVG);
 }

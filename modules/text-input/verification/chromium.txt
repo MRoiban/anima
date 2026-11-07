@@ -1,0 +1,23 @@
+
+> test:scope
+> node tools/test-scope.ts text-input --browser=chromium
+
+Scopes: text-input
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  cases: ^conformance > (a11y-role-text-field|a11y-state-multiline|a11y-state-obscured|a11y-text-proxy|host-api-clipboard-text|host-api-text-input|input-text-listener|input-write-text|text-input-clipboard|text-input-cursor|text-input-editable|text-input-focus-selection|text-input-ime|text-input-limits|text-input-multiline|text-input-obscured|text-input-placeholder|text-input-selection|text-input-selection-rounding|text-input-text)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0ee9ff41
+
+
+ Test Files  8 passed (8)
+      Tests  2918 passed | 557 skipped (3475)
+   Start at  23:13:32
+   Duration  27.77s (tests 71%, import 23%, transform 6%)

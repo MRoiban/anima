@@ -3,6 +3,9 @@ import type { Player } from '../../../packages/core/src/player.ts';
 import type { Snapshot } from '../../../packages/core/src/script.ts';
 import type { SemanticNode } from './types.ts';
 import { flat } from './tree.ts';
+import { modules } from '../../../packages/core/src/modules.ts';
+import type { textinput as TextInput } from '../../text-input/core/index.ts';
+type TextInputModule = typeof TextInput;
 const spaceDown = new WeakMap<Player, string>();
 export function semanticCommand(
   p: Player,
@@ -12,6 +15,32 @@ export function semanticCommand(
   step: (dt: number) => void,
   snapshot: () => Snapshot,
 ): boolean {
+  if (['type', 'compose', 'select'].includes(command)) {
+    const module = modules.get('textinput') as TextInputModule | undefined;
+    const id = p.focused;
+    const field = id && module?.field(p, id);
+    if (!module || !id || !field) throw Error('text command needs a focused text field');
+    if (command === 'select') {
+      if (args.length !== 2 || args.some((a) => !/^\d+$/.test(a)))
+        throw Error('use select <start> <end> (UTF-16 offsets)');
+      module.select(p, id, Number(args[0]), Number(args[1]));
+    } else {
+      if (args.length !== 1) throw Error('use ' + command + ' "text"');
+      let value: string;
+      try {
+        value = JSON.parse(args[0]!);
+      } catch {
+        value = args[0]!;
+      }
+      if (typeof value !== 'string') throw Error('text must be a string');
+      const next = field.value.slice(0, field.start) + value + field.value.slice(field.end);
+      const caret = field.start + value.length;
+      if (command === 'compose') module.edit(p, id, next, caret, caret, true);
+      module.edit(p, id, next, caret, caret);
+    }
+    step(0);
+    return true;
+  }
   // Semantic controls own native keys; the host leaves them out of generic routing.
   // Mirror that routing in tooling, without adding a browser runtime key policy.
   if (command === 'key' && p.focused && p.model.doc.requires?.includes('a11y')) {

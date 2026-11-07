@@ -51,6 +51,11 @@ export const webEntries = [
   'markup-text',
   'text-effects',
   'markup-text-effects',
+  'text-input',
+  'text-input-svg',
+  'text-input-clipboard',
+  'text-input-canvas',
+  'markup-text-input',
 ];
 export const webOwners: Record<string, string> = {
   assetio: 'assetio',
@@ -103,6 +108,11 @@ export const webOwners: Record<string, string> = {
   'markup-text': 'text',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
+  'text-input': 'text-input',
+  'text-input-svg': 'text-input',
+  'text-input-clipboard': 'text-input',
+  'text-input-canvas': 'text-input',
+  'markup-text-input': 'text-input',
 };
 export const moduleBudgets: {
   name: string;
@@ -191,6 +201,11 @@ export const moduleBudgets: {
   { name: 'markup-text', budget: 1024, over: 'markup', authoring: true },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
+  { name: 'text-input', budget: 4096, heavy: true },
+  { name: 'text-input-svg', budget: 512, over: 'text-input', heavy: true },
+  { name: 'text-input-clipboard', budget: 512, over: 'text-input', heavy: true },
+  { name: 'text-input-canvas', budget: 256, over: 'text-input', heavy: true },
+  { name: 'markup-text-input', budget: 192, over: 'markup', authoring: true },
 ];
 export const moduleScopes = {
   assetio: {
@@ -892,6 +907,37 @@ export const moduleScopes = {
       'text-range-run',
       'text-background',
       'text-script-direction',
+    ],
+  },
+  'text-input': {
+    tests: [
+      'modules/text-input/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: [
+      'text-input-text',
+      'text-input-editable',
+      'text-input-cursor',
+      'text-input-selection',
+      'text-input-selection-rounding',
+      'text-input-focus-selection',
+      'text-input-ime',
+      'text-input-clipboard',
+      'text-input-limits',
+      'text-input-multiline',
+      'text-input-obscured',
+      'text-input-placeholder',
+      'host-api-text-input',
+      'host-api-clipboard-text',
+      'input-text-listener',
+      'input-write-text',
+      'a11y-role-text-field',
+      'a11y-state-multiline',
+      'a11y-state-obscured',
+      'a11y-text-proxy',
     ],
   },
   tooling: {

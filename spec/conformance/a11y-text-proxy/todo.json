@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "DOM-only host/proxy behavior is browser-tested; independent standalone headless conformance remains outstanding"
+}

@@ -1,0 +1,3 @@
+focus target q
+type "data"
+snapshot --semantics $query

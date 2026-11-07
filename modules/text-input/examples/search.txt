@@ -1,0 +1,6 @@
+focus target search
+type "Pear"
+snapshot --semantics $query $count $summary item0.collapsed item1.collapsed item2.collapsed item3.collapsed item4.collapsed
+select 0 4
+compose "Apple"
+snapshot --semantics $query $count $summary

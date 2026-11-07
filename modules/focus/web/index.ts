@@ -94,7 +94,12 @@ function attach(icon: AnimaIcon) {
   listen('anima:load', build);
   listen('anima:overlay', build);
   listen('pointerdown', (event) => {
-    if (icon.player?.focused) event.preventDefault();
+    // seam(P6-6): native fields own pointer defaults while editing.
+    if (
+      icon.player?.focused &&
+      !(event.composedPath()[0] as Element)?.hasAttribute?.('data-semantic')
+    )
+      event.preventDefault();
   });
   listen('focus', () => {
     const p = icon.player;
