@@ -84,9 +84,12 @@ interface Glyph extends Cluster {
   lineHeight: number;
   breakAfter: boolean;
 }
+export const textSizing = (input: Pick<LayoutInput, 'sizing' | 'width' | 'height'>) =>
+  input.sizing ??
+  (input.width !== undefined && input.height !== undefined ? 'fixed' : 'auto-width');
 /** One pure algorithm shared by browser and tooling. No system font assumptions. */
 export function layoutText(input: LayoutInput): TextLayout {
-  const sizing = input.sizing ?? 'auto-width';
+  const sizing = textSizing(input);
   const limit = sizing === 'auto-width' ? Infinity : (input.width ?? Infinity);
   const boxHeight = sizing === 'fixed' ? (input.height ?? Infinity) : Infinity;
   const build = (factor: number): TextLayout & { topTrim: number } => {

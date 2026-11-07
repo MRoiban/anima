@@ -115,3 +115,18 @@ it('rejects interpolation eases on text run strings', () => {
     expect.objectContaining({ code: 'bad-ease', pointer: '/timelines/t/tracks/t.runs.0.text/0/2' }),
   );
 });
+
+it('infers fixed sizing only when both dimensions are present', () => {
+  for (const overflow of ['visible', 'hidden', 'clipped', 'ellipsis', 'fit', 'fit-font-size'])
+    expect(load(doc({ width: 4, height: 4, overflow })).diagnostics).toEqual([]);
+  expect(load(doc({ width: 4, overflow: 'ellipsis' })).diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'text-box',
+      pointer: '/nodes/0/overflow',
+      hint: expect.stringContaining('width and height'),
+    }),
+  );
+  expect(
+    load(doc({ width: 4, height: 4, sizing: 'auto-width', overflow: 'ellipsis' })).diagnostics,
+  ).toContainEqual(expect.objectContaining({ code: 'text-box', pointer: '/nodes/0/overflow' }));
+});

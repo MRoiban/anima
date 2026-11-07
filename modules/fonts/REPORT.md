@@ -1,5 +1,7 @@
 # P6-3 — fonts runtime
 
+P6-4 integration follow-up: [current integration report](P6-4-REPORT.md). This document records the wave-1 delivery.
+
 Implementation complete in the isolated fonts entry; phase parity closure remains open.
 Branch: `t3/runtime-fonts-module` (head recorded in final handoff).
 

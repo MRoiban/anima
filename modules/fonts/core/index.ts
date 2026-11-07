@@ -2,10 +2,16 @@ import type { Module } from '../../../packages/core/src/modules.ts';
 import type { HostData } from '../../host/core/api.ts';
 import { after } from '../manifest.ts';
 export { cssFont, type FontStyle } from './css.ts';
-export const fonts: Module & {
+export interface FontModule extends Module {
+  refreshText?: (player: import('../../../packages/core/src/player.ts').Player) => void;
+  prepareText?: (
+    player: import('../../../packages/core/src/player.ts').Player,
+    input: import('../../text/core/layout.ts').LayoutInput,
+  ) => { revision: number; layout?: import('../../text/core/layout.ts').TextLayout } | undefined;
   accepts?: (face: unknown) => face is object;
   assign?: (api: HostData, path: string, face: object) => Promise<void>;
-} = {
+}
+export const fonts: FontModule = {
   name: 'fonts',
   after: [...after, 'hostedit'],
   entries: [],

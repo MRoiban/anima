@@ -15,6 +15,7 @@ import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
 import { fontRevision } from './measure.ts';
 import {
   layoutText,
+  textSizing,
   styleDefaults,
   type LayoutInput,
   type TextLayout,
@@ -23,6 +24,7 @@ import {
 } from './layout.ts';
 export * from './measure.ts';
 export * from './layout.ts';
+let fonts: import('../../fonts/core/index.ts').FontModule | undefined;
 let data: import('../../data/core/index.ts').DataModule | undefined;
 const cache = new WeakMap<
   Player,
@@ -75,12 +77,13 @@ function textInput(p: Player, i: number): LayoutInput {
 }
 function resolveText(p: Player, i: number) {
   const input = textInput(p, i);
-  const signature = JSON.stringify([fontRevision, input]);
+  const prepared = fonts?.prepareText?.(p, input);
+  const signature = JSON.stringify([fontRevision, prepared?.revision, input]);
   let state = cache.get(p);
   if (!state) cache.set(p, (state = new Map()));
   let value = state.get(i);
   if (!value || value.signature !== signature) {
-    value = { signature, input, layout: layoutText(input) };
+    value = { signature, input, layout: prepared?.layout ?? layoutText(input) };
     state.set(i, value);
   }
   return value;
@@ -127,6 +130,7 @@ export const text: TextModule = {
   input: textInput,
   init(registry, shared) {
     data = registry.get('data') as typeof data;
+    fonts = registry.get('fonts') as typeof fonts;
     if (data) {
       const models = ((shared.DOC as ObjShape).p.data as ObjShape).p.models as Extract<
         Shape,
@@ -197,11 +201,12 @@ export const text: TextModule = {
             d.list.splice(j, 1);
       const r = model.nodes[i]!.raw,
         at = nodePointer(model, i);
+      const sizing = textSizing(r);
       const error = (key: string, code: string, message: string, hint: string) =>
         d.err(code, at + '/' + key, V && message, V && hint);
       if (
-        (r.sizing === 'fixed' && (r.width === undefined || r.height === undefined)) ||
-        (r.sizing === 'auto-height' && r.width === undefined)
+        (sizing === 'fixed' && (r.width === undefined || r.height === undefined)) ||
+        (sizing === 'auto-height' && r.width === undefined)
       )
         error(
           'sizing',
@@ -209,12 +214,12 @@ export const text: TextModule = {
           'sizing needs box dimensions',
           'set width and height for fixed; width for auto-height',
         );
-      if (r.overflow && r.overflow !== 'visible' && r.sizing !== 'fixed')
+      if (r.overflow && r.overflow !== 'visible' && sizing !== 'fixed')
         error(
           'overflow',
           'text-box',
           'overflow needs a fixed box',
-          'use sizing="fixed" with width and height',
+          'set width and height, or use sizing="fixed" with both dimensions',
         );
       if (
         typeof r.runs === 'string' &&

@@ -160,3 +160,15 @@ it('fits the trimmed baseline distance and ignores empty fitting dimensions', ()
   expect(baseline.scale).toBe(1);
   expect(box('', { width: 0.1, height: 2, overflow: 'fit' }).scale).toBe(1);
 });
+
+it('infers a fixed box from dimensions in the pure layout API', () => {
+  const input = {
+    runs: [{ text: 'abcdefgh' }],
+    styles: {},
+    width: 3,
+    height: 2,
+    overflow: 'ellipsis' as const,
+  };
+  expect(layoutText(input)).toEqual(layoutText({ ...input, sizing: 'fixed' }));
+  expect(layoutText({ ...input, height: undefined, overflow: 'visible' }).width).toBe(8);
+});

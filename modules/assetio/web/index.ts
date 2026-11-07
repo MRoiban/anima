@@ -88,7 +88,12 @@ Icon.loadAssets = async (icon, model) => {
   };
   await load(model);
   const own = initialize(seen);
-  return prior ? (player) => own(player) || prior(player) : own;
+  return prior
+    ? (player) => {
+        const initialized = own(player);
+        return prior(player) || initialized;
+      }
+    : own;
 };
 // A separate closure captures only catalogs; cached initializers must not retain a host element.
 function initialize(records: Map<object, Record<string, Asset>>): (player: Player) => boolean {

@@ -37,6 +37,7 @@
     "./data-host": "./src/data-host.ts",
     "./host-edit": "./src/host-edit.ts",
     "./fonts": "./src/fonts.ts",
+    "./fonts-text": "./src/fonts-text.ts",
     "./lists": "./src/lists.ts",
     "./a11y": "./src/a11y.ts",
     "./markup-a11y": "./src/markup-a11y.ts",

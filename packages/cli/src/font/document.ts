@@ -43,8 +43,10 @@ export function documentCharacters(doc: unknown): string {
     if (typeof value === 'string' && ['text', 'default', 'value', 'placeholder'].includes(key))
       chars.push(value);
     else if (Array.isArray(value)) value.forEach((v) => visit(v, key));
-    else if (value && typeof value === 'object')
+    else if (value && typeof value === 'object') {
+      if ('overflow' in value && value.overflow === 'ellipsis') chars.push('…');
       for (const [k, v] of Object.entries(value)) visit(v, k);
+    }
   };
   visit(doc);
   return chars.join('');

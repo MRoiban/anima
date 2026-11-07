@@ -116,6 +116,7 @@ export class FontController {
     const p = this.icon.player;
     if (p) {
       for (let i = 0; i < p.model.nodes.length; i++) p.drawVersions[i] = ++p.drawRevision;
+      fonts.refreshText?.(p);
       p.onChange?.();
     }
   }
