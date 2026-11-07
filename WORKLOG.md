@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
 State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: running P3c-2 (tooling carry-overs), P3c-4 authoring seam (−4,461), P3c-5/6/7 diagnostic guards (−578/−561/−447) → merge one by one, measure union → runtime carry-overs → budgets reset ~10 %.
+Next: running P3c-6 (visual guards), P3c-8 (7 a11y rows, +350 B allowance), P3c-9 (artboards, computed, devtools; +200 B) → merge → closure → benchmark? (no new brief; rerun settings card optional) → LOG/PLAN → PR (six gates).
 Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
 
 ## Log
@@ -309,3 +309,4 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 14:42 [P3c-4]: final staging audit63files + Prettier + diff whitespace checks pass; all runtime/authoring measurements and failed/passing test evidence committed together; no push/expectation edits/existing-budget changes (evidence: modules/markup/REPORT.md; verification/checks.json).
 - 2026-11-07 [claude]: merged P3c-7 (−463) and P3c-4 (hooks → markup-hooks authoring entry, −4,470): runtime sum 104,441 ≤ 104,472 target; app-UI 85,186; largest scene 51,873; authoring 14,440/15,360 cap; paint-sampling budget 1,024 → 1,216 (decided, owner may revisit: measurement context, source unchanged); survey script lint-exempt; browser+unit scopes 5,573 pass chromium, 3 load/stale-cache failures pass on rerun
 - 2026-11-07 [claude]: budgets reset to ~10 % headroom (31 entries, ⌈×1.10/64⌉×64, cap 8 KB); markup and surface capped at 8,192 (split before growth); size.ts passes
+- 2026-11-07 [claude]: launched P3c-8 (a11y carry-overs) and P3c-9 (host/data/devtools carry-overs) with runtime-sum allowances +350/+200 B
