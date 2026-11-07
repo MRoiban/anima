@@ -31907,10 +31907,10 @@
       "rive doctor --help"
     ],
     "anima": {
-      "construct": "new: anima doctor",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/environment-doctor",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33115,10 +33115,10 @@
       "rive docs format"
     ],
     "anima": {
-      "construct": "new: anima project with explicit imports",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/multi-file-project",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33238,10 +33238,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima render --compare reference.png",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/pixel-compare",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33310,10 +33310,10 @@
       "rive docs project/rive-yaml"
     ],
     "anima": {
-      "construct": "new: anima project configuration",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/project-configuration",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33334,10 +33334,10 @@
       "rive docs publishing"
     ],
     "anima": {
-      "construct": "new: anima build self-contained web distributable",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
       "status": "planned",
-      "test": "cli/publish-local",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33456,10 +33456,10 @@
       "https://rive.app/docs/editor/exporting/exporting-for-video-and-static-design"
     ],
     "anima": {
-      "construct": "new: Render presets and queue",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/render-presets",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33530,10 +33530,10 @@
       "rive samples --help"
     ],
     "anima": {
-      "construct": "new: anima examples copy",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/sample-projects",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33554,10 +33554,10 @@
       "rive create --help"
     ],
     "anima": {
-      "construct": "new: anima init with AniML, manifest and agent instructions",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
       "status": "planned",
-      "test": "cli/scaffold",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33578,10 +33578,10 @@
       "rive schema --help"
     ],
     "anima": {
-      "construct": "new: anima schema with inherited/animatable/bindable filters",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/schema-lookup",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },
@@ -33604,10 +33604,10 @@
       "rive schema --help"
     ],
     "anima": {
-      "construct": "new: anima schema --search --json",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/schema-search",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
       "phase": "P3b"
     }
   },

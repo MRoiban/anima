@@ -11668,10 +11668,10 @@
   "id": "tooling.environment-doctor",
   "category": "tooling",
   "capability": "Environment diagnostics",
-  "construct": "new: anima doctor",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/environment-doctor",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
@@ -12191,10 +12191,10 @@
   "id": "tooling.multi-file-project",
   "category": "tooling",
   "capability": "Multi-file source project",
-  "construct": "new: anima project with explicit imports",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/multi-file-project",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
@@ -12244,10 +12244,10 @@
   "id": "tooling.pixel-compare",
   "category": "tooling",
   "capability": "Image comparison",
-  "construct": "new: anima render --compare reference.png",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/pixel-compare",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
@@ -12274,20 +12274,20 @@
   "id": "tooling.project-configuration",
   "category": "tooling",
   "capability": "Project configuration",
-  "construct": "new: anima project configuration",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/project-configuration",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.publish-local",
   "category": "tooling",
   "capability": "Runtime export",
-  "construct": "new: anima build self-contained web distributable",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "markup",
   "status": "planned",
-  "test": "cli/publish-local",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
@@ -12338,10 +12338,10 @@
   "id": "tooling.render-presets",
   "category": "tooling",
   "capability": "Render presets and queue",
-  "construct": "new: Render presets and queue",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/render-presets",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
@@ -12370,40 +12370,40 @@
   "id": "tooling.sample-projects",
   "category": "tooling",
   "capability": "Runnable samples",
-  "construct": "new: anima examples copy",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/sample-projects",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.scaffold",
   "category": "tooling",
   "capability": "Project scaffolding",
-  "construct": "new: anima init with AniML, manifest and agent instructions",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "markup",
   "status": "planned",
-  "test": "cli/scaffold",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.schema-lookup",
   "category": "tooling",
   "capability": "Schema property lookup",
-  "construct": "new: anima schema with inherited/animatable/bindable filters",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/schema-lookup",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.schema-search",
   "category": "tooling",
   "capability": "Schema search and discovery",
-  "construct": "new: anima schema --search --json",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/schema-search",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
   "phase": "P3b"
  },
  {

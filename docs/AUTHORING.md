@@ -1244,3 +1244,37 @@ Use the same name to retain the current child, `''` to hide it, or another decla
 that component with default state. The handle uses the ordinary shared host write queue and
 subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
 selected nested player. It is distinct from the component-valued data handle.
+
+## Project defaults and headless tools
+
+Put `anima.json` beside your sources. Set `entry` to your `.animl`, `out` to a local export
+folder, and optionally `sources` to named AniML libraries and `presets` to render defaults.
+Paths resolve relative to the configuration file; commands find the nearest file upward from
+the working directory. A library named `ui` in `sources` is available as `ui:button`, using
+the ordinary library import system. These files remain normal AniML libraries.
+
+For example, a project can use `entry: "main.animl"`, `out: "dist"`, and
+`presets: {"thumb": {"viewport": "64x32", "fit": "contain", "scale": 0.5}}`.
+Run `anima validate`, `anima render --preset thumb -o thumb.png`, or `anima build` from that
+project. Explicit render flags override presets. `anima build --out-dir dist` exports the
+compiled document, embedded assets, a runtime and an HTML page locally.
+
+Start with `anima new my-icon --sample bell` (also `moon` or `progress`). Existing directories
+are protected. Glyph-based `anima new` remains available for your own SVGs.
+
+Use `anima render --component button --viewport 200x100 --fit cover --scale 0.5 -o frame.png`
+for a selected component. Fit choices are `contain`, `cover`, `fill`, `none`; scale is in `(0,1]`.
+A probe such as `--probe '0,0;50,25'` returns RGBA in the **final output pixel coordinates**, so
+the second point in this example is in a 100×50 image. Probes can run without `-o`.
+`anima compare before.png after.png --tolerance 2 -o diff.png` compares all RGBA channels and
+prints maximum/mean differences and pixel counts; exit 1 means the tolerance was exceeded.
+
+`anima render -s interaction.txt --audio out.wav` mixes audio events offline up to the final
+script time. Use `advance` to include the intended playback duration. It requires cached
+Playwright Chromium (or `CHROMIUM_PATH`); missing browsers produce an actionable diagnostic.
+Local and base64 sources are supported; the offline resolver currently handles root audio assets.
+
+Use `anima schema --search 'stroke width'` for ranked registry and diagnostic matches,
+`anima schema rect.width` for one field, `anima inspect --summary` for a static wiring table,
+and `anima doctor --format=json` for Node, browser, cache and module-wiring checks. Doctor reports
+failures with hints and changes no installation or generated files.

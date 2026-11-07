@@ -395,7 +395,7 @@ scope by the owner's triage of 2026-11-07).
 | `tooling.benchmark` | Headless benchmark | new: anima bench | tooling | planned | cli/benchmark |
 | `tooling.data-breakpoints` | Data write breakpoints | new: inspector break-on-change | tooling | planned | cli/data-breakpoints |
 | `tooling.data-debugger` | Live data inspection and editing | new: playground data inspector | tooling | planned | cli/data-debugger |
-| `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |
+| `tooling.environment-doctor` | Environment diagnostics | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
 | `tooling.headless-artboard` | Capture artboard choice | new: anima render --scene | tooling | planned | cli/headless-artboard |
 | `tooling.headless-audio` | Offline audio rendering | new: anima render --audio --rate --channels | tooling | planned | cli/headless-audio |
 | `tooling.headless-command-session` | Persistent headless command session | new: anima session --commands with reload and captures | tooling | planned | cli/headless-command-session |
@@ -414,16 +414,16 @@ scope by the owner's triage of 2026-11-07).
 | `tooling.headless-viewport` | Capture viewport override | new: anima render --viewport WIDTHxHEIGHT | tooling | planned | cli/headless-viewport |
 | `tooling.headless-wheel` | Synthetic wheel and trackpad | new: sample wheel/trackpad commands | tooling | planned | cli/headless-wheel |
 | `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |
-| `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |
-| `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |
+| `tooling.multi-file-project` | Multi-file source project | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.pixel-compare` | Image comparison | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
 | `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |
-| `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |
-| `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |
-| `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |
-| `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |
-| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |
-| `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |
-| `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |
+| `tooling.project-configuration` | Project configuration | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.publish-local` | Runtime export | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | markup | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.render-presets` | Render presets and queue | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.sample-projects` | Runnable samples | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.scaffold` | Project scaffolding | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | markup | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.schema-lookup` | Schema property lookup | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
+| `tooling.schema-search` | Schema search and discovery | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md |
 | `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |
 | `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |
 
