@@ -11,14 +11,14 @@ entry, neither the semantic DOM nor its observers and step wrapper are installed
 
 | Semantic role | Native element / role |
 | --- | --- |
-| button, switch | button; switch has role switch and aria-checked |
+| button, switch, tab | button; switch has role switch and aria-checked |
 | checkbox | input type checkbox; checked=mixed sets indeterminate |
 | radio | input type radio; name is the nearest radio-group id |
 | radio-group | div role radiogroup |
 | slider | input type range with min/max/step and numeric value; valueText sets aria-valuetext independently of numeric value |
 | link | a with href |
 | heading | h1–h6 according to level (default 1) |
-| tab, tab-list, list, list-item | div role tab, tablist, list, listitem |
+| tab-list, list, list-item | div role tablist, list, listitem |
 | group, dialog, alert-dialog, text, img | div role group, dialog, alertdialog, text, img |
 
 Labels use aria-label; hint uses aria-description. Leaf non-input elements also
@@ -28,7 +28,12 @@ Native controls also receive disabled. Missing states remove stale attributes.
 Hidden nodes are absent from the core tree and removed from the DOM with their
 subtrees. Opacity does not remove nodes from the accessibility tree.
 
-Every semantic element is absolutely positioned and transparent. World-grid
+Every semantic element is absolutely positioned, transparent and has
+`pointer-events: none`. Pointer hit testing reaches the drawing and its listeners;
+semantic controls remain focusable and receive keyboard and assistive-technology
+activation dispatched directly on the element. Native range appearance is removed;
+thumbs and tracks have zero size and no border/background in Chromium and Firefox.
+The drawing owns all visible control ink. World-grid
 bounds map through the live SVG screen matrix relative to the host, including
 viewBox origin, fit, alignment and resizing. Nested elements offset their bounds
 by the semantic parent's world origin. For canvas output, the canvas entry exposes an internal `canvasBox(icon, bounds)` adapter to its
@@ -47,11 +52,22 @@ restore the native displayed state. Native keyboard behavior handles buttons,
 checkboxes, radios, ranges and links. Events within the semantic overlay do not
 also trigger root-level keyboard or drawn pointer handlers.
 
+Tabs use native buttons with role tab: Enter activates on key down and Space on
+key up through the same tap action as assistive-technology clicks. Focus alone does
+not select a tab (manual activation). An author can opt into automatic activation
+by adding a node `focus` listener that fires the same selection trigger as
+`a11y.activate` (requires `focus`), for example
+`<listener on="focus" target="week" fire="pickWeek"/>`. Selection triggers can update
+a shared selected-index data value and derive each tab's `selected` state; arrow
+roving and selection remain independent.
+
 Only tab-list supplies keyboard roving: arrows move between enabled direct children,
 wrapping at the edge, Home/End choose the first/last. Current DOM focus takes
 precedence over selection for the one tab stop; otherwise the selected, then first
-child is used. When focus is loaded, its item ordering and sequential traversal
-participate; boundary fallback targets the corresponding tab. Tab navigation is
+child is used. When focus is loaded, its item ordering participates; focusing the chosen tab
+synchronizes logical focus directly without a second traversal. The host input
+capture handler leaves semantic keys to these native controls, so each key has
+one routing owner. Tab navigation is
 left to the browser.
 
 ## Updates and focus

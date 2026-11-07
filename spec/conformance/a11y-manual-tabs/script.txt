@@ -1,0 +1,15 @@
+advance 0
+semantic day focus
+key down ArrowRight
+expect second == false
+key down Enter
+expect second == true
+key up Enter
+key down ArrowLeft
+expect first == false
+key down Space
+expect first == false
+key up Space
+expect first == true
+key down Home
+snapshot first second

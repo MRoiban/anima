@@ -1,0 +1,13 @@
+<anima version="0.1" name="manual-tabs" grid="24" viewBox="0 0 24 7" requires="a11y focus input">
+  <bool name="first"/>
+  <bool name="second"/>
+  <group id="tabs">
+    <a11y role="tab-list" label="View"/>
+    <rect id="day" x0="0" y0="0" width="12" height="7" fill="#123456">
+      <a11y role="tab" label="Day" activate="first" selected="first"/>
+    </rect>
+    <rect id="week" x0="12" y0="0" width="12" height="7" fill="#123456">
+      <a11y role="tab" label="Week" activate="second" selected="second"/>
+    </rect>
+  </group>
+</anima>

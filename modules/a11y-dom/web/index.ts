@@ -39,7 +39,10 @@ function attach(icon: AnimaIcon) {
   const box = document.createElement('span');
   box.style.cssText = 'position:absolute;inset:0;pointer-events:none;transform-origin:0 0';
   let transform = '';
-  icon.shadowRoot!.append(box);
+  const style = document.createElement('style');
+  style.textContent =
+    'input{appearance:none;background:none}input::-webkit-slider-thumb{appearance:none;width:0;height:0}input::-moz-range-thumb,input::-moz-range-track{width:0;height:0;border:0;background:none}';
+  icon.shadowRoot!.append(style, box);
   for (const event of ['keydown', 'keyup', 'pointerdown', 'pointerup', 'pointermove'])
     box.addEventListener(event, (e) => e.stopPropagation());
   const layout = () => {
@@ -82,7 +85,7 @@ function attach(icon: AnimaIcon) {
           const tag =
             n.role === 'heading'
               ? 'h' + (n.level ?? 1)
-              : ['button', 'switch'].includes(n.role)
+              : ['button', 'switch', 'tab'].includes(n.role)
                 ? 'button'
                 : ['checkbox', 'radio', 'slider'].includes(n.role)
                   ? 'input'
@@ -172,7 +175,7 @@ function attach(icon: AnimaIcon) {
                 ? 0
                 : -1;
           const [x, y, w, h] = n.bounds;
-          el.style.cssText = `position:absolute;opacity:0;pointer-events:auto;margin:0;padding:0;border:0;left:${x - origin[0]!}px;top:${y - origin[1]!}px;width:${w}px;height:${h}px`;
+          el.style.cssText = `position:absolute;opacity:0;pointer-events:none;margin:0;padding:0;border:0;left:${x - origin[0]!}px;top:${y - origin[1]!}px;width:${w}px;height:${h}px`;
         }
         if (!el) continue;
         if (parent.children[i] !== el) parent.insertBefore(el, parent.children[i] ?? null);
@@ -208,8 +211,6 @@ function attach(icon: AnimaIcon) {
                   ? enabled.at(-1)
                   : enabled[(at + (reverse ? -1 : 1) + enabled.length) % enabled.length];
             if (target) {
-              if (p.focusTraverse && key.startsWith('Arrow'))
-                p.focusTraverse(reverse ? 'previous' : 'next');
               target.focus();
               update();
             }
@@ -256,6 +257,7 @@ function attach(icon: AnimaIcon) {
     resize.disconnect();
     p.step = step;
     box.remove();
+    style.remove();
     trees.delete(icon);
     attached.delete(icon);
   });

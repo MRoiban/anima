@@ -340,17 +340,20 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       Triage: fixed on `p6` in two bugfix tickets parallel to P6 (BF-1, BF-2), each confirmed first
       with a small scene and then covered by a regression test; none blocks P6.
       - [ ] B1 (high, BF-1) data-bound values (theme colour) don't reach nested component instances.
-      - [ ] B2 (high, BF-2) with `focus` loaded one ArrowRight moves two tabs (two handlers); without
+      - [x] B2 (high, BF-2) with `focus` loaded one ArrowRight moves two tabs (two handlers); without
             `focus`, Enter on an overlay button that fires a trigger does nothing.
-      - [ ] B3 (medium, BF-2) tab overlay elements take focus but Space/Enter don't select the tab.
+      - [x] B3 (medium, BF-2) tab overlay elements take focus but Space/Enter don't select the tab.
       - [ ] B4 (low–medium, BF-1) `data.color(path).set("#rrggbb")` is silently ignored: accept hex
             strings (and diagnose other bad values).
       - [ ] B5 (feature, BF-1) imported library components get generated names (`import-4-switch`):
             keep the original name when it doesn't clash, add a documented lookup, document the scheme.
-      - [ ] B6 (high, BF-2) the a11y overlay blocks pointer input (hover, press, drag) to the drawing.
-      - [ ] B7 (low, BF-2) native slider thumbs on the overlay scale with the drawing (oversized).
-      - [ ] B8 (medium, BF-2) the host element needs a square box: size it to the component's viewBox
-            aspect ratio (nearly free in the web element; P7 keeps fit/alignment).
+      - [x] B6 (high, BF-2) the a11y overlay blocks pointer input (hover, press, drag) to the drawing.
+      - [x] B7 (low, BF-2) native slider thumbs on the overlay scale with the drawing (oversized).
+      - [x] B8 (medium, BF-2) the host element needs a square box: size it to the component's viewBox
+            aspect ratio (SVG default; core+web +13 B; P7 keeps fit/alignment).
+      BF-2 evidence: `modules/a11y-dom/BF2-REPORT.md`; B2 trigger-button failure and B7
+      visible paint at default opacity did not reproduce on the current branch; retained
+      regression scenes document these distinctions and the decided overlay policy.
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,

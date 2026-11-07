@@ -124,7 +124,8 @@ function attach(i: AnimaIcon): void {
     ['keyup', 'up'],
   ] as const)
     listen(type, (e) => {
-      if (!active(i)) return;
+      // Semantic controls own their native keys before the drawn-input capture route.
+      if (!active(i) || (e.composedPath()[0] as HTMLElement)?.hasAttribute('data-semantic')) return;
       if (!config(i).listeners) {
         e.stopImmediatePropagation();
         return;

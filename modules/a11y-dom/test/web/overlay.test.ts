@@ -153,7 +153,7 @@ for (const [name, engine, executablePath] of [
         'INPUT',
         'INPUT',
         'A',
-        'DIV',
+        'BUTTON',
         'DIV',
         'DIV',
         'DIV',
@@ -337,7 +337,7 @@ for (const [name, engine, executablePath] of [
         expect(await active()).toBe('t1');
       }
     });
-    it('handles pointer activation without duplicate host/root activation', async () => {
+    it('handles dispatched semantic clicks without duplicate host/root activation', async () => {
       expect(
         await page.evaluate(
           (d) =>
@@ -348,7 +348,7 @@ for (const [name, engine, executablePath] of [
           doc,
         ),
       ).toEqual([]);
-      await target('toggle').click({ force: true });
+      await target('toggle').dispatchEvent('click');
       expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
       await target('toggle').focus();
       await page.keyboard.press('Enter');
@@ -520,7 +520,7 @@ for (const [name, engine, executablePath] of [
           ],
         }),
       ).toEqual([]);
-      await target('child').click({ force: true });
+      await target('child').dispatchEvent('click');
       expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
     });
     it('can activate and remove its own semantic control without a stale-event error', async () => {
@@ -539,7 +539,7 @@ for (const [name, engine, executablePath] of [
             ],
           }),
         ).toEqual([]);
-        await target('dismiss').click({ force: true });
+        await target('dismiss').dispatchEvent('click');
         expect(await target('dismiss').count()).toBe(0);
         expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
       }

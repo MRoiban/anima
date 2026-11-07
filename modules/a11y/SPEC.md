@@ -116,7 +116,7 @@ one dispatch plus an import; the command implementation is tooling only.
 In scripts, `key down|up <key>` and input-module `key repeat <key>` on a focused
 semantic control take the overlay's native route before generic focus traversal.
 Slider ArrowRight/Up increase, ArrowLeft/Down decrease; Home/End reach the ends.
-Button and switch Enter activate on down; Space activates on release after a down
+Button, switch and tab Enter activate on down; Space activates on release after a down
 on the same control. Checkbox/radio use Space; an already checked radio stays
 checked. Links use Enter. Arrows in a tab-list rove enabled direct tabs, wrapping;
 Home/End choose its first/last tab. Focus order matches the loaded focus module.
@@ -125,7 +125,7 @@ and explicit targets other than the focused node use the generic input route.
 These events are handled once, like overlay events that stop before drawn-node
 key listeners. Other unmodified semantic keys are consumed without generic spatial
 traversal; Tab/Shift+Tab use the focus module, including repeated child tab stops. Key translation lives only in core/commands.ts (tooling); browser
-entries add no key emulation bytes.
+entries use native buttons for tab activation, adding no key emulation bytes.
 
 The derived example `examples/slider-value-text.animl` uses numeric `$volume`
 and read-only `$volumeText` via a template converter to speak "Volume 40 %".
