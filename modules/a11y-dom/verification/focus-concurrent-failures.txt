@@ -1,0 +1,58 @@
+
+> test:scope
+> node tools/test-scope.ts a11y-dom focus
+
+Scopes: a11y-dom, focus
+  unit: modules/focus/test/core/focus.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  cases: ^conformance > (input-focus-clear|input-focus-down|input-focus-edge-closed-loop|input-focus-edge-parent-scope|input-focus-edge-stop|input-focus-enabled|input-focus-left|input-focus-next|input-focus-pointer|input-focus-previous|input-focus-right|input-focus-target|input-focus-target-components|input-focus-traverse|input-focus-up|input-listen-blur|input-listen-focus)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e2b7fcb0
+
+ ❯ |scope-browser| modules/focus/test/web/focus.test.ts (10 tests | 2 failed) 66777ms
+   ❯ focus Chromium (5)
+     × focuses component internals through dotted paths 6239ms
+   ❯ focus Firefox (5)
+     × focuses component internals through dotted paths 10271ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (34 tests | 1 failed) 95041ms
+   ❯ overlay Firefox (17)
+     × attaches after separately bundled focus/actions and an already loaded model 8354ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:370:5
+    368|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    369|     });
+    370|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    371|       await page.close();
+    372|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Chromium > focuses component internals through dotted paths
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Firefox > focuses component internals through dotted paths
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/focus/test/web/focus.test.ts:122:5
+    120|       expect(await active()).toBe('b');
+    121|     });
+    122|     it('focuses component internals through dotted paths', async () =>…
+       |     ^
+    123|       const code = await bundle(new URL('packages/web/src/components.t…
+    124|       await page.addScriptTag({ type: 'module', content: code });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  3 failed | 1032 passed | 432 skipped (1467)
+   Start at  10:31:45
+   Duration  102.96s (tests 84%, import 8%, transform 8%)

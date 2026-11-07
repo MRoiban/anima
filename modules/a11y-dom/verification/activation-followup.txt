@@ -1,0 +1,14 @@
+
+> test:scope
+> node tools/test-scope.ts a11y-dom
+
+Scopes: a11y-dom
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e2b7fcb0
+
+
+ Test Files  1 passed (1)
+      Tests  36 passed (36)
+   Start at  10:48:45
+   Duration  64.73s (tests 98%, import 2%)

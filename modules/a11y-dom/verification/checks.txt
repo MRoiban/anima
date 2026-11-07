@@ -1,0 +1,18 @@
+node tools/modules.ts --check: exit 0, 0 stale
+npm run typecheck: exit 0
+npx eslint modules/a11y-dom modules/focus/web: exit 0
+npx prettier --check <owned source/docs and generated wiring>: exit 0
+node tools/build-web.ts --check: exit 0, 39 entries
+node tools/build-animl.ts --check: exit 0, 486 files (existing pending markers retained)
+npm run gen: exit 0, no schema changes
+node tools/parity.ts: exit 0, 1238 rows, no status changes
+node tools/size.ts: exit 0, all fixed budgets pass
+node tools/oracle.ts --strict: exit 0, 253 completed cases / 449 samples; 23 existing finding records retained; no native captures or measurement inputs changed
+CLI validate mute.animl: exit 0
+CLI sample mute.animl --semantics -e 'semantic mute tap\nsnapshot': exit 0; checked true
+node tools/perf.ts: exit 0 before and after; comparison slower under concurrent machine load, controlled non-regression UNVERIFIED
+git diff --exit-code HEAD -- packages/core/src packages/markup/src 'modules/*/core' tools/perf.ts tools/perf examples/bell.ani examples/composite.ani examples/toolbar.ani examples/toolbar.animl: exit 0, zero bytes diff (perf transitive inputs unchanged)
+VITEST_MAX_WORKERS=1 npm run test:scope -- a11y-dom focus: exit 0, 1039 pass / 0 fail / 432 filtered, including 38 overlay tests in Chromium+Firefox
+VITEST_MAX_WORKERS=1 npm run test:scope -- changed: exit 1, 7536 pass / 1 fail (assets JPEG 5000ms timeout) / 45 existing TODO; began before final activation fixes, final owned scope rechecks them
+VITEST_MAX_WORKERS=1 npx vitest run --project unit modules/assets/test/cli/pipeline.test.ts: exit 0, 19 pass / 0 fail; broad run remains recorded as failed
+npx tsc -p packages/web/test after final test setup change: exit 0

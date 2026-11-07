@@ -1,0 +1,28 @@
+{
+  "anima": "0.1",
+  "name": "mute",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "muted": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "mute",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "fill": {
+        "color": "#000"
+      },
+      "a11y": {
+        "role": "checkbox",
+        "label": "Mute",
+        "checked": "muted",
+        "bounds": [2, 2, 16, 16]
+      }
+    }
+  ]
+}

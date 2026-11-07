@@ -1323,3 +1323,10 @@ before measurement; failed assertions prevent a misleading timing report.
 machine random choices and convert random formulas currently have independent private streams.
 Explicit seeding of a document using either returns a clear script error; no deterministic seed
 control is claimed for those features yet. See spec §11.2 for all commands and limits.
+
+## Accessible node controls in the browser
+
+Import `@anima-format/web/a11y-dom` to render node semantics as transparent native
+controls; add the optional focus module for shared logical/DOM focus and manual
+traversal. See [a11y-dom/AUTHORING.md](../modules/a11y-dom/AUTHORING.md) for the
+JSON/AniML authoring contract, host APIs and `a11y="off"` host-owned policy.

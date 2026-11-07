@@ -35,6 +35,7 @@ export const webEntries = [
   'a11y',
   'markup-a11y',
   'a11y-actions',
+  'a11y-dom',
   'nested',
   'mix',
   'componentpaint',
@@ -72,6 +73,7 @@ export const webOwners: Record<string, string> = {
   a11y: 'a11y',
   'markup-a11y': 'a11y',
   'a11y-actions': 'a11y-actions',
+  'a11y-dom': 'a11y-dom',
   nested: 'nested',
   surface: 'surface',
   'markup-surface': 'surface',
@@ -120,6 +122,7 @@ export const moduleBudgets: {
   { name: 'a11y', budget: 2048 },
   { name: 'markup-a11y', budget: 1024, over: 'index' },
   { name: 'a11y-actions', budget: 1024, over: 'a11y' },
+  { name: 'a11y-dom', budget: 2048, over: 'a11y-actions' },
   { name: 'nested', budget: 5120 },
   { name: 'mix', budget: 5120 },
   { name: 'componentpaint', budget: 5120 },
@@ -650,6 +653,7 @@ export const moduleScopes = {
     tests: ['modules/a11y/test/**/*.test.ts', 'modules/a11y-actions/test/**/*.test.ts'],
     conformance: [],
   },
+  'a11y-dom': { tests: ['modules/a11y-dom/test/**/*.test.ts'], conformance: [] },
   nested: {
     tests: [
       'modules/nested/test/**/*.test.ts',
