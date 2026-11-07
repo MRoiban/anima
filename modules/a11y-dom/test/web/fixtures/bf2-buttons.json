@@ -1,0 +1,60 @@
+{
+  "anima": "0.1",
+  "name": "bf2",
+  "grid": 24,
+  "viewBox": [
+    0,
+    0,
+    24,
+    7
+  ],
+  "requires": [
+    "a11y",
+    "input"
+  ],
+  "nodes": [
+    {
+      "id": "plus",
+      "type": "circle",
+      "center": [
+        20.5,
+        3.5
+      ],
+      "r": 3,
+      "fill": {
+        "color": "#123456"
+      },
+      "a11y": {
+        "role": "button",
+        "label": "Add",
+        "activate": "bump"
+      }
+    },
+    {
+      "id": "toggle",
+      "type": "circle",
+      "center": [
+        3.5,
+        3.5
+      ],
+      "r": 3,
+      "fill": {
+        "color": "#123456"
+      },
+      "a11y": {
+        "role": "button",
+        "label": "Toggle",
+        "activate": "on"
+      }
+    }
+  ],
+  "inputs": {
+    "bump": {
+      "type": "trigger"
+    },
+    "on": {
+      "type": "bool",
+      "default": false
+    }
+  }
+}

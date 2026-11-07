@@ -32,7 +32,8 @@ describe('authored AniML corpus', () => {
     // [P3b-10b] Converter definitions survive repeat model clones.
     // [P3b-10a] spoken slider values, native headless keys and narrower input limits.
     // [P3c-8] Painted-center spatial focus and ancestor exclusion.
-    expect(cases).toHaveLength(493);
+    // [BF-2] Manual tab activation keys.
+    expect(cases).toHaveLength(494);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

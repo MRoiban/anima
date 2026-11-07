@@ -388,6 +388,18 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ## 10. Accessibility and motion
 
+### Web element sizing
+
+The SVG `<anima-icon>` host defaults to a width of `1em` and an automatic height
+with CSS `aspect-ratio` from the loaded model's viewBox width/height. Selecting a
+root `component` uses that component's viewBox. Author CSS width, height and
+aspect-ratio declarations take precedence over these shadow stylesheet defaults;
+setting both dimensions keeps the authored box. Reloading or changing the shown
+component refreshes the default ratio. Fit/alignment control the drawing within
+that box. Legacy square-viewBox grid offsets remain unchanged.
+
+### Semantics and motion
+
 The optional browser semantic overlay, native controls, focus synchronization and
 host tree/diff API are specified in [a11y-dom/SPEC.md](../modules/a11y-dom/SPEC.md).
 It consumes node accessibility; root document `a11y` below is unchanged.

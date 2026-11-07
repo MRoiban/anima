@@ -1,0 +1,42 @@
+{
+  "anima": "0.1",
+  "name": "bf2",
+  "grid": 24,
+  "viewBox": [
+    0,
+    0,
+    24,
+    24
+  ],
+  "requires": [
+    "a11y",
+    "input"
+  ],
+  "nodes": [
+    {
+      "id": "range",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#123456"
+      },
+      "a11y": {
+        "role": "slider",
+        "label": "Level",
+        "value": "level",
+        "step": 5
+      }
+    }
+  ],
+  "inputs": {
+    "level": {
+      "type": "number",
+      "default": 40,
+      "min": 0,
+      "max": 100
+    }
+  }
+}

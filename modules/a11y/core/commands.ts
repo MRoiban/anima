@@ -58,7 +58,7 @@ export function semanticCommand(
         if (target) p.semanticAction(target.id, 'focus');
       }
     } else if (
-      ['button', 'switch', 'checkbox', 'radio', 'link'].includes(node.role) &&
+      ['button', 'switch', 'tab', 'checkbox', 'radio', 'link'].includes(node.role) &&
       (key === ' ' || key === 'Enter')
     ) {
       // Space activates on release; links activate only on Enter, checkbox/radio only Space.

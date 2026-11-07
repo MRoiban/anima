@@ -2454,3 +2454,18 @@ were valid throughout and show no regression in P3b.
 - **Decisions logged as "owner may revisit":** the authoring add-on may grow (cap 15 360 B) when
   authoring code leaves runtime bundles; `paint-sampling` and `devtools` budgets re-measured; the
   four cross-document artboard rows deferred to P7; Rive not rerun when only Anima changed.
+
+
+## BF-2 — downstream keyboard, semantic overlay and SVG sizing
+
+Three-tab regression scenes reproduced duplicate arrow movement: host input capture
+now leaves native semantic keys to the overlay, whose tab roving focuses one target.
+Tabs use native buttons for manual Enter/Space activation, with a matching headless
+conformance case and an automatic-activation authoring recipe. Semantic elements
+pass pointer hit testing through to the drawing and suppress native range parts;
+keyboard and directly dispatched assistive-technology actions remain available.
+The default SVG host uses the shown model's viewBox aspect ratio and preserves
+explicit author dimensions (core+web +13 B). Small scenes also retain the two
+unreproduced report details: trigger buttons already activate without focus, and
+normal opacity already hides range paint. See
+[BF-2 report](../modules/a11y-dom/BF2-REPORT.md) for evidence, limits and gate values.

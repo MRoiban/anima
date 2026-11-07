@@ -1,0 +1,43 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fad971e9
+
+ ❯ |browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 1 failed | 11 skipped) 10911ms
+   ❯ Firefox optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5059ms
+ ❯ |browser| modules/nested/test/web/nested.test.ts (10 tests | 1 failed | 8 skipped) 14925ms
+   ❯ Firefox nested components (5)
+     × swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested 5020ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:42:7
+     40|       ['index', 'nested', 'data', 'bind', 'components'],
+     41|     ])
+     42|       it('swaps live SVG/canvas instances with separate bundles: ' + o…
+       |       ^
+     43|         const page = await browser.newPage();
+     44|         try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 2 passed | 38 skipped (42)
+   Start at  17:31:57
+   Duration  44.82s (tests 85%, import 14%, transform 1%)

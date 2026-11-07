@@ -1,0 +1,190 @@
+
+> test:scope
+> node tools/test-scope.ts a11y-dom
+
+Scopes: a11y-dom
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fad971e9
+
+ ❯ |scope-browser| modules/a11y-dom/test/web/downstream.test.ts (16 tests | 12 failed) 97025ms
+   ❯ [BF-2] downstream Chromium (8)
+     × B2: one ArrowRight moves one tab with input and focus loaded 1308ms
+     × B3: tabs activate manually on Enter/Space with focus=false 675ms
+     × B3: tabs activate manually on Enter/Space with focus=true 875ms
+     × B6: drawing receives hover, press and drag while overlay retains keyboard/AT actions 1632ms
+     × B7: native range parts never paint, even at a large drawing scale 1639ms
+     × B8: document and shown component use viewBox aspect without overriding authored dimensions 499ms
+   ❯ [BF-2] downstream Firefox (8)
+     × B2: one ArrowRight moves one tab with input and focus loaded 9902ms
+     × B3: tabs activate manually on Enter/Space with focus=false 3539ms
+     × B3: tabs activate manually on Enter/Space with focus=true 3033ms
+     × B6: drawing receives hover, press and drag while overlay retains keyboard/AT actions 3185ms
+     × B7: native range parts never paint, even at a large drawing scale 3318ms
+     × B8: document and shown component use viewBox aspect without overriding authored dimensions 3714ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (42 tests | 2 failed) 132928ms
+   ❯ overlay Firefox (21)
+     × maps every role to a real element, with heading levels and state attributes 13235ms
+     × attaches after separately bundled focus/actions and an already loaded model 6345ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B2: one ArrowRight moves one tab with input and focus loaded
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B2: one ArrowRight moves one tab with input and focus loaded
+AssertionError: expected 'tab2' to be 'tab1' // Object.is equality
+
+Expected: "tab1"
+Received: "tab2"
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:90:30
+     88|       await target('tab0').focus();
+     89|       await page.keyboard.press('ArrowRight');
+     90|       expect(await active()).toBe('tab1');
+       |                              ^
+     91|       expect(await page.evaluate(() => document.querySelector('anima-i…
+     92|         'tab1',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B3: tabs activate manually on Enter/Space with focus=false
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B3: tabs activate manually on Enter/Space with focus=false
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:135:38
+    133|         expect(await value('pick1')).toBe(false);
+    134|         await page.keyboard.press('Enter');
+    135|         expect(await value('pick1')).toBe(true);
+       |                                      ^
+    136|         await page.keyboard.press('ArrowRight');
+    137|         expect(await active()).toBe('tab2');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B3: tabs activate manually on Enter/Space with focus=true
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B3: tabs activate manually on Enter/Space with focus=true
+AssertionError: expected 'tab2' to be 'tab1' // Object.is equality
+
+Expected: "tab1"
+Received: "tab2"
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:132:32
+    130|         await target('tab0').focus();
+    131|         await page.keyboard.press('ArrowRight');
+    132|         expect(await active()).toBe('tab1');
+       |                                ^
+    133|         expect(await value('pick1')).toBe(false);
+    134|         await page.keyboard.press('Enter');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B6: drawing receives hover, press and drag while overlay retains keyboard/AT actions
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B6: drawing receives hover, press and drag while overlay retains keyboard/AT actions
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:149:47
+    147|       const box = (await page.locator('anima-icon').boundingBox())!;
+    148|       await page.mouse.move(box.x + 30, box.y + 30);
+    149|       await expect.poll(() => value('hover')).toBe(true);
+       |                                               ^
+    150|       await page.mouse.down();
+    151|       await expect.poll(() => value('pressed')).toBe(true);
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:149:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B7: native range parts never paint, even at a large drawing scale
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B7: native range parts never paint, even at a large drawing scale
+AssertionError: expected [ 255, 255, 255 ] to deeply equal [ 18, 52, 86 ]
+
+- Expected
++ Received
+
+  [
+-   18,
+-   52,
+-   86,
++   255,
++   255,
++   255,
+  ]
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:181:50
+    179|       const png = PNG.sync.read(await page.locator('anima-icon').scree…
+    180|       for (let i = 0; i < png.data.length; i += 4)
+    181|         expect([...png.data.subarray(i, i + 3)]).toEqual([18, 52, 86]);
+       |                                                  ^
+    182|       await target('range').focus();
+    183|       await page.keyboard.press('ArrowRight');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B8: document and shown component use viewBox aspect without overriding authored dimensions
+AssertionError: expected 1 to be close to 3.4285714285714284, received difference is 2.4285714285714284, but expected 0.05
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:191:46
+    189|       const box = () => page.locator('anima-icon').boundingBox();
+    190|       const initial = (await box())!;
+    191|       expect(initial.width / initial.height).toBeCloseTo(24 / 7, 1);
+       |                                              ^
+    192|       await page.evaluate(() => {
+    193|         document.querySelector('anima-icon')!.style.width = '240px';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B8: document and shown component use viewBox aspect without overriding authored dimensions
+AssertionError: expected 1 to be close to 3.4285714285714284, received difference is 2.4285714285714284, but expected 0.05
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:191:46
+    189|       const box = () => page.locator('anima-icon').boundingBox();
+    190|       const initial = (await box())!;
+    191|       expect(initial.width / initial.height).toBeCloseTo(24 / 7, 1);
+       |                                              ^
+    192|       await page.evaluate(() => {
+    193|         document.querySelector('anima-icon')!.style.width = '240px';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > maps every role to a real element, with heading levels and state attributes
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:131:5
+    129|         window.overlayIcon.shadowRoot!.activeElement?.getAttribute('da…
+    130|       );
+    131|     it('maps every role to a real element, with heading levels and sta…
+       |     ^
+    132|       const roles = [
+    133|         'button',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/14]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/14]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  14 failed | 44 passed (58)
+   Start at  16:49:42
+   Duration  136.58s (tests 97%, import 2%, transform 1%)

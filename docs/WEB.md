@@ -43,6 +43,15 @@ shipping any markup compiler. CLI and playground retain every authoring feature.
 The shared registration follows the optional-layer precedent in AniML §9 and the small,
 capability-based runtime guidance in [web runtime research](research/rive-web-runtime.md#lessons-for-anima).
 
+## Sizing
+
+The default SVG host is `1em` wide and uses the document viewBox aspect ratio for
+its automatic height. A selected `component` uses its own viewBox. CSS width,
+height and aspect-ratio override the defaults; setting both dimensions keeps that
+box. For example, a 24×7 stepper with `width: 240px` is 70px high by default.
+Existing grid offsets remain unchanged. Fit and alignment still apply inside the
+host box. The optional canvas renderer retains its own sizing defaults.
+
 ## Attributes
 
 | Attribute | Meaning |
