@@ -1,0 +1,145 @@
+{
+  "anima": "0.1",
+  "name": "reduced-motion-midloop",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "go": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "p0": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.5, "mid"],
+        [1, "end"]
+      ]
+    },
+    "p1": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "skip",
+      "tracks": {
+        "a.y": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.5, "mid"],
+        [1, "end"]
+      ]
+    },
+    "p2": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "play",
+      "tracks": {
+        "a.rotate": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.5, "mid"],
+        [1, "end"]
+      ]
+    },
+    "p3": {
+      "duration": 1,
+      "loop": "once",
+      "reducedMotion": "end",
+      "tracks": {
+        "a.scale": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.5, "mid"],
+        [1, "end"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "p0": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "p0"
+          }
+        }
+      },
+      "p1": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "p1"
+          }
+        }
+      },
+      "p2": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "p2"
+          }
+        }
+      },
+      "p3": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "p3"
+          }
+        }
+      },
+      "fade": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "a.opacity": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "on",
+                "blend": 1,
+                "endActions": {
+                  "emit": "faded"
+                }
+              }
+            ]
+          },
+          "on": {
+            "pose": {
+              "a.opacity": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

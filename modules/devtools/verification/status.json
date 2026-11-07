@@ -1,0 +1,41 @@
+{
+  "typecheck": 0,
+  "core_web_typecheck_after_final_endpoint_fix": 0,
+  "eslint": 0,
+  "prettier": 0,
+  "module_wiring": 0,
+  "parity_views": 0,
+  "build_animl": 0,
+  "build_web": 0,
+  "size": 0,
+  "perf": 0,
+  "strict_oracle": 0,
+  "changed_scope": {
+    "exit": 1,
+    "pass": 4700,
+    "fail": 2,
+    "todo": 42,
+    "reason": "two unchanged scaffolder deadlines; isolated rerun passed"
+  },
+  "isolated_scaffolder": {
+    "exit": 0,
+    "pass": 4
+  },
+  "owned_browsers_final": {
+    "exit": 0,
+    "pass": 6
+  },
+  "full_web_before_final_endpoint_fix": {
+    "exit": 0,
+    "pass": 80
+  },
+  "conformance_libraries_final": {
+    "exit": 0,
+    "pass": 463,
+    "todo": 7
+  },
+  "corpus_cli_source_final": {
+    "exit": 0,
+    "pass": 2274
+  }
+}

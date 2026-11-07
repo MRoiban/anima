@@ -159,8 +159,9 @@ export class Player {
   drawRevision = 0;
   /** Renderer cache; step output and dirty-slot reads do not depend on it. */
   declare drawData?: import('./draw.ts').DrawFrame;
-  /** Reduced motion (spec §10): applies to states entered from now on. */
+  /** Reduced motion (spec §10): re-resolves active play states at the next step. */
   reducedMotion = false;
+  #reduced = false;
   /** Total step time. */
   time = 0;
   // pointer
@@ -173,7 +174,7 @@ export class Player {
   constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
     this.model = model;
     this.drawVersions = model.nodes.map(() => 0);
-    this.reducedMotion = !!opts.reducedMotion;
+    this.#reduced = this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
     const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
     this.#rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
@@ -262,7 +263,12 @@ export class Player {
   }
 
   get busy(): boolean {
-    return this.#queue.length > 0 || !!this.playbackPolicy?.busy || !this.#lastSettled;
+    return (
+      this.#reduced !== this.reducedMotion ||
+      this.#queue.length > 0 ||
+      !!this.playbackPolicy?.busy ||
+      !this.#lastSettled
+    );
   }
 
   /** Current state of each layer. */
@@ -525,6 +531,37 @@ export class Player {
       else this.#action(item, events);
     }
     this.#queue = [];
+    if (this.#reduced !== this.reducedMotion) {
+      this.#reduced = this.reducedMotion;
+      for (const L of this.#layers) {
+        const st = L.m.states[L.state]!;
+        if (this.reducedMotion && L.fade) {
+          L.fade = null;
+          this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this);
+        }
+        if (st.play === undefined) continue;
+        const tl = this.model.timelines[st.play]!;
+        if (this.reducedMotion && tl.reduced !== 'play' && L.frozen < 0) {
+          const current = this.#localTime(L)!;
+          const rest: AnimaEvent[] = [];
+          L.frozen = this.playbackPolicy
+            ? this.playbackPolicy.reduce(tl, st.speed, tl.reduced === 'end', L.m.name, rest)
+            : tl.reduced === 'end'
+              ? tl.duration
+              : 0;
+          if (!this.playbackPolicy && tl.reduced === 'end')
+            for (const [t, name] of tl.events) rest.push({ name, layer: L.m.name, time: t });
+          if (L.frozen !== current)
+            events.push(
+              ...rest.filter((e) => (L.frozen >= current ? e.time > current : e.time < current)),
+            );
+        } else if (!this.reducedMotion && L.frozen >= 0 && tl.loop !== 'once') {
+          if (this.playbackPolicy) this.playbackPolicy.resume(L, L.frozen);
+          else L.time = L.frozen / st.speed;
+          L.frozen = -1;
+        }
+      }
+    }
     // 2. Clocks
     const prev = this.#layers.map((L) => L.time);
     for (const L of this.#layers) {

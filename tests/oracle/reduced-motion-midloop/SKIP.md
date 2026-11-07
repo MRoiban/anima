@@ -1,0 +1,1 @@
+Reduced-motion policies and live browser preference switching are Anima accessibility semantics. No faithful native local CLI counterpart (docs/research/rive-web-runtime.md recommendation 7). Independent conformance expectations cover every policy, once, fade completion and loop resume.

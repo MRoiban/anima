@@ -2349,3 +2349,14 @@ See modules/assets/P5B-10-REPORT.md and verification/p5b10/ for details and full
 - **Parity**: 77 rows done (624 / 1 238); 16 moved to P3b/P10; 19 moved before work began.
 - **Process**: 88 finished-agent worktrees (12 GB) filled the root disk and killed a wave at launch;
   worktrees are now removed after each merge.
+
+### P3b-5 — live motion preferences and host diagnostics (partial integration)
+
+Reduced-motion changes now re-resolve active play states on the next step, complete fades and
+resume frozen loops when removed. Existing motion work/direction endpoints are retained. Source
+clock wrappers preserve the resumed origin. `stop()` holds the current frame using the paused
+scheduler path. Optional, dependency-free devtools adds rolling stats, opt-in performance marks
+and a warning policy hook. Local libraries accept `export` alongside their existing spellings;
+P5b already supplied imported models and local updates. Independent conformance cases cover the
+motion decision; browser-only oracle skip notes explain the lack of a faithful local counterpart.
+See `modules/devtools/REPORT.md` for measurements, verification and remaining integration guards.

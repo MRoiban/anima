@@ -1,5 +1,8 @@
 # Local markup libraries
 
+`export="…"` is the selection spelling on library roots and imports; existing `exports`
+(root) and `select` (import) remain aliases. A nonempty `export` takes precedence over its alias.
+
 Libraries compile away: runtime documents contain expanded resources and no imports.
 `<library name="cards" exports="row Score">` restricts public names. Omitted `exports` exposes
 all declarations, preserving existing libraries. `<import src="cards.animl" as="ui" select="row"/>`

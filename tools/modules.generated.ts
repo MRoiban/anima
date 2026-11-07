@@ -15,6 +15,7 @@ export const webEntries = [
   'markup-surface',
   'assetio',
   'canvas',
+  'devtools',
   'focus',
   'input',
   'media',
@@ -43,6 +44,7 @@ export const webOwners: Record<string, string> = {
   bind: 'bind',
   'markup-bind': 'bind',
   assets: 'assets',
+  devtools: 'devtools',
   focus: 'focus',
   input: 'input',
   markup: 'markup',
@@ -92,6 +94,7 @@ export const moduleBudgets: {
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
   { name: 'assetio', budget: 2048 },
   { name: 'canvas', budget: 8192, heavy: true },
+  { name: 'devtools', budget: 1024 },
   { name: 'focus', budget: 4096 },
   { name: 'input', budget: 8192 },
   { name: 'media', budget: 3072 },
@@ -193,6 +196,10 @@ export const moduleScopes = {
       'host-api-asset-loader',
       'host-api-asset-metadata',
     ],
+  },
+  devtools: {
+    tests: ['modules/devtools/test/**/*.test.ts', 'packages/web/test/browser.test.ts'],
+    conformance: [],
   },
   focus: {
     tests: [
@@ -307,6 +314,7 @@ export const moduleScopes = {
     ],
     conformance: [
       'motion-',
+      'reduced-motion',
       'animation-cubic-value',
       'animation-elastic-in',
       'animation-elastic-in-out',

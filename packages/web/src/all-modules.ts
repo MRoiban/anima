@@ -10,6 +10,7 @@ import './contour.ts';
 import './convert.ts';
 import './data.ts';
 import './derive.ts';
+import './devtools.ts';
 import './events.ts';
 import './focus.ts';
 import './host.ts';

@@ -1278,3 +1278,7 @@ Use `anima schema --search 'stroke width'` for ranked registry and diagnostic ma
 `anima schema rect.width` for one field, `anima inspect --summary` for a static wiring table,
 and `anima doctor --format=json` for Node, browser, cache and module-wiring checks. Doctor reports
 failures with hints and changes no installation or generated files.
+
+Host playback: `icon.stop()` holds the current frame and stops its clock; `icon.play()`
+resumes. Import `@anima-format/web/devtools` for `icon.stats`, the `perf` attribute or
+`icon.perfMarks`, and `AnimaIcon.warnings` (see `modules/devtools/SPEC.md`).

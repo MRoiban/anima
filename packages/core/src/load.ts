@@ -133,6 +133,7 @@ export interface PlaybackPolicy {
   readonly busy: boolean;
   states(): Record<string, string>;
   inspect(): import('./player.ts').LayerInspect[];
+  resume(run: object, time: number): void;
   reduce(
     t: TimelineM,
     speed: number,

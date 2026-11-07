@@ -22,7 +22,11 @@ it('selects public names for sync and async imports', async () => {
   const async = await compileAsync(wrap('select="row"'), { resolve: async () => lib });
   expect(sync.diagnostics).toEqual([]);
   expect(async.doc).toEqual(sync.doc);
-  for (const select of ['select="missing"', 'select="private"']) {
+  expect(compile(wrap('export="row"'), { resolve: () => lib }).doc).toEqual(sync.doc);
+  expect(
+    compile(wrap(), { resolve: () => lib.replace('exports=', 'export=') }).diagnostics,
+  ).toEqual([]);
+  for (const select of ['export="missing"', 'select="missing"', 'select="private"']) {
     const d = compile(wrap(select), { resolve: () => lib }).diagnostics.find(
       (d) => d.code === 'unknown-name',
     );

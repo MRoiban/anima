@@ -349,6 +349,7 @@ export class MotionRuntime implements PlaybackPolicy {
   }
   duration = (t: TimelineM, speed: number, run: object) => this.clocks.duration(t, speed, run);
   finished = (t: TimelineM, elapsed: number, run: object) => this.clocks.finished(t, elapsed, run);
+  resume = (run: object, time: number) => this.clocks.resume(run, time);
   reduce(t: TimelineM, speed: number, end: boolean, layer: string, events: AnimaEvent[]): number {
     const [a, b] = bounds(t),
       reverse = speed * (timing.get(t)?.speed ?? 1) < 0;

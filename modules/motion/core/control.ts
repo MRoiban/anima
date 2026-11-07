@@ -24,6 +24,12 @@ export class StateClocks {
   constructor(player: Player) {
     this.player = player;
   }
+  resume(run: object, time: number): void {
+    const c = this.#runs.get(run)!;
+    c.start = time - (run as Run).time * this.rate(c.state);
+    c.limit = Infinity;
+    c.armed.clear();
+  }
   rate(s: StateM): number {
     return s.speed * (timing.get(this.player.model.timelines[s.play!]!)?.speed ?? 1);
   }
