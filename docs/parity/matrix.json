@@ -4374,10 +4374,10 @@
   "id": "drawing-paint.paint-artboard",
   "category": "drawing-paint",
   "capability": "Live artboard paint",
-  "construct": "Pending: modules/componentpaint/README.md",
-  "module": "components",
+  "construct": "fill.paint: component:row; AniML paint=\"component:row\"; modules/componentpaint/README.md",
+  "module": "componentpaint",
   "status": "planned",
-  "test": "modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts; spec/conformance/drawing-paint-paint-artboard; tests/oracle/drawing-paint-paint-artboard",
+  "test": "modules/componentpaint/test/core; modules/componentpaint/test/web; spec/conformance/drawing-paint-paint-artboard; modules/componentpaint/oracle (central registration pending)",
   "phase": "P5b"
  },
  {

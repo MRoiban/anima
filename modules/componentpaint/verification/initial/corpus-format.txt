@@ -1,0 +1,131 @@
+
+> test:scope
+> node tools/test-scope.ts nested components paint canvas lists componentpaint conformance oracle --no-browser
+
+Scopes: nested, components, paint, canvas, lists, componentpaint, conformance, oracle
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |scope-unit| modules/paint/test/cli/advanced.test.ts (2 tests | 1 failed) 92ms
+   × validates all new paint, contour and mix probes in both authoring spellings 78ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (935 tests | 3 failed) 1872ms
+   ❯ authored AniML corpus (935)
+     × includes the bell example and all conformance sources 93ms
+     × modules/componentpaint/examples/live.animl is canonically formatted 4ms
+     × spec/conformance/drawing-paint-paint-artboard/case.animl is canonically formatted 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(434) ] to have a length of 433 but got 434
+
+- Expected
++ Received
+
+- 433
++ 434
+
+ ❯ packages/markup/test/corpus.test.ts:29:19
+     27|     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileU…
+     28|     // 364 baseline + 9 lists + 37 assets (incl. FLAC/MP3) + 10 data-e…
+     29|     expect(cases).toHaveLength(433);
+       |                   ^
+     30|     for (const file of cases) expect(files).toContain(file.replace(/\.…
+     31|     const drawCases = globSync('spec/draw-conformance/*/case.ani', { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/componentpaint/examples/live.animl is canonically formatted
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/drawing-paint-paint-artboard/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="live-compo…' to be '<anima version="0.1" name="live-compo…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -3,10 +3,12 @@
+      <rect id="background" x0="-2" y0="-1" width="10" height="10" fill="#204080"/>
+      <rect id="bar" x0="-2" y0="-1" width="2" height="10" fill="#e08020"/>
+      <timeline name="move" duration="1">
+        <track target="bar.x">0 0; 1 6</track>
+      </timeline>
+-     <layer name="main" initial="move"><state name="move" play="move"/></layer>
++     <layer name="main" initial="move">
++       <state name="move" play="move"/>
++     </layer>
+    </component>
+    <rect id="tile" x0="0" y0="0" width="20" height="20" paint="component:row"/>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:50:25
+     48|     const result = formatMarkup(source);
+     49|     expect(result.diagnostics).toEqual([]);
+     50|     expect(result.text).toBe(source);
+       |                         ^
+     51|   });
+     52| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  |scope-unit| modules/paint/test/cli/advanced.test.ts > validates all new paint, contour and mix probes in both authoring spellings
+AssertionError: expected [ …(44) ] to have a length of 42 but got 44
+
+- Expected
++ Received
+
+- 42
++ 44
+
+ ❯ modules/paint/test/cli/advanced.test.ts:13:17
+     11|   const files = globSync('spec/conformance/drawing-paint-*/case.{ani,a…
+     12|   // Existing seventeen probes plus four image fit/wrap probes, both s…
+     13|   expect(files).toHaveLength(42);
+       |                 ^
+     14|   for (const file of files) {
+     15|     const r = await cli(['validate', file]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  2 failed | 36 passed (38)
+      Tests  4 failed | 3369 passed | 31 todo (3404)
+   Start at  00:28:43
+   Duration  27.81s (tests 63%, transform 19%, import 17%)

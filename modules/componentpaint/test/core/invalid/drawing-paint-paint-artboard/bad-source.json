@@ -1,0 +1,17 @@
+{
+  "anima": "0.1",
+  "name": "invalid-source",
+  "grid": 20,
+  "requires": ["components", "paint", "componentpaint"],
+  "nodes": [
+    {
+      "id": "bad",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": { "paint": "component:missing" }
+    }
+  ]
+}

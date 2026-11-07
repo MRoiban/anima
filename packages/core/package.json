@@ -33,7 +33,8 @@
     "./nested": "./src/modules/nested/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
-    "./mix": "./src/modules/mix/index.ts"
+    "./mix": "./src/modules/mix/index.ts",
+    "./componentpaint": "./src/modules/componentpaint/index.ts"
   },
   "files": [
     "src"

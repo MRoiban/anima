@@ -1,0 +1,104 @@
+
+> test:scope
+> node tools/test-scope.ts nested components paint canvas lists componentpaint conformance oracle
+
+Scopes: nested, components, paint, canvas, lists, componentpaint, conformance, oracle
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |scope-unit| modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts (12 tests | 2 failed) 100ms
+   × preserves resolved parent asset URLs when allocating a player-owned source tree 11ms
+   × diagnoses registry-permitted ordered sources instead of silently drawing an empty fill 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts > preserves resolved parent asset URLs when allocating a player-owned source tree
+AssertionError: expected 'relative.png' to be 'https://resolved.test/image.png' // Object.is equality
+
+Expected: "https://resolved.test/image.png"
+Received: "relative.png"
+
+ ❯ modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts:152:58
+    150|   });
+    151|   const p = new Player(result.model!);
+    152|   expect(drawFrame(p).nodes[1]!.geometry!.image!.source).toBe('https:/…
+       |                                                          ^
+    153| });
+    154| it('diagnoses registry-permitted ordered sources instead of silently d…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |scope-unit| modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts > diagnoses registry-permitted ordered sources instead of silently drawing an empty fill
+AssertionError: expected [] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "component-paint",
+  "hint": Any<String>,
+  "pointer": "/nodes/0/paints/0/fill/paint",
+}
+
++ Received:
+[]
+
+ ❯ modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts:159:33
+    157|   doc.nodes[0].paints = [{ fill: doc.nodes[0].fill }];
+    158|   delete doc.nodes[0].fill;
+    159|   expect(load(doc).diagnostics).toContainEqual(
+       |                                 ^
+    160|     expect.objectContaining({
+    161|       code: 'component-paint',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 45 passed (46)
+      Tests  2 failed | 5670 passed | 31 todo (5703)
+   Start at  00:38:27
+   Duration  576.23s (tests 97%, import 3%)

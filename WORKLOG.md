@@ -1,12 +1,13 @@
 # Work log
 
 ## Now
-Goal: P5b-8 implementation delivered on this branch; local commit only.
-Verified: scope4471 pass/66TODO; explicit owned Chromium+Firefox52/52; strict oracle250/446 exit0, findings25/28 retained.
-Bytes: core+web20362 (+174), full108896 (+843); data8015/bind2038/components4051 source untouched; all limits pass.
-Report: modules/nested/P5B-8-REPORT.md; new native scalar comparisons5 exact, quantize native2/Anima3 delta1 retained.
-Pending: parent canonical-oracle registration; broader foreign-file/data handles; quiet comparative perf unverified.
-Don't: push/PR/merge, change parity statuses/design/measurement inputs/protected runtimes; no phase promotion.
+Goal: P5b-9 complete; branch-only deliverable, no push/PR/merge.
+Verified: final requested scope5687 pass/31TODO (47 files, all7 owned browser files); explicit canvas2270 pass, both engines.
+Focused98 unit/CLI +22 source pixels; lifecycle7 + exact reuse blue-pixel2; strict oracle253/449 exit0 (23 finding cases/26 samples retained).
+Bytes: core+web20362 unchanged; nested4514, paint4632, sampler933, canvas5255, componentpaint1968, full111159; all limits hold.
+Report: modules/componentpaint/P5B-9-REPORT.md; verification/checks.txt; native3x400 pixels max1/over16=0.
+Next: parent canonical oracle registration and phase integration; comparative perf A/B unverified. Final audited code prepared for local commit.
+Don't: push/PR/merge, change statuses/protected inputs/runtimes; no public/package/Glyphy action authorized.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -138,3 +139,14 @@ Don't: push/PR/merge, change parity statuses/design/measurement inputs/protected
 
 - 2026-11-06 23:53 [P5b-8]: final audit1238 statuses/protected tracked inputs unchanged;66 native readbacks contain no binary/scaffold docs; normalized only log EOF whitespace; all requested commands and explicit browser project exit0 → staging local commit (evidence: verification/p5b8/audit.txt).
 - 2026-11-07 [claude]: merged P5b-8 (component() guard literal via typed-function hook, player-local data keyframes, queued component handles; quantize delta 1 explained by native precision, recorded) → core+web 20,362 (+174), full 109,305 B. Next: P5b-9 canvas seam (nested draw-tree holes) + component paint
+
+- 2026-11-07 00:20 [P5b-9]: restored dependencies; scaffold dry/run succeeded after missing-prettier failure; browser repro12/12 failed → replay inherits two allocated tree entries without frame records (evidence: /tmp/p5b9-debug.txt).
+
+- 2026-11-07 00:35 [P5b-9]: fixed dynamic-model replay origin and dense retirement; implemented componentpaint with optional Canvas source hook → focused core16, CLI3, source pixels18 and separate-bundle6 pass; native3x400 max1/over16=0 (evidence: /tmp/p5b9-{core-fourth,cli,canvas-sources,source-browser4}.txt; verification/native-metrics.json).
+- 2026-11-07 00:35 [P5b-9]: corrected initial SVG pattern origin/source tree, dependency-closure false recursion and formatter/census extensions; inherited 5s/10s limits hit under cold bundles + concurrent runs, warm generated bundles pass unchanged limits (evidence: /tmp/p5b9-source-browser{1,2,3,4}.txt; scope-dev.txt).
+- 2026-11-07 00:50 [P5b-9]: full canvas2268 pass; latest source unit13 and separate-bundle8 pass; strict oracle253/449 exit0, existing findings23/26 retained; size all pass (core+web20362, nested4518, canvas5255, componentpaint1974, full111165). Frozen broad scope rerun pending after two stale-worker failures; ESLint size-temp race fixed by serialized rerun (evidence: modules/componentpaint/verification/).
+- 2026-11-07 00:56 [P5b-9]: independent overlapping-color probe exposed recycled-slot paint-order reversal (red/blue → blue/red); preserved child rank or authored child index → lifecycle7 and exact blue-pixel2 pass in both renderers/engines. Interrupted intermediate scope to verify final code afresh; sessions17247/67932 active (evidence: /tmp/p5b9-reuse-order-failure.txt; /tmp/p5b9-{draw-final,draw-browser}.txt).
+- 2026-11-07 01:09 [P5b-9]: final scope5675 pass/31TODO with all7 browser files; supplemental source16 and browser10 pass (new invalid guard3/AniML2); strict253/449 exit0; all budgets/static/generated checks green. Protected1,238 statuses and3,910 oracle files unchanged; preparing local commit only (evidence: modules/componentpaint/P5B-9-REPORT.md; verification/).
+- 2026-11-07 01:17 [P5b-9]: final post-scope focused19 unit/CLI and12 browser pass, including preserved base validation without paint; source module1960, full111153. Shipping size/typecheck/ESLint/wiring/AniML exit0; final docs/audit/commit only remain (evidence: verification/component-all.txt, browser-sources.txt, checks.txt).
+- 2026-11-07 01:24 [P5b-9]: final hidden-fill regression exposed SVG restoring a disabled fill; preserved none and narrowed source hook to retain gradient validation → focused98 unit/CLI +22 pixels pass. Fresh full scope60190 and explicit canvas47319 running on fixed source; measurements/static33908 exit0; no further code changes planned (evidence: /tmp/p5b9-visibility-*; /tmp/p5b9-final-*).
+- 2026-11-07 01:33 [P5b-9]: final unchanged-source scope5687/31TODO and explicit canvas2270 pass; measurements/static/generated all exit0; all1,238 statuses/3,910 old oracle files/canvas classifier unchanged. Report and evidence finalized; local commit prepared (evidence: verification/{scope,canvas,checks,audit}.txt).

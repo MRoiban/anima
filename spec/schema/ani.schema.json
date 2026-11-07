@@ -3738,6 +3738,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -4558,6 +4562,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -5431,6 +5439,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -6251,6 +6263,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -7126,6 +7142,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -7971,6 +7991,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -8854,6 +8878,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -9674,6 +9702,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -11486,6 +11518,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -12230,6 +12266,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -13193,6 +13233,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -13937,6 +13981,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -14901,6 +14949,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -15645,6 +15697,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -16599,6 +16655,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -17343,6 +17403,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false
@@ -18389,6 +18453,10 @@
                   "minimum": 0,
                   "maximum": 1,
                   "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
                 }
               },
               "additionalProperties": false
@@ -19369,6 +19437,10 @@
                         "minimum": 0,
                         "maximum": 1,
                         "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
                       }
                     },
                     "additionalProperties": false

@@ -38,6 +38,8 @@ import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { mix } from '../../../modules/mix/core/index.ts';
 import { mixSVG } from '../../../modules/mix/core/svg.ts';
+import { componentpaint } from '../../../modules/componentpaint/core/index.ts';
+import { componentpaintSVG } from '../../../modules/componentpaint/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -75,4 +77,6 @@ if (VERBOSE) {
   registerSVGBackend('surface', surfaceSVG);
   registerModule(mix);
   registerSVGBackend('mix', mixSVG);
+  registerModule(componentpaint);
+  registerSVGBackend('componentpaint', componentpaintSVG);
 }

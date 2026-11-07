@@ -2563,6 +2563,10 @@ the canonical oracle probes pending parent registration.
 ## componentpaint
 
 <!-- capability: drawing-paint.paint-artboard -->
-The decided `paint="component:row"` live fill is pending a custom paint/offscreen-source seam in
-Canvas. No runtime feature is registered. See
-[modules/componentpaint/README.md](../modules/componentpaint/README.md) for the inspected renderer integration gap.
+Declare `components paint componentpaint`. JSON `fill: {paint: "component:row"}` is AniML
+`paint="component:row"`: an independent live component Player supplies a repeating shape-local
+fill tile, clipped to its viewBox (including its origin). Its own default machine advances once
+per parent step and honors reduced motion. Flat color/type/ordered-paint conflicts, unknown
+components and recursive sources are errors. An ordinary stroke remains independent.
+The normative lifetime, sampling, diagnostic and backend contract is
+[modules/componentpaint/README.md](../modules/componentpaint/README.md).

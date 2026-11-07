@@ -1,0 +1,9 @@
+
+Oops! Something went wrong! :(
+
+ESLint: 10.14.0
+
+Error: ENOENT: no such file or directory, open '/home/jarvis/.t3/worktrees/anima/t3-879d301f/tools/.size-entry.ts'
+    at async open (node:internal/fs/promises:1345:25)
+    at async Object.readFile (node:internal/fs/promises:2003:14)
+    at async readAndVerifyFile (/home/jarvis/.t3/worktrees/anima/t3-879d301f/node_modules/eslint/lib/eslint/eslint-helpers.js:1284:16)

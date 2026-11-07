@@ -1,0 +1,13 @@
+<anima version="0.1" name="live-component-paint" grid="20" requires="components paint componentpaint">
+  <component name="row" grid="10" viewBox="-5 -5 10 10">
+    <rect id="background" x0="-5" y0="-5" width="10" height="10" fill="#204080"/>
+    <rect id="bar" x0="-5" y0="-5" width="2" height="10" fill="#e08020"/>
+    <timeline name="move" duration="1">
+      <track target="bar.x">0 0; 1 6</track>
+    </timeline>
+    <layer name="main" initial="move">
+      <state name="move" play="move"/>
+    </layer>
+  </component>
+  <rect id="tile" x0="0" y0="0" width="20" height="20" paint="component:row"/>
+</anima>

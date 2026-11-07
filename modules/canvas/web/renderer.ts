@@ -1,4 +1,5 @@
 // Canvas2D consumes only the resolved draw frame. No second player or SVG rasterization.
+import type { CanvasSourceHost } from './sources.ts';
 import type { AnimaIcon, IconRenderer } from '../../../packages/web/src/index.ts';
 import type { DrawColor, DrawFrame, DrawPaint, Geometry, Mat } from '@anima-format/core';
 import { drawOrder, geometryLength, IDENTITY, mul, invert } from '@anima-format/core';
@@ -18,6 +19,8 @@ export class CanvasRenderer implements IconRenderer {
   readonly canvas = document.createElement('canvas');
   #icon: AnimaIcon;
   #frame?: DrawFrame;
+  #sourcePointer?: string;
+  #target = this.canvas;
   #revision = -1;
   #viewport: Mat = [...IDENTITY];
   #world: Mat[] = [];
@@ -155,13 +158,20 @@ export class CanvasRenderer implements IconRenderer {
     code = 'unsupported-render',
     hint = 'use the SVG renderer or remove this feature',
   ): void {
+    pointer = this.#sourcePointer ?? pointer;
     const key = feature + pointer;
     if (this.#reported.has(key)) return;
     this.#reported.add(key);
     this.#icon.dispatchEvent(
       new CustomEvent('anima:error', {
         detail: [
-          { code, severity: 'error', pointer, message: `Canvas2D cannot render ${feature}`, hint },
+          {
+            code,
+            severity: 'error',
+            pointer,
+            message: `Canvas2D cannot render ${feature}`,
+            hint,
+          },
         ],
       }),
     );
@@ -178,9 +188,9 @@ export class CanvasRenderer implements IconRenderer {
   #surface(): HTMLCanvasElement {
     const index = this.#used++;
     const c = (this.#pool[index] ??= document.createElement('canvas'));
-    if (c.width !== this.canvas.width || c.height !== this.canvas.height) {
-      c.width = this.canvas.width;
-      c.height = this.canvas.height;
+    if (c.width !== this.#target.width || c.height !== this.#target.height) {
+      c.width = this.#target.width;
+      c.height = this.#target.height;
     } else context(c).reset();
     return c;
   }
@@ -237,6 +247,15 @@ export class CanvasRenderer implements IconRenderer {
     this.#used = 0;
     this.#style = getComputedStyle(this.#icon);
     this.#paths.clear();
+    this.#prepare(f);
+    const ctx = context(this.canvas);
+    ctx.resetTransform();
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.setTransform(...this.#viewport);
+    this.#list(ctx, f.tree.roots, IDENTITY);
+    this.draws++;
+  }
+  #prepare(f: DrawFrame): void {
     this.#world = [];
     const world = (i: number): Mat =>
       (this.#world[i] ??= mul(
@@ -247,13 +266,35 @@ export class CanvasRenderer implements IconRenderer {
     this.#hidden = new Set(
       f.nodes.flatMap((n) => (n.mask?.sourceDraws === false ? [n.mask.source] : [])),
     );
-    const ctx = context(this.canvas);
-    ctx.resetTransform();
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.setTransform(...this.#viewport);
-    this.#list(ctx, f.tree.roots, IDENTITY);
-    this.draws++;
   }
+  #source = (f: DrawFrame, width: number, height: number, pointer: string): HTMLCanvasElement => {
+    const saved = [
+      this.#frame,
+      this.#viewport,
+      this.#world,
+      this.#hidden,
+      this.#target,
+      this.#sourcePointer,
+    ] as const;
+    const tile = document.createElement('canvas');
+    tile.width = width;
+    tile.height = height;
+    const [x, y, w, h] = f.viewBox;
+    this.#sourcePointer ??= pointer;
+    this.#frame = f;
+    this.#target = tile;
+    this.#viewport = [width / w, 0, 0, height / h, (-x * width) / w, (-y * height) / h];
+    try {
+      this.#prepare(f);
+      const ctx = context(tile);
+      ctx.setTransform(...this.#viewport);
+      this.#list(ctx, f.tree.roots, IDENTITY);
+      return tile;
+    } finally {
+      [this.#frame, this.#viewport, this.#world, this.#hidden, this.#target, this.#sourcePointer] =
+        saved;
+    }
+  };
   #list(ctx: Ctx, list: number[], parent: Mat, source = false): void {
     const order = drawOrder(this.#frame!, list);
     // Knockouts affect only the preceding siblings, never the parent's backdrop.
@@ -726,6 +767,27 @@ export class CanvasRenderer implements IconRenderer {
           .scale((r.scaleX * r.width) / tile.width, (r.scaleY * r.height) / tile.height),
       );
       style = pattern;
+    }
+    for (const hook of (this.#icon.constructor as CanvasSourceHost).canvasSources ?? []) {
+      const source = hook(p, ctx, (frame, width, height) =>
+        this.#source(
+          frame,
+          width,
+          height,
+          (this.#frame!.tree.nodes[i]!.pointer ?? '/nodes/' + i) +
+            '/' +
+            (p.key ?? p.kind) +
+            '/paint',
+        ),
+      );
+      if (source) {
+        style = source;
+        break;
+      }
+    }
+    if (!p.color && !p.type && !p.image && typeof style === 'string') {
+      this.#unsupported('unregistered paint source', i, 'fill/paint');
+      return;
     }
     ctx.fillStyle = style;
     ctx.strokeStyle = style;

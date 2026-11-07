@@ -32,6 +32,7 @@ export const webEntries = [
   'lists',
   'nested',
   'mix',
+  'componentpaint',
 ];
 export const webOwners: Record<string, string> = {
   canvas: 'canvas',
@@ -65,6 +66,7 @@ export const webOwners: Record<string, string> = {
   surface: 'surface',
   'markup-surface': 'surface',
   mix: 'mix',
+  componentpaint: 'componentpaint',
 };
 export const moduleBudgets: {
   name: string;
@@ -105,6 +107,7 @@ export const moduleBudgets: {
   { name: 'lists', budget: 6144 },
   { name: 'nested', budget: 5120 },
   { name: 'mix', budget: 5120 },
+  { name: 'componentpaint', budget: 5120 },
 ];
 export const moduleScopes = {
   canvas: {
@@ -114,10 +117,6 @@ export const moduleScopes = {
       'host-api-resize-backing-surface',
       'platforms-web-canvas',
     ],
-  },
-  componentpaint: {
-    tests: ['modules/componentpaint/test/**/*.test.ts'],
-    conformance: ['drawing-paint-paint-artboard'],
   },
   components: {
     tests: [
@@ -660,5 +659,13 @@ export const moduleScopes = {
       'host-api-renderer',
       'host-api-factory',
     ],
+  },
+  componentpaint: {
+    tests: [
+      'modules/componentpaint/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['drawing-paint-paint-artboard'],
   },
 };
