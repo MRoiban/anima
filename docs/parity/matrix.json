@@ -123,12 +123,12 @@
   "id": "a11y.inferred-text",
   "category": "a11y",
   "capability": "Inferred text semantics",
-  "construct": "new: nodes[].a11y / player semantics API: inferred-text; bounds in grid units",
+  "construct": "modules/a11y/TEXT.md; optional a11y-text consumer infers semantic labels from ordered resolved runs/visible descendants",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-inferred-text",
+  "test": "modules/a11y/test/core/text-hit.test.ts; modules/a11y-dom/test/web/text-hit.test.ts; spec/conformance/a11y-inferred-text; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
   "phase": "P6",
-  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+  "reason": "P6-7 implementation and both-engine tests complete. Two original native controls leave text/container labels empty instead of the specified inferred names; native equivalence/disposition remains open, with captures retained."
  },
  {
   "id": "a11y.overlay-policy",
@@ -611,9 +611,9 @@
   "construct": "modules/a11y/SPEC.md; Semantic bounds",
   "module": "a11y",
   "status": "planned",
-  "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds",
+  "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
   "phase": "P6",
-  "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): exact painted path/stroke extents in the CLI and the overlay's SVG measurement seam remain; P6's text accessibility rows need the same exact-extent work (modules/a11y/P3C8-REPORT.md)."
+  "reason": "P6-7 adds measured text layout bounds with both measurers, clipping, world transforms and cache invalidation. Exact painted path/stroke extents from P3c remain missing, and the generated-font native/tool line-gap observation is retained; this broader row stays planned."
  },
  {
   "id": "a11y.tree-visibility",
@@ -11194,12 +11194,12 @@
   "id": "text.script-hit-testing",
   "category": "text",
   "capability": "Text hit testing",
-  "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/a11y/TEXT.md; text-hit host API (grapheme hit, caret, selection) and input text-index listener writes",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-script-hit-testing",
+  "test": "modules/a11y/test/core/text-hit.test.ts; modules/a11y-dom/test/web/text-hit.test.ts; spec/conformance/text-script-hit-testing; tests/oracle/text-script-hit-testing/SKIP.md; modules/a11y/P6-7-REPORT.md",
   "phase": "P6",
-  "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM."
+  "reason": "P6-7 host/listener subset closure-ready; phase P6 is not yet a finished phase, so parity tooling requires planned until orchestrator promotion. Script VM remains excluded. Native host-only skip and independent metric/input/browser evidence are linked."
  },
  {
   "id": "text.script-shaping",

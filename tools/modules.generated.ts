@@ -37,6 +37,7 @@ export const webEntries = [
   'fonts-text',
   'lists',
   'a11y',
+  'a11y-text',
   'markup-a11y',
   'a11y-actions',
   'a11y-dom',
@@ -44,6 +45,7 @@ export const webEntries = [
   'mix',
   'componentpaint',
   'text',
+  'text-hit',
   'text-host',
   'markup-text',
 ];
@@ -82,6 +84,7 @@ export const webOwners: Record<string, string> = {
   'fonts-text': 'fonts',
   lists: 'lists',
   a11y: 'a11y',
+  'a11y-text': 'a11y',
   'markup-a11y': 'a11y',
   'a11y-actions': 'a11y-actions',
   'a11y-dom': 'a11y-dom',
@@ -91,6 +94,7 @@ export const webOwners: Record<string, string> = {
   mix: 'mix',
   componentpaint: 'componentpaint',
   text: 'text',
+  'text-hit': 'text',
   'text-host': 'text',
   'markup-text': 'text',
 };
@@ -167,6 +171,7 @@ export const moduleBudgets: {
   { name: 'fonts-text', budget: 768, over: 'fonts' },
   { name: 'lists', budget: 5120 },
   { name: 'a11y', budget: 2496 },
+  { name: 'a11y-text', budget: 576, over: 'a11y' },
   { name: 'markup-a11y', budget: 1088, over: 'index', authoring: true },
   { name: 'a11y-actions', budget: 1216, over: 'a11y' },
   { name: 'a11y-dom', budget: 2176, over: 'a11y-actions' },
@@ -174,6 +179,7 @@ export const moduleBudgets: {
   { name: 'mix', budget: 1856 },
   { name: 'componentpaint', budget: 2176 },
   { name: 'text', budget: 6144 },
+  { name: 'text-hit', budget: 1024, over: 'index' },
   { name: 'text-host', budget: 1024, over: 'index' },
   { name: 'markup-text', budget: 1024, over: 'markup', authoring: true },
 ];
@@ -741,7 +747,7 @@ export const moduleScopes = {
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
     ],
-    conformance: ['a11y-'],
+    conformance: ['a11y-', 'a11y-inferred-text', 'a11y-tree-bounds'],
   },
   'a11y-actions': {
     tests: ['modules/a11y/test/**/*.test.ts', 'modules/a11y-actions/test/**/*.test.ts'],
@@ -802,6 +808,8 @@ export const moduleScopes = {
   text: {
     tests: [
       'modules/text/test/**/*.test.ts',
+      'modules/a11y/test/core/text-hit.test.ts',
+      'modules/a11y-dom/test/web/text-hit.test.ts',
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
       'packages/markup/test/compile.test.ts',
@@ -837,6 +845,7 @@ export const moduleScopes = {
       'text-vertical-alignment',
       'text-vertical-trim',
       'text-word-break',
+      'text-script-hit-testing',
     ],
   },
   tooling: {

@@ -1,0 +1,95 @@
+{
+  "branch": "t3/implement-p6-7",
+  "base": "0fd483b8",
+  "status": "partial",
+  "rows": {
+    "closed": [],
+    "closureReady": ["text.script-hit-testing"],
+    "planned": ["text.script-hit-testing", "a11y.inferred-text", "a11y.tree-bounds"],
+    "promotionGuard": "parity.ts only permits done rows in finished phases; P6 is unfinished"
+  },
+  "chromiumScope": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- a11y a11y-dom text input --browser=chromium",
+    "passed": 3361,
+    "failed": 0,
+    "skipped": 513,
+    "todo": 1
+  },
+  "firefoxScope": {
+    "command": "VITEST_MAX_WORKERS=1 npm run test:scope -- a11y-dom --browser=firefox",
+    "passed": 58,
+    "failed": 0,
+    "skipped": 58
+  },
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "passed": 8683,
+    "failed": 3,
+    "todo": 89,
+    "filesPassed": 275,
+    "filesFailed": 2,
+    "filesSkipped": 13,
+    "notes": "Two unchanged-limit Firefox asset timeouts, plus registration-order harness missing the tool measurer; the latter was corrected in the helper only after this run started."
+  },
+  "retries": [
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run modules/assets/test/web/pipeline.test.ts",
+      "passed": 22,
+      "failed": 0,
+      "engines": ["chromium", "firefox"],
+      "deadlineChanged": false
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=1 npx vitest run packages/core/test/module-order.test.ts",
+      "passed": 1,
+      "failed": 0,
+      "after": "marked tool-measurer harness seam",
+      "orders": 12,
+      "deadlineChanged": false
+    }
+  ],
+  "static": {
+    "fullTypecheck": 0,
+    "followUpCoreTestTypecheck": 0,
+    "changedTypeScriptESLint": 0,
+    "followUpHelperESLint": 0,
+    "moduleWiring": 0,
+    "parity": 0,
+    "aniBuild": 0,
+    "browserBuild": 0,
+    "schemaGeneration": 0,
+    "cliSchemaValidateSample": 0,
+    "format": 0,
+    "pairedExamples": 0
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 0,
+    "completedCases": 266,
+    "samples": 475,
+    "retainedFindings": 24,
+    "newNativeEquivalenceClaim": false
+  },
+  "perf": {
+    "command": "node tools/perf.ts",
+    "exit": 0,
+    "bellCompileMs": 6.01,
+    "prefixSweepMs": 1663,
+    "bellFrameUs": 105.1,
+    "compositeFrameUs": 71.3,
+    "toolbarFrameUs": 80.3,
+    "toolbarCompileMs": 10.69,
+    "nonRegression": "unverified under shared load; no controlled paired baseline"
+  },
+  "size": {
+    "command": "node tools/size.ts",
+    "exit": 0,
+    "before": [21136, 53201, 94697, 114121, 15226, 119760],
+    "after": [21136, 53773, 94866, 115617, 15226, 121266],
+    "gates": ["core+web", "largest scene", "app-UI", "runtime sum", "authoring", "Rive-class"],
+    "text": 6142,
+    "textHit": 983,
+    "a11yText": 448
+  },
+  "superseded": "Earlier exploratory scope/default-timeout checks and mixed-source size runs are not final claims. Their failures and setup corrections are explained in P6-7-REPORT.md."
+}

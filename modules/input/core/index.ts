@@ -126,6 +126,17 @@ export const input: Module & { listenerValue: typeof listenerValue } = {
             'unknown event value',
             'use a documented input event field (pointer coordinates need number; key-pressed needs string)',
           );
+        // seam(P6-7): text-index is meaningful only on a drawn text target.
+        if (
+          field === 'text-index' &&
+          String(model.nodes[model.ids.get(r.target ?? '') ?? -1]?.type) !== 'text'
+        )
+          error(
+            'input-write',
+            p + '/write/' + field,
+            'text-index needs a text target',
+            'set target to a text node',
+          );
         const input = model.inputs.get(name),
           type = field === 'key-pressed' ? 'string' : field === 'pressed' ? 'bool' : 'number';
         if (!input || input.type !== type || input.readonly)

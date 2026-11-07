@@ -4,6 +4,7 @@ import type {} from '../../canvas/web/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 const trees = new WeakMap<AnimaIcon, SemanticNode[]>();
+const roots = new WeakMap<AnimaIcon, () => void>();
 const attached = new WeakMap<AnimaIcon, () => void>();
 const roles: Record<string, string> = {
   'radio-group': 'radiogroup',
@@ -249,6 +250,12 @@ function attach(icon: AnimaIcon) {
     if (diff.added.length || diff.removed.length || diff.changed.length)
       icon.dispatchEvent(new CustomEvent('anima:semantics', { detail: diff }));
   };
+  roots.set(icon, () => {
+    if (!box.isConnected) {
+      icon.shadowRoot!.append(style, box);
+      update();
+    }
+  });
   const step = p.step;
   p.step = function (...args) {
     const result = step.apply(this, args);
@@ -271,6 +278,7 @@ function attach(icon: AnimaIcon) {
     box.remove();
     style.remove();
     trees.delete(icon);
+    roots.delete(icon);
     attached.delete(icon);
   });
 }
@@ -296,3 +304,9 @@ declare module '../../../packages/web/src/index.ts' {
     let semanticElement: (icon: AnimaIcon, id: string) => HTMLElement | null | undefined;
   }
 }
+
+const previousEvent = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  previousEvent?.(icon, kind, detail);
+  if (kind === 'draw') roots.get(icon)?.();
+};

@@ -29,6 +29,7 @@ export const runtime: {
   caches: typeof caches;
   flat: typeof flat;
   version?: number;
+  enrich?: (entries: Entry[], track: <T>(read: () => T) => T) => void;
   update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
 } = { caches, flat };
 function box(points: [number, number][]): SemanticNode['bounds'] {
@@ -50,6 +51,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       return value;
     };
     track(() => runtime.version);
+    track(() => runtime.enrich);
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
       for (const [address, { key }] of p.model.addrs)
@@ -138,6 +140,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       });
     };
     collect(this);
+    runtime.enrich?.(entries, track);
     const owners = new Map(entries.map((e) => [e.id, e]));
     for (const e of [...entries].reverse()) {
       if (e.bounds) continue;

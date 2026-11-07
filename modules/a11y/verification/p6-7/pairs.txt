@@ -1,0 +1,2 @@
+modules/text/capabilities/text-script-hit-testing/example pair current
+modules/a11y/capabilities/a11y-inferred-text/example pair current

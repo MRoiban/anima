@@ -170,6 +170,21 @@ export class InputController {
         values.x = x + (l.align === 'preserve' ? (origin?.[0] ?? 0) : 0);
         values.y = y + (l.align === 'preserve' ? (origin?.[1] ?? 0) : 0);
       }
+      // seam(P6-7): resolve text listener coordinates in the target's local space.
+      if (
+        l.write?.['text-index'] &&
+        data.x !== undefined &&
+        data.y !== undefined &&
+        l.target >= 0
+      ) {
+        const inv = invert(this.player.world(l.target));
+        const text = peers?.get('text') as
+          import('../../text/core/index.ts').TextModule | undefined;
+        if (inv && text?.hitTest) {
+          const [x, y] = apply(inv, Number(data.x), Number(data.y));
+          values['text-index'] = text.hitTest(this.player, l.target, x, y);
+        }
+      }
       for (const [field, name] of Object.entries(l.write ?? {})) {
         const value = values[field as keyof Data];
         if (value !== undefined) this.player.set(name, value);

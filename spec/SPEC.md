@@ -3088,3 +3088,14 @@ drawing and named host run access. Its normative fields, defaults, validation, m
 contract, fit/overflow algorithms and verification limits are specified in
 [modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
 and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
+
+
+<!-- capability: text.script-hit-testing -->
+<!-- capability: a11y.inferred-text -->
+### Text hit testing and inferred semantics (P6)
+
+The optional `text-hit` host adapter exposes grapheme hit positions and caret/selection boxes
+from the shared text layout. `input` listeners may write `text-index` on a text target. The
+optional `a11y-text` browser adapter supplies visible text names and layout bounds to the semantic
+tree; headless tools install this adapter with a11y. Existing JSON/AniML text, label, bounds and
+listener fields are unchanged. See [the normative text semantics contract](../modules/a11y/TEXT.md).

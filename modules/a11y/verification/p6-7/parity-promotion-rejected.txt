@@ -1,0 +1,1 @@
+text.script-hit-testing: done rows (only) belong to a finished phase (P0, P1, P2, P3, P3b, P3c, P4a, P4b, P4c, P4d, P4e, P5, P5b, Pc)

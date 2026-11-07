@@ -87,6 +87,7 @@ export const fields = [
   'control',
   'deltaX',
   'deltaY',
+  'text-index', // seam(P6-7): grapheme hit position from the optional text-hit adapter.
   'pointer-x',
   'pointer-y',
   'pointer-delta-x',
