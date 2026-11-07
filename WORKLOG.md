@@ -2,9 +2,9 @@
 
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order: P6 text → P7 minimal layout (+ bindable artboards) → P8 rigging.
-State: branch p6 (0f8bc06): P6-2 font tooling and P6-3 fonts runtime merged; downstream bugs B1–B8 closed, B9–B19 triaged (B14 B15 B17 B18 B19 closed). Gates: core+web 20,635; scene 52,630; app-UI 87,782 (fonts included); sum 106,870; authoring 14,796; Rive 112,448.
-Running: P6-1 text core. B9–B15, B17–B19 closed; B16 → BF-5 (now unblocked).
-Next: on P6-1 → merge, add text to APP_UI, launch integration (tool measurer seam, cssFont/fonts.ready, flatten end to end) then wave 2 (effects, input, hit testing+bidi+a11y); on BF-3 → merge, launch BF-5 (B16 event bubbling, guards in packages/web/src/index.ts); then benchmarks, closure, PR.
+State: branch p6 (777c0a5): wave 1 merged (P6-1 text core, P6-2 font tooling, P6-3 fonts runtime); downstream B1–B19 all closed. Gates: core+web 21,136; scene 53,201; app-UI 94,068 (text+fonts in); sum 113,443; authoring 15,226; Rive 119,089. Tight: text 6,053/6,144, markup 8,177/8,192, a11y 2,388/2,496.
+Running (briefs in design/p6/tickets/): P6-4a markup split, P6-4 integration + wave-1 closure, P6-5 text-effects + bidi, P6-6 text-input.
+Next: merge each; then P6-7 (hit testing, inferred-text, tree-bounds) after P6-4; then benchmarks (settings-card rerun item 1 must pass; search card), parity closure, LOG/PLAN, PR with six gates.
 Don't: push to main; edit oracle findings or benchmark records; raise ceilings; third-party font files; leave merged worktrees; --no-verify; modify anima-kit.
 
 ## Gotchas
