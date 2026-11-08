@@ -183,7 +183,8 @@ function render(p: Player, frame: import('../../../packages/core/src/draw.ts').D
         clip: source.clip ? { ...source.clip, source: shift(source.clip.source) } : undefined,
       };
       frame.changed.push(shift(i));
-      if (child.order) (frame.order ??= [])[shift(i)] = child.order[i]!;
+      // Absent child ranks are child document indices, never recycled destination slots.
+      (frame.order ??= [])[shift(i)] = child.order?.[i] ?? i;
     });
     for (const r of child.tree.resources)
       tree.resources.push({
@@ -350,6 +351,15 @@ function resolve(
   };
   const previous = model.nesting;
   model.nesting = (p) => {
+    // Construction (including nested initial expansion) shares the step's instance budget.
+    enter(p, plans[0]?.node);
+    try {
+      return nest(p);
+    } finally {
+      depth--;
+    }
+  };
+  const nest = (p: Player) => {
     const base = previous?.(p);
     const state: ListState = { runs: plans.map((spec) => ({ spec, items: [] })), warnings: [] };
     const tree = drawTree(model);
@@ -411,7 +421,18 @@ function property(data: DataModule, model: Model, path: string) {
 }
 
 let depth = 0,
-  expanded = 0;
+  expanded = 0,
+  pass = 0;
+const counted = new WeakMap<Player, number>();
+// Counts each list player once per outermost construction or step.
+function enter(p: Player, node?: number) {
+  if (!depth) {
+    expanded = 0;
+    pass++;
+  } else if (counted.get(p) !== pass && ++expanded > 256) throw limit(p, node);
+  counted.set(p, pass);
+  depth++;
+}
 function extend(
   p: Player,
   base: PlayerExtension | undefined,
@@ -485,11 +506,13 @@ function extend(
       }
     },
     step(dt) {
-      if (!initializing) {
-        if (!depth) expanded = 0;
-        else if (++expanded > 256) throw limit(p, state.runs[0]?.spec.node);
-        depth++;
-      }
+      if (!initializing) enter(p, state.runs[0]?.spec.node);
+      // Descendant writes to shared data need another parent binding sample (SPEC inherited data context).
+      const scope = initializing
+        ? []
+        : [...p.model.inputs.keys()]
+            .filter((n) => n[0] === '$')
+            .map((n) => [n, JSON.stringify(p.get(n))]);
       try {
         const result = (initializing ? undefined : base?.step(dt)) ?? { events: [], settled: true };
         let total = 0;
@@ -562,6 +585,7 @@ function extend(
           });
           p.drawVersions[run.spec.node] = ++p.drawRevision;
         }
+        for (const [n, v] of scope) if (v !== JSON.stringify(p.get(n!))) result.settled = false;
         return result;
       } finally {
         if (!initializing) depth--;

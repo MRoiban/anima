@@ -277,9 +277,13 @@ export const surface: Module = {
           const r = raw,
             key = paint.key ?? paint.kind,
             num = (k: string, fallback: number) => p.num(i, key + '.' + k, fallback),
-            a = ((
+            catalogs = (
               registry?.get('assets') as typeof import('../../assets/core/index.ts').assets
-            )?.resolvedAssets.get(p.model) ??
+            )?.resolvedAssets,
+            // Player-local catalogs (host image replacement) precede the model's.
+            a = (catalogs?.get(p) ??
+              catalogs?.get(p.model) ??
+              resolvedAssets.get(p) ??
               resolvedAssets.get(p.model) ??
               p.model.doc.assets)[r.asset];
           paint.color = undefined;
