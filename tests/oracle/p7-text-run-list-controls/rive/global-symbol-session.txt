@@ -1,0 +1,13 @@
+ok screenshot: frames/global-symbol.png
+ok data
+ok advance
+ok screenshot: frames/global-symbol-changed.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:40:19.887] rive  deferred replay: inline
+[12:40:19.894] rive  built (8437 bytes, 6ms, 0 errors, 0 warnings)
+[12:40:19.894] rive  showing Probe [1/2]
+[12:40:19.894] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[12:40:19.901] rive  wrote frames/global-symbol.png
+[12:40:19.901] rive  data: items[0]/label = WXYZ (mid-run)
+[12:40:19.905] rive  wrote frames/global-symbol-changed.png

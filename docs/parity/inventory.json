@@ -9116,7 +9116,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
+      "reason": "P7-6: Anima typed style writes/drawing pass. Correct native TextStyleGlobal plus artboard-backed Ink/Alternate handles render the default style, but fresh CLI 1.9.1 setters reject both names and ids with no property at this path. Faithful native mutation comparison remains missing; tests/oracle/p7-text-style-global-control retains the proper control."
     }
   },
   {
@@ -29441,10 +29441,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-baseline/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
+      "reason": "P7-6: Intentional difference: baseline fitting excludes the first ascent and fits the distance below the first baseline, useful for baseline-aligned labels. Native true/false controls are pixel-identical on the retained probe and shrink the full line; Anima keeps the documented baseline-relative measurement. No native pixel-equivalence claim."
     }
   },
   {
@@ -29470,10 +29470,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-layout-measure/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
+      "reason": "P7-6: Intentional difference: report the actual continuously fitted content width/height to consumers rather than the native conservative fitted candidate. Eight 0.6-em advances fit 48 px at font size 10; the native fitted frame equals an independently authored 9 px visible control exactly. Continuous grid-unit fitting avoids unnecessary measured slack. See modules/text/SPEC.md P7 dispositions."
     }
   },
   {
@@ -29496,7 +29496,7 @@
       "status": "planned",
       "test": "oracle/text-flatten",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
+      "reason": "P7-6: root/component traversal, default snapshot policy, group-compatible references, clips, gradients/effects and original-font raster tests implemented. Independent native outline-conversion evidence and owner-assigned strict raster acceptance remain missing."
     }
   },
   {
@@ -29723,10 +29723,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-cursor; tests/oracle/text-input-cursor (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
+      "reason": "P7-6: Intentional difference: a steady 0.06-grid-unit caret scales with the scene and its transforms in both renderers. The retained native caret remains one capture pixel despite scaleX=0.72; adopting that would make headless geometry depend on a viewport/DPR absent from Player.step. Original-font standalone drawing conformance specifies scalable caret geometry. Blink timing is delegated to neither renderer."
     }
   },
   {
@@ -29781,10 +29781,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-focus-selection; tests/oracle/text-input-focus-selection (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
+      "reason": "P7-6: Native select-all-on-focus is captured and Anima selects the same complete UTF-16 value on focus in core and both browser engines. The remaining drawing difference follows the intentional per-line rounded selection rectangle contract (modules/text-input/SPEC.md), rather than an interaction discrepancy. Existing native captures are retained without a passing geometry tolerance."
     }
   },
   {
@@ -29837,10 +29837,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-limits; tests/oracle/text-input-limits (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
+      "reason": "P7-6: Intentional DOM contract: maxlength counts UTF-16 units like the native HTML field; maxLines counts explicit LF-delimited paragraphs, independent of font readiness, host width and wrapping. Native schema instead advertises code points and displayed lines. The local headless route rejects text/compose delivery, so no faithful native user-edit comparison is available. Programmatic data writes bypass edit limits intentionally, as HTML value assignment does."
     }
   },
   {
@@ -29921,10 +29921,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending); modules/text-input/test/core/text-input-placeholder.test.ts; modules/text-input/test/web/placeholder.browser.test.ts; modules/text-input/test/core/drawing-conformance.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
+      "reason": "P7-6: No faithful native placeholder counterpart is exposed by the permitted local CLI. TextInput rejects both placeholder and placeholderColor in the independently authored probe; static Text would not test empty-value switching or placeholder paint. Anima implements solid placeholder paint and default half-opacity normal ink with restoration, original-font conformance, tooling and both-engine SVG/canvas tests."
     }
   },
   {
@@ -29980,10 +29980,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection-rounding; tests/oracle/text-input-selection-rounding (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
+      "reason": "P7-6: Intentional difference: selection uses independent measured line rectangles with an authored circular radius, clamped by SVG/canvas to half the box extent. The native radius-0 and radius-2.4 captures retain the same rounding, so copying those pixels would ignore Anima's authored radius. Original-font drawing conformance fixes exact Anima boxes and radii; no native pixel identity or widened tolerance is claimed."
     }
   },
   {
@@ -30254,10 +30254,10 @@
     "anima": {
       "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-variation/example.animl",
       "module": "text-effects",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-variation; tests/oracle/text-modifier-variation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
+      "reason": "P7-6: Platform-conditional support: SVG and tool outlines support arbitrary authored axes; Canvas applies native fontVariationSettings when exposed, otherwise only wght through CSS font weight. Both tested browser engines lack the arbitrary Canvas API. Inventing a property would silently draw the default face, so unsupported axes are an explicit platform limitation. Existing generated-font wght native comparison passes; arbitrary-axis Canvas identity is skipped only on hosts without that API. Disposition: tests/oracle/text-modifier-variation-canvas/skip.json."
     }
   },
   {
@@ -30375,10 +30375,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-ellipsis/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
+      "reason": "P7-6: Intentional difference: use one typographic U+2026 grapheme rather than three U+002E glyphs. The native truncation frame is pixel-identical to the independently authored abc... control and differs from abcde…; Anima retains the largest grapheme prefix plus one measured ellipsis. This preserves typographic style and never splits a grapheme. No geometry tolerance is assigned."
     }
   },
   {
@@ -30435,10 +30435,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit-font-size/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native fitted font size differs; no passing tolerance."
+      "reason": "P7-6: Intentional difference: retain twenty-step continuous font-size bisection instead of the native conservative fitted candidate (the retained native frame is exactly the independent 9 px control; 10 px fits the 48 px advance bound). Fractional grid-unit sizing retains the maximal measured fit. Native fitted-size identity is not claimed."
     }
   },
   {
@@ -30775,7 +30775,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
+      "reason": "P7-6: Anima mutations/rendering pass. Six native DataBindPath controls (root/property-only, relative/absolute, and proper artboard-backed global/local style symbols) all draw blank despite successful item writes. A faithful native live-list comparison remains missing; controls retained in tests/oracle/p7-text-run-list-controls."
     }
   },
   {
@@ -31124,10 +31124,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-trim/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
+      "reason": "P7-6: Intentional difference: cap/x-height and baseline trims translate drawing to the selected metric edge and report the trimmed content height. Native packed-257 and explicit cap/alphabetic controls draw exactly like trim-none on the retained fixed-box probe. Keeping effective metric trimming provides stable label alignment; native fixed-box drawing identity is not claimed."
     }
   },
   {

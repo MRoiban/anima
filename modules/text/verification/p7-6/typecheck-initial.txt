@@ -1,0 +1,7 @@
+
+> typecheck
+> tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/markup && tsc -p packages/markup/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools && tsc -p packages/playground
+
+modules/text/test/core/text-fit-baseline.test.ts(74,11): error TS18046: 'bad.nodes' is of type 'unknown'.
+modules/text/test/core/text-flatten.test.ts(81,52): error TS2352: Conversion of type '{ type: string; id: string; component: string; }[]' to type '{ type: string; id: string; runs: { text: string; style: string; }[]; styles: { s: { size: number; fill: { color: string; }; }; }; lineHeight: number; }[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Object literal may only specify known properties, and 'component' does not exist in type '{ type: string; id: string; runs: { text: string; style: string; }[]; styles: { s: { size: number; fill: { color: string; }; }; }; lineHeight: number; }'.

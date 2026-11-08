@@ -1,0 +1,10 @@
+<Rive version="1" kind="fragment">
+<FontAsset id="0:20" name="Original" file="../../../../fixtures/fonts/anima-test.ttf"/>
+<Artboard id="0:1" name="Probe" width="240" height="240" styleId="0:2" viewModelId="0:40" defaultStateMachineId="0:101"><LayoutComponentStyle id="0:2"/><Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+<Text id="0:3" name="Label" sizingValue="fixed" width="240" height="240" wrapValue="noWrap" overflowValue="visible" fitFromBaseline="false">
+<TextStyleGlobal id="0:4" artboardId="0:200"><DataBindContext sourcePathIds="0:40-0:42" propertyKey="493"/></TextStyleGlobal>
+<TextValueRun styleId="0:4" text="AB"/>
+</Text><StateMachine id="0:101" name="Main"><StateMachineLayer><EntryState/></StateMachineLayer></StateMachine></Artboard>
+<Artboard id="0:200" name="Ink" width="240" height="240" styleId="0:201"><LayoutComponentStyle id="0:201"/><TextStylePaint id="0:202" fontSize="60" lineHeight="60" fontAssetId="0:20"><Fill><SolidColor colorValue="FF000000"/></Fill></TextStylePaint></Artboard>
+<Artboard id="0:210" name="Alternate" width="240" height="240" styleId="0:211"><LayoutComponentStyle id="0:211"/><TextStylePaint id="0:212" fontSize="120" lineHeight="120" fontAssetId="0:20"><Fill><SolidColor colorValue="FFFF0000"/></Fill></TextStylePaint></Artboard>
+<ViewModel id="0:40" name="Main" defaultInstanceId="0:41"><ViewModelPropertyTextStyle id="0:42" name="style" symbolTypeValue="globalTextStyle"/><ViewModelInstance id="0:41" name="main" exports="true"><ViewModelInstanceTextStyle viewModelPropertyId="0:42" propertyValue="0:200"/></ViewModelInstance></ViewModel></Rive>

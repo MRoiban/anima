@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "Main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Main",
+    "properties": [
+      {
+        "name": "style",
+        "path": "style",
+        "type": "artboard",
+        "artboard": "",
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

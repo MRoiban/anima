@@ -1,0 +1,10 @@
+
+> prepare
+> git config core.hooksPath .githooks
+
+error: could not lock config file /data/t3/projects/anima/.git/config: File exists
+npm error code 255
+npm error path /home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3
+npm error command failed
+npm error command sh -c git config core.hooksPath .githooks
+npm error A complete log of this run can be found in: /home/jarvis/.npm/_logs/2026-11-08T10_44_17_320Z-debug-0.log

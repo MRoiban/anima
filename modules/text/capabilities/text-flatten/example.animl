@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-flatten" grid="20" requires="text">
+  <text id="label" line-height="1">
+    <style id="s" size="2"/>
+    <run text="A" style="s"/>
+  </text>
+</anima>

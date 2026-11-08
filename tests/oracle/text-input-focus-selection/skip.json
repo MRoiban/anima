@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Native select-all-on-focus is captured and Anima selects the same complete UTF-16 value on focus in core and both browser engines. The remaining drawing difference follows the intentional per-line rounded selection rectangle contract (modules/text-input/SPEC.md), rather than an interaction discrepancy. Existing native captures are retained without a passing geometry tolerance.",
+  "tests": [
+    "modules/text-input/test/core/field.test.ts",
+    "modules/text-input/test/web/field.browser.test.ts",
+    "spec/conformance/text-input-focus-selection/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-focus-selection/rive/scene.rml",
+    "tests/oracle/text-input-focus-selection/rive/commands.txt",
+    "tests/oracle/text-input-focus-selection/rive/frames/0.png"
+  ]
+}

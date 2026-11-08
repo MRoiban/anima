@@ -98,3 +98,31 @@ Row-specific `tests/oracle/*/skip.json` files link the attempted commands and bo
 These skips do not certify actual OS IME sessions, clipboard grants, mobile keyboards or
 screen-reader announcements. Four conformance cases project the field state used by these
 DOM APIs; their README files explicitly distinguish that projection from executing a DOM API in Node.
+
+### P7 comparison boundaries
+
+The caret deliberately remains a steady **0.06 grid units**, transformed like the text, rather
+than a capture-pixel hairline. Core drawing has no host pixel ratio or viewport, and this choice
+keeps headless, SVG and canvas geometry consistent. The native probe draws a 1-pixel caret even
+with scaleX 0.72; that difference is retained, not covered by an antialiasing tolerance.
+
+Edit limits deliberately follow HTML UTF-16 maxlength and explicit paragraph counts. Wrapped-line
+limits would change accepted input when a host resizes or a font loads; Anima does not make stored
+input validity depend on those events. The native schema uses scalar counts and displayed lines.
+The local headless route cannot deliver native text-edit transactions, so it cannot faithfully
+compare that alternative. Existing surrogate, newline, composition and direct-write regressions
+specify Anima's contract. A direct data write or initial value can exceed limits until an edit.
+
+The local native TextInput authoring surface rejects placeholder and placeholderColor (see
+`tests/oracle/text-input-placeholder/rive/verify.txt`). A static label cannot prove placeholder
+switching or independent paint. This row uses an evidenced native-observation skip plus original-
+font conformance and both-engine SVG/canvas regressions, not a substitute static-text comparison.
+
+Selection rounding is intentionally the SVG/canvas rounded rectangle of each selected line:
+use the authored radius (default zero), with the renderer's half-extent clamp. Native authored
+radii 0 and 2.4 retain identical rounding in the captured controls; Anima honors its radius rather
+than emulating that observation. This keeps line metrics, selected logical clusters and drawing
+consistent in both backends. Select-on-focus selects the full value; its native capture already
+confirms the interaction. Its remaining pixel difference shares this documented geometry choice.
+Arbitrary separate selected-text paint/drawable references remain unimplemented, so the broader
+`text.input-selection` row stays planned despite completed rounding and focus behavior.

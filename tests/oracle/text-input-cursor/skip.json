@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: a steady 0.06-grid-unit caret scales with the scene and its transforms in both renderers. The retained native caret remains one capture pixel despite scaleX=0.72; adopting that would make headless geometry depend on a viewport/DPR absent from Player.step. Original-font standalone drawing conformance specifies scalable caret geometry. Blink timing is delegated to neither renderer.",
+  "tests": [
+    "modules/text-input/test/core/drawing-conformance.test.ts",
+    "modules/text-input/test/web/field.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-cursor/rive/scene.rml",
+    "tests/oracle/text-input-cursor/rive/frames/0.png"
+  ]
+}

@@ -52,3 +52,15 @@ selection and complex-script shaping are not implemented; use the browser path. 
 advance is assigned to its first grapheme; the tool does not invent internal caret metrics.
 The implementation follows the primary [OpenType GSUB specification](https://learn.microsoft.com/en-us/typography/opentype/spec/gsub),
 not another runtime's source. No Rive implementation algorithm is used.
+
+### P7 variation platform boundary
+
+Arbitrary Canvas font axes remain conditional on a real `fontVariationSettings` member on the
+2D context. Both measurement and drawing use the same feature detection; unsupported hosts
+apply only `wght` via CSS font weight and `kern` via `fontKerning`. No invented property is
+assigned. SVG and tool outlines retain all supported authored axes. Both tested engines lack
+this Canvas API; the arbitrary-axis Canvas comparison is an evidenced platform skip, while
+wght retains its completed native raster comparison. Browser tests expose the detected support
+flags; synthetic-context tests exercise the native branch and reset settings between fonts.
+This limitation does not imply that unsupported axes render in Canvas or that fallback metrics
+match arbitrary-axis SVG drawing. Font decoding/metrics introspection remain separate planned rows.

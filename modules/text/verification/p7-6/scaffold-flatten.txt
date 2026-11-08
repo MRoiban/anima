@@ -1,0 +1,20 @@
+Updated 19 files (TODO skeletons; parity status unchanged)
+docs/parity/MATRIX.md
+docs/parity/inventory.json
+docs/parity/matrix.json
+modules/text/capabilities/text-flatten/README.md
+modules/text/capabilities/text-flatten/example.ani
+modules/text/capabilities/text-flatten/example.animl
+modules/text/capabilities/text-flatten/registry.ts
+modules/text/manifest.ts
+modules/text/test/core/invalid/text-flatten/README.md
+modules/text/test/core/text-flatten.test.ts
+spec/SPEC.md
+spec/conformance/text-flatten/case.animl
+spec/conformance/text-flatten/expected.jsonl
+spec/conformance/text-flatten/script.txt
+spec/conformance/text-flatten/todo.json
+tests/oracle/text-flatten/case.animl
+tests/oracle/text-flatten/rive/README.md
+tests/oracle/text-flatten/todo.json
+tools/modules.generated.ts

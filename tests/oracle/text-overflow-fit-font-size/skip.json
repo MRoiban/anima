@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: retain twenty-step continuous font-size bisection instead of the native conservative fitted candidate (the retained native frame is exactly the independent 9 px control; 10 px fits the 48 px advance bound). Fractional grid-unit sizing retains the maximal measured fit. Native fitted-size identity is not claimed.",
+  "tests": [
+    "modules/text/test/core/text-fit-baseline.test.ts",
+    "modules/text/test/core/layout.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-text-fit-controls/rive/frames/9.png",
+    "tests/oracle/p7-text-fit-controls/rive/session-9.txt"
+  ]
+}

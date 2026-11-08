@@ -1,0 +1,9 @@
+file:///home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3/packages/cli/src/cli.ts:535
+    } else io.err(error.message);
+              ^
+
+TypeError: Cannot read properties of undefined (reading 'err')
+    at run (file:///home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3/packages/cli/src/cli.ts:535:15)
+    at async file:///home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3/tests/oracle/measure-p7-text.mjs:55:18
+
+Node.js v24.22.0

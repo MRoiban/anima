@@ -1,0 +1,8 @@
+ok screenshot: frames/ellipsis-literal.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:40:18.514] rive  deferred replay: inline
+[12:40:18.518] rive  built (8130 bytes, 3ms, 0 errors, 0 warnings)
+[12:40:18.518] rive  showing Probe [1/1]
+[12:40:18.518] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[12:40:18.524] rive  wrote frames/ellipsis-literal.png
