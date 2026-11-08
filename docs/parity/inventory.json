@@ -15202,10 +15202,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomCenter\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15231,10 +15231,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15260,10 +15260,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15289,10 +15289,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"Center\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15318,10 +15318,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"CenterLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15347,10 +15347,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"CenterRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15376,10 +15376,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopCenter\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15405,10 +15405,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15434,10 +15434,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15523,10 +15523,10 @@
       "rive-wasm/js/src/rive.ts:4944@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: scene width/height overrides",
+      "construct": "modules/host-fit/web/index.ts: icon.size / icon.resetSize(); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/artboard-size",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -16694,10 +16694,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"contain\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"contain\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-contain",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16729,10 +16729,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"cover\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"cover\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-cover",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16764,10 +16764,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fill\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fill\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fill",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16799,10 +16799,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fit-height\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fit-height\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fit-height",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16834,10 +16834,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fit-width\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fit-width\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fit-width",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16904,10 +16904,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"none\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"none\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-none",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16939,10 +16939,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"scale-down\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"scale-down\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-scale-down",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [

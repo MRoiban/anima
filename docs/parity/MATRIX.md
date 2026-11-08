@@ -30,12 +30,12 @@ scope by the owner's triage of 2026-11-07).
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
 | Accessibility | 63 | 62 |  | 1 |  |  |  |
-| Host runtime API | 125 | 94 |  | 17 |  | 11 | 3 |
+| Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **837** | **0** | **49** | **0** | **188** | **164** |
+| **Total** | **1238** | **854** | **0** | **32** | **0** | **188** | **164** |
 
-**Progress:** 837 of 886 in-scope capabilities done (94 %); 837 of 1238 in the full matrix (68 %).
+**Progress:** 854 of 886 in-scope capabilities done (96 %); 854 of 1238 in the full matrix (69 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1286,26 +1286,26 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `host-api.align-bottom-center` | Alignment: BottomCenter | new: <anima-icon align="BottomCenter"> | layout | planned | browser/align-bottom-center |  |
-| `host-api.align-bottom-left` | Alignment: BottomLeft | new: <anima-icon align="BottomLeft"> | layout | planned | browser/align-bottom-left |  |
-| `host-api.align-bottom-right` | Alignment: BottomRight | new: <anima-icon align="BottomRight"> | layout | planned | browser/align-bottom-right |  |
-| `host-api.align-center` | Alignment: Center | new: <anima-icon align="Center"> | layout | planned | browser/align-center |  |
-| `host-api.align-center-left` | Alignment: CenterLeft | new: <anima-icon align="CenterLeft"> | layout | planned | browser/align-center-left |  |
-| `host-api.align-center-right` | Alignment: CenterRight | new: <anima-icon align="CenterRight"> | layout | planned | browser/align-center-right |  |
-| `host-api.align-top-center` | Alignment: TopCenter | new: <anima-icon align="TopCenter"> | layout | planned | browser/align-top-center |  |
-| `host-api.align-top-left` | Alignment: TopLeft | new: <anima-icon align="TopLeft"> | layout | planned | browser/align-top-left |  |
-| `host-api.align-top-right` | Alignment: TopRight | new: <anima-icon align="TopRight"> | layout | planned | browser/align-top-right |  |
-| `host-api.artboard-size` | Override artboard size | new: scene width/height overrides | layout | planned | browser/artboard-size |  |
+| `host-api.align-bottom-center` | Alignment: BottomCenter | modules/host-fit/web/index.ts: <anima-icon alignment="bottom-center"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-bottom-left` | Alignment: BottomLeft | modules/host-fit/web/index.ts: <anima-icon alignment="bottom-left"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-bottom-right` | Alignment: BottomRight | modules/host-fit/web/index.ts: <anima-icon alignment="bottom-right"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-center` | Alignment: Center | modules/host-fit/web/index.ts: <anima-icon alignment="center"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-center-left` | Alignment: CenterLeft | modules/host-fit/web/index.ts: <anima-icon alignment="center-left"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-center-right` | Alignment: CenterRight | modules/host-fit/web/index.ts: <anima-icon alignment="center-right"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-top-center` | Alignment: TopCenter | modules/host-fit/web/index.ts: <anima-icon alignment="top-center"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-top-left` | Alignment: TopLeft | modules/host-fit/web/index.ts: <anima-icon alignment="top-left"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.align-top-right` | Alignment: TopRight | modules/host-fit/web/index.ts: <anima-icon alignment="top-right"> (icon.alignment); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.artboard-size` | Override artboard size | modules/host-fit/web/index.ts: icon.size / icon.resetSize(); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md |  |
 | `host-api.bindable-artboards` | Bindable component instances | modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-bindable-artboards/registry.ts; modules/data-artboard/capabilities/host-api-bindable-artboards/example.animl | data-artboard | done | modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-bindable-artboards; tests/oracle/host-api-bindable-artboards/skip.json | P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts. |
 | `host-api.data-artboard` | View model artboard | modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-data-artboard/registry.ts; modules/data-artboard/capabilities/host-api-data-artboard/example.animl | data-artboard | done | modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-data-artboard; tests/oracle/host-api-data-artboard/skip.json | P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts. |
-| `host-api.fit-contain` | Fit: Contain | new: <anima-icon fit="contain"> | layout | planned | browser/fit-contain |  |
-| `host-api.fit-cover` | Fit: Cover | new: <anima-icon fit="cover"> | layout | planned | browser/fit-cover |  |
-| `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |  |
-| `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |  |
-| `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |  |
+| `host-api.fit-contain` | Fit: Contain | modules/host-fit/web/index.ts: <anima-icon fit="contain"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.fit-cover` | Fit: Cover | modules/host-fit/web/index.ts: <anima-icon fit="cover"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.fit-fill` | Fit: Fill | modules/host-fit/web/index.ts: <anima-icon fit="fill"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.fit-fit-height` | Fit: Fit height | modules/host-fit/web/index.ts: <anima-icon fit="fit-height"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.fit-fit-width` | Fit: Fit width | modules/host-fit/web/index.ts: <anima-icon fit="fit-width"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
 | `host-api.fit-layout` | Fit: Responsive layout fit | <anima-icon fit="layout"> / icon.fit; host-fit/web and layout per-player root sizing (spec/SPEC.md, modules/layout/SPEC.md) | layout | done | modules/host-fit/test/web/fit.test.ts (real root/child resize and byte-exact native frames, SVG/canvas, both engines); tests/oracle/host-api-fit-layout/skip.json |  |
-| `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |  |
-| `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |  |
+| `host-api.fit-none` | Fit: Unscaled | modules/host-fit/web/index.ts: <anima-icon fit="none"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
+| `host-api.fit-scale-down` | Fit: Scale down | modules/host-fit/web/index.ts: <anima-icon fit="scale-down"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
 
 ## P8 — Rigging <a id="p8"></a>
 
