@@ -12,11 +12,13 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   bindable artboards, 18 P6 text carry-overs) → P8 rigging (heavy).
 - Branch `p7` from main 8ffd714. Design `design/p7/DESIGN.md`; briefs `design/p7/tickets/`.
 - Merged on p7: P7-1 text split (+ `measureText`), P7-3 host fit (17 rows ready; `fit="layout"`
-  stubbed), P7-5 bindable artboards (partial), P7-2 layout core (16 rows done).
-- Running: P7-4 animated reflow + `measureText` and `fit="layout"` wiring, P7-6 text carry-overs,
-  P7-7 finish bindable artboards.
-- Next: merge them; reflow-card benchmark (design §9); parity closure (P7 rows: 16 done, 41 planned
-  before these tickets); `test:scope -- changed --no-browser` once; PR.
+  stubbed), P7-5 bindable artboards (partial), P7-2 layout core (16 rows done), P7-6 text carry-overs
+  (11 closed; 7 left: tree-bounds stroke extents, text-style and run-list native comparisons, flatten
+  evidence, font decoding/metrics APIs, separate selected-text paint).
+- Running: P7-4 animated reflow + `measureText` and `fit="layout"` wiring, P7-7 finish bindable
+  artboards.
+- Next: merge them; reflow-card benchmark (design §9); parity closure (P7 rows: 27 done, 30 planned;
+  17 host-fit rows await marking); `test:scope -- changed --no-browser` once; PR.
 - Gates now: core+web 21,165; largest scene 53,982; app-UI 103,294; runtime sum 125,716;
   authoring 14,899; Rive-class 135,671. In scope 820/886.
 
