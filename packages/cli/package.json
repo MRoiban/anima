@@ -2,6 +2,7 @@
   "name": "@anima-format/cli",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "anima: validate, inspect, sample, render and scaffold .ani files.",
   "exports": {

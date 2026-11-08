@@ -2,6 +2,7 @@
   "name": "@anima-format/core",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Anima core: load, validate and play .ani documents. Pure, deterministic, no DOM.",
   "exports": {
