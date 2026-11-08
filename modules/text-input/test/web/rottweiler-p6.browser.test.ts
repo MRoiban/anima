@@ -203,4 +203,51 @@ for (const [name, engine, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R5-02 importing a11y-text after a load keeps the field's semantic box`,
+    async () => {
+      const browser = await engine.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(
+          '<anima-icon style="position:relative;display:block;width:200px;height:200px"></anima-icon>',
+        );
+        for (const content of bundles) await page.addScriptTag({ type: 'module', content });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.get('textinput'),
+        );
+        const bounds = () =>
+          page.evaluate(() => document.querySelector('anima-icon')!.player!.semantics()[0]?.bounds);
+        await page.evaluate(() =>
+          document.querySelector('anima-icon')!.load({
+            anima: '0.1',
+            name: 'late-a11y-text',
+            grid: 20,
+            requires: ['text', 'textinput', 'a11y', 'focus'],
+            nodes: [
+              {
+                id: 'q',
+                type: 'text',
+                sizing: 'fixed',
+                width: 10,
+                height: 4,
+                runs: [{ text: 'AB' }],
+                textInput: {},
+              },
+            ],
+          }),
+        );
+        expect(await bounds()).toEqual([0, 0, 10, 4]);
+        await page.addScriptTag({
+          type: 'module',
+          content: await cachedBundle(resolve('packages/web/src/a11y-text.ts')),
+        });
+        await page.waitForTimeout(100);
+        expect(await bounds()).toEqual([0, 0, 10, 4]);
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
 }

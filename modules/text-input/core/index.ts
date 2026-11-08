@@ -47,11 +47,9 @@ export type FieldNode = TextDrawNode & { fieldBoxes?: Box[] };
 let text: TextModule;
 let semanticsRuntime: typeof a11y.runtime | undefined;
 let previousUpdate: typeof a11y.runtime.update;
-let previousEnrich: typeof a11y.runtime.enrich;
 // Field boxes (animated or bound dimensions, as drawn) are set before the semantic signature,
 // so size changes refresh cached semantics.
-const enrich: NonNullable<typeof a11y.runtime.enrich> = (entries, track) => {
-  previousEnrich?.(entries, track);
+const refine: NonNullable<typeof a11y.runtime.refine> = (entries) => {
   for (const e of entries) {
     if (!config(e.p, e.i)) continue;
     const w = e.p.prop(e.i, 'width') as number,
@@ -96,7 +94,7 @@ const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
         obscured: !!c.obscured,
         focused: p.focused === e.id,
       } as SemanticNode['states'],
-      bounds: e.bounds,
+      bounds: e.bounds!, // set by `refine`
       actions: [],
       children: [],
     });
@@ -216,8 +214,7 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
       if (semanticsRuntime) {
         if (semanticsRuntime.update !== update) previousUpdate = semanticsRuntime.update;
         semanticsRuntime.update = update;
-        if (semanticsRuntime.enrich !== enrich) previousEnrich = semanticsRuntime.enrich;
-        semanticsRuntime.enrich = enrich;
+        semanticsRuntime.refine = refine;
       }
       return {
         ...textinput,

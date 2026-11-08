@@ -59,15 +59,18 @@ Icon.eventHook = (icon, kind, info) => {
   }
 };
 const active = new Set<WeakRef<AnimaIcon>>();
-document.fonts?.addEventListener('loadingdone', () => {
-  // Bump the font revision (keeping an options-aware measurer) so nested and list players relayout.
-  registerTextMeasurer();
-  for (const ref of active) {
-    const icon = ref.deref();
-    if (!icon) active.delete(ref);
-    else if (icon.player) {
-      text.invalidateText(icon.player);
-      icon.attributeChangedCallback('renderer', null, icon.getAttribute('renderer'));
+document.fonts?.addEventListener('loadingdone', () =>
+  // Next task: every listener (including measurer cache clears) has run and the face is usable.
+  setTimeout(() => {
+    // Bump the font revision (keeping an options-aware measurer) so nested and list players relayout.
+    registerTextMeasurer();
+    for (const ref of active) {
+      const icon = ref.deref();
+      if (!icon) active.delete(ref);
+      else if (icon.player) {
+        text.invalidateText(icon.player);
+        icon.attributeChangedCallback('renderer', null, icon.getAttribute('renderer'));
+      }
     }
-  }
-});
+  }),
+);

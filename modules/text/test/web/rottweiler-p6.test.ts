@@ -141,6 +141,8 @@ for (const [name, engine, executablePath] of [
           document.fonts.add(new FontFace('Late', 'url(http://font.test/late.ttf)'));
           await document.fonts.load('10px Late', 'AV');
           await done;
+          // Relayout runs in the task after loadingdone.
+          await new Promise((r) => setTimeout(r, 50));
           return { before, after: widths() };
         });
         expect(result.before[0]).toBe(result.before[1]);

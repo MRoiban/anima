@@ -279,4 +279,75 @@ for (const [name, browserType, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R5-01 with fonts-options, a late CSS font relayouts root and nested text alike`,
+    async () => {
+      const browser = await browserType.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.route('http://font.test/late.ttf', (r) =>
+          r.fulfill({
+            body: Buffer.from(kernedFont()),
+            headers: { 'access-control-allow-origin': '*', 'content-type': 'font/ttf' },
+          }),
+        );
+        await page.setContent('<anima-icon paused></anima-icon>');
+        for (const entry of ['text', 'components', 'fonts-options'])
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.has('fonts'),
+        );
+        const widths = () =>
+          page.evaluate(() => {
+            const icon = document.querySelector('anima-icon') as AnimaIcon;
+            const text = (customElements.get('anima-icon') as typeof AnimaIcon).modules.get(
+              'text',
+            ) as unknown as { textLayout(p: unknown, i: number): { width: number } };
+            const child = (
+              icon.player!.nested as unknown as { players: Map<string, unknown> }
+            ).players.get('i');
+            return [text.textLayout(icon.player, 0).width, text.textLayout(child, 0).width];
+          });
+        await page.evaluate(async () => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const label = {
+            id: 't',
+            type: 'text',
+            runs: [{ text: 'AV', style: 's' }],
+            styles: { s: { font: 'Late, monospace', size: 10 } },
+          };
+          icon.load({
+            anima: '0.1',
+            name: 'late',
+            grid: 20,
+            requires: ['components', 'text', 'fonts'],
+            components: { child: { grid: 20, nodes: [label] } },
+            nodes: [label, { id: 'i', type: 'instance', component: 'child' }],
+          });
+          for (let i = 0; i < 100 && !icon.player; i++) await new Promise((r) => setTimeout(r, 20));
+        });
+        await expect.poll(async () => (await widths())[0], { timeout: 5000 }).toBeGreaterThan(0);
+        const before = await widths();
+        await page.evaluate(async () => {
+          document.fonts.add(new FontFace('Late', 'url(http://font.test/late.ttf)'));
+          await document.fonts.load('10px Late', 'AV');
+        });
+        await expect
+          .poll(
+            async () => {
+              const [root, child] = await widths();
+              return root !== before[0] && root === child;
+            },
+            { timeout: 5000 },
+          )
+          .toBe(true);
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
 }

@@ -39,10 +39,27 @@ Phase range: `git diff aca083b4 95e3c618` (PR #21). Reviewed as the code stands 
 | R4-04 | minor | R3-07's semantic field bounds ran after the semantic signature compare, so a cached tree kept the old width | fixed: `modules/text-input/core/index.ts` computes field boxes in a chained `runtime.enrich` (before the signature; re-chained on every init like `update`); test `modules/text-input/test/core/rottweiler-p6.test.ts` |
 | R4-05 | minor | Text semantic bounds put cluster-less lines at x=0 (ignores R3-05 `line.x`) | fixed: `modules/a11y/core/text.ts` uses `l.x`; test `modules/a11y/test/core/rottweiler-p6.test.ts` |
 | R4-06 | minor | R3-06 union still assumed nonnegative advances (negative kerning → `width:-6`) | fixed: union of both edges of every cluster; test `modules/text-input/test/core/rottweiler-p6.test.ts` |
+| R5-01 | major | With `fonts-options`, the `loadingdone` relayout ran in the same dispatch as (and before usable font metrics / the options measurer's cache clear), so the root cached fallback metrics under the new revision (root/child `[10,11]`) | fixed: `modules/text/web/index.ts` defers the revision bump + redraw to the next task (`setTimeout`; a microtask was tried and still reproduced); test `modules/fonts/test/web/rottweiler-p6.test.ts` (Chromium, Firefox) |
+| R5-02 | minor | R4-04 put field boxes in a chained `runtime.enrich`, which `a11y-text` (installs `enrich` at import) overwrites when imported later | fixed: `modules/a11y/core/runtime.ts` adds a `refine` hook run after `enrich` (tracked like it); `modules/text-input/core/index.ts` owns it outright, no chaining; test `modules/text-input/test/web/rottweiler-p6.browser.test.ts` (Chromium, Firefox) |
 
-Reviewer tokens: rounds 1–4 not reported.
+Reviewer tokens: not reported by the reviewer runtime in any of the 5 rounds.
 
 Overlap with P7: the P7 lead's R2-6 fixes the same `fit-font-size` zero-size request as R1-03 in
 `modules/text/core/overflow.ts`; expect a merge conflict there (same behaviour). Noted, not filed: `modules/data-artboard/web/index.ts`
 (P7) fully clears adopted-player font controllers on `cleanup`, so data-artboard font assignments
 also do not survive a reconnect — P7's code, left to its lead.
+
+## Summary
+
+Five rounds ran (the brief's maximum; round 5 still found two real defects, both in round-4
+fixes). 41 findings: 32 fixed (R3-07 counted here, its focus-bounds half pushed back), 5 pushed
+back (R3-01, R3-02, R3-09, and the R3-07 focus half), 3 deferred for owner decisions (R2-04
+non-square viewBox mapping, R3-04 and the base-entry half of R1-09 on byte budgets), plus the
+P7-relayed R2-5 fixed. Regressions introduced by fixes and caught by later rounds: R2-01 (from R1-02),
+R4-01 (from R3-03), R4-02 (from R3-08), R5-01/R5-02 (from R3-03/R4-04).
+
+Sizes (gzip B, before → after, budget): text 5,614 → 5,759 (6,144); text-overflow 413 → 417 (768);
+text-hit 979 → 982 (1,024); text-input 3,900 → 4,075 (4,096); text-effects 3,785 → 3,802 (4,096);
+fonts 2,008 → 2,047 (2,048); fonts-text 542 → 765 (768); fonts-options 3,488 → 3,773 (4,096);
+fonts-info 7,952 → 8,018 (8,192); input 6,743 → 6,780 (7,104); a11y 2,352 → 2,363 (2,496);
+core+web 21,165 → 21,164 (24,576). All six `tools/size.ts` gates pass.

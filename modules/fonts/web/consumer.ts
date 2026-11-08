@@ -51,9 +51,10 @@ if (!fonts.prepareText) {
     };
   };
   // Patch the live controller class: separately bundled entries carry their own copies.
+  type Method = (this: Scope, arg?: never) => unknown;
   const proto = Object.getPrototypeOf(Reflect.get(Icon.prototype, 'fonts', {})) as Record<
     string,
-    Function
+    Method
   >;
   for (const name of ['forModel', 'cssFont']) {
     const method = proto[name]!;
@@ -61,7 +62,7 @@ if (!fonts.prepareText) {
       const root = this.icon.fonts as unknown as Scope;
       parked.get(root)?.();
       parked.delete(root);
-      return method.call(this, arg);
+      return method.call(this, arg as never);
     };
   }
   const clear = proto.clear!;
@@ -76,7 +77,7 @@ if (!fonts.prepareText) {
         if (player && this.icon.player === player) restore();
         previous?.();
       });
-    return clear.call(this, keep);
+    return clear.call(this, keep as never);
   };
   const hosts = new Set<WeakRef<AnimaIcon>>();
   const seen = new WeakSet<AnimaIcon>();
