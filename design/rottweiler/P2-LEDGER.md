@@ -37,3 +37,12 @@ Round 4 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope:
 |---|---|---|---|
 | R4-1 | minor (realistic) | a root without `viewBox` (`width="20" height="20"`) had its size replaced without scaling: false FAIL at any `--size` but 20 (also `--browser-text`); present since P2 | fixed: a missing viewBox is derived from unitless/px intrinsic width and height (packages/cli/test/p2-rottweiler.test.ts) |
 | R4-2 | minor (contrived) | quadratic attribute scan on trailing root whitespace (100,000 spaces: ~15 s) | fixed: trim before tokenizing (packages/cli/test/p2-rottweiler.test.ts) |
+
+Round 5 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope: round-4 fix (b5214b08) and a last pass over the whole P2 fix diff. Plain/px sizing, existing and generated viewBoxes, prefixed attributes, trailing whitespace and the earlier fixes: no defects. Percent/relative units and a lone width or height stay outside the fallback (they give no user space).
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R5-1 | minor (realistic) | the derived viewBox rejected valid SVG numbers (`2e1`, `+20`, `20.`) → false FAIL | fixed: SVG number syntax, converted to a finite positive number (packages/cli/test/p2-rottweiler.test.ts) |
+| R5-2 | minor (contrived) | discovery lowercased names: an ignored `viewbox` suppressed the derivation (and `WIDTH` fed it) | fixed: exact-case `viewBox`/`width`/`height` (same test) |
+
+Stopped after round 5 (the brief's limit); round 5 returned only minors in the R4-1 fallback.

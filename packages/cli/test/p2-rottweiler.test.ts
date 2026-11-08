@@ -87,6 +87,19 @@ describe('render --compare', () => {
       ).toBe(true);
   });
 
+  it('reads SVG number syntax and exact-case viewBox/width/height (R5-1, R5-2)', () => {
+    const plain = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">${body}`;
+    const bare = (attrs: string) => `<svg xmlns="http://www.w3.org/2000/svg"${attrs}>${body}`;
+    for (const size of ['2e1', '+20', '20.', '20E0px'])
+      expect(compareSVG(plain, bare(` width="${size}" height="${size}"`), 64).pass, size).toBe(
+        true,
+      );
+    // SVG ignores a lowercase viewbox; the intrinsic size still defines user space.
+    expect(compareSVG(plain, bare(' width="20" height="20" viewbox="0 0 40 40"'), 64).pass).toBe(
+      true,
+    );
+  });
+
   it('normalizes a root with long trailing whitespace in linear time (R4-2)', () => {
     const start = performance.now();
     comparisonSVG('<svg xmlns="http://www.w3.org/2000/svg"' + ' '.repeat(100_000) + '/>', 256);
