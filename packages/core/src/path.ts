@@ -289,18 +289,22 @@ export function flatten(
           number,
           number,
         ];
-        // More steps when a chord could stray beyond `tolerance` (|B''| ≤ 6·max second difference).
-        const n = Math.max(
-          steps,
-          Math.ceil(
-            Math.sqrt(
-              (0.75 *
-                Math.max(
-                  Math.hypot(x - 2 * x1 + x2, y - 2 * y1 + y2),
-                  Math.hypot(x1 - 2 * x2 + x3, y1 - 2 * y2 + y3),
-                )) /
-                tolerance,
-            ),
+        // More steps when a chord could stray beyond `tolerance` (|B''| ≤ 6·max second difference),
+        // at most 10⁴ per cubic.
+        const n = Math.min(
+          1e4,
+          Math.max(
+            steps,
+            Math.ceil(
+              Math.sqrt(
+                (0.75 *
+                  Math.max(
+                    Math.hypot(x - 2 * x1 + x2, y - 2 * y1 + y2),
+                    Math.hypot(x1 - 2 * x2 + x3, y1 - 2 * y2 + y3),
+                  )) /
+                  tolerance,
+              ),
+            ) || 0, // NaN when coordinates overflow
           ),
         );
         for (let k = 1; k <= n; k++) {

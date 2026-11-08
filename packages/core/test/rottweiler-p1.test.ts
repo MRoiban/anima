@@ -185,3 +185,92 @@ describe('Rottweiler P1 hit testing (spec §9: the painted area)', () => {
     ).toEqual(['hit']);
   });
 });
+
+describe('Rottweiler P1 round 2', () => {
+  const hit = (node: Record<string, unknown>, x: number, y: number, extra = {}) => {
+    const { pose, ...rest } = node;
+    const p = player(
+      base({
+        nodes: [{ id: 'n', ...rest }],
+        listeners: [{ on: 'down', target: 'n', emit: 'hit', ...extra }],
+        ...(pose ? { machine: { layers: { l: { initial: 's', states: { s: { pose } } } } } } : {}),
+      }),
+    );
+    p.step(0);
+    p.pointer('down', x, y);
+    return p.step(0).events.map((e) => e.name);
+  };
+
+  // R2-01: the tolerance-driven step count is bounded (it allocated until the heap ran out).
+  it('flattens a huge cubic with bounded work', () => {
+    expect(
+      hit({ type: 'path', d: 'M0 0C0 1e100 1e100 1e100 1e100 0', fill: { color: '#000' } }, 1, 1),
+    ).toEqual(['hit']);
+  });
+
+  // R2-05: the 0.05 tolerance is in world units, so a scaled-up circle is flattened finer.
+  it('hits 0.1 world units inside a scaled-up circle', () => {
+    const a = (3 * Math.PI) / 180;
+    expect(
+      hit(
+        { type: 'circle', center: [0, 0], r: 1, scale: 100, fill: { color: '#000' } },
+        99.9 * Math.cos(a),
+        99.9 * Math.sin(a),
+      ),
+    ).toEqual(['hit']);
+  });
+
+  // R2-06: rounded corners are sampled on the true ellipse, not a cubic approximation.
+  it('misses 0.1 outside a large rounded corner', () => {
+    const a = (199 * Math.PI) / 180;
+    const rect = {
+      type: 'rect',
+      x0: 0,
+      y0: 0,
+      w: 2000,
+      h: 2000,
+      rx: 1000,
+      fill: { color: '#000' },
+    };
+    expect(hit(rect, 1000 + 1000.1 * Math.cos(a), 1000 + 1000.1 * Math.sin(a))).toEqual([]);
+    expect(hit(rect, 1000 + 999.9 * Math.cos(a), 1000 + 999.9 * Math.sin(a))).toEqual(['hit']);
+  });
+
+  // R2-07: fill padding grows the implicitly closed fill area.
+  it('pads the implicit closing edge of an open filled path', () => {
+    const tri = { type: 'path', d: 'M0 0L20 0L0 20', fill: { color: '#000' } };
+    expect(hit(tri, -0.5, 5, { hitPadding: 1 })).toEqual(['hit']);
+    expect(hit(tri, -1.5, 5, { hitPadding: 1 })).toEqual([]);
+  });
+
+  // R2-08: an animated arc sweeps as drawn, clamped to [0, 360].
+  it('hits nothing on an arc animated to a negative sweep', () => {
+    const arc = {
+      type: 'arc',
+      center: [10, 10],
+      r: 5,
+      from: 0,
+      to: 90,
+      stroke: { color: '#000', width: 1 },
+      pose: { 'n.to': -90 },
+    };
+    expect(hit(arc, 10, 5)).toEqual([]);
+  });
+
+  // R2-10: finite arguments whose sum overflows are still finite.
+  it('accepts finite ease arguments whose sum overflows', () => {
+    expect(
+      codes(
+        play({
+          duration: 1,
+          tracks: {
+            'dot.x': [
+              [0, 0, 'cubic(0,1e308,1,1e308)'],
+              [1, 1],
+            ],
+          },
+        }),
+      ),
+    ).toEqual([]);
+  });
+});

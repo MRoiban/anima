@@ -69,13 +69,13 @@ export function parseEase(src: string): EaseFn | string {
   if (m) {
     const [x1, y1, x2, y2] = m.slice(1).map(Number) as [number, number, number, number];
     if (x1 < 0 || x1 > 1 || x2 < 0 || x2 > 1) return V ? 'cubic x1 and x2 must lie in [0, 1]' : '';
-    if (!isFinite(y1 + y2)) return V ? 'cubic arguments must be finite' : '';
+    if (!isFinite(y1) || !isFinite(y2)) return V ? 'cubic arguments must be finite' : '';
     return cubic(x1, y1, x2, y2);
   }
   m = ELASTIC.exec(src);
   if (m) {
     const [a, p] = m.slice(1).map(Number) as [number, number];
-    if (!(a >= 0 && p > 0 && isFinite(a + p)))
+    if (!(a >= 0 && p > 0 && isFinite(a) && isFinite(p)))
       return V ? 'elastic needs finite a ≥ 0 and p > 0' : '';
     return elastic(a, p);
   }

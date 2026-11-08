@@ -729,7 +729,8 @@ export class AnimaIcon extends HTMLElement {
         new CustomEvent('anima:state', { detail: p.states(), bubbles: true, composed: true }),
       );
     }
-    if (settled) schedule(this, false);
+    // Event and state listeners may have queued input (still busy) or replaced the player.
+    if (this.player === p && !p.busy) schedule(this, false);
   }
 
   /** Called by the shared loop. */

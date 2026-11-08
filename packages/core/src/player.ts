@@ -30,7 +30,7 @@ import type {
 import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
-import { flatten, parsePath } from './path.ts';
+import { flatten } from './path.ts';
 
 /** Curves are flattened within this many local units: hits are exact farther from an edge (spec §9). */
 const HIT_TOLERANCE = 0.05;
@@ -141,6 +141,38 @@ export const mixValues = (a: Value, b: Value, w: number): Value =>
         ? a || (b as boolean)
         : lerpColor(a, b as RGBA, w);
 
+/**
+ * Elliptical arc samples from a0 to a1 degrees: 6° chords, or finer so the chord sag stays within
+ * `tol` (capped at 10⁴ chords).
+ */
+function arc(
+  pts: number[],
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  a0: number,
+  a1: number,
+  tol: number,
+): number[] {
+  const rad = Math.max(rx, ry);
+  const k = Math.min(
+    1e4,
+    Math.max(
+      2,
+      Math.ceil(Math.abs(a1 - a0) / 6),
+      rad > tol
+        ? Math.ceil((Math.abs(a1 - a0) * Math.PI) / 180 / (2 * Math.acos(1 - tol / rad)))
+        : 0,
+    ),
+  );
+  for (let j = 0; j <= k; j++) {
+    const t = ((a0 + ((a1 - a0) * j) / k) * Math.PI) / 180;
+    pts.push(cx + rx * Math.cos(t), cy + ry * Math.sin(t));
+  }
+  return pts;
+}
+
 export class Player {
   /** Installed by random-capable modules; the base runtime does not allocate a source. */
   declare readonly randomSource: RandomSource;
@@ -179,7 +211,7 @@ export class Player {
   #press: boolean[] | null = null;
   #pressAt: [number, number] = [0, 0];
   #pressMoved = 0;
-  #flat = new Map<number, { pts: number[]; closed: boolean }[]>();
+  #flat = new Map<number, [number, { pts: number[]; closed: boolean }[]]>();
 
   constructor(model: Model, opts: { reducedMotion?: boolean; seed?: number } = {}) {
     this.seed = opts.seed;
@@ -447,7 +479,12 @@ export class Player {
       if (!inv) return false;
       const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
-      const polys = this.#outline(i, frame?.nodes[i]?.geometry);
+      // The tolerance is in world units (spec §9): divide by the transform's largest stretch.
+      // Largest singular value of the 2×2 part: (|(a+d, b−c)| + |(a−d, b+c)|) / 2.
+      const tol =
+        (2 * HIT_TOLERANCE) /
+        (Math.hypot(m[0] + m[3], m[1] - m[2]) + Math.hypot(m[0] - m[3], m[1] + m[2]));
+      const polys = this.#outline(i, frame?.nodes[i]?.geometry, tol);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
       let fill: boolean | undefined;
@@ -469,7 +506,17 @@ export class Player {
         return true;
       // Only the trimmed, painted part of a stroke hits (spec §4 trims).
       const t = r.stroke && this.#trim(i);
-      if (t && r.fill && pad > 0 && distance(polys, lx, ly) <= pad) return true;
+      // Fill padding grows the fill area, whose open subpaths close implicitly.
+      if (
+        r.fill &&
+        pad > 0 &&
+        distance(
+          polys.map(({ pts }) => ({ pts, closed: true })),
+          lx,
+          ly,
+        ) <= pad
+      )
+        return true;
       return (
         (r.stroke || pad > 0) &&
         distance(t ? trimPolys(polys, t[0], t[1]) : polys, lx, ly) <= half + pad
@@ -486,8 +533,11 @@ export class Player {
     return len < 1 ? [n('trimStart', 0) + n('trimOffset', 0), len] : undefined;
   }
 
-  /** A painted node's outline as polylines in its own coordinates, from current values. */
-  #outline(i: number, g?: Geometry): { pts: number[]; closed: boolean }[] {
+  /**
+   * A painted node's outline as polylines in its own coordinates, from current values; curves are
+   * flattened within `tol` local units.
+   */
+  #outline(i: number, g: Geometry | undefined, tol: number): { pts: number[]; closed: boolean }[] {
     const n = this.model.nodes[i]!,
       r = n.raw;
     if ((g?.width !== undefined || n.type === 'rect') && !(g ? g.d : r.corners)) {
@@ -501,15 +551,12 @@ export class Player {
       const rr = g ? (g.rx ?? 0) : this.num(i, 'rx', 0);
       const [ax, ay] = [Math.min(rr, w / 2), Math.min(rr, h / 2)];
       if (ax > 0 && ay > 0) {
-        const arc = (ex: number, ey: number) => `A${ax} ${ay} 0 0 1 ${ex} ${ey}`;
-        return flatten(
-          parsePath(
-            `M${x + ax} ${y}H${x + w - ax}${arc(x + w, y + ay)}V${y + h - ay}${arc(x + w - ax, y + h)}` +
-              `H${x + ax}${arc(x, y + h - ay)}V${y + ay}${arc(x + ax, y)}Z`,
-          ),
-          12,
-          HIT_TOLERANCE,
-        );
+        // The outline starts at (x + rx, y), clockwise (spec §4), as trims measure it.
+        const pts: number[] = [x + ax, y];
+        arc(pts, x + w - ax, y + ay, ax, ay, -90, 0, tol);
+        arc(pts, x + w - ax, y + h - ay, ax, ay, 0, 90, tol);
+        arc(pts, x + ax, y + h - ay, ax, ay, 90, 180, tol);
+        return [{ pts: arc(pts, x + ax, y + ay, ax, ay, 180, 270, tol), closed: true }];
       }
       return [{ pts: [x, y, x + w, y, x + w, y + h, x, y + h], closed: true }];
     }
@@ -519,32 +566,16 @@ export class Player {
     }
     if (n.type === 'path') {
       let f = this.#flat.get(i);
-      if (!f) this.#flat.set(i, (f = flatten(n.geom!, 12, HIT_TOLERANCE)));
-      return f;
+      if (f?.[0] !== tol) this.#flat.set(i, (f = [tol, flatten(n.geom!, 12, tol)]));
+      return f[1];
     }
     const [cx, cy] = r.center;
     const rad = this.num(i, 'r', 0);
-    const [a0, a1] =
-      n.type === 'circle' ? [0, 360] : [this.num(i, 'from', 0), this.num(i, 'to', 0)];
-    const pts: number[] = [];
-    // 6° chords, or finer so the chord sag stays within the hit tolerance (spec §9).
-    const k = Math.min(
-      1e4,
-      Math.max(
-        2,
-        Math.ceil(Math.abs(a1 - a0) / 6),
-        rad > HIT_TOLERANCE
-          ? Math.ceil(
-              (Math.abs(a1 - a0) * Math.PI) / 180 / (2 * Math.acos(1 - HIT_TOLERANCE / rad)),
-            )
-          : 0,
-      ),
-    );
-    for (let j = 0; j <= k; j++) {
-      const t = ((a0 + ((a1 - a0) * j) / k) * Math.PI) / 180;
-      pts.push(cx + rad * Math.cos(t), cy + rad * Math.sin(t));
-    }
-    return [{ pts, closed: n.type === 'circle' }];
+    // Arcs sweep as drawn: `to − from` clamped to [0, 360] (draw.ts).
+    const a0 = n.type === 'circle' ? 0 : this.num(i, 'from', 0);
+    const a1 =
+      n.type === 'circle' ? 360 : a0 + Math.min(360, Math.max(0, this.num(i, 'to', 0) - a0));
+    return [{ pts: arc([], cx, cy, rad, rad, a0, a1, tol), closed: n.type === 'circle' }];
   }
 
   // ------------------------------------------------------------------ step (spec §7)

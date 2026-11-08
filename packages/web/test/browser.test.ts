@@ -1229,6 +1229,36 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       await down(false);
     });
 
+    it('Rottweiler P1 (R2-02): input queued by an anima:event listener is applied', async () => {
+      const doc = {
+        anima: '0.1',
+        name: 'probe',
+        grid: 20,
+        nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+        inputs: { ring: { type: 'trigger' }, done: { type: 'trigger' } },
+        machine: {
+          layers: {
+            main: {
+              initial: 'idle',
+              states: {
+                idle: { pose: {}, on: [{ when: 'ring', to: 'ring' }] },
+                ring: { pose: { 'dot.x': 10 }, emit: 'rang', on: [{ when: 'done', to: 'done' }] },
+                done: { pose: { 'dot.x': 20 } },
+              },
+            },
+          },
+        },
+      };
+      await mount(JSON.stringify(doc));
+      await page.evaluate(() => {
+        window.icon.addEventListener('anima:event', () => window.icon.fire('done'), { once: true });
+        window.icon.fire('ring');
+      });
+      await waitState('main', 'done');
+      await settled();
+      expect(await page.evaluate(() => window.icon.player!.busy)).toBe(false);
+    });
+
     it('reduces a click to at most two frames, reports timeline events, and honors motion=full', async () => {
       const doc = JSON.parse(bell);
       // The reference bell has only a state emit; add timeline events to test the §10 guarantee.
