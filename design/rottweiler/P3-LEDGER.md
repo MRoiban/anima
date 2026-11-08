@@ -33,6 +33,9 @@ Reviewers: GPT-6.1-sol, reasoning effort xhigh, one per round.
 | R4-04 | minor | playground: the scrub document kept root `bind`, so a bound address showed the binding instead of the sampled timeline (SPEC §11 scrubbing samples the timeline over the rest pose) | fixed: `sampleTimeline` drops root `bind`; `packages/playground/test/rottweiler-p3.test.ts` |
 | R4-05 | minor | playground: a file poll answered after a save completed reported the old revision as an external change (Save disabled, Reload shown) | fixed: `packages/playground/src/app.ts` discards a poll answer when the revision changed while it was in flight; `packages/playground/test/rottweiler-p3.test.ts` |
 | R4-06 | minor | a11y commands (tooling): slider Home/End repeat `increase`/`decrease`; with a step too small to change the value (`1e-20` at 50) End stops at once, and large range/step ratios cost one step per increment | deferred: a correct endpoint write needs a new semantic endpoint action in a11y-actions (API and SPEC change); the existing bound and early stop prevent hangs on unchanged values. Not a smallest fix |
+| R5-01 | major | machine (after R4-02): a blend entered at full motion did not record reduced motion turned on later, so after restoring a finished `once` child rewound (20 → 12.5), a looping child included frozen time, and fully frozen blends reported `settled: false` | fixed: `modules/machine/core/runtime.ts` `prepare` marks the run reduced whenever reduced motion is on; conformance `spec/conformance/machine-blend-reduced-midstate` |
+| R5-02 | major | machine (after R4-02): transitions out of a restored blend sampled it without the resume offset — the exit capture used the entering state's reset flags and continued fades passed `-1` (2.5 jumped to 7.5) | fixed: the leaving run's `reduced`/`resumed` are kept for the exit capture and stored on the outgoing fade; `modules/machine/test/core/rottweiler-p3.test.ts` |
+| R5-03 | major | machine (after R4-02): a released ping-pong child restarted from 0 instead of its frozen `end` endpoint (2.5 instead of 17.5; SPEC §10 resumes from the frozen position) | fixed: `childClock` continues a released child from its frozen endpoint (`span/|rate|` for `end`, 0 for `skip`); conformance `spec/conformance/machine-blend-reduced-midstate` (corpus 615 → 616) |
 
 ## Rounds
 
@@ -72,3 +75,17 @@ Reviewer: GPT-6.1-sol xhigh: the round-3 fix diff plus playground app/server, pl
 sources, data-host, motion, a11y commands/validation and CLI session/project/doctor. Token usage: not
 reported. Six findings, all reproduced by the lead; two (R4-01, R4-02) were gaps in round-3 fixes.
 R4-06 deferred.
+
+### Round 5 (focused, final)
+
+Reviewer: GPT-6.1-sol xhigh: the round-4 fix diff and the cumulative fix set (`2c09c866..c996d827`),
+plus canvas overlay bounds and wrapper load orders. Token usage: not reported. Three findings, all
+in R4-02's blend-clock handling, all reproduced and fixed by the lead (no further review round; each
+has a regression test or conformance case that fails before the fix). R4-01, R4-03, R4-04 and R4-05
+held; the reviewer also checked six controlled-clock configurations, 194 scrub timelines, four
+wrapper import orders, lifecycle reuse, renderer switching and canvas overlay bounds without new
+findings. Stopped after five rounds (the brief's limit); round 5 still returned majors, all in the
+reduced-motion blend restore path, which is the area to watch.
+
+Generated artifact: `examples/web/index.html` rebuilt (`node tools/build-web.ts`) after the R3 base
+host changes.

@@ -1,0 +1,214 @@
+{
+  "anima": "0.1",
+  "name": "machine-blend-reduced-midstate",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 4],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    },
+    {
+      "id": "c",
+      "type": "circle",
+      "center": [10, 16],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "oa": {
+      "duration": 2,
+      "loop": "once",
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [2, 20]
+        ]
+      }
+    },
+    "pa": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    },
+    "lb": {
+      "duration": 2,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "b.x": [
+          [0, 0],
+          [2, 20]
+        ]
+      }
+    },
+    "pb": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "b.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    },
+    "qc": {
+      "duration": 2,
+      "loop": "pingpong",
+      "reducedMotion": "end",
+      "tracks": {
+        "c.x": [
+          [0, 0],
+          [2, 20]
+        ]
+      }
+    },
+    "pc": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "c.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "la": {
+        "initial": "idle",
+        "states": {
+          "blend": {
+            "play": "pa",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "oa",
+                  "at": 0,
+                  "weight": 1
+                },
+                {
+                  "play": "pa",
+                  "at": 1,
+                  "weight": 0
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "blend"
+              }
+            ]
+          }
+        }
+      },
+      "lb": {
+        "initial": "idle",
+        "states": {
+          "blend": {
+            "play": "pb",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "lb",
+                  "at": 0,
+                  "weight": 1
+                },
+                {
+                  "play": "pb",
+                  "at": 1,
+                  "weight": 0
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "b.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "blend"
+              }
+            ]
+          }
+        }
+      },
+      "lc": {
+        "initial": "idle",
+        "states": {
+          "blend": {
+            "play": "pc",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "qc",
+                  "at": 0,
+                  "weight": 1
+                },
+                {
+                  "play": "pc",
+                  "at": 1,
+                  "weight": 0
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "c.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "blend"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
