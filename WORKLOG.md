@@ -16,8 +16,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   (P1 = PRs #1–#7, P2 #8, P3 #9/#19/#20, P4 #10/#12–#16, P5 #11/#17, P6 #21, P7 #36), each running 5
   rounds with one GPT-6.1-sol reviewer at a time and fixing on its own branch from p8; brief
   `design/rottweiler/LEAD.md`, ledgers `design/rottweiler/<PHASE>-LEDGER.md`. Batches of 3 leads
-  (machine load). Done: P5 (20 fixed, 6 deferred; merged 2c09c86). Running: P4, P6, P7 (round 5),
-  P3 leads; P7 round-1 fix coder (7 findings, ledger in my
+  (machine load). Done: P5 (20 fixed, 6 deferred; 2c09c86), P7 (R1 7 + R2–R5 15 fixed, 2 deferred: R2-5 fonts
+  faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Running:
+  P4, P6, P3, P2 leads; P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
