@@ -8,6 +8,7 @@ import {
   apply,
   distance,
   inside,
+  trimPolys,
   invert,
   localMatrix,
   mul,
@@ -29,7 +30,10 @@ import type {
 import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
-import { flatten } from './path.ts';
+import { flatten, parsePath } from './path.ts';
+
+/** Curves are flattened within this many local units: hits are exact farther from an edge (spec §9). */
+const HIT_TOLERANCE = 0.05;
 import { drawWorld, type DrawFrame, type Geometry } from './draw.ts';
 import { text } from './diag.ts';
 import { VERBOSE } from './flags.ts';
@@ -451,21 +455,35 @@ export class Player {
         fill = module.fillContains?.(this, i, polys, lx, ly);
         if (fill !== undefined) break;
       }
+      // Fills close open subpaths implicitly, as SVG does.
       if (
         fill ??
         (r.fill &&
           inside(
-            polys.filter((p) => p.closed).map((p) => p.pts),
+            polys.map((p) => p.pts),
             lx,
             ly,
             r.fill.rule === 'evenodd',
           ))
       )
         return true;
-      return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;
+      // Only the trimmed, painted part of a stroke hits (spec §4 trims).
+      const t = r.stroke && this.#trim(i);
+      if (t && r.fill && pad > 0 && distance(polys, lx, ly) <= pad) return true;
+      return (
+        (r.stroke || pad > 0) &&
+        distance(t ? trimPolys(polys, t[0], t[1]) : polys, lx, ly) <= half + pad
+      );
     };
     // the target and its ancestors must be visible
     return this.visible(l.target) && test(l.target);
+  }
+
+  /** A trimmed stroke's visible [start, length] as svg.ts draws it, or undefined when untrimmed. */
+  #trim(i: number): [number, number] | undefined {
+    const n = (k: string, d: number) => this.num(i, 'stroke.' + k, d);
+    const len = Math.min(1, n('trimEnd', 1) - n('trimStart', 0));
+    return len < 1 ? [n('trimStart', 0) + n('trimOffset', 0), len] : undefined;
   }
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
@@ -479,6 +497,20 @@ export class Player {
         g?.width ?? this.num(i, 'w', 0),
         g?.height ?? this.num(i, 'h', 0),
       ];
+      // Rounded corners as drawn: SVG clamps rx to half the width and ry (= rx) to half the height.
+      const rr = g ? (g.rx ?? 0) : this.num(i, 'rx', 0);
+      const [ax, ay] = [Math.min(rr, w / 2), Math.min(rr, h / 2)];
+      if (ax > 0 && ay > 0) {
+        const arc = (ex: number, ey: number) => `A${ax} ${ay} 0 0 1 ${ex} ${ey}`;
+        return flatten(
+          parsePath(
+            `M${x + ax} ${y}H${x + w - ax}${arc(x + w, y + ay)}V${y + h - ay}${arc(x + w - ax, y + h)}` +
+              `H${x + ax}${arc(x, y + h - ay)}V${y + ay}${arc(x + ax, y)}Z`,
+          ),
+          12,
+          HIT_TOLERANCE,
+        );
+      }
       return [{ pts: [x, y, x + w, y, x + w, y + h, x, y + h], closed: true }];
     }
     for (const m of modules.values()) {
@@ -487,7 +519,7 @@ export class Player {
     }
     if (n.type === 'path') {
       let f = this.#flat.get(i);
-      if (!f) this.#flat.set(i, (f = flatten(n.geom!)));
+      if (!f) this.#flat.set(i, (f = flatten(n.geom!, 12, HIT_TOLERANCE)));
       return f;
     }
     const [cx, cy] = r.center;
@@ -495,7 +527,19 @@ export class Player {
     const [a0, a1] =
       n.type === 'circle' ? [0, 360] : [this.num(i, 'from', 0), this.num(i, 'to', 0)];
     const pts: number[] = [];
-    const k = Math.max(2, Math.ceil(Math.abs(a1 - a0) / 6));
+    // 6° chords, or finer so the chord sag stays within the hit tolerance (spec §9).
+    const k = Math.min(
+      1e4,
+      Math.max(
+        2,
+        Math.ceil(Math.abs(a1 - a0) / 6),
+        rad > HIT_TOLERANCE
+          ? Math.ceil(
+              (Math.abs(a1 - a0) * Math.PI) / 180 / (2 * Math.acos(1 - HIT_TOLERANCE / rad)),
+            )
+          : 0,
+      ),
+    );
     for (let j = 0; j <= k; j++) {
       const t = ((a0 + ((a1 - a0) * j) / k) * Math.PI) / 180;
       pts.push(cx + rad * Math.cos(t), cy + rad * Math.sin(t));
@@ -537,7 +581,7 @@ export class Player {
   }
 
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
-    if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
+    if (!(dt >= 0 && dt < Infinity)) throw new Error(text('anima: step needs finite dt ≥ 0'));
     if (VERBOSE) beginStep(dt);
     const events = this.#entryEvents;
     this.#entryEvents = [];
@@ -571,7 +615,9 @@ export class Player {
             for (const [t, name] of tl.events) rest.push({ name, layer: L.m.name, time: t });
           if (L.frozen !== current)
             events.push(
-              ...rest.filter((e) => (L.frozen >= current ? e.time > current : e.time < current)),
+              ...rest.filter((e) =>
+                L.frozen >= current ? !reached(current, e.time) : !reached(e.time, current),
+              ),
             );
         } else if (!this.reducedMotion && L.frozen >= 0 && tl.loop !== 'once') {
           if (this.playbackPolicy) this.playbackPolicy.resume(L, L.frozen);
@@ -848,7 +894,8 @@ export class Player {
       const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);
       const k1 = once ? 0 : Math.min(k0 + 10000, Math.floor(b / period) + 1);
       const seen = new Set<number>();
-      for (let k = k0; k <= k1; k++)
+      // Count repeats, so a period index beyond 2^53 (k + 1 === k) still terminates.
+      for (let j = 0, k = k0; j <= k1 - k0; k = k0 + ++j)
         for (const t of loop || once || te === 0 || te === d
           ? [te + k * period]
           : [te + 2 * k * d, 2 * (k + 1) * d - te])

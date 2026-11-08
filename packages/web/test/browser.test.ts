@@ -1193,6 +1193,42 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       await page.waitForFunction(() => window.icon.getAttribute('aria-checked') === 'false');
     });
 
+    it('Rottweiler P1 (P2 R1-2): a new document drops aria-checked/aria-pressed it no longer owns', async () => {
+      await mount(switchAni);
+      const result = await page.evaluate((bell) => {
+        const icon = window.icon;
+        const before = icon.getAttribute('aria-checked');
+        const doc = JSON.parse(bell);
+        doc.a11y.pressed = 'down';
+        icon.load(doc);
+        const button = [icon.getAttribute('aria-checked'), icon.getAttribute('aria-pressed')];
+        icon.load(bell);
+        return {
+          before,
+          button,
+          none: [icon.hasAttribute('aria-checked'), icon.hasAttribute('aria-pressed')],
+        };
+      }, bell);
+      expect(result).toEqual({ before: 'false', button: [null, 'false'], none: [false, false] });
+    });
+
+    it('Rottweiler P1 (P2 R1-7): held stays true while Space is down after Enter is released', async () => {
+      await mount();
+      await page.locator('anima-icon').focus();
+      const down = (value: boolean) =>
+        page.waitForFunction((v) => window.icon.player!.get('down') === v, value, { polling: 10 });
+      await page.keyboard.down('Enter');
+      await page.keyboard.down('Space');
+      await down(true);
+      await page.keyboard.up('Enter');
+      // Let a queued release of `down` commit before asserting it did not happen.
+      for (let i = 0; i < 3; i++)
+        await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => done())));
+      expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(true);
+      await page.keyboard.up('Space');
+      await down(false);
+    });
+
     it('reduces a click to at most two frames, reports timeline events, and honors motion=full', async () => {
       const doc = JSON.parse(bell);
       // The reference bell has only a state emit; add timeline events to test the §10 guarantee.

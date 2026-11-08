@@ -120,7 +120,8 @@ export function render(el: LayoutElement, depth = 0): string {
     );
   for (const c of el.children) {
     if (depth === 0 && 'blank' in c && c.blank && body.length) body.push('');
-    if ('comment' in c) body.push(`${indent}  <!--${c.comment}-->`);
+    // A `-->` inside a comment would end it early and turn the rest into markup.
+    if ('comment' in c) body.push(`${indent}  <!--${c.comment.replace(/-->/g, '-- >')}-->`);
     else if ('text' in c) {
       const text =
         el.name === 'track'

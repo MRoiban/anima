@@ -477,8 +477,8 @@ export class Compiler {
         case 'names': {
           const v = s ? s.split(/\s+/) : [];
           if (
-            !v.length ||
-            (a.name !== 'requires' &&
+            a.name !== 'requires' &&
+            (!v.length ||
               v.some(
                 (x) =>
                   !NAME.test(x) &&

@@ -28,6 +28,8 @@ export class PathError extends Error {
 
 const ARGS: Record<string, number> = { m: 2, l: 2, h: 1, v: 1, c: 6, s: 4, q: 4, t: 2, a: 7, z: 0 };
 
+const NUM = /[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/y;
+
 /** Parse path data. Throws `PathError` with the offending offset. */
 export function parsePath(d: string): Subpath[] {
   const out: Subpath[] = [];
@@ -41,10 +43,11 @@ export function parsePath(d: string): Subpath[] {
   };
   const num = (): number => {
     ws();
-    const m = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(i, i + 40));
-    if (!m) return fail(V ? 'expected a number' : '');
+    NUM.lastIndex = i;
+    const m = NUM.exec(d);
+    if (!m || !isFinite(+m[0])) return fail(V ? 'expected a finite number' : '');
     i += m[0].length;
-    return Number(m[0]);
+    return +m[0];
   };
   const flag = (): number => {
     ws();
@@ -257,7 +260,11 @@ export function selectSubpaths(
  * Flatten subpaths into closed polylines (for hit testing): one flat [x0, y0, x1, y1, …] array per
  * subpath, curves subdivided into `steps` chords.
  */
-export function flatten(subpaths: Subpath[], steps = 12): { pts: number[]; closed: boolean }[] {
+export function flatten(
+  subpaths: Subpath[],
+  steps = 12,
+  tolerance = Infinity,
+): { pts: number[]; closed: boolean }[] {
   const out: { pts: number[]; closed: boolean }[] = [];
   for (const sp of subpaths) {
     const g = sp.segs;
@@ -282,8 +289,22 @@ export function flatten(subpaths: Subpath[], steps = 12): { pts: number[]; close
           number,
           number,
         ];
-        for (let k = 1; k <= steps; k++) {
-          const t = k / steps,
+        // More steps when a chord could stray beyond `tolerance` (|B''| ≤ 6·max second difference).
+        const n = Math.max(
+          steps,
+          Math.ceil(
+            Math.sqrt(
+              (0.75 *
+                Math.max(
+                  Math.hypot(x - 2 * x1 + x2, y - 2 * y1 + y2),
+                  Math.hypot(x1 - 2 * x2 + x3, y1 - 2 * y2 + y3),
+                )) /
+                tolerance,
+            ),
+          ),
+        );
+        for (let k = 1; k <= n; k++) {
+          const t = k / n,
             r = 1 - t;
           pts.push(
             r * r * r * x + 3 * r * r * t * x1 + 3 * r * t * t * x2 + t * t * t * x3,

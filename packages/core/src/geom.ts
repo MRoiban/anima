@@ -74,6 +74,46 @@ export function inside(polys: number[][], x: number, y: number, evenodd: boolean
   return evenodd ? wind % 2 !== 0 : wind !== 0;
 }
 
+/**
+ * The visible part of a stroke trimmed to `len` (< 1) of its outline length from fraction `start`,
+ * wrapping around 1 (spec §4 trims), as open polylines.
+ */
+export function trimPolys(
+  polys: { pts: number[]; closed: boolean }[],
+  start: number,
+  len: number,
+): { pts: number[]; closed: boolean }[] {
+  const out: { pts: number[]; closed: boolean }[] = [];
+  if (len <= 0) return out;
+  for (const { pts, closed } of polys) {
+    const p = closed ? [...pts, pts[0]!, pts[1]!] : pts;
+    const at = [0];
+    for (let i = 2; i < p.length; i += 2)
+      at.push(at[at.length - 1]! + Math.hypot(p[i]! - p[i - 2]!, p[i + 1]! - p[i - 1]!));
+    const total = at[at.length - 1]!;
+    const cut = (a: number, b: number) => {
+      const q: number[] = [];
+      for (let j = 0; j < at.length - 1; j++) {
+        const l0 = at[j]!,
+          l1 = at[j + 1]!;
+        if (l1 < a || l0 > b) continue;
+        const f = (l: number) => (l1 > l0 ? (Math.min(Math.max(l, l0), l1) - l0) / (l1 - l0) : 0);
+        for (const t of q.length ? [f(b)] : [f(a), f(b)])
+          q.push(
+            p[2 * j]! + (p[2 * j + 2]! - p[2 * j]!) * t,
+            p[2 * j + 1]! + (p[2 * j + 3]! - p[2 * j + 1]!) * t,
+          );
+      }
+      if (q.length) out.push({ pts: q, closed: false });
+    };
+    const s = (((start % 1) + 1) % 1) * total,
+      e = s + len * total;
+    cut(s, Math.min(e, total));
+    if (e > total) cut(0, e - total);
+  }
+  return out;
+}
+
 /** Distance from a point to polylines (closed ones include their closing edge). */
 export function distance(
   polys: { pts: number[]; closed: boolean }[],
