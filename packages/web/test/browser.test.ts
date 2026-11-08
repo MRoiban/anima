@@ -1259,6 +1259,94 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       expect(await page.evaluate(() => window.icon.player!.busy)).toBe(false);
     });
 
+    it('Rottweiler P1 (R3-03, R3-05): a listener that replaces or destroys the player stops the old step', async () => {
+      await mount();
+      const errors: string[] = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      const result = await page.evaluate(() => {
+        const doc = (layer: string, state: string, emit?: string) => ({
+          anima: '0.1',
+          name: 'probe',
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+          machine: {
+            layers: {
+              [layer]: {
+                initial: state,
+                states: { [state]: { pose: {}, ...(emit ? { emit } : {}) } },
+              },
+            },
+          },
+        });
+        const a = document.createElement('anima-icon');
+        a.pause();
+        document.body.append(a);
+        a.load(doc('oldLayer', 'oldState', 'replace'));
+        const states: unknown[] = [];
+        a.addEventListener('anima:state', (e) => states.push((e as CustomEvent).detail));
+        a.addEventListener('anima:event', () => a.load(doc('newLayer', 'newState')), {
+          once: true,
+        });
+        a.play();
+        const b = document.createElement('anima-icon');
+        b.pause();
+        document.body.append(b);
+        b.load(doc('l', 'a', 'bye'));
+        b.addEventListener('anima:event', () => b.destroy(), { once: true });
+        b.play();
+        const out = { states, current: a.player!.states(), destroyed: !b.player };
+        a.destroy();
+        a.remove();
+        b.remove();
+        return out;
+      });
+      expect(result).toEqual({
+        states: [{ newLayer: 'newState' }],
+        current: { newLayer: 'newState' },
+        destroyed: true,
+      });
+      expect(errors).toEqual([]);
+    });
+
+    it('Rottweiler P1 (R3-12): button tabindex and cursor added by the host go with button semantics', async () => {
+      await mount();
+      const result = await page.evaluate(() => {
+        const base = {
+          anima: '0.1',
+          name: 'probe',
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+        };
+        const button = { ...base, a11y: { role: 'button', label: 'Click' } };
+        const state = (el: HTMLElement) => [el.getAttribute('tabindex'), el.style.cursor];
+        const el = document.createElement('anima-icon');
+        document.body.append(el);
+        el.load(button);
+        const before = state(el);
+        el.load(base);
+        const reloaded = state(el);
+        el.load(button);
+        el.destroy();
+        const destroyed = state(el);
+        const author = document.createElement('anima-icon');
+        author.tabIndex = 0;
+        author.style.cursor = 'help';
+        document.body.append(author);
+        author.load(button);
+        author.load(base);
+        const kept = state(author);
+        el.remove();
+        author.remove();
+        return { before, reloaded, destroyed, kept };
+      });
+      expect(result).toEqual({
+        before: ['0', 'pointer'],
+        reloaded: [null, ''],
+        destroyed: [null, ''],
+        kept: ['0', 'help'],
+      });
+    });
+
     it('reduces a click to at most two frames, reports timeline events, and honors motion=full', async () => {
       const doc = JSON.parse(bell);
       // The reference bell has only a state emit; add timeline events to test the §10 guarantee.

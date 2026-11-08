@@ -53,3 +53,15 @@ describe('Rottweiler P1 AniML', () => {
     }
   });
 });
+
+describe('Rottweiler P1 AniML round 3', () => {
+  // R3-08: a metadata $comment survives decompile/build unchanged (ANIML §8).
+  it('round-trips a metadata $comment through its JSON text', () => {
+    for (const comment of ['\u0000', ' a ']) {
+      const doc = base({ meta: { $comment: comment, owner: 'x' } });
+      const built = compile(decompile(doc));
+      expect(built.diagnostics).toEqual([]);
+      expect(built.doc).toEqual(doc);
+    }
+  });
+});

@@ -271,12 +271,20 @@ export function flatten(
     let pts: number[] = [];
     let closed = false;
     let x = 0,
-      y = 0;
+      y = 0,
+      sx = 0,
+      sy = 0;
     for (let i = 0; i < g.length;) {
       const op = g[i++]!;
+      // A segment after Z starts a new contour at the subpath start, as SVG does.
+      if (closed && op !== M) {
+        out.push({ pts, closed });
+        pts = [x, y];
+        closed = false;
+      }
       if (op === M) {
         if (pts.length) out.push({ pts, closed });
-        pts = [(x = g[i++]!), (y = g[i++]!)];
+        pts = [(sx = x = g[i++]!), (sy = y = g[i++]!)];
         closed = false;
       } else if (op === L) {
         pts.push((x = g[i++]!), (y = g[i++]!));
@@ -319,6 +327,8 @@ export function flatten(
         y = y3;
       } else {
         closed = true;
+        x = sx;
+        y = sy;
       }
     }
     if (pts.length) out.push({ pts, closed });

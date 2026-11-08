@@ -293,8 +293,15 @@ const entries = <T = Raw>(o: Record<string, T> | undefined): [string, T][] =>
 export function load(input: string | object): LoadResult {
   const d = new Diags();
   if (typeof input !== 'string') return loadDocument(input, d);
-  if (input.length > LIMITS.text) {
-    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
+  // UTF-8 bytes (SPEC §2: 1 MiB of text): at least one and at most three per UTF-16 unit.
+  let bytes = input.length > LIMITS.text ? input.length : 0;
+  if (!bytes && input.length * 3 > LIMITS.text)
+    for (const ch of input) {
+      const c = ch.codePointAt(0)!;
+      bytes += c < 0x80 ? 1 : c < 0x800 ? 2 : c < 0x10000 ? 3 : 4;
+    }
+  if (bytes > LIMITS.text) {
+    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} bytes`);
     return { diagnostics: d.list };
   }
   let doc: unknown;

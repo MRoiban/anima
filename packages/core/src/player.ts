@@ -477,14 +477,11 @@ export class Player {
       const m = drawWorld(this, i, frame);
       const inv = invert(m);
       if (!inv) return false;
-      const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
-      // The tolerance is in world units (spec §9): divide by the transform's largest stretch.
-      // Largest singular value of the 2×2 part: (|(a+d, b−c)| + |(a−d, b+c)|) / 2.
-      const tol =
-        (2 * HIT_TOLERANCE) /
-        (Math.hypot(m[0] + m[3], m[1] - m[2]) + Math.hypot(m[0] - m[3], m[1] + m[2]));
-      const polys = this.#outline(i, frame?.nodes[i]?.geometry, tol);
+      // The tolerance is in world units (spec §9): divide by the transform's largest stretch,
+      // the largest singular value of the 2×2 part: (|(a+d, b−c)| + |(a−d, b+c)|) / 2.
+      const big = (Math.hypot(m[0] + m[3], m[1] - m[2]) + Math.hypot(m[0] - m[3], m[1] + m[2])) / 2;
+      const polys = this.#outline(i, frame?.nodes[i]?.geometry, HIT_TOLERANCE / big);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
       let fill: boolean | undefined;
@@ -506,20 +503,24 @@ export class Player {
         return true;
       // Only the trimmed, painted part of a stroke hits (spec §4 trims).
       const t = r.stroke && this.#trim(i);
-      // Fill padding grows the fill area, whose open subpaths close implicitly.
-      if (
-        r.fill &&
-        pad > 0 &&
+      const stroke = t ? trimPolys(polys, t[0], t[1]) : polys;
+      if (r.stroke && distance(stroke, lx, ly) <= half) return true;
+      // Padding is in world units, so measure it on the world outline: around the fill area (open
+      // subpaths closed) and the stroke, the stroke's half width counted at its narrowest stretch.
+      const world = (ps: typeof polys, closed?: boolean) =>
         distance(
-          polys.map(({ pts }) => ({ pts, closed: true })),
-          lx,
-          ly,
-        ) <= pad
-      )
-        return true;
+          ps.map((p) => {
+            const q: number[] = [];
+            for (let j = 0; j < p.pts.length; j += 2) q.push(...apply(m, p.pts[j]!, p.pts[j + 1]!));
+            return { pts: q, closed: closed || p.closed };
+          }),
+          x,
+          y,
+        );
       return (
-        (r.stroke || pad > 0) &&
-        distance(t ? trimPolys(polys, t[0], t[1]) : polys, lx, ly) <= half + pad
+        l.pad > 0 &&
+        ((r.fill && world(polys, true) <= l.pad) ||
+          world(stroke) <= l.pad + (half * Math.abs(m[0] * m[3] - m[1] * m[2])) / big)
       );
     };
     // the target and its ancestors must be visible

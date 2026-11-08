@@ -1,0 +1,9 @@
+<!-- Hit geometry (§9): a segment after Z starts a new contour at the subpath start, and hit padding
+     is measured in world units under a nonuniform scale. -->
+<anima version="0.1" name="case" grid="20">
+  <path id="tri" d="M0 0L8 0L8 8ZL0 8" fill="#000"/>
+  <rect id="bar" x0="10" y0="10" width="1" height="1" pivot="10 10" scaleX="8" fill="#000"/>
+
+  <listener on="down" target="tri" emit="tri"/>
+  <listener on="down" target="bar" hitPadding="1" emit="bar"/>
+</anima>

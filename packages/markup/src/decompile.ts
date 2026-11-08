@@ -157,10 +157,10 @@ export function decompile(doc: string | object): string {
       ]);
   const groups: LayoutElement[][] = [];
   if (d.meta !== undefined) {
-    const meta = element('meta', obj(d.meta), []);
-    const data = { ...obj(d.meta) };
-    delete data.$comment;
-    meta.children.push({ text: JSON.stringify(data) });
+    // The metadata's own `$comment` stays in its JSON text: an XML comment would trim it and could
+    // not hold every character a JSON string can.
+    const meta = element('meta', {}, []);
+    meta.children.push({ text: JSON.stringify(obj(d.meta)) });
     groups.push([meta]);
   }
   groups.push(

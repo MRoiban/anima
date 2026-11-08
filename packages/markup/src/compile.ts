@@ -797,7 +797,16 @@ export class Compiler {
     if (!root) return this.result();
     if (/<(?:import|template|apply)\b/.test(source)) {
       if (libraryCompiler.expand) libraryCompiler.expand(xml, this.opts, this.diagnostics);
-      else this.unavailable('libraries', 'markup-libraries', '', root.at);
+      // Library elements, not the words in a comment or attribute, need the libraries compiler.
+      else if (
+        (function uses(e: Element): boolean {
+          return (
+            /^(?:import|template|apply)$/.test(e.name) ||
+            e.children.some((c) => c.kind === 'element' && uses(c))
+          );
+        })(root)
+      )
+        this.unavailable('libraries', 'markup-libraries', '', root.at);
       if (this.failed) return this.result();
     }
     if (root.name !== 'anima') {

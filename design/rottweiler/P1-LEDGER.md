@@ -37,6 +37,18 @@ Reviewers: GPT-6.1-sol, reasoning effort xhigh, one per round.
 | R2-10 | minor | ease (after R1-07): the finiteness check summed arguments, rejecting finite ones whose sum overflows (`cubic(0,1e308,1,1e308)`) | fixed: each argument is checked; `packages/core/test/rottweiler-p1.test.ts` |
 | R2-11 | major | CLI `render`: failed script expectations and unfinished scripts (unclosed `group`) were ignored, writing the artifact and exiting 0 | fixed: `render` reports the script diagnostics and exits 1 before writing, and calls `session.finish()`; `packages/cli/test/rottweiler-p1.test.ts` |
 | R2-12 | minor | CLI `new`: a digit-leading document name (`1up`) was used as the glyph name, which must start with a letter (`bad-name`) | fixed: `packages/cli/src/scaffold.ts` names the glyph `glyph-<name>` then; `packages/cli/test/rottweiler-p1.test.ts` |
+| R3-01 | major | path flattening: a segment after `Z` without a new `M` continued the closed polygon from its last point instead of a new contour at the subpath start, so `M0 0L10 0L10 10ZL0 10` hit at (2,8) | fixed: `packages/core/src/path.ts` `flatten` starts a new contour at the subpath start after `Z`; `packages/core/test/rottweiler-p1.test.ts`, conformance `spec/conformance/pointer-hit-contours` |
+| R3-02 | major | hit test: padding was divided by √det, wrong under a nonuniform scale (a `scaleX` 10 rect with `hitPadding` 1 hit 2 units right and missed 0.5 above) | fixed: the stroke is tested in local units, the padding on the world-space outline (fill contours closed; the stroke's half width at its narrowest stretch), equal to the old test under uniform scale; tests as R3-01 |
+| R3-03 | major | web: an `anima:event` listener that replaced the document let the old step continue, dispatching the old player's state after the new one and overwriting `#states` | fixed: `#step` returns once a listener replaced or destroyed its player; `packages/web/test/browser.test.ts` ("Rottweiler P1 (R3-03, R3-05)") |
+| R3-04 | major | CLI `validate`: the duplicate-key scanner recursed, so deeply nested metadata (accepted by `load`) overflowed the stack, the exception was swallowed, and duplicate keys went unreported (exit 0) | fixed: `packages/cli/src/locate.ts` scans iteratively (identical results on all 3,921 JSON files in the repo); `packages/cli/test/rottweiler-p1.test.ts` |
+| R3-05 | minor | web: destroying the icon from an `anima:event` listener during `play()` threw (`this.player.busy` of undefined) | fixed: optional access after `#step(0)`; test as R3-03 |
+| R3-06 | minor | hit test: SVG path arcs are hit-tested through the parser's ≤90° cubic conversion, whose radial error exceeds 0.05 for radii above about 185 | pushed back: SPEC already makes that conversion Anima's arc geometry (path lengths §"Core pathLength", clips "SVG arcs are converted to cubic curves by Anima's existing parser"); exact arcs would need arc segments kept through `parsePath` for one consumer, at radii far beyond icon grids |
+| R3-07 | minor | AniML (lean compiler): any `<import`, `<template` or `<apply` in the source text, even in a comment, required the libraries compiler (`markup-libraries-unavailable`) | fixed: `packages/markup/src/compile.ts` reports it only for real library elements in the parsed tree; `packages/markup/test/rottweiler-p1-lean.test.ts` |
+| R3-08 | minor | AniML decompile: a metadata `$comment` moved into a trimmed XML comment, so `" a "` became `"a"` and `"\u0000"` produced markup that does not build (ANIML §8 round trip) | fixed: `packages/markup/src/decompile.ts` keeps it in the `<meta>` JSON text; `packages/markup/test/rottweiler-p1.test.ts` |
+| R3-09 | minor | CLI `build` (HTML): a script `type` spelled with character references (`&#43;`, `&plus;`) was not recognised, leaving the AniML for runtime compilation without a diagnostic | fixed: `packages/cli/src/html.ts` decodes numeric and the relevant named references before comparing; `packages/cli/test/rottweiler-p1.test.ts` |
+| R3-10 | minor | script: `expect-error` could not catch a tokenizer error (unterminated string), which threw instead | fixed: `packages/core/src/script.ts` routes tokenizer errors through the pending expectation; `packages/core/test/rottweiler-p1.test.ts` |
+| R3-11 | minor | load: the 1 MiB limit counted UTF-16 units, so 1.2 MB of UTF-8 (`é` × 600,000) loaded (SPEC §2: 1 MiB of text) | fixed: `packages/core/src/load.ts` counts UTF-8 bytes (only for text over 349,525 units; longer text is rejected directly); `packages/core/test/rottweiler-p1.test.ts` |
+| R3-12 | minor | web: the `tabindex="0"` and pointer cursor the host adds for buttons stayed after a reload to a non-button document or `destroy()`, leaving an `aria-hidden` tab stop | fixed: `#aria()` removes only the values the host added (author values stay); `packages/web/test/browser.test.ts` ("Rottweiler P1 (R3-12)") |
 
 ## Rounds
 
@@ -77,3 +89,15 @@ Sizes: the first round-2 spelling put `components` at 3,485/3,456 B, `assetio` 7
 bundles). A module-level arc sampler, a `hypot` spelling of the largest singular value and a shorter fill-
 padding expression measure `components` 3,454, `assetio` 764, `markup-libraries` 2,176/2,176;
 core+web 21,994 B.
+
+### Round 3 (focused)
+
+Reviewer: GPT-6.1-sol xhigh: the round-2 fix diff plus the web host's frame loop and lifecycle, loader
+validation, script parsing, AniML round trips and `locate.ts`/`html.ts`. Token usage: not reported.
+Twelve findings, all reproduced by the lead with the reviewer's scripts; R3-02 and R3-03/R3-05 sit next to
+round-1/2 fixes (padding, the R2-02 scheduling line). All nine round-2 fixes were found correct. R3-06
+pushed back. The R3-07 regression test runs in its own file because the full markup entry registers the
+libraries compiler (a test beside the others passed before the fix).
+
+Sizes: core+web 22,217 B; `components` 3,440/3,456, `assetio` 748/768, `markup` 7,446,
+`markup-libraries` 2,172/2,176.

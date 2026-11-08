@@ -206,6 +206,8 @@ export class AnimaIcon extends HTMLElement {
   #last = -1;
   #onScreen = true;
   #states = '';
+  /** Host-added tabindex (1) and cursor (2). */
+  #owned = 0;
   /** Held Enter (1) and Space (2) keys. */
   #held = 0;
   #listeners?: AbortController;
@@ -319,7 +321,7 @@ export class AnimaIcon extends HTMLElement {
       if (value !== null) schedule(this, false);
       else if (this.player) {
         this.#step(0);
-        if (this.player.busy) this.#wake();
+        if (this.player?.busy) this.#wake();
       }
     } else if (name === 'renderer' && this.player) this.#build(this.player.model);
     else if (name === 'fit' || name === 'align' || name === 'alignment') this.#layout();
@@ -696,8 +698,22 @@ export class AnimaIcon extends HTMLElement {
     set('role', button ? a.role : label ? 'img' : null);
     set('aria-label', label ?? null);
     set('aria-hidden', label || button ? null : 'true');
-    if (button && !this.hasAttribute('tabindex')) this.tabIndex = 0;
-    if (button) this.style.cursor ||= 'pointer';
+    // Button affordances the host added go away with button semantics; author values stay.
+    if (button) {
+      if (!this.hasAttribute('tabindex')) {
+        this.tabIndex = 0;
+        this.#owned |= 1;
+      }
+      if (!this.style.cursor) {
+        this.style.cursor = 'pointer';
+        this.#owned |= 2;
+      }
+    } else {
+      if (this.#owned & 1 && this.getAttribute('tabindex') === '0')
+        this.removeAttribute('tabindex');
+      if (this.#owned & 2 && this.style.cursor === 'pointer') this.style.cursor = '';
+      this.#owned = 0;
+    }
     const sw = a?.role === 'switch';
     set(sw ? 'aria-pressed' : 'aria-checked', null);
     set(
@@ -719,6 +735,8 @@ export class AnimaIcon extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent('anima:event', { detail: e, bubbles: true, composed: true }),
       );
+      // A listener replaced or destroyed the player: its later events and states are stale.
+      if (this.player !== p) return;
     }
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {

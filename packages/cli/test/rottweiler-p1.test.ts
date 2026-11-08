@@ -71,3 +71,33 @@ it('scaffolds a valid glyph name for a digit-leading document name', async () =>
   ]);
   expect(load(readFileSync(resolve(d, '1up.ani'), 'utf8')).diagnostics).toEqual([]);
 });
+
+// Rottweiler P1 R3-04: deep metadata cannot make the duplicate-key scan fail open.
+it('reports duplicate keys next to deeply nested metadata', async () => {
+  const f = resolve(dir(), 'deep.ani');
+  const nested = '['.repeat(10_000) + ']'.repeat(10_000);
+  writeFileSync(
+    f,
+    `{"anima":"0.1","name":"probe","grid":20,"grid":20,"meta":{"nested":${nested}},"nodes":[{"id":"n","type":"circle","center":[10,10],"r":5,"fill":{"color":"#000"}}]}`,
+  );
+  const r = await cli(['validate', f, '--format=json']);
+  expect(r.code).toBe(1);
+  expect(JSON.parse(r.out[0]!).diagnostics.map((d: { code: string }) => d.code)).toEqual([
+    'duplicate-key',
+  ]);
+});
+
+// Rottweiler P1 R3-09: browsers decode character references in the script type.
+it('builds an AniML script whose type uses character references', async () => {
+  const { buildHTML } = await import('../src/html.ts');
+  const animl =
+    '<anima version="0.1" name="probe" grid="20"><circle id="d" cx="10" cy="10" r="5" fill="#000"/></anima>';
+  for (const type of ['application/vnd.anima&#43;xml', 'application&sol;vnd.anima&plus;xml']) {
+    const r = buildHTML(
+      `<anima-icon><script type="${type}">${animl}</script></anima-icon>`,
+      'p.html',
+    );
+    expect(r.diagnostics).toEqual([]);
+    expect(r.text).toContain('type="application/vnd.anima+json"');
+  }
+});

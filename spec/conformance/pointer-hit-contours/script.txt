@@ -1,0 +1,16 @@
+# below the triangle's diagonal: only the open L0 8 contour after Z, which a fill closes to nothing
+pointer down 2 6
+pointer up 2 6
+snapshot
+# above the diagonal: inside the closed triangle
+pointer down 6 2
+pointer up 6 2
+snapshot
+# 1.5 world units right of the scaled bar (x 10..18): beyond the padding of 1
+pointer down 19.5 10.5
+pointer up 19.5 10.5
+snapshot
+# 0.5 world units above the bar: within the padding
+pointer down 14 9.5
+pointer up 14 9.5
+snapshot

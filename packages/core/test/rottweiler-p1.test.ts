@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { load, Player } from '../src/index.ts';
-import { parsePath } from '../src/path.ts';
+import { load, Player, runScript } from '../src/index.ts';
+import { flatten, parsePath } from '../src/path.ts';
 
 const base = (extra: Record<string, unknown> = {}) => ({
   anima: '0.1',
@@ -272,5 +272,56 @@ describe('Rottweiler P1 round 2', () => {
         }),
       ),
     ).toEqual([]);
+  });
+});
+
+describe('Rottweiler P1 round 3', () => {
+  const hits = (node: Record<string, unknown>, x: number, y: number, hitPadding = 0) => {
+    const p = player(
+      base({
+        nodes: [{ id: 'n', ...node }],
+        listeners: [{ on: 'move', target: 'n', hitPadding, emit: 'hit' }],
+      }),
+    );
+    return p.hits(p.model.listeners[0]!, x, y);
+  };
+
+  // R3-01: a segment after Z starts a new contour at the subpath start (SVG), not at the last point.
+  it('starts a new contour after Z', () => {
+    const tri = { type: 'path', d: 'M0 0L10 0L10 10ZL0 10', fill: { color: '#000' } };
+    expect(hits(tri, 2, 8)).toBe(false);
+    expect(hits(tri, 8, 2)).toBe(true);
+    expect(flatten(parsePath('M0 0L10 0L10 10ZL0 10'))).toEqual([
+      { pts: [0, 0, 10, 0, 10, 10], closed: true },
+      { pts: [0, 0, 0, 10], closed: false },
+    ]);
+  });
+
+  // R3-02: hit padding is in world units, also under a nonuniform scale.
+  it('pads in world units under a nonuniform scale', () => {
+    const rect = { type: 'rect', x0: 0, y0: 0, w: 10, h: 10, scaleX: 10, fill: { color: '#000' } };
+    expect(hits(rect, 102, 5, 1)).toBe(false);
+    expect(hits(rect, 50, -0.5, 1)).toBe(true);
+    expect(hits(rect, 100.5, 5, 1)).toBe(true);
+  });
+
+  // R3-11: the 1 MiB text limit counts UTF-8 bytes.
+  it('limits documents to 1 MiB of UTF-8 text', () => {
+    const text = JSON.stringify(base({ title: 'é'.repeat(600_000) }));
+    expect(load(text).diagnostics.map((d) => d.code)).toEqual(['limit-exceeded']);
+    expect(load(JSON.stringify(base({ title: 'é'.repeat(500_000) }))).diagnostics).toEqual([]);
+  });
+
+  // R3-10: a pending expect-error also covers a line that does not tokenize.
+  it('lets expect-error catch a tokenizer error', () => {
+    const { model } = load(base());
+    expect(runScript(model!, 'expect-error script-usage\nset x "unterminated').diagnostics).toEqual(
+      [],
+    );
+    expect(
+      runScript(model!, 'expect-error script-expect\nset x "unterminated').diagnostics.map(
+        (d) => d.code,
+      ),
+    ).toEqual(['script-expect-error']);
   });
 });
