@@ -109,6 +109,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
   anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
+    Default: contents only; request a section to read it. Topics accept camelCase or kebab-case.
                                         the authoring guide and the spec
 
 Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
@@ -496,6 +497,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'new':
         return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
+        if (rest[0]) rest[0] = schemaTopic(rest[0])!;
         if (o.animatable || o.bindable || o.inherited || o['editor-only'])
           return filteredSchema(rest[0], o, json, io);
         return o.search
@@ -1181,6 +1183,73 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
 
 // ---------------------------------------------------------------- schema and docs
 
+// Resolve spelling variants against the same registry/topics used to serve the output.
+function lookupTopic(topic: string | undefined, topics: string[], command: string) {
+  if (!topic) return topic;
+  const compact = (s: string) => s.replace(/-/g, '').toLowerCase();
+  if (topics.includes(topic)) return topic;
+  const exact = [...topics]
+    .sort((a, b) => Number(b.includes('-')) - Number(a.includes('-')))
+    .find((t) => compact(t) === compact(topic));
+  if (exact) return exact;
+  const distance = (a: string, b: string) => {
+    let row = Array.from({ length: b.length + 1 }, (_, i) => i);
+    for (let i = 0; i < a.length; i++) {
+      const next = [i + 1];
+      for (let j = 0; j < b.length; j++)
+        next.push(Math.min(next[j]! + 1, row[j + 1]! + 1, row[j]! + Number(a[i] !== b[j])));
+      row = next;
+    }
+    return row[b.length]!;
+  };
+  const nearest = topics
+    .map((t) => ({ t, d: distance(compact(topic), compact(t)) }))
+    .sort((a, b) => a.d - b.d || a.t.localeCompare(b.t))[0];
+  if (nearest && nearest.d <= 2)
+    throw new Usage(
+      `no ${command} topic "${topic}"; did you mean "${nearest.t}"? Try anima ${command} ${nearest.t}`,
+    );
+  return topic;
+}
+
+function schemaTopic(topic: string | undefined) {
+  if (!topic) return topic;
+  const [head, ...tail] = topic.split('.');
+  const topics = [
+    ...new Set([
+      ...NODE_TYPES,
+      ...Object.keys(ELEMENTS),
+      ...[nodeShape('path').p, (DOC as Extract<Shape, { k: 'obj' }>).p].flatMap((fields) =>
+        Object.entries(fields)
+          .filter(([, v]) => v.k === 'obj' || (v.k === 'arr' && v.of.k === 'obj'))
+          .map(([k, v]) => markupName(v, k)),
+      ),
+      'fill',
+      'stroke',
+      'anima',
+      'meta',
+      'color',
+      'glyph',
+      'hit',
+      'timeline',
+      'track',
+      'event',
+      'layer',
+      'state',
+      'pose',
+      'ease',
+      'on',
+      'bool',
+      'number',
+      'trigger',
+      'transition',
+      'listener',
+      'input',
+    ]),
+  ];
+  return [lookupTopic(head, topics, 'schema'), ...tail].join('.');
+}
+
 function schema(topic: string | undefined, full: boolean, json: boolean, io: IO): number {
   if (full) return (io.out(JSON.stringify(jsonSchema(), null, 2)), 0);
   if (topic?.includes('.')) {
@@ -1300,7 +1369,11 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     }));
   };
   const nodeField =
-    topic && (nodeShape('path').p[topic] ?? (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
+    topic &&
+    (Object.entries(nodeShape('path').p).find(
+      ([key, value]) => key === topic || markupName(value, key) === topic,
+    )?.[1] ??
+      (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
   const compositeField =
     nodeField &&
     (nodeField.k === 'arr' ? { ...nodeField.of, feature: nodeField.feature } : nodeField);
@@ -1377,7 +1450,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   const mapping = (rows: { markup: string; ani: string }[]) =>
     rows.map((r) => `  ${r.markup} ↔ ${r.ani}`).join('\n');
   const show = (d: ReturnType<typeof typeInfo>) =>
-    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
+    `${d.type}\n attributes (markup ↔ .ani: type)\n${d.fields.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`).join('\n')}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
       .filter((f) => f.feature)
       .map((f) => '  ' + f.ani + ' [' + f.feature + ']')
       .join('\n')}`;
@@ -1391,7 +1464,9 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .join('\n')}`;
   if (topic === 'a11y') {
     const showFields = (rows: ReturnType<typeof fields>) =>
-      rows.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}`).join('\n');
+      rows
+        .map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`)
+        .join('\n');
     io.out(
       `node.a11y (node semantics; markup ↔ .ani: type)\n${showFields(fields([], nodeShape('path').p.a11y))}\nActions: tap, increase, decrease, focus\n\ndoc.a11y (root icon semantics; markup ↔ .ani: type)\n${showFields(fields(['a11y']))}`,
     );
@@ -1443,6 +1518,18 @@ function docs(
       )
       .filter(([, files]) => files.length),
   );
+  topic = lookupTopic(
+    topic,
+    [
+      'authoring',
+      'spec',
+      'markup',
+      ...sections.map((s) => s.slug),
+      ...moduleTopics.map((m) => m[1]!),
+      ...moduleDocs.keys(),
+    ],
+    'docs',
+  );
   if ((topic === 'spec' && (list || section)) || (topic === 'authoring' && section)) {
     const source = topic === 'spec' ? spec : guide;
     const entries = [...source.matchAll(/^#{2,3} (.+)$/gm)].map((m) => ({
@@ -1486,8 +1573,7 @@ function docs(
       guide.split('\n')[0] +
       '\n\nContents (anima docs authoring <section>):\n' +
       sections.map((s) => '- ' + s.slug + ': ' + s.title).join('\n') +
-      '\n\n' +
-      guide;
+      (topic === 'authoring' ? '\n\n' + guide : '');
   else if (topic === 'spec') text = spec;
   else if (topic === 'markup') text = read('spec/ANIML.md');
   else if (moduleDocs.has(topic) || moduleTopics.some((m) => m[1] === topic)) {

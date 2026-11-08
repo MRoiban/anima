@@ -510,6 +510,9 @@ export class Compiler {
         p,
         a.valueAt,
         VERBOSE ? (e instanceof Error ? e.message : 'invalid attribute value') : '',
+        a.name === 'grid'
+          ? 'grid is one number (units per side); use viewBox="0 0 40 30" for a rectangular scene'
+          : undefined,
       );
       return undefined;
     }

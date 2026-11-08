@@ -1,8 +1,9 @@
 # Node semantics
 
 Static labels, explicit boxes, simple painted groups, state bindings and queued actions
-are available. Exact path/stroke bounds and several focus policies remain unfinished;
-see REPORT.md. The fixed budgets pass after the bounded fixes.
+are available, including text layout boxes and unions of visible child boxes.
+`a11y.tree-bounds` remains planned specifically for exact painted path and stroke extents;
+use explicit `bounds` for those shapes. See SPEC.md for the remaining bounds work.
 
 ```xml
 <anima version="0.1" name="mute" grid="20" requires="a11y focus">

@@ -56,10 +56,14 @@ field is readonly. Native copy/cut on obscured inputs is prevented without stopp
 Multiline obscured fields are rejected (`text-input-config` at `/textInput/obscured`): HTML has no
 password textarea, and exposing its raw value as an accessible multiline textbox would leak it.
 
-The search-card example uses exact-label equality (empty query shows all five labels). It uses
-existing derived numeric booleans, collapsed bindings and a template converter for the count.
-CLI proof: `anima sample modules/text-input/examples/search-card.animl --font
-sans-serif=fixtures/fonts/anima-test.ttf --script modules/text-input/examples/search.txt`.
+For substring search, see `anima docs bind`, "Filtering a list by typed text".
+The complete `modules/bind/examples/filtering-list.animl` recipe uses
+`contains(lower($label0), lower($query))` for case-insensitive matching, with an empty query
+showing all rows and a derived result count. Validate it with
+`anima validate modules/bind/examples/filtering-list.animl`; sample it with
+`anima sample modules/bind/examples/filtering-list.animl --font sans-serif=fixtures/fonts/anima-test.ttf`.
+The older `modules/text-input/examples/search-card.animl` demonstrates exact-label equality;
+use the bind recipe for substring filtering.
 Browser clipboard grants, mobile keyboard and real OS IME sessions are outside the automated proof.
 Nested/repeated native field mounting, scroll-to-caret and mixed-direction selection geometry are
 not yet implemented. Those limits block full parity closure.
