@@ -1,0 +1,17 @@
+{
+  "status": "skip",
+  "reason": "The native selected-text counterpart is authorable as TextInputSelectedText, but both direct Fill and a nested font-style authoring path make selected glyphs disappear on the permitted headless route; the selection background remains visible and neither capture has red selected ink. Therefore a faithful selected-paint comparison is unavailable. Anima solid/gradient/stroke selected paint and reusable style references have original-font core/tool and both-engine SVG/canvas tests. Existing documented logical-box/radius differences remain intentional; no raster threshold hides them.",
+  "tests": [
+    "modules/text-input/test/core/text-input-selection.test.ts",
+    "modules/text-input/test/web/selection.browser.test.ts",
+    "modules/text-input/test/core/drawing-conformance.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-selection/rive/p7-8/scene.rml",
+    "tests/oracle/text-input-selection/rive/p7-8/session.txt",
+    "tests/oracle/text-input-selection/rive/p7-8/frames/normal.png",
+    "tests/oracle/text-input-selection/rive/p7-8/frames/selected.png",
+    "tests/oracle/text-input-selection/rive/p7-8/scene-direct.rml.txt",
+    "tests/oracle/text-input-selection/rive/p7-8/session-style.txt"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "text-font-decoding",
+  "grid": 20,
+  "requires": ["text", "fonts", "assets", "bind"],
+  "inputs": {
+    "option": {
+      "type": "number",
+      "default": 900
+    }
+  },
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 2,
+          "axes": {
+            "wght": 900
+          }
+        }
+      },
+      "runs": [
+        {
+          "text": "AB",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "bind": {
+    "label.styles.s.axes.wght": "option"
+  },
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

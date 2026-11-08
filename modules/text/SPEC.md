@@ -247,5 +247,19 @@ than being silently removed. Group-compatible animation addresses remain live. E
 are rejected; remove `textInput` explicitly before freezing. Diagnostics use code `font-flatten`,
 empty pointer for the command-level conversion, a message identifying the unsupported operation
 and a repair hint. This is a CLI operation, with no additional JSON/AniML field or runtime entry.
-The generated-font path and raster regressions cover both output spellings. Native outline
-conversion equivalence still requires independent acceptance of the pending raster probe.
+The generated-font path and raster regressions cover both output spellings. Native outline conversion has no permitted headless counterpart; the P7-8 acceptance and
+evidenced skip below replace that pending comparison.
+
+### Flatten acceptance and native mutation limits (P7-8)
+
+Flatten acceptance includes a direct raster comparison: live text rendered by resvg with the
+original generated font against frozen path geometry laid out with the tool measurer. The live
+side does not call the outline converter. The fixture matches exactly; component/clip/effect
+projections retain their independent existing tests. There is no headless native outline-convert
+operation, so `tests/oracle/text-flatten/skip.json` records that observation boundary.
+
+Native run-list and text-style mutation retries also use a different authoring route: direct
+binding context at the Text node and preassigned instance style values. The former still draws
+its literal run fallback; the latter exposes an empty artboard-typed value and does not apply the
+style. These cannot faithfully compare the Anima mutation. Evidenced skips preserve those native
+captures alongside Anima's tool/browser SVG/canvas and typed-data regressions.

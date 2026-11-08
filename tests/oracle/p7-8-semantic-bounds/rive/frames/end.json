@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "artboard": "Bounds",
+  "roots": [
+    {
+      "id": 1,
+      "role": "button",
+      "roleValue": 1,
+      "label": "stroked",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 96,
+      "bounds": { "x": 107.999985, "y": 54, "width": 24, "height": 12 },
+      "children": []
+    }
+  ]
+}

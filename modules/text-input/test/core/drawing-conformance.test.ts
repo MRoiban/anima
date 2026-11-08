@@ -44,3 +44,29 @@ it('original-font placeholder conformance restores authored paint after clearing
   expect(text().runs[0]!.text).toBe(expected.placeholder);
   expect(text().paints).toEqual(expected.paints);
 });
+it('original-font selected paint conformance retains normal ink outside the selected clusters', () => {
+  const base = 'spec/conformance/text-input-selection/';
+  const doc = JSON.parse(readFileSync(base + 'case.ani', 'utf8'));
+  registerTextMeasurer(documentFonts(doc, base + 'case.ani').measurer);
+  const result = load(doc);
+  expect(result.diagnostics).toEqual([]);
+  const script = readFileSync(base + 'script.txt', 'utf8').split('compose')[0]!;
+  const { player } = runScript(result.model!, script);
+  const n = drawFrame(player).nodes[0] as FieldNode,
+    expected = JSON.parse(readFileSync(base + 'drawing.expected.json', 'utf8'));
+  const clusters = n.text!.layout.lines.flatMap((l) => l.clusters);
+  expect(
+    clusters
+      .filter((g) => g.run === 1)
+      .map((g) => g.text)
+      .join(''),
+  ).toBe(expected.selectedText);
+  expect(
+    clusters
+      .filter((g) => g.run === 0)
+      .map((g) => g.text)
+      .join(''),
+  ).toBe(expected.normalText);
+  expect(n.text!.paints[1]).toEqual(expected.selectedPaint);
+  expect(n.fieldBoxes![0]!.color).toBe(expected.background);
+});

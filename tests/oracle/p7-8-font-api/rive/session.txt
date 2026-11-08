@@ -1,0 +1,13 @@
+ok screenshot: frames/reference.png
+err font-info: unknown command 'font-info', type ? for the list
+err font-metrics: unknown command 'font-metrics', type ? for the list
+err font-derive: unknown command 'font-derive', type ? for the list
+err font-glyph-path: unknown command 'font-glyph-path', type ? for the list
+err text-to-outline: unknown command 'text-to-outline', type ? for the list
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[13:54:15.094] rive  deferred replay: inline
+[13:54:15.111] rive  built (8237 bytes, 9ms, 0 errors, 0 warnings)
+[13:54:15.112] rive  showing Probe [1/1]
+[13:54:15.113] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[13:54:15.127] rive  wrote frames/reference.png

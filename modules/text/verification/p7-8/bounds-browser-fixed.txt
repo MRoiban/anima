@@ -1,0 +1,8 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7e27751f
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 1 skipped (2)
+   Start at  13:48:42
+   Duration  716ms (import 66%, tests 28%, transform 5%, worker 1%)

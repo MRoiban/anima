@@ -2,7 +2,7 @@
   "anima": "0.1",
   "name": "semantic-bounds",
   "grid": 100,
-  "requires": ["a11y"],
+  "requires": ["a11y", "paint"],
   "nodes": [
     {
       "id": "panel",
@@ -82,6 +82,34 @@
       "a11y": {
         "role": "text",
         "label": "Point"
+      }
+    },
+    {
+      "id": "stroked",
+      "type": "circle",
+      "center": [80, 80],
+      "r": 2,
+      "stroke": {
+        "color": "#000",
+        "width": 2
+      },
+      "a11y": {
+        "role": "img",
+        "label": "Stroke"
+      }
+    },
+    {
+      "id": "curve",
+      "type": "path",
+      "d": "M0 0C0 12 12 12 12 0",
+      "x": 80,
+      "y": 50,
+      "fill": {
+        "color": "#000"
+      },
+      "a11y": {
+        "role": "img",
+        "label": "Cubic"
       }
     }
   ]

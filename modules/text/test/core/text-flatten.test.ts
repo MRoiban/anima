@@ -170,3 +170,33 @@ it('retains per-glyph rotation effects', () => {
   source.requires = [...(source.requires as string[]), 'texteffects'];
   match(source);
 });
+
+it('accepts flattened outlines against live generated-font text rasterization with the tool measurer', () => {
+  // Independent live shaping/rasterization: do not pass this side through outlineSVG.
+  const document = doc([
+    label({
+      x: 2,
+      y: 2,
+      rotate: 13,
+      styles: { s: { font: 'Anima Test', size: 2, fill: { color: '#123456' } } },
+    }),
+  ]);
+  measurer.register('Anima Test', new Font(testFont()));
+  const original = load(document);
+  expect(original.diagnostics).toEqual([]);
+  const live = new Player(original.model!);
+  live.step(0);
+  const options = {
+    fitTo: { mode: 'width' as const, value: 240 },
+    font: { loadSystemFonts: false, fontFiles: ['fixtures/fonts/anima-test.ttf'] },
+  };
+  const reference = new Resvg(toSVG(live), options).render().pixels;
+  const flat = flattenText(document, measurer);
+  const outlined = load(flat);
+  expect(outlined.diagnostics).toEqual([]);
+  const p = new Player(outlined.model!);
+  p.step(0);
+  const actual = new Resvg(toSVG(p), options).render().pixels;
+  // Identical vector contours are expected; no geometry tolerance or oracle threshold is added.
+  expect(actual).toEqual(reference);
+});

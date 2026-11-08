@@ -1,0 +1,6 @@
+Updated 5 files (TODO skeletons; parity status unchanged)
+docs/parity/MATRIX.md
+docs/parity/inventory.json
+docs/parity/matrix.json
+modules/text/test/core/data-property-text-style.test.ts
+spec/conformance/data-property-text-style/todo.json

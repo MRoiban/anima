@@ -1,0 +1,7 @@
+Would update 6 files (TODO skeletons; parity status unchanged)
+docs/parity/MATRIX.md
+docs/parity/inventory.json
+docs/parity/matrix.json
+modules/text/test/core/text-run-list.test.ts
+spec/SPEC.md
+spec/conformance/text-run-list/todo.json

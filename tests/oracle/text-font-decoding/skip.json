@@ -1,0 +1,15 @@
+{
+  "status": "skip",
+  "reason": "No faithful native headless derived-face/glyph-path API is exposed by the permitted command route: font-derive and font-glyph-path are unknown commands. Anima shares the bounded OpenType reader between CLI and browser, tests effective axes/features and changed outlines in both engines, and retains existing native variable-axis/feature raster probes as drawing evidence. SFNT source bytes are explicitly required in the browser info API.",
+  "tests": [
+    "modules/fonts/test/core/info-conformance.test.ts",
+    "modules/fonts/test/core/text-font-decoding.test.ts",
+    "modules/fonts/test/web/info.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-8-font-api/rive/commands.txt",
+    "tests/oracle/p7-8-font-api/rive/session.txt",
+    "tests/oracle/text-variable-axes/rive",
+    "tests/oracle/text-opentype-features/rive"
+  ]
+}

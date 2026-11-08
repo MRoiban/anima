@@ -144,6 +144,7 @@ export interface TextModule extends Module {
   invalidateText: typeof invalidateText;
   textLayout: typeof textLayout;
   input: typeof textInput;
+  paint: typeof paint;
   override?: (player: Player, node: number, run: string | number) => string | undefined;
   textRun?: TextRunAccess;
 }
@@ -155,7 +156,12 @@ export const text: TextModule = {
   invalidateText,
   textLayout,
   input: textInput,
+  paint,
   init(registry, shared) {
+    // Live paint shapes belong to the active registry, including separately emitted bundles.
+    styleShape.p.fill = shared.FILL;
+    styleShape.p.stroke = shared.STROKE;
+    Object.assign((entries[0]!.elements!.style!.shape as ObjShape).p, styleShape.p);
     if (V) installTextHit(text); // seam(P6-7): stripped from the display bundle.
     data = registry.get('data') as typeof data;
     text.fonts = fonts = registry.get('fonts') as typeof fonts;

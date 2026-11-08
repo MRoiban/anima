@@ -1,4 +1,9 @@
-<!-- TODO: text.font-decoding; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="text-font-decoding" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="text-font-decoding" grid="20" requires="text fonts assets bind">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <number name="option" default="900"/>
+  <text id="label" line-height="1">
+    <style id="s" font="body" size="2" axes="{&quot;wght&quot;:900}"/>
+    <run text="AB" style="s"/>
+  </text>
+  <bind target="label.styles.s.axes.wght" value="option"/>
 </anima>

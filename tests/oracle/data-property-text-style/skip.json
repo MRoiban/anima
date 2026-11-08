@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Native property writes are rejected on the permitted headless route, where the text-style property dumps as an artboard. Retrying a different authoring path by assigning the alternate style to the initial instance still dumps an empty artboard and leaves normal black/small text. Anima typed shared-style setters, clears and invalid values have independent tool/browser drawing tests.",
+  "tests": [
+    "modules/text/test/core/live-runs.test.ts",
+    "modules/text/test/cli/live-runs.test.ts",
+    "modules/text/test/web/live-runs.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/data-property-text-style/rive",
+    "tests/oracle/p7-text-style-global-control/rive",
+    "tests/oracle/p7-8-text-mutations/rive/text-style"
+  ]
+}

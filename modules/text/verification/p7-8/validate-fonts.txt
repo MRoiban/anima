@@ -1,0 +1,1 @@
+modules/fonts/capabilities/text-font-decoding/example.animl: ok

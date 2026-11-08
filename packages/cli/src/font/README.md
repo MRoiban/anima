@@ -34,3 +34,12 @@ text and do not load font overrides. Inspect steps a preview player, so semantic
 
 Semantic sampling retains `font-missing` with a script-line pointer and a
 `--font Name=path` repair hint when layout requests an unregistered family.
+
+## Decoded-face inspection
+
+`@anima-format/core/fonts-info` exports `decodeFont(SFNTBytes)` and `FontInfo`. Tool clients can
+wrap their existing decoded face with `new FontInfo(new Font(bytes))`, including after the Node
+reader has unpacked a WOFF/WOFF2 container. Both use the same bounded platform-neutral parser.
+The optional browser entry adds `await icon.fonts.info(bytesOrURLOrOwnedDecodedFace)`.
+See `modules/fonts/INFO.md` for metrics/coverage, immutable effective options, derivation and
+context-free glyph path access, coordinate conventions and deliberately unsupported formats.

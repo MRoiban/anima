@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7e27751f
+
+ ❯ |browser| modules/a11y/test/web/painted-bounds.test.ts (2 tests | 1 failed | 1 skipped) 30020ms
+   × Chromium overlay and headless geometric bounds include stroke and late registration 30018ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y/test/web/painted-bounds.test.ts > Chromium overlay and headless geometric bounds include stroke and late registration
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y/test/web/painted-bounds.test.ts:23:41
+     21|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     22| ] as const)
+     23|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     24|     `${name} overlay and headless geometric bounds include stroke and …
+     25|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  13:46:29
+   Duration  30.59s (tests 98%, import 1%)

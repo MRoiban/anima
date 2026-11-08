@@ -251,6 +251,8 @@ function attach(icon: AnimaIcon) {
       icon.dispatchEvent(new CustomEvent('anima:semantics', { detail: diff }));
   };
   roots.set(icon, () => {
+    // seam(P7-8): optional painted bounds can change a settled tree without a step.
+    if (p.semantics() !== tree) update();
     if (!box.isConnected) {
       icon.shadowRoot!.append(style, box);
       update();

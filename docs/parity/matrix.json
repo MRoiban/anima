@@ -613,7 +613,7 @@
   "status": "planned",
   "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
   "phase": "P7",
-  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: measured text layout boxes are independently tested with both measurers, clipping, transforms and cache invalidation. Exact painted path/stroke extents remain unimplemented (outside the owned text consumer); native/tool automatic line-gap difference is retained. This broader row stays planned without a widened tolerance."
+  "reason": "P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned."
  },
  {
   "id": "a11y.tree-visibility",
@@ -3228,10 +3228,10 @@
   "capability": "Text style property",
   "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl",
   "module": "text",
-  "status": "planned",
+  "status": "done",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
   "phase": "P7",
-  "reason": "P7-6: Anima typed style writes/drawing pass. Correct native TextStyleGlobal plus artboard-backed Ink/Alternate handles render the default style, but fresh CLI 1.9.1 setters reject both names and ids with no property at this path. Faithful native mutation comparison remains missing; tests/oracle/p7-text-style-global-control retains the proper control."
+  "reason": "P7-8: existing typed shared-style setters/clear/rejections and tool/both-engine SVG/canvas drawing pass. Retrying an alternate initial instance style assignment still exposes an empty native artboard value and unchanged normal text; live writes were already rejected. Captures/dumps retained in the evidenced native observation skip."
  },
  {
   "id": "data.property-trigger",
@@ -10756,10 +10756,10 @@
   "capability": "Text outline conversion",
   "construct": "new: text outline conversion through a separate optional module; seconds, degrees and grid units at the format boundary",
   "module": "text",
-  "status": "planned",
+  "status": "done",
   "test": "oracle/text-flatten",
   "phase": "P7",
-  "reason": "P7-6: root/component traversal, default snapshot policy, group-compatible references, clips, gradients/effects and original-font raster tests implemented. Independent native outline-conversion evidence and owner-assigned strict raster acceptance remain missing."
+  "reason": "P7-8: root/component, clip/mask, gradients/effects and text-only reference policy are implemented. Independent internal raster acceptance compares live resvg-generated-font text against flattened tool-measured paths exactly (the live side does not use outlineSVG). Native headless conversion is unavailable and its attempted command is evidenced in skip.json; no oracle threshold changed."
  },
  {
   "id": "text.font-assets",
@@ -10778,10 +10778,10 @@
   "capability": "Runtime font decoding",
   "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
-  "status": "planned",
+  "status": "done",
   "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P7",
-  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
+  "reason": "P7-8: shared bounded OpenType reader supplies headless/browser FontInfo.derive axes/features, glyphPath and context-free glyphs access without mutating the original face. Both engines and independent original-font paths/options pass; native derived/path headless API skip evidenced. Browser introspection requires SFNT bytes (normalize WOFF/WOFF2 with import-font); shaping and MVAR limits documented in INFO.md."
  },
  {
   "id": "text.font-fallback",
@@ -10800,10 +10800,10 @@
   "capability": "Font metrics and coverage",
   "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
-  "status": "planned",
+  "status": "done",
   "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P7",
-  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
+  "reason": "P7-8: optional fonts-info exposes immutable face metrics, scalar coverage and effective axes/features from icon.fonts.info and headless decodeFont/FontInfo. Independent generated-font vectors, structured diagnostics, authored option projections and both-engine decoded-face tests; evidenced native API skip. Browser inspection explicitly requires SFNT bytes and cannot recover an external FontFace source; see modules/fonts/INFO.md."
  },
  {
   "id": "text.font-size",
@@ -10932,10 +10932,10 @@
   "capability": "Styled input selection",
   "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
   "module": "text-input",
-  "status": "planned",
+  "status": "done",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection; tests/oracle/text-input-selection (native comparison pending)",
   "phase": "P7",
-  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
+  "reason": "P7-8: independent selected glyph color or local/shared style fill/stroke paint (including gradients), both registry spellings, diagnostics and conformance; SVG/canvas pixel tests in both engines. Native TextInputSelectedText direct-fill/nested-style retries leave selected glyphs blank, recorded as an evidenced observation skip. Logical grapheme boxes/radius semantics remain the documented P7 difference."
  },
  {
   "id": "text.input-selection-rounding",
@@ -11229,10 +11229,10 @@
   "capability": "Data-driven run lists",
   "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-run-list/example.animl",
   "module": "text",
-  "status": "planned",
+  "status": "done",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
   "phase": "P7",
-  "reason": "P7-6: Anima mutations/rendering pass. Six native DataBindPath controls (root/property-only, relative/absolute, and proper artboard-backed global/local style symbols) all draw blank despite successful item writes. A faithful native live-list comparison remains missing; controls retained in tests/oracle/p7-text-run-list-controls."
+  "reason": "P7-8: existing list text/style writes retain core/tool/browser-text and both-engine SVG/canvas regressions. Retried a different native authoring path (direct Text binding context and preauthored changed item): native still draws the literal fallback rather than list content. Captures and data dumps justify the evidenced observation-path skip; tests/oracle/text-run-list/skip.json."
  },
  {
   "id": "text.script-direction",

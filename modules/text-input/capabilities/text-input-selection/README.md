@@ -1,10 +1,11 @@
-# text-input-selection
+# Styled input selection
 
-Implementation: `modules/text-input/core/registry.ts`, `core/index.ts`, `core/svg.ts` and `web/index.ts`.
-Normative contract: `modules/text-input/SPEC.md`; the associated marker is in spec/SPEC.md.
+JSON selectedTextColor / selectedTextStyle and AniML selected-text-color / selected-text-style
+separate glyph paint from the selection background. A style reuses arbitrary declared fill/stroke
+paints without reflowing text. Normative contract: modules/text-input/SPEC.md.
 
-Evidence: `modules/text-input/test/core/field.test.ts`, `test/web/field.browser.test.ts`,
-`test/cli/field.test.ts`; shared authored example: `modules/text-input/examples/search-card.animl` + `.ani`.
-Independent deterministic snapshots are in `spec/conformance/text-input-selection` where its marker is absent.
-A remaining marker explicitly identifies an outstanding probe. All inventory statuses stay planned:
-independent native captures/comparison are outstanding, and benchmark matching is exact-label only.
+Original-font deterministic field and draw projections: spec/conformance/text-input-selection;
+core diagnostics/round trips: test/core/text-input-selection.test.ts; both-engine SVG/canvas pixels:
+test/web/selection.browser.test.ts. Native selected text disappears with both attempted drawable
+authoring paths, so tests/oracle/text-input-selection/skip.json records the observation boundary
+alongside the already documented selection-geometry difference. No passing raster budget is claimed.

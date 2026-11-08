@@ -1,0 +1,5 @@
+Checking formatting...
+[warn] tests/oracle/p7-8-semantic-bounds/rive/frames/end.json
+[warn] tests/oracle/p7-8-semantic-bounds/rive/frames/middle.json
+[warn] tests/oracle/p7-8-semantic-bounds/rive/frames/start.json
+[warn] Code style issues found in 3 files. Run Prettier with --write to fix.

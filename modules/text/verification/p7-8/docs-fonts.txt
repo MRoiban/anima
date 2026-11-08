@@ -1,0 +1,174 @@
+## fonts
+
+<!-- capability: assets.font -->
+<!-- capability: assets.host-decode-font -->
+<!-- capability: assets.replacement-scope-font -->
+<!-- capability: data.host-font -->
+<!-- capability: host-api.data-font -->
+<!-- capability: host-api.font-fallback -->
+<!-- capability: text.font-fallback -->
+<!-- capability: text.font-assets -->
+<!-- capability: text.font-decoding -->
+<!-- capability: text.variable-axes -->
+<!-- capability: text.opentype-features -->
+<!-- capability: text.font-metrics -->
+
+Optional runtime feature `fonts` uses the assets feature's existing `type: "font"` records.
+JSON `{assets: {body: {type: "font", source: "body.woff2"}}}` is AniML
+`<asset name="body" type="font" src="body.woff2"/>`; declare `requires="assets fonts"`.
+No new asset fields or deterministic player channels are added. Core accepts font resources without
+a browser; decoding is a web concern. This keeps the optional asset boundary described in
+`docs/research/rive-web-runtime.md` without adopting its shaping engine or resource format.
+
+<!-- // seam(P7-8): optional font introspection normative link. -->
+Decoded metrics, coverage, effective options and derived glyph paths are specified in the
+[optional fonts-info contract](../modules/fonts/INFO.md).
+
+### Resources, decoding and readiness
+
+The `@anima-format/web/fonts` entry loads font assets before `anima:load` and the first render.
+Fonts and asset I/O preserve each other's preload hooks in either entry order.
+Sources pass through `icon.resolveAsset`, including its local/any policy and host resolver.
+URLs and resolver-returned Blobs are read as bytes, decoded using `FontFace.load`, added to
+`document.fonts`, then awaited with `document.fonts.load`. Unsupported or corrupt fonts and
+policy failures emit `anima:warning` with a diagnostic array: code `font-load`, severity `warning`,
+JSON pointer `/assets/<escaped-name>/source`, message and recovery hint. The scene continues with
+CSS fallback. A failed replacement preserves the previous face. Browser decoding does not change
+`Player.step` values, timing or events; headless tools do not decode fonts through this module.
+
+`await icon.fonts.decode(bytesOrURL, descriptors?)` returns a loaded FontFace. URLs obey the asset
+policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
+descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
+sources receive private family names, preventing cross-icon collisions. The latest replacement
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+`document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
+counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
+Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode
+font assets.
+
+### CSS, fallback and metrics
+
+`cssFont(spec)` accepts the structural FontSpec contract and returns CSS properties `font`,
+`fontFamily`, `fontSize`, `fontWeight`, `fontStyle`, `letterSpacing`, `fontVariationSettings`, and
+`fontFeatureSettings`. The `font` property is the canvas/FontFaceSet shorthand. `axes` and `features`
+become quoted OpenType tags followed by numeric values; absent maps become `normal`.
+For live asset aliases and host fallback, browser consumers MUST use
+`icon.fonts.cssFont(spec)` (or `icon.fonts.forModel(model).cssFont(spec)` for children). Apply the
+individual CSS properties to SVG text; canvas consumers apply `font` and the supported individual
+properties. The text module owns field validation, layout, animation, measurement and backend
+application. A controller does not synthesize axis or feature introspection from font bytes.
+
+`await icon.fonts.ready(spec, text?)` awaits the used CSS font selection before measuring the actual
+run text. `await icon.fonts.add(face, {weight}?)` adds a host fallback face and optional weight;
+faces sharing a family remain eligible for browser weight selection. Families are appended in
+insertion order after the authored CSS family list. Host fallback configuration survives source
+reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
+releases owned document font registrations; the next CSS/readiness use restores configured faces.
+`icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
+invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
+browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed
+metrics, coverage table, cap-height/x-height parser or outline extractor is supplied by `fonts`.
+
+### Data assignment and replacement scope
+
+With the optional data and host modules, `await icon.data.font(path).set(face)` accepts a decoded
+FontFace. It allocates a player-local font resource id and queues the typed asset-reference write
+through the existing host API. Other data properties and other icons keep their previous resources.
+String assignment retains the existing typed font-asset validation. The public handle value remains
+the selected resource id. Text styles must resolve that id through the owning controller. Named
+resource replacement changes all uses in its resource scope; data-property assignment changes only
+consumers of the assigned property. Bound text rendering and complete font-metric parity require
+the text module; the fonts module alone does not add text nodes.
+
+### Authored font options (normative, P6-13)
+
+Text styles accept `axes` (four-character ASCII alphanumeric/space tags to finite numbers)
+and `features` (tags to nonnegative integers). Declare `fonts` and `text`. The settings
+are maps in JSON and JSON-valued AniML attributes, following MODULES §Generic AniML fields:
+
+```xml
+<anima version="0.1" name="axes-features" grid="20" requires="text fonts">
+  <text id="label" x="2" y="2">
+    <style id="body" font="Inter" size="2" axes='{"wght":650}' features='{"kern":0,"liga":1}'/>
+    <run style="body" text="AB"/>
+  </text>
+</anima>
+```
+
+The fields work on local `<style>` and shared `<text-style>`. A local authored axis is
+bindable/animatable at `label.styles.body.axes.wght` using the existing numeric timeline,
+input-expression and data-bind rules. The axis must exist in the authored map. Features
+are static; selecting another run style can switch the feature map. Explicit `wght` axes
+win over style weight. Values outside the font's axis range clamp to its fvar endpoints.
+
+Import `@anima-format/web/fonts-options` for browser option support (includes fonts-text
+and text); import assets as usual for embedded fonts. Decoded byte/URL faces default to a `1 1000` weight descriptor, so a variable face's
+`wght` is selectable through Canvas; an explicit descriptor overrides that range.
+The resources-only fonts entry stays
+independent of the text renderer. The optional adapter preserves layout invalidation and
+readiness when a bound/animated axis changes. Per-glyph axes remain drawing effects and do
+not reflow the underlying line; style axes participate in measurement and line layout.
+
+SVG receives both `font-variation-settings` and `font-feature-settings`, including for
+per-glyph effects. Canvas uses `wght` as its numeric CSS font weight and `kern` as
+`fontKerning`. The weight fallback clamps to CSS’s 1–1000 range; fonts whose
+weight axis exceeds that range require the native arbitrary-axis API or SVG. It feature-detects native `fontVariationSettings` / `fontFeatureSettings`.
+On hosts without those APIs, other axes and arbitrary features are ignored by Canvas and
+Canvas measurement. SVG still applies the full settings, but runtime line breaking/carets
+use those fallback Canvas metrics and may differ from the drawn extents. The tool reader
+measures its supported options; `anima render --browser-text` shapes the resulting SVG. No synthetic
+property on an unsupported context is mistaken for platform support. These limitations
+are a browser capability boundary, not a promise of a full shaping engine (see
+`docs/research/rive-web-runtime.md` §1).
+
+The tool reader uses fvar/avar/gvar interpolation, including phantom-point advances;
+HVAR and unsupported variation formats retain `font-unsupported`. Unknown font axis tags
+produce `font-axis`; nonfinite axes and invalid feature values are errors. Absent feature
+tags produce a `font-feature` warning and have no effect. Four-character syntax and numeric
+ranges are also enforced by the authoring registry. The deterministic tool supports kern
+and context-free GSUB single, alternate and ligature substitutions (including extension
+lookups). It applies lookup order from the font; complex flags/contextual lookups fail
+with `font-unsupported` and a browser-rendering repair. Default ccmp/locl/rlig/liga/clig
+features are enabled, other substitutions require an explicit feature value. Script/language
+selection and complex-script shaping are not implemented; use the browser path. A ligature's
+advance is assigned to its first grapheme; the tool does not invent internal caret metrics.
+The implementation follows the primary [OpenType GSUB specification](https://learn.microsoft.com/en-us/typography/opentype/spec/gsub),
+not another runtime's source. No Rive implementation algorithm is used.
+
+##### P7 variation platform boundary
+
+Arbitrary Canvas font axes remain conditional on a real `fontVariationSettings` member on the
+2D context. Both measurement and drawing use the same feature detection; unsupported hosts
+apply only `wght` via CSS font weight and `kern` via `fontKerning`. No invented property is
+assigned. SVG and tool outlines retain all supported authored axes. Both tested engines lack
+this Canvas API; the arbitrary-axis Canvas comparison is an evidenced platform skip, while
+wght retains its completed native raster comparison. Browser tests expose the detected support
+flags; synthetic-context tests exercise the native branch and reset settings between fonts.
+This limitation does not imply that unsupported axes render in Canvas or that fallback metrics
+match arbitrary-axis SVG drawing. The optional P7-8 fonts-info API below supplies explicit-byte decoding/metrics introspection.
+
+##### Font introspection (P7-8)
+
+The optional [fonts-info contract](INFO.md) specifies decoded metrics, coverage, effective options,
+derived fonts and glyph paths in the browser and headless APIs. The resources-only entry still
+loads browser fonts without including this parser. Introspection explicitly requires SFNT source
+bytes; it cannot recover bytes from externally created FontFace objects.
+
+For example, after importing `@anima-format/web/fonts-info`:
+
+```ts
+const face = await icon.fonts.decode(sfntBytes);
+const font = await icon.fonts.info(face);
+font.metrics; // unitsPerEm, ascent, positive descent, lineGap, capHeight, xHeight, glyphCount
+font.hasGlyph(0x1f600); // cmap coverage, independent of CSS fallback
+const bold = font.derive({ axes: { wght: 900 } });
+bold.options; // immutable effective axes and supported feature settings
+bold.glyphs('AB'); // context-free glyphs, UTF-16 offsets, font-unit advance/path
+bold.glyphPath(34); // raw glyph index, baseline zero, +Y down
+```
+
+Headless clients import `decodeFont` from `@anima-format/core/fonts-info`. Tool clients with an
+already decoded CLI `Font` can use `new FontInfo(face)`. `font-source`, `font-format`,
+`font-invalid`, `font-axis`, `font-feature` and `font-unsupported` carry the API root pointer and a
+repair hint. Read INFO.md for the explicit SFNT/source-byte and shaping limits before choosing
+this API for a font with contextual scripts or variable metric tables.
