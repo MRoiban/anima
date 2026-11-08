@@ -22,3 +22,11 @@ Round 2 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope:
 | R2-1 | major | R1-1 regression: per-step `#aria()` rewrote host role/visibility, so a focus-module host without root a11y lost `role="group"` and became `aria-hidden` after any step | fixed: only the pressed/checked attribute refreshes per step (`#pressed`, skips unchanged values); full `#aria()` back on state change only (modules/focus/test/web/focus.test.ts "keeps the group role without root a11y across host steps", Chromium+Firefox; test file owned by the focus phase) |
 | R2-2 | minor | `inspect` crashed on `"glyphs": {"$comment": …}` (validate accepts it) | fixed: skip `$comment` (packages/cli/test/p2-rottweiler.test.ts) |
 | R2-3 | minor | compare root normalization broke on `>` inside a root attribute value and on a self-closing `<svg …/>` | fixed: quote-aware root tag match, self-closing kept (packages/cli/test/p2-rottweiler.test.ts) |
+
+Round 3 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope: round-2 fix diff (7bd10b9b). `#pressed()` held against module ARIA owners, state-notification order, unchanged writes, destroy and document swaps during events: no defects.
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R3-1 | minor | compare normalization rewrote an `<svg` inside a leading comment/doctype instead of the real root (wrong verdict or malformed XML) | fixed: skip the prolog (declaration, comments, PIs, doctype) before matching the root (packages/cli/test/p2-rottweiler.test.ts) |
+| R3-2 | minor | namespace-prefixed root (`<s:svg …>`) not normalized → raster dimension error | fixed: root name may be prefixed and is preserved (same test) |
+| R3-3 | minor | attribute-like text inside another attribute's value (`data-note=' style="opacity:0"'`) became the root style | fixed: whole root attributes are tokenized; only real `width`/`height`/`color`/`style` are replaced (same test) |

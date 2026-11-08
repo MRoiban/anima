@@ -71,21 +71,26 @@ export function pixels(svg: string, width: number): Uint8Array {
 
 /** Normalize viewport and ink before rasterizing both documents with the PNG renderer. */
 export function comparisonSVG(svg: string, size: number): string {
-  return svg.replace(
-    /<svg\b((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/i,
-    (_, attrs: string, end: string) => {
-      let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
-      let style = '';
-      root = root.replace(
-        /\sstyle\s*=\s*(["'])([\s\S]*?)\1/gi,
-        (_, _quote: string, value: string) => {
-          style = value.replaceAll('"', '&quot;');
-          return '';
-        },
-      );
-      return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important"${end}>`;
-    },
-  );
+  // The root element follows the prolog (declaration, comments, PIs, doctype); it may be prefixed.
+  const prolog = /^(?:\s+|<\?[\s\S]*?\?>|<!--[\s\S]*?-->|<!DOCTYPE(?:[^[>]|\[[\s\S]*?\])*>)*/i.exec(
+    svg,
+  )![0];
+  const root = svg
+    .slice(prolog.length)
+    .replace(
+      /^<((?:[\w.-]+:)?svg)\b((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/i,
+      (_, name: string, attrs: string, end: string) => {
+        let style = '';
+        // Whole attributes only, so attribute-like text inside a value stays text.
+        const kept = (attrs.match(/\s+[^\s=]+\s*=\s*(?:"[^"]*"|'[^']*')/g) ?? []).filter((a) => {
+          const [, key, value] = /^\s+([^\s=]+)\s*=\s*["']([\s\S]*)["']$/.exec(a)!;
+          if (/^style$/i.test(key!)) style = value!.replaceAll('"', '&quot;');
+          return !/^(?:width|height|color|style)$/i.test(key!);
+        });
+        return `<${name}${kept.join('')} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important"${end}>`;
+      },
+    );
+  return prolog + root;
 }
 
 /** Absolute RGBA differences; a diff image shows the largest channel delta as grayscale. */

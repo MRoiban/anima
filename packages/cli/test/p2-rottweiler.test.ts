@@ -64,6 +64,17 @@ describe('render --compare', () => {
     ).toBe(true);
   });
 
+  it('normalizes the real root after a prolog, prefixed roots and whole attributes only (R3-1..3)', () => {
+    const plain = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">${body}`;
+    for (const reference of [
+      `<?xml version="1.0"?><!-- example <svg/> --><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" color="red">${body}`,
+      `<!DOCTYPE svg [<!ENTITY example "<svg/>">]><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">${body}`,
+      `<s:svg xmlns:s="http://www.w3.org/2000/svg" width="40" height="20" viewBox="0 0 20 20"><s:rect x="5" y="5" width="10" height="10" fill="currentColor"/></s:svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" data-note=' style="opacity:0"' viewBox="0 0 20 20">${body}`,
+    ])
+      expect(compareSVG(plain, reference, 20).pass, reference).toBe(true);
+  });
+
   it('normalizes the reference ink and viewport with --browser-text too (R1-3)', async () => {
     for (const attrs of [' color="red"', ' width="40" height="20"']) {
       const f = reference(attrs);
