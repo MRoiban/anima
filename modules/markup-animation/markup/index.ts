@@ -30,6 +30,9 @@ function resolveEase(c: Compiler, name: string): string {
   return result;
 }
 function condition(s: string): string {
+  // Quoted guard literals are values: park them so no rewrite below touches their text.
+  const quoted: string[] = [];
+  s = s.replace(/"(?:[^"\\]|\\.)*"/g, (q) => `"${quoted.push(q) - 1}"`);
   // Replace the word only between terms: an input itself may legally be named "and".
   return s
     .split(/\s+and\s+|\s*&&\s*/)
@@ -40,7 +43,8 @@ function condition(s: string): string {
         .replace(/^!\s+/, '!')
         .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
     )
-    .join(' && ');
+    .join(' && ')
+    .replace(/"(\d+)"/g, (_, i: string) => quoted[+i]!);
 }
 // Retain source spans without decoding entities a second time.
 function text(el: Element): { value: string; offsets: number[] } {

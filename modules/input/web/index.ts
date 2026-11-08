@@ -206,6 +206,8 @@ const load = Icon.prototype.load,
 Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
   attached.get(this)?.abort();
   attached.delete(this);
+  // Asset loads create the player asynchronously; attach once it exists.
+  this.addEventListener('anima:load', () => attach(this), { once: true });
   loadModel.apply(this, args);
   attach(this);
 };
@@ -226,6 +228,12 @@ Icon.prototype.destroy = function () {
     frame = 0;
   }
   destroy.call(this);
+};
+// Disconnecting loses pointer capture and later releases; cancel live contacts and scroll latch.
+const previous = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  if (kind === 'cleanup' && active(icon)) icon.input().cancel();
+  previous?.(icon, kind, detail);
 };
 for (const [host, method] of [
   ['inputPointer', 'pointer'],

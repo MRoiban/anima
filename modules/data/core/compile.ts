@@ -353,6 +353,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   // Validate all authored path uses with their own JSON pointers, including writes and event fields.
   const scan = (v: unknown, at: string) => {
     if (typeof v === 'string') {
+      // Run text is a data source only as a whole `$path` (text module); otherwise literal.
+      if (/\/runs\/\d+\/text$/.test(at) && v[0] !== '$') return;
       // Guard string literals are values, not references to the paths they may spell.
       const source = at.endsWith('/when') ? v.replace(/"(?:[^"\\]|\\.)*"/g, '') : v;
       for (const path of source.match(paths) ?? []) {
@@ -374,11 +376,12 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;
-        // Event payload string fields stay literal (spec events §payload).
+        // Event payload string fields and node custom properties stay literal.
         if (
-          k === 'value' &&
-          (v as { type?: string }).type === 'string' &&
-          /\/payload\/[^/]+$/.test(at)
+          (k === 'value' &&
+            (v as { type?: string }).type === 'string' &&
+            /\/payload\/[^/]+$/.test(at)) ||
+          (k === 'properties' && 'id' in v)
         )
           continue;
         scan(k, ptr(at, k));

@@ -441,10 +441,14 @@ export class Player {
       const polys = this.#outline(i);
       const r = n.raw;
       // Ordered paints (composite) stand in for the single fill/stroke.
-      const paints: (typeof r)[] = r.paints ?? [r];
+      const paints: (typeof r)[] = r.paints ?? [r],
+        // A hidden paint is not painted area (spec §ordered paints and visibility).
+        shown = (j: number, kind: string) =>
+          paints[j][kind] &&
+          this.prop(i, (r.paints ? `paints.${j}.` : '') + kind + '.visible') !== false;
       let half = 0;
-      paints.forEach((e, j) => {
-        if (e.stroke)
+      paints.forEach((_, j) => {
+        if (shown(j, 'stroke'))
           half = Math.max(
             half,
             this.num(i, (r.paints ? `paints.${j}.` : '') + 'stroke.width', 1) / 2,
@@ -458,8 +462,8 @@ export class Player {
       if (
         fill ??
         paints.some(
-          (e) =>
-            e.fill &&
+          (e, j) =>
+            shown(j, 'fill') &&
             inside(
               polys.filter((p) => p.closed).map((p) => p.pts),
               lx,

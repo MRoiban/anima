@@ -15,4 +15,13 @@ P4c interaction (#15), P4e data (#16). Lead: Opus; reviewers: GPT-6.1-sol xhigh,
 | R1-08 | minor | Data path scan treated string event-payload literals spelling `$x` as paths | fixed: `modules/data/core/compile.ts` skips payload string `value`; `modules/data/test/core/p4-review.test.ts` |
 | R1-09 | major | Input's listener extension dropped focus's `of` names (focus+input without events/components) | fixed: `modules/input/core/registry.ts` builds the preserved pattern from `old.of`; input test file |
 
-Round 1 reviewer token usage: not reported.
+| R2-01 | major | Hidden paints (`fill.visible`/`paints.N.*.visible` false) still hit; contour's clockwise `fillContains` too | fixed: `packages/core/src/player.ts` and `modules/contour/core/winding.ts` skip hidden paints; `modules/composite/test/core/p4-review.test.ts` |
+| R2-02 | major | Data path scan rejected literal custom properties (`"$price"`) and embedded run text (`"Price $total"`) | fixed: `modules/data/core/compile.ts` skips node `properties` and run text not starting with `$`; `modules/data/test/core/p4-review.test.ts` |
+| R2-03 | major | Asynchronous (asset) loads never attached input DOM handlers | fixed: `modules/input/web/index.ts` attaches on `anima:load`; `modules/input/test/web/p4-review.test.ts` (Chromium + Firefox) |
+| R2-04 | major | Disconnect left pressed contacts alive (stale `held`, later stale click) | fixed: input chains the host `cleanup` hook to `cancel()`; same browser test |
+| R2-05 | major | Gamepad polling stops for good after a detach longer than a frame | deferred: needs a host connect signal; lifecycle callbacks are captured at `define`, and a new `connect` event hook would surface as a public `anima:connect` DOM event through events. Workaround: reassign `inputOptions`. Not a P4-local smallest fix |
+| R2-06 | major | SVG backend hooks ran in load order; `paint,mix,contour` lost a stroke-blend trim | fixed: `packages/core/src/svg.ts` keeps backends in module dependency order; `modules/mix/test/core/p4-review.test.ts` |
+| R2-07 | major | Canvas clamped oversized `rx` uniformly; SVG clamps per axis | fixed: `modules/canvas/web/renderer.ts` passes `{x,y}` radii; `modules/canvas/test/web/p4-review.test.ts` (Chromium + Firefox) |
+| R2-08 | major | AniML guard rewriting corrupted quoted literals (`"A&&B"` → `"AandB"`; compile re-spaced `<=`, split `and`) | fixed: `packages/markup/src/decompile.ts` and `modules/markup-animation/markup/index.ts` (owned outside P4; minimal) skip quoted literals; `modules/data/test/markup/p4-review.test.ts` |
+
+Round 1 reviewer token usage: not reported. Round 2: not reported.

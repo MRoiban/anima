@@ -44,7 +44,7 @@ export function decompile(doc: string | object): string {
           !['fire', 'toggle'].includes(k)
             ? JSON.stringify(o[k])
             : k === 'when'
-              ? value(o[k]).replace(/&&/g, 'and')
+              ? value(o[k]).replace(/("(?:[^"\\]|\\.)*")|&&/g, (_, q) => q ?? 'and')
               : k === 'set'
                 ? entries(o[k])
                     .map(([n, v]) => `${n}=${value(v)}`)
