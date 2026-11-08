@@ -22,6 +22,11 @@ let resolve = resolveAddress;
 let parse: typeof import('../../bind/core/expression.ts').expression | undefined;
 const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(?:\.[\w-]+)*)$/;
 export type DataModule = Module & {
+  // seam(P7-5): rewrites data's private document copy before compilation (data-artboard).
+  normalize?: (
+    document: import('./types.ts').DataDocument,
+    model: import('../../../packages/core/src/load.ts').Model,
+  ) => void;
   prepareContext?: (
     model: import('../../../packages/core/src/load.ts').Model,
     diag: import('../../../packages/core/src/diag.ts').Diags,
@@ -42,7 +47,7 @@ export const data: DataModule = {
   registerConverter,
   prepare(model, d) {
     custom(model, d);
-    prepare(model, d, (this as DataModule).prepareContext);
+    prepare(model, d, (this as DataModule).prepareContext, (this as DataModule).normalize);
   },
   init(registry, shared) {
     listenerValue = (

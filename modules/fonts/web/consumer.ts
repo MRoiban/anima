@@ -18,7 +18,12 @@ if (!fonts.prepareText) {
     ])
       eachPlayer(child, visit);
   };
-  fonts.refreshText = (player) => eachPlayer(player, (p) => p.drawVersions.fill(++p.drawRevision));
+  fonts.refreshText = (player) =>
+    eachPlayer(player, (p) => {
+      // A ready font changes text measurements: re-resolve layout (no step, no input queue).
+      (Icon.modules.get('layout') as { refresh?(p: Player): void } | undefined)?.refresh?.(p);
+      p.drawVersions.fill(++p.drawRevision);
+    });
   const hosts = new Set<WeakRef<AnimaIcon>>();
   const seen = new WeakSet<AnimaIcon>();
   const previousHook = Icon.eventHook;

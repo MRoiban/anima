@@ -189,9 +189,11 @@ export function paintedBounds(
       }
       if (!closed)
         for (const end of [false, true]) {
-          const s = end ? ss.at(-1)! : ss[0]!,
+          // Cap direction comes from the whole subpath; zero-length subpaths use the local x axis (SVG).
+          const s = ss.flat(),
             p = end ? s.at(-1)! : s[0]!,
-            t = add([0, 0], tangent(s, end), end ? 1 : -1),
+            d = tangent(s, end),
+            t = add([0, 0], d[0] || d[1] ? d : [1, 0], end ? 1 : -1),
             n = normal(t);
           if (paint?.cap === 'round') arc(p, r, n, add([0, 0], n, -1), -1);
           else if (paint?.cap === 'square') {

@@ -10,7 +10,12 @@ import { compiled, type DataDocument, type Property, type Compiled } from './typ
 import { systemEnums } from './enums.ts';
 import { accepts, normalize, inputFor, createScope, dataState } from './storage.ts';
 export const paths = /\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*/g;
-export function prepare(model: Model, d: Diags, context?: DataModule['prepareContext']): void {
+export function prepare(
+  model: Model,
+  d: Diags,
+  context?: DataModule['prepareContext'],
+  rewrite?: DataModule['normalize'],
+): void {
   if (
     !model.doc.requires?.includes('data') ||
     !model.doc.data ||
@@ -18,6 +23,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   )
     return;
   const document = clone(model.doc.data) as DataDocument;
+  rewrite?.(document, model);
   const error = (
     code: string,
     p: string,
