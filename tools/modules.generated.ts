@@ -212,7 +212,7 @@ export const moduleBudgets: {
   { name: 'fonts', budget: 2048 },
   { name: 'fonts-text', budget: 768, over: 'fonts' },
   { name: 'fonts-options', budget: 4096, over: 'text' },
-  { name: 'fonts-info', budget: 8192, over: 'fonts' },
+  { name: 'fonts-info', budget: 8192, over: 'fonts', heavy: true },
   { name: 'lists', budget: 5120 },
   { name: 'a11y', budget: 2496 },
   { name: 'a11y-text', budget: 576, over: 'a11y' },

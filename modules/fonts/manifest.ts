@@ -8,7 +8,8 @@ export default {
       { name: 'fonts', budget: 2048 },
       { name: 'fonts-text', budget: 768, over: 'fonts' },
       { name: 'fonts-options', budget: 4096, over: 'text' },
-      { name: 'fonts-info', budget: 8192, over: 'fonts' },
+      // Heavy: ships a font-file reader to the page for metrics, coverage and glyph paths (niche).
+      { name: 'fonts-info', budget: 8192, over: 'fonts', heavy: true },
     ],
     adapters: {
       'packages/core/src/modules/fonts/index.ts': 'core/index.ts',
