@@ -1,131 +1,151 @@
-# P7-5 implementation report
+# P7-7 implementation report
 
-Status: **partial**; all four inventory rows remain planned for browser resource ownership.
+Status: **done**; all four rows closed and final broad verification passed.
+Branch: `t3/p7-7-implementation`, based on `p7` at `39ab6837`.
 
-The optional `data-artboard` browser entry extends the active data/compiler registry,
-compiles the source `artboard` type to the existing component storage type, installs
-`data.artboard(path)` and exposes `icon.component(loadedModel, name)`. External values
-keep lexical component models; selection uses the existing nested-player machinery.
-Same-selection writes preserve state; changed selection restarts the child clock.
-External assignment identities belong to the target root player; inherited and
-repeated descendants use that owner. Placements are installed for the synchronous
-step and restored, so players sharing a compiled model remain isolated. Existing explicit, inherited and repeated data contexts are reused.
+Closed: `data.host-artboard`, `host-api.bindable-artboards`,
+`host-api.data-artboard`, `components.host-artboard-reference`. No ticket rows remain.
+The four native host-assignment skips remain evidenced by the existing independently
+captured probe and permitted-comparison limits in [NATIVE.md](NATIVE.md). No new
+native capture or widened tolerance is claimed.
 
-The small seams are the validated component catalog and dynamic ancestor exclusion
-in `modules/components/core/index.ts`, native-only grammar installation in
-`modules/components/markup/index.ts`, active host API class exposure in
-`modules/host/core/index.ts`, foreign inherited default-instance rebinding in `modules/data/core/compile.ts`,
-the data JSON-schema expectation in `modules/data/test/cli/data.test.ts`,
-the existing repeated-parent map exposed in `modules/lists/core/index.ts`, and the
-conformance count/name whitelists in
-`packages/markup/test/{corpus,decompile}.test.ts`. Generated adapters, schema and
-parity views are regenerated. No measurement tool, threshold, benchmark record,
-or oracle finding was edited. No PR or push is part of this ticket.
+The full browser entry captures source-load resource catalogs and font faces after
+all composed loaders finish. Each resource-loaded source host gets a distinct player model identity,
+including hosts sharing compiled declarations. Cached asset-loader initializers
+resolve the live player owner and keep scopes in a weak per-root map; they never
+retain the first host. Acquired values retain the selected
+lexical models and snapshots; destination players acquire their own font references
+and resolved image records. Unused definitions and nested/contextual placements are
+preloaded. Source reload/destroy, a destination with no authored resources, multiple
+resolvers, SVG/canvas, clearing and reusing handles after faces leave the browser font
+set, and final font cleanup are covered in both engines. Browser acquisition uses
+`icon.component(source.player.model, name)` after `source.ready`.
 
-Implementation evidence is in `test/core/artboard.test.ts` (seventeen independent host,
-identity, context and diagnostic regressions), `test/web/artboard.test.ts` (both
-engines, two import orders, SVG/canvas and browser AniML), and four standard
-conformance cases. The complete native limitation and reused capture evidence are
-in [NATIVE.md](NATIVE.md); the four native probes are explicit skips. No new native
-capture is claimed.
+External schema checks run before rebinding/replacing the child. Inherited/default,
+explicit placement and property-declared model contracts use structural compatibility:
+property/asset kinds, numeric bounds, enum sets, model references and list element
+models. Extra destination fields/different defaults are allowed. Independent
+component-owned data remains independent unless an explicit context/contract applies.
+`artboard-model` supplies a code, escaped property pointer, message and repair hint;
+core regressions cover inherited/explicit contracts, independent data, declared expected
+models, enum/nested/list mismatches and matching named instances. The original four
+conformance cases, both spellings, AniML/JSON examples and CLI/schema support pass.
 
-Known API limits: external components cannot add scoped input names to an already
-loaded parent. External handles expose a stable opaque string; retain the assignable
-value to reuse it. Source-spelled artboard properties use the existing component
-storage/metadata representation. Browser authoring loads `markup-data-artboard`
-after the runtime entries. A controlled performance A/B has not been established
-on the shared machine; an ordinary perf command is not evidence for the ≤3% guard.
+## Seams and scope
 
-Remaining implementation: an external model reference does not transfer the source
-image resolver/base-URI catalog or retain font faces in the destination. See the
-normative remaining-work section in SPEC.md. Font ownership is held by the source
-FontController (`modules/fonts/web/index.ts`); its cleanup releases faces, whereas
-assetio installs resolver catalogs per player/model (`modules/assetio/web/index.ts`).
-Closing the four rows needs a resource-context bridge with destination ownership,
-including unused source components, two sources/resolvers sharing a compiled model,
-source reload/destroy tests with images and generated-font text, and cross-document
-data-schema compatibility validation. None is claimed
-by the vector-only browser lifecycle tests. Generic host metadata continues to report
-the component storage type for the source-spelled artboard alias.
+Every runtime seam outside the owned module is marked `seam(P7-7)`:
+
+- `modules/assetio/web/index.ts`: preload unused lexical components and expose exact
+  per-load catalogs to player initializers; tolerate asset-free component catalogs.
+- `modules/assets/core/index.ts`: weak per-player catalog bridge.
+- `modules/assets/core/svg.ts`: ignore a retired image slot during retained SVG refresh.
+- `modules/fonts/web/index.ts`: capture decoded font bindings/faces without retaining
+  the source host/controller; preload unused lexical components.
+- `modules/fonts/core/index.ts` and `modules/fonts/web/text.ts`: an optional pure typed
+  controller hook selects each adopted player's font scope.
+- `modules/paint/core/svg.ts`: **additional seam outside the listed ticket folders**.
+  The one-condition image viewport guard is necessary when clearing a host artboard:
+  retained DOM still refers to a slot whose geometry has been retired. An isolated
+  browser retry reproduced the TypeError; the clear/reassign regression now passes.
+
+Generated package adapters/exports/tables and parity views are regenerated. Inventory
+changes are limited to the four rows' status/reason. Shared WORKLOG gets appended
+checkpoints. No layout/text implementation, measurement tool/input, budget ceiling,
+oracle finding, benchmark record, licence, publication or PR is changed.
 
 ## Verification
 
-- `npm run typecheck`, changed-file ESLint, module wiring, parity views, generated
-  schema/AniML and Prettier checks: pass.
-- Focused unit/CLI/conformance run: 603 pass / 7 inherited TODO before the cyclic
-  regression was added; the final host file is 17/17 pass.
-- Own SVG/canvas/AniML browser suite: 6/6 pass (3 Chromium, 3 Firefox), including
-  source reload/detach. The final full run also selects these tests.
-- Earlier full run: 9,325 pass / 7 fail / 54 inherited TODO. One stale JSON-schema
-  type expectation was corrected; the other six were Firefox deadlines in
-  componentpaint/nested. Original-limit isolated retries: 12/12 and 10/10 pass.
-- A later run saw the newly added cyclic test with the previously cached JSON
-  clone implementation (9,332 pass / 1 fail / 54 TODO). The final implementation
-  copies only schema descriptors, preserving the normal cyclic-data diagnostic
-  path; its focused 17/17 pass is from a fresh process. Final fresh full-run
-  outcome is recorded below.
-- New end-to-end browser tests use a 20 s case deadline and 30 s setup deadline:
-  eight separate bundles, three document loads, renderer transitions and source
-  lifecycle work exceeded the initial 5 s defaults under shared load. Existing
-  test deadlines and measurement thresholds were not changed. Initial own runs
-  had test/setup timeouts; both engines now pass the complete owned file.
-- `node tools/oracle.ts --strict`: exit 0, 309 cases / 524 time samples, inherited
-  findings retained; four new host-only evidence-backed skips, no new comparison
-  or widened threshold.
-- `node tools/perf.ts`: exit 0, bell compile 4.03 ms / prefix sweep 1,077 ms;
-  bell/composite/toolbar frame 49.7/34.8/46.8 µs; toolbar compile 6.26 ms. Shared
-  load reached 83 earlier in the session; these are not controlled A/B evidence.
-  The ≤3% guard remains unverified.
+All commands use frozen runtime sources. Raw evidence is in `verification/p7-7/`.
 
-## Measured bytes
+- Earlier scoped regression run (before the final named/cache additions),
+  `npm run test:scope -- data-artboard assets fonts components paint --browser=chromium`:
+  **3,414 pass, 0 fail**, 39 files; excludes opposite-engine/non-selected cases.
+- Same scope with `--browser=firefox`: **3,413 pass, 1 fail** (existing 5 s asset-pipeline
+  deadline). Isolated original-limit retry:
+  `npx vitest run --project browser modules/assets/test/web/pipeline.test.ts --maxWorkers=1 -t Firefox`:
+  **11 pass, 0 fail**. All owned browser cases passed in the scope.
+- New resource file alone, both engines: **6/6 pass**. Final full `changed` run also
+  selects it, including the cached-owner and generated-font fixture regressions.
+- A development broad run hit seven test deadlines and one setup deadline across
+  the compiler/fonts/artboard files. A resource-only retry then exposed the real
+  retired-image bug, which was fixed. The later Chromium scope passes all those files.
+  No blanket load-only classification or unchanged-source full-suite pass is claimed
+  for those development runs.
+- `npm run typecheck`, changed runtime/test ESLint, Prettier, module wiring,
+  generated schema/web/AniML and parity views: pass.
+- `node tools/oracle.ts --strict`: exit 0, 309 cases / 524 samples, 24 retained
+  findings; four evidenced host-only skips. No case threshold/finding changed.
+- `node tools/perf.ts`: exit 0; bell compile 2.20 ms / prefix sweep 643 ms;
+  bell/composite/toolbar frame 33.5/21.1/27.2 µs; toolbar compile 4.64 ms. These
+  shared-machine timings are **not** controlled A/B evidence for the ≤3% guard.
+- `VITEST_MAX_WORKERS=2 npm run test:scope -- changed`: **9,417 pass / 0 fail /
+  54 inherited TODO**, 309 passing files plus 13 skipped; Chromium and Firefox;
+  exit 0, 690.05 seconds. This is the final runtime/test source, including cached
+  loader ownership, named-instance compatibility and the required generated font.
 
-`node tools/size.ts`: final source, exit 0. Baseline was a dependency-isolated
-archive of 049f5d6. Its authoring measurement was 14,742 B, whereas the shared brief
-lists 14,717 B; the observed baseline is reported without normalization.
+## Sizes (min+gzip B)
 
-| Entry (min+gzip B) | Before | After | Budget |
+Baseline is this checkout before edits (`39ab6837`), not the older brief's numbers.
+`node tools/size.ts`: exit 0 on final runtime source. Every entry and six gates pass.
+
+| Entry | Before | After | Budget |
 | --- | ---: | ---: | ---: |
-| data-artboard (over nested) | — | 1,013 | 1,024 |
-| markup-data-artboard (over markup-hooks) | — | 35 | 256 |
-| components | 3,331 | 3,394 | 3,456 |
-| host | 3,679 | 3,685 | 3,968 |
-| lists | 4,596 | 4,603 | 5,120 |
-| data | 6,470 | 6,515 | 7,040 |
-| markup-hooks | 4,511 | 4,534 | 4,544 |
-| markup-components | 768 | 768 | 896 |
-| markup | 7,341 | 7,341 | 8,192 (must not grow) |
+| data-artboard, complete addition over nested | 1,014 | 2,253 | split entries below |
+| data-artboard, browser resources over data-artboard-values | — | 832 | 1,024 |
+| data-artboard-values over nested (new optional entry) | — | 1,421 | 1,536 |
+| markup-data-artboard | 35 | 35 | 256 |
+| assetio | 711 | 734 | 768 |
+| assets | 1,813 | 1,822 | 1,984 |
+| fonts | 1,929 | 2,008 | 2,048 |
+| fonts-text | 528 | 542 | 768 |
+| fonts-options | 3,400 | 3,496 | 4,096 |
+| paint | 4,037 | 4,040 | 4,416 |
+| paint-sampling | 1,098 | 1,100 | 1,216 |
+| surface (dependent entry) | 7,652 | 7,658 | 8,192 |
+| media (dependent entry) | 2,816 | 2,848 | 3,072 |
+| markup | 7,341 | 7,341 | 8,192; no growth |
 | markup-libraries | 2,176 | 2,176 | 2,176 |
+| text | 5,578 | 5,578 | 6,144; owner cap 5,632 |
+
+The data-artboard entry keeps its existing 1,024 B ceiling; its measurement base
+changes to the separately measured values entry. The complete addition grows from
+1,014 to 2,253 B; this is an explicit split, not a claimed reduction. No existing
+budget is raised. All other entry measurements are unchanged.
 
 | Gate | Before | After | Ceiling |
 | --- | ---: | ---: | ---: |
-| core+web | 21,136 | 21,136 | 24,576 |
-| largest scene (30) | 53,857 | 53,913 | 65,536 |
-| app-UI | 98,890 | 99,017 | 131,072 |
-| runtime sum | 120,281 | 121,373 | 163,840 |
-| authoring | 14,742 | 14,812 | 15,360 owner cap / 16,384 tool cap |
-| Rive-class | 130,077 | 131,148 | 256,000 |
+| core+web | 21,165 | 21,165 | 24,576 |
+| largest scene (30) | 53,982 | 53,982 | 65,536 |
+| app-UI | 99,988 | 100,134 | 131,072 |
+| runtime sum | 122,300 | 123,747 | 163,840 |
+| authoring | 14,808 | 14,808 | 15,360 owner / 16,384 tool |
+| Rive-class | 132,306 | 133,703 | 256,000 |
 
-## Deviations and handoff
+## Deviations and remaining verification
 
-All four rows remain planned; none is closed. Source-spelled artboards compile to
-component storage and generic metadata reports that alias. Source component
-acquisition uses the provided model's validated catalog; context-dependent
-components may require a nested/repeated source model rather than the root model.
-The `lists.parents` exposure and foreign-default rebinding in data are additional
-small seams beyond the ticket's initially listed components/host seams, required
-for repeated/inherited assignment ownership. The shared brief's seam rule is used;
-no unrelated refactor was made.
+The optional values split is needed because the inherited entry had 10 B headroom;
+new validation plus browser resources cannot fit there. The extra paint image guard
+is the smallest fix for the reproduced resource-retirement failure. Structural model
+compatibility permits different model names/defaults and documents the existing
+placement-data semantics rather than remapping schemas. No other design deviation.
 
-The scaffolder initially rejected a new hyphenated directory. It was bootstrapped
-with a valid identifier, moved to the owned directory, and regenerated. Obsolete
-package exports from that bootstrap were removed by restoring the generated
-package manifests and regenerating them; no generated output was hand-edited.
-Several intermediate full/size runs were superseded by source fixes and are not
-represented as passing final-source verification. Raw command logs remain at
-`/tmp/p7-5-*.txt` in this worktree's environment.
-
-Final fresh full-suite outcome: **9,333 pass / 0 fail / 54 inherited TODO**, 305
-passing files plus 13 skipped, both Chromium and Firefox; command
-`VITEST_MAX_WORKERS=2 npm run test:scope -- changed`, exit 0, 696.87 s. This run
-uses the final source, including the cycle-safe normalization and inherited-default
-context seam. No source changes followed it.
+Native host-assignment comparison is still a permitted-path skip, not a native parity
+capture. The controlled ≤3% performance comparison belongs to the orchestrator and
+remains unverified on the shared machine. A late independent probe found that compatible default models could still share an
+incompatible named instance and draw NaN. The first full changed run was explicitly
+stopped (exit 143) before edits; named-instance validation and a positive/negative
+regression were added. A second superseded changed run was stopped (exit 143) to align the new browser
+fixture with `fixtures/fonts/anima-test.ttf` from `tools/test-font.ts`; the second
+resolver uses an in-memory advance-width variant, never another committed font.
+The final owned resource file passes 6/6 in both engines, and the final core scope
+passes 1,288 tests (including 23 host regressions and the original conformance cases).
+The subsequent complete run passed **9,415 tests / 0 failures / 54 inherited TODOs**,
+309 files plus 13 skipped. An independent cached-loader probe then found a real
+ownership error: sibling A measured 3.609375 with its private font, while B fell back
+to 4.34375 and `body`. The initializer had captured the first host. It is now a host-free
+factory with weak per-root scopes and live ownership lookup. Both-engine regressions
+verify the initializer runs once for two destinations and that B keeps its font after
+source/A cleanup. The final 6/6 resource file and final 9,417-test broad run both
+pass. The earlier 9,415 pass is retained only as a checkpoint; the final run covers
+the cache fix. No required implementation or verification remains. The controlled
+performance guard remains explicitly unverified, as noted above.

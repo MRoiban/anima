@@ -1,0 +1,4 @@
+[
+  { id: 'a', width: 3.609375, font: 'anima-font-2' },
+  { id: 'b', width: 4.34375, font: 'body' }
+]

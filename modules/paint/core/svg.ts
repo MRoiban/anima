@@ -111,7 +111,8 @@ const gradientsSVG: SVGBackend = {
 
 // Keep the shared image viewport seam small; sampling implementation stays optional.
 function imageBox(f: DrawFrame, el: El, a: Attrs) {
-  if (el.role === 'module:image-box') {
+  // seam(P7-7): cleared host artboards retire image slots before retained SVG refreshes.
+  if (el.role === 'module:image-box' && f.nodes[el.node]!.geometry) {
     const g = f.nodes[el.node]!.geometry!;
     a.style = `width:${fmt(g.width!)}px;height:${fmt(g.height!)}px;overflow:hidden`;
   }

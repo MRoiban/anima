@@ -31,18 +31,55 @@ order), and `docs/research/rive-web-runtime.md` (host ownership). No native sour
 or binary format is used.
 
 
-## Remaining resource ownership work
+## Browser resource ownership
 
-This entry is partial for external browser resources. It transfers component models,
-not the source host's image resolver/base-URI catalog or font-face ownership. In
-particular, font controllers belong to the source icon and source cleanup clears
-its retained faces; the destination does not acquire those faces through a model
-reference. Cross-document components requiring those resources need resource-context
-initialization and destination lifetime management before the four parity rows close.
-The cross-document browser proofs here use vector content; their source reload/detach
-proof must not be read as an image/font lifecycle guarantee.
+Import `@anima-format/web/data-artboard` for browser values. Its smaller
+`data-artboard-values` entry provides only the core value/selection API; the full
+entry includes that entry and the resource bridge. Both entry load orders are safe.
+The split keeps the existing artboard entry's byte ceiling; neither entry adds a
+runtime dependency.
 
-Source and destination data schemas must be compatible for inherited/explicit data
-contexts. Compiled source bindings are reused; cross-document schema compatibility
-validation and schema remapping are not supplied by this entry. Generic model
-metadata still reports the component storage alias for source-spelled artboards.
+Acquire browser values using `icon.component(source.player.model, name)` after the
+source's `ready` promise resolves. A source player's model identifies its resource
+load even when two hosts share the same compiled declarations. Values capture that
+load's resolved image records (absolute sources, intrinsic dimensions, self-contained
+Blob data) and decoded font faces, including unused component definitions and nested
+placements. They retain lexical component definitions without retaining the source
+host's resolver. The destination does not re-resolve those resources using its own
+resolver, base URL or same-named assets. A destination may have no authored assets.
+
+The destination installs resources on each selected child player. Fonts retain their
+own references in the browser font set; image records are scoped to the instance.
+Sibling destinations and host loads remain isolated. Reloading or destroying a source
+does not mutate an acquired value. Clearing/replacing a selection releases the old
+instance's font references on the next destination draw; destination cleanup releases
+all adopted faces. A retained value can be assigned again after every source and
+previous destination releases its faces. Retired image slots are ignored during the
+retained SVG refresh. SVG and canvas consume the same adopted records and text layout.
+
+## Cross-document model contract
+
+For an external selection, an artboard property's optional `model` names its expected
+model in the destination data document (JSON `model: "Card"`, AniML `model="Card"`).
+Otherwise inherited source data uses the placement's explicit `data` instance model,
+or the parent's default model. A component with its own independent data keeps it
+unless the placement supplies data; an explicit property model still checks its
+contract.
+
+Before rebinding a selected external child, the schemas must be structurally
+compatible: the destination supplies every source property with the same scalar
+kind, asset kind, numeric bounds and enum members (enum order does not matter).
+Model references and list element models are checked recursively. Matching named
+instances that the placement shares (including globals) are checked as well, so a
+source binding cannot silently consume a differently typed destination instance. Destination-only
+properties and different default values are allowed. Document-local component and
+text-style names are not schema identities. Model names may differ when their
+structures match; no model/property-name remapping is performed.
+
+An incompatible or absent required model throws `artboard-model` during the step
+that instantiates the queued selection. The diagnostic points to `/data/` plus the
+escaped bound property path, explains the incompatible placement model, and hints
+at matching property types, enum members and referenced models. It happens before
+binding the source instance to the destination's data. The previously selected
+child is not replaced. Correct the selection before stepping again. Generic host
+metadata continues to report the component storage alias for source-spelled artboards.

@@ -1,0 +1,147 @@
+
+> test:scope
+> node tools/test-scope.ts data-artboard assets fonts components --browser=chromium
+
+Scopes: data-artboard, assets, fonts, components
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/data-artboard/test/core/artboard.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/data-artboard/test/web/artboard.test.ts
+  browser: modules/data-artboard/test/web/resources.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  cases: ^conformance > (components-host-artboard-reference|data-host-artboard|host-api-bindable-artboards|host-api-data-artboard|assets-audio|assets-audio-clip|assets-audio-export-source|assets-audio-import-flac|assets-audio-import-mp3|assets-audio-import-wav|assets-blob|assets-cdn-disable|assets-component-scope|assets-exclude-export|assets-font|assets-host-decode-audio|assets-host-decode-font|assets-image|assets-image-encoding-jpeg|assets-image-encoding-png|assets-image-encoding-webp|assets-image-export-controls|assets-image-filter-bilinear|assets-image-filter-nearest|assets-image-import-jpeg|assets-image-import-jpg|assets-image-import-png|assets-image-import-webp|assets-image-wrap-x-clamp|assets-image-wrap-x-mirror|assets-image-wrap-x-repeat|assets-image-wrap-y-clamp|assets-image-wrap-y-mirror|assets-image-wrap-y-repeat|assets-lottie-import|assets-metadata|assets-replacement-scope-font|assets-replacement-scope-image|assets-svg-import|host-api-asset-cdn-policy|host-api-asset-loader|host-api-asset-metadata|data-host-font|host-api-data-font|host-api-font-fallback|text-font-assets|text-font-decoding|text-font-fallback|text-font-metrics|text-opentype-features|text-variable-axes|components-basic|components-empty-library|components-events|components-explicit-context|components-inherited-context|components-inherited-data|components-inputs-bound|components-leaf-fit|components-library-export|components-library-lookup|components-library-models|components-library-update|components-list|components-list-map|components-list-size-override|components-nested|components-nested-quantize|components-nested-remap|components-output-repeat|components-quantize-boundary|components-stateful-output)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-db8307eb
+
+ ❯ |scope-unit| packages/markup/test/compile.test.ts (51 tests | 1 failed) 6018ms
+   ❯ AniML compiler (51)
+     × never throws on every prefix of bell.animl 5477ms
+ ❯ |scope-browser| modules/fonts/test/web/nested-text.test.ts (2 tests | 1 failed | 1 skipped) 31506ms
+   × Chromium bound font data and nested font catalogs refresh independently 31502ms
+ ❯ |scope-browser| modules/data-artboard/test/web/artboard.test.ts (6 tests | 6 skipped) 38084ms
+ ❯ |scope-browser| modules/fonts/test/web/options.test.ts (4 tests | 1 failed | 2 skipped) 56927ms
+   × Chromium authored font options text-effects→fonts-options: rendered axes, features, binding and Canvas fallback 34071ms
+ ❯ |scope-browser| modules/fonts/test/web/text-integration.test.ts (4 tests | 2 failed | 2 skipped) 61343ms
+   × Chromium fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs 31139ms
+   × Chromium fonts/text fonts-text→text→assets: readiness, layout, replacements and image catalogs 30200ms
+ ❯ |scope-browser| modules/data-artboard/test/web/resources.test.ts (4 tests | 2 failed | 2 skipped) 67586ms
+   × Chromium adopts unused image/font components, scoped by source load (assets first) 36091ms
+   × Chromium adopts unused image/font components, scoped by source load (fonts first) 31492ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/data-artboard/test/web/artboard.test.ts > Chromium bindable artboards
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/data-artboard/test/web/artboard.test.ts:20:5
+     18|     let browser: Browser;
+     19|     const bundles = new Map<string, string>();
+     20|     beforeAll(async () => {
+       |     ^
+     21|       await Promise.all(
+     22|         [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/data-artboard/test/web/resources.test.ts > Chromium adopts unused image/font components, scoped by source load (assets first)
+ FAIL  |scope-browser| modules/data-artboard/test/web/resources.test.ts > Chromium adopts unused image/font components, scoped by source load (fonts first)
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/data-artboard/test/web/resources.test.ts:31:5
+     29| ] as const)
+     30|   for (const fontsFirst of [false, true])
+     31|     it(`${engineName} adopts unused image/font components, scoped by s…
+       |     ^
+     32|       const executablePath = [resolve(homedir(), executable), engine.e…
+     33|         existsSync,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/nested-text.test.ts > Chromium bound font data and nested font catalogs refresh independently
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/nested-text.test.ts:21:41
+     19|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     20| ] as const)
+     21|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     22|     `${name} bound font data and nested font catalogs refresh independ…
+     23|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/options.test.ts > Chromium authored font options text-effects→fonts-options: rendered axes, features, binding and Canvas fallback
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/options.test.ts:27:43
+     25|     ['fonts-options', 'text-effects', 'text'],
+     26|   ])
+     27|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     28|       `${name} authored font options ${order.join('→')}: rendered axes…
+     29|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/text-integration.test.ts > Chromium fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs
+ FAIL  |scope-browser| modules/fonts/test/web/text-integration.test.ts > Chromium fonts/text fonts-text→text→assets: readiness, layout, replacements and image catalogs
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/text-integration.test.ts:43:43
+     41|     ['fonts-text', 'text', 'assets'],
+     42|   ])
+     43|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     44|       `${name} fonts/text ${order.join('→')}: readiness, layout, repla…
+     45|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > never throws on every prefix of bell.animl
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/markup/test/compile.test.ts:688:3
+    686|   });
+    687|
+    688|   it('never throws on every prefix of bell.animl', () => {
+       |   ^
+    689|     for (let i = 0; i <= bell.length; i++) {
+    690|       const result = compile(bell.slice(0, i));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+
+ Test Files  6 failed | 26 passed (32)
+      Tests  7 failed | 3309 passed | 552 skipped (3868)
+   Start at  12:03:46
+   Duration  77.07s (tests 90%, import 8%, transform 1%)
