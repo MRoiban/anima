@@ -374,6 +374,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;
+        // Event payload string fields stay literal (spec events §payload).
+        if (
+          k === 'value' &&
+          (v as { type?: string }).type === 'string' &&
+          /\/payload\/[^/]+$/.test(at)
+        )
+          continue;
         scan(k, ptr(at, k));
         scan(x, ptr(at, k));
       }

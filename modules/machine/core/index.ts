@@ -59,7 +59,7 @@ export const machine: Module = {
         const pointer = ptr(p + '/set', name);
         if (typeof val === 'string') {
           const i = model.inputs.get(name);
-          input(name, i?.type === 'bool' ? 'bool' : 'number', pointer);
+          input(name, i && i.type !== 'trigger' ? i.type : 'number', pointer);
           if (i && i.type !== 'trigger') {
             const evaluate = compileValue(model, val, i.type, pointer, d, (n) => used.add(n));
             if (evaluate) set.push([name, evaluate]);

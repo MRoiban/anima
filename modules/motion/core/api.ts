@@ -417,8 +417,11 @@ export class MotionRuntime implements PlaybackPolicy {
       : Math.max(
           0,
           elapsed -
-            threshold /
-              Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)),
+            (threshold &&
+              threshold /
+                Math.abs(
+                  st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1),
+                )),
         );
   }
   pivot(p: Player, node: number): [number, number] {

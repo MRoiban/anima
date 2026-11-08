@@ -567,7 +567,11 @@ export function install(Class: typeof Player, modules: typeof peers): void {
       if (!this.visible(listener.target)) return false;
       const node = this.model.nodes[listener.target]!;
       if (node.type === 'group')
-        return node.children.some((target) => this.hits({ ...listener, target }, x, y));
+        return node.children.some(
+          (target) =>
+            this.prop(target, 'pointerEnabled') !== false &&
+            this.hits({ ...listener, target }, x, y),
+        );
     }
     return hits.call(this, listener, x, y);
   };
