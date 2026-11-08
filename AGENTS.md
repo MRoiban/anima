@@ -67,7 +67,13 @@ PR, do one full local run only for what CI cannot run; do not repeatedly run the
 - Timings under shared load are not perf evidence; say so rather than claiming the ≤ 3 % guard.
 - After editing a manifest, run `node tools/build-web.ts`: browser demo tests read its cache and fail with "run build-web" when it is stale.
 - `node tools/size.ts` can take over 2 minutes under load; give it a long timeout.
-- `markup` and `surface` are at the 8 KB module cap: new markup goes into its own `markup-*` module.
+- No module entry may exceed 8,192 B. `markup` (7,341 B) and `surface` (7,660 B) have under 1 KB left, and `text` and `markup-libraries` are full: new AniML spellings go into your module's own `markup-*` entry, and growth in a full entry needs a split into an optional entry first (check with `node tools/size.ts`).
+- A fresh worktree has no `node_modules`: run `npm ci` before tests, `tools/size.ts` or committing (the format hook skips `prettier` with a warning without it).
+- Don't edit sources while `node tools/size.ts` or a test scope is running; the run mixes versions and is invalid. Measure and test from a frozen tree.
+- Committed verification logs must not end with blank lines (`git diff --cached --check` fails); trim them before committing.
+- Module registry feature names can't contain hyphens (feature `textinput`, entry and folder `text-input`).
+- New browser test files need an explicit timeout (adjacent suites use 30 s); Vitest's 5 s default fails under load.
+- Optional loader hooks chain: a wrapper around `Icon.loadAssets` must return the previous loader's per-player initializer, or asset catalogs are lost when the modules load in the other order.
 - AniML library files (imported, not scenes) live in `examples/lib/`; under `modules/*/examples/` the corpus test treats them as scenes.
 - `docs/parity/inventory.json` is written with 2-space indent and unescaped Unicode (`json.dumps(..., indent=2, ensure_ascii=False)`).
 - `tests/oracle/generate.py` rewrites `tests/oracle/cases.json` with different formatting; restore it unless thresholds really change. Its Rive scenes encode Anima's spec geometry (e.g. rounded corners as cubic handles), so a spec geometry change means re-authoring the scene there and recapturing, never a threshold change.
