@@ -47,7 +47,10 @@ function bounds({ segs }: Subpath): BBox {
         C = b - a;
       if (Math.abs(A) < 1e-12) return Math.abs(B) < 1e-12 ? [] : [-C / B];
       const disc = B * B - 4 * A * C;
-      return disc < 0 ? [] : [(-B + Math.sqrt(disc)) / (2 * A), (-B - Math.sqrt(disc)) / (2 * A)];
+      if (disc < 0) return [];
+      // Cancellation-free form: q / A and C / q.
+      const q = -(B + (B < 0 ? -1 : 1) * Math.sqrt(disc)) / 2;
+      return q ? [q / A, C / q] : [0];
     };
     const at = (a: number, b: number, c: number, d: number, t: number) =>
       (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;

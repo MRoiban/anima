@@ -70,14 +70,17 @@ export function pixels(svg: string, width: number): Uint8Array {
 }
 
 /** Normalize viewport and ink before rasterizing both documents with the PNG renderer. */
-function comparisonSVG(svg: string, size: number): string {
+export function comparisonSVG(svg: string, size: number): string {
   return svg.replace(/<svg\b([^>]*)>/i, (_, attrs: string) => {
     let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
     let style = '';
-    root = root.replace(/\sstyle\s*=\s*(["'])(.*?)\1/gi, (_, _quote: string, value: string) => {
-      style = value;
-      return '';
-    });
+    root = root.replace(
+      /\sstyle\s*=\s*(["'])([\s\S]*?)\1/gi,
+      (_, _quote: string, value: string) => {
+        style = value.replaceAll('"', '&quot;');
+        return '';
+      },
+    );
     return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important">`;
   });
 }
