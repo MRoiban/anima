@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P6 text (done, PR pending) → P7 minimal layout (+ bindable artboards, + 18 P6 carry-overs) → P8 rigging.
-State: p6 complete: 66/84 P6 rows done, 18 → P7; in scope 804/886 (91 %); benchmarks met (settings AniML 6/6 vs Rive 5/6; search 6/6 vs 6/6); gates core+web 21,136, scene 53,857, app-UI 98,890, sum 120,281, authoring 14,717, Rive 130,077; perf within noise after the matchAll fix; strict oracle 309 exit 0.
-Next: open the P6 PR (six gates), wait for CI green, merge; then P7 design.
+Goal: smaller, agent-native Rive for animated web UI. Order: P7 minimal layout (+ animated reflow, + 4 bindable-artboard rows, + 18 P6 text carry-overs) → P8 rigging.
+State: P6 merged (PR #21, 95e3c61). Branch p7 from main. In scope 804/886 (91 %). Gates: core+web 21,136; largest scene 53,857; app-UI 98,890; sum 120,281; authoring 14,717; Rive 130,077. Full entries: text 6,144/6,144, markup-libraries 2,176/2,176 (split before growing).
+Next: P7 design (design/p7/DESIGN.md) for the P7 rows + carry-overs; size gates and the benchmark rule as before.
 Don't: push to main; edit oracle findings or benchmark records; raise ceilings; third-party font files; leave merged worktrees; --no-verify; modify anima-kit.
 
 ## Gotchas
@@ -337,3 +337,4 @@ Don't: push to main; edit oracle findings or benchmark records; raise ceilings; 
 - 2026-11-08 11:30 [orch]: CI red on PR #21: packages/cli/test/p6-12.test.ts (P6-12 docs-example validation) rejected P6-13's fragment snippet in modules/fonts/SPEC.md (a lone <style>) → made it a complete document with a CSS family (asset paths don't resolve from the test's temp dir); test 12/12, cli+fonts scope pass
 - 2026-11-08 11:55 [orch]: full unit suite vs main (changed --no-browser): 6239 pass / 1 fail = scaffolder test timeout (78 s under load 14; 54 s alone; passed on CI) → deadline 60 s → 120 s with reason, like module-order; no other cross-ticket breakage
 - 2026-11-08 12:40 [orch]: CI red #2 on PR #21 (browser stage, first reached now): Firefox canvas corpus input-write-text canvas≠SVG (max 135/207 > 128) because the harness page didn't serve the case's relative font asset → both fell back to the platform sans-serif, which differs on CI; Chromium live-runs PNG equality captured before the redraw → harness serves repository fixtures (route https://canvas.test/fixtures/**), live-runs waits two frames before screenshots; local: canvas text cases 92 pass both engines, live-runs 2/2
+- 2026-11-08 13:30 [orch]: PR #21 (P6 + downstream B1–B19) CI green on ec2cc0c after two test fixes (docs-example snippet; browser text tests serving fonts and waiting for redraw) → merged (95e3c61); branch p7 created from main
