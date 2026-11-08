@@ -1,0 +1,1 @@
+{"code":"script-usage","pointer":"/script/6","message":"line 7: Cannot redefine property: busy","hint":"check the command syntax in spec §11.2"}

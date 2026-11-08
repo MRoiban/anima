@@ -1,0 +1,59 @@
+# Rest; target and drawn width 5.84 = label 3.84 + horizontal padding 2.
+advance 0
+snapshot --all
+expect button.layoutBox.width ~ 5.84
+expect buttonText.layoutBox.width ~ 3.84
+# Growth starts without a jump.
+set $buttonLabel "Save changes"
+advance 0
+snapshot --all
+expect button.drawnLayoutBox.width ~ 5.84
+expect button.layoutBox.width ~ 13.52
+advance 0.15
+snapshot --all
+expect button.drawnLayoutBox.width ~ 9.68
+advance 0.15
+snapshot --all
+expect button.drawnLayoutBox.width ~ 13.52
+# Shrink half-way, then retarget from the drawn midpoint.
+set $buttonLabel "Save"
+advance 0
+snapshot --all
+expect button.drawnLayoutBox.width ~ 13.52
+advance 0.15
+snapshot --all
+expect button.drawnLayoutBox.width ~ 9.68
+set $buttonLabel "Save changes"
+advance 0
+snapshot --all
+expect button.drawnLayoutBox.width ~ 9.68
+advance 0.15
+snapshot --all
+expect button.drawnLayoutBox.width ~ 11.6
+advance 0.15
+snapshot --all
+expect button.drawnLayoutBox.width ~ 13.52
+# Complete a shrink too.
+set $buttonLabel "Save"
+advance 0
+advance 0.3
+snapshot --all
+expect button.drawnLayoutBox.width ~ 5.84
+# Label-driven fill, then remove chip 3 and its trailing gap.
+set $chip1Label "Draft version"
+advance 0
+snapshot --all
+expect chip1.layoutBox.width ~ 10.76
+expect chip2.layoutBox.width ~ 20.24
+set $hideChip3 true
+advance 0
+snapshot --all
+expect chip3.layoutBox.width ~ 0
+expect chip2.layoutBox.width ~ 25.74
+expect chip2.layoutBox.x ~ 11.26
+# Restore proves the boolean works in both directions.
+set $hideChip3 false
+advance 0
+snapshot --all
+expect chip3.layoutBox.width ~ 5
+expect chip2.layoutBox.width ~ 20.24

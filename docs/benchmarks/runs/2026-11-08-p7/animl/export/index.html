@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Anima export</title><script type="module" src="./anima.js"></script><anima-icon style="width:240px;height:240px"><script type="application/vnd.anima+json">{
+  "anima": "0.1",
+  "name": "reflow-card",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["layout", "text", "data", "bind"],
+  "nodes": [
+    {
+      "id": "card",
+      "type": "layout",
+      "fill": {
+        "color": "#f0eee6"
+      },
+      "children": [
+        {
+          "id": "title",
+          "type": "text",
+          "wrap": false,
+          "runs": [
+            {
+              "text": "$title",
+              "style": "titleStyle"
+            }
+          ]
+        },
+        {
+          "id": "button",
+          "type": "layout",
+          "fill": {
+            "color": "#d97757"
+          },
+          "children": [
+            {
+              "id": "buttonText",
+              "type": "text",
+              "wrap": false,
+              "runs": [
+                {
+                  "text": "$buttonLabel",
+                  "style": "buttonStyle"
+                }
+              ]
+            }
+          ],
+          "width": "hug",
+          "height": "hug",
+          "padding": [0.5, 1],
+          "reflow": "0.3 linear",
+          "corners": 0.5
+        },
+        {
+          "id": "chips",
+          "type": "layout",
+          "children": [
+            {
+              "id": "chip1",
+              "type": "layout",
+              "fill": {
+                "color": "#e3dacc"
+              },
+              "children": [
+                {
+                  "id": "chip1Text",
+                  "type": "text",
+                  "wrap": false,
+                  "runs": [
+                    {
+                      "text": "$chip1Label",
+                      "style": "chipStyle"
+                    }
+                  ]
+                }
+              ],
+              "width": "hug",
+              "height": "hug",
+              "padding": [0.4, 0.7],
+              "corners": 0.4
+            },
+            {
+              "id": "chip2",
+              "type": "layout",
+              "fill": {
+                "color": "#e3dacc"
+              },
+              "children": [
+                {
+                  "id": "chip2Text",
+                  "type": "text",
+                  "wrap": false,
+                  "runs": [
+                    {
+                      "text": "$chip2Label",
+                      "style": "chipStyle"
+                    }
+                  ]
+                }
+              ],
+              "width": "fill",
+              "height": "hug",
+              "padding": [0.4, 0.7],
+              "corners": 0.4
+            },
+            {
+              "id": "chip3",
+              "type": "layout",
+              "fill": {
+                "color": "#e3dacc"
+              },
+              "children": [
+                {
+                  "id": "chip3Text",
+                  "type": "text",
+                  "wrap": false,
+                  "runs": [
+                    {
+                      "text": "$chip3Label",
+                      "style": "chipStyle"
+                    }
+                  ]
+                }
+              ],
+              "width": "hug",
+              "height": "hug",
+              "padding": [0.4, 0.7],
+              "corners": 0.4
+            }
+          ],
+          "width": "fill",
+          "height": "hug",
+          "direction": "row",
+          "gap": [0.5]
+        }
+      ],
+      "width": "fill",
+      "height": "fill",
+      "direction": "column",
+      "gap": [1],
+      "padding": [1.5],
+      "corners": 1
+    }
+  ],
+  "machine": {
+    "layers": {
+      "visibility": {
+        "initial": "shown",
+        "states": {
+          "shown": {
+            "pose": {},
+            "on": [
+              {
+                "when": "$hideChip3",
+                "to": "hidden",
+                "actions": {
+                  "set": {
+                    "$chip3Display": "\"none\""
+                  }
+                }
+              }
+            ]
+          },
+          "hidden": {
+            "pose": {},
+            "on": [
+              {
+                "when": "not $hideChip3",
+                "to": "shown",
+                "actions": {
+                  "set": {
+                    "$chip3Display": "\"flex\""
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "chip3.layout.display": "$chip3Display"
+  },
+  "data": {
+    "models": {
+      "Card": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Your workspace"
+          },
+          "buttonLabel": {
+            "type": "string",
+            "default": "Save"
+          },
+          "chip1Label": {
+            "type": "string",
+            "default": "Draft"
+          },
+          "chip2Label": {
+            "type": "string",
+            "default": "Flexible"
+          },
+          "chip3Label": {
+            "type": "string",
+            "default": "Local"
+          },
+          "hideChip3": {
+            "type": "bool",
+            "default": false
+          },
+          "chip3Display": {
+            "type": "enum",
+            "default": "flex",
+            "values": ["flex", "none"]
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Card",
+        "default": true,
+        "values": {}
+      }
+    }
+  },
+  "textStyles": {
+    "titleStyle": {
+      "font": "AnimaTest",
+      "size": 2,
+      "lineHeight": 1.1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    "buttonStyle": {
+      "font": "AnimaTest",
+      "size": 1.6,
+      "lineHeight": 1.1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    "chipStyle": {
+      "font": "AnimaTest",
+      "size": 1.2,
+      "lineHeight": 1.1,
+      "fill": {
+        "color": "#141413"
+      }
+    }
+  }
+}
+</script></anima-icon></html>
