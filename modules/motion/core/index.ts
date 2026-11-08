@@ -14,7 +14,8 @@ import { timing, bounds } from './clock.ts';
 import { exits, install, MotionRuntime } from './api.ts';
 export * from './api.ts';
 let Loader = load,
-  PlayerClass = Player;
+  PlayerClass = Player,
+  modules: ReadonlyMap<string, Module> | undefined;
 const error = (d: Diags, code: string, p: string, message: string, hint: string) =>
   d.err(code, p, V && message, V && hint);
 function typed(addr: Addr, v: unknown, p: string, d: Diags, model?: Model): Value | undefined {
@@ -44,6 +45,7 @@ export const motion: Module = {
   after,
   entries,
   init(_modules, shared) {
+    modules = _modules;
     Loader = shared.load;
     PlayerClass = shared.Player;
     install(PlayerClass, shared.sampleTrack, shared.mixValues, shared.resolveAddress);
@@ -116,7 +118,15 @@ export const motion: Module = {
       return (player) => {
         const value = player.get(raw)!;
         // A child's $parent context binds after construction; its first step resamples.
-        if (value === undefined && raw.startsWith('$parent.')) return addr.rest;
+        // Once bound (lists `parents`), an undefined value is invalid like any other.
+        if (
+          value === undefined &&
+          raw.startsWith('$parent.') &&
+          !(
+            modules?.get('lists') as { parents?: WeakMap<Player, Player> } | undefined
+          )?.parents?.has(player)
+        )
+          return addr.rest;
         if (
           (input.accepts && !input.accepts(value)) ||
           (['int', 'uint', 'reference'].includes(kind) &&

@@ -90,6 +90,12 @@ Icon.loadAssets = async (icon, model) => {
       [
         ...(components?.catalog.get(model)?.values() ?? []),
         ...model.nodes.flatMap((n) => [...(components?.placements.get(n)?.values() ?? [])]),
+        ...((
+          Icon.modules.get('componentpaint') as
+            typeof import('../../componentpaint/core/index.ts').componentpaint | undefined
+        )?.sources
+          .get(model)
+          ?.values() ?? []),
       ].map(load),
     );
   };

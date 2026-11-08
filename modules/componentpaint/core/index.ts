@@ -20,10 +20,12 @@ const plans = new WeakMap<Model, Map<number, Model>>();
 const children = new WeakMap<Player, Map<number, Player>>();
 const stack = new Set<object>();
 const name = /^component:([a-z][a-zA-Z0-9-]*)$/;
-export const componentpaint: Module = {
+export const componentpaint: Module & { sources: typeof plans } = {
   name: 'componentpaint',
   after,
   entries,
+  // seam: asset loaders resolve paint-source catalogs like component placements.
+  sources: plans,
   init(_registry, shared) {
     return {
       ...componentpaint,

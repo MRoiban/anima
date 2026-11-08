@@ -211,7 +211,8 @@ function extend(api: HostData, state: DataState): void {
       // Bounds follow queued edits without exposing their pending values.
       check(i, next.length + 1);
       let instance: DataInstance;
-      if ('name' in values && 'model' in values) {
+      // Only handles this player issued are instances; other maps are property values.
+      if (api.owns(values)) {
         instance = api.instance(String(values.name));
         if (instance.model !== values.model)
           fail('instance', path, 'instance model does not match');
@@ -247,7 +248,12 @@ function extend(api: HostData, state: DataState): void {
           const index =
             typeof item === 'number'
               ? item
-              : values.indexOf(items.get(item) ?? state.instances[(item as DataInstance).name]!);
+              : values.indexOf(
+                  items.get(item) ??
+                    (api.owns(item)
+                      ? state.instances[(item as DataInstance).name]!
+                      : fail('instance', path, 'unknown or foreign instance record')),
+                );
           check(index, values.length);
           values.splice(index, 1);
           commit(values);

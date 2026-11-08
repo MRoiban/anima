@@ -18,6 +18,11 @@ per round.
 | R2-05 | major | markup-libraries: library expansion does not rewrite repeat model maps (`component="Row:row"`), so a library board fails with `list-map`/`data-type` | deferred: the rewrite needs well over the 2 B left in `markup-libraries` (2,174/2,176 B); AGENTS requires splitting a full entry into an optional entry first and the brief forbids raising budgets |
 | R2-06 | major | CLI `render` embedded and decoded only the root asset catalog; component-local images rendered blank | fixed: `packages/cli/src/assets.ts` walks component catalogs; `modules/assets/test/cli/rottweiler-p5.test.ts` |
 | R2-07 | major | motion: a component keyframe `[0,'$parent.peak']` threw `data-keyframe` from the constructor because the parent context binds after construction | fixed: an unbound `$parent.` key samples the rest value until the first step; `modules/motion/test/core/rottweiler-p5.test.ts` |
+| R3-01 | major | componentpaint: paint-source players render authored image URLs; the browser asset loader never visited source models, so a resolver replacement (red→blue) was ignored in SVG and Canvas | fixed: componentpaint exposes `sources` (its per-model plan map) and `assetio`'s loader walks it like component placements, recursively; `modules/componentpaint/test/web/rottweiler-p5.test.ts` (+ `assets-entry.ts` one-bundle fixture) |
+| R3-02 | major | motion: the R2-07 rest fallback is never resampled for a `paused` instance (components skips its step), and `values()` before the first step shows rest | deferred: resampling without stepping (no clock advance, no queued actions) needs the placement context installed before construction — the R1-05 init-order gap. Unpaused placements resample on their first step; before R2-07 the constructor threw |
+| R3-03 | major | motion: the R2-07 fallback also masked bound `$parent.` paths whose live value became undefined (list item removed), skipping the `data-keyframe` error (data SPEC "Data keyframe values") | fixed: fallback only while lists has not bound the player's parent (`lists.parents`); `modules/motion/test/core/rottweiler-p5.test.ts` |
+| R3-04 | major | host-edit: list `insert`/`add` treated any map with `name` and `model` keys as an instance record (rejecting valid property maps, accepting forged/foreign records by name); `remove` resolved unowned records by name | fixed: `HostData.owns()` exposes the existing ownership set; list editors take only owned handles as instances and reject foreign records on remove (`data-instance`); `modules/host-edit/test/core/rottweiler-p5.test.ts` |
+| R3-05 | major | tooling: the browser bundle cache fingerprint omitted `modules/*/capabilities/**`, which runtime entries import, so a registry edit left tests on a stale bundle | fixed: `tools/browser-cache.ts` fingerprints capability sources; `tools/browser-cache.test.ts` |
 
 ## Rounds
 
@@ -40,3 +45,12 @@ R2-05 is deferred on the full `markup-libraries` budget. While reverting, the R1
 inside the step's `try` so a throw cannot leave the global step depth raised. Not reached: exhaustive
 mask/blend/slice pixel checks, Canvas wrap/recursive sources, browser load-order permutations,
 malformed media and converter/host-write edge cases.
+
+### Round 3 (round-2 fixes + uncovered areas)
+
+Reviewer: GPT-6.1-sol xhigh. Token usage: not reported. Five majors, all reproduced. Two (R3-02, R3-03)
+were gaps in the R2-07 fix; R3-03 is fixed, R3-02 deferred with R1-05. Observed while testing R3-01
+(not a reviewer finding, handed to round 4): with **separate** module bundles, a component paint
+source's `<image>` is emitted without `href` (also on the pre-round code), so the R3-01 test uses one
+bundle. Not reached: exhaustive mask/clip/blend/slice pixels, all import-order permutations, nested
+transition/scrubbing, hostile converter inputs, generator/oracle/size tools.
