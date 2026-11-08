@@ -112,17 +112,40 @@ for (const [name, engine, executablePath] of [
                 ),
             );
             // CI paints later than local runs: retry until both hosts have painted (exact match
-            // still required; a real mismatch fails after the timeout).
-            await expect
-              .poll(
-                async () =>
-                  Buffer.compare(
-                    await page.locator('#live').screenshot(),
-                    await page.locator('#control').screenshot(),
-                  ),
-                { timeout: 3000, interval: 100 },
-              )
-              .toBe(0);
+            // still required). On failure, report what differs so CI logs show the cause.
+            try {
+              await expect
+                .poll(
+                  async () =>
+                    Buffer.compare(
+                      await page.locator('#live').screenshot(),
+                      await page.locator('#control').screenshot(),
+                    ),
+                  { timeout: 3000, interval: 100 },
+                )
+                .toBe(0);
+            } catch (error) {
+              const detail = await page.evaluate(() => {
+                const svg = (id: string) =>
+                  document.getElementById(id)!.shadowRoot!.querySelector('svg')?.outerHTML ?? '';
+                const pixels = (id: string) => {
+                  const c = document.getElementById(id)!.shadowRoot!.querySelector('canvas');
+                  if (!c) return null;
+                  const d = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
+                  return d.filter((_, i) => i % 4 === 3 && d[i]! > 0).length;
+                };
+                return {
+                  live: svg('live'),
+                  control: svg('control'),
+                  inked: [pixels('live'), pixels('control')],
+                };
+              });
+              throw new Error(
+                `${renderer} alternate=${alternate}: live != control\n` +
+                  JSON.stringify(detail).slice(0, 6000),
+                { cause: error },
+              );
+            }
           }
         }
       } finally {
