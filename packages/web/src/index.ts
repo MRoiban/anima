@@ -794,7 +794,11 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #key(e: KeyboardEvent, down: boolean): void {
-    if ((e.composedPath()[0] as Element).hasAttribute('data-semantic')) return;
+    if (
+      AnimaIcon.inputEvents.has(e) ||
+      (e.composedPath()[0] as Element).hasAttribute('data-semantic')
+    )
+      return;
     const a = this.player?.model.doc.a11y;
     if (!a || (a.role !== 'button' && a.role !== 'switch') || (e.key !== 'Enter' && e.key !== ' '))
       return;

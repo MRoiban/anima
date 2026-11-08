@@ -36,3 +36,32 @@ it('R1-04: hidden overflow tests line fit after the top trim', () => {
   expect(hidden().lines).toHaveLength(0);
   expect(hidden('cap').lines.map((x) => x.baseline)).toEqual([14]);
 });
+it('R2-01: soft-wrapped lines measure their own fragments, so ligatures neither split nor vanish', async () => {
+  const { featuresFont } = await import('../../../fonts/test/features-font.ts');
+  const { sfnt } = await import('../../../../packages/cli/src/font/binary.ts');
+  const font = new Font(featuresFont());
+  // The synthetic font substitutes fi → W; widen W so the ligature (9) differs from f + i (6 + 6).
+  font.tables.get('hmtx')!.writeUInt16BE(900, font.glyph('W'.codePointAt(0)!) * 4);
+  const measurer = new ToolMeasurer();
+  measurer.register('L', new Font(sfnt(font.tables)));
+  registerTextMeasurer(measurer);
+  const widths = (text: string) =>
+    layoutText(
+      {
+        runs: [{ text, style: 's' }],
+        styles: { s: { font: 'L', size: 10 } },
+        sizing: 'auto-height',
+        width: 7,
+        wordBreak: 'break-all',
+      },
+      overflowText,
+    ).lines.map((l) => [l.clusters.map((c) => c.text).join(''), l.width]);
+  expect(widths('fi')).toEqual([
+    ['f', 6],
+    ['i', 6],
+  ]);
+  expect(widths('afi')).toEqual([
+    ['a', 6],
+    ['fi', 9],
+  ]);
+});

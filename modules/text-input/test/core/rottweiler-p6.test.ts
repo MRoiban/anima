@@ -59,3 +59,14 @@ it('R1-06: selection and caret boxes follow uniform fit scaling', () => {
   expect(n.text!.layout.scale).toBe(0.5);
   expect(n.fieldBoxes![0]).toMatchObject({ y: line.baseline - 0.4, height: 0.5, width: 1 });
 });
+it('R2-07: a caret on an empty line follows alignment and normalized origin', () => {
+  for (const [text, extra, x] of [
+    ['', { align: 'center' }, 6],
+    ['a\n', { align: 'center' }, 6],
+    ['', { align: 'right' }, 12],
+    ['', { align: 'center', origin: [0.5, 0] }, 0],
+  ] as const) {
+    const p = field(text, extra, { multiline: true });
+    expect(caret(p, text.length)[0]).toBe(x);
+  }
+});

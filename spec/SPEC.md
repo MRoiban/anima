@@ -3062,7 +3062,8 @@ CSS fallback. A failed replacement preserves the previous face. Browser decoding
 policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
 descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
 sources receive private family names, preventing cross-icon collisions. The latest replacement
-wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup, except that a
+completed replacement releases the superseded face once no name in that scope uses its family. Faces already in
 `document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
 counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
 Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode

@@ -13,6 +13,7 @@ const owners = new WeakMap<Player, AnimaIcon>();
 let serial = 0;
 const refs = new Map<FontFace, number>();
 const external = new WeakSet<FontFace>();
+const alias = (face: FontFace) => JSON.stringify(face.family.replace(/^['"]|['"]$/g, ''));
 export class FontController {
   private children = new Map<object, FontController>();
   forModel(model: Player['model']): FontController {
@@ -88,7 +89,7 @@ export class FontController {
     if (epoch !== this.epoch) return;
     this.retain(face);
     this.fallbackFaces.add(face);
-    const family = JSON.stringify(face.family.replace(/^['"]|['"]$/g, ''));
+    const family = alias(face);
     if (!this.fallback.includes(family)) this.fallback.push(family);
     this.wake();
   }
@@ -105,10 +106,14 @@ export class FontController {
         source instanceof FontFace ? await source.load() : await this.decode(source, descriptors);
       if (epoch !== this.epoch || this.versions.get(name) !== version) return;
       this.retain(face);
-      this.families.set(name, JSON.stringify(face.family.replace(/^['"]|['"]$/g, '')));
+      const old = this.families.get(name);
+      this.families.set(name, alias(face));
       await document.fonts.load(
         `${face.style} ${face.weight.split(' ')[0]} 16px ${this.families.get(name)}`,
       );
+      // Once loaded, release the faces of an alias no name still uses (fallback re-retains).
+      if (![...this.families.values()].includes(old!))
+        for (const f of this.faces) if (alias(f) === old) this.release(f);
       this.wake();
     } catch {
       this.warn(name);
@@ -123,6 +128,15 @@ export class FontController {
       refs.set(face, 0);
     }
     refs.set(face, refs.get(face)! + 1);
+  }
+  private release(face: FontFace) {
+    this.faces.delete(face);
+    const count = refs.get(face)! - 1;
+    if (count) refs.set(face, count);
+    else {
+      refs.delete(face);
+      if (!external.has(face)) document.fonts.delete(face);
+    }
   }
   private wake() {
     this.revision++;
@@ -154,15 +168,7 @@ export class FontController {
     this.epoch++;
     for (const child of this.children.values()) child.clear();
     this.children.clear();
-    for (const face of this.faces) {
-      const count = refs.get(face)! - 1;
-      if (count) refs.set(face, count);
-      else {
-        refs.delete(face);
-        if (!external.has(face)) document.fonts.delete(face);
-      }
-    }
-    this.faces.clear();
+    for (const face of this.faces) this.release(face);
     this.families.clear();
     if (!preserveFallback) {
       this.fallback = [];

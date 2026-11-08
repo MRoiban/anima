@@ -152,7 +152,25 @@ export function layoutText(
     const fm = measure(fallback, '');
     const lines: TextLine[] = [];
     let y = 0;
+    // Kerning and ligatures do not cross a soft break: lines measure their own run fragments.
+    const remeasure = (gs: Glyph[]) => {
+      for (let i = 0; i < gs.length;) {
+        let j = i;
+        while (j < gs.length && gs[j]!.run === gs[i]!.run) j++;
+        const m = measure(
+          gs[i]!.font,
+          gs
+            .slice(i, j)
+            .map((g) => g.text)
+            .join(''),
+        ).advances;
+        for (let k = i; k < j; k++) gs[k]!.advance = m[k - i]! - (m[k - i - 1] ?? 0);
+        i = j;
+      }
+      return gs;
+    };
     const emit = (gs: Glyph[], paragraph = false) => {
+      remeasure(gs);
       let ascent = gs.length ? 0 : fm.ascent,
         descent = gs.length ? 0 : fm.descent,
         height = 0,
@@ -194,9 +212,7 @@ export function layoutText(
       if (!at && input.wordBreak === 'break-word') at = pending.length - 1;
       if (!at) continue; // normal preserves an unbreakable word, even beyond the box.
       emit(pending.slice(0, at));
-      pending = pending.slice(at);
-      // A soft line start has no left neighbour: drop kerning measured against the previous line.
-      pending[0]!.advance = measure(pending[0]!.font, pending[0]!.text).advances[0] ?? 0;
+      pending = remeasure(pending.slice(at));
       width = pending.reduce(
         (n, g, i) => n + g.advance + (i ? pending[i - 1]!.font.tracking : 0),
         0,

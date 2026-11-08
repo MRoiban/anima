@@ -133,6 +133,8 @@ function attach(i: AnimaIcon): void {
       // Semantic controls own their native keys before the drawn-input capture route.
       if (!active(i) || (e.composedPath()[0] as HTMLElement)?.hasAttribute('data-semantic')) return;
       if (!config(i).listeners) {
+        // Disabled automatic input also keeps the host's Enter/Space route from handling it.
+        Icon.inputEvents.add(e);
         return;
       }
       const k = e as KeyboardEvent;
@@ -208,12 +210,18 @@ Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>
   attached.delete(this);
   loadModel.apply(this, args);
   attach(this);
+  later(this);
+};
+// Asset-backed loads create the player asynchronously; attach once it exists.
+const later = (i: AnimaIcon) => {
+  if (!attached.has(i)) i.addEventListener('anima:load', () => attach(i), { once: true });
 };
 Icon.prototype.load = function (...args: Parameters<AnimaIcon['load']>) {
   attached.get(this)?.abort();
   attached.delete(this);
   const result = load.apply(this, args);
   attach(this);
+  later(this);
   return result;
 };
 Icon.prototype.destroy = function () {

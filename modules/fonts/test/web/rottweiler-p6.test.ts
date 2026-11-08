@@ -18,7 +18,7 @@ for (const [name, browserType, executablePath] of [
     ),
   ],
   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefox-1555/firefox/firefox')],
-] as const)
+] as const) {
   it.skipIf(!existsSync(executablePath))(
     `${name}: R1-09 with the text consumer, reconnecting a host restores its named font faces; a reload does not`,
     async () => {
@@ -97,3 +97,115 @@ for (const [name, browserType, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R2-06 a reconnect restores a child scope's host fallback faces`,
+    async () => {
+      const browser = await browserType.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.setContent('<anima-icon paused></anima-icon>');
+        for (const entry of ['assets', 'components', 'fonts', 'fonts-text'])
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.has('components'),
+        );
+        const result = await page.evaluate(
+          async (bytes) => {
+            const icon = document.querySelector('anima-icon') as AnimaIcon;
+            await new Promise((res) => {
+              icon.addEventListener('anima:load', res, { once: true });
+              icon.load({
+                anima: '0.1',
+                name: 'child-fallback',
+                grid: 20,
+                requires: ['assets', 'components', 'fonts'],
+                components: {
+                  child: {
+                    grid: 20,
+                    nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 1 }],
+                  },
+                },
+                nodes: [{ id: 'i', type: 'instance', component: 'child' }],
+              });
+            });
+            const child = (
+              icon.player!.nested as { players: Map<string, { model: object }> }
+            ).players.get('i')!;
+            const scope = icon.fonts.forModel(child.model as never);
+            await scope.add(await new FontFace('fallback-child', new Uint8Array(bytes)).load());
+            const spec = {
+              family: 'missing',
+              size: 10,
+              weight: 400,
+              style: 'normal' as const,
+              tracking: 0,
+            };
+            const before = icon.fonts.forModel(child.model as never).cssFont(spec).fontFamily;
+            icon.remove();
+            document.body.append(icon);
+            return [before, icon.fonts.forModel(child.model as never).cssFont(spec).fontFamily];
+          },
+          [...testFont()],
+        );
+        expect(result).toEqual(['missing, "fallback-child"', 'missing, "fallback-child"']);
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: P7 R2-5 replacing a named font releases the superseded face unless another name uses it`,
+    async () => {
+      const browser = await browserType.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.setContent('<anima-icon paused></anima-icon>');
+        for (const entry of ['assets', 'fonts'])
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.waitForFunction(
+          () =>
+            !!Object.getOwnPropertyDescriptor(
+              (customElements.get('anima-icon') as typeof AnimaIcon).prototype,
+              'fonts',
+            ),
+        );
+        const result = await page.evaluate(
+          async (bytes) => {
+            const icon = document.querySelector('anima-icon') as AnimaIcon;
+            const data = () => new Uint8Array(bytes).buffer;
+            const sizes: number[] = [];
+            for (let i = 0; i < 3; i++) {
+              await icon.fonts.set('body', data());
+              sizes.push(document.fonts.size);
+            }
+            // One face under two names survives replacing one of them.
+            const shared = await new FontFace('shared', data()).load();
+            await icon.fonts.set('a', shared);
+            await icon.fonts.set('b', shared);
+            await icon.fonts.set('a', data());
+            const kept = document.fonts.has(shared);
+            await icon.fonts.set('b', data());
+            return {
+              sizes,
+              kept,
+              released: !document.fonts.has(shared),
+              total: document.fonts.size,
+            };
+          },
+          [...testFont()],
+        );
+        expect(result).toEqual({ sizes: [1, 1, 1], kept: true, released: true, total: 3 });
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
+}

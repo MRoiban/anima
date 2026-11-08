@@ -323,6 +323,15 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
           const k = layout.scale,
             full = drawing?.runs.map((r) => r.text).join('') ?? f.value;
           let pos = 0;
+          // An empty line has no cluster: place its caret at the aligned, origin-shifted start.
+          const raw = p.model.nodes[i]!.raw,
+            empty = () =>
+              (Array.isArray(raw.origin) ? -raw.origin[0] * layout.width : 0) +
+              (raw.align === 'center'
+                ? layout.width / 2
+                : raw.align === 'right' || raw.align === 'end'
+                  ? layout.width
+                  : 0);
           for (const line of layout.lines) {
             const gs = line.clusters;
             // A line's logical range; a caret at its end stays here before a paragraph separator.
@@ -349,7 +358,7 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
                 (f.start < to || (f.start === to && (sep || line === layout.lines.at(-1))))
               ) {
                 boxes.push({
-                  x: g?.x ?? (gs.at(-1) ? gs.at(-1)!.x + gs.at(-1)!.advance : 0),
+                  x: g?.x ?? (gs.at(-1) ? gs.at(-1)!.x + gs.at(-1)!.advance : empty()),
                   y: line.baseline - line.ascent * k,
                   width: 0.06,
                   height: (line.ascent + line.descent) * k,

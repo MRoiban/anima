@@ -25,16 +25,25 @@ if (!fonts.prepareText) {
     families: Map<string, string>;
     faces: Set<FontFace>;
     children: Map<object, Scope>;
+    fallback: string[];
+    fallbackFaces: Set<FontFace>;
     retain(face: FontFace): void;
   };
   const parked = new WeakMap<object, () => void>();
   const snapshot = (s: Scope): (() => void) => {
     const families = new Map(s.families),
       faces = [...s.faces],
+      fallback = [...s.fallback],
+      fallbackFaces = new Set(s.fallbackFaces),
       children = [...s.children].map(([m, c]) => [m, c, snapshot(c)] as const);
     return () => {
       for (const face of faces) s.retain(face);
       s.families = new Map([...families, ...s.families]);
+      // Child scopes do not preserve fallback through cleanup; the root already did.
+      if (!s.fallback.length) {
+        s.fallback = fallback;
+        s.fallbackFaces = fallbackFaces;
+      }
       for (const [m, c, restore] of children) {
         s.children.set(m, c);
         restore();
