@@ -2,6 +2,7 @@
   "name": "@anima-format/markup",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "AniML, the Anima markup: compile .animl to .ani (with a source map), decompile, format.",
   "exports": {
