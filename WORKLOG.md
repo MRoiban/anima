@@ -11,15 +11,14 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Goal: a smaller, agent-native Rive for animated web UI. Order: P7 (minimal layout, host fit,
   bindable artboards, 18 P6 text carry-overs) → P8 rigging (heavy).
 - Branch `p7` from main 8ffd714. Design `design/p7/DESIGN.md`; briefs `design/p7/tickets/`.
-- Merged on p7: P7-1 text split, P7-3 host fit (17 rows ready), P7-5 + P7-7(pending) bindable
-  artboards, P7-2 layout core (16 done), P7-6 text carry-overs (11 closed; 7 left), P7-4 reflow +
-  `fit="layout"` (both done; layout 4,084/4,096 B — full).
-- Running: P7-7 finish bindable artboards; reflow-card benchmark (AniML + Rive) in
-  `docs/benchmarks/runs/2026-11-08-p7/`.
-- Next: re-check and record the benchmark; P7 closure (mark 17 host-fit rows, decide the 7 text
-  rows + artboards leftovers), `test:scope -- changed --no-browser` once, PR.
-- Gates now: core+web 21,165; largest scene 53,982; app-UI 104,355; runtime sum 126,729;
-  authoring 14,899; Rive-class 136,744.
+- P7 rows: 50/57 done (layout 16 + reflow + fit-layout, host fit 17, artboards 4, text 11);
+  in scope 854/886. P7-8 running on the last 7 text rows (tree-bounds extents, font metrics and
+  decoding APIs, selected-text paint, run-list/text-style/flatten skips if native can't observe).
+- Benchmark running: reflow card, AniML + Rive, `docs/benchmarks/runs/2026-11-08-p7/`.
+- Next: re-check + record benchmark (agent-native.md); merge P7-8; closure note, PLAN, LOG;
+  `test:scope -- changed --no-browser` once; perf A/B vs main; PR.
+- Gates now: core+web 21,165; largest scene 53,982; app-UI 104,505; runtime sum 128,157;
+  authoring 14,899; Rive-class 138,167. Full: layout 4,084/4,096, markup-libraries 2,176/2,176.
 
 ## Owner
 
