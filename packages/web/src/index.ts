@@ -119,8 +119,14 @@ export class AnimaIcon extends HTMLElement {
       this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
     };
     if (model.doc.assets && AnimaIcon.loadAssets) {
-      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
-        if (generation === this.#generation) this.#fail(d);
+      AnimaIcon.loadAssets(this, model).then(finish, (d: unknown) => {
+        // A loader may reject with a plain Error (e.g. no base URL): report it, so `ready` settles.
+        if (generation === this.#generation)
+          this.#fail(
+            Array.isArray(d)
+              ? d
+              : [{ code: 'asset-load', severity: 'error', pointer: '/assets', message: String(d) }],
+          );
       });
     } else finish();
   }

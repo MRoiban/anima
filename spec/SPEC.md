@@ -75,7 +75,8 @@ A document declaring `components` may have an empty `nodes` array: it is a libra
 whose exported components can be instantiated as host roots. Ordinary documents need a node.
 
 **Limits.** Loaders refuse documents beyond these limits with `limit-exceeded`: 1 MiB of text, nesting
-depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
+depth 32 nodes, 96 levels of JSON nesting anywhere (free-form values such as `meta` included),
+2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
 
 **Units** *(normative)*: lengths in grid units, y down; time in **seconds**; angles in **degrees**,
 positive clockwise (y down), 0° along +x; opacity, scale and blend weights are plain numbers

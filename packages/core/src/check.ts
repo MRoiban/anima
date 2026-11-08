@@ -52,7 +52,21 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
       V && `requires does not declare ${s.feature}`,
       V && `add "${s.feature.split('|').join('" or "')}" to "requires"`,
     );
-  if (s.k === 'any') return;
+  // Free-form JSON (meta, payloads) counts toward the same nesting limit; walked without recursion.
+  if (s.k === 'any') {
+    // Visited objects are skipped: JS-built cycles and shared values stay linear (and reach the
+    // owning module's own diagnostics); parsed JSON is always a tree.
+    const seen = new Set<object>();
+    for (const stack: [unknown, number][] = [[v, depth]]; stack.length;) {
+      const [x, n] = stack.pop()!;
+      if (n > MAX_DEPTH) return d.err('limit-exceeded', p, V && 'nesting is too deep');
+      if (x && typeof x === 'object' && !seen.has(x)) {
+        seen.add(x);
+        for (const y of Object.values(x)) stack.push([y, n + 1]);
+      }
+    }
+    return;
+  }
   const k = kind(v);
   if (s.k === 'alt') {
     const hit = s.of.find((o) => shapeKind(o) === k);

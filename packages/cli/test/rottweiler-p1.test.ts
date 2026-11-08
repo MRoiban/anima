@@ -82,8 +82,10 @@ it('reports duplicate keys next to deeply nested metadata', async () => {
   );
   const r = await cli(['validate', f, '--format=json']);
   expect(r.code).toBe(1);
+  // Free-form JSON now counts toward the 96-level nesting limit (review follow-up).
   expect(JSON.parse(r.out[0]!).diagnostics.map((d: { code: string }) => d.code)).toEqual([
     'duplicate-key',
+    'limit-exceeded',
   ]);
 });
 
