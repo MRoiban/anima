@@ -1,0 +1,34 @@
+<anima version="0.1" name="swappable-card" grid="20" requires="components data bind nested host dataartboard">
+  <component name="front" grid="20">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <timeline name="move" duration="1">
+      <track target="dot.x">
+        0  0
+        1  10
+      </track>
+    </timeline>
+    <layer name="move" initial="moving">
+      <state name="moving" play="move"/>
+    </layer>
+  </component>
+  <component name="back" grid="20">
+    <circle id="box" cx="5" cy="5" r="1" fill="#000"/>
+    <timeline name="move" duration="1">
+      <track target="box.x">
+        0  20
+        1  30
+      </track>
+    </timeline>
+    <layer name="move" initial="moving">
+      <state name="moving" play="move"/>
+    </layer>
+  </component>
+
+  <instance id="content" component="$content"/>
+
+  <model name="Card">
+    <artboard name="content" default="&quot;front&quot;"/>
+    <number name="radius" default="2"/>
+  </model>
+  <instance name="main" model="Card" default="true"/>
+</anima>

@@ -40,6 +40,7 @@ import { a11ySVG } from '../../../modules/a11y/core/svg.ts';
 import { a11yActions } from '../../../modules/a11y-actions/core/index.ts';
 import { nested } from '../../../modules/nested/core/index.ts';
 import { nestedSVG } from '../../../modules/nested/core/svg.ts';
+import { dataArtboard } from '../../../modules/data-artboard/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { mix } from '../../../modules/mix/core/index.ts';
@@ -91,6 +92,7 @@ if (VERBOSE) {
   registerModule(a11yActions);
   registerModule(nested);
   registerSVGBackend('nested', nestedSVG);
+  registerModule(dataArtboard);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
   registerModule(mix);

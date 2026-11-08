@@ -3311,3 +3311,19 @@ that reader exists, then redraws. The scale for layout fit is one CSS pixel per 
 unit; DPR changes only the canvas backing store. Leaving layout restores the explicit
 size if set, otherwise authored root dimensions. This checkout tests this contract
 with a stub; the layout provider must be integrated before responsive reflow is claimed.
+
+## dataartboard — bindable component data
+
+<!-- capability: data.host-artboard -->
+<!-- capability: host-api.bindable-artboards -->
+<!-- capability: host-api.data-artboard -->
+<!-- capability: components.host-artboard-reference -->
+
+The normative contract is [modules/data-artboard/SPEC.md](../modules/data-artboard/SPEC.md):
+`artboard` model properties, `instance component="$content"`, queued host handles and
+values referencing components from another loaded document. Re-instantiation follows
+the existing nested-player and data-context rules; a changed selection restarts the
+child clock, and the same selection retains it. The four deterministic probes are
+`data-host-artboard`, `host-api-bindable-artboards`, `host-api-data-artboard`, and
+`components-host-artboard-reference`. Host comparison limits are evidenced in
+[the native comparison note](../modules/data-artboard/NATIVE.md).

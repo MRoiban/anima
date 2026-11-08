@@ -1,0 +1,10 @@
+advance 0.25
+snapshot content/dot.x
+set $content "back"
+advance 0
+snapshot content/box.x
+advance 0.25
+snapshot content/box.x
+set $content "front"
+advance 0
+snapshot content/dot.x

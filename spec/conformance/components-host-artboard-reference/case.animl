@@ -1,0 +1,26 @@
+<anima version="0.1" name="swappable-card" grid="20" requires="components data bind nested host dataartboard lists">
+  <component name="front" grid="20">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#f00"/>
+    <bind target="dot.r" value="$radius"/>
+  </component>
+  <component name="back" grid="20">
+    <rect id="box" x0="1" y0="1" width="3" height="4" fill="#00f"/>
+    <bind target="box.width" value="$radius + 1"/>
+  </component>
+  <component name="row" grid="20" data="Cell">
+    <instance id="body" component="$content"/>
+  </component>
+
+  <repeat id="rows" list="$items" component="&quot;row&quot;" dx="10"/>
+
+  <model name="Card">
+    <list name="items" of="Cell"/>
+  </model>
+  <model name="Cell">
+    <artboard name="content" default="&quot;front&quot;"/>
+    <number name="radius" default="2"/>
+  </model>
+  <instance name="main" model="Card" default="true">
+    <set path="items" value="[{&quot;radius&quot;:3},{&quot;radius&quot;:5}]"/>
+  </instance>
+</anima>

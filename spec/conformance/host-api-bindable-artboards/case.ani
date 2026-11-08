@@ -1,0 +1,112 @@
+{
+  "anima": "0.1",
+  "name": "swappable-card",
+  "grid": 20,
+  "requires": ["components", "data", "bind", "nested", "host", "dataartboard"],
+  "nodes": [
+    {
+      "id": "content",
+      "type": "instance",
+      "component": "$content"
+    }
+  ],
+  "components": {
+    "front": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "timelines": {
+        "move": {
+          "duration": 1,
+          "tracks": {
+            "dot.x": [
+              [0, 0],
+              [1, 10]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "move": {
+            "initial": "moving",
+            "states": {
+              "moving": {
+                "play": "move"
+              }
+            }
+          }
+        }
+      }
+    },
+    "back": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "box",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "timelines": {
+        "move": {
+          "duration": 1,
+          "tracks": {
+            "box.x": [
+              [0, 20],
+              [1, 30]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "move": {
+            "initial": "moving",
+            "states": {
+              "moving": {
+                "play": "move"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Card": {
+        "properties": {
+          "content": {
+            "type": "artboard",
+            "default": "front"
+          },
+          "radius": {
+            "type": "number",
+            "default": 2
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Card",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

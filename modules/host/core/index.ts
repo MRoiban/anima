@@ -4,9 +4,11 @@ import { after } from '../manifest.ts';
 import type { lists } from '../../lists/core/index.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { hostValues } from '../../host-values/core/index.ts';
-import { install, observe } from './api.ts';
+import { HostData, install, observe } from './api.ts';
 export * from './api.ts';
-export const host: Module = {
+export const host: Module & { Data: typeof HostData } = {
+  // seam(P7-5): optional typed handles extend the active runtime API.
+  Data: HostData,
   name: 'host',
   after: [...after, 'hostvalues'],
   entries: [],
