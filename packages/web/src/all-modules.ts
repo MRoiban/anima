@@ -25,6 +25,7 @@ import './host.ts';
 import './host-edit.ts';
 import './host-values.ts';
 import './input.ts';
+import './layout.ts';
 import './lists.ts';
 import './machine.ts';
 import './media.ts';

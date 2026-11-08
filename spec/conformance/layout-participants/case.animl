@@ -1,0 +1,6 @@
+<anima version="0.1" name="layout-participants" grid="20" requires="layout">
+  <layout id="root" width="16" height="10" gap="1" padding="1" x="2" y="2">
+    <rect id="a" x0="0" y0="0" width="2" height="2" fill="#000"/>
+    <circle id="b" cx="2" cy="2" r="2" fill="#000"/>
+  </layout>
+</anima>

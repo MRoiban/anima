@@ -1,0 +1,138 @@
+[
+  {
+    "name": "layout-alignment",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-containers",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-fill-sizing",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-fixed-sizing",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-flex-align-items",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-flex-direction",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-flex-justify",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-hug-sizing",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-intrinsic",
+    "time": 0,
+    "max": 96,
+    "over": 101,
+    "overPercent": 0.1753472222222222,
+    "ring": 0.49468145291368515
+  },
+  {
+    "name": "layout-paint",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-participants",
+    "time": 0,
+    "max": 96,
+    "over": 101,
+    "overPercent": 0.1753472222222222,
+    "ring": 0.49468145291368515
+  },
+  {
+    "name": "layout-self-alignment",
+    "time": 0,
+    "max": 255,
+    "over": 3456,
+    "overPercent": 6,
+    "ring": 51.262872653121605
+  },
+  {
+    "name": "layout-size-bounds",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-spacing",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "layout-visibility",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "data-bind-layout",
+    "time": 0,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  },
+  {
+    "name": "data-bind-layout",
+    "time": 1,
+    "max": 0,
+    "over": 0,
+    "overPercent": 0,
+    "ring": 0
+  }
+]

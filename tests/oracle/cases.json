@@ -182,9 +182,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "instance first a 1\ninstance second b 0\nadvance 0",
+      "1": "instance first a 1\ninstance second b 1\nadvance 0",
       "0.25": "instance first a 1\ninstance second b 0.25\nadvance 0",
-      "0.5": "instance first a 1\ninstance second b 0.5\nadvance 0",
-      "1": "instance first a 1\ninstance second b 1\nadvance 0"
+      "0.5": "instance first a 1\ninstance second b 0.5\nadvance 0"
     }
   },
   {
@@ -234,9 +234,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "timeline t seek 1.5\nadvance 0",
+      "1": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0\ntimeline t seek 0\nadvance 0",
       "0.25": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0",
-      "0.75": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0",
-      "1": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0\ntimeline t seek 0\nadvance 0"
+      "0.75": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0"
     }
   },
   {
@@ -247,9 +247,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "timeline t scrub 0.75\nadvance 0",
+      "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0",
       "0.25": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0",
-      "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
-      "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
+      "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0"
     }
   },
   {
@@ -3382,5 +3382,113 @@
     "threshold": 16,
     "maxDiff": 36,
     "maxOverPercent": 0.024306
+  },
+  {
+    "name": "layout-alignment",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-containers",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-fill-sizing",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-fixed-sizing",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-flex-align-items",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-flex-direction",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-flex-justify",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-hug-sizing",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-intrinsic",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 100,
+    "maxOverPercent": 0.18
+  },
+  {
+    "name": "layout-paint",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-participants",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 100,
+    "maxOverPercent": 0.18
+  },
+  {
+    "name": "layout-size-bounds",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-spacing",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "layout-visibility",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "data-bind-layout",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "1": "set $size 5\nadvance 0"
+    }
   }
 ]

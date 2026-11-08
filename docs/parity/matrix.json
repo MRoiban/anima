@@ -1911,10 +1911,10 @@
   "id": "data.bind-layout",
   "category": "data",
   "capability": "Bind layout parameters",
-  "construct": "TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl",
-  "module": "data",
-  "status": "planned",
-  "test": "TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/data-bind-layout/example.animl",
+  "module": "layout",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
   "phase": "P7"
  },
  {
@@ -7597,10 +7597,10 @@
   "id": "layout.alignment",
   "category": "layout",
   "capability": "Container alignment",
-  "construct": "new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-alignment/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-alignment",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-alignment; tests/oracle/layout-alignment",
   "phase": "P7"
  },
  {
@@ -7662,10 +7662,10 @@
   "id": "layout.containers",
   "category": "layout",
   "capability": "Nested layout containers",
-  "construct": "new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-containers/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-containers",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-containers; tests/oracle/layout-containers",
   "phase": "P7"
  },
  {
@@ -7694,20 +7694,20 @@
   "id": "layout.fill-sizing",
   "category": "layout",
   "capability": "Weighted fill sizing",
-  "construct": "new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fill-sizing/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-fill-sizing",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fill-sizing; tests/oracle/layout-fill-sizing",
   "phase": "P7"
  },
  {
   "id": "layout.fixed-sizing",
   "category": "layout",
   "capability": "Fixed dimensions",
-  "construct": "new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fixed-sizing/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-fixed-sizing",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fixed-sizing; tests/oracle/layout-fixed-sizing",
   "phase": "P7"
  },
  {
@@ -7725,10 +7725,10 @@
   "id": "layout.flex-align-items",
   "category": "layout",
   "capability": "Flex item alignment",
-  "construct": "new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-align-items/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-flex-align-items",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-align-items; tests/oracle/layout-flex-align-items",
   "phase": "P7"
  },
  {
@@ -7746,10 +7746,10 @@
   "id": "layout.flex-direction",
   "category": "layout",
   "capability": "Flex rows and columns",
-  "construct": "new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-direction/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-flex-direction",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-direction; tests/oracle/layout-flex-direction",
   "phase": "P7"
  },
  {
@@ -7767,10 +7767,10 @@
   "id": "layout.flex-justify",
   "category": "layout",
   "capability": "Main-axis distribution",
-  "construct": "new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-justify/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-flex-justify",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-justify; tests/oracle/layout-flex-justify",
   "phase": "P7"
  },
  {
@@ -7832,20 +7832,20 @@
   "id": "layout.hug-sizing",
   "category": "layout",
   "capability": "Content hugging",
-  "construct": "new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-hug-sizing/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-hug-sizing",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-hug-sizing; tests/oracle/layout-hug-sizing",
   "phase": "P7"
  },
  {
   "id": "layout.intrinsic",
   "category": "layout",
   "capability": "Intrinsic sizing",
-  "construct": "new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-intrinsic/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-intrinsic",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-intrinsic; tests/oracle/layout-intrinsic",
   "phase": "P7"
  },
  {
@@ -7885,20 +7885,20 @@
   "id": "layout.paint",
   "category": "layout",
   "capability": "Painted layout boxes",
-  "construct": "new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-paint/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-paint",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-paint; tests/oracle/layout-paint",
   "phase": "P7"
  },
  {
   "id": "layout.participants",
   "category": "layout",
   "capability": "Leaf layout participation",
-  "construct": "new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-participants/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-participants",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-participants; tests/oracle/layout-participants",
   "phase": "P7"
  },
  {
@@ -8015,20 +8015,21 @@
   "id": "layout.self-alignment",
   "category": "layout",
   "capability": "Per-item alignment",
-  "construct": "new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-self-alignment/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-self-alignment",
-  "phase": "P7"
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-self-alignment; tests/oracle/layout-self-alignment",
+  "phase": "P7",
+  "reason": "Intentional native difference: Anima honors per-child CSS-style alignment; the local native CLI accepts alignSelfValue but leaves the captured child unchanged. Independent Anima vectors and the retained native scene/frame/session are linked by tests/oracle/layout-self-alignment/skip.json and modules/layout/SPEC.md."
  },
  {
   "id": "layout.size-bounds",
   "category": "layout",
   "capability": "Minimum and maximum size",
-  "construct": "new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-size-bounds/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-size-bounds",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-size-bounds; tests/oracle/layout-size-bounds",
   "phase": "P7"
  },
  {
@@ -8057,10 +8058,10 @@
   "id": "layout.spacing",
   "category": "layout",
   "capability": "Gaps margins and padding",
-  "construct": "new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-spacing/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-spacing",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-spacing; tests/oracle/layout-spacing",
   "phase": "P7"
  },
  {
@@ -8089,10 +8090,10 @@
   "id": "layout.visibility",
   "category": "layout",
   "capability": "Layout display participation",
-  "construct": "new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-visibility/example.animl",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-visibility",
+  "status": "done",
+  "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-visibility; tests/oracle/layout-visibility",
   "phase": "P7"
  },
  {

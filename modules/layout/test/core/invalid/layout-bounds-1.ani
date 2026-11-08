@@ -1,0 +1,17 @@
+{
+  "anima": "0.1",
+  "name": "invalid-layout",
+  "grid": 20,
+  "requires": [
+    "layout"
+  ],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [],
+      "minWidth": 5,
+      "maxWidth": 2
+    }
+  ]
+}

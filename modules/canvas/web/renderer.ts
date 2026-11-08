@@ -350,7 +350,9 @@ export class CanvasRenderer implements IconRenderer {
     if (!n.visible || n.opacity === 0 || (!source && this.#hidden.has(i)) || stack.has(i)) return;
     stack = new Set(stack).add(i);
     const isolate =
-      (n.opacity !== 1 && (!n.geometry || n.paints.filter((p) => p.visible).length > 1)) ||
+      // seam(P7-2): opacity isolates a painted container together with its children.
+      (n.opacity !== 1 &&
+        (!n.geometry || e.children.length > 0 || n.paints.filter((p) => p.visible).length > 1)) ||
       !!n.mask ||
       (!!n.blend && n.blend !== 'normal');
     const layer = isolate ? this.#surface() : undefined;
@@ -374,7 +376,8 @@ export class CanvasRenderer implements IconRenderer {
       )
         return;
       if (n.geometry) this.#shape(target, i, basis);
-      else this.#list(target, e.children, basis, source);
+      // seam(P7-2): painted layout containers also draw their children.
+      if (e.children.length) this.#list(target, e.children, basis, source);
     };
     if (n.patches) {
       const inv = invert(world);

@@ -56,6 +56,8 @@
     "./text-hit": "./src/text-hit.ts",
     "./text-host": "./src/text-host.ts",
     "./markup-text": "./src/markup-text.ts",
+    "./layout": "./src/layout.ts",
+    "./markup-layout": "./src/markup-layout.ts",
     "./text-effects": "./src/text-effects.ts",
     "./texteffects": "./src/texteffects.ts",
     "./markup-text-effects": "./src/markup-text-effects.ts",

@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: Anima uses zero fill basis and signed-total bound freezing from CSS Flexbox §9.7. With 13 units, equal fill weights, first min=8 and second max=4, Anima produces9/4; native produces10.5/2.5. Raw native styles/frame and independent Anima conformance are retained. Fixed min/max bounds compare separately.",
+  "tests": [
+    "modules/layout/test/core/layout.test.ts",
+    "spec/conformance/layout-fill-bounds-difference"
+  ],
+  "captureEvidence": [
+    "tests/oracle/layout-fill-bounds-difference/rive/scene.rml",
+    "tests/oracle/layout-fill-bounds-difference/rive/frames/0.png",
+    "tests/oracle/layout-fill-bounds-difference/rive/session.txt"
+  ]
+}

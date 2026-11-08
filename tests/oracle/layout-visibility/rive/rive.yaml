@@ -1,0 +1,3 @@
+name: oracle-layout-visibility
+logs:
+  file: build/runtime.log

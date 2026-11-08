@@ -1,0 +1,68 @@
+{
+  "anima": "0.1",
+  "name": "layout-bound-hug",
+  "grid": 20,
+  "requires": ["layout", "bind", "machine"],
+  "inputs": {
+    "width": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "child",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 1,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          },
+          "layout": {
+            "width": "fill"
+          }
+        }
+      ],
+      "width": "hug",
+      "height": 5,
+      "padding": [1]
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "small",
+        "states": {
+          "small": {
+            "pose": {},
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "large",
+                "guard": {
+                  "left": {
+                    "layout": "root.width"
+                  },
+                  "right": 14,
+                  "op": ">="
+                }
+              }
+            ]
+          },
+          "large": {
+            "pose": {}
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "root.width": "width"
+  }
+}

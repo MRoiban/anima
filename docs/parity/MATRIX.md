@@ -20,11 +20,11 @@ scope by the owner's triage of 2026-11-07).
 | Animation | 40 | 33 |  | 3 |  |  | 4 |
 | State machines | 61 | 60 |  |  |  |  | 1 |
 | Listeners and input | 93 | 90 |  |  |  |  | 3 |
-| Data: view models, binding, converters | 169 | 162 |  | 3 |  |  | 4 |
+| Data: view models, binding, converters | 169 | 163 |  | 2 |  |  | 4 |
 | Events | 18 | 17 |  |  |  |  | 1 |
 | Components | 30 | 26 |  | 1 |  |  | 3 |
 | Text | 61 | 43 |  | 16 |  |  | 2 |
-| Layout | 49 |  |  | 16 |  |  | 33 |
+| Layout | 49 | 15 |  | 1 |  |  | 33 |
 | Rigging | 23 |  |  | 22 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 91 |  | 20 |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **804** | **0** | **82** | **0** | **188** | **164** |
+| **Total** | **1238** | **820** | **0** | **66** | **0** | **188** | **164** |
 
-**Progress:** 804 of 886 in-scope capabilities done (91 %); 804 of 1238 in the full matrix (65 %).
+**Progress:** 820 of 886 in-scope capabilities done (93 %); 820 of 1238 in the full matrix (66 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1224,7 +1224,7 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |  |
+| `data.bind-layout` | Bind layout parameters | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/data-bind-layout/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |  |
 | `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
 | `data.property-text-style` | Text style property | modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl | text | planned | modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts | Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead. |
 
@@ -1259,22 +1259,22 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `layout.alignment` | Container alignment | new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-alignment |  |
+| `layout.alignment` | Container alignment | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-alignment/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-alignment; tests/oracle/layout-alignment |  |
 | `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-animated-reflow | Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate. |
-| `layout.containers` | Nested layout containers | new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-containers |  |
-| `layout.fill-sizing` | Weighted fill sizing | new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fill-sizing |  |
-| `layout.fixed-sizing` | Fixed dimensions | new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fixed-sizing |  |
-| `layout.flex-align-items` | Flex item alignment | new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-align-items |  |
-| `layout.flex-direction` | Flex rows and columns | new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-direction |  |
-| `layout.flex-justify` | Main-axis distribution | new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-justify |  |
-| `layout.hug-sizing` | Content hugging | new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-hug-sizing |  |
-| `layout.intrinsic` | Intrinsic sizing | new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-intrinsic |  |
-| `layout.paint` | Painted layout boxes | new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-paint |  |
-| `layout.participants` | Leaf layout participation | new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-participants |  |
-| `layout.self-alignment` | Per-item alignment | new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-self-alignment |  |
-| `layout.size-bounds` | Minimum and maximum size | new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-size-bounds |  |
-| `layout.spacing` | Gaps margins and padding | new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-spacing |  |
-| `layout.visibility` | Layout display participation | new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-visibility |  |
+| `layout.containers` | Nested layout containers | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-containers/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-containers; tests/oracle/layout-containers |  |
+| `layout.fill-sizing` | Weighted fill sizing | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fill-sizing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fill-sizing; tests/oracle/layout-fill-sizing |  |
+| `layout.fixed-sizing` | Fixed dimensions | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fixed-sizing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fixed-sizing; tests/oracle/layout-fixed-sizing |  |
+| `layout.flex-align-items` | Flex item alignment | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-align-items/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-align-items; tests/oracle/layout-flex-align-items |  |
+| `layout.flex-direction` | Flex rows and columns | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-direction/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-direction; tests/oracle/layout-flex-direction |  |
+| `layout.flex-justify` | Main-axis distribution | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-justify/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-justify; tests/oracle/layout-flex-justify |  |
+| `layout.hug-sizing` | Content hugging | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-hug-sizing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-hug-sizing; tests/oracle/layout-hug-sizing |  |
+| `layout.intrinsic` | Intrinsic sizing | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-intrinsic/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-intrinsic; tests/oracle/layout-intrinsic |  |
+| `layout.paint` | Painted layout boxes | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-paint/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-paint; tests/oracle/layout-paint |  |
+| `layout.participants` | Leaf layout participation | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-participants/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-participants; tests/oracle/layout-participants |  |
+| `layout.self-alignment` | Per-item alignment | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-self-alignment/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-self-alignment; tests/oracle/layout-self-alignment | Intentional native difference: Anima honors per-child CSS-style alignment; the local native CLI accepts alignSelfValue but leaves the captured child unchanged. Independent Anima vectors and the retained native scene/frame/session are linked by tests/oracle/layout-self-alignment/skip.json and modules/layout/SPEC.md. |
+| `layout.size-bounds` | Minimum and maximum size | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-size-bounds/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-size-bounds; tests/oracle/layout-size-bounds |  |
+| `layout.spacing` | Gaps margins and padding | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-spacing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-spacing; tests/oracle/layout-spacing |  |
+| `layout.visibility` | Layout display participation | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-visibility/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-visibility; tests/oracle/layout-visibility |  |
 
 ### Accessibility
 

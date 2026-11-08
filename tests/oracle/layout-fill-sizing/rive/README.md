@@ -1,0 +1,1 @@
+Independently authored native layout scene; capture with `python3 modules/layout/capture-oracles.py`. See `modules/layout/ORACLES.md` for mappings and retained semantic differences. No native binary is read or converted.

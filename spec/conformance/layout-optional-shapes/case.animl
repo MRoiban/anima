@@ -1,0 +1,12 @@
+<anima version="0.1" name="layout-optional-shapes" grid="20" requires="layout paint">
+  <layout id="root" width="hug" height="hug" gap="1">
+    <ellipse id="ellipse" cx="0" cy="0" rx="1" ry="3" fill="#000"/>
+    <polygon id="polygon" cx="0" cy="0" sides="4" radius="3" fill="#000"/>
+  </layout>
+  <timeline name="grow" duration="1">
+    <track target="ellipse.rx">0 1; 1 3</track>
+  </timeline>
+  <layer name="main" initial="play">
+    <state name="play" play="grow"/>
+  </layer>
+</anima>

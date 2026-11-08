@@ -1,0 +1,45 @@
+{
+  "anima": "0.1",
+  "name": "layout-spacing",
+  "grid": 20,
+  "requires": ["layout"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "x": 2,
+      "y": 2,
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "b",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 4,
+          "h": 3,
+          "fill": {
+            "color": "#000"
+          },
+          "layout": {
+            "margin": [1, 0, 0, 1]
+          }
+        }
+      ],
+      "width": 16,
+      "height": 10,
+      "gap": [2, 1],
+      "padding": [1, 2, 3, 4]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+screenshot frames/0.png
+quit

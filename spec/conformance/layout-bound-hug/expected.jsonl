@@ -1,0 +1,3 @@
+{"time":0,"values":{"root.layoutBox.width":10,"child.layoutBox.width":8},"states":{"main":"small"},"events":[],"settled":true}
+{"time":0,"values":{"root.layoutBox.width":14,"child.layoutBox.width":12},"states":{"main":"small"},"events":[],"settled":true}
+{"time":0,"values":{"root.layoutBox.width":14,"child.layoutBox.width":12},"states":{"main":"large"},"events":[],"settled":true}

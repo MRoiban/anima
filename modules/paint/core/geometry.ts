@@ -194,7 +194,8 @@ export const geometry: Module = {
     const n = p.model.nodes[i]!;
     if (
       !entries.some((e) => e.node && e.target === n.type) &&
-      !n.raw.corners &&
+      // seam(P7-2): another module may own corners on its own node type.
+      !(n.type === 'rect' && n.raw.corners) &&
       !(n.type === 'path' && p.addrs.includes(n.id + '.d'))
     )
       return;

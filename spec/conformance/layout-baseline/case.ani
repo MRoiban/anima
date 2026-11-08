@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "layout-baseline",
+  "grid": 20,
+  "requires": ["layout"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "x": 2,
+      "y": 2,
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "b",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 4,
+          "h": 3,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "width": 16,
+      "height": 10,
+      "align": "baseline",
+      "gap": [1],
+      "padding": [1]
+    }
+  ]
+}
