@@ -5,7 +5,12 @@ and `features` (tags to nonnegative integers). Declare `fonts` and `text`. The s
 are maps in JSON and JSON-valued AniML attributes, following MODULES §Generic AniML fields:
 
 ```xml
-<style id="body" font="body" axes='{"wght":650}' features='{"kern":0,"liga":1}'/>
+<anima version="0.1" name="axes-features" grid="20" requires="text fonts">
+  <text id="label" x="2" y="2">
+    <style id="body" font="Inter" size="2" axes='{"wght":650}' features='{"kern":0,"liga":1}'/>
+    <run style="body" text="AB"/>
+  </text>
+</anima>
 ```
 
 The fields work on local `<style>` and shared `<text-style>`. A local authored axis is

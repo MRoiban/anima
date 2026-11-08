@@ -16,6 +16,7 @@ Don't: push to main; edit oracle findings or benchmark records; raise ceilings; 
 - Loader hooks (`Icon.loadAssets`) chain: each wrapper must return the previous loader's per-player initializer, or assetio catalogs are lost when fonts loads later — BF-3 × P6-3 merge.
 - Budget headroom after P6-4a/P6-4: text 6,142/6,144, markup-libraries 2,173/2,176, markup-hooks 4,488/4,544 — any growth there needs a split first — node tools/size.ts at 23:25.
 - Perf regressions hide in authoring parsers: bisect merges with an in-process compile loop (scratchpad perf/bis.mjs, detached worktrees + node_modules symlink), then `node --cpu-prof` both sides and diff self time — P6 bell compile +5 % from a per-char matchAll.
+- Tickets merged in sequence can break each other's new tests (P6-12's docs-example test × P6-13's snippet): after the last merge of a phase run `npm run test:scope -- changed --no-browser` once before pushing the PR — PR #21 first CI run.
 - Repo-wide rules learned here are in AGENTS.md `## Repo rules`.
 
 ## Log
@@ -333,3 +334,4 @@ Don't: push to main; edit oracle findings or benchmark records; raise ceilings; 
 - 2026-11-08 10:10 [orch]: perf guard: bell compile was +4–7 % vs main (frames equal); bisect + cpu profile → P6-4a's markup-animation `text()` built source offsets with a per-character `matchAll` (3.3 % self time); replaced by an equivalent index loop → bell compile vs main (min, 3 runs, taskset -c 5, load ~4) +2.9 %, −0.6 %, +2.1 %; frames equal (31.4/32.1, 31.4/31.3, 31.9/32.9 µs); toolbar compile equal; AniML outputs byte-identical (build-animl --check, 633 files)
 - 2026-11-08 10:50 [orch]: P6 closure: 18 planned rows → P7 (reason prefixed "P6 carry-over"; decided, owner may revisit), P6 in FINISHED, IN_PROGRESS=[P7] replaces the P6-8 seam in the parity lint (test updated), docs/parity/P6-closure.md, PLAN P6 [x] + downstream block [x] + stale BF-4 line fixed, LOG P6 entry (evidence: node tools/parity.ts --check; test:scope tools 501 pass)
 - 2026-11-08 11:00 [orch]: opened PR #21 (P6 + downstream B1–B19) with six gates, benchmarks, perf A/B; lint/typecheck/format (tracked)/build-web checks pass locally; waiting for CI
+- 2026-11-08 11:30 [orch]: CI red on PR #21: packages/cli/test/p6-12.test.ts (P6-12 docs-example validation) rejected P6-13's fragment snippet in modules/fonts/SPEC.md (a lone <style>) → made it a complete document with a CSS family (asset paths don't resolve from the test's temp dir); test 12/12, cli+fonts scope pass
