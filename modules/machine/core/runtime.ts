@@ -11,6 +11,7 @@ import type {
 } from '../../../packages/core/src/load.ts';
 import {
   states,
+  anyEdges,
   transitions,
   compiledActions,
   type Run,
@@ -278,10 +279,11 @@ export class MachinePolicy implements PlaybackPolicy {
                 transitions.get(tr)!.exitRatio!,
         ));
     if (!eligible(t)) return false;
-    if (states.get(s)?.kind === 'random') {
+    if (states.get(s)?.kind === 'random' && !anyEdges.has(this.transition(t))) {
       if (d.chosen === undefined) {
         const choices = s.on.filter(
           (tr) =>
+            !anyEdges.has(this.transition(tr)) &&
             !tr.triggers.some((n) => d.consumed.has(n)) &&
             d.eligible(tr) &&
             eligible(tr) &&

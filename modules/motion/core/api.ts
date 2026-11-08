@@ -359,7 +359,8 @@ export class MotionRuntime implements PlaybackPolicy {
   resume = (run: object, time: number) => this.clocks.resume(run, time);
   reduce(t: TimelineM, speed: number, end: boolean, layer: string, events: AnimaEvent[]): number {
     const [a, b] = bounds(t),
-      reverse = speed * (timing.get(t)?.speed ?? 1) < 0;
+      // Match the caller's `|| 1`: an authored zero speed must not erase the instance direction.
+      reverse = speed * (timing.get(t)?.speed || 1) < 0;
     const start = reverse ? b : a,
       finish = reverse ? a : b;
     if (end) crossings(t, start, finish, true, layer, events, 'once');

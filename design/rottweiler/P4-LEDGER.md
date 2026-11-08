@@ -34,4 +34,9 @@ P4c interaction (#15), P4e data (#16). Lead: Opus; reviewers: GPT-6.1-sol xhigh,
 | R3-07 | major | Pointer focus inside a component picked the back-most overlapping child | fixed: `modules/focus/core/index.ts` ranks by placement, append sequence and inner rank; `modules/focus/test/core/p4-review.test.ts` |
 | R3-08 | major | Surface's paint split dropped contour's per-paint paths (clockwise winding + feather rendered nothing) | fixed: `modules/surface/core/svg.ts` (P5 file, minimal) keeps contour's matching path inside each leaf; `modules/contour/test/core/p4-review.test.ts` |
 
-Reviewer token usage: not reported (rounds 1–3).
+| R4-01 | major | A random state's weighted pick included any-state edges, defeating their priority | fixed: `modules/machine/core/{types,index,runtime}.ts` mark any-state edges and keep them out of the pick; machine test file |
+| R4-02 | major | Pointer focus ranks by authored order, ignoring composite `drawOrder` | deferred: input's hit order (its spec's "foremost first") is also authored order, so fixing focus alone would make pointer focus disagree with pointer listeners on the same click; composite exposes only flat-list ranks, not a global paint order. Needs a coordinated input + focus + composite change, beyond a smallest fix |
+| R4-03 | major | The host's `#aria()` on every state change removed focus's `role="group"` and set `aria-hidden="true"` | fixed: `modules/focus/web/index.ts` re-applies its host attributes on `anima:state`; `modules/focus/test/web/p4-review.test.ts` (Chromium + Firefox) |
+| R4-04 | minor | Reduced motion lost an instance's negative direction when the authored timeline speed is 0 | fixed: `modules/motion/core/api.ts` `reduce()` uses `speed || 1` like its caller; motion test file |
+
+Reviewer token usage: not reported (rounds 1–4).

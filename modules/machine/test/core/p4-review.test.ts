@@ -136,3 +136,37 @@ it('R1-04: machine action groups assign string and colour data destinations', ()
   expect(p.get('$title')).toBe('done');
   expect(p.get('$tint')).toEqual([255, 0, 0, 255]);
 });
+
+it('R4-01: any-state edges keep priority over a random state’s weighted pick', () => {
+  for (const machineSeed of [1, 2, 3, 4, 5]) {
+    const p = new Player(
+      model({
+        requires: ['machine'],
+        nodes: [dot()],
+        inputs: { go: { type: 'trigger' } },
+        machineSeed,
+        machine: {
+          layers: {
+            l: {
+              initial: 'a',
+              states: {
+                a: { kind: 'random', pose: {}, on: [{ when: 'go', to: 'local', weight: 100 }] },
+                anywhere: {
+                  kind: 'any',
+                  pose: {},
+                  on: [{ when: 'go', to: 'inherited', weight: 1 }],
+                },
+                local: { pose: { 'dot.x': 5 } },
+                inherited: { pose: { 'dot.x': 10 } },
+              },
+            },
+          },
+        },
+      }),
+    );
+    p.step(0);
+    p.fire('go');
+    p.step(0);
+    expect(p.states()).toEqual({ l: 'inherited' });
+  }
+});

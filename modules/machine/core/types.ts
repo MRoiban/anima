@@ -60,6 +60,8 @@ export interface StateInfo extends StateOptions {
 }
 export const states = new WeakMap<StateM, StateInfo>();
 export const transitions = new WeakMap<TransitionM, TransitionOptions>();
+/** Edges inherited from any states: searched first, outside a random state's weighted pick. */
+export const anyEdges = new WeakSet<TransitionM>();
 declare module '../../../packages/core/src/player.ts' {
   interface Player {
     /** Focus module supplies this live reader and wakes onChange after focus changes. */

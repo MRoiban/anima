@@ -11,6 +11,7 @@ import { entries } from './registry.ts';
 import { MachinePolicy, install } from './runtime.ts';
 import {
   states,
+  anyEdges,
   compiledActions,
   transitions,
   type Source,
@@ -333,6 +334,7 @@ export const machine: Module = {
         }
       }
       // Any transitions have priority, but cannot re-enter their own target indefinitely.
+      for (const s of any) for (const t of s.on) anyEdges.add(t);
       for (const state of layer.states)
         if (states.get(state)?.kind !== 'any' && states.get(state)?.kind !== 'exit')
           state.on = [
