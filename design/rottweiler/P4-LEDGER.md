@@ -49,6 +49,6 @@ Reviewer token usage: not reported by the tool in any round (1–5).
 
 ## Summary
 
-Five rounds run (limit reached; round 5 still found minor/major issues, all fixed). Fixed 31,
-pushed back 1 (R3-01), deferred 4 (R2-05, R3-03 → P5b, R4-02). Files outside P4 touched minimally:
+Five rounds run (limit reached; round 5 still found minor/major issues, all fixed). Fixed 30 of 34,
+pushed back 1 (R3-01), deferred 3 (R2-05, R3-03 → P5b, R4-02). Files outside P4 touched minimally:
 `modules/markup-animation/markup/index.ts` (R2-08), `modules/surface/core/svg.ts` (R3-08).
