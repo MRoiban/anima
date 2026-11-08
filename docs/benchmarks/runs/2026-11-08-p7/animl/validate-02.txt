@@ -1,0 +1,3 @@
+docs/benchmarks/runs/2026-11-08-p7/animl/reflow.animl:1:28 error bad-name "Reflow card" is not a valid name
+  hint: names match ^[a-z0-9]+(-[a-z0-9]+)*$
+docs/benchmarks/runs/2026-11-08-p7/animl/reflow.animl: 1 error

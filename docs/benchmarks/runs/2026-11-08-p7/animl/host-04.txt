@@ -1,0 +1,1 @@
+Host verification passed: contain 480x360, layout 480x360, layout 600x300 (10 assertions).

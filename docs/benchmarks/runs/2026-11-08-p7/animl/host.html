@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>Reflow card benchmark</title>
+  <style>
+    @font-face {
+      font-family: AnimaTest;
+      src: url('/fixtures/fonts/anima-test.ttf');
+    }
+    body {
+      background: #141413;
+      color: #f0eee6;
+      font: 16px system-ui;
+    }
+    anima-icon {
+      display: block;
+      width: 480px;
+      height: 360px;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+    }
+  </style>
+  <div class="controls">
+    <button id="resize">Toggle responsive host</button>
+  </div>
+  <anima-icon fit="contain"> </anima-icon>
+  <script type="module">
+    await document.fonts.load('16px AnimaTest');
+    const payload = document.createElement('script');
+    payload.type = 'application/vnd.anima+json';
+    payload.textContent = await (await fetch('./export/reflow.ani')).text();
+    document.querySelector('anima-icon').append(payload);
+    await import('./export/anima.js');
+    const icon = document.querySelector('anima-icon');
+    await customElements.whenDefined('anima-icon');
+    document.querySelector('#resize').onclick = () => {
+      const responsive = icon.fit !== 'layout';
+      icon.fit = responsive ? 'layout' : 'contain';
+      icon.style.width = responsive ? '600px' : '480px';
+      icon.style.height = responsive ? '300px' : '360px';
+    };
+    window.sceneReady = true;
+  </script>
+</html>
