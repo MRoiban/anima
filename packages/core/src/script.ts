@@ -78,6 +78,28 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
   let lastWriter = writer;
   let seed = opts.seed;
   let replaying = false;
+  // A running semantic command: its live mutations are replayed on breakpoint probes and journaled
+  // as one operation (steps counts the session steps it has completed).
+  let semantic: { cmd: string; args: string[]; steps: number } | undefined;
+  const stop = {};
+  const replaySemantic = (player: Player, cmd: string, args: string[], limit: number) => {
+    let n = 0;
+    try {
+      semanticCommand(
+        player,
+        cmd,
+        args,
+        [],
+        (dt) => {
+          if (n++ >= limit) throw stop;
+          player.step(dt);
+        },
+        () => ({}) as Snapshot,
+      );
+    } catch (e) {
+      if (e !== stop) throw e;
+    }
+  };
   const groups: string[] = [];
   let expectedError: string | undefined;
   const targetError = (message: string) => {
@@ -210,20 +232,25 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
         // the proposed step: historical writes have already been accepted by the live player.
         replaying = true;
         for (const { op, writer } of journal) trace.run(writer, () => op(probe, handles));
+        const s = semantic,
+          last = s ? writer : lastWriter;
+        if (s) trace.run(last, () => replaySemantic(probe, s.cmd, s.args, s.steps));
         replaying = false;
-        trace.run(lastWriter, () => probe.step(dt));
+        trace.run(last, () => probe.step(dt));
       } finally {
         replaying = false;
         trace.close();
       }
     }
     const r = opts.onEvents ? captureStep(() => p.step(dt)) : p.step(dt);
-    journal.push({
-      op: (player) => {
-        player.step(dt);
-      },
-      writer,
-    });
+    if (semantic) semantic.steps++;
+    else
+      journal.push({
+        op: (player) => {
+          player.step(dt);
+        },
+        writer,
+      });
     opts.onEvents?.(
       r.events.map((event) => {
         const e = event as CapturedEvent;
@@ -352,9 +379,24 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
                 '"; inspect semantics before targeting it',
             );
         }
-        const handled =
-          cmd !== 'snapshot' &&
-          semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot);
+        const s = (semantic = { cmd: cmd!, args, steps: 0 });
+        let handled = false;
+        try {
+          handled =
+            cmd !== 'snapshot' &&
+            semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot);
+        } catch (e) {
+          handled = e instanceof Breakpoint;
+          throw e;
+        } finally {
+          semantic = undefined;
+          if (handled) {
+            // A breakpoint keeps the accepted mutations, up to the step it stopped.
+            const limit = s.steps;
+            journal.push({ op: (player) => replaySemantic(player, s.cmd, s.args, limit), writer });
+            lastWriter = writer;
+          }
+        }
         if (!handled)
           switch (cmd) {
             case 'group':

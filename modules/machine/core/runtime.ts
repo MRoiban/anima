@@ -211,6 +211,8 @@ export class MachinePolicy implements PlaybackPolicy {
     const r = run as Run,
       d = this.runs.get(r)!;
     d.eligible = eligible;
+    // Restoring full motion resumes blend children frozen at state entry.
+    if (!this.p.reducedMotion) d.reduced = false;
     d.chosen = undefined;
     d.consumed.clear();
     d.changed.clear();

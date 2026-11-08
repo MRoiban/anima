@@ -35,7 +35,18 @@ function attach(icon: AnimaIcon) {
       items = p.focusItems(true),
       inner = items.some((n) => n.config.tabStops);
     ids = items.map((n) => n.id).join();
-    if (!items.length) return;
+    saved = p.onFocusChange;
+    refresh = p.onFocusRefresh;
+    // Repeat/list topology changes add or remove items: rebuild the proxies.
+    const changed = () =>
+      p
+        .focusItems(true)
+        .map((n) => n.id)
+        .join() !== ids && (build(), true);
+    if (!items.length) {
+      p.onFocusRefresh = () => changed() || refresh?.();
+      return;
+    }
     box = document.createElement('span');
     box.style.cssText = 'position:absolute;inset:0;pointer-events:none';
     const targets = new Map<string, HTMLElement>();
@@ -69,17 +80,8 @@ function attach(icon: AnimaIcon) {
     }
     if (inner) icon.removeAttribute('tabindex');
     else icon.tabIndex = 0;
-    saved = p.onFocusChange;
-    refresh = p.onFocusRefresh;
     p.onFocusRefresh = () => {
-      // Repeat/list topology changes add or remove items: rebuild the proxies.
-      if (
-        p
-          .focusItems(true)
-          .map((n) => n.id)
-          .join() !== ids
-      )
-        return build();
+      if (changed()) return;
       refresh?.();
       const eligible = new Set(p.focusItems().map((n) => n.id));
       for (const [id, el] of targets) {

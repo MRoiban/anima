@@ -22,14 +22,14 @@ export function installRandom(PlayerClass: typeof Player): void {
   const sources = new WeakMap<Player, RandomSource>();
   Object.defineProperty(PlayerClass.prototype, 'randomSource', {
     get(this: Player) {
-      // Nested players inherit the stepping root's source; an explicitly seeded player is a root.
-      if (RandomSource.current && this.seed === undefined) return RandomSource.current;
       let source = sources.get(this);
       if (!source) {
         sources.set(this, (source = new RandomSource()));
         if (this.seed !== undefined) source.reset(this.seed);
       }
-      return source;
+      // Nested players inherit the stepping root's source; an explicitly seeded player (constructor
+      // or script `seed`) is a root.
+      return source.seed === undefined && RandomSource.current ? RandomSource.current : source;
     },
   });
   const step = PlayerClass.prototype.step;

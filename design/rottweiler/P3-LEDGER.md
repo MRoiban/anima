@@ -13,6 +13,11 @@ Reviewers: GPT-6.1-sol, reasoning effort xhigh, one per round.
 | R1-05 | major | a11y-actions: focus items excluded semantic-hidden nodes only when the item had its own `a11y`, so a focus-only child of a hidden group stayed focusable (modules/a11y/SPEC.md: eligible items exclude semantic hidden nodes; hidden subtrees are excluded) | fixed: `modules/a11y-actions/core/index.ts` also excludes items with an invisible/hidden semantic entry on their ancestor chain; `modules/a11y-actions/test/core/rottweiler-p3.test.ts` |
 | R1-06 | major | playground: scrubbing a timeline with data-bound keyframes threw (`sampleTrack` without a player) | fixed: `sampleTimeline(..., player)` passes the live player; `packages/playground/test/rottweiler-p3.test.ts` |
 | R1-07 | minor | devtools: `anima:load` mark used module-registration time for icons connected after devtools loaded, because patching `prototype.connectedCallback` after `customElements.define` never runs | pushed back: reproduced, but custom-element lifecycle callbacks are captured at define time, so devtools cannot observe connection on its own; the fix needs a new base-host hook in `connectedCallback`, and the shared `eventHook` forwards unknown kinds to the events module as document events (behaviour change), while a base-bundle change shifts the full `markup-libraries` measurement (2,174/2,176 B, cf. P5 R4-01). Not a smallest fix for a minor timing mark |
+| R2-01 | major | focus web (after R1-01): a host whose focus document starts with no items (repeat count 0) returned before installing `onFocusRefresh`, so growing the repeat never created proxies and `focusNext()` moved no DOM focus | fixed: the empty build installs a topology-only `onFocusRefresh`; `modules/focus/test/web/rottweiler-p3.test.ts` |
+| R2-02 | major | core random (after R1-04): a root seeded by the script `seed` command (constructor `seed` unset) still borrowed another seeded root's source when stepped re-entrantly | fixed: `packages/core/src/random.ts` inherits only when the player's own source has no seed; `packages/core/test/rottweiler-p3.test.ts` |
+| R2-03 | major | script: semantic commands (`semantic <id> tap`, semantic key routing, text commands) mutated the live player without journaling, so breakpoint probes never saw their pending writes (`data break` was bypassed and the write committed) | fixed: `packages/core/src/script.ts` journals a semantic command as one replayed operation (partial up to the stopped step on a breakpoint) and replays the running command on the probe before its trapped step; `packages/core/test/rottweiler-p3.test.ts` |
+| R2-04 | major | machine: entering a blend under reduced motion captured `reduced` in the run data; turning reduced motion off resumed the core clock but blend children stayed frozen | fixed: `modules/machine/core/runtime.ts` clears the run's reduced flag in `prepare` once reduced motion is off; `modules/machine/test/core/rottweiler-p3.test.ts` and conformance `spec/conformance/machine-blend-reduced-restore` (corpus count 611 → 612) |
+| R2-05 | major | CLI `render --frames N` (PNG/WebM sequences) returned before the `--audio` export, exiting 0 without writing the WAV | fixed: `packages/cli/src/cli.ts` mixes audio after the sequence; `packages/cli/test/rottweiler-p3.test.ts` |
 
 ## Rounds
 
@@ -25,3 +30,13 @@ devtools and markup-hooks fully; host API, diagnostic guards (loading/error iden
 across 1,148 documents with `VERBOSE` false, no defect found; step-output equivalence incomplete)
 and remaining runtime/tooling (script replay/writes, motion timing, input paths, size/perf tools)
 partly.
+
+### Round 2 (focused)
+
+Reviewer: GPT-6.1-sol xhigh: the round-1 fix diff plus guards, host lifecycle, script/motion/input/
+data-host and CLI. Token usage: not reported. Five findings, all reproduced by the lead; two (R2-01,
+R2-02) were gaps in round-1 fixes. The reviewer compared all 611 completed conformance cases (every
+step result, values, states and script snapshots) with `VERBOSE` true vs false: zero differences,
+so the P3c diagnostic guards preserve step output. Pushbacks carried forward: R1-07; the R1-04
+residual (an unseeded unrelated root stepped re-entrantly inside a seeded root's step still
+inherits that source: nested players have no parent link to tell them apart).

@@ -1088,6 +1088,10 @@ async function render(
       writeFileSync(out, await encodeVideo(images, fps));
       wrote.push(out);
     }
+    if (o.audio) {
+      writeFileSync(String(o.audio), await mixAudio(model, audioEvents, player.time, f));
+      wrote.push(String(o.audio));
+    }
     io.out(json ? JSON.stringify({ wrote, frames: n, fps }) : 'wrote ' + wrote.join(', '));
     return 0;
   }

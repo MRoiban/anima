@@ -103,6 +103,54 @@ for (const [name, engine, cache] of [
         await browser.close();
       }
     }, 30_000);
+    it('creates DOM focus targets when a repeat grows from zero rows', async () => {
+      const { browser, page, errors } = await open(['focus', 'data', 'components', 'lists']);
+      try {
+        const result = await page.evaluate(() => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          icon.load({
+            anima: '0.1',
+            name: 'empty',
+            grid: 20,
+            requires: ['focus', 'components', 'data', 'lists'],
+            data: {
+              models: { M: { properties: { n: { type: 'number', default: 0 } } } },
+              instances: { main: { model: 'M', default: true } },
+            },
+            components: {
+              row: {
+                grid: 20,
+                nodes: [
+                  {
+                    id: 'target',
+                    type: 'circle',
+                    r: 1,
+                    center: [2, 2],
+                    fill: { color: '#000' },
+                    focus: { tabStops: true },
+                  },
+                ],
+              },
+            },
+            nodes: [{ id: 'rows', type: 'repeat', component: 'row', count: '$n', dx: 5 }],
+          });
+          icon.player!.step(0);
+          const dom = () => icon.shadowRoot!.querySelectorAll('[data-focus]').length;
+          const before = dom();
+          icon.set('$n', 1);
+          icon.play();
+          icon.pause();
+          const after = dom();
+          icon.focusNext();
+          const active = (icon.shadowRoot!.activeElement as HTMLElement | null)?.dataset.focus;
+          return { before, after, active };
+        });
+        expect(result).toEqual({ before: 0, after: 1, active: 'rows.0.target' });
+        expect(errors).toEqual([]);
+      } finally {
+        await browser.close();
+      }
+    }, 30_000);
     it('installs the bridge through loadModel() on a fresh host', async () => {
       const { browser, page, errors } = await open(['focus']);
       try {
