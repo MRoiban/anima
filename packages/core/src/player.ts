@@ -8,6 +8,7 @@ import {
   apply,
   distance,
   inside,
+  trimPolys,
   invert,
   localMatrix,
   mul,
@@ -30,6 +31,9 @@ import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
+
+/** Curves are flattened within this many local units: hits are exact farther from an edge (spec §9). */
+const HIT_TOLERANCE = 0.05;
 import { drawWorld, type DrawFrame, type Geometry } from './draw.ts';
 import { text } from './diag.ts';
 import { VERBOSE } from './flags.ts';
@@ -137,6 +141,38 @@ export const mixValues = (a: Value, b: Value, w: number): Value =>
         ? a || (b as boolean)
         : lerpColor(a, b as RGBA, w);
 
+/**
+ * Elliptical arc samples from a0 to a1 degrees: 6° chords, or finer so the chord sag stays within
+ * `tol` (capped at 10⁴ chords).
+ */
+function arc(
+  pts: number[],
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  a0: number,
+  a1: number,
+  tol: number,
+): number[] {
+  const rad = Math.max(rx, ry);
+  const k = Math.min(
+    1e4,
+    Math.max(
+      2,
+      Math.ceil(Math.abs(a1 - a0) / 6),
+      rad > tol
+        ? Math.ceil((Math.abs(a1 - a0) * Math.PI) / 180 / (2 * Math.acos(1 - tol / rad)))
+        : 0,
+    ),
+  );
+  for (let j = 0; j <= k; j++) {
+    const t = ((a0 + ((a1 - a0) * j) / k) * Math.PI) / 180;
+    pts.push(cx + rx * Math.cos(t), cy + ry * Math.sin(t));
+  }
+  return pts;
+}
+
 export class Player {
   /** Installed by random-capable modules; the base runtime does not allocate a source. */
   declare readonly randomSource: RandomSource;
@@ -175,7 +211,7 @@ export class Player {
   #press: boolean[] | null = null;
   #pressAt: [number, number] = [0, 0];
   #pressMoved = 0;
-  #flat = new Map<number, { pts: number[]; closed: boolean }[]>();
+  #flat = new Map<number, [number, { pts: number[]; closed: boolean }[]]>();
 
   constructor(model: Model, opts: { reducedMotion?: boolean; seed?: number } = {}) {
     this.seed = opts.seed;
@@ -217,6 +253,11 @@ export class Player {
     this.#over = model.listeners.map(() => false);
     this.#vals = this.#rest.slice();
     for (const L of this.#layers) this.#write(L, this.#vals);
+    // Resolved as by steps 3–4 (spec §7): clamp to each property's range.
+    this.#vals.forEach((v, i) => {
+      const p = this.model.addrs.get(this.addrs[i]!)!.prop;
+      if (typeof v === 'number') this.#vals[i] = clamp(v, p.min ?? -Infinity, p.max ?? Infinity);
+    });
     this.nested = model.nesting?.(this);
   }
 
@@ -441,9 +482,11 @@ export class Player {
       const m = drawWorld(this, i, frame);
       const inv = invert(m);
       if (!inv) return false;
-      const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
-      const polys = this.#outline(i, frame?.nodes[i]?.geometry);
+      // The tolerance is in world units (spec §9): divide by the transform's largest stretch,
+      // the largest singular value of the 2×2 part: (|(a+d, b−c)| + |(a−d, b+c)|) / 2.
+      const big = (Math.hypot(m[0] + m[3], m[1] - m[2]) + Math.hypot(m[0] - m[3], m[1] + m[2])) / 2;
+      const polys = this.#outline(i, frame?.nodes[i]?.geometry, HIT_TOLERANCE / big);
       const r = n.raw;
       // Ordered paints (composite) stand in for the single fill/stroke.
       const paints: (typeof r)[] = r.paints ?? [r],
@@ -464,13 +507,14 @@ export class Player {
         fill = module.fillContains?.(this, i, polys, lx, ly);
         if (fill !== undefined) break;
       }
+      // Fills close open subpaths implicitly, as SVG does.
       if (
         fill ??
         paints.some(
           (e, j) =>
             shown(j, 'fill') &&
             inside(
-              polys.filter((p) => p.closed).map((p) => p.pts),
+              polys.map((p) => p.pts),
               lx,
               ly,
               e.fill.rule === 'evenodd',
@@ -478,14 +522,48 @@ export class Player {
         )
       )
         return true;
-      return (half > 0 || pad > 0) && distance(polys, lx, ly) <= half + pad;
+      const anyFill = paints.some((_, j) => shown(j, 'fill')),
+        anyStroke = paints.some((_, j) => shown(j, 'stroke'));
+      // Only the trimmed, painted part of a stroke hits (spec §4 trims; single stroke only).
+      const t = !r.paints && anyStroke && this.#trim(i);
+      const stroke = t ? trimPolys(polys, t[0], t[1]) : polys;
+      if (anyStroke && distance(stroke, lx, ly) <= half) return true;
+      // Padding is in world units, so measure it on the world outline: around the fill area (open
+      // subpaths closed) and the stroke, the stroke's half width counted at its narrowest stretch.
+      const world = (ps: typeof polys, closed?: boolean) =>
+        distance(
+          ps.map((p) => {
+            const q: number[] = [];
+            for (let j = 0; j < p.pts.length; j += 2) q.push(...apply(m, p.pts[j]!, p.pts[j + 1]!));
+            return { pts: q, closed: closed || p.closed };
+          }),
+          x,
+          y,
+        );
+      return (
+        l.pad > 0 &&
+        ((anyFill && world(polys, true) <= l.pad) ||
+          // An unpainted node has no painted area to grow (spec §9).
+          (anyStroke &&
+            world(stroke) <= l.pad + (half * Math.abs(m[0] * m[3] - m[1] * m[2])) / big))
+      );
     };
     // the target and its ancestors must be visible
     return this.visible(l.target) && test(l.target);
   }
 
-  /** A painted node's outline as polylines in its own coordinates, from current values. */
-  #outline(i: number, g?: Geometry): { pts: number[]; closed: boolean }[] {
+  /** A trimmed stroke's visible [start, length] as svg.ts draws it, or undefined when untrimmed. */
+  #trim(i: number): [number, number] | undefined {
+    const n = (k: string, d: number) => this.num(i, 'stroke.' + k, d);
+    const len = Math.min(1, n('trimEnd', 1) - n('trimStart', 0));
+    return len < 1 ? [n('trimStart', 0) + n('trimOffset', 0), len] : undefined;
+  }
+
+  /**
+   * A painted node's outline as polylines in its own coordinates, from current values; curves are
+   * flattened within `tol` local units.
+   */
+  #outline(i: number, g: Geometry | undefined, tol: number): { pts: number[]; closed: boolean }[] {
     const n = this.model.nodes[i]!,
       r = n.raw;
     if ((g?.width !== undefined || n.type === 'rect') && !(g ? g.d : r.corners)) {
@@ -495,6 +573,17 @@ export class Player {
         g?.width ?? this.num(i, 'w', 0),
         g?.height ?? this.num(i, 'h', 0),
       ];
+      // Rounded corners as drawn: SVG clamps rx to half the width and ry (= rx) to half the height.
+      const rr = g ? (g.rx ?? 0) : this.num(i, 'rx', 0);
+      const [ax, ay] = [Math.min(rr, w / 2), Math.min(rr, h / 2)];
+      if (ax > 0 && ay > 0) {
+        // The outline starts at (x + rx, y), clockwise (spec §4), as trims measure it.
+        const pts: number[] = [x + ax, y];
+        arc(pts, x + w - ax, y + ay, ax, ay, -90, 0, tol);
+        arc(pts, x + w - ax, y + h - ay, ax, ay, 0, 90, tol);
+        arc(pts, x + ax, y + h - ay, ax, ay, 90, 180, tol);
+        return [{ pts: arc(pts, x + ax, y + ay, ax, ay, 180, 270, tol), closed: true }];
+      }
       return [{ pts: [x, y, x + w, y, x + w, y + h, x, y + h], closed: true }];
     }
     for (const m of modules.values()) {
@@ -503,20 +592,16 @@ export class Player {
     }
     if (n.type === 'path') {
       let f = this.#flat.get(i);
-      if (!f) this.#flat.set(i, (f = flatten(n.geom!)));
-      return f;
+      if (f?.[0] !== tol) this.#flat.set(i, (f = [tol, flatten(n.geom!, 12, tol)]));
+      return f[1];
     }
     const [cx, cy] = r.center;
     const rad = this.num(i, 'r', 0);
-    const [a0, a1] =
-      n.type === 'circle' ? [0, 360] : [this.num(i, 'from', 0), this.num(i, 'to', 0)];
-    const pts: number[] = [];
-    const k = Math.max(2, Math.ceil(Math.abs(a1 - a0) / 6));
-    for (let j = 0; j <= k; j++) {
-      const t = ((a0 + ((a1 - a0) * j) / k) * Math.PI) / 180;
-      pts.push(cx + rad * Math.cos(t), cy + rad * Math.sin(t));
-    }
-    return [{ pts, closed: n.type === 'circle' }];
+    // Arcs sweep as drawn: `to − from` clamped to [0, 360] (draw.ts).
+    const a0 = n.type === 'circle' ? 0 : this.num(i, 'from', 0);
+    const a1 =
+      n.type === 'circle' ? 360 : a0 + Math.min(360, Math.max(0, this.num(i, 'to', 0) - a0));
+    return [{ pts: arc([], cx, cy, rad, rad, a0, a1, tol), closed: n.type === 'circle' }];
   }
 
   // ------------------------------------------------------------------ step (spec §7)
@@ -553,7 +638,7 @@ export class Player {
   }
 
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
-    if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
+    if (!(dt >= 0 && dt < Infinity)) throw new Error(text('anima: step needs finite dt ≥ 0'));
     if (VERBOSE) beginStep(dt);
     const events = this.#entryEvents;
     this.#entryEvents = [];
@@ -587,7 +672,9 @@ export class Player {
             for (const [t, name] of tl.events) rest.push({ name, layer: L.m.name, time: t });
           if (L.frozen !== current)
             events.push(
-              ...rest.filter((e) => (L.frozen >= current ? e.time > current : e.time < current)),
+              ...rest.filter((e) =>
+                L.frozen >= current ? !reached(current, e.time) : !reached(e.time, current),
+              ),
             );
         } else if (!this.reducedMotion && L.frozen >= 0 && tl.loop !== 'once') {
           if (this.playbackPolicy) this.playbackPolicy.resume(L, L.frozen);
@@ -864,7 +951,8 @@ export class Player {
       const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);
       const k1 = once ? 0 : Math.min(k0 + 10000, Math.floor(b / period) + 1);
       const seen = new Set<number>();
-      for (let k = k0; k <= k1; k++)
+      // Count repeats, so a period index beyond 2^53 (k + 1 === k) still terminates.
+      for (let j = 0, k = k0; j <= k1 - k0; k = k0 + ++j)
         for (const t of loop || once || te === 0 || te === d
           ? [te + k * period]
           : [te + 2 * k * d, 2 * (k + 1) * d - te])

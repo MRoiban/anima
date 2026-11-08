@@ -68,6 +68,9 @@ export interface XmlDocument {
 const NAME = /[A-Za-z_][A-Za-z0-9._-]*/y;
 const ENTITY = /&(?:(amp|lt|gt|quot|apos)|#([0-9]{1,7})|#x([0-9a-fA-F]{1,6}));/y;
 const NAMED: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+/** Characters XML 1.0 forbids, literally or as a reference (lone surrogates included). */
+export const NOT_CHAR =
+  /[\0-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
 
 /**
  * Decode entities. In attribute values a `&` that does not start an entity stands for itself
@@ -84,11 +87,16 @@ function decode(s: string, lenient: boolean, bad: (i: number, message?: string) 
     ENTITY.lastIndex = i;
     const m = ENTITY.exec(s);
     const cp = m && !m[1] ? (m[2] ? parseInt(m[2], 10) : parseInt(m[3]!, 16)) : 0;
-    if (m && cp <= 0x10ffff) {
+    if (m && (m[1] || !(cp > 0x10ffff || NOT_CHAR.test(String.fromCodePoint(cp))))) {
       out += m[1] ? NAMED[m[1]]! : String.fromCodePoint(cp);
       i = ENTITY.lastIndex;
     } else if (m) {
-      bad(i, VERBOSE ? 'numeric character reference is outside the Unicode range' : '');
+      bad(
+        i,
+        VERBOSE
+          ? 'numeric character reference is outside the Unicode range or not an XML character'
+          : '',
+      );
       out += m[0];
       i = ENTITY.lastIndex;
     } else {
@@ -103,7 +111,8 @@ function decode(s: string, lenient: boolean, bad: (i: number, message?: string) 
 /** Parse AniML's XML subset. Never throws; problems come back as errors with positions. */
 export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] } {
   const lineStarts = [0];
-  for (let i = 0; i < text.length; i++) if (text[i] === '\n') lineStarts.push(i + 1);
+  // A line ends at LF, CRLF or a lone CR (XML 1.0 end-of-line handling).
+  for (const m of text.matchAll(/\r\n?|\n/g)) lineStarts.push(m.index + m[0].length);
   const pos = (offset: number): Pos => {
     let lo = 0;
     let hi = lineStarts.length - 1;
@@ -235,6 +244,8 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
     }
   };
   try {
+    const bad = NOT_CHAR.exec(text);
+    if (bad) fail(VERBOSE ? 'this character is not allowed in XML' : '', bad.index);
     if (text.charCodeAt(0) === 0xfeff) i = 1;
     if (text.startsWith('<?xml', i)) {
       const end = text.indexOf('?>', i);
@@ -268,6 +279,9 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
   if (errors.length) doc.root = null;
   return { doc, errors };
 }
+
+/** Characters XML forbids become U+FFFD, so written markup always parses again (ANIML §8). */
+export const xmlChars = (s: string): string => s.replace(new RegExp(NOT_CHAR, 'g'), '\ufffd');
 
 /** Escape text for an attribute value written with double quotes. */
 export const escapeAttr = (s: string): string =>

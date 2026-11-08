@@ -1,6 +1,6 @@
 import { elementFields, compoundField } from './fields.ts';
 import { motionCompiler, eventsCompiler, dataCompiler, convertCompiler } from './module-hooks.ts';
-import { parseXml, type Element } from './xml.ts';
+import { parseXml, xmlChars, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, type LayoutChild, render } from './layout.ts';
@@ -157,10 +157,10 @@ export function decompile(doc: string | object): string {
       ]);
   const groups: LayoutElement[][] = [];
   if (d.meta !== undefined) {
-    const meta = element('meta', obj(d.meta), []);
-    const data = { ...obj(d.meta) };
-    delete data.$comment;
-    meta.children.push({ text: JSON.stringify(data) });
+    // The metadata's own `$comment` stays in its JSON text: an XML comment would trim it and could
+    // not hold every character a JSON string can.
+    const meta = element('meta', {}, []);
+    meta.children.push({ text: JSON.stringify(obj(d.meta)) });
     groups.push([meta]);
   }
   groups.push(
@@ -322,5 +322,7 @@ export function decompile(doc: string | object): string {
     group[0]!.blank = root.children.length > 0;
     root.children.push(...group);
   }
-  return render(root) + '\n';
+  // JSON strings can hold characters XML forbids, in comments or values: those become U+FFFD
+  // (ANIML §8), so the markup always builds again. Escaping never introduces them.
+  return xmlChars(render(root)) + '\n';
 }

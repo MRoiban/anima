@@ -347,7 +347,23 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
     const start = { snapshots: out.length, output: output.length, diagnostics: diagnostics.length };
     for (const raw of text.split('\n')) {
       line++;
-      const words = tokenize(raw, line);
+      let words: string[];
+      try {
+        words = tokenize(raw, line);
+      } catch (e) {
+        // A pending `expect-error` also covers a line that does not tokenize.
+        if (!expectedError) throw e;
+        const code = (e as ScriptError).code ?? 'script-usage';
+        if (code !== expectedError)
+          diagnostics.push({
+            code: 'script-expect-error',
+            pointer: `/script/${line - 1}`,
+            message: 'expected ' + expectedError + ', received ' + code,
+            hint: 'check the expected diagnostic code',
+          });
+        expectedError = undefined;
+        continue;
+      }
       if (!words.length) continue;
       const [cmd, ...args] = words;
       const num = (s: string | undefined, what: string) => {

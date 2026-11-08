@@ -93,7 +93,7 @@ export class AnimaIcon extends HTMLElement {
     schedule(this, false);
     this.#last = -1;
     this.#states = '';
-    this.#held = false;
+    this.#held = 0;
     AnimaIcon.eventHook?.(this, 'cleanup', null);
     this.player = undefined;
     const generation = this.#generation;
@@ -112,6 +112,8 @@ export class AnimaIcon extends HTMLElement {
       if (!this.hasAttribute('paused')) {
         AnimaIcon.eventHook?.(this, 'play', null);
         this.#step(0);
+        // An entry-event listener loaded another document or destroyed the icon.
+        if (generation !== this.#generation) return;
       }
       this.#resolve();
       this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
@@ -206,7 +208,10 @@ export class AnimaIcon extends HTMLElement {
   #last = -1;
   #onScreen = true;
   #states = '';
-  #held = false;
+  /** Host-added tabindex (1) and cursor (2). */
+  #owned = 0;
+  /** Held Enter (1) and Space (2) keys. */
+  #held = 0;
   #listeners?: AbortController;
   #observing = false;
   #destroyed = false;
@@ -236,7 +241,7 @@ export class AnimaIcon extends HTMLElement {
       ['pointercancel', (e: PointerEvent) => this.#ptr('leave', e)],
       ['keydown', (e: KeyboardEvent) => this.#key(e, true)],
       ['keyup', (e: KeyboardEvent) => this.#key(e, false)],
-      ['blur', () => this.#hold(false)],
+      ['blur', () => this.#hold(0)],
     ] as const)
       this.addEventListener(type, fn as EventListener, { signal: this.#listeners.signal });
   }
@@ -318,7 +323,7 @@ export class AnimaIcon extends HTMLElement {
       if (value !== null) schedule(this, false);
       else if (this.player) {
         this.#step(0);
-        if (this.player.busy) this.#wake();
+        if (this.player?.busy) this.#wake();
       }
     } else if (name === 'renderer' && this.player) this.#build(this.player.model);
     else if (name === 'fit' || name === 'align' || name === 'alignment') this.#layout();
@@ -500,7 +505,7 @@ export class AnimaIcon extends HTMLElement {
     this.#svg = undefined;
     this.#els = [];
     this.#root.replaceChildren();
-    this.#held = false;
+    this.#held = 0;
     this.#aria();
   }
 
@@ -695,13 +700,28 @@ export class AnimaIcon extends HTMLElement {
     set('role', button ? a.role : label ? 'img' : null);
     set('aria-label', label ?? null);
     set('aria-hidden', label || button ? null : 'true');
-    if (button && !this.hasAttribute('tabindex')) this.tabIndex = 0;
-    if (button) this.style.cursor ||= 'pointer';
-    if (a?.pressed)
-      set(
-        a.role === 'switch' ? 'aria-checked' : 'aria-pressed',
-        String(!!this.player!.get(a.pressed)),
-      );
+    // Button affordances the host added go away with button semantics; author values stay.
+    if (button) {
+      if (!this.hasAttribute('tabindex')) {
+        this.tabIndex = 0;
+        this.#owned |= 1;
+      }
+      if (!this.style.cursor) {
+        this.style.cursor = 'pointer';
+        this.#owned |= 2;
+      }
+    } else {
+      if (this.#owned & 1 && this.getAttribute('tabindex') === '0')
+        this.removeAttribute('tabindex');
+      if (this.#owned & 2 && this.style.cursor === 'pointer') this.style.cursor = '';
+      this.#owned = 0;
+    }
+    const sw = a?.role === 'switch';
+    set(sw ? 'aria-pressed' : 'aria-checked', null);
+    set(
+      sw ? 'aria-checked' : 'aria-pressed',
+      a?.pressed ? String(!!this.player!.get(a.pressed)) : null,
+    );
   }
 
   // ------------------------------------------------------------ time
@@ -717,6 +737,8 @@ export class AnimaIcon extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent('anima:event', { detail: e, bubbles: true, composed: true }),
       );
+      // A listener replaced or destroyed the player: its later events and states are stale.
+      if (this.player !== p) return;
     }
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {
@@ -727,7 +749,8 @@ export class AnimaIcon extends HTMLElement {
         new CustomEvent('anima:state', { detail: p.states(), bubbles: true, composed: true }),
       );
     }
-    if (settled) schedule(this, false);
+    // Event and state listeners may have queued input (still busy) or replaced the player.
+    if (this.player === p && !p.busy) schedule(this, false);
   }
 
   /** Called by the shared loop. */
@@ -811,15 +834,15 @@ export class AnimaIcon extends HTMLElement {
       if (this.player!.model.inputs.get(a.activate)!.type === 'bool') this.toggle(a.activate);
       else this.fire(a.activate);
     }
-    this.#hold(down);
+    const bit = e.key === 'Enter' ? 1 : 2;
+    this.#hold(down ? this.#held | bit : this.#held & ~bit);
   }
 
-  #hold(on: boolean): void {
+  #hold(keys: number): void {
     const a = this.player?.model.doc.a11y;
-    if (a?.held && this.#held !== on) {
-      this.#held = on;
-      this.set(a.held, on);
-    }
+    const was = this.#held;
+    this.#held = keys;
+    if (a?.held && !was !== !keys) this.set(a.held, !!keys);
   }
 }
 

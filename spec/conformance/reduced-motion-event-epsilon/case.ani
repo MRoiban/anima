@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "case",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.5, "mid"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

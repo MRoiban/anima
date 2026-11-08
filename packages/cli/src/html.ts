@@ -83,7 +83,15 @@ export function buildHTML(
       const offset = a.index + prefix + (a[2] !== undefined || a[3] !== undefined ? 1 : 0);
       type = { value, start: start + offset, end: start + offset + value.length };
     }
-    if (type?.value.toLowerCase() !== 'application/vnd.anima+xml') continue;
+    // Browsers decode character references in attribute values (the named ones that can spell this
+    // type are &plus; &sol; &period; &amp;, which need their semicolon here).
+    const named: Record<string, string> = { plus: '+', sol: '/', period: '.', amp: '&' };
+    const decoded = type?.value.replace(
+      /&(?:#(\d+);?|#[xX]([\da-fA-F]+);?|(plus|sol|period|amp);)/g,
+      (_, d, x, n) =>
+        n ? named[n] : String.fromCodePoint(Math.min(0x10ffff, parseInt(d ?? x, d ? 10 : 16))),
+    );
+    if (!type || decoded?.toLowerCase() !== 'application/vnd.anima+xml') continue;
     if (!icons) {
       const [line, column] = lineCol(source, start);
       diagnostics.push({

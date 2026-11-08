@@ -1,0 +1,22 @@
+# inside the open triangle
+pointer down 2 2
+pointer up 2 2
+snapshot
+# outside the rounded corner (5.09 from its centre, radius 4), then the rect's centre
+pointer down 10.4 0.4
+pointer up 10.4 0.4
+snapshot
+pointer down 14 4
+pointer up 14 4
+snapshot
+# angle 0 is in the visible quarter of the ring; angle 180 is trimmed away
+pointer down 8 14
+pointer up 8 14
+snapshot
+pointer down 0 14
+pointer up 0 14
+snapshot
+# 0.1 inside the big circle at 3 degrees, midway between two 6-degree chord vertices
+pointer down 249.763090522 155.228362029
+pointer up 249.763090522 155.228362029
+snapshot

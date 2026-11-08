@@ -194,7 +194,8 @@ function coreAttrs(f: DrawFrame, el: El, paint: Paint, id: string): Attrs {
     return Object.assign(a, {
       fill: fill ? '#000' : 'none',
       'fill-rule': fill?.rule === 'evenodd' ? 'evenodd' : null,
-      stroke: width > 0 ? '#000' : 'none',
+      // A node with neither paint draws nothing, so it cuts nothing (spec §4).
+      stroke: width > 0 && (fill || stroke) ? '#000' : 'none',
       'stroke-width': fmt(width),
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',

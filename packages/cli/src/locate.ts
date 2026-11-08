@@ -23,44 +23,50 @@ export function locate(text: string): Located {
     i++;
     return JSON.parse(text.slice(start, i)) as string;
   };
-  const value = (p: string): void => {
+  // Iterative, so deeply nested values (which load accepts in free-form metadata) cannot overflow
+  // the stack and silently skip the duplicate-key check.
+  const open: { p: string; seen?: Set<string>; n: number }[] = [];
+  const next = (f: (typeof open)[number]): string => {
+    if (!f.seen) return `${f.p}/${f.n++}`;
+    ws();
+    const keyAt = i;
+    const k = str();
+    const kp = `${f.p}/${esc(k)}`;
+    if (f.seen.has(k)) duplicates.push({ pointer: kp, offset: keyAt });
+    f.seen.add(k);
+    ws();
+    i++; // :
+    return kp;
+  };
+  let p = '';
+  for (;;) {
     ws();
     at.set(p, i);
     const c = text[i];
-    if (c === '{') {
-      i++;
-      const seen = new Set<string>();
-      ws();
-      if (text[i] === '}') return void i++;
-      for (;;) {
-        ws();
-        const keyAt = i;
-        const k = str();
-        const kp = `${p}/${esc(k)}`;
-        if (seen.has(k)) duplicates.push({ pointer: kp, offset: keyAt });
-        seen.add(k);
-        ws();
-        i++; // :
-        value(kp);
-        ws();
-        if (text[i++] === '}') return;
-      }
-    }
-    if (c === '[') {
+    if (c === '{' || c === '[') {
       i++;
       ws();
-      if (text[i] === ']') return void i++;
-      for (let n = 0; ; n++) {
-        value(`${p}/${n}`);
-        ws();
-        if (text[i++] === ']') return;
+      if (text[i] === (c === '{' ? '}' : ']')) i++;
+      else {
+        const f = { p, seen: c === '{' ? new Set<string>() : undefined, n: 0 };
+        open.push(f);
+        p = next(f);
+        continue;
+      }
+    } else if (c === '"') str();
+    else while (i < text.length && !/[\s,\]}]/.test(text[i]!)) i++;
+    // The value ended: close finished containers, then continue with the next member.
+    for (;;) {
+      const f = open.at(-1);
+      if (!f) return { at, duplicates };
+      ws();
+      if (text[i++] !== ',') open.pop();
+      else {
+        p = next(f);
+        break;
       }
     }
-    if (c === '"') return void str();
-    while (i < text.length && !/[\s,\]}]/.test(text[i]!)) i++;
-  };
-  value('');
-  return { at, duplicates };
+  }
 }
 
 /** 1-based line and column of an offset. */

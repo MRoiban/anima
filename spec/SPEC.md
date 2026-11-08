@@ -267,7 +267,7 @@ blends back to what is below it — for a single layer, its rest value. `lerp` i
 per channel with rounding for colours (§5), and for booleans `a || b` while the crossfade runs and
 `b` once it ends. Later layers win where two layers write the same property.
 
-`step(dt)` with `dt ≥ 0` seconds does, in order:
+`step(dt)` with finite `dt ≥ 0` seconds does, in order:
 
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a

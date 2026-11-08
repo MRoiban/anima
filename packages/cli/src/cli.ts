@@ -809,10 +809,9 @@ function inspect(f: string, json: boolean, io: IO, summaryOnly = false): number 
     grid: m.grid,
     viewBox: m.viewBox,
     glyphs: Object.fromEntries(
-      Object.entries(doc.glyphs ?? {}).map(([name, g]) => [
-        name,
-        { subpaths: inspectGlyph((g as { d: string }).d) },
-      ]),
+      Object.entries(doc.glyphs ?? {})
+        .filter(([name]) => name !== '$comment')
+        .map(([name, g]) => [name, { subpaths: inspectGlyph((g as { d: string }).d) }]),
     ),
     nodes: m.nodes.flatMap((n, i) => (n.parent < 0 ? [node(i)] : [])),
     inputs: Object.fromEntries(slots),
@@ -1013,7 +1012,11 @@ async function render(
     ...scriptOptions(o),
     onEvents: (events) => audioEvents.push(...events),
   });
-  session.execute(script);
+  // Failed script assertions or an unfinished script fail the render, as in `sample`.
+  const ran = session.execute(script);
+  session.finish();
+  for (const d of ran.diagnostics) io.err(JSON.stringify(d));
+  if (ran.diagnostics.length) return 1;
   session.execute('advance 0'); // apply queued inputs before the first rendered frame
   if (o.at) session.execute('advance ' + Number(o.at));
   const player = session.player;
