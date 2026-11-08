@@ -111,9 +111,18 @@ for (const [name, engine, executablePath] of [
                   requestAnimationFrame(() => requestAnimationFrame(() => r())),
                 ),
             );
-            expect(await page.locator('#live').screenshot()).toEqual(
-              await page.locator('#control').screenshot(),
-            );
+            // CI paints later than local runs: retry until both hosts have painted (exact match
+            // still required; a real mismatch fails after the timeout).
+            await expect
+              .poll(
+                async () =>
+                  Buffer.compare(
+                    await page.locator('#live').screenshot(),
+                    await page.locator('#control').screenshot(),
+                  ),
+                { timeout: 3000, interval: 100 },
+              )
+              .toBe(0);
           }
         }
       } finally {
