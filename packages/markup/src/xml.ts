@@ -280,6 +280,9 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
   return { doc, errors };
 }
 
+/** Characters XML forbids become U+FFFD, so written markup always parses again (ANIML §8). */
+export const xmlChars = (s: string): string => s.replace(new RegExp(NOT_CHAR, 'g'), '\ufffd');
+
 /** Escape text for an attribute value written with double quotes. */
 export const escapeAttr = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

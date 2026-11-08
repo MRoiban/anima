@@ -356,3 +356,32 @@ describe('Rottweiler P1 round 4', () => {
     expect(p.values()).toEqual({ 'dot.opacity': 1, 'dot.r': 0 });
   });
 });
+
+describe('Rottweiler P1 round 5', () => {
+  const hits = (node: Record<string, unknown>, x: number, y: number, hitPadding = 0) => {
+    const p = player(
+      base({
+        nodes: [{ id: 'n', ...node }],
+        listeners: [{ on: 'move', target: 'n', hitPadding, emit: 'hit' }],
+      }),
+    );
+    return p.hits(p.model.listeners[0]!, x, y);
+  };
+
+  // R5-01: trims dash the whole outline (period = its full length), restarting at each contour.
+  it('trims a path with a contour after Z as SVG dashes it', () => {
+    const node = {
+      type: 'path',
+      d: 'M5 5L25 5L25 25ZL5 25',
+      stroke: { color: '#000', width: 1, trimEnd: 0.5 },
+    };
+    expect(hits(node, 25, 20)).toBe(true);
+    expect(hits(node, 5, 20)).toBe(true);
+    expect(hits(node, 10, 10)).toBe(false);
+  });
+
+  // R5-04: an unpainted node has no painted area for hit padding to grow.
+  it('gives an unpainted node no padded hit area', () => {
+    expect(hits({ type: 'rect', x0: 2, y0: 2, w: 10, h: 10 }, 1.5, 5, 1)).toBe(false);
+  });
+});

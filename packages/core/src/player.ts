@@ -525,7 +525,9 @@ export class Player {
       return (
         l.pad > 0 &&
         ((r.fill && world(polys, true) <= l.pad) ||
-          world(stroke) <= l.pad + (half * Math.abs(m[0] * m[3] - m[1] * m[2])) / big)
+          // An unpainted node has no painted area to grow (spec §9).
+          (!!r.stroke &&
+            world(stroke) <= l.pad + (half * Math.abs(m[0] * m[3] - m[1] * m[2])) / big))
       );
     };
     // the target and its ancestors must be visible

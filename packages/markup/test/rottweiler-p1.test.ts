@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { compile, decompile, parseXml } from '../src/index.ts';
+import { compile, decompile, formatMarkup, parseXml } from '../src/index.ts';
 
 const base = (extra: Record<string, unknown> = {}) => ({
   anima: '0.1',
@@ -72,5 +72,53 @@ describe('Rottweiler P1 AniML round 4', () => {
     const built = compile(decompile(base({ $comment: 'a\u0000b' })));
     expect(built.diagnostics).toEqual([]);
     expect(built.doc!.$comment).toBe('a�b');
+  });
+});
+
+describe('Rottweiler P1 AniML round 5', () => {
+  const xml = (body: string) =>
+    `<anima version="0.1" name="probe" grid="20"><circle id="dot" cx="10" cy="10" r="5" fill="#000"/>${body}</anima>`;
+  const reformat = (source: string) => {
+    const first = compile(source);
+    expect(first.diagnostics).toEqual([]);
+    const text = formatMarkup(source).text!;
+    const again = compile(text);
+    expect(again.diagnostics).toEqual([]);
+    expect(again.doc).toEqual(first.doc);
+    return text;
+  };
+
+  // R5-02: CR separates keyframes in the formatter, as in the compiler.
+  it('formats CR-separated keyframes', () => {
+    reformat(
+      xml('<timeline name="t" duration="1"><track target="dot.r">0 0\r1 1</track></timeline>'),
+    );
+  });
+
+  // R5-03: a comment inside a key row or the metadata JSON keeps the content verbatim.
+  it('keeps track and metadata content that a comment splits', () => {
+    expect(
+      reformat(
+        xml(
+          '<timeline name="t" duration="1"><track target="dot.r">0 <!-- why -->5;1 6</track></timeline>',
+        ),
+      ),
+    ).toContain('<track target="dot.r">0 <!-- why -->5;1 6</track>');
+    reformat(xml('<meta>{"x":"a<!-- why -->b"}</meta>'));
+    // A comment between rows still reflows.
+    expect(
+      reformat(
+        xml(
+          '<timeline name="t" duration="1"><track target="dot.r">0 5\n<!-- why -->\n1 6</track></timeline>',
+        ),
+      ),
+    ).toContain('<!-- why -->');
+  });
+
+  // R5-05: strings with characters XML forbids decompile to markup that builds.
+  it('writes non-XML characters in any string as U+FFFD', () => {
+    const built = compile(decompile(base({ title: 'a\u0000b\ud800' })));
+    expect(built.diagnostics).toEqual([]);
+    expect(built.doc!.title).toBe('a�b�');
   });
 });

@@ -57,6 +57,11 @@ Reviewers: GPT-6.1-sol, reasoning effort xhigh, one per round.
 | R4-06 | minor | player: a chain of exactly 16 transitions ending on its own reported no `@limit` | pushed back: SPEC §7 pairs the report with the cap stopping the layer ("reports the event `@limit` … and stops its transitions for this step"); the player reports it exactly when a 17th eligible transition is refused, as the `limit` conformance case expects. A chain that finished by itself was not limited |
 | R4-07 | minor | AniML decompile (R3-08 residual): a `$comment` written as an XML comment lost surrounding whitespace, and characters XML forbids (`\u0000`) produced markup that does not build | fixed in part: `packages/markup/src/decompile.ts` writes forbidden characters as U+FFFD, so the output always builds; ANIML §8 lists the trimming, `-- >` and U+FFFD as the fourth normalisation (a reversible escape would change how authored comments compile); `packages/markup/test/rottweiler-p1.test.ts` |
 | R4-08 | minor | core `formatAni`: metadata nested ~5,000 deep (accepted by `load`, whose depth limit covers nodes only) overflowed the stack in `fmt` | pushed back: at that depth the platform's own `JSON.stringify` overflows too (10,000 nested arrays throw in Node 24), so every writer of such a document fails; the fix is a SPEC nesting limit for all JSON values, an owner decision, not a formatter rewrite |
+| R5-01 | major | hit test (R3-01 × R1-15): `trimPolys` normalised each contour separately, but SVG dashes with the whole outline's length as the period, restarting at each contour; after R3-01 split post-`Z` segments into their own contour, visible stroke parts of `M5 5L25 5L25 25ZL5 25` (`trimEnd` 0.5) missed | fixed: `packages/core/src/geom.ts` uses the total outline length as the period and restarts the phase per contour (single-contour results unchanged); `packages/core/test/rottweiler-p1.test.ts`, conformance `spec/conformance/pointer-hit-contours` (two more snapshots) |
+| R5-02 | minor | `anima fmt`: track text was split on LF and `;` only, so CR-separated keyframes (which the compiler accepts) were merged into one row and the result no longer built | fixed: `packages/markup/src/layout.ts` `keyColumns` also splits on CR; `packages/markup/test/rottweiler-p1.test.ts` |
+| R5-03 | minor | `anima fmt`: a comment inside a key row (`0 <!-- why -->5;1 6`) or inside the metadata JSON was reflowed on both sides separately, splitting the value | fixed: `packages/markup/src/format.ts` keeps such a `<track>`/`<meta>` content verbatim (a `raw` layout child); comments between rows still reflow; `packages/markup/test/rottweiler-p1.test.ts` |
+| R5-04 | minor | hit test: `hitPadding` on a node with neither fill nor stroke hit around its outline (SPEC §9: the painted area, grown) | fixed: padding around the outline needs a stroke; `packages/core/test/rottweiler-p1.test.ts` (no conformance case: an unpainted node is a `no-paint` warning, which the AniML corpus build rejects; the change affects only such nodes, and every conformance case still passes) |
+| R5-05 | minor | AniML decompile (R4-07 residual): any JSON string (e.g. `title`) with a character XML forbids was written literally, so the markup did not build | fixed: `packages/markup/src/decompile.ts` writes such characters as U+FFFD in its whole output (one place, so the escape helpers the libraries entry shares stay unchanged); ANIML §8's fifth normalisation; `packages/markup/test/rottweiler-p1.test.ts` |
 
 ## Rounds
 
@@ -121,3 +126,18 @@ only; a limit on all JSON nesting would let loaders refuse documents no JSON wri
 
 Sizes: core+web 22,260 B; `components` 3,436/3,456, `assetio` 750/768, `markup-libraries`
 2,173/2,176, `markup-convert` 550/704.
+
+### Round 5 (focused, final)
+
+Reviewer: GPT-6.1-sol xhigh: the round-4 fix diff and the cumulative fix set (`698693e2..e77ebb1e`),
+probing interactions (hit testing across transforms/trims/padding/rounded rects/arcs/post-Z contours;
+the web host under re-entrant listeners, reloads, destroy and reconnect; XML characters, CR positions and
+comment rewriting with `fmt`/`decompile`), plus registry/schema/diag/geom and the P1 tools. Token usage:
+not reported. Five findings, all reproduced by the lead with the reviewer's scripts and fixed; R5-01 was an interaction
+between R1-15 and R3-01, R5-05 a residual of R4-07. All round-4 fixes were found correct. Stopped after
+five rounds (the brief's limit); round 5 still returned one major, in trimmed-stroke hit testing.
+
+Sizes: putting the U+FFFD rule into the shared escape helpers first measured `markup-libraries` at
+2,199/2,176 B (the libraries entry imports `escapeText`); applied once to the decompiler's output it
+measures 2,172. Final: core+web 22,296 B; `components` 3,442/3,456, `assetio` 750/768, `markup` 7,441,
+`markup-libraries` 2,172/2,176, `markup-convert` 553/704.

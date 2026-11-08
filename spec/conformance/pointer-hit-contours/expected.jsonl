@@ -2,3 +2,5 @@
 {"time": 0, "values": {}, "states": {}, "events": [{"name": "tri", "layer": null, "time": 0}], "settled": true}
 {"time": 0, "values": {}, "states": {}, "events": [], "settled": true}
 {"time": 0, "values": {}, "states": {}, "events": [{"name": "bar", "layer": null, "time": 0}], "settled": true}
+{"time": 0, "values": {}, "states": {}, "events": [{"name": "tz", "layer": null, "time": 0}], "settled": true}
+{"time": 0, "values": {}, "states": {}, "events": [], "settled": true}

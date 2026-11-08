@@ -14,3 +14,11 @@ snapshot
 pointer down 14 9.5
 pointer up 14 9.5
 snapshot
+# the trimmed path's dash period is its whole outline (35.3): the contour after Z (22,2 to 22,10,
+# 8 long) is fully visible, the closed triangle only up to 17.7
+pointer down 22 8
+pointer up 22 8
+snapshot
+pointer down 26 6
+pointer up 26 6
+snapshot

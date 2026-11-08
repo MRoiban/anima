@@ -11,7 +11,12 @@ export interface LayoutElement {
   children: LayoutChild[];
   blank?: boolean;
 }
-export type LayoutChild = LayoutElement | { comment: string; blank?: boolean } | { text: string };
+export type LayoutChild =
+  | LayoutElement
+  | { comment: string; blank?: boolean }
+  | { text: string }
+  /** Source content kept verbatim (already escaped). */
+  | { raw: string };
 
 export const ATTR_ORDER: Record<string, string[]> = {
   component: ['name', 'grid', 'viewBox'],
@@ -64,7 +69,7 @@ function baseAttrOrder(name: string): string[] {
 /** Split only the first two columns: ease arguments may themselves contain spaces. */
 export function keyColumns(text: string): string[][] {
   return text
-    .split(/[;\n]/)
+    .split(/[;\n\r]/)
     .map((s) => s.trim())
     .filter(Boolean)
     .map((s) => {
@@ -94,6 +99,8 @@ export function render(el: LayoutElement, depth = 0): string {
     continuation = long;
   }
   if (!el.children.length) return open + '/>';
+  const [first] = el.children;
+  if (first && 'raw' in first) return `${open}>${first.raw}</${el.name}>`;
   const onlyText = el.children.every((c) => 'text' in c);
   if (onlyText) {
     const text = el.children.map((c) => (c as { text: string }).text).join('');
@@ -136,7 +143,7 @@ export function render(el: LayoutElement, depth = 0): string {
           body.push(...text.split('\n').map((s) => indent + '  ' + escapeText(s)));
         else body.push(indent + '  ' + escapeText(text));
       }
-    } else body.push(render(c, depth + 1));
+    } else if (!('raw' in c)) body.push(render(c, depth + 1));
   }
   return `${open}>\n${body.join('\n')}\n${indent}</${el.name}>`;
 }

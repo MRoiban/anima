@@ -173,13 +173,13 @@ attributes in registry order; tracks one keyframe per line with aligned columns;
 conditions as in `.ani`. `$comment`s become first-child comments. For every document,
 `build(decompile(build(m)))` equals `build(m)` (round-trip stability).
 
-Decompiling a hand-written `.ani` and building it again gives the same document up to four
+Decompiling a hand-written `.ani` and building it again gives the same document up to five
 normalisations, none of which changes playback: `$schema` is dropped; a `$comment` on an object
 that has no element of its own (`inputs`, `colors`, a `fill` or `stroke`, …) is dropped; a
-one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`); and a
-`$comment` written as an XML comment loses its leading and trailing whitespace, has a `-->`
-(which would end the comment) written `-- >`, and has characters XML does not allow replaced by
-U+FFFD. The `$comment` of `meta` stays in its JSON text unchanged.
+one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`); a
+`$comment` written as an XML comment loses its leading and trailing whitespace and has a `-->`
+(which would end the comment) written `-- >`; and in any string, characters XML does not allow
+are written as U+FFFD. The `$comment` of `meta` stays in its JSON text.
 
 `anima fmt x.animl` reformats markup into the same canonical layout but keeps the author's
 comments, element order, named eases and track style: a track written inline with `;` stays inline

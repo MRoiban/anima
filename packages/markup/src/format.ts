@@ -22,6 +22,31 @@ export function formatMarkup(source: string): { text?: string; diagnostics: Mark
       attrs: el.attrs.map((a) => [a.name, a.value]),
       children: [],
     };
+    // A comment inside a key row or the metadata JSON (the compiler joins the text around it):
+    // reflowing either side separately would split the value, so keep the content verbatim.
+    const cs = el.children;
+    if (
+      (el.name === 'track' || el.name === 'meta') &&
+      cs.some((c, i) => {
+        const a = cs[i - 1],
+          b = cs[i + 1];
+        return (
+          c.kind === 'comment' &&
+          a?.kind === 'text' &&
+          b?.kind === 'text' &&
+          !!a.value.trim() &&
+          !!b.value.trim() &&
+          (el.name === 'meta' || !(/[;\n\r]\s*$/.test(a.value) || /^\s*[;\n\r]/.test(b.value)))
+        );
+      })
+    ) {
+      out.children.push({
+        raw: cs
+          .map((c) => (c.kind === 'text' ? c.raw : c.kind === 'comment' ? `<!--${c.value}-->` : ''))
+          .join(''),
+      });
+      return out;
+    }
     let blank = false;
     for (const c of el.children) {
       if (c.kind === 'text' && !c.value.trim()) {

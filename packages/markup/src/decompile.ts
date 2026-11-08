@@ -1,6 +1,6 @@
 import { elementFields, compoundField } from './fields.ts';
 import { motionCompiler, eventsCompiler, dataCompiler, convertCompiler } from './module-hooks.ts';
-import { NOT_CHAR, parseXml, type Element } from './xml.ts';
+import { parseXml, xmlChars, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, type LayoutChild, render } from './layout.ts';
@@ -52,11 +52,7 @@ export function decompile(doc: string | object): string {
                 : value(o[k]),
         ]),
     ],
-    // XML comments cannot hold every JSON character: those become U+FFFD (ANIML §8).
-    children:
-      typeof o.$comment === 'string'
-        ? [{ comment: ` ${o.$comment.replace(new RegExp(NOT_CHAR, 'g'), '\ufffd')} ` }]
-        : [],
+    children: typeof o.$comment === 'string' ? [{ comment: ` ${o.$comment} ` }] : [],
   });
   const node = (n: Obj): LayoutElement => {
     const el = element(n.type as string, n, ['id']);
@@ -326,5 +322,7 @@ export function decompile(doc: string | object): string {
     group[0]!.blank = root.children.length > 0;
     root.children.push(...group);
   }
-  return render(root) + '\n';
+  // JSON strings can hold characters XML forbids, in comments or values: those become U+FFFD
+  // (ANIML §8), so the markup always builds again. Escaping never introduces them.
+  return xmlChars(render(root)) + '\n';
 }

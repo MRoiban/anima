@@ -76,7 +76,8 @@ export function inside(polys: number[][], x: number, y: number, evenodd: boolean
 
 /**
  * The visible part of a stroke trimmed to `len` (< 1) of its outline length from fraction `start`,
- * wrapping around 1 (spec §4 trims), as open polylines.
+ * wrapping around 1 (spec §4 trims), as open polylines. As SVG dashes it, the pattern's period is the
+ * whole outline's length and its phase restarts at each contour (a segment after Z starts one).
  */
 export function trimPolys(
   polys: { pts: number[]; closed: boolean }[],
@@ -85,12 +86,17 @@ export function trimPolys(
 ): { pts: number[]; closed: boolean }[] {
   const out: { pts: number[]; closed: boolean }[] = [];
   if (len <= 0) return out;
-  for (const { pts, closed } of polys) {
+  const contours = polys.map(({ pts, closed }) => {
     const p = closed ? [...pts, pts[0]!, pts[1]!] : pts;
     const at = [0];
     for (let i = 2; i < p.length; i += 2)
       at.push(at[at.length - 1]! + Math.hypot(p[i]! - p[i - 2]!, p[i + 1]! - p[i - 1]!));
-    const total = at[at.length - 1]!;
+    return { p, at };
+  });
+  const total = contours.reduce((sum, c) => sum + c.at[c.at.length - 1]!, 0);
+  const s = (((start % 1) + 1) % 1) * total,
+    e = s + len * total;
+  for (const { p, at } of contours) {
     const cut = (a: number, b: number) => {
       const q: number[] = [];
       for (let j = 0; j < at.length - 1; j++) {
@@ -106,9 +112,7 @@ export function trimPolys(
       }
       if (q.length) out.push({ pts: q, closed: false });
     };
-    const s = (((start % 1) + 1) % 1) * total,
-      e = s + len * total;
-    cut(s, Math.min(e, total));
+    cut(s, e);
     if (e > total) cut(0, e - total);
   }
   return out;
