@@ -62,7 +62,8 @@ multiplier; zero/absence uses font ascent+descent+lineGap. Extra leading is spli
 `verticalTrimTop` removes ascent above cap or x-height (`none|cap|x-height`); `verticalTrimBottom`
 removes the descent and final leading at `baseline` (`none|baseline`).
 
-Lines expose baseline, width, ascent, descent, height and logical clusters. Each cluster has text,
+Lines expose baseline, width, ascent, descent, height and logical clusters; a line without clusters
+also exposes `x`, its aligned, origin-shifted start (where its caret is drawn). Each cluster has text,
 UTF-16 index, run index, x/y, advance and FontSpec. `contentWidth`/`contentHeight` report measured
 content, `width`/`height` the chosen layout box, `fittedSize` the first run's resolved size, and `scale`
 the rendering scale. Layout object identity is cached until runs, styles, dimensions or font revision

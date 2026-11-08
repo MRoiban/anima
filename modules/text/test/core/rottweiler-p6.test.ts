@@ -65,3 +65,14 @@ it('R2-01: soft-wrapped lines measure their own fragments, so ligatures neither 
     ['fi', 9],
   ]);
 });
+it('R3-05: caret stops on empty lines follow alignment and normalized origin', async () => {
+  const { textStops } = await import('../../core/hit.ts');
+  const stops = (text: string, extra: Partial<LayoutInput>) =>
+    textStops(lay(text, { sizing: 'fixed', width: 12, height: 100, ...extra }), text).map(
+      (s) => s.box[0],
+    );
+  expect(stops('', { align: 'center' })).toEqual([6]);
+  expect(stops('', { align: 'right' })).toEqual([12]);
+  expect(stops('', { align: 'center', origin: [0.5, 0] })).toEqual([0]);
+  expect(stops('A\n', { align: 'center' }).at(-1)).toBe(6);
+});

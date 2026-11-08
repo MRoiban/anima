@@ -61,6 +61,8 @@ export interface TextLine {
   ascent: number;
   descent: number;
   height: number;
+  /** Aligned, origin-shifted start of a line without clusters (its caret position). */
+  x?: number;
 }
 export interface TextLayout {
   lines: TextLine[];
@@ -276,6 +278,7 @@ export function layoutText(
         : input.align === 'right' || input.align === 'end'
           ? out.width - line.width * out.scale
           : 0);
+    if (!line.clusters.length) line.x = dx;
     line.baseline = (line.baseline - trim) * out.scale + sy + oy;
     line.width *= out.scale;
     for (const g of line.clusters) {

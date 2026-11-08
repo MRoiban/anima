@@ -70,3 +70,44 @@ it('R2-07: a caret on an empty line follows alignment and normalized origin', ()
     expect(caret(p, text.length)[0]).toBe(x);
   }
 });
+it('R3-06: negative tracking selects the union of cluster advances, never a negative width', () => {
+  const p = field('AB', { styles: { s: { size: 1, tracking: -3 } } });
+  select(p, 'q', 0, 2);
+  const n = drawFrame(p).nodes[0] as FieldNode;
+  expect(n.fieldBoxes![0]).toMatchObject({ x: -2, width: 3 });
+});
+it('R3-07: field semantic bounds follow animated dimensions', () => {
+  registerTextMeasurer(fixedMeasurer);
+  const { model } = load({
+    anima: '0.1',
+    name: 'field',
+    grid: 20,
+    requires: ['text', 'textinput', 'a11y', 'focus'],
+    nodes: [
+      {
+        id: 'q',
+        type: 'text',
+        sizing: 'fixed',
+        width: 10,
+        height: 4,
+        runs: [{ text: 'AB' }],
+        textInput: {},
+      },
+    ],
+    timelines: {
+      t: {
+        duration: 1,
+        tracks: {
+          'q.width': [
+            [0, 10],
+            [1, 5],
+          ],
+        },
+      },
+    },
+    machine: { layers: { l: { initial: 's', states: { s: { play: 't' } } } } },
+  });
+  const p = new Player(model!);
+  p.step(1);
+  expect(p.semantics()[0]!.bounds).toEqual([0, 0, 5, 4]);
+});

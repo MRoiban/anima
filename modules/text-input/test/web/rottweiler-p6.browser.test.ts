@@ -51,7 +51,7 @@ for (const [name, engine, executablePath] of [
     ),
   ],
   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefox-1555/firefox/firefox')],
-] as const)
+] as const) {
   it.skipIf(!existsSync(executablePath))(
     `${name}: R1-07 the native editing surface follows animated field dimensions`,
     async () => {
@@ -82,3 +82,62 @@ for (const [name, engine, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R3-08 core selection changes reach the native field; native selections are kept`,
+    async () => {
+      const browser = await engine.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(
+          '<anima-icon style="position:relative;display:block;width:200px;height:200px"></anima-icon>',
+        );
+        for (const content of bundles) await page.addScriptTag({ type: 'module', content });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.get('textinput'),
+        );
+        type Core = typeof import('../../core/index.ts');
+        const read = () =>
+          page.evaluate(() => {
+            const el = document.querySelector('anima-icon')!.textInput('q')!;
+            return [el.selectionStart, el.selectionEnd];
+          });
+        const field = {
+          anima: doc.anima,
+          name: 'select-field',
+          grid: doc.grid,
+          requires: doc.requires,
+          nodes: [{ ...doc.nodes[0]!, runs: [{ text: 'abc', style: 's' }] }],
+        };
+        const errors = await page.evaluate(
+          (d) =>
+            document
+              .querySelector('anima-icon')!
+              .load(d)
+              .filter((x) => x.severity === 'error'),
+          field,
+        );
+        expect(errors).toEqual([]);
+        await page.waitForFunction(() => !!document.querySelector('anima-icon')!.textInput('q'));
+        await page.evaluate(() => {
+          const icon = document.querySelector('anima-icon')!;
+          const m = (customElements.get('anima-icon') as typeof AnimaIcon).modules.get(
+            'textinput',
+          ) as unknown as Core;
+          m.select(icon.player!, 'q', 0, 2);
+          icon.invalidate();
+        });
+        await expect.poll(read, { timeout: 5000 }).toEqual([0, 2]);
+        // A native selection not yet synced to core (e.g. mid-drag) survives a redraw.
+        await page.evaluate(() => {
+          const icon = document.querySelector('anima-icon')!;
+          icon.textInput('q')!.setSelectionRange(1, 3);
+          icon.invalidate();
+        });
+        expect(await read()).toEqual([1, 3]);
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
+}

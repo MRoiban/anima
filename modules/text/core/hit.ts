@@ -13,7 +13,7 @@ export function textStops(layout: TextLayout, source: string) {
     const stops = clusters.map((c) => ({ offset: c.index, x: c.x }));
     const last = clusters.at(-1);
     const end = last ? last.index + last.text.length : offset;
-    stops.push({ offset: end, x: last ? last.x + last.advance : 0 });
+    stops.push({ offset: end, x: last ? last.x + last.advance : (line.x ?? 0) });
     offset = end + (source.slice(end).match(/^(\r\n|\r|\n)/)?.[0].length ?? 0);
     return stops.map((s) => ({
       index: segments.filter((g) => g.index < s.offset).length,

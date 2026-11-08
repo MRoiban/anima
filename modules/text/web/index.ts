@@ -11,7 +11,8 @@ import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as CanvasSourceHost;
 Icon.registerModule(text);
 Icon.registerSVGBackend('text', textSVG);
-registerTextMeasurer(browserMeasurer());
+const measurer = browserMeasurer();
+registerTextMeasurer(measurer);
 let previous = Icon.orderSVG;
 // Text roots cache layouts, SVG viewports cache paint ids, hosts mark font subscriptions.
 const signatures = new WeakMap<Element, object | string | boolean>();
@@ -60,6 +61,8 @@ Icon.eventHook = (icon, kind, info) => {
 };
 const active = new Set<WeakRef<AnimaIcon>>();
 document.fonts?.addEventListener('loadingdone', () => {
+  // Re-registering bumps the font revision, so nested and list players relayout too.
+  registerTextMeasurer(measurer);
   for (const ref of active) {
     const icon = ref.deref();
     if (!icon) active.delete(ref);

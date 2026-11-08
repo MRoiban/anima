@@ -6,6 +6,8 @@ import { chromium, firefox } from 'playwright-core';
 import { expect, it } from 'vitest';
 import { cachedBundle } from '../../../../tools/browser-cache.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
+import type { text } from '../../core/index.ts';
+import { testFont } from '../../../../tools/test-font.ts';
 const doc = {
   anima: '0.1',
   name: 'text-paint-animation',
@@ -43,7 +45,7 @@ for (const [name, engine, executablePath] of [
     ),
   ],
   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefox-1555/firefox/firefox')],
-] as const)
+] as const) {
   it.skipIf(!existsSync(executablePath))(
     `${name}: R1-01 retained SVG text follows animated paint without a layout change`,
     async () => {
@@ -83,3 +85,71 @@ for (const [name, engine, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R3-03 a CSS font finishing loading relayouts nested component text too`,
+    async () => {
+      const browser = await engine.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.route('http://font.test/late.ttf', (r) =>
+          r.fulfill({
+            body: testFont(),
+            headers: { 'access-control-allow-origin': '*', 'content-type': 'font/ttf' },
+          }),
+        );
+        await page.setContent('<anima-icon paused></anima-icon>');
+        for (const entry of ['components', 'text'])
+          await page.addScriptTag({
+            type: 'module',
+            content: await cachedBundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.waitForFunction(() =>
+          ['components', 'text'].every((n) =>
+            (customElements.get('anima-icon') as typeof AnimaIcon).modules.has(n),
+          ),
+        );
+        const result = await page.evaluate(async () => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const module = (customElements.get('anima-icon') as typeof AnimaIcon).modules.get(
+            'text',
+          ) as typeof text;
+          const label = {
+            id: 'label',
+            type: 'text',
+            runs: [{ text: 'AV', style: 's' }],
+            styles: { s: { font: 'Late, monospace', size: 10 } },
+          };
+          icon.load({
+            anima: '0.1',
+            name: 'late-font',
+            grid: 20,
+            requires: ['components', 'text'],
+            components: { child: { grid: 20, nodes: [label] } },
+            nodes: [label, { id: 'inst', type: 'instance', component: 'child' }],
+          });
+          const child = (icon.player!.nested as { players: Map<string, never> }).players.get(
+            'inst',
+          )!;
+          const widths = () => [
+            module.textLayout(icon.player!, 0).lines[0]!.width,
+            module.textLayout(child, 0).lines[0]!.width,
+          ];
+          const before = widths();
+          const done = new Promise<void>((r) =>
+            document.fonts.addEventListener('loadingdone', () => r(), { once: true }),
+          );
+          document.fonts.add(new FontFace('Late', 'url(http://font.test/late.ttf)'));
+          await document.fonts.load('10px Late', 'AV');
+          await done;
+          return { before, after: widths() };
+        });
+        expect(result.before[0]).toBe(result.before[1]);
+        expect(result.after[0]).not.toBe(result.before[0]);
+        expect(result.after[1]).toBe(result.after[0]);
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
+}

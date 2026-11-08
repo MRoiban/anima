@@ -27,6 +27,7 @@ if (!Icon.prototype.textInput) {
   });
   const attached = new WeakMap<AnimaIcon, () => void>();
   const updates = new WeakMap<AnimaIcon, () => void>();
+  const ranges = new WeakMap<Element, string>();
   const event = Icon.eventHook;
   Icon.eventHook = (icon, kind, info) => {
     event?.(icon, kind, info);
@@ -86,11 +87,14 @@ if (!Icon.prototype.textInput) {
         const eligible = p.focusItems().some((n) => n.id === id);
         el.hidden = !eligible;
         el.readOnly = c.editable === false;
-        const f = field(p, id)!;
-        if (!f.composing && el.value !== f.value) {
+        const f = field(p, id)!,
+          range = f.start + ',' + f.end;
+        // Push core value or selection changes; a native selection in progress is left alone.
+        if (!f.composing && (el.value !== f.value || range !== ranges.get(el))) {
           el.value = f.value;
           el.setSelectionRange(f.start, f.end);
         }
+        ranges.set(el, range);
       }
     };
     for (const [i, n] of p.model.nodes.entries()) {
