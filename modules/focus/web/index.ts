@@ -22,6 +22,14 @@ function attach(icon: AnimaIcon) {
   let ids = '';
   const listen = (type: string, fn: EventListener) =>
     icon.addEventListener(type, fn, { signal: abort.signal });
+  // The host's accessibility update (state change, label) would hide the focus proxies again.
+  // A reload's first state event precedes the rebuild: ignore the previous player then.
+  const own = () => {
+    if (box && player === icon.player && !player?.model.doc.a11y) {
+      icon.removeAttribute('aria-hidden');
+      icon.setAttribute('role', 'group');
+    }
+  };
   const build = () => {
     box?.remove();
     box = undefined;
@@ -74,10 +82,7 @@ function attach(icon: AnimaIcon) {
       targets.set(item.id, el);
     }
     icon.shadowRoot!.append(box);
-    if (!p.model.doc.a11y) {
-      icon.removeAttribute('aria-hidden');
-      icon.setAttribute('role', 'group');
-    }
+    own();
     if (inner) icon.removeAttribute('tabindex');
     else icon.tabIndex = 0;
     p.onFocusRefresh = () => {
@@ -106,6 +111,10 @@ function attach(icon: AnimaIcon) {
     if (p.focused) p.onFocusChange(p.focused);
   };
   listen('anima:load', build);
+  listen('anima:state', own);
+  const labels = new MutationObserver(own);
+  labels.observe(icon, { attributeFilter: ['label'] });
+  abort.signal.addEventListener('abort', () => labels.disconnect());
   listen('anima:overlay', build);
   listen('pointerdown', (event) => {
     // seam(P6-6): native fields own pointer defaults while editing.

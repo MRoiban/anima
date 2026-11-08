@@ -33,6 +33,7 @@ const defaults: InputOptions = {
 const options = new WeakMap<AnimaIcon, InputOptions>();
 const attached = new WeakMap<AnimaIcon, AbortController>();
 const polling = new Set<AnimaIcon>();
+const hooked = new WeakSet<AnimaIcon>();
 let frame = 0;
 const config = (i: AnimaIcon) => options.get(i) ?? defaults;
 const active = (i: AnimaIcon) => i.player?.model.doc.requires?.includes('input');
@@ -206,8 +207,11 @@ const load = Icon.prototype.load,
 Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
   attached.get(this)?.abort();
   attached.delete(this);
-  // Asset loading creates the player asynchronously; attach when it is ready.
-  this.addEventListener('anima:load', () => attach(this), { once: true });
+  // Asset loads create the player asynchronously; attach once it exists (one listener per icon).
+  if (!hooked.has(this)) {
+    hooked.add(this);
+    this.addEventListener('anima:load', () => attach(this));
+  }
   loadModel.apply(this, args);
   attach(this);
 };
@@ -228,6 +232,12 @@ Icon.prototype.destroy = function () {
     frame = 0;
   }
   destroy.call(this);
+};
+// Disconnecting loses pointer capture and later releases; cancel live contacts and scroll latch.
+const previous = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  if (kind === 'cleanup' && active(icon)) icon.input().cancel();
+  previous?.(icon, kind, detail);
 };
 for (const [host, method] of [
   ['inputPointer', 'pointer'],

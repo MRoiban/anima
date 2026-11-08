@@ -359,8 +359,10 @@ export function prepare(
   // Validate all authored path uses with their own JSON pointers, including writes and event fields.
   const scan = (v: unknown, at: string) => {
     if (typeof v === 'string') {
-      // Guard string literals are values, not references to the paths they may spell.
-      const source = at.endsWith('/when') ? v.replace(/"(?:[^"\\]|\\.)*"/g, '') : v;
+      // Run text is a data source only as a whole `$path` (text module); otherwise literal.
+      if (/\/runs\/\d+\/text$/.test(at) && v[0] !== '$') return;
+      // Quoted string literals (guards and expressions) are values, not references to paths.
+      const source = v.replace(/"(?:[^"\\]|\\.)*"/g, '');
       for (const path of source.match(paths) ?? []) {
         if (!c.refs.has(path)) {
           // Whole lists/model references are legitimate converter sources, never scalar inputs.
@@ -380,6 +382,15 @@ export function prepare(
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;
+        // Event payload string fields, node custom properties and focus labels stay literal.
+        if (
+          (k === 'value' &&
+            (v as { type?: string }).type === 'string' &&
+            /\/payload\/[^/]+$/.test(at)) ||
+          (k === 'properties' && 'id' in v) ||
+          (k === 'label' && at.endsWith('/focus'))
+        )
+          continue;
         scan(k, ptr(at, k));
         scan(x, ptr(at, k));
       }

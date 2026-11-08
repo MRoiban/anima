@@ -200,7 +200,9 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
         const x = evaluate(a, s);
         if (precedence <= 2) return op === 'and' ? !!x && !!b.evaluate(s) : !!x || !!b.evaluate(s);
         const y = evaluate(b, s);
-        if (precedence === 4) return compare(x, y, op);
+        // Colours are RGBA arrays: compare their components, not their identity.
+        if (precedence === 4)
+          return a.type === 'color' ? compare('' + x, '' + y, op) : compare(x, y, op);
         const n = +x,
           m = +y;
         return op === '+' ? n + m : op === '-' ? n - m : op === '*' ? n * m : n / m;

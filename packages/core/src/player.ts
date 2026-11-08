@@ -445,7 +445,20 @@ export class Player {
       const [lx, ly] = apply(inv, x, y);
       const polys = this.#outline(i, frame?.nodes[i]?.geometry);
       const r = n.raw;
-      const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
+      // Ordered paints (composite) stand in for the single fill/stroke.
+      const paints: (typeof r)[] = r.paints ?? [r],
+        // A hidden paint is not painted area (spec §ordered paints and visibility).
+        shown = (j: number, kind: string) =>
+          paints[j][kind] &&
+          this.prop(i, (r.paints ? `paints.${j}.` : '') + kind + '.visible') !== false;
+      let half = 0;
+      paints.forEach((_, j) => {
+        if (shown(j, 'stroke'))
+          half = Math.max(
+            half,
+            this.num(i, (r.paints ? `paints.${j}.` : '') + 'stroke.width', 1) / 2,
+          );
+      });
       let fill: boolean | undefined;
       for (const module of modules.values()) {
         fill = module.fillContains?.(this, i, polys, lx, ly);
@@ -453,16 +466,19 @@ export class Player {
       }
       if (
         fill ??
-        (r.fill &&
-          inside(
-            polys.filter((p) => p.closed).map((p) => p.pts),
-            lx,
-            ly,
-            r.fill.rule === 'evenodd',
-          ))
+        paints.some(
+          (e, j) =>
+            shown(j, 'fill') &&
+            inside(
+              polys.filter((p) => p.closed).map((p) => p.pts),
+              lx,
+              ly,
+              e.fill.rule === 'evenodd',
+            ),
+        )
       )
         return true;
-      return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;
+      return (half > 0 || pad > 0) && distance(polys, lx, ly) <= half + pad;
     };
     // the target and its ancestors must be visible
     return this.visible(l.target) && test(l.target);

@@ -12,8 +12,13 @@ function path(g?: Geometry): Path2D {
   const p = new Path2D(g?.d);
   if (!g || g.d) return p;
   if (g.kind === 'circle') p.arc(g.cx!, g.cy!, g.r!, 0, Math.PI * 2);
-  else if (g.kind === 'rect' || g.kind === 'image')
-    p.roundRect(g.x!, g.y!, g.width!, g.height!, g.rx ?? 0);
+  else if (g.kind === 'rect' || g.kind === 'image') {
+    // SVG clamps each radius axis independently: rx to half the width, ry to half the height.
+    const r = g.rx ?? 0;
+    p.roundRect(g.x!, g.y!, g.width!, g.height!, [
+      { x: Math.min(r, g.width! / 2), y: Math.min(r, g.height! / 2) },
+    ]);
+  }
   return p;
 }
 export class CanvasRenderer implements IconRenderer {

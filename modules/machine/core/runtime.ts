@@ -11,6 +11,7 @@ import type {
 } from '../../../packages/core/src/load.ts';
 import {
   states,
+  anyEdges,
   transitions,
   compiledActions,
   type Run,
@@ -18,10 +19,10 @@ import {
   type Actions,
 } from './types.ts';
 let sample = sampleTrack,
-  mix = mixValues;
+  mixAny = mixValues;
 export function install(s: typeof sampleTrack, m: typeof mixValues): void {
   sample = s;
-  mix = m;
+  mixAny = m;
 }
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
 const local = (t: TimelineM, time: number) =>
@@ -299,10 +300,11 @@ export class MachinePolicy implements PlaybackPolicy {
                 transitions.get(tr)!.exitRatio!,
         ));
     if (!eligible(t)) return false;
-    if (states.get(s)?.kind === 'random') {
+    if (states.get(s)?.kind === 'random' && !anyEdges.has(this.transition(t))) {
       if (d.chosen === undefined) {
         const choices = s.on.filter(
           (tr) =>
+            !anyEdges.has(this.transition(tr)) &&
             !tr.triggers.some((n) => d.consumed.has(n)) &&
             d.eligible(tr) &&
             eligible(tr) &&
@@ -420,7 +422,9 @@ export class MachinePolicy implements PlaybackPolicy {
   ): Value {
     const info = states.get(state)!,
       children = info.children!;
-    const rest = this.p.model.addrs.get(address)!.rest;
+    const { rest, prop } = this.p.model.addrs.get(address)!;
+    // Spec §7 mix-discrete: a discrete value replaces the incoming one at any positive weight.
+    const mix = prop.discrete ? (a: Value, b: Value, w: number) => (w > 0 ? b : a) : mixAny;
     let weights: number[];
     if (info.mix!.mode === '1d') {
       const x = info.axis!(this.p);
@@ -436,7 +440,7 @@ export class MachinePolicy implements PlaybackPolicy {
       const stopped = reduced || frozen >= 0,
         held = this.held(t, stopped);
       const time = this.childClock(t, elapsed, state.speed, held, stopped && !held ? resumed : -1);
-      return track ? sample(track, time) : rest;
+      return track ? sample(track, time, this.p) : rest;
     });
     if (info.mix!.mode !== '1d') {
       let v = info.mix!.mode === 'additive' ? values[0]! : rest;

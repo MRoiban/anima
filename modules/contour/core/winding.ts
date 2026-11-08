@@ -66,9 +66,11 @@ export const winding: Module = {
   ],
   fillContains(p, i, outline, x, y) {
     const raw = p.model.nodes[i]!.raw;
-    const fills = raw.paints
-      ?.map((paint: { fill?: { winding?: string; rule?: string } }) => paint.fill)
-      .filter(Boolean) ?? [raw.fill];
+    // Hidden fills are not painted area; core tests the remaining visible fills.
+    const fills = (raw.paints ?? [raw]).map(
+      (paint: { fill?: { winding?: string; rule?: string } }, j: number) =>
+        p.prop(i, (raw.paints ? `paints.${j}.` : '') + 'fill.visible') !== false && paint.fill,
+    );
     if (!fills.some((fill: { winding?: string } | undefined) => fill?.winding === 'clockwise'))
       return;
     let wind = 0;

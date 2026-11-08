@@ -4,6 +4,7 @@ import { clone } from './types.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
 import { parseHex } from '../../../packages/core/src/color.ts';
+import { reached } from '../../../packages/core/src/time.ts';
 import { after } from '../manifest.ts';
 import { prepare } from './compile.ts';
 import { custom } from './custom.ts';
@@ -169,6 +170,16 @@ export const data: DataModule = {
       V && 'custom property value has the wrong type',
       V && 'use the declared custom property type',
     );
+  },
+  track(track, addr) {
+    // Custom string/enum properties are hold-only; never route them through path morphing.
+    if (addr.prop.feature === 'data' && addr.prop.type === 'string' && !track.sample)
+      track.sample = (time, player) => {
+        let i = 0;
+        while (i < track.times.length - 1 && reached(time, track.times[i + 1]!)) i++;
+        const value = track.values[i]!;
+        return typeof value === 'function' ? value(player!) : value;
+      };
   },
   load(model, raw, d) {
     if (!raw.requires?.includes('data')) return;
