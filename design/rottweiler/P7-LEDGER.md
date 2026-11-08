@@ -24,3 +24,10 @@ Round 2 (P7 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope:
 | R2-6 | minor | fit-font-size with no fitting bisection candidate calls build(0) → `font-invalid` | fixed: empty result (fittedSize 0) as for a zero box; text SPEC updated (modules/text/test/core/rt2.test.ts) |
 | R2-7 | minor | zero-length round-capped subpath bounds lose half the dot | fixed: cap direction from the whole subpath; zero-length uses local x axis (SVG) for round and square caps; a11y SPEC updated (modules/a11y/test/core/rt2.test.ts) |
 | R2-8 | minor | display:none host with % size measured as px (layoutSize [36,36]) | fixed: non-px computed sizes are unmeasurable (NaN) → viewBox keeps state; SPEC host layout note (modules/host-fit/test/web/fit.test.ts, Chromium+Firefox) |
+
+Round 3 (P7 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope: round-2 fix diff (2546cd9) plus remaining P7 hunks (canvas, assets/assetio, input, machine, lists, paint, text-input, data compile, host, components, fonts/text web, a11y-dom, layout reflow/algorithm, core load, web index, markup data-artboard/layout). Reviewer confirmed every round-2 fix (reflow/retarget, nested, display:none, canvas, 45 installed fonts decode under the cmap limit, NaN content sizes stop before canvas/viewBox/layoutSize writes).
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R3-1 | major | root component catalog omits definitions placed only inside another component → `component(doc, 'leaf')` is `unknown-component` | fixed: placements at any depth also enter the root catalog (first model wins; the root's own placements override) (modules/data-artboard/test/core/rt3.test.ts) |
+| R3-2 | major | foreign inherited child ignores the destination host's `data.bind('other')` (child reads the authored default) | pushed back: not P7-specific: a local inherited component behaves identically (parent 7, child 2), since host `bind()` has never rebound inherited children (host module predates P7; host SPEC: authored bindings keep data's default semantics). The P7 bridge matches local behaviour. For the host/data phase lead |

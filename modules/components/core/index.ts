@@ -64,6 +64,8 @@ interface Context {
   requires: string[];
   data?: Model['doc'];
   used: Set<string>;
+  // seam(P7-5): the root document's catalog, including transitively placed definitions.
+  root: Map<string, Model>;
 }
 let context: Context | undefined;
 let active: ComponentModule | undefined;
@@ -168,6 +170,9 @@ function create(
         return;
       }
       const outer = context;
+      // seam(P7-5): retain both placed and validated unused components.
+      const models = new Map<string, Model>();
+      catalog.set(model, models);
       const ctx = (context ??= {
         definitions: model.doc.components ?? {},
         cache: new Map(),
@@ -175,10 +180,12 @@ function create(
         requires: model.doc.requires,
         data: model.doc.data,
         used: new Set(),
+        root: models,
       });
-      // seam(P7-5): retain both placed and validated unused components.
-      const models = new Map<string, Model>();
-      catalog.set(model, models);
+      const keep = (name: string, child: Model) => {
+        models.set(name, child);
+        if (!ctx.root.has(name)) ctx.root.set(name, child);
+      };
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
       const err = (code: string, pointer: string, message: string) =>
@@ -211,7 +218,7 @@ function create(
         ctx.used.add(name);
         if (ctx.cache.has(key)) {
           const child = ctx.cache.get(key);
-          if (child) models.set(name, child);
+          if (child) keep(name, child);
           return child;
         }
         if (!Object.hasOwn(ctx.definitions, name) || name === '$comment') {
@@ -274,7 +281,7 @@ function create(
               : ptr('/components', name) + d.pointer,
           });
         ctx.cache.set(key, result.model);
-        if (result.model) models.set(name, result.model);
+        if (result.model) keep(name, result.model);
         return result.model;
       };
       try {
