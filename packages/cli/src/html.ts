@@ -84,10 +84,10 @@ export function buildHTML(
       type = { value, start: start + offset, end: start + offset + value.length };
     }
     // Browsers decode character references in attribute values (the named ones that can spell this
-    // type are &plus; &sol; &period; &amp;).
+    // type are &plus; &sol; &period; &amp;, which need their semicolon here).
     const named: Record<string, string> = { plus: '+', sol: '/', period: '.', amp: '&' };
     const decoded = type?.value.replace(
-      /&(?:#(\d+)|#[xX]([\da-fA-F]+)|(plus|sol|period|amp));?/g,
+      /&(?:#(\d+);?|#[xX]([\da-fA-F]+);?|(plus|sol|period|amp);)/g,
       (_, d, x, n) =>
         n ? named[n] : String.fromCodePoint(Math.min(0x10ffff, parseInt(d ?? x, d ? 10 : 16))),
     );

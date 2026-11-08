@@ -112,6 +112,8 @@ export class AnimaIcon extends HTMLElement {
       if (!this.hasAttribute('paused')) {
         AnimaIcon.eventHook?.(this, 'play', null);
         this.#step(0);
+        // An entry-event listener loaded another document or destroyed the icon.
+        if (generation !== this.#generation) return;
       }
       this.#resolve();
       this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));

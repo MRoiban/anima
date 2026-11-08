@@ -49,6 +49,14 @@ Reviewers: GPT-6.1-sol, reasoning effort xhigh, one per round.
 | R3-10 | minor | script: `expect-error` could not catch a tokenizer error (unterminated string), which threw instead | fixed: `packages/core/src/script.ts` routes tokenizer errors through the pending expectation; `packages/core/test/rottweiler-p1.test.ts` |
 | R3-11 | minor | load: the 1 MiB limit counted UTF-16 units, so 1.2 MB of UTF-8 (`é` × 600,000) loaded (SPEC §2: 1 MiB of text) | fixed: `packages/core/src/load.ts` counts UTF-8 bytes (only for text over 349,525 units; longer text is rejected directly); `packages/core/test/rottweiler-p1.test.ts` |
 | R3-12 | minor | web: the `tabindex="0"` and pointer cursor the host adds for buttons stayed after a reload to a non-button document or `destroy()`, leaving an `aria-hidden` tab stop | fixed: `#aria()` removes only the values the host added (author values stay); `packages/web/test/browser.test.ts` ("Rottweiler P1 (R3-12)") |
+| R4-01 | major | hit test (after R3-02): under a nonuniform scale the stroke padding counted the half width at the smallest stretch, so a `scaleX` 10 vertical stroke (width 2) with `hitPadding` 1 missed 0.5 beyond its painted edge | pushed back: exact world padding of an affinely stretched stroke needs the transformed capsule of every segment (an ellipse swept along it, grown by a disc), a geometry routine for one rare combination (stroke + nonuniform scale + `hitPadding`); the bound is documented here: the reach falls short by at most half the width times (stretch along the normal − smallest stretch), and is exact for uniform scales, fills, and the unpadded stroke |
+| R4-02 | major | web: an entry-event listener that loaded another document (or destroyed the icon) during `load()`'s first step let the old completion resolve and dispatch `anima:load` again (with the new document's info, or `null`) | fixed: the completion stops when the load generation changed during that step; `packages/web/test/browser.test.ts` ("Rottweiler P1 (R4-02)") |
+| R4-03 | minor | CLI `build` (after R3-09): named references were decoded without their semicolon (`&plusxml`), which browsers leave literal | fixed: named references need `;`, numeric ones keep it optional; `packages/cli/test/rottweiler-p1.test.ts` |
+| R4-04 | minor | svg: a knockout node with neither fill nor stroke still cut its outline grown by the knockout width (SPEC §4: it draws nothing, and the cut is its painted area grown) | fixed: `packages/core/src/svg.ts` writes no cut stroke without a paint (the canvas renderer already did so); `packages/core/test/rottweiler-p1.test.ts` |
+| R4-05 | minor | player: the constructor resolved values without clamping, so a new player exposed `opacity` 2 and `r` −2 until the first step (SPEC §7: resolved as by steps 3–4) | fixed: the constructor clamps each resolved number to its property's range; `packages/core/test/rottweiler-p1.test.ts` |
+| R4-06 | minor | player: a chain of exactly 16 transitions ending on its own reported no `@limit` | pushed back: SPEC §7 pairs the report with the cap stopping the layer ("reports the event `@limit` … and stops its transitions for this step"); the player reports it exactly when a 17th eligible transition is refused, as the `limit` conformance case expects. A chain that finished by itself was not limited |
+| R4-07 | minor | AniML decompile (R3-08 residual): a `$comment` written as an XML comment lost surrounding whitespace, and characters XML forbids (`\u0000`) produced markup that does not build | fixed in part: `packages/markup/src/decompile.ts` writes forbidden characters as U+FFFD, so the output always builds; ANIML §8 lists the trimming, `-- >` and U+FFFD as the fourth normalisation (a reversible escape would change how authored comments compile); `packages/markup/test/rottweiler-p1.test.ts` |
+| R4-08 | minor | core `formatAni`: metadata nested ~5,000 deep (accepted by `load`, whose depth limit covers nodes only) overflowed the stack in `fmt` | pushed back: at that depth the platform's own `JSON.stringify` overflows too (10,000 nested arrays throw in Node 24), so every writer of such a document fails; the fix is a SPEC nesting limit for all JSON values, an owner decision, not a formatter rewrite |
 
 ## Rounds
 
@@ -101,3 +109,15 @@ libraries compiler (a test beside the others passed before the fix).
 
 Sizes: core+web 22,217 B; `components` 3,440/3,456, `assetio` 748/768, `markup` 7,446,
 `markup-libraries` 2,172/2,176.
+
+### Round 4 (focused)
+
+Reviewer: GPT-6.1-sol xhigh: the round-3 fix diff plus the player state machine, draw/SVG, cond/colour/
+format, AniML names/format and the CLI `sample`/`fmt`/`decompile`/`build`/`compare` commands. Token
+usage: not reported. Eight findings, all reproduced by the lead with the reviewer's scripts; R4-01, R4-02, R4-03
+and R4-07 extend round-3 fixes. The reviewer found the other round-3 fixes correct. R4-01, R4-06 and
+R4-08 pushed back. Open question for the owner (from R3-04/R4-08): SPEC's nesting limit covers nodes
+only; a limit on all JSON nesting would let loaders refuse documents no JSON writer can serialise.
+
+Sizes: core+web 22,260 B; `components` 3,436/3,456, `assetio` 750/768, `markup-libraries`
+2,173/2,176, `markup-convert` 550/704.

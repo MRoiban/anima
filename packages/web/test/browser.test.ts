@@ -1308,6 +1308,40 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       expect(errors).toEqual([]);
     });
 
+    it('Rottweiler P1 (R4-02): a load replaced or destroyed by an entry-event listener does not report its own load', async () => {
+      await mount();
+      const result = await page.evaluate(() => {
+        const doc = (name: string, emit?: string) => ({
+          anima: '0.1',
+          name,
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+          machine: {
+            layers: { l: { initial: 's', states: { s: { pose: {}, ...(emit ? { emit } : {}) } } } },
+          },
+        });
+        const loads: unknown[] = [];
+        const a = document.createElement('anima-icon');
+        document.body.append(a);
+        a.addEventListener('anima:load', (e) =>
+          loads.push((e as CustomEvent).detail?.name ?? null),
+        );
+        a.addEventListener('anima:event', () => a.load(doc('fresh')), { once: true });
+        a.load(doc('first', 'go'));
+        const b = document.createElement('anima-icon');
+        document.body.append(b);
+        const destroyed: unknown[] = [];
+        b.addEventListener('anima:load', (e) => destroyed.push((e as CustomEvent).detail));
+        b.addEventListener('anima:event', () => b.destroy(), { once: true });
+        b.load(doc('gone', 'go'));
+        a.destroy();
+        a.remove();
+        b.remove();
+        return { loads, destroyed };
+      });
+      expect(result).toEqual({ loads: ['fresh'], destroyed: [] });
+    });
+
     it('Rottweiler P1 (R3-12): button tabindex and cursor added by the host go with button semantics', async () => {
       await mount();
       const result = await page.evaluate(() => {

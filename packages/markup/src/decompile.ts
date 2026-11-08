@@ -1,6 +1,6 @@
 import { elementFields, compoundField } from './fields.ts';
 import { motionCompiler, eventsCompiler, dataCompiler, convertCompiler } from './module-hooks.ts';
-import { parseXml, type Element } from './xml.ts';
+import { NOT_CHAR, parseXml, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, type LayoutChild, render } from './layout.ts';
@@ -52,7 +52,11 @@ export function decompile(doc: string | object): string {
                 : value(o[k]),
         ]),
     ],
-    children: typeof o.$comment === 'string' ? [{ comment: ` ${o.$comment} ` }] : [],
+    // XML comments cannot hold every JSON character: those become U+FFFD (ANIML §8).
+    children:
+      typeof o.$comment === 'string'
+        ? [{ comment: ` ${o.$comment.replace(new RegExp(NOT_CHAR, 'g'), '\ufffd')} ` }]
+        : [],
   });
   const node = (n: Obj): LayoutElement => {
     const el = element(n.type as string, n, ['id']);

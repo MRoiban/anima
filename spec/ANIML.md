@@ -177,7 +177,9 @@ Decompiling a hand-written `.ani` and building it again gives the same document 
 normalisations, none of which changes playback: `$schema` is dropped; a `$comment` on an object
 that has no element of its own (`inputs`, `colors`, a `fill` or `stroke`, …) is dropped; a
 one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`); and a
-`-->` inside a `$comment`, which would end the XML comment, is written `-- >`.
+`$comment` written as an XML comment loses its leading and trailing whitespace, has a `-->`
+(which would end the comment) written `-- >`, and has characters XML does not allow replaced by
+U+FFFD. The `$comment` of `meta` stays in its JSON text unchanged.
 
 `anima fmt x.animl` reformats markup into the same canonical layout but keeps the author's
 comments, element order, named eases and track style: a track written inline with `;` stays inline

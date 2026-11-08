@@ -253,6 +253,11 @@ export class Player {
     this.#over = model.listeners.map(() => false);
     this.#vals = this.#rest.slice();
     for (const L of this.#layers) this.#write(L, this.#vals);
+    // Resolved as by steps 3–4 (spec §7): clamp to each property's range.
+    this.#vals.forEach((v, i) => {
+      const p = this.model.addrs.get(this.addrs[i]!)!.prop;
+      if (typeof v === 'number') this.#vals[i] = clamp(v, p.min ?? -Infinity, p.max ?? Infinity);
+    });
     this.nested = model.nesting?.(this);
   }
 

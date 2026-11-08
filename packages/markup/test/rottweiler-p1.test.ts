@@ -65,3 +65,12 @@ describe('Rottweiler P1 AniML round 3', () => {
     }
   });
 });
+
+describe('Rottweiler P1 AniML round 4', () => {
+  // R4-07: a $comment with a character XML forbids still decompiles to markup that builds.
+  it('writes non-XML characters of a $comment as U+FFFD', () => {
+    const built = compile(decompile(base({ $comment: 'a\u0000b' })));
+    expect(built.diagnostics).toEqual([]);
+    expect(built.doc!.$comment).toBe('a�b');
+  });
+});

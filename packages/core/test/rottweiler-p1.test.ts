@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { load, Player, runScript } from '../src/index.ts';
+import { load, Player, runScript, toSVG } from '../src/index.ts';
 import { flatten, parsePath } from '../src/path.ts';
 
 const base = (extra: Record<string, unknown> = {}) => ({
@@ -323,5 +323,36 @@ describe('Rottweiler P1 round 3', () => {
         (d) => d.code,
       ),
     ).toEqual(['script-expect-error']);
+  });
+});
+
+describe('Rottweiler P1 round 4', () => {
+  // R4-04: a node with neither fill nor stroke draws nothing, so its knockout cuts nothing.
+  it('cuts nothing for an unpainted knockout node', () => {
+    const p = player(
+      base({
+        nodes: [
+          { id: 'bg', type: 'rect', x0: 0, y0: 0, w: 20, h: 20, fill: { color: '#f00' } },
+          { id: 'line', type: 'path', d: 'M0 10L20 10', knockout: 2 },
+        ],
+      }),
+    );
+    const cut = /<mask[\s\S]*<\/mask>/.exec(toSVG(p))![0];
+    expect(cut).toContain('d="M0 10L20 10"');
+    expect(cut).not.toContain('stroke="#000"');
+  });
+
+  // R4-05: a new player's values are clamped as by step 4 (spec §7).
+  it('clamps the initial resolved values', () => {
+    const p = player(
+      base({
+        machine: {
+          layers: {
+            main: { initial: 'a', states: { a: { pose: { 'dot.opacity': 2, 'dot.r': -2 } } } },
+          },
+        },
+      }),
+    );
+    expect(p.values()).toEqual({ 'dot.opacity': 1, 'dot.r': 0 });
   });
 });

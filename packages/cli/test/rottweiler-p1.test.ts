@@ -100,4 +100,12 @@ it('builds an AniML script whose type uses character references', async () => {
     expect(r.diagnostics).toEqual([]);
     expect(r.text).toContain('type="application/vnd.anima+json"');
   }
+  // R4-03: named references need their semicolon, as in browsers.
+  for (const type of ['application/vnd.anima&plusxml', 'application&solvnd.anima+xml']) {
+    const r = buildHTML(
+      `<anima-icon><script type="${type}">${animl}</script></anima-icon>`,
+      'p.html',
+    );
+    expect(r.text).toContain(type);
+  }
 });

@@ -69,7 +69,7 @@ const NAME = /[A-Za-z_][A-Za-z0-9._-]*/y;
 const ENTITY = /&(?:(amp|lt|gt|quot|apos)|#([0-9]{1,7})|#x([0-9a-fA-F]{1,6}));/y;
 const NAMED: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
 /** Characters XML 1.0 forbids, literally or as a reference (lone surrogates included). */
-const NOT_CHAR =
+export const NOT_CHAR =
   /[\0-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
 
 /**
