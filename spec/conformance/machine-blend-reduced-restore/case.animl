@@ -1,0 +1,20 @@
+<anima version="0.1" name="machine-blend-reduced-restore" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <timeline name="t0" duration="1" loop="loop" reducedMotion="end">
+    <track target="dot.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+
+  <layer name="l" initial="idle">
+    <state name="a" play="t0" mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;t0&quot;,&quot;at&quot;:0,&quot;weight&quot;:1}]}"/>
+    <state name="idle">
+      <pose dot.x="0"/>
+      <on when="go" to="a"/>
+    </state>
+  </layer>
+</anima>

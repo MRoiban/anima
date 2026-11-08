@@ -19,6 +19,11 @@ const replacementIds = new WeakMap<Player, Map<string, { id: string; source: str
 hostEdit.resourceType = (player, name) =>
   (Icon.modules.get('assets') as typeof assets | undefined)?.resolvedAssets.get(player)?.[name]
     ?.type;
+hostEdit.assigned = (api, path) => {
+  const pending = versions.get(api.player),
+    target = api.canonical(path);
+  pending?.set(target, (pending.get(target) ?? 0) + 1);
+};
 hostEdit.replaceImage = async (api, path, value) => {
   const icon = owners.get(api.player);
   const root = icon?.player;

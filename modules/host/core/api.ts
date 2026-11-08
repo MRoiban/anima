@@ -434,7 +434,10 @@ export class HostData {
     path = path.startsWith('$') ? path : '$' + path;
     const p = this.#address(path).property;
     const type = p.type === 'bool' ? 'boolean' : p.type === 'asset-ref' ? p.assetType! : p.type;
-    return Object.assign(this.#handle(path, type), { type }) as PropertyHandle;
+    // Image handles go through image(), so optional image setters (host-edit) apply here too.
+    return Object.assign(type === 'image' ? this.image(path) : this.#handle(path, type), {
+      type,
+    }) as PropertyHandle;
   }
   exportedInstances(): DataInstance[] {
     return this.instances().filter(

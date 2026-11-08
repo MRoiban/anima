@@ -1,0 +1,10 @@
+<anima version="0.1" name="motion-controlled-reduced-restore" grid="20" requires="motion bind">
+  <circle id="dot" cx="0" cy="0" r="1" fill="#000"/>
+  <number name="phase" default="0.25"/>
+  <timeline name="t" duration="1" loop="loop">
+    <track target="dot.x">0 0; 1 10</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t" speed="2" time="phase"/>
+  </layer>
+</anima>

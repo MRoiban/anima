@@ -1,0 +1,68 @@
+{
+  "anima": "0.1",
+  "name": "machine-blend-reduced-restore",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t0": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "dot.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "idle",
+        "states": {
+          "a": {
+            "play": "t0",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "t0",
+                  "at": 0,
+                  "weight": 1
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "dot.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "a"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

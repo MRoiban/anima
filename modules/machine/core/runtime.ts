@@ -51,8 +51,11 @@ interface Data {
     time: number;
     frozen: number;
     reduced?: boolean;
+    resumed?: number;
   };
   reduced?: boolean;
+  /** State time when full motion was restored, for blend children released from freezing. */
+  resumed?: number;
   pending?: { transition: TransitionM; duration: number; elapsed: number };
 }
 export class MachinePolicy implements PlaybackPolicy {
@@ -153,11 +156,16 @@ export class MachinePolicy implements PlaybackPolicy {
           time: r.time,
           frozen: r.frozen,
           reduced: d.reduced,
+          resumed: d.resumed,
         };
       else d.outgoing = undefined;
       this.act(states.get(from)?.exitActions);
     }
+    // The leaving state's motion history samples its exit capture below.
+    const reduced = d.reduced,
+      resumed = d.resumed ?? -1;
     d.reduced = this.p.reducedMotion;
+    d.resumed = undefined;
     // Interrupted transitions do not run end actions.
     d.pending = undefined;
     this.act(options?.actions);
@@ -175,7 +183,7 @@ export class MachinePolicy implements PlaybackPolicy {
       r.w[r.m.states.indexOf(to)] = new Map(
         [...r.w[r.state]!].map(([k, sampler]) => {
           const value = states.get(from)?.children
-            ? this.blended(r, from, this.p.addrs[k]!)
+            ? this.blended(r, from, this.p.addrs[k]!, r.time, r.frozen, reduced, resumed)
             : sampler(at);
           return [k, () => value];
         }),
@@ -211,6 +219,11 @@ export class MachinePolicy implements PlaybackPolicy {
     const r = run as Run,
       d = this.runs.get(r)!;
     d.eligible = eligible;
+    // Reduced motion during the state freezes its blend children too (entry or later).
+    if (this.p.reducedMotion) {
+      d.reduced = true;
+      d.resumed = undefined;
+    } else if (d.resumed === undefined && (d.reduced || r.frozen >= 0)) d.resumed = r.time;
     d.chosen = undefined;
     d.consumed.clear();
     d.changed.clear();
@@ -241,7 +254,15 @@ export class MachinePolicy implements PlaybackPolicy {
         r.fade.from.set(
           k,
           states.get(st)?.children
-            ? this.blended(r, st, this.p.addrs[k]!, out.time, out.frozen, out.reduced)
+            ? this.blended(
+                r,
+                st,
+                this.p.addrs[k]!,
+                out.time,
+                out.frozen,
+                out.reduced,
+                out.resumed ?? -1,
+              )
             : sampler(time),
         );
     } else d.outgoing = undefined;
@@ -361,7 +382,12 @@ export class MachinePolicy implements PlaybackPolicy {
     found.sort((a, b) => a[0] - b[0]);
     for (const [, time, name] of found) out.push({ name, layer, time });
   }
-  childClock(t: TimelineM, elapsed: number, speed: number, reduced = false): number {
+  /** Restoring full motion resumes looping blend children; reduced `once` children keep their end. */
+  held(t: TimelineM, reduced?: boolean): boolean {
+    return !!reduced && (this.p.reducedMotion || t.loop === 'once');
+  }
+
+  childClock(t: TimelineM, elapsed: number, speed: number, reduced = false, resumed = -1): number {
     const raw = this.p.model.doc.requires?.includes('motion')
       ? this.p.model.doc.timelines[t.name]
       : {};
@@ -370,6 +396,9 @@ export class MachinePolicy implements PlaybackPolicy {
       rate = speed * (raw.speed ?? 1);
     if (reduced && t.reduced !== 'play')
       return t.reduced === 'skip' ? (rate < 0 ? end : start) : rate < 0 ? start : end;
+    // Released from freezing at state time `resumed`: continue from the frozen endpoint.
+    if (resumed >= 0 && t.reduced !== 'play')
+      elapsed += (t.reduced === 'skip' || !rate ? 0 : span / Math.abs(rate)) - resumed;
     let x = (rate < 0 ? span : 0) + elapsed * rate;
     if (t.loop === 'once') x = Math.max(0, Math.min(span, snapTime(snapTime(x, 0), span)));
     else x = foldTime(x, span, t.loop === 'pingpong');
@@ -387,6 +416,7 @@ export class MachinePolicy implements PlaybackPolicy {
     elapsed = r.time,
     frozen = r.frozen,
     reduced = this.runs.get(r)?.reduced,
+    resumed = this.runs.get(r)?.resumed ?? -1,
   ): Value {
     const info = states.get(state)!,
       children = info.children!;
@@ -403,7 +433,9 @@ export class MachinePolicy implements PlaybackPolicy {
     const values = children.map((c) => {
       const t = this.p.model.timelines[c.timeline]!,
         track = t.tracks.find((tr) => tr.addr === address);
-      const time = this.childClock(t, elapsed, state.speed, reduced || frozen >= 0);
+      const stopped = reduced || frozen >= 0,
+        held = this.held(t, stopped);
+      const time = this.childClock(t, elapsed, state.speed, held, stopped && !held ? resumed : -1);
       return track ? sample(track, time) : rest;
     });
     if (info.mix!.mode !== '1d') {
@@ -440,7 +472,7 @@ export class MachinePolicy implements PlaybackPolicy {
             const [a, b] = raw.work ?? [0, t.duration],
               rate = s.speed * (raw.speed ?? 1);
             return (
-              (this.runs.get(r)?.reduced && t.reduced !== 'play') ||
+              (this.held(t, this.runs.get(r)?.reduced) && t.reduced !== 'play') ||
               rate === 0 ||
               (t.loop === 'once' && reached(r.time * Math.abs(rate), b - a))
             );

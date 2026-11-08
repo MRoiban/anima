@@ -10,6 +10,7 @@ Icon.prototype.focusPrevious = function () {
   return this.player?.focusTraverse('previous') ?? false;
 };
 const attached = new WeakMap<AnimaIcon, () => void>();
+const drawn = new WeakMap<AnimaIcon, () => void>();
 function attach(icon: AnimaIcon) {
   attached.get(icon)?.();
   icon.setAttribute('data-focus-ready', '');
@@ -18,10 +19,12 @@ function attach(icon: AnimaIcon) {
   let player = icon.player;
   let saved: FocusAPI['onFocusChange'];
   let refresh: FocusAPI['onFocusRefresh'];
+  let ids = '';
   const listen = (type: string, fn: EventListener) =>
     icon.addEventListener(type, fn, { signal: abort.signal });
   const build = () => {
     box?.remove();
+    box = undefined;
     if (player) {
       player.onFocusChange = saved;
       player.onFocusRefresh = refresh;
@@ -31,7 +34,19 @@ function attach(icon: AnimaIcon) {
     const p = player,
       items = p.focusItems(true),
       inner = items.some((n) => n.config.tabStops);
-    if (!items.length) return;
+    ids = items.map((n) => n.id).join();
+    saved = p.onFocusChange;
+    refresh = p.onFocusRefresh;
+    // Repeat/list topology changes add or remove items: rebuild the proxies.
+    const changed = () =>
+      p
+        .focusItems(true)
+        .map((n) => n.id)
+        .join() !== ids && (build(), true);
+    if (!items.length) {
+      p.onFocusRefresh = () => changed() || refresh?.();
+      return;
+    }
     box = document.createElement('span');
     box.style.cssText = 'position:absolute;inset:0;pointer-events:none';
     const targets = new Map<string, HTMLElement>();
@@ -65,9 +80,8 @@ function attach(icon: AnimaIcon) {
     }
     if (inner) icon.removeAttribute('tabindex');
     else icon.tabIndex = 0;
-    saved = p.onFocusChange;
-    refresh = p.onFocusRefresh;
     p.onFocusRefresh = () => {
+      if (changed()) return;
       refresh?.();
       const eligible = new Set(p.focusItems().map((n) => n.id));
       for (const [id, el] of targets) {
@@ -132,7 +146,10 @@ function attach(icon: AnimaIcon) {
       event.preventDefault();
   }) as EventListener);
   build();
+  // Renderer rebuilds (renderer attribute, list topology) replace the shadow content.
+  drawn.set(icon, () => box && !box.parentNode && icon.shadowRoot!.append(box));
   attached.set(icon, () => {
+    drawn.delete(icon);
     abort.abort();
     box?.remove();
     if (player) {
@@ -143,10 +160,20 @@ function attach(icon: AnimaIcon) {
   });
 }
 const load = Icon.prototype.load,
+  loadModel = Icon.prototype.loadModel,
   destroy = Icon.prototype.destroy;
 Icon.prototype.load = function (doc, markup = false) {
   if (!attached.has(this)) attach(this);
   return load.call(this, doc, markup);
+};
+Icon.prototype.loadModel = function (model) {
+  if (!attached.has(this)) attach(this);
+  loadModel.call(this, model);
+};
+const previousEvent = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  previousEvent?.(icon, kind, detail);
+  if (kind === 'draw') drawn.get(icon)?.();
 };
 Icon.prototype.destroy = function () {
   attached.get(this)?.();

@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "motion-controlled-reduced-restore",
+  "grid": 20,
+  "requires": ["motion", "bind"],
+  "inputs": {
+    "phase": {
+      "type": "number",
+      "default": 0.25
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "loop": "loop",
+      "tracks": {
+        "dot.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "speed": 2,
+            "time": "phase"
+          }
+        }
+      }
+    }
+  }
+}

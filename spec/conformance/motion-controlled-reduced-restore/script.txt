@@ -1,0 +1,10 @@
+advance 0.2
+snapshot dot.x
+motion reduce
+advance 0.3
+snapshot dot.x
+motion full
+advance 0
+snapshot dot.x
+advance 0.25
+snapshot dot.x

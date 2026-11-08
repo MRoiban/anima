@@ -154,8 +154,11 @@ function extend(api: HostData, state: DataState): void {
       if (
         typeof value === 'string' &&
         (value === '' || player.model.doc.assets?.[value] || api.resourceType?.(value) === 'image')
-      )
+      ) {
+        // A later direct assignment supersedes a pending URL/Blob replacement.
+        hostEdit.assigned?.(api, path);
         return set(value);
+      }
       if (!hostEdit.replaceImage)
         fail('asset', path, 'image replacement requires the web host-edit entry');
       return hostEdit.replaceImage(api, path, value);
@@ -290,6 +293,7 @@ export const hostEdit: Module & {
   roots: typeof roots;
   resourceType?: (player: Player, name: string) => string | undefined;
   replaceImage?: ImageReplacement;
+  assigned?: (api: HostData, path: string) => void;
   compile?: ModuleRegistry['load'];
 } = {
   roots,

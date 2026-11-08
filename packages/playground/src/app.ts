@@ -369,7 +369,7 @@ function scrubTo(t: number) {
   for (const i of all()) host(i).pause?.();
   icon.hidden = true;
   sample.hidden = false;
-  sample.load(sampleTimeline(icon.player.model, tl, time));
+  sample.load(sampleTimeline(icon.player.model, tl, time, icon.player));
   host(sample).pause?.();
   // Sampling has no pointer actions; it remains a named image for assistive technology.
   sample.setAttribute('role', 'img');
@@ -692,9 +692,11 @@ $('reload').onclick = async () => {
 void openFile().catch((e) => message((e as Error).message));
 window.setInterval(async () => {
   if (document.hidden || saveInProgress) return;
+  // A save or reload that completes while this poll is in flight makes its answer stale.
+  const asked = revision;
   try {
     const d = await fetchFile();
-    if (d.revision !== revision && !saveInProgress) {
+    if (d.revision !== revision && revision === asked && !saveInProgress) {
       conflict = true;
       fileState();
     }
