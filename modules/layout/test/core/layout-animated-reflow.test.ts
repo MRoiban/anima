@@ -236,3 +236,31 @@ it('measures and draws fill text wrapped at its allocation, including nested hug
   resolveLayout(p);
   expect(p.drawRevision).toBe(revision);
 });
+// P7 benchmark: reflow and the host data API both wrap `busy`; a data write mid-reflow must not throw
+// "Cannot redefine property: busy", and busy must stay true while a flight runs.
+it('chains busy with the host data API so data writes during a reflow work', async () => {
+  const path = 'modules/layout/examples/reflow.animl';
+  const source = readFileSync(path, 'utf8').replace(
+    'requires="layout text assets fonts data bind"',
+    'requires="layout text assets fonts data bind host"',
+  );
+  const c = compile(source, { file: path });
+  expect(c.diagnostics).toEqual([]);
+  const doc = JSON.parse(c.text!),
+    fonts = documentFonts(doc, path.replace('.animl', '.ani'));
+  await installToolMeasurer(fonts.measurer);
+  const r = load(doc);
+  expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const { runScript } = await import('../../../../packages/core/src/index.ts');
+  const run = () =>
+    runScript(
+      r.model!,
+      'advance 0\ndata set $label "Go further"\nadvance 0.1\ndata set $label "Go"',
+    );
+  expect(run).not.toThrow();
+  const p = run().player;
+  expect(p.busy).toBe(true);
+  p.step(1); // applies the queued write and starts its flight
+  p.step(1);
+  expect(p.busy).toBe(false);
+});

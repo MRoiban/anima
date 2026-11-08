@@ -32,8 +32,13 @@ export function reflow(p: Player, boxes: Map<number, Box>): Map<number, Box> {
   let state = states.get(p);
   if (!state) {
     states.set(p, (state = { drawn: new Map(), targets: new Map(), flights: new Map() }));
-    const busy = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(p), 'busy')!.get!;
-    Object.defineProperty(p, 'busy', { get: () => !!state!.flights.size || busy.call(p) });
+    // Chain any instance-level busy (host data API) and stay configurable for later wrappers.
+    const busy = (Object.getOwnPropertyDescriptor(p, 'busy') ??
+      Object.getOwnPropertyDescriptor(Object.getPrototypeOf(p), 'busy'))!.get!;
+    Object.defineProperty(p, 'busy', {
+      configurable: true,
+      get: () => !!state!.flights.size || busy.call(p),
+    });
     const values = p.values;
     p.values = function () {
       const result = values.call(this);

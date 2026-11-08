@@ -56,6 +56,8 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-08 | P6 | [search card](runs/2026-11-08-p6/SEARCH-BRIEF.md) | AniML | 5/6 | 38 | ~7 min | 46-line scene (3.7 k chars; 188 lines with a JS filter helper) | item 3 approximated: no substring or case folding in expressions, so a host helper filtered; `session --font` lacked the text measurer — fixed in P6-10 (`contains`, `lower`, filter recipe) and P6-9b; AniML rerun after them |
 | 2026-11-08 | P6 | search card | Rive markup | 6/6 | 10 | ~6 min | 173 lines (13.0 k chars; 322 with helpers) | field is a scripted key handler (no caret, selection or IME); filtering in Luau. Orchestrator re-check: assertions pass; title frames show the stagger |
 | 2026-11-08 | P6 (rerun after P6-9b/P6-10) | search card | AniML | 6/6 | 19 | ~5 min | 109-line scene (6.6 k chars; 228 lines with generator, proof and verifier) | filtering in the scene with `contains(lower($label), lower($query))`; native field (caret, selection, IME via the browser). Friction: text-input docs still show the old equality search; `schema textInput` has no did-you-mean; `schema rect` doesn't list required `x0`/`y0`; a local text-style `fill` binding rejected (`unknown-address`); `grid` pair still needs a viewBox hint. Orchestrator re-check: `sample` proof exit 0, verifier PASS, wave frames |
+| 2026-11-08 | P7 | [reflow card](runs/2026-11-08-p7/BRIEF.md) | AniML | 6/6 | 15 | ~8 min | 37-line scene (2.3 k chars; 316 lines with exercise script, host page and checks) | native layout: hugging button, 0.3 s reflow that continues smoothly on retarget, filling and hidden chips, `fit="layout"` at 600 × 300; all in the scene. Friction: `data set` (and browser data access) threw `Cannot redefine property: busy` with reflow + host data loaded — fixed before the PR (busy chaining, regression test); `set $path` worked; the short action example lacks transition action syntax. Orchestrator re-check: `sample` proof exit 0, 19 assertions |
+| 2026-11-08 | P7 | reflow card | Rive markup | 6/6 | 16 | ~8 min | 151-line scene + 59-line Luau controller (621 lines / 26.0 k chars with checks) | native layout measures and hugs; native layout interpolation and the interpolator converter restart from an earlier endpoint when interrupted, so a Luau controller animates the width from the current value; text width stayed zero in a narrow button until `hugUnbounded`. Orchestrator re-check: evidence checker PASS |
 
 ### P4a findings → actions
 
@@ -164,3 +166,12 @@ Gate: AniML 4/6 is below Rive (5/6). Both misses are bugs except the one that ne
   `schema` did-you-mean for camel-case topics (`textInput` → `text-input`); `schema rect` lists
   required `x0`/`y0`; `grid` pair → `viewBox` hint; the P3c items (shorter default `docs` output,
   a11y guide bounds line). The local text-style `fill` binding goes with P6-11.
+
+### P7 findings → actions
+
+- **Reflow card: AniML 6/6 ≥ Rive 6/6**, with a 37-line scene against Rive's 151 lines plus a
+  59-line controller: Anima's reflow continues from the drawn box on retarget (design §4), which is
+  what the brief's interruption item asks; Rive needed script for it.
+- Fixed before the PR: `busy` redefinition between layout reflow and the host data API (data writes
+  threw); regression test in `modules/layout/test/core/layout-animated-reflow.test.ts`.
+- Docs (0 bytes): show transition `actions` syntax in the short actions example.
