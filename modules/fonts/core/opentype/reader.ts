@@ -140,6 +140,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
       .sort((a, c) => b.u16(a) - b.u16(c));
     if (!supported.length) fault(V ? 'font needs cmap format 4 or 12' : '', 'font-unsupported');
     const put = (cp: number, g: number) => {
+      b.check(0, 0); // charge every mapping: repeated subtables cannot bypass the operation limit
       if (cp > 0x10ffff || g >= this.glyphCount) fault(V ? 'invalid cmap mapping' : '');
       if (g) this.coverage.set(cp, g);
     };
@@ -241,7 +242,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
   kerning(left: number, right: number, features: Record<string, number> = {}): number {
     if (features.kern === 0) return 0;
     if (this.tables.has('GPOS')) {
-      const k = pairAdjustment(this.table('GPOS'), left, right);
+      const k = pairAdjustment(this, left, right);
       if (k !== undefined) return k.first.advanceX + k.second.advanceX;
     }
     if (!this.tables.has('kern')) return 0;
@@ -273,7 +274,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
   positionPair(left: number, right: number, features: Record<string, number> = {}): PairAdjustment {
     if (features.kern === 0) return { first: zeroAdjustment(), second: zeroAdjustment() };
     if (this.tables.has('GPOS')) {
-      const pair = pairAdjustment(this.table('GPOS'), left, right);
+      const pair = pairAdjustment(this, left, right);
       if (pair) return pair;
     }
     return {
@@ -519,8 +520,11 @@ function glyphClass(b: Bytes, p: number, g: number): number {
   }
   return fault(V ? 'unsupported GPOS class' : '', 'font-unsupported');
 }
-function pairAdjustment(b: Bytes, left: number, right: number): PairAdjustment | undefined {
-  const features = b.u16(6),
+function pairAdjustment(font: Font, left: number, right: number): PairAdjustment | undefined {
+  const b = font.table('GPOS'),
+    gdef = font.tables.has('GDEF') ? font.table('GDEF') : undefined,
+    classes = gdef?.u16(4),
+    features = b.u16(6),
     list = b.u16(8),
     lookups = new Set<number>();
   // Only kern feature lookups. Other positioning features need script/language shaping.
@@ -534,7 +538,11 @@ function pairAdjustment(b: Bytes, left: number, right: number): PairAdjustment |
   for (const index of lookups) {
     if (index >= b.u16(list)) fault(V ? 'invalid GPOS lookup index' : '');
     const lookup = list + b.u16(list + 2 + index * 2),
-      type = b.u16(lookup);
+      type = b.u16(lookup),
+      flag = b.u16(lookup + 2);
+    // IgnoreBaseGlyphs/Ligatures/Marks: the lookup does not pair a glyph of an ignored GDEF class.
+    if (classes && [left, right].some((g) => flag & 14 & (1 << glyphClass(gdef!, classes, g))))
+      continue;
     for (let j = 0; j < b.u16(lookup + 4); j++) {
       let p = lookup + b.u16(lookup + 6 + j * 2),
         t = type;

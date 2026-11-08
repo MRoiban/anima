@@ -167,7 +167,9 @@ extrema and stroke support instead of the earlier proposed DOM bounding-box infl
 installed Chromium ignores getBBox's stroke option while Firefox honors it, and a blanket
 half-width inflation cannot reproduce butt caps or miter joins. A shared pure calculator avoids
 that platform divergence, following the separation described in docs/research/rive-web-runtime.md.
-Explicit authored boxes still win. The broader final-painted-extents row stays planned for the
+Explicit authored boxes still win. Caps take their direction from the subpath's first/last
+non-zero tangent; a zero-length open subpath with round or square caps is a dot or a square aligned
+with the local x axis, as SVG draws it. The broader final-painted-extents row stays planned for the
 unsupported combinations listed below; standard centered geometry now has independent tests.
 
 Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:

@@ -89,7 +89,8 @@ line's trailing clusters with U+2026 on horizontal or vertical truncation; a box
 shows none. An empty-height box has no visible line. `fit` scales the laid-out block uniformly down
 without reflow. `fit-font-size` performs 20 bisection iterations over (0,1], remeasuring and rewrapping;
 it never enlarges. A zero-width or zero-height fit box renders no lines; font-size fitting reports
-`fittedSize: 0` and zero content dimensions without requesting a zero-size font. Uniform fit
+`fittedSize: 0` and zero content dimensions without requesting a zero-size font. The same empty
+result applies when no bisection candidate fits. Uniform fit
 reports `scale: 0`. `fitFromBaseline` excludes the first baseline distance from the top from the height fitting criterion.
 `fitFontSizeResizesBox` reports the reduced content dimensions in place of the original fixed box.
 

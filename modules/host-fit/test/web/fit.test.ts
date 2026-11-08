@@ -201,6 +201,27 @@ for (const [engineName, engine, executablePath] of [
         }
       }, 30_000);
 
+      it(`${renderer}: R2-8 does not measure a hidden host's unresolved percentage size`, async () => {
+        const result = await page.evaluate((renderer) => {
+          const i = document.querySelector('anima-icon')!;
+          i.setAttribute('renderer', renderer);
+          i.style.cssText =
+            'display:none;box-sizing:border-box;width:50%;height:50%;border:2px solid;padding:5px';
+          i.fit = 'layout';
+          const hidden = i.player!.layoutSize;
+          i.style.display = 'block';
+          (i.constructor as typeof AnimaIcon).viewBox!(i);
+          const css = getComputedStyle(i);
+          return {
+            hidden,
+            shown: i.player!.layoutSize,
+            expected: [parseFloat(css.width) - 14, parseFloat(css.height) - 14],
+          };
+        }, renderer);
+        expect(result.hidden).toBeUndefined();
+        expect(result.shown).toEqual(result.expected);
+      }, 30_000);
+
       it.each(cases)(
         `${renderer}: %s shares drawing, pointer and semantic matrices`,
         async (fit, sx, sy, tx, ty) => {

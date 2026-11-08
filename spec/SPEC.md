@@ -2970,7 +2970,10 @@ variations and Type2 arithmetic/seac operators are currently unsupported. CFF1 T
 subroutines and CID FDSelect 0/3 are supported, along with TrueType simple and composite glyphs.
 WOFF uses bounded zlib decompression; WOFF2 uses bounded Brotli and inverse glyf/loca/hmtx transforms.
 The reader maps cmap 4/12, reads hhea/hmtx, OS/2, head, maxp, name, kern and GPOS kern pair adjustments
-1/2 (including extension lookups). Pair placement and advances are supported; GPOS device/variation adjustments, mark placement and GSUB
+1/2 (including extension lookups). Pair placement and advances are supported; a lookup whose
+IgnoreBaseGlyphs/IgnoreLigatures/IgnoreMarks flag matches either glyph's GDEF class does not
+adjust that pair. Every cmap mapping, across all subtables, counts toward the table operation limit
+(`font-limit`). GPOS device/variation adjustments, mark placement and GSUB
 shaping are not. Arabic, Hebrew, Indic, combining marks and joining controls issue
 `text-shaping-approximate`; the tool does not claim shaped glyph equivalence.
 
@@ -3403,5 +3406,7 @@ Native timing and retarget mapping remain pending; raw captures are retained wit
 dimensions, at one CSS pixel per grid unit (DPR affects backing pixels only). Root layout reflows;
 it is not merely scaled. `player.layoutSize` is the per-player grid-unit override; clearing it
 restores authored sizing. The host adapter applies normal explicit-size/reset precedence as above.
+A host whose computed content size is not a resolved pixel length (for example `display:none` with a
+percentage size) is not measured; its layout size and viewport are kept until it has a layout box.
 Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
 This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.

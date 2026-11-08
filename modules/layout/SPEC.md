@@ -95,7 +95,8 @@ and font preparation without changing the text module's standalone measurement c
 Child positions are in the immediate container's space. `local()`/`world()` expose the drawn positions (equal to targets without reflow); layout containers have the ordinary rectangle hit outline. Root box positions are the root's `x/y`.
 `player.values()` / CLI snapshots additionally expose `<id>.layoutBox.x`, `.y`, `.width`, `.height`.
 These are observations, not writable binding destinations. Boxes are written into the neutral
-frame's container/rect/image geometry and child transforms, including shape scaling. SVG and
+frame's container/rect/image geometry and child transforms, including shape scaling; per-corner
+rectangles (`corners`) build their corner path in the allocated box. SVG and
 canvas consume the same frame. Hit testing and pointer coordinate mapping use that frame’s allocated geometry and geometry-to-artboard transform, including shape normalization; semantic bounds use the same transform. Semantic caches track every collected player’s draw revision, so host size changes and reflow frames invalidate bounds even when sampled properties stay unchanged. A painted container draws its background then its child tree.
 
 The `layout` browser entry includes its `layout-svg` backend entry; the backend registration is separately bundled to keep each entry within its byte ceiling.

@@ -562,9 +562,10 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       return p?.get(key);
     },
     hits(node, x, y) {
-      const p = players.get(parent.model.nodes[node]!.id);
-      if (!p) return;
-      const n = parent.model.nodes[node]!;
+      const n = parent.model.nodes[node]!,
+        p = players.get(n.id);
+      // A cleared instance has no child player and no outline.
+      if (!p) return (n.type as string) === 'instance' ? false : undefined;
       if (active?.selected?.(parent, n) === false) return false;
       const inv = invert(
         mul(drawWorld(parent, node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
