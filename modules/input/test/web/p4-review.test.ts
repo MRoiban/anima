@@ -77,6 +77,27 @@ for (const [name, engine, executablePath] of [
         }, doc);
         expect(got).toBe(true);
       });
+      it('R3-02: repeated failing loads do not accumulate load listeners', async () => {
+        const count = await page.evaluate(async (d) => {
+          const i = document.querySelector('anima-icon')!;
+          let n = 0;
+          const add = i.addEventListener;
+          i.addEventListener = function (this: Element, type: string, ...rest: never[]) {
+            if (type === 'anima:load') n++;
+            return Reflect.apply(add, this, [type, ...rest]);
+          } as typeof i.addEventListener;
+          const Icon = customElements.get('anima-icon') as unknown as {
+            loadAssets?: () => Promise<never>;
+          };
+          const loader = Icon.loadAssets;
+          Icon.loadAssets = () => Promise.reject([]);
+          for (let k = 0; k < 5; k++) i.load({ ...d, requires: ['input', 'assets'], assets: {} });
+          await new Promise((r) => setTimeout(r, 50));
+          Icon.loadAssets = loader;
+          return n;
+        }, doc);
+        expect(count).toBeLessThanOrEqual(1);
+      });
       it('R2-04: disconnecting cancels pressed contacts', async () => {
         const r = await page.evaluate((d) => {
           const i = document.querySelector('anima-icon')!;

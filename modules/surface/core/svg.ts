@@ -62,7 +62,15 @@ export const surfaceSVG: SVGBackend = {
             'g',
             e.node,
             'leaves',
-            ['fill', 'stroke'].map((k) => el(e.tag, e.node, 'leaf:' + k)),
+            // Keep contour's per-paint path (if it already split the shape) inside its leaf.
+            ['fill', 'stroke'].map((k) =>
+              el(
+                e.tag,
+                e.node,
+                'leaf:' + k,
+                e.kids.filter((c) => c.key === k),
+              ),
+            ),
           );
         }
         const s = draw.nodes[e.node]!.slice;

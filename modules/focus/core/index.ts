@@ -27,6 +27,8 @@ export interface FocusItem {
   local?: string;
   point?: [number, number];
   matrix?: Mat;
+  /** Paint order through nested owners: placement node, append sequence, inner rank. */
+  rank?: number[];
 }
 export interface FocusAPI {
   readonly focused: string | null;
@@ -107,13 +109,16 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
           : [],
       )
       .sort((a, b) => (a.config.order ?? 0) - (b.config.order ?? 0) || a.node - b.node);
+    let seq = 0;
     const append = (child: Player, name: string, node: number, matrix = this.world(node)) => {
       if (!includeDisabled && !this.visible(node)) return;
+      seq++;
       for (const item of child.focusItems(includeDisabled))
         items.push({
           ...item,
           id: name + '.' + item.id,
           node,
+          rank: [node, seq, ...(item.rank ?? [item.node])],
           matrix: mul(matrix, item.matrix ?? IDENTITY),
           owner: item.owner ?? child,
           local: item.local ?? item.id,
@@ -266,7 +271,14 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
               })()
             : this.hits({ target: n.node, pad: 0 } as ListenerM, x, y)),
       )
-      .sort((a, b) => b.node - a.node)[0];
+      .sort((a, b) => {
+        // Frontmost first, including paint order inside a component or list item.
+        const r = a.rank ?? [a.node],
+          q = b.rank ?? [b.node];
+        for (let i = 0; i < r.length || i < q.length; i++)
+          if ((q[i] ?? -1) !== (r[i] ?? -1)) return (q[i] ?? -1) - (r[i] ?? -1);
+        return 0;
+      })[0];
     return item ? this.focusTarget(item.id) : false;
   };
   const pointer = P.prototype.pointer,

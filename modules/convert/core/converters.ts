@@ -264,8 +264,12 @@ const implementations: Record<string, Converter> = {
     if (operation === 'multiply') return n * operand;
     if (operation === 'divide') return operand === 0 ? 0 : n / operand;
     if (operation === 'modulo') return operand === 0 ? 0 : n - operand * Math.floor(n / operand);
-    if (operation === 'random')
-      return seededRandom(ctx, choice(o, 'random', ['always', 'once', 'on-change'], 'always'), v);
+    if (operation === 'random') {
+      const mode = choice(o, 'random', ['always', 'once', 'on-change'], 'always');
+      // Like formula random(): an always-random value keeps the player awake.
+      if (mode === 'always') ctx.active?.();
+      return seededRandom(ctx, mode, v);
+    }
     const fn = mathFunctions.get(String(operation));
     if (!fn) bad(V ? 'unknown calculation' : '', 'operation');
     return fn!.evaluate(n, ...(fn!.arity === 2 ? [operand] : []));

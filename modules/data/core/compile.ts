@@ -355,8 +355,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     if (typeof v === 'string') {
       // Run text is a data source only as a whole `$path` (text module); otherwise literal.
       if (/\/runs\/\d+\/text$/.test(at) && v[0] !== '$') return;
-      // Guard string literals are values, not references to the paths they may spell.
-      const source = at.endsWith('/when') ? v.replace(/"(?:[^"\\]|\\.)*"/g, '') : v;
+      // Quoted string literals (guards and expressions) are values, not references to paths.
+      const source = v.replace(/"(?:[^"\\]|\\.)*"/g, '');
       for (const path of source.match(paths) ?? []) {
         if (!c.refs.has(path)) {
           // Whole lists/model references are legitimate converter sources, never scalar inputs.

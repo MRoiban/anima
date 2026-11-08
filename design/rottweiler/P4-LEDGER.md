@@ -24,4 +24,14 @@ P4c interaction (#15), P4e data (#16). Lead: Opus; reviewers: GPT-6.1-sol xhigh,
 | R2-07 | major | Canvas clamped oversized `rx` uniformly; SVG clamps per axis | fixed: `modules/canvas/web/renderer.ts` passes `{x,y}` radii; `modules/canvas/test/web/p4-review.test.ts` (Chromium + Firefox) |
 | R2-08 | major | AniML guard rewriting corrupted quoted literals (`"A&&B"` → `"AandB"`; compile re-spaced `<=`, split `and`) | fixed: `packages/markup/src/decompile.ts` and `modules/markup-animation/markup/index.ts` (owned outside P4; minimal) skip quoted literals; `modules/data/test/markup/p4-review.test.ts` |
 
-Round 1 reviewer token usage: not reported. Round 2: not reported.
+| R2-08 (size) | — | The first R2-08 compile-side fix put `markup-hooks` 21 B over budget | reworked: guard rewriting now transforms only the segments between quoted literals (same semantics for literal-free guards); `markup-hooks` 4,540/4,544 B |
+| R3-01 | major | Backend order is stale when a backend registers before its module | pushed back: every shipped entry (all web bundles, `core/all.ts`) registers the module first, so this needs out-of-order public API calls. Sorting at `sceneTree` instead fixed it but cost 2–7 B in the full `markup-libraries`/`markup-hooks` delta budgets in every variant tried, and the first version hung componentpaint (it mutated the map during a nested hook loop). Kept R2-06's registration-time sort |
+| R3-02 | minor | The once `anima:load` listener accumulated on failed/superseded loads and survived destroy | fixed: one permanent listener per icon (`WeakSet`) in `modules/input/web/index.ts`; `modules/input/test/web/p4-review.test.ts` |
+| R3-03 | major | Re-registering base paint (e.g. via surface's bundle) replaces the sampling backend | deferred to the P5b lead: the base/sampling backend split is P5b code (`2db307f0`), not P4 |
+| R3-04 | major | Bind `==`/`!=` compared colour RGBA arrays by identity (`#fff == #ffffff` false) | fixed: `modules/bind/core/expression.ts` compares components; `modules/bind/test/core/p4-review.test.ts` |
+| R3-05 | major | Data path scan read `$x` inside quoted expression literals (outside guards) as paths | fixed: `modules/data/core/compile.ts` strips quoted literals from every scanned string; data test file |
+| R3-06 | major | `calculate` `random: always` never marked the player active, so it froze | fixed: `modules/convert/core/converters.ts` calls `ctx.active()` like formula `random()`; `modules/convert/test/core/p4-review.test.ts` |
+| R3-07 | major | Pointer focus inside a component picked the back-most overlapping child | fixed: `modules/focus/core/index.ts` ranks by placement, append sequence and inner rank; `modules/focus/test/core/p4-review.test.ts` |
+| R3-08 | major | Surface's paint split dropped contour's per-paint paths (clockwise winding + feather rendered nothing) | fixed: `modules/surface/core/svg.ts` (P5 file, minimal) keeps contour's matching path inside each leaf; `modules/contour/test/core/p4-review.test.ts` |
+
+Reviewer token usage: not reported (rounds 1–3).

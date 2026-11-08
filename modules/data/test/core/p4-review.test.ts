@@ -53,3 +53,28 @@ it('R2-02: custom property defaults and embedded run text are literals, not data
   expect(errors(text('Price $total'), ['text'])).toEqual([]);
   expect(errors(text('$missing'), ['text']).length).toBeGreaterThan(0);
 });
+
+it('R3-05: quoted literals in binding expressions are not data paths', () => {
+  const errors = (source: string) =>
+    load({
+      anima: '0.1',
+      name: 'p4',
+      grid: 20,
+      requires: ['data', 'bind'],
+      nodes: [
+        {
+          id: 'g',
+          type: 'circle',
+          center: [10, 10],
+          r: 1,
+          fill: { color: '#000' },
+          properties: { label: '' },
+        },
+      ],
+      bind: { 'g.properties.label': source },
+      data: { models: { M: { properties: { x: { type: 'number', default: 0 } } } } },
+    }).diagnostics.filter((d) => d.severity === 'error');
+  expect(errors('"$price"')).toEqual([]);
+  expect(errors('"x $price"')).toEqual([]);
+  expect(errors('$missing').map((d) => d.code)).toContain('data-path');
+});
