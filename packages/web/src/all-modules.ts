@@ -19,6 +19,7 @@ import './devtools.ts';
 import './events.ts';
 import './focus.ts';
 import './fonts.ts';
+import './fonts-options.ts';
 import './fonts-text.ts';
 import './host.ts';
 import './host-edit.ts';

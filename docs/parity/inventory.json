@@ -30257,7 +30257,7 @@
       "status": "planned",
       "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-variation; tests/oracle/text-modifier-variation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
       "phase": "P6",
-      "reason": "P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed."
+      "reason": "P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
     }
   },
   {
@@ -30282,12 +30282,12 @@
       "rive-runtime/include/rive/generated/text/text_style_feature_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-opentype-features/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
+      "test": "modules/fonts/test/core/text-opentype-features.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-opentype-features; tests/oracle/text-opentype-features; modules/fonts/verification/p6-13/native-measurements.json",
       "phase": "P6",
-      "reason": "P6-9b: Authored text style registry still rejects features; real substitution rendering/animation and native comparison remain missing."
+      "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native liga/tnum substitution control max32/11 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."
     }
   },
   {
@@ -31063,12 +31063,12 @@
       "rive-runtime/include/rive/generated/text/text_style_axis_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-variable-axes/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
+      "test": "modules/fonts/test/core/text-variable-axes.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-variable-axes; tests/oracle/text-variable-axes; modules/fonts/verification/p6-13/native-measurements.json",
       "phase": "P6",
-      "reason": "P6-9b: Authored text style registry still rejects axes; independent authored axis rendering/binding/animation and native comparison remain missing."
+      "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native wght400/650/900 control max32/9 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."
     }
   },
   {

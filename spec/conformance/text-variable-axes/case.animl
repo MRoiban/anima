@@ -1,4 +1,9 @@
-<!-- TODO: text.variable-axes; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="text-variable-axes" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="text-variable-axes" grid="20" requires="text fonts bind assets">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <number name="weight" default="400" min="100" max="900"/>
+  <text id="label" line-height="1">
+    <style id="s" font="body" size="2" axes="{&quot;wght&quot;:400}"/>
+    <run text="AV" style="s"/>
+  </text>
+  <bind target="label.styles.s.axes.wght" value="weight"/>
 </anima>

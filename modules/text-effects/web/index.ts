@@ -7,7 +7,8 @@ import '../../text/web/index.ts';
 import { textEffects } from '../core/index.ts';
 import type { TextDrawNode } from '../../text/core/index.ts';
 import type { EffectDrawing, EffectCluster } from '../core/evaluate.ts';
-import { cssFont } from '../../text/web/measure.ts';
+// seam(P6-13): shared platform-aware settings for per-glyph axes.
+import { applyCanvasFont } from '../../fonts/web/settings.ts';
 import type { CanvasSourceHost } from '../../canvas/web/sources.ts';
 const Icon = customElements.get('anima-icon') as CanvasSourceHost;
 Icon.registerModule(textEffects);
@@ -120,12 +121,9 @@ Icon.eventHook = (icon, kind, info) => {
         ctx.transform(a, b, cc, d, x / layout.scale, y / layout.scale);
         ctx.globalAlpha *= c.alpha;
       }
-      ctx.font = cssFont(c.font);
-      ctx.fontKerning = 'normal';
+      applyCanvasFont(ctx, c.font);
       ctx.textRendering = 'geometricPrecision';
       ctx.letterSpacing = c.font.tracking + 'px';
-      if (c.font.axes?.wght !== undefined)
-        ctx.font = cssFont({ ...c.font, weight: c.font.axes.wght });
       for (const p of data.paints[c.run]!) {
         if (p.kind === 'fill') {
           ctx.fillStyle = brush(p);

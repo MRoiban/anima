@@ -38,11 +38,13 @@ const recoverStyle = (e: Element): Obj => {
       'line-height',
     ].includes(k)
       ? Number(v)
-      : ['fill', 'stroke'].includes(k)
-        ? v.startsWith('{')
-          ? JSON.parse(v)
-          : { color: v }
-        : v;
+      : ['axes', 'features'].includes(k) // seam(P6-13): independent compound-style recovery.
+        ? JSON.parse(v)
+        : ['fill', 'stroke'].includes(k)
+          ? v.startsWith('{')
+            ? JSON.parse(v)
+            : { color: v }
+          : v;
   }
   return o;
 };

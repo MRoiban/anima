@@ -56,7 +56,9 @@ export function effectAttrs(f: DrawFrame, el: El, a: Attrs, paint: Paint) {
   const s = data.layout.scale;
   a.transform = `matrix(${c.matrix.map(fmt).join(' ')})` + (s === 1 ? '' : ` scale(${fmt(s)})`);
   a.opacity = fmt(c.alpha);
+  // seam(P6-13): keep authored font features when applying per-glyph axes.
   a.style =
+    (a.style ? a.style + ';' : '') +
     'font-variation-settings:' +
     Object.entries(c.font.axes ?? {})
       .map(([k, v]) => `"${k}" ${v}`)

@@ -1,0 +1,18 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[02:04:03.451] rive  deferred replay: inline
+[02:04:03.456] rive  built (8296 bytes, 4ms, 0 errors, 0 warnings)
+[02:04:03.456] rive  showing Probe [1/1]
+[02:04:03.456] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[02:04:03.462] rive  wrote frames/0.png
+ok screenshot: frames/0.png
+wrote /home/jarvis/.t3/worktrees/anima/t3-4d07f8a5/tests/oracle/text-variable-axes/anima/0.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[02:04:04.224] rive  deferred replay: inline
+[02:04:04.228] rive  built (8350 bytes, 3ms, 0 errors, 0 warnings)
+[02:04:04.229] rive  showing Probe [1/1]
+[02:04:04.229] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[02:04:04.235] rive  wrote frames/0.png
+ok screenshot: frames/0.png
+wrote /home/jarvis/.t3/worktrees/anima/t3-4d07f8a5/tests/oracle/text-opentype-features/anima/0.png

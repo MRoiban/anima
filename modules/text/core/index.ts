@@ -14,7 +14,7 @@ import { installTextHit } from './hit.ts';
 import type { TextRunAccess } from './host.ts';
 export { textRun, createTextRunAccess } from './host.ts';
 import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
-import { fontRevision } from './measure.ts';
+import { fontRevision, registerTextMeasurer } from './measure.ts';
 import {
   layoutText,
   textSizing,
@@ -40,7 +40,7 @@ export interface TextDrawing {
   paints: DrawPaint[][];
 }
 export type TextDrawNode = DrawNode & { text?: TextDrawing };
-const nodes = (m: Model) => m.nodes.flatMap((n, i) => (String(n.type) === 'text' ? [i] : []));
+const nodes = (m: Model) => m.nodes.flatMap((n, i) => ((n.type as string) === 'text' ? [i] : []));
 export function invalidateText(p: Player): void {
   cache.delete(p);
   for (const i of nodes(p.model)) p.drawVersions[i] = ++p.drawRevision;
@@ -139,6 +139,7 @@ export const text: TextModule = {
     if (V) installTextHit(text); // seam(P6-7): stripped from the display bundle.
     data = registry.get('data') as typeof data;
     fonts = registry.get('fonts') as typeof fonts;
+    fonts?.use(entries, registerTextMeasurer); // seam(P6-13): optional font registry fields.
     if (data) {
       const models = ((shared.DOC as ObjShape).p.data as ObjShape).p.models as Extract<
         Shape,
@@ -151,7 +152,7 @@ export const text: TextModule = {
     return text;
   },
   model(node, key) {
-    if (String(node.type) !== 'text') return;
+    if ((node.type as string) !== 'text') return;
     const m =
       /^(?:runs\.(\d+)\.(text|style)|styles\.([\w-]+)\.(size|weight|tracking|lineHeight|font))$/.exec(
         key,
@@ -161,7 +162,7 @@ export const text: TextModule = {
       m[1] === undefined
         ? node.raw.styles?.[m[3]!]
         : Array.isArray(node.raw.runs)
-          ? node.raw.runs[Number(m[1])]
+          ? node.raw.runs[+m[1]!]
           : undefined;
     if (!source) return;
     const field = m[2] ?? m[4]!;
@@ -324,7 +325,7 @@ export const text: TextModule = {
   },
   draw: {
     frame(p, i, node) {
-      if (String(p.model.nodes[i]!.type) !== 'text') return;
+      if ((p.model.nodes[i]!.type as string) !== 'text') return;
       const { layout, input } = resolveText(p, i);
       (node as TextDrawNode).text = {
         layout,

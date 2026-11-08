@@ -39,6 +39,7 @@
     "./host-edit": "./src/host-edit.ts",
     "./fonts": "./src/fonts.ts",
     "./fonts-text": "./src/fonts-text.ts",
+    "./fonts-options": "./src/fonts-options.ts",
     "./lists": "./src/lists.ts",
     "./a11y-text": "./src/a11y-text.ts",
     "./a11y": "./src/a11y.ts",

@@ -15,6 +15,7 @@ export const styleShape: ObjShape = {
     stroke: STROKE,
   },
 };
+const styleElement: ObjShape = { k: 'obj', p: { id: s(), ...styleShape.p }, req: ['id'] };
 export const runShape: ObjShape = {
   k: 'obj',
   req: ['text'],
@@ -46,12 +47,12 @@ export const entries: ModuleEntry[] = [
     target: 'text',
     node: { painted: true },
     shapes: textShapes,
-    props: Object.fromEntries(
-      ['width', 'height', 'lineHeight', 'paragraphSpacing'].map((key) => [
-        key,
-        { type: 'number' as const, min: 0, markup: textShapes[key]!.markup },
-      ]),
-    ),
+    props: {
+      width: { type: 'number', min: 0 },
+      height: { type: 'number', min: 0 },
+      lineHeight: { type: 'number', min: 0, markup: 'line-height' },
+      paragraphSpacing: { type: 'number', min: 0, markup: 'paragraph-spacing' },
+    },
     required: ['id', 'type', 'runs'],
     elements: {
       run: {
@@ -59,11 +60,11 @@ export const entries: ModuleEntry[] = [
         target: { attribute: 'target', default: 'runs', choices: ['runs'], array: true },
       },
       style: {
-        shape: { ...styleShape, p: { id: s(), ...styleShape.p }, req: ['id'] },
+        shape: styleElement,
         target: { attribute: 'target', default: 'styles', choices: ['styles'], mapKey: 'id' },
       },
       'text-style': {
-        shape: { ...styleShape, p: { id: s(), ...styleShape.p }, req: ['id'] },
+        shape: styleElement,
         root: 'textStyles',
         mapKey: 'id',
       },
