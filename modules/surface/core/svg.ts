@@ -116,9 +116,11 @@ export const surfaceSVG: SVGBackend = {
           : 'none';
     }
     if (e.role === 'shape') {
+      // Composite renders an ordered entry with an `m<index>-` id; surface definitions have none.
+      const base = id.replace(/m\d+-$/, '');
       for (const p of node.paints)
         if (p.image && a[p.kind] !== 'none')
-          a[p.kind] = `url(#${id}s${e.node}-pattern-${token(p.key ?? p.kind)})`;
+          a[p.kind] = `url(#${base}s${e.node}-pattern-${token(p.key ?? p.kind)})`;
     }
     if (e.role !== 'module:surface') return;
     const [kind, ...rest] = e.key!.split(':'),

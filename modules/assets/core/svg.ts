@@ -12,6 +12,8 @@ export const assetsSVG: SVGBackend = {
         } else visit(el.kids);
       }
     };
+    // Earlier backends may have copied image leaves into definitions (masks, slices).
+    visit(tree.defs);
     visit(tree.root);
   },
   attrs(f, el, _paint, _id, a) {

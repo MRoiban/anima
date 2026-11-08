@@ -27,6 +27,18 @@ export const componentpaint: Module & { sources: typeof plans } = {
   // seam: asset loaders resolve paint-source catalogs like component placements.
   sources: plans,
   init(_registry, shared) {
+    // Forked player models (componentpaint, lists, nested clones) keep their paint-source plan,
+    // so reloading a player's model still lets asset loaders find its sources.
+    const fork = _registry.get('components') as
+      import('../../components/core/index.ts').ComponentModule | undefined;
+    if (fork) {
+      const previous = fork.forkModel;
+      fork.forkModel = (source, target) => {
+        previous(source, target);
+        const plan = plans.get(source);
+        if (plan) plans.set(target, plan);
+      };
+    }
     return {
       ...componentpaint,
       resolve(model, d) {

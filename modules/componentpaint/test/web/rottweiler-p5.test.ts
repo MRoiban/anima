@@ -7,7 +7,7 @@ import { cachedBundle as bundle } from '../../../../tools/browser-cache.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 
 // Rottweiler P5 R3-01: paint-source players draw the host-resolved image, in SVG and Canvas.
-// R4-02: each host keeps its own resolved source image. One bundle only: with separate bundles the
+// R4-02: each host keeps its own resolved source image. R5-02: reloads of forked models too. One bundle only: with separate bundles the
 // source `<image>` loses its href (R4-01, deferred on the markup-libraries budget; see the ledger).
 const modes = { 'one bundle': ['modules/componentpaint/test/web/assets-entry.ts'] };
 for (const [name, engine, cache] of [
@@ -117,6 +117,16 @@ for (const [name, engine, cache] of [
               icon.player!.step(0.1);
               icon.invalidate();
               const hrefs = [first, href(icon) === blue, href(other) === lime];
+              // R5-02: reloading a player's own (forked) model still resolves its paint sources.
+              other.assets = () => blue;
+              const reloaded = new Promise((done) =>
+                other.addEventListener('anima:load', done, { once: true }),
+              );
+              other.loadModel(other.player!.model);
+              await reloaded;
+              other.player!.step(0);
+              other.invalidate();
+              hrefs.push(href(other) === blue);
               icon.setAttribute('renderer', 'canvas');
               const pixel = async () => {
                 icon.invalidate();
@@ -129,7 +139,7 @@ for (const [name, engine, cache] of [
                 canvas = await pixel();
               return { hrefs, canvas };
             });
-            expect(result).toEqual({ hrefs: [true, true, true], canvas: [0, 0, 255, 255] });
+            expect(result).toEqual({ hrefs: [true, true, true, true], canvas: [0, 0, 255, 255] });
             expect(errors).toEqual([]);
           } finally {
             await browser.close();
