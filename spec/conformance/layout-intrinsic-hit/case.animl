@@ -1,0 +1,17 @@
+<anima version="0.1" name="layout-intrinsic-hit" grid="100" requires="layout a11y bind">
+  <bool name="down"/>
+  <number name="w" default="60"/>
+
+  <layout id="root" width="60" height="20" reflow="1">
+    <rect id="tile" x0="10" y0="10" width="2" height="2" fill="#000" layout-width="&quot;fill&quot;" layout-height="&quot;fill&quot;">
+      <a11y role="button"/>
+    </rect>
+    <circle id="dot" cx="50" cy="50" r="5" fill="#000">
+      <a11y role="button"/>
+    </circle>
+  </layout>
+
+  <listener on="down" target="tile" set="down=true"/>
+
+  <bind target="root.width" value="w"/>
+</anima>

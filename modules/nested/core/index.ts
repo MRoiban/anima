@@ -304,11 +304,11 @@ export const nested: Module & { dynamicTrees: typeof dynamicTrees } = {
           ) as import('../../../packages/core/src/player.ts').PlayerExtension & {
             players: Map<string, Player>;
           };
+          if (!base) return base;
           if (!model.doc.requires.includes('lists')) dynamic(p, components, data);
           const plans = outputs.get(model);
           if (plans) outputs.set(p.model, plans);
-          const cleared = new Set<string>(),
-            names = new Map<string, unknown>();
+          const names = new Map<string, unknown>();
           const step = base.step.bind(base);
           base.step = (dt) => {
             const before = new Map(
@@ -327,16 +327,16 @@ export const nested: Module & { dynamicTrees: typeof dynamicTrees } = {
               }
               const childModel =
                 typeof name === 'string' ? components.placements.get(node)?.get(name) : undefined;
-              if (childModel && (current?.model.doc !== childModel.doc || cleared.has(node.id))) {
+              if (childModel && current?.model.doc !== childModel.doc) {
                 const child = new shared.Player(childModel, { reducedMotion: p.reducedMotion });
                 components.configure?.(p, child, node);
                 model.bindData?.(p, child, node);
                 for (const [key, v] of Object.entries(node.raw.inputs ?? {}))
                   if (typeof v !== 'string') child.set(key, v as number | boolean);
                 base.players.set(node.id, child);
-                cleared.delete(node.id);
-              } else if (name === '') cleared.add(node.id);
-              else if (!childModel)
+              } else if (name === '') {
+                base.players.delete(node.id);
+              } else if (!childModel)
                 throw Object.assign(new Error('unknown component ' + String(name)), {
                   code: 'unknown-component',
                   pointer: '/nodes/' + model.nodes.indexOf(node) + '/component',

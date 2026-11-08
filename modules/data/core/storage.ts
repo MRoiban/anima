@@ -28,6 +28,8 @@ export function normalize(p: Property, value: unknown): Value {
 export class DataState extends Map<string, Value> {
   instances: Record<string, Record<string, unknown>>;
   modelTypes?: WeakMap<object, string>;
+  /** External component aliases owned by this player, never its compiled schema. */
+  componentValues?: ReadonlyMap<string, unknown>;
   readonly compiled: Compiled;
   readonly signals = new Map<string, number>();
   readonly converterState = new Map<unknown, unknown>();
@@ -66,7 +68,15 @@ export class DataState extends Map<string, Value> {
     if (!r) return super.set(path, value);
     // Player initializes the complete scope; defaults already live in detached instances.
     if (r.readonly) return this;
-    if (!accepts(r.property, value)) throw new Error('anima: data-type ' + path);
+    if (
+      !accepts(r.property, value) &&
+      !(
+        r.property.type === 'component' &&
+        typeof value === 'string' &&
+        this.componentValues?.has(value)
+      )
+    )
+      throw new Error('anima: data-type ' + path);
     let object: Record<string, unknown> = this.instances[r.instance]!;
     for (const key of r.keys.slice(0, -1)) object = object[key] as Record<string, unknown>;
     object[r.keys.at(-1)!] = normalize(r.property, value);

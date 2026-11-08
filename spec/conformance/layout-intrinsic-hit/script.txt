@@ -1,0 +1,12 @@
+advance 0
+snapshot down --semantics
+pointer down 25 10
+advance 0
+snapshot down --semantics
+set w 40
+advance 0
+snapshot down --semantics
+advance 0.5
+snapshot down --semantics
+advance 0.5
+snapshot down --semantics

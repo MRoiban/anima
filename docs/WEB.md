@@ -68,7 +68,7 @@ The nine alignments are `top-left`, `top-center`, `top-right`, `center-left`,
 Legacy `align` and its edge aliases (`top`, `left`, `right`, `bottom`) still work;
 `alignment` takes precedence. Unknown fits use contain and unknown alignments center.
 
-A requested fit maps the entire artboard rectangle to the host's CSS content box.
+A requested fit maps the entire artboard rectangle to the host's CSS content box. Borders and padding are excluded for either `box-sizing` mode; `fit="layout"` uses those same content dimensions for `layoutSize`. The `host-fit` entry includes the separately bundled `host-fit-size` API entry.
 Contain preserves proportions; cover fills and crops; fill stretches each axis;
 fit-width/height match that axis; none uses one CSS pixel per grid unit; scale-down
 never enlarges. SVG and canvas share that mapping, including hit testing and the

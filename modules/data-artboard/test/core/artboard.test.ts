@@ -569,3 +569,87 @@ it('validates shared named instances before foreign bindings can consume incompa
   compatible.step(0);
   expect(compatible.values()['content/front.r']).toBe(5);
 });
+
+it('R1-6: prunes retired external assignments without extending shared schemas', async () => {
+  const { assignments } = await import('../../core/index.ts');
+  const { data } = await import('../../../data/core/index.ts');
+  const p = make(),
+    q = new Player(p.model);
+  q.data.bind('main');
+  q.step(0);
+  const schema = JSON.stringify(data.compiled.get(p.model)!.document);
+  const sources = [make(), make(), make()];
+  for (const source of sources) {
+    p.data.artboard('content').set(component(source.model, 'back'));
+    p.step(0);
+    expect([...assignments.get(p)!.values()]).toEqual([
+      (p.nested as typeof p.nested & { players: Map<string, Player> })!.players.get('content')!
+        .model,
+    ]);
+    expect(JSON.stringify(data.compiled.get(p.model)!.document)).toBe(schema);
+  }
+  const alias = p.data.artboard('content').value;
+  expect(() => q.data.artboard('content').set(alias)).toThrow();
+  p.data.artboard('content').set('');
+  p.step(0);
+  expect(assignments.get(p)!.size).toBe(0);
+  expect(() => p.pointer('move', 0, 0)).not.toThrow();
+  expect(
+    (p.nested as typeof p.nested & { players: Map<string, Player> })!.players.has('content'),
+  ).toBe(false);
+});
+
+it('R1-6: keeps queued selections until commit, then retains only the final selection', async () => {
+  const { assignments } = await import('../../core/index.ts');
+  const p = make();
+  for (const source of [make(), make(), make()])
+    p.data.artboard('content').set(component(source.model, 'back'));
+  expect(assignments.get(p)!.size).toBe(3);
+  p.step(0);
+  expect(assignments.get(p)!.size).toBe(1);
+  p.data.artboard('content').set('front');
+  p.step(0);
+  expect(assignments.get(p)!.size).toBe(0);
+});
+
+it('R1-6: preserves duplicate aliases queued for a later step', async () => {
+  const { assignments } = await import('../../core/index.ts');
+  const p = make(),
+    h = p.data.artboard('content');
+  const foreign = component(make().model, 'back');
+  p.data.enqueue(() => h.set(foreign));
+  h.set(foreign);
+  h.set('front');
+  p.step(0);
+  expect(assignments.get(p)!.size).toBe(1);
+  expect(() => p.step(0)).not.toThrow();
+  expect(ids(p)).toContain('content/back');
+});
+it('R1-6: prunes player-local assignments even when nesting declines', async () => {
+  const { assignments } = await import('../../core/index.ts');
+  const p = make({
+    ...doc(),
+    nodes: [{ id: 'tile', type: 'rect', x0: 0, y0: 0, w: 2, h: 2, fill: { color: '#000' } }],
+  });
+  for (const source of [make(), make(), make()]) {
+    p.data.artboard('content').set(component(source.model, 'back'));
+    p.step(0);
+    expect(assignments.get(p)!.size).toBe(1);
+  }
+  p.data.artboard('content').set('');
+  p.step(0);
+  expect(assignments.get(p)!.size).toBe(0);
+});
+
+it('R1-6: retired aliases never name a later external assignment', async () => {
+  const p = make(),
+    h = p.data.artboard('content');
+  const aliases: string[] = [];
+  for (const source of [make(), make(), make()]) {
+    h.set(component(source.model, 'back'));
+    p.step(0);
+    aliases.push(String(h.value));
+  }
+  expect(new Set(aliases).size).toBe(3);
+  expect(() => h.set(aliases[0]!)).toThrow(expect.objectContaining({ code: 'unknown-component' }));
+});

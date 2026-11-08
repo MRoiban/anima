@@ -2,6 +2,7 @@ import type { Module } from '../../../packages/core/src/modules.ts';
 import type { NodeM, Model } from '../../../packages/core/src/load.ts';
 import type { Diags } from '../../../packages/core/src/diag.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
+import { drawFrame } from '../../../packages/core/src/draw.ts';
 import { mul } from '../../../packages/core/src/geom.ts';
 import { flatten, parsePath } from '../../../packages/core/src/path.ts';
 import { nodePointer } from '../../components/core/node-pointer.ts';
@@ -44,7 +45,7 @@ declare module '../../../packages/core/src/player.ts' {
 }
 function configuration(p: Player, i: number) {
   const n = p.model.nodes[i]!,
-    container = String(n.type) === 'layout';
+    container = (n.type as string) === 'layout';
   const read = (key: string) => p.prop(i, (container ? '' : 'layout.') + key);
   return {
     mode: axes.map((a) => p.prop(i, 'layout.' + a) ?? read(a)),
@@ -70,7 +71,7 @@ function configuration(p: Player, i: number) {
 function intrinsic(p: Player, i: number): Size {
   const n = p.model.nodes[i]!,
     r = n.raw,
-    type = String(n.type);
+    type = n.type as string;
   if (type === 'text') {
     const width = p.prop(i, 'layout.width'),
       max = p.prop(i, 'layout.maxWidth');
@@ -82,7 +83,9 @@ function intrinsic(p: Player, i: number): Size {
     return [b?.width ?? 0, b?.height ?? 0];
   }
   if (type === 'instance') {
-    const c = p.model.doc.components?.[r.component];
+    const c =
+      (p.nested as { players?: Map<string, Player> } | undefined)?.players?.get(n.id)?.model ??
+      p.model.doc.components?.[r.component];
     return c?.viewBox?.slice(2) ?? [c?.grid ?? 0, c?.grid ?? 0];
   }
   if (type === 'image') {
@@ -102,10 +105,16 @@ function intrinsic(p: Player, i: number): Size {
   for (const m of geometryModules.values())
     if (m.name !== 'layout' && (outline = m.outline?.(p, i))) break;
   const points = (outline ?? (n.d ? flatten(parsePath(n.d)) : [])).flatMap((s) => s.pts);
-  const x = points.filter((_, k) => k % 2 === 0),
-    y = points.filter((_, k) => k % 2 === 1);
-  return x.length ? [Math.max(...x) - Math.min(...x), Math.max(...y) - Math.min(...y)] : [0, 0];
+  return pathBox(points).slice(2) as Size;
 }
+function pathBox(points: number[]) {
+  const x = points.filter((_, k) => k % 2 === 0),
+    y = points.filter((_, k) => k % 2 === 1),
+    left = Math.min(...x),
+    top = Math.min(...y);
+  return x.length ? [left, top, Math.max(...x) - left, Math.max(...y) - top] : [0, 0, 0, 0];
+}
+
 export function resolveLayout(p: Player): void {
   let state = states.get(p);
   if (!state)
@@ -140,7 +149,7 @@ export function resolveLayout(p: Player): void {
         ),
       ) as Size,
       baseline:
-        String(p.model.nodes[i]!.type) === 'text'
+        (p.model.nodes[i]!.type as string) === 'text'
           ? (measured.get(i)?.baseline ?? measureText(p, i)?.baseline ?? size[1])
           : size[1],
     };
@@ -171,7 +180,7 @@ export function resolveLayout(p: Player): void {
     changed = false;
     // Bottom-up intrinsic sizes, then top-down allocation (a nested fill receives its actual box).
     for (let i = p.model.nodes.length - 1; i >= 0; i--)
-      if (String(p.model.nodes[i]!.type) === 'layout') {
+      if ((p.model.nodes[i]!.type as string) === 'layout') {
         const s = settings(i),
           a = s.direction.startsWith('column') ? 1 : 0,
           b = 1 - a,
@@ -200,12 +209,12 @@ export function resolveLayout(p: Player): void {
           i,
           size.map((v, k) =>
             clamp(
-              p.layoutSize && String(p.model.nodes[p.model.nodes[i]!.parent]?.type) !== 'layout'
+              p.layoutSize && (p.model.nodes[p.model.nodes[i]!.parent]?.type as string) !== 'layout'
                 ? p.layoutSize[k]!
                 : typeof c.mode[k] === 'number'
                   ? (c.mode[k] as number)
                   : weight(c.mode[k]) &&
-                      String(p.model.nodes[p.model.nodes[i]!.parent]?.type) !== 'layout'
+                      (p.model.nodes[p.model.nodes[i]!.parent]?.type as string) !== 'layout'
                     ? p.model.viewBox[k + 2]!
                     : v,
               c.min[k]!,
@@ -215,15 +224,15 @@ export function resolveLayout(p: Player): void {
         );
       }
     for (const [i, n] of p.model.nodes.entries())
-      if (String(n.type) === 'layout') {
+      if ((n.type as string) === 'layout') {
         const s = settings(i),
           items = children(i).map(item),
           assigned = boxes.get(i),
           size: Size =
-            n.parent >= 0 && String(p.model.nodes[n.parent]!.type) === 'layout' && assigned
+            n.parent >= 0 && (p.model.nodes[n.parent]!.type as string) === 'layout' && assigned
               ? [assigned.width, assigned.height]
               : natural.get(i)!;
-        if (n.parent < 0 || String(p.model.nodes[n.parent]!.type) !== 'layout')
+        if (n.parent < 0 || (p.model.nodes[n.parent]!.type as string) !== 'layout')
           update(i, { x: p.num(i, 'x', 0), y: p.num(i, 'y', 0), width: size[0], height: size[1] });
         const signature = JSON.stringify([items, size, s]);
         if (signatures.get(i) === signature) continue;
@@ -231,7 +240,7 @@ export function resolveLayout(p: Player): void {
         const result = arrange(items, size, s.padding, s.direction, s.gap, s.justify, s.align);
         items.forEach((c, k) => {
           const box = result[k]!;
-          if (String(p.model.nodes[c.id]!.type) === 'text') {
+          if ((p.model.nodes[c.id]!.type as string) === 'text') {
             const m = measureText(p, c.id, box.width)!;
             const old = measured.get(c.id);
             if (!old || old.height !== m.height || old.width !== m.width) changed = true;
@@ -292,7 +301,7 @@ export const layout: LayoutModule = {
   model(n: NodeM, key: string) {
     const prefix = key.startsWith('layout.') ? 'layout.' : '',
       field = key.slice(prefix.length);
-    if (!prefix && String(n.type) !== 'layout') return;
+    if (!prefix && (n.type as string) !== 'layout') return;
     const raw = prefix ? n.raw.layout : n.raw;
     if (prefix && field === 'display')
       return {
@@ -332,7 +341,7 @@ export const layout: LayoutModule = {
     layout.validateReflow?.(model, d);
     if (V)
       for (const [i, n] of model.nodes.entries())
-        if (String(n.type) === 'layout') {
+        if ((n.type as string) === 'layout') {
           const pointer = nodePointer(model, i),
             index = d.list.findIndex((v) => v.code === 'no-paint' && v.pointer === pointer);
           if (index >= 0) d.list.splice(index, 1);
@@ -358,8 +367,8 @@ export const layout: LayoutModule = {
                   ni === undefined ||
                   ni === null ||
                   !(
-                    String(model.nodes[ni]!.type) === 'layout' ||
-                    String(model.nodes[model.nodes[ni]!.parent]?.type) === 'layout'
+                    (model.nodes[ni]!.type as string) === 'layout' ||
+                    (model.nodes[model.nodes[ni]!.parent]?.type as string) === 'layout'
                   )
                 )
                   d.err(
@@ -379,7 +388,7 @@ export const layout: LayoutModule = {
         const childAddress = [...model.addrs].find(
           ([, a]) => a.node === i && a.key.startsWith('layout.'),
         )?.[0];
-        if ((n.raw.layout || childAddress) && String(parent?.type) !== 'layout') {
+        if ((n.raw.layout || childAddress) && (parent?.type as string) !== 'layout') {
           if (n.raw.layout)
             error(
               'layout-outside',
@@ -396,7 +405,7 @@ export const layout: LayoutModule = {
             );
         }
         for (const [prefix, raw] of [
-          ['', String(n.type) === 'layout' ? n.raw : undefined],
+          ['', (n.type as string) === 'layout' ? n.raw : undefined],
           ['/layout', n.raw.layout],
         ] as const)
           if (raw) {
@@ -433,7 +442,7 @@ export const layout: LayoutModule = {
               if (
                 weight(value) &&
                 parent &&
-                String(parent.type) === 'layout' &&
+                (parent.type as string) === 'layout' &&
                 (parent.raw.layout?.[a] ?? parent.raw[a] ?? 'hug') === 'hug' &&
                 !model.addrs.has(
                   parent.id +
@@ -481,14 +490,11 @@ export const layout: LayoutModule = {
       const nested = initialize?.(p),
         local = p.local.bind(p),
         visible = p.visible.bind(p);
+      p.hitFrame = () => drawFrame(p);
       p.local = (i) => {
         const m = local(i),
           box = drawn(p, i);
-        if (
-          box &&
-          (String(p.model.nodes[i]!.type) === 'layout' ||
-            String(p.model.nodes[p.model.nodes[i]!.parent]?.type) === 'layout')
-        ) {
+        if (box) {
           m[4] += box.x - p.num(i, 'x', 0);
           m[5] += box.y - p.num(i, 'y', 0);
         }
@@ -508,17 +514,10 @@ export const layout: LayoutModule = {
       resolveLayout(p);
     };
   },
-  outline(p, i) {
-    if (String(p.model.nodes[i]!.type) !== 'layout') return;
-    const box = drawn(p, i);
-    return box
-      ? [{ pts: [0, 0, box.width, 0, box.width, box.height, 0, box.height], closed: true }]
-      : [];
-  },
   draw: {
     tree(model, tree) {
       for (const [i, n] of model.nodes.entries())
-        if (String(n.type) === 'layout') {
+        if ((n.type as string) === 'layout') {
           tree.nodes[i]!.kind = 'group';
           (tree.nodes[i]! as import('./svg.ts').LayoutEntry).layout = true;
         }
@@ -526,7 +525,7 @@ export const layout: LayoutModule = {
     frame(p, i, data) {
       const box = drawn(p, i),
         n = p.model.nodes[i]!,
-        type = String(n.type);
+        type = n.type as string;
       if (p.prop(i, 'layout.display') === 'none') data.visible = false;
       if (!box) return;
       if (type === 'layout')
@@ -564,8 +563,7 @@ export const layout: LayoutModule = {
         }
         if (data.geometry?.d) {
           const points = flatten(parsePath(data.geometry.d)).flatMap((s) => s.pts);
-          x = Math.min(...points.filter((_, j) => j % 2 === 0));
-          y = Math.min(...points.filter((_, j) => j % 2 === 1));
+          [x, y] = pathBox(points) as [number, number, number, number];
         }
         data.transform = mul(data.transform, [sx, 0, 0, sy, -x * sx, -y * sy]);
       }

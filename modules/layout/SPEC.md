@@ -42,7 +42,7 @@ bounds once on the nested container. Children may be layouts themselves.
 Omitted child dimensions use intrinsic dimensions. `hug` explicitly selects them. Rectangles
 contribute authored `w`/`h`, circles/arcs their diameter, paths and optional shapes their registered flattened outline bounds,
 images their authored viewport (explicit hug selects declared asset dimensions, falling back to the authored viewport), text the text
-module's measured box, instances their component viewBox. Images retain the assets module's
+module's measured box, instances their selected child player's component viewBox (zero when cleared). Changing a dynamic selection remeasures the instance on that step. Images retain the assets module's
 required authored viewport fields. A group without measurable geometry contributes zero.
 Transforms, stroke and paint do not affect intrinsic sizing. Normalized geometry starts at the
 allocated top-left; authored child `x`/`y` are replaced by layout placement, while rotation,
@@ -96,7 +96,9 @@ Child positions are in the immediate container's space. `local()`/`world()` expo
 `player.values()` / CLI snapshots additionally expose `<id>.layoutBox.x`, `.y`, `.width`, `.height`.
 These are observations, not writable binding destinations. Boxes are written into the neutral
 frame's container/rect/image geometry and child transforms, including shape scaling. SVG and
-canvas consume the same frame. A painted container draws its background then its child tree.
+canvas consume the same frame. Hit testing and pointer coordinate mapping use that frame’s allocated geometry and geometry-to-artboard transform, including shape normalization; semantic bounds use the same transform. Semantic caches track every collected player’s draw revision, so host size changes and reflow frames invalidate bounds even when sampled properties stay unchanged. A painted container draws its background then its child tree.
+
+The `layout` browser entry includes its `layout-svg` backend entry; the backend registration is separately bundled to keep each entry within its byte ceiling.
 
 With `machine`, a guard operand `{layout: "id.width"}` (or `.x`, `.y`, `.height`) observes the
 previous step's box. Before the first step it sees the initial pose box. The current step never

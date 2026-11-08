@@ -83,3 +83,12 @@ at matching property types, enum members and referenced models. It happens befor
 binding the source instance to the destination's data. The previously selected
 child is not replaced. Correct the selection before stepping again. Generic host
 metadata continues to report the component storage alias for source-spelled artboards.
+
+
+## External assignment lifetime
+
+External aliases are validated against the owning player's assignment map; they never extend a
+shared compiled property schema. After a step, assignments remain retained only while queued or
+referenced by current data in the owning player or its collected descendants. Replacing or clearing
+an external selection releases retired assignments and their model/catalog/resource snapshots;
+clearing also removes the selected child player. Duplicate queued writes retain independent references across step boundaries, and pruning also runs when the nesting factory declines. Retired aliases are never recycled for a different assignment. A retained external value may be assigned again.

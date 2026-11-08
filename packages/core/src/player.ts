@@ -30,6 +30,7 @@ import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
+import { drawWorld, type DrawFrame, type Geometry } from './draw.ts';
 import { text } from './diag.ts';
 import { VERBOSE } from './flags.ts';
 import type { RandomSource } from './random.ts';
@@ -372,6 +373,9 @@ export class Player {
     );
   }
 
+  /** Optional resolved-geometry source for modules that allocate geometry. */
+  hitFrame?: () => DrawFrame;
+
   world(node: number): Mat {
     let m = IDENTITY;
     for (let i = node; i >= 0; i = this.model.nodes[i]!.parent) m = mul(this.local(i), m);
@@ -433,12 +437,13 @@ export class Player {
       if (n.type === 'group') return n.children.some(test);
       const nested = this.nested?.hits(i, x, y);
       if (nested !== undefined) return nested;
-      const m = this.world(i);
+      const frame = this.hitFrame?.();
+      const m = drawWorld(this, i, frame);
       const inv = invert(m);
       if (!inv) return false;
       const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
-      const polys = this.#outline(i);
+      const polys = this.#outline(i, frame?.nodes[i]?.geometry);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
       let fill: boolean | undefined;
@@ -464,21 +469,26 @@ export class Player {
   }
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
-  #outline(i: number): { pts: number[]; closed: boolean }[] {
+  #outline(i: number, g?: Geometry): { pts: number[]; closed: boolean }[] {
+    const n = this.model.nodes[i]!,
+      r = n.raw;
+    if ((g?.width !== undefined || n.type === 'rect') && !(g ? g.d : r.corners)) {
+      const [x, y, w, h] = [
+        g?.x ?? r.x0,
+        g?.y ?? r.y0,
+        g?.width ?? this.num(i, 'w', 0),
+        g?.height ?? this.num(i, 'h', 0),
+      ];
+      return [{ pts: [x, y, x + w, y, x + w, y + h, x, y + h], closed: true }];
+    }
     for (const m of modules.values()) {
       const out = m.outline?.(this, i);
       if (out) return out;
     }
-    const n = this.model.nodes[i]!;
     if (n.type === 'path') {
       let f = this.#flat.get(i);
       if (!f) this.#flat.set(i, (f = flatten(n.geom!)));
       return f;
-    }
-    const r = n.raw;
-    if (n.type === 'rect') {
-      const [x, y, w, h] = [r.x0, r.y0, this.num(i, 'w', 0), this.num(i, 'h', 0)];
-      return [{ pts: [x, y, x + w, y, x + w, y + h, x, y + h], closed: true }];
     }
     const [cx, cy] = r.center;
     const rad = this.num(i, 'r', 0);
