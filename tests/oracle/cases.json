@@ -3368,5 +3368,19 @@
     "threshold": 16,
     "maxOverPercent": 0.010416666666666666,
     "maxDiff": 36
+  },
+  {
+    "name": "text-variable-axes",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 36,
+    "maxOverPercent": 0.024306
+  },
+  {
+    "name": "text-opentype-features",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 36,
+    "maxOverPercent": 0.024306
   }
 ]

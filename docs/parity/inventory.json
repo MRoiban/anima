@@ -30284,7 +30284,7 @@
     "anima": {
       "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-opentype-features/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/fonts/test/core/text-opentype-features.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-opentype-features; tests/oracle/text-opentype-features; modules/fonts/verification/p6-13/native-measurements.json",
       "phase": "P6",
       "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native liga/tnum substitution control max32/11 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."
@@ -31065,7 +31065,7 @@
     "anima": {
       "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-variable-axes/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/fonts/test/core/text-variable-axes.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-variable-axes; tests/oracle/text-variable-axes; modules/fonts/verification/p6-13/native-measurements.json",
       "phase": "P6",
       "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native wght400/650/900 control max32/9 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."

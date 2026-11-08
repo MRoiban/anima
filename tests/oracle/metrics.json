@@ -12169,5 +12169,33 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "text-variable-axes",
+    "threshold": 16,
+    "maxOverPercent": 0.024306,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 9,
+        "overPercent": 0.015625,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-opentype-features",
+    "threshold": 16,
+    "maxOverPercent": 0.024306,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 11,
+        "overPercent": 0.019097222222222224,
+        "pass": true
+      }
+    ]
   }
 ]
