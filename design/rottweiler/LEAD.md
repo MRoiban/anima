@@ -44,6 +44,8 @@ running Rottweiler — a review loop with GPT-6.1-sol reviewers — and fixing w
   change, `npx prettier --check` on changed files. Never `--no-verify`. The machine is shared: a
   timeout that passes alone is load.
 - Don't edit `WORKLOG.md` (the orchestrator's file). Run `npm ci` first if `node_modules` is missing.
+- Disk is tight (`/tmp` is a 7.8 GB RAM disk shared with other sessions): put temporary files under your
+  worktree (e.g. `TMPDIR=$PWD/.tmp`), and delete them before your final commit.
 
 ## Report (your last message)
 

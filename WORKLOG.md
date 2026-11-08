@@ -16,7 +16,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   (P1 = PRs #1–#7, P2 #8, P3 #9/#19/#20, P4 #10/#12–#16, P5 #11/#17, P6 #21, P7 #36), each running 5
   rounds with one GPT-6.1-sol reviewer at a time and fixing on its own branch from p8; brief
   `design/rottweiler/LEAD.md`, ledgers `design/rottweiler/<PHASE>-LEDGER.md`. Batches of 3 leads
-  (machine load). Running: P4, P5, P6 leads; P7 round-1 fix coder (7 findings, ledger in my
+  (machine load). Done: P5 (20 fixed, 6 deferred; merged 2c09c86). Running: P4, P6, P7 (round 5),
+  P3 leads; P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
@@ -73,5 +74,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - An interrupted ticket resumes by messaging its thread (`t3_thread_send`); its worktree survives.
 - Budget headroom: markup-libraries 2,176/2,176 (full), markup-hooks ~4,534/4,544, data-artboard
   1,013/1,024, host-fit 733/768 — growth there needs a split first.
+- Disk fills during review waves: every reviewer gets a ~245 MB worktree and agents leave
+  `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove clean idle worktrees (keep running
+  leads' and reviewers'), and delete `/tmp/anima-*` older than 3 h — on 2026-11-08 `/tmp` hit 100 %
+  and `/` 97 %. Abandoned P4-era worktree diffs were saved to `/data/t3/projects/anima-worktree-backups/`.
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
