@@ -1,0 +1,16 @@
+
+> test:scope
+> node tools/test-scope.ts host-fit --browser=chromium
+
+Scopes: host-fit
+  unit: packages/markup/test/corpus.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+
+ Test Files  2 passed (2)
+      Tests  1280 passed | 31 skipped (1311)
+   Start at  10:31:12
+   Duration  16.21s (tests 84%, import 10%, transform 6%)

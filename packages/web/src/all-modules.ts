@@ -23,6 +23,7 @@ import './fonts-options.ts';
 import './fonts-text.ts';
 import './host.ts';
 import './host-edit.ts';
+import './host-fit.ts';
 import './host-values.ts';
 import './input.ts';
 import './lists.ts';

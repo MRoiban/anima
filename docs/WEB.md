@@ -52,6 +52,41 @@ box. For example, a 24×7 stepper with `width: 240px` is 70px high by default.
 Existing grid offsets remain unchanged. Fit and alignment still apply inside the
 host box. The optional canvas renderer retains its own sizing defaults.
 
+## Fit, alignment and artboard size
+
+Import `@anima-format/web/host-fit` for the full fitting API:
+
+```html
+<anima-icon src="bell.ani" fit="fit-height" alignment="bottom-right"
+  style="width:240px;height:100px"></anima-icon>
+```
+
+`icon.fit` and `icon.alignment` reflect the HTML attributes. Fits are `contain`,
+`cover`, `fill`, `fit-width`, `fit-height`, `none`, `scale-down` and `layout`.
+The nine alignments are `top-left`, `top-center`, `top-right`, `center-left`,
+`center`, `center-right`, `bottom-left`, `bottom-center` and `bottom-right`.
+Legacy `align` and its edge aliases (`top`, `left`, `right`, `bottom`) still work;
+`alignment` takes precedence. Unknown fits use contain and unknown alignments center.
+
+A requested fit maps the entire artboard rectangle to the host's CSS content box.
+Contain preserves proportions; cover fills and crops; fill stretches each axis;
+fit-width/height match that axis; none uses one CSS pixel per grid unit; scale-down
+never enlarges. SVG and canvas share that mapping, including hit testing and the
+accessibility overlay. Changing renderer preserves the player. Loading host-fit
+without requesting a fit, alignment or size keeps the existing SVG grid/bleed default.
+
+`icon.size` returns a detached `[width,height]` pair in grid units. Assign a positive
+finite pair to override that host's artboard size; `icon.resetSize()` restores the
+authored size. Overrides do not edit the shared document/model or other hosts.
+Invalid writes dispatch `anima:error` with `host-size` and leave the size unchanged.
+An unloaded host without an override reports `[0,0]`. Assignments are retained and
+readable before load; drawing uses them once the document loads.
+
+`fit="layout"` uses one CSS pixel per grid unit and resizes the root artboard to
+match the host, rather than scaling its authored dimensions. It takes precedence
+over an explicit size while active. A root layout provider consumes the per-player
+`layoutSize` seam; this ticket tests that seam with a stub pending P7-2 integration.
+
 ## Attributes
 
 | Attribute | Meaning |
@@ -62,12 +97,13 @@ host box. The optional canvas renderer retains its own sizing defaults.
 | `src` | Document URL; `.animl` URLs use the optional compiler. |
 | `speed` | Finite number ≥ 0, default 1. Invalid values use 1. Frame dt is clamped to 0.25 s before multiplication. Zero sleeps until a positive rate or another operation wakes it. |
 | `paused` | Presence pauses playback, including initial loading. Removing it applies queued writes with a zero-time step and resumes. |
-| `fit` | `contain` (default), `cover`, `fill`, or `none`. Unknown values use `contain`. |
-| `align` | `center` (default), `top-left`, `top`, `top-right`, `left`, `right`, `bottom-left`, `bottom`, `bottom-right`. Unknown values use `center`. |
+| `fit` | Base: `contain`, `cover`, `fill`, `none`; host-fit adds `fit-width`, `fit-height`, `scale-down`, `layout`. Unknown values use `contain`. |
+| `alignment` | With host-fit: nine positions; see fitting above. |
+| `align` | Legacy alias. `center` (default), `top-left`, `top`, `top-right`, `left`, `right`, `bottom-left`, `bottom`, `bottom-right`. Unknown values use `center`. |
 | `motion` | `full` or `reduce`; otherwise follows `prefers-reduced-motion`. |
 | `label` | Overrides the document's accessible label. |
 
-`contain` maps to SVG `preserveAspectRatio="<alignment> meet"`; `cover` uses `slice`;
+Without the host-fit entry, `contain` maps to SVG `preserveAspectRatio="<alignment> meet"`; `cover` uses `slice`;
 `fill` uses `none` and ignores alignment. Alignments map to SVG `xMin/xMid/xMax` and
 `YMin/YMid/YMax`. The default layout retains the grid-sized host and viewBox bleed described
 in [Architecture](ARCHITECTURE.md#web-packagesweb); SVG overflow remains visible, including

@@ -1,0 +1,41 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+ ❯ |browser| modules/assets/test/web/pipeline.test.ts (22 tests | 2 failed) 48511ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5017ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 5011ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:488:31
+    486|       }
+    487|     });
+    488|     it.each(['svg', 'canvas'])(
+       |                               ^
+    489|       'matches independently enumerated repeat/mirror/clamp texels in …
+    490|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 44 passed (45)
+      Tests  2 failed | 3016 passed (3018)
+   Start at  10:15:43
+   Duration  1518.52s (tests 96%, import 4%)

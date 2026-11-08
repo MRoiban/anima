@@ -1,0 +1,3 @@
+<anima version="0.1" name="host-fit-tile" grid="24" viewBox="0 0 24 10">
+  <rect id="tile" x0="3" y0="2" width="4" height="4" fill="#4263eb"/>
+</anima>
