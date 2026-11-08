@@ -14,8 +14,10 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - P7 rows: 50/57 done (layout 16 + reflow + fit-layout, host fit 17, artboards 4, text 11);
   in scope 854/886. P7-8 running on the last 7 text rows (tree-bounds extents, font metrics and
   decoding APIs, selected-text paint, run-list/text-style/flatten skips if native can't observe).
-- Benchmark running: reflow card, AniML + Rive, `docs/benchmarks/runs/2026-11-08-p7/`.
-- Next: re-check + record benchmark (agent-native.md); merge P7-8; closure note, PLAN, LOG;
+- Benchmark done: reflow card AniML 6/6 (37-line scene) = Rive 6/6 (151 lines + Luau controller);
+  recorded; its `busy` bug fixed with a regression test. Docs to do: transition `actions` syntax in
+  the short actions example.
+- Next: merge P7-8; closure note, PLAN, LOG;
   `test:scope -- changed --no-browser` once; perf A/B vs main; PR.
 - Gates now: core+web 21,165; largest scene 53,982; app-UI 104,505; runtime sum 128,157;
   authoring 14,899; Rive-class 138,167. Full: layout 4,084/4,096, markup-libraries 2,176/2,176.
