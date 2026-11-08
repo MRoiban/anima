@@ -1,5 +1,5 @@
 // Rottweiler P2 round-1 regressions: glyph bounds and render --compare.
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
@@ -53,6 +53,17 @@ describe('render --compare', () => {
       ).toBe(true);
   });
 
+  it('normalizes roots with ">" in an attribute value or self-closing roots (R2-3)', () => {
+    const plain = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">${body}`;
+    const quoted = `<svg xmlns="http://www.w3.org/2000/svg" data-note="a > b" viewBox="0 0 20 20">${body}`;
+    expect(compareSVG(plain, quoted, 20).pass).toBe(true);
+    const empty = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"/>';
+    expect(
+      compareSVG(empty, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>`, 20)
+        .pass,
+    ).toBe(true);
+  });
+
   it('normalizes the reference ink and viewport with --browser-text too (R1-3)', async () => {
     for (const attrs of [' color="red"', ' width="40" height="20"']) {
       const f = reference(attrs);
@@ -76,5 +87,20 @@ describe('render --compare', () => {
       expect((await cli('render', square, '--compare', f, '--size', '20', ...extra)).code).toBe(2);
     const plain = await cli('render', square, '--compare', f, '--size', '20');
     expect(plain.code, plain.out).toBe(0);
+  });
+});
+
+describe('inspect glyphs (R2-2)', () => {
+  it('skips a $comment in the glyph map', async () => {
+    const f = join(dir, 'comment.ani');
+    const doc = JSON.parse(
+      readFileSync(new URL('../../../examples/moon.ani', import.meta.url), 'utf8'),
+    );
+    doc.glyphs.$comment = 'notes';
+    writeFileSync(f, JSON.stringify(doc));
+    const r = await cli('inspect', f, '--format=json');
+    expect(r.code, r.out).toBe(0);
+    expect(Object.keys(JSON.parse(r.out).glyphs)).toEqual(['moon']);
+    expect((await cli('inspect', f)).code).toBe(0);
   });
 });

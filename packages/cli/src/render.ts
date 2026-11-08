@@ -71,18 +71,21 @@ export function pixels(svg: string, width: number): Uint8Array {
 
 /** Normalize viewport and ink before rasterizing both documents with the PNG renderer. */
 export function comparisonSVG(svg: string, size: number): string {
-  return svg.replace(/<svg\b([^>]*)>/i, (_, attrs: string) => {
-    let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
-    let style = '';
-    root = root.replace(
-      /\sstyle\s*=\s*(["'])([\s\S]*?)\1/gi,
-      (_, _quote: string, value: string) => {
-        style = value.replaceAll('"', '&quot;');
-        return '';
-      },
-    );
-    return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important">`;
-  });
+  return svg.replace(
+    /<svg\b((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/i,
+    (_, attrs: string, end: string) => {
+      let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
+      let style = '';
+      root = root.replace(
+        /\sstyle\s*=\s*(["'])([\s\S]*?)\1/gi,
+        (_, _quote: string, value: string) => {
+          style = value.replaceAll('"', '&quot;');
+          return '';
+        },
+      );
+      return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important"${end}>`;
+    },
+  );
 }
 
 /** Absolute RGBA differences; a diff image shows the largest channel delta as grayscale. */

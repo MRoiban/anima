@@ -14,3 +14,11 @@ Round 1 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Full r
 | R1-5 | minor | root `style` with `"` (single-quoted) or a newline broke comparison normalization (XML parse error / duplicate `style`) | fixed: multiline match, `"` escaped as `&quot;` (packages/cli/test/p2-rottweiler.test.ts) |
 | R1-6 | minor | cubic extremum lost to cancellation in the quadratic root formula (`M0 0C10000 0 0 0 -29999.999999999993 0` → maxX 0, true 3750) | fixed: cancellation-free roots `q/A`, `C/q` (packages/cli/test/p2-rottweiler.test.ts) |
 | R1-7 | minor | `held` follows the last key event: hold Enter, hold Space, release Enter → `held` false while Space is down | deferred: `#hold` is M4 (P0) code, unchanged by P2; for the P0 lead |
+
+Round 2 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope: round-1 fix diff (b1ecf473) plus `schema` object topics, script `values` picking, bool `activate` validation/spec, `inspect` glyph output. No defects in schema, snapshot picking, activation validation, event order or the cubic roots.
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R2-1 | major | R1-1 regression: per-step `#aria()` rewrote host role/visibility, so a focus-module host without root a11y lost `role="group"` and became `aria-hidden` after any step | fixed: only the pressed/checked attribute refreshes per step (`#pressed`, skips unchanged values); full `#aria()` back on state change only (modules/focus/test/web/focus.test.ts "keeps the group role without root a11y across host steps", Chromium+Firefox; test file owned by the focus phase) |
+| R2-2 | minor | `inspect` crashed on `"glyphs": {"$comment": …}` (validate accepts it) | fixed: skip `$comment` (packages/cli/test/p2-rottweiler.test.ts) |
+| R2-3 | minor | compare root normalization broke on `>` inside a root attribute value and on a self-closing `<svg …/>` | fixed: quote-aware root tag match, self-closing kept (packages/cli/test/p2-rottweiler.test.ts) |

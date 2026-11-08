@@ -688,17 +688,22 @@ export class AnimaIcon extends HTMLElement {
     const label = this.getAttribute('label') ?? a?.label;
     const button = a?.role === 'button' || a?.role === 'switch';
     const set = (k: string, v: string | null) =>
-      v === null ? this.removeAttribute(k) : this.getAttribute(k) !== v && this.setAttribute(k, v);
+      v === null ? this.removeAttribute(k) : this.setAttribute(k, v);
     set('role', button ? a.role : label ? 'img' : null);
     set('aria-label', label ?? null);
     set('aria-hidden', label || button ? null : 'true');
     if (button && !this.hasAttribute('tabindex')) this.tabIndex = 0;
     if (button) this.style.cursor ||= 'pointer';
-    if (a?.pressed)
-      set(
-        a.role === 'switch' ? 'aria-checked' : 'aria-pressed',
-        String(!!this.player!.get(a.pressed)),
-      );
+    this.#pressed();
+  }
+
+  /** The pressed/checked state follows its input after every step, machine or not. */
+  #pressed(): void {
+    const a = this.player?.model.doc.a11y;
+    if (!a?.pressed) return;
+    const k = a.role === 'switch' ? 'aria-checked' : 'aria-pressed';
+    const v = String(!!this.player!.get(a.pressed));
+    if (this.getAttribute(k) !== v) this.setAttribute(k, v);
   }
 
   // ------------------------------------------------------------ time
@@ -715,11 +720,12 @@ export class AnimaIcon extends HTMLElement {
         new CustomEvent('anima:event', { detail: e, bubbles: true, composed: true }),
       );
     }
-    this.#aria(); // pressed may change without a state change (bool activate, set())
+    this.#pressed();
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {
       this.#states = states;
       AnimaIcon.eventHook?.(this, 'statechange', p.states());
+      this.#aria();
       this.dispatchEvent(
         new CustomEvent('anima:state', { detail: p.states(), bubbles: true, composed: true }),
       );
