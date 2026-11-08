@@ -81,16 +81,16 @@ export const a11yActions: Module = {
                   }
                 : n;
             })
-            .filter(
-              (n) =>
-                all ||
-                !cache?.entries.some(
-                  (e) =>
-                    e.id === n.id &&
-                    e.config &&
-                    (e.data.disabled || !flat(cache.tree).some((v) => v.id === n.id)),
-                ),
-            );
+            .filter((n) => {
+              let e = cache?.entries.find((e) => e.id === n.id);
+              if (all || !e) return true;
+              if (e.config && (e.data.disabled || !flat(cache!.tree).some((v) => v.id === n.id)))
+                return false;
+              // Semantic hidden subtrees exclude focus-only descendants too.
+              for (; e; e = cache!.entries.find((x) => x.id === e!.parent))
+                if (!e.visible) return false;
+              return true;
+            });
         };
       P.prototype.machineFocus = function (id) {
         return (

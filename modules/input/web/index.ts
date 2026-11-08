@@ -206,6 +206,8 @@ const load = Icon.prototype.load,
 Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
   attached.get(this)?.abort();
   attached.delete(this);
+  // Asset loading creates the player asynchronously; attach when it is ready.
+  this.addEventListener('anima:load', () => attach(this), { once: true });
   loadModel.apply(this, args);
   attach(this);
 };

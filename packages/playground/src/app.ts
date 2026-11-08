@@ -369,7 +369,7 @@ function scrubTo(t: number) {
   for (const i of all()) host(i).pause?.();
   icon.hidden = true;
   sample.hidden = false;
-  sample.load(sampleTimeline(icon.player.model, tl, time));
+  sample.load(sampleTimeline(icon.player.model, tl, time, icon.player));
   host(sample).pause?.();
   // Sampling has no pointer actions; it remains a named image for assistive technology.
   sample.setAttribute('role', 'img');
