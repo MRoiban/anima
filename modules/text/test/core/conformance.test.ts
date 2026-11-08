@@ -9,7 +9,9 @@ import { Font } from '../../../../packages/cli/src/font/reader.ts';
 import { testFont } from '../../../../tools/test-font.ts';
 const measurer = new ToolMeasurer();
 measurer.register('sans-serif', new Font(testFont()));
-for (const name of readdirSync('modules/text/capabilities'))
+for (const name of readdirSync('modules/text/capabilities').filter(
+  (name) => name !== 'text-flatten',
+))
   it('text layout conformance ' + name, () => {
     registerTextMeasurer(measurer);
     const base = 'spec/conformance/' + name + '/';

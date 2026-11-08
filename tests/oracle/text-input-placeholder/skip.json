@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "No faithful native placeholder counterpart is exposed by the permitted local CLI. TextInput rejects both placeholder and placeholderColor in the independently authored probe; static Text would not test empty-value switching or placeholder paint. Anima implements solid placeholder paint and default half-opacity normal ink with restoration, original-font conformance, tooling and both-engine SVG/canvas tests.",
+  "tests": [
+    "modules/text-input/test/core/text-input-placeholder.test.ts",
+    "modules/text-input/test/core/drawing-conformance.test.ts",
+    "modules/text-input/test/web/placeholder.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-placeholder/rive/scene.rml",
+    "tests/oracle/text-input-placeholder/rive/verify.txt"
+  ]
+}

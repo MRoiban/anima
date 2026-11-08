@@ -1,0 +1,6 @@
+
+/home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3/tests/oracle/measure-p7-text.mjs
+   8:41  error  'URL' is not defined  no-undef
+  74:7   error  'URL' is not defined  no-undef
+
+✖ 2 problems (2 errors, 0 warnings)

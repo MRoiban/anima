@@ -194,3 +194,58 @@ With `fonts` registered and declared, local and shared styles additionally accep
 AniML and the schema. Settings, numeric axis addresses, tool shaping limits and browser/Canvas
 fallbacks are normative in [the fonts option contract](../fonts/SPEC.md). Compound AniML
 attributes use JSON, e.g. `axes='{"wght":650}'`; compact CSS tag-list strings are not accepted.
+
+### P7 native geometry dispositions
+
+These are intentional Anima semantics, not passing native pixel comparisons. They preserve
+continuous grid-unit layout and the documented authoring contract. Raw native captures and
+independent parameter controls are retained in `tests/oracle/p7-text-fit-controls/` and
+`p7-text-geometry-controls/`; row-specific `skip.json` files describe the comparison boundary.
+No raster tolerance covers these differences.
+
+- Font-size fitting uses twenty continuous bisection steps. Eight 0.6-em advances in a
+  48-pixel-equivalent box fit at size 10, within bisection precision. The native fit capture
+  instead exactly matches a size-9 visible control. Anima retains the largest measured fit
+  to avoid unnecessary measured slack. The resized layout
+  box reports that same measured content, so layout consumers and drawing agree.
+- Baseline fitting excludes the first ascent and leading above the baseline: it measures
+  `contentHeight - firstBaseline + topTrim`. This lets a baseline-aligned label fit its
+  descenders below the anchor. The retained native true/false controls are pixel-identical
+  and shrink the full line; adopting that behavior would defeat this baseline-relative contract.
+- Ellipsis is **one U+2026 grapheme**, measured in the ellipsis style. The maximal prefix of
+  complete graphemes that leaves room for it is retained. The native probe exactly matches
+  the separate `abc...` control; Anima's generated-font probe retains `abcde…`. The Unicode
+  ellipsis permits a font-designed mark and consumes one logical grapheme rather than three
+  periods. Drawing, hit testing and measured line width use the same retained clusters.
+- Vertical trim translates the first baseline to cap/x-height and removes the final descent
+  at baseline trim. This makes metric edges useful for aligning labels. On the retained native
+  fixed-box probe both packed and explicit cap/alphabetic settings render exactly like no trim.
+  Anima keeps effective metric trimming, including its reported content height.
+
+This follows the renderer-boundary distinction in `docs/research/rive-web-runtime.md` and the
+independent-scene method in `docs/research/rive-format-and-graph.md`. No native implementation
+was read or copied; the controls establish observed behavior, not an inferred internal algorithm.
+
+### Text outline conversion (P7-6)
+
+`anima flatten` freezes the default stepped text drawing into editable paths. All root text and
+all component definitions are traversed; `--node id` selects a root node and `--node component/id`
+selects a definition node. Component-local styles and data defaults retain their scope. An
+instance override is not baked into a shared definition: its default is frozen once for every
+instance. Shorthand/list text resolves at default data values; further changes no longer edit it.
+The source document is not mutated.
+
+The replacement group retains the original id and registry-defined group properties, including
+transforms, visibility, opacity, focus, accessibility, external masks and clips. Text's rectangular
+overflow clip becomes a transparent rectangle source and a clipped child group (`composite`
+is added when needed). Gradients, run paints, glyph transforms and installed font options pass
+through the existing SVG backend and bounded outline converter. Unsupported SVG features fail
+rather than losing geometry. Path/clip ids avoid every existing document/definition id.
+
+Text-only animation/binding addresses are retained for validation and cause `font-flatten` rather
+than being silently removed. Group-compatible animation addresses remain live. Editable fields
+are rejected; remove `textInput` explicitly before freezing. Diagnostics use code `font-flatten`,
+empty pointer for the command-level conversion, a message identifying the unsupported operation
+and a repair hint. This is a CLI operation, with no additional JSON/AniML field or runtime entry.
+The generated-font path and raster regressions cover both output spellings. Native outline
+conversion equivalence still requires independent acceptance of the pending raster probe.

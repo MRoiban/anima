@@ -1,0 +1,9 @@
+screenshot frames/0.png
+data-dump frames/before.json
+data style=Alternate
+advance 0s
+screenshot frames/1.png
+data style=0:210
+advance 0s
+screenshot frames/2.png
+data-dump frames/after.json

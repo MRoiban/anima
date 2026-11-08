@@ -1,0 +1,3 @@
+name: p7-placeholder-capability
+logs:
+  file: build/runtime.log

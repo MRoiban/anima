@@ -1,0 +1,15 @@
+{
+  "status": "skip",
+  "reason": "Platform-conditional support: SVG and tool outlines support arbitrary authored axes; Canvas applies native fontVariationSettings when exposed, otherwise only wght through CSS font weight. Both tested browser engines lack the arbitrary Canvas API. Inventing a property would silently draw the default face, so unsupported axes are an explicit platform limitation. Existing generated-font wght native comparison passes; arbitrary-axis Canvas identity is skipped only on hosts without that API.",
+  "tests": [
+    "modules/fonts/test/core/canvas-settings.test.ts",
+    "modules/fonts/test/web/options.test.ts",
+    "modules/text-effects/test/core/effects.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-modifier-variation/rive/scene.rml",
+    "modules/fonts/P6-13-REPORT.md",
+    "tests/oracle/text-modifier-variation-canvas/probe.mjs",
+    "modules/text/verification/p7-6/canvas-api.json"
+  ]
+}

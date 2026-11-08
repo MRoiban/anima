@@ -1,0 +1,175 @@
+
+> test:scope
+> node tools/test-scope.ts text text-input text-effects fonts cli conformance oracle --browser=chromium
+
+Scopes: text, text-input, text-effects, fonts, cli, conformance, oracle
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/cli/placeholder.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text/test/cli/flatten.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout-measure.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/core/text-fit-baseline.test.ts
+  unit: modules/text/test/core/text-flatten.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/p6-12.test.ts
+  unit: packages/cli/test/p6-9b.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/optional.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3
+
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 2 failed) 13778ms
+   × encodes webp, updates MIME/byte size and decodes dimensions 5002ms
+   × uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error 5001ms
+ ❯ |scope-unit| packages/cli/test/commands.test.ts (20 tests | 1 failed) 4517ms
+   ❯ P3b CLI commands (12)
+     × discovers projects upward, merges sources and gives explicit flags precedence 7ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1259 tests | 1 failed) 1678ms
+   ❯ authored AniML corpus (1259)
+     × spec/conformance/text-flatten/case.animl is canonically formatted 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/cli/test/commands.test.ts > P3b CLI commands > discovers projects upward, merges sources and gives explicit flags precedence
+AssertionError: expected '/data/cache/anima-p7-6-tmp/anima-comm…' to be '/home/jarvis/.cache/anima-p7-6-tmp/an…' // Object.is equality
+
+Expected: "/home/jarvis/.cache/anima-p7-6-tmp/anima-commands-lZFgfE/main.animl"
+Received: "/data/cache/anima-p7-6-tmp/anima-commands-lZFgfE/main.animl"
+
+ ❯ packages/cli/test/commands.test.ts:178:36
+    176|     try {
+    177|       process.chdir(resolve(d, 'child'));
+    178|       expect(findProject()?.entry).toBe(resolve(d, 'main.animl'));
+       |                                    ^
+    179|       expect((await invoke(['validate'])).code).toBe(0);
+    180|       const r = await invoke(['render', '--preset', 'small', '--size',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-flatten/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-flatt…' to be '<anima version="0.1" name="text-flatt…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-flatten" grid="20" requires="paint">
+-   <group id="label"><path id="letter" d="M0.1 1.6L1 1.6L1 0.2L0.1 0.2Z" fill="#000"/></group>
++   <group id="label">
++     <path id="letter" d="M0.1 1.6L1 1.6L1 0.2L0.1 0.2Z" fill="#000"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:67:25
+     65|     const result = formatMarkup(source);
+     66|     expect(result.diagnostics).toEqual([]);
+     67|     expect(result.text).toBe(source);
+       |                         ^
+     68|   });
+     69| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes webp, updates MIME/byte size and decodes dimensions
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:105:33
+    103|   expect(JSON.parse(upper.out).assets.photo.source).toBe('anima:photo'…
+    104| });
+    105| it.each(['png', 'jpeg', 'webp'])(
+       |                                 ^
+    106|   'encodes %s, updates MIME/byte size and decodes dimensions',
+    107|   async (encode) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:340:1
+    338| });
+    339|
+    340| it('uses one lazy browser across multiple HTML scripts, closes it and …
+       | ^
+    341|   const launch = vi.spyOn(ImageEncoder.prototype, 'browser');
+    342|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  3 failed | 80 passed (83)
+      Tests  4 failed | 4812 passed | 25 skipped | 32 todo (4873)
+   Start at  12:05:40
+   Duration  122.23s (tests 84%, import 14%, transform 2%)

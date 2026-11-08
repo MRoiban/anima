@@ -3106,6 +3106,13 @@ contract, fit/overflow algorithms and verification limits are specified in
 [modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
 and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
 
+<!-- capability: text.flatten -->
+### Text outline conversion
+
+<!-- // seam(P7-6): normative CLI behavior belongs to the owned text specification. -->
+`anima flatten` traverses root and component-definition text, preserves clips and common group
+properties, and rejects remaining text-only references. See [the normative text contract](../modules/text/SPEC.md#text-outline-conversion-p7-6).
+
 ## text-effects
 
 <!-- capability: text.background -->

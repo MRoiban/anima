@@ -77,6 +77,7 @@ export default {
       'text-vertical-trim',
       'text-word-break',
       'text-script-hit-testing',
+      'text-flatten',
     ],
     docs: ['spec/SPEC.md', 'modules/text/SPEC.md'],
     markupHook: {

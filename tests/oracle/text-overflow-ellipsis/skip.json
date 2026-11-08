@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: use one typographic U+2026 grapheme rather than three U+002E glyphs. The native truncation frame is pixel-identical to the independently authored abc... control and differs from abcde…; Anima retains the largest grapheme prefix plus one measured ellipsis. This preserves typographic style and never splits a grapheme. No geometry tolerance is assigned.",
+  "tests": [
+    "modules/text/test/core/text-fit-baseline.test.ts",
+    "modules/text/test/core/layout.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-text-geometry-controls/rive/ellipsis-dots.rml.txt",
+    "tests/oracle/p7-text-geometry-controls/rive/frames/ellipsis-dots.png"
+  ]
+}

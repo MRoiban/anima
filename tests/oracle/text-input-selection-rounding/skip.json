@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: selection uses independent measured line rectangles with an authored circular radius, clamped by SVG/canvas to half the box extent. The native radius-0 and radius-2.4 captures retain the same rounding, so copying those pixels would ignore Anima's authored radius. Original-font drawing conformance fixes exact Anima boxes and radii; no native pixel identity or widened tolerance is claimed.",
+  "tests": [
+    "modules/text-input/test/core/drawing-conformance.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "modules/text-input/test/web/field.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-selection/rive/scene.rml",
+    "tests/oracle/text-input-selection-rounding/rive/scene.rml",
+    "tests/oracle/text-input-selection-rounding/rive/frames/0.png"
+  ]
+}

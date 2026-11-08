@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "Intentional DOM contract: maxlength counts UTF-16 units like the native HTML field; maxLines counts explicit LF-delimited paragraphs, independent of font readiness, host width and wrapping. Native schema instead advertises code points and displayed lines. The local headless route rejects text/compose delivery, so no faithful native user-edit comparison is available. Programmatic data writes bypass edit limits intentionally, as HTML value assignment does.",
+  "tests": [
+    "modules/text-input/test/core/field.test.ts",
+    "modules/text-input/test/web/field.browser.test.ts",
+    "spec/conformance/text-input-limits/script.txt"
+  ],
+  "captureEvidence": ["tests/oracle/text-input-ime/rive/session.txt"]
+}

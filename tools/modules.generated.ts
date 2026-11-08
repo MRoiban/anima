@@ -922,6 +922,7 @@ export const moduleScopes = {
       'text-vertical-trim',
       'text-word-break',
       'text-script-hit-testing',
+      'text-flatten',
     ],
   },
   layout: {

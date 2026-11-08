@@ -1,0 +1,4 @@
+screenshot frames/property-relative.png
+data items[0]/label=WXYZ
+advance 0s
+screenshot frames/property-relative-changed.png

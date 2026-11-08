@@ -1,0 +1,13 @@
+ok screenshot: frames/local-symbol.png
+ok data
+ok advance
+ok screenshot: frames/local-symbol-changed.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:40:20.178] rive  deferred replay: inline
+[12:40:20.186] rive  built (8437 bytes, 7ms, 0 errors, 0 warnings)
+[12:40:20.186] rive  showing Probe [1/2]
+[12:40:20.186] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[12:40:20.193] rive  wrote frames/local-symbol.png
+[12:40:20.193] rive  data: items[0]/label = WXYZ (mid-run)
+[12:40:20.197] rive  wrote frames/local-symbol-changed.png
