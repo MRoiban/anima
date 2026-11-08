@@ -28,6 +28,7 @@ const caches = new WeakMap<Player, Cache>();
 export const runtime: {
   caches: typeof caches;
   flat: typeof flat;
+  bounds?: typeof import('./bounds.ts').paintedBounds;
   version?: number;
   enrich?: (entries: Entry[], track: <T>(read: () => T) => T) => void;
   update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
@@ -52,10 +53,16 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
     };
     track(() => runtime.version);
     track(() => runtime.enrich);
+    track(() => runtime.bounds);
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
       for (const [address, { key }] of p.model.addrs)
-        if (!/^(opacity|fill|stroke|paints|drawOrder)/.test(key)) track(() => p.value(address));
+        if (
+          !(
+            runtime.bounds ? /^(opacity|drawOrder)/ : /^(opacity|fill|stroke|paints|drawOrder)/
+          ).test(key)
+        )
+          track(() => p.value(address));
       track(() => p.focused);
       const children = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
       track(() => children?.size);
@@ -104,7 +111,12 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
           config: c,
           data,
           visible: visible && p.visible(i) && !data.hidden,
-          bounds: points.length ? box(points.map((pt) => apply(m, ...pt))) : undefined,
+          bounds:
+            !c?.bounds && runtime.bounds
+              ? runtime.bounds(frame.nodes[i]!, m)
+              : points.length
+                ? box(points.map((pt) => apply(m, ...pt)))
+                : undefined,
         };
         entries.push(entry);
         for (const [id, child] of children ?? []) {

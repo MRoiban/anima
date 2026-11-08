@@ -89,7 +89,7 @@ probe deliberately compares missing-glyph outlines; it does not certify a partic
 Caret width remains Anima's steady 0.06 grid units. Selection uses SVG rx (or the equivalent
 canvas rounded rectangle) over logical cluster intervals; the native capture's caret coverage
 and selection rounding differ. Those drawable comparisons remain pending with no passing
-budget. Arbitrary selected-text paint/drawable references are not exposed.
+budget. P7-8 adds selected-text color and reusable style paint references; see below.
 
 IME, DOM host handles, clipboard routing and native field accessibility use the browser contract
 rather than a native window proxy. The permitted headless native command route rejects text,
@@ -124,5 +124,23 @@ radii 0 and 2.4 retain identical rounding in the captured controls; Anima honors
 than emulating that observation. This keeps line metrics, selected logical clusters and drawing
 consistent in both backends. Select-on-focus selects the full value; its native capture already
 confirms the interaction. Its remaining pixel difference shares this documented geometry choice.
-Arbitrary separate selected-text paint/drawable references remain unimplemented, so the broader
-`text.input-selection` row stays planned despite completed rounding and focus behavior.
+P7-8 adds separate selected paint and reusable text-style paint references, specified below.
+
+### Separate selected text paint (P7-8)
+
+`selectedTextColor` (`selected-text-color`) is an optional hexadecimal/currentColor paint for
+selected glyphs, independent of the `selectionColor` background. Omission keeps normal text ink.
+While focused with a nonempty value and selection, intersecting grapheme clusters receive the
+selected fill in shared draw data; nonselected clusters keep their original fill/stroke. The
+selected fill replaces the original stroke. Collapsing the selection, blurring, or clearing the
+value restores normal ink. The cached measured layout is not mutated. SVG and canvas consume
+the same split paint runs. Registry errors use `/nodes/N/textInput/selectedTextColor`.
+
+Paint boundaries follow grapheme clusters. As with the existing run renderer, a font's ligatures
+across different paint runs may be reshaped; no fractional-glyph painting is implied. `selectedTextStyle` (`selected-text-style`) optionally names a local or shared text style whose
+fill/stroke paints replace selected ink, including gradients and color slots. Only its paints are
+used: font, size, axes and metrics stay those of the original text. A missing style produces
+`text-input-config` with a precise field pointer and repair hint. A color, when both are supplied,
+overrides the style. Styles with no paint make selected glyphs transparent. This reuses declared
+text styles rather than a reference to a rendered scene node. Both backends consume the same
+resolved fill/stroke; no special selected-font layout is introduced.

@@ -26777,6 +26777,13 @@
                   "type": "string",
                   "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
                 },
+                "selectedTextColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectedTextStyle": {
+                  "type": "string"
+                },
                 "selectionRadius": {
                   "type": "number",
                   "minimum": 0

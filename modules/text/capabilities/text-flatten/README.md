@@ -7,5 +7,7 @@ text input uses the existing registry and AniML forms; output uses existing grou
 Root/definition traversal, paints, clips, reference rejection and both output spellings are
 specified in `modules/text/SPEC.md` and tested by `test/core/text-flatten.test.ts`.
 The conformance source is the independent original-font rectangle, not converter-generated
-expected coordinates. The pending oracle retains a real outline scene but needs native
-comparison acceptance; `text.flatten` remains planned.
+expected coordinates. The independent live-text raster acceptance and evidenced native conversion skip close this row
+without assigning a new oracle budget.
+
+P7-8 closure: native observation/conversion limits are evidenced in tests/oracle/text-flatten/skip.json. Our core/tool/both-engine tests remain the implementation evidence. See modules/text/P7-8-REPORT.md.

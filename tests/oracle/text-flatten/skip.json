@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "The permitted native headless route has no text-to-outline conversion counterpart; the attempted text-to-outline command is unknown. A static native Text reference cannot certify that conversion. Anima instead has an internal independent raster acceptance test comparing live generated-font text rendered by resvg against flattened tool-measured paths exactly, plus component/clip/gradient/effect and reference-rejection tests. No raster budget is widened or invented.",
+  "tests": ["modules/text/test/core/text-flatten.test.ts", "modules/text/test/cli/flatten.test.ts"],
+  "captureEvidence": [
+    "tests/oracle/p7-8-font-api/rive/commands.txt",
+    "tests/oracle/p7-8-font-api/rive/session.txt",
+    "tests/oracle/text-flatten/rive"
+  ]
+}

@@ -32,6 +32,7 @@
     "./data-host": "./src/modules/data-host/index.ts",
     "./host-edit": "./src/modules/host-edit/index.ts",
     "./fonts": "./src/modules/fonts/index.ts",
+    "./fonts-info": "./src/modules/fonts/info.ts",
     "./lists": "./src/modules/lists/index.ts",
     "./a11y": "./src/modules/a11y/index.ts",
     "./a11y-text": "./src/modules/a11y/text.ts",

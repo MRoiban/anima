@@ -1,0 +1,40 @@
+{
+  "anima": "0.1",
+  "name": "text-font-metrics",
+  "grid": 20,
+  "requires": ["text", "fonts", "assets", "bind"],
+  "inputs": {
+    "option": {
+      "type": "number",
+      "default": 2
+    }
+  },
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 2
+        }
+      },
+      "runs": [
+        {
+          "text": "AB",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "bind": {
+    "label.styles.s.size": "option"
+  },
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

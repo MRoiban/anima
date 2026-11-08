@@ -56,13 +56,13 @@ readonly, modal, focused, live (`polite`/`assertive`). No DOM objects are expose
 role none. Hidden/invisible subtrees are excluded, opacity does not hide. A modal
 sibling suppresses its siblings. IDs in component instances and repeated rows are
 dotted. Intended bounds are transformed painted bounds, or an explicit local box.
-The current core keeps explicit bounds or a geometry union; it does not add painted-stroke extents. Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
+The lean browser entry keeps explicit bounds or a geometry union; the optional P7-8 calculator below adds painted-stroke extents. Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
 The tree is cached across unchanged reads and steps; changed semantic inputs,
 geometry or focus invalidate it. Late registration of action/focus peers invalidates a cached static tree. A same-signature owner replacement refreshes action ownership while retaining the immutable tree snapshot. Hosts must treat returned snapshots as read-only. A retained dependency check covers each visited player's resolved geometry/transform/visibility
 addresses, focus, semantic input/data bindings, focus-enabled inputs, nested owner identity/count,
 list length/item-player identity and module generation. Unchanged reads return before scene
-collection, bounds work or signature construction. Paint/opacity/draw-order addresses do not affect
-the current logical boxes and are excluded from these checks. Unchanged list steps retain the
+collection, bounds work or signature construction. Opacity/draw-order addresses do not affect the boxes. Paint addresses are excluded in the lean
+browser entry and tracked when the optional painted-bounds calculator is installed. Unchanged list steps retain the
 cache despite the renderer's revision advancing. A changed dependency recollects; equal resolved
 signatures retain snapshot identity while refreshing owners. These are retained value readers,
 not event subscriptions or a new host notification API. Hosts must treat snapshots as read-only.
@@ -162,25 +162,13 @@ See REPORT.md for per-row closure evidence and remaining gaps.
 
 ## Painted-bounds seam
 
-The decided completion seam keeps exact painted extents out of the core: the DOM
-overlay uses the drawn element's `getBoundingClientRect()` inflated by half its
-resolved stroke width when no explicit bounds are authored. The tooling-only
-`semantics` command computes exact path/stroke extents with geometry code. Explicit authored
-boxes always win. This binds renderer-specific geometry to its owning platform,
-following `docs/research/rive-web-runtime.md`, and protects the 2,048 B core budget.
-
-This seam is **not implemented or closure-ready in this change**. Chromium's
-`getBBox({stroke:true})` ignores the stroke option on the installed engine; Firefox
-honors it. The tooling helper has exact cubic centerline extrema but no exact
-stroke outline helper; resvg's bbox is conservative (e.g. butt caps), not exact.
-Consequently the current overlay/CLI retain core geometry boxes, and
-`a11y.tree-bounds` remains open. Browser measurements and the remaining work are
-recorded in REPORT.md; no approximation is advertised as exact.
-
-Remaining work: exact painted bounds in overlay and tooling; dependency-driven
-collection; Solo/native visibility; direct native ancestor condition coverage. Bound heading values must remain integers 1–6; input/data
-writers own that constraint, as the registry validates the binding type and literal
-range rather than installing another runtime range policy.
+The optional P7-8 calculator below is shared by tooling and the browser overlay. It uses geometric
+extrema and stroke support instead of the earlier proposed DOM bounding-box inflation. The
+installed Chromium ignores getBBox's stroke option while Firefox honors it, and a blanket
+half-width inflation cannot reproduce butt caps or miter joins. A shared pure calculator avoids
+that platform divergence, following the separation described in docs/research/rive-web-runtime.md.
+Explicit authored boxes still win. The broader final-painted-extents row stays planned for the
+unsupported combinations listed below; standard centered geometry now has independent tests.
 
 Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 `docs/research/rive-format-and-graph.md` (registry discipline),
@@ -248,3 +236,19 @@ arrow movement wraps and selects. Tabs retain manual activation. This extends th
 
 [TEXT.md](TEXT.md) specifies grapheme host/listener access, inferred labels, and measured
 text layout bounds. Exact path/stroke bounds remain open as recorded above.
+
+### Painted geometric bounds (P7-8)
+
+Tooling automatically installs the painted-geometry calculator. Browsers opt into
+`@anima-format/web/a11y-bounds`; the overlay and headless `player.semantics()` then use the same
+world-space result. Explicit semantic bounds still win. Cubics use derivative roots instead of
+control hulls/chords; standard centered strokes include butt/round/square caps, bevel/round/miter
+joins (the SVG/Canvas default miter limit of 4), transformed circles and rounded rectangles.
+Stroke/paint changes now invalidate the semantic cache while this calculator is installed.
+
+This is geometry before masks/clips. Dash/trim gaps, non-scaling strokes, feather/filter support
+and text ink-outline bounds are not yet fully represented. Existing text semantics keep their
+measured logical layout boxes. Consequently `a11y.tree-bounds` remains planned as a broader row;
+this module does not advertise exact final painted extents for unsupported paint combinations.
+Native semantic JSON reports the uninflated rectangle. In the new explicitly linear control,
+animation lag does not reproduce. The capture and measured difference are retained under `tests/oracle/p7-8-semantic-bounds/`.

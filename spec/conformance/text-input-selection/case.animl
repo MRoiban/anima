@@ -7,7 +7,7 @@
   <instance name="main" model="Search" default="true"/>
   <text id="q" sizing="fixed" width="10" height="4" x="2" y="3">
     <run text="" style="s"/>
-    <text-input write-text="$query" label="Search"/>
+    <text-input write-text="$query" label="Search" selected-text-color="#ff0000"/>
   </text>
   <listener on="text" target="q" emit="committed"/>
 </anima>

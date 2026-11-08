@@ -3042,6 +3042,10 @@ No new asset fields or deterministic player channels are added. Core accepts fon
 a browser; decoding is a web concern. This keeps the optional asset boundary described in
 `docs/research/rive-web-runtime.md` without adopting its shaping engine or resource format.
 
+<!-- // seam(P7-8): optional font introspection normative link. -->
+Decoded metrics, coverage, effective options and derived glyph paths are specified in the
+[optional fonts-info contract](../modules/fonts/INFO.md).
+
 ### Resources, decoding and readiness
 
 The `@anima-format/web/fonts` entry loads font assets before `anima:load` and the first render.

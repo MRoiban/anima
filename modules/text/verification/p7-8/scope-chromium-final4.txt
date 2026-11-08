@@ -1,0 +1,81 @@
+
+> test:scope
+> node tools/test-scope.ts fonts a11y text-input text --browser=chromium
+
+Scopes: fonts, a11y, text-input, text
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/painted-bounds.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/info-conformance.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/text-font-decoding.test.ts
+  unit: modules/fonts/test/core/text-font-metrics.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/cli/placeholder.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text-input/test/core/text-input-selection.test.ts
+  unit: modules/text/test/cli/flatten.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout-measure.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/core/text-fit-baseline.test.ts
+  unit: modules/text/test/core/text-flatten.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/a11y/test/web/painted-bounds.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/info.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text-input/test/web/selection.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/optional.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (assets-font|assets-host-decode-font|assets-replacement-scope-font|data-host-font|host-api-data-font|host-api-font-fallback|text-font-assets|text-font-decoding|text-font-fallback|text-font-metrics|text-opentype-features|text-variable-axes|a11y-action-edges|a11y-actions-input-limits|a11y-actions-range|a11y-bf4-radio|a11y-bf4-roles|a11y-focus-condition|a11y-focus-policy|a11y-focus-repeat|a11y-headless-keys|a11y-inferred-text|a11y-manual-tabs|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-role-text-field|a11y-slider-value-text|a11y-spatial-focus|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-multiline|a11y-state-obscured|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-text-proxy|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility|host-api-clipboard-text|host-api-text-input|input-text-listener|input-write-text|text-input-clipboard|text-input-cursor|text-input-editable|text-input-focus-selection|text-input-ime|text-input-limits|text-input-multiline|text-input-obscured|text-input-placeholder|text-input-selection|text-input-selection-rounding|text-input-text|data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-flatten|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7e27751f
+
+
+ Test Files  65 passed | 1 skipped (66)
+      Tests  3647 passed | 530 skipped | 1 todo (4178)
+   Start at  13:54:09
+   Duration  13.89s (tests 60%, import 37%, transform 2%, worker 1%)

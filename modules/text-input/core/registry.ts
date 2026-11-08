@@ -26,6 +26,8 @@ export const entries: ModuleEntry[] = [
           label: str,
           caretColor: { ...color, markup: 'caret-color' },
           selectionColor: { ...color, markup: 'selection-color' },
+          selectedTextColor: { ...color, markup: 'selected-text-color' },
+          selectedTextStyle: { ...str, markup: 'selected-text-style' },
           selectionRadius: { k: 'num', min: 0, markup: 'selection-radius' },
         },
       },

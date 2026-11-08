@@ -1,0 +1,25 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7e27751f
+
+ ❯ |unit| modules/a11y/test/core/painted-bounds.test.ts (6 tests | 1 failed) 28ms
+   × measures transformed circles as ellipses and tracks a changed stroke in cached semantics 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/a11y/test/core/painted-bounds.test.ts > measures transformed circles as ellipses and tracks a changed stroke in cached semantics
+TypeError: p.start is not a function
+ ❯ modules/a11y/test/core/painted-bounds.test.ts:78:5
+     76|   p.step(0);
+     77|   expect(p.semantics()[0]!.bounds).toEqual([2, 2, 6, 6]);
+     78|   p.start('wide');
+       |     ^
+     79|   p.step(1);
+     80|   expect(p.semantics()[0]!.bounds).toEqual([1, 1, 8, 8]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 47 passed (48)
+   Start at  13:35:51
+   Duration  2.47s (transform 58%, tests 23%, import 19%)

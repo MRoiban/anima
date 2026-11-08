@@ -1,0 +1,19 @@
+{
+  "metrics": {
+    "unitsPerEm": 1000,
+    "ascent": 800,
+    "descent": 200,
+    "lineGap": 100,
+    "capHeight": 700,
+    "xHeight": 500,
+    "glyphCount": 105
+  },
+  "axes": {
+    "wght": 400
+  },
+  "features": {
+    "kern": 1
+  },
+  "coverage": [true, true, false],
+  "pathA": "M50 0L500 0L500 -700L50 -700Z"
+}

@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P6-8: native scene is still only a literal control; actual native textRunListSource binding is not compared"
-}

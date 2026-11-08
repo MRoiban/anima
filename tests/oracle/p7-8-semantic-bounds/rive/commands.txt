@@ -1,0 +1,9 @@
+advance 0s
+semantics frames/start.json
+screenshot frames/start.png
+advance 0.5s
+semantics frames/middle.json
+screenshot frames/middle.png
+advance 0.5s
+semantics frames/end.json
+screenshot frames/end.png

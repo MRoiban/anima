@@ -1,0 +1,18 @@
+<Rive version="1" kind="fragment">
+  <FontAsset id="0:20" name="Original" file="../../../../../fixtures/fonts/anima-test.ttf"/>
+  <Artboard id="0:1" name="Probe" width="240" height="240" styleId="0:2" defaultStateMachineId="0:30">
+    <LayoutComponentStyle id="0:2"/>
+    <Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+    <TextInput selectionRadius="0" id="0:3" name="Field" text="abcd" multiline="false" selectAllOnFocus="true" x="24" y="36">
+      <FocusData/>
+      <TextStylePaint id="0:6" fontSize="12" lineHeight="12" fontAssetId="0:20"><Fill><SolidColor colorValue="FF000000"/></Fill></TextStylePaint>
+
+<TextInputText id="0:4" name="Content"><Fill><SolidColor colorValue="FF000000"/></Fill></TextInputText>
+
+      <TextInputCursor id="0:7" name="Caret"><Fill><SolidColor colorValue="FFFF0000"/></Fill></TextInputCursor>
+      <TextInputSelection id="0:8" name="Selection"><Fill><SolidColor colorValue="FFB3D4FC"/></Fill></TextInputSelection>
+      <TextInputSelectedText id="0:9" name="Selected"><TextStylePaint id="0:10" fontSize="12" lineHeight="12" fontAssetId="0:20"><Fill><SolidColor colorValue="FFFF0000"/></Fill></TextStylePaint></TextInputSelectedText>
+    </TextInput>
+    <StateMachine id="0:30" name="Main"><StateMachineLayer><EntryState/></StateMachineLayer></StateMachine>
+  </Artboard>
+</Rive>

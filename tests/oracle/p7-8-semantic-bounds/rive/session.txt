@@ -1,0 +1,21 @@
+ok advance
+ok semantics: frames/start.json
+ok screenshot: frames/start.png
+ok advance
+ok semantics: frames/middle.json
+ok screenshot: frames/middle.png
+ok advance
+ok semantics: frames/end.json
+ok screenshot: frames/end.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[13:48:28.551] rive  deferred replay: inline
+[13:48:28.557] rive  built (283 bytes, 6ms, 0 errors, 0 warnings)
+[13:48:28.558] rive  showing Bounds [1/1]
+[13:48:28.558] rive  viewport 240x240 @1x
+[13:48:28.558] rive  wrote frames/start.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[13:48:28.571] rive  wrote frames/start.png
+[13:48:28.572] rive  wrote frames/middle.json
+[13:48:28.578] rive  wrote frames/middle.png
+[13:48:28.579] rive  wrote frames/end.json
+[13:48:28.586] rive  wrote frames/end.png

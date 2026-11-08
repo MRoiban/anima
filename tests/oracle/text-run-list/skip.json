@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The permitted native live-list binding remained unobservable. The original DataBindPath controls render blank; a retry with a direct Text binding context and a preauthored changed item still renders the literal CONTROL fallback. This is an observation-path skip, not a statement that native list text is absent. Anima core, typed writes, tool outlines, browser text, retained SVG and canvas mutations are tested.",
+  "tests": [
+    "modules/text/test/core/live-runs.test.ts",
+    "modules/text/test/cli/live-runs.test.ts",
+    "modules/text/test/web/live-runs.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-run-list/rive",
+    "tests/oracle/p7-text-run-list-controls/rive",
+    "tests/oracle/p7-8-text-mutations/rive/run-list"
+  ]
+}
