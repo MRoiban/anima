@@ -172,3 +172,14 @@ it('infers a fixed box from dimensions in the pure layout API', () => {
   expect(layoutText(input)).toEqual(layoutText({ ...input, sizing: 'fixed' }));
   expect(layoutText({ ...input, height: undefined, overflow: 'visible' }).width).toBe(8);
 });
+
+it('reports the optional overflow entry with a code, pointer and import hint', () => {
+  expect(() => layoutText({ runs: [{ text: 'abc' }], styles: {}, overflow: 'fit' }, null)).toThrow(
+    expect.objectContaining({
+      code: 'text-overflow',
+      pointer: '/requires',
+      message: expect.any(String),
+      hint: expect.stringContaining('@anima-format/web/text-overflow'),
+    }),
+  );
+});

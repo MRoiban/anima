@@ -1069,6 +1069,20 @@ Browser hosts load `/text`, `/text-input`, `/a11y`, `/focus`, `/data`, `/bind`, 
 `/convert` beside the base web entry. The complete example pair is
 `modules/bind/examples/filtering-list.animl` and `.ani`; `anima docs bind` includes this recipe.
 
+<!-- // seam(P7-1): hosts must opt into the text overflow implementation after the text split. -->
+
+## Text browser imports
+
+Import `@anima-format/web/text` for text measurement and retained SVG. For text nodes using
+`overflow="hidden"`, `"ellipsis"`, `"fit"` or `"fit-font-size"`, import
+`@anima-format/web/text-overflow` before loading the document (it includes `/text`). `visible` and
+`clipped` need only `/text`. A missing overflow implementation reports `text-overflow` at
+`/requires`; add the overflow import. CLI commands already include all overflow modes.
+Canvas hosts import `/canvas` as before; it now includes the optional `/text-canvas` drawer.
+Direct `canvasShapes` consumers import `/text-canvas` explicitly. The `.ani`/AniML spellings,
+measurer contract and fitting results are unchanged. See [text's spec](../modules/text/SPEC.md)
+for the `measureText(player, nodeId, maxWidth?)` layout-consumer hook.
+
 ## Lists
 
 Use `count="$tracks.length"` for a live dot counter. Any readable numeric data path is accepted.

@@ -30,18 +30,25 @@ export function registerTextMeasurer(measurer: TextMeasurer): void {
 export const setTextMeasurer = registerTextMeasurer;
 export function measure(font: FontSpec, text: string): Measured {
   if (!current)
-    throw Object.assign(
-      new Error(
-        V ? 'anima: text-measurer: register a text measurer before drawing' : 'text-measurer',
-      ),
-      {
-        code: 'text-measurer',
-        pointer: '/requires',
-        ...(V ? { hint: 'import the text web entry or register a tool measurer' } : {}),
-      },
+    missingTextDependency(
+      'text-measurer',
+      V && 'anima: text-measurer: register a text measurer before drawing',
+      V && 'import the text web entry or register a tool measurer',
     );
   // Layout owns inter-cluster tracking, including across style/run boundaries.
   return current.measure({ ...font, tracking: 0 }, text);
+}
+/** Shared diagnostic for missing optional text implementations. */
+export function missingTextDependency(
+  code: string,
+  message: string | false,
+  hint: string | false,
+): never {
+  throw Object.assign(new Error(V ? message || code : code), {
+    code,
+    pointer: '/requires',
+    ...(V ? { hint } : {}),
+  });
 }
 export const graphemes = new Intl.Segmenter('und', { granularity: 'grapheme' });
 export const words = new Intl.Segmenter('und', { granularity: 'word' });

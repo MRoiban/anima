@@ -1,7 +1,7 @@
 import { text } from '../core/index.ts';
 import { registerTextMeasurer } from '../core/measure.ts';
 import { textSVG, textElements, textAttrs } from '../core/svg.ts';
-import { browserMeasurer, cssFont } from './measure.ts';
+import { browserMeasurer } from './measure.ts';
 import { cssSlots } from '../../../packages/core/src/svg.ts';
 import type { TextDrawNode } from '../core/index.ts';
 import type { El } from '../../../packages/core/src/svg.ts';
@@ -46,46 +46,6 @@ Object.defineProperty(Icon, 'orderSVG', {
   },
 });
 let serial = 0;
-(Icon.canvasShapes ??= []).push((ctx, node, brush) => {
-  const data = (node as TextDrawNode).text;
-  if (!data) return false;
-  const { layout } = data;
-  ctx.save();
-  if (layout.clip) {
-    ctx.beginPath();
-    ctx.rect(...layout.clip);
-    ctx.clip();
-  }
-  ctx.scale(layout.scale, layout.scale);
-  for (const line of layout.lines)
-    for (let ci = 0; ci < line.clusters.length;) {
-      const first = line.clusters[ci]!,
-        start = ci;
-      while (ci < line.clusters.length && line.clusters[ci]!.run === first.run) ci++;
-      const text = line.clusters
-        .slice(start, ci)
-        .map((c) => c.text)
-        .join('');
-      ctx.font = cssFont(first.font);
-      ctx.fontKerning = 'normal';
-      ctx.textRendering = 'geometricPrecision';
-      ctx.letterSpacing = first.font.tracking + 'px';
-      for (const p of data.paints[first.run]!) {
-        if (p.kind === 'fill') {
-          ctx.fillStyle = brush(p);
-          ctx.fillText(text, first.x / layout.scale, first.y / layout.scale);
-        } else {
-          ctx.strokeStyle = brush(p);
-          ctx.lineWidth = p.width ?? 1;
-          ctx.lineCap = p.cap as CanvasLineCap;
-          ctx.lineJoin = p.join as CanvasLineJoin;
-          ctx.strokeText(text, first.x / layout.scale, first.y / layout.scale);
-        }
-      }
-    }
-  ctx.restore();
-  return true;
-});
 const previousEvent = Icon.eventHook;
 Icon.eventHook = (icon, kind, info) => {
   previousEvent?.(icon, kind, info);

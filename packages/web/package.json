@@ -53,6 +53,8 @@
     "./mix": "./src/mix.ts",
     "./componentpaint": "./src/componentpaint.ts",
     "./text": "./src/text.ts",
+    "./text-overflow": "./src/text-overflow.ts",
+    "./text-canvas": "./src/text-canvas.ts",
     "./text-hit": "./src/text-hit.ts",
     "./text-host": "./src/text-host.ts",
     "./markup-text": "./src/markup-text.ts",
