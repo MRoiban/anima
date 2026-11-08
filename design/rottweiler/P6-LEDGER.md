@@ -52,10 +52,10 @@ also do not survive a reconnect — P7's code, left to its lead.
 ## Summary
 
 Five rounds ran (the brief's maximum; round 5 still found two real defects, both in round-4
-fixes). 41 findings: 32 fixed (R3-07 counted here, its focus-bounds half pushed back), 5 pushed
-back (R3-01, R3-02, R3-09, and the R3-07 focus half), 3 deferred for owner decisions (R2-04
-non-square viewBox mapping, R3-04 and the base-entry half of R1-09 on byte budgets), plus the
-P7-relayed R2-5 fixed. Regressions introduced by fixes and caught by later rounds: R2-01 (from R1-02),
+fixes). 34 reviewer findings (R1 10, R2 7, R3 9, R4 6, R5 2) plus P7's relayed R2-5: 30 fixed
+(R1-09 and R3-07 only in part), 3 pushed back (R3-01, R3-02, R3-09; also R3-07's focus half),
+2 deferred (R2-04 owner decision on non-square viewBox mapping; R3-04 byte budget; also R1-09's
+base-`fonts`-entry half, byte budget). Regressions introduced by fixes and caught by later rounds: R2-01 (from R1-02),
 R4-01 (from R3-03), R4-02 (from R3-08), R5-01/R5-02 (from R3-03/R4-04).
 
 Sizes (gzip B, before → after, budget): text 5,614 → 5,759 (6,144); text-overflow 413 → 417 (768);
