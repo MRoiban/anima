@@ -7,6 +7,9 @@ import { cachedBundle as bundle } from '../../../../tools/browser-cache.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 
 // Rottweiler P5 R3-01: paint-source players draw the host-resolved image, in SVG and Canvas.
+// R4-02: each host keeps its own resolved source image. One bundle only: with separate bundles the
+// source `<image>` loses its href (R4-01, deferred on the markup-libraries budget; see the ledger).
+const modes = { 'one bundle': ['modules/componentpaint/test/web/assets-entry.ts'] };
 for (const [name, engine, cache] of [
   [
     'Chromium',
@@ -17,91 +20,122 @@ for (const [name, engine, cache] of [
 ] as const) {
   const executablePath = resolve(homedir(), cache);
   describe.skipIf(!existsSync(executablePath))(name + ' component paint assets', () => {
-    // One bundle: separate-bundle component paint sources drop image hrefs (pre-existing, see ledger).
-    it('resolves inherited source images through the host resolver', async () => {
-      const browser = await engine.launch({ executablePath, headless: true });
-      try {
-        const page = await browser.newPage();
-        const errors: string[] = [];
-        page.on('pageerror', (e) => errors.push(e.message));
-        await page.setContent(
-          '<anima-icon paused style="width:24px;height:24px;display:block"></anima-icon>',
-        );
-        await page.addScriptTag({
-          type: 'module',
-          content: await bundle(resolve('modules/componentpaint/test/web/assets-entry.ts')),
-        });
-        await page.waitForFunction(() =>
-          (customElements.get('anima-icon') as typeof AnimaIcon | undefined)?.modules.has(
-            'componentpaint',
-          ),
-        );
-        const result = await page.evaluate(async () => {
-          const svg = (fill: string) =>
-            'data:image/svg+xml,' +
-            encodeURIComponent(
-              `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="${fill}" d="M0 0H24V24H0Z"/></svg>`,
+    for (const [mode, entries] of Object.entries(modes))
+      it(
+        'resolves inherited source images per host through its resolver: ' + mode,
+        async () => {
+          const browser = await engine.launch({ executablePath, headless: true });
+          try {
+            const page = await browser.newPage();
+            const errors: string[] = [];
+            page.on('pageerror', (e) => errors.push(e.message));
+            await page.setContent(
+              '<anima-icon paused style="width:24px;height:24px;display:block"></anima-icon>',
             );
-          const red = svg('red'),
-            blue = svg('blue');
-          const icon = document.querySelector('anima-icon') as AnimaIcon;
-          icon.assets = () => blue;
-          icon.load({
-            anima: '0.1',
-            name: 'paint-assets',
-            grid: 24,
-            requires: ['components', 'paint', 'componentpaint', 'assets'],
-            assets: { pic: { type: 'image', source: red, width: 24, height: 24 } },
-            components: {
-              tile: {
+            for (const entry of entries)
+              await page.addScriptTag({ type: 'module', content: await bundle(resolve(entry)) });
+            await page.waitForFunction(
+              () =>
+                (customElements.get('anima-icon') as typeof AnimaIcon | undefined)?.modules.has(
+                  'componentpaint',
+                ) && (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('assets'),
+            );
+            const result = await page.evaluate(async () => {
+              const svg = (fill: string) =>
+                'data:image/svg+xml,' +
+                encodeURIComponent(
+                  `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="${fill}" d="M0 0H24V24H0Z"/></svg>`,
+                );
+              const red = svg('red'),
+                blue = svg('blue'),
+                lime = svg('lime');
+              const icon = document.querySelector('anima-icon') as AnimaIcon;
+              icon.assets = () => blue;
+              const doc = {
+                anima: '0.1',
+                name: 'paint-assets',
                 grid: 24,
+                requires: ['components', 'paint', 'componentpaint', 'assets'],
+                assets: { pic: { type: 'image', source: red, width: 24, height: 24 } },
+                components: {
+                  tile: {
+                    grid: 24,
+                    timelines: {
+                      run: {
+                        duration: 1,
+                        tracks: {
+                          'im.x': [
+                            [0, 0],
+                            [1, 1],
+                          ],
+                        },
+                      },
+                    },
+                    machine: {
+                      layers: { main: { initial: 'play', states: { play: { play: 'run' } } } },
+                    },
+                    nodes: [
+                      {
+                        id: 'im',
+                        type: 'image',
+                        asset: 'pic',
+                        x0: 0,
+                        y0: 0,
+                        width: 24,
+                        height: 24,
+                      },
+                    ],
+                  },
+                },
                 nodes: [
                   {
-                    id: 'im',
-                    type: 'image',
-                    asset: 'pic',
+                    id: 'rect',
+                    type: 'rect',
                     x0: 0,
                     y0: 0,
-                    width: 24,
-                    height: 24,
+                    w: 24,
+                    h: 24,
+                    fill: { paint: 'component:tile' },
                   },
                 ],
-              },
-            },
-            nodes: [
-              {
-                id: 'rect',
-                type: 'rect',
-                x0: 0,
-                y0: 0,
-                w: 24,
-                h: 24,
-                fill: { paint: 'component:tile' },
-              },
-            ],
-          });
-          await icon.ready;
-          icon.player!.step(0);
-          icon.invalidate();
-          const hrefs = [...icon.shadowRoot!.querySelectorAll('image')].map((e) =>
-            e.getAttribute('href')?.includes('blue'),
-          );
-          icon.setAttribute('renderer', 'canvas');
-          const pixel = async () => {
-            icon.invalidate();
-            await new Promise(requestAnimationFrame);
-            const canvas = icon.shadowRoot!.querySelector('canvas');
-            return canvas ? [...canvas.getContext('2d')!.getImageData(12, 12, 1, 1).data] : [];
-          };
-          let canvas: number[] = [];
-          for (let i = 0; i < 100 && canvas.join() !== '0,0,255,255'; i++) canvas = await pixel();
-          return { hrefs, canvas };
-        });
-        expect(result).toEqual({ hrefs: [true], canvas: [0, 0, 255, 255] });
-        expect(errors).toEqual([]);
-      } finally {
-        await browser.close();
-      }
-    }, 30000);
+              };
+              icon.load(doc);
+              await icon.ready;
+              icon.player!.step(0);
+              icon.invalidate();
+              const href = (i: AnimaIcon) =>
+                i.shadowRoot!.querySelector('image')?.getAttribute('href');
+              const first = href(icon) === blue;
+              const other = document.createElement('anima-icon') as AnimaIcon;
+              other.setAttribute('paused', '');
+              other.assets = () => lime;
+              document.body.append(other);
+              other.load(doc);
+              await other.ready;
+              other.player!.step(0);
+              other.invalidate();
+              icon.player!.step(0.1);
+              icon.invalidate();
+              const hrefs = [first, href(icon) === blue, href(other) === lime];
+              icon.setAttribute('renderer', 'canvas');
+              const pixel = async () => {
+                icon.invalidate();
+                await new Promise(requestAnimationFrame);
+                const canvas = icon.shadowRoot!.querySelector('canvas');
+                return canvas ? [...canvas.getContext('2d')!.getImageData(12, 12, 1, 1).data] : [];
+              };
+              let canvas: number[] = [];
+              for (let i = 0; i < 100 && canvas.join() !== '0,0,255,255'; i++)
+                canvas = await pixel();
+              return { hrefs, canvas };
+            });
+            expect(result).toEqual({ hrefs: [true, true, true], canvas: [0, 0, 255, 255] });
+            expect(errors).toEqual([]);
+          } finally {
+            await browser.close();
+          }
+        },
+        30000,
+      );
   });
 }

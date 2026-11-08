@@ -34,7 +34,9 @@ for (const [name, engine, executablePath] of [
             content: await bundle(resolve('packages/web/src/' + mod + '.ts')),
           });
         const result = await page.evaluate(async () => {
-          const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+          const Icon = customElements.get(
+            'anima-icon',
+          ) as typeof import('../../web/index.ts').AnimaIcon;
           await Icon.ready;
           const png = (color: string) => {
             const canvas = document.createElement('canvas');

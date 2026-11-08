@@ -201,8 +201,10 @@ export const componentpaint: Module & { sources: typeof plans } = {
                 ]),
               ),
             );
-          const extension: PlayerExtension = {
+          const extension: PlayerExtension & { sources: Map<number, Player> } = {
             ...base,
+            // seam: hosts give source players their own resource catalogs, like nested players.
+            sources: players,
             input: (...args) => base?.input(...args) ?? false,
             get: (key) => base?.get(key),
             pointer: (...args) => base?.pointer(...args),

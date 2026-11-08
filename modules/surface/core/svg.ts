@@ -53,8 +53,10 @@ export const surfaceSVG: SVGBackend = {
       for (let j = 0; j < list.length; j++) {
         const e = list[j]!;
         process(e.kids);
+        // Ordered paints are expanded per entry by composite, in either module load order.
         if (
           e.role === 'shape' &&
+          !draw.nodes[e.node]!.paints &&
           draw.resources.some((r) => r.node === e.node && r.kind === 'surface')
         ) {
           // Resolve fill and stroke independently so feathering never blurs the other paint.

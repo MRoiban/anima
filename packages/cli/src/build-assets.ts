@@ -123,7 +123,8 @@ export async function buildAssets(
                   `<svg xmlns="http://www.w3.org/2000/svg"><image href="${uri}"/></svg>`,
                 ).getBBox();
         if (!box) throw Error('cannot decode image pixels');
-      } else if (asset.type === 'image' && mime !== 'image/svg+xml')
+      } else if (asset.type === 'image' && info.mime !== 'image/svg+xml')
+        // Inspected, not declared: a data:image/svg+xml label must carry SVG content.
         throw Object.assign(Error('image source has no supported image signature'), {
           code: 'asset-format',
         });

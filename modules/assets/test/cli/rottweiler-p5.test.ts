@@ -74,3 +74,34 @@ it('renders component-local image assets', async () => {
   const pixels = PNG.sync.read(readFileSync(out));
   expect([...pixels.data.slice(0, 4)]).toEqual([255, 0, 0, 255]);
 });
+
+// R4-05: a data:image/svg+xml label does not exempt non-SVG bytes from the image-kind check.
+it('rejects image assets whose SVG-labelled data is not SVG', async () => {
+  const { buildAssets } = await import('../../../../packages/cli/src/build-assets.ts');
+  const wav = Buffer.alloc(46);
+  wav.write('RIFF');
+  wav.writeUInt32LE(38, 4);
+  wav.write('WAVEfmt ', 8);
+  wav.writeUInt32LE(16, 16);
+  wav.writeUInt16LE(1, 20);
+  wav.writeUInt16LE(1, 22);
+  wav.writeUInt32LE(8000, 24);
+  wav.writeUInt32LE(16000, 28);
+  wav.writeUInt16LE(2, 32);
+  wav.writeUInt16LE(16, 34);
+  wav.write('data', 36);
+  wav.writeUInt32LE(2, 40);
+  for (const source of [
+    'data:image/svg+xml,This%20is%20not%20an%20SVG',
+    'data:image/svg+xml;base64,' + wav.toString('base64'),
+  ])
+    expect(
+      await buildAssets({ assets: { bad: { type: 'image', source } } }, join(dir, 'x.ani'), true),
+    ).toEqual([expect.objectContaining({ code: 'asset-format' })]);
+  // A genuine SVG keeps building.
+  const svg =
+    'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg"/>');
+  expect(
+    await buildAssets({ assets: { ok: { type: 'image', source: svg } } }, join(dir, 'y.ani'), true),
+  ).toEqual([]);
+});

@@ -218,7 +218,7 @@ function extend(api: HostData, state: DataState): void {
           fail('instance', path, 'instance model does not match');
       } else {
         if (!a.property.of) fail('model', path, 'mixed lists require an explicit instance');
-        instance = api.create(a.property.of, values);
+        instance = api.create(a.property.of, values as Record<string, unknown>);
       }
       if (a.property.of && instance.model !== a.property.of)
         fail('type', path, 'list item model does not match');
