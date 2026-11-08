@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P7 minimal layout (+ animated reflow, + 4 bindable-artboard rows, + 18 P6 text carry-overs) → P8 rigging.
-State: P6 merged (PR #21, 95e3c61). Branch p7 from main. In scope 804/886 (91 %). Gates: core+web 21,136; largest scene 53,857; app-UI 98,890; sum 120,281; authoring 14,717; Rive 130,077. Full entries: text 6,144/6,144, markup-libraries 2,176/2,176 (split before growing).
-Next: P7 design (design/p7/DESIGN.md) for the P7 rows + carry-overs; size gates and the benchmark rule as before.
-Don't: push to main; edit oracle findings or benchmark records; raise ceilings; third-party font files; leave merged worktrees; --no-verify; modify anima-kit.
+Goal: smaller, agent-native Rive for animated web UI. P7 minimal layout + host fit + bindable artboards + 18 P6 carry-overs → P8 rigging.
+State: branch p7 (049f5d6) = main + P7 design (design/p7/DESIGN.md) + briefs (design/p7/tickets/). MIT licence merged. Gates: core+web 21,136; scene 53,857; app-UI 98,890; sum 120,281; authoring 14,717; Rive 130,077. Full: text 6,144, markup-libraries 2,176.
+Running (wave 1): P7-1 text split + measureText hook, P7-2 layout core, P7-3 host fit, P7-5 bindable artboards.
+Next: merge each (add layout, layout-reflow, host-fit to APP_UI as they land); wave 2 P7-4 animated reflow + P7-6 text carry-overs; then reflow-card benchmark, closure, PR. After the last merge run `test:scope -- changed --no-browser` once before the PR.
+Don't: push to main; edit oracle findings or benchmark records; raise ceilings; third-party font files; leave merged worktrees; --no-verify; modify anima-kit; go public or publish.
 
 ## Gotchas
 - Merging agent branches: WORKLOG conflicts → keep ours Now, union Log lines; corpus count in `packages/markup/test/corpus.test.ts` = base + each side's delta (check `ls spec/conformance/*/case.ani | wc -l`); oracle `cases.json`/`metrics.json` → union by name; appended SPEC/LOG sections → keep both — merges of BF-1/BF-4/P6-3.
