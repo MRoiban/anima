@@ -261,9 +261,9 @@ export function importSVG(source: string, name: string): Imported {
         node.center = [coordinate('cx'), coordinate('cy')];
         numeric('r', 'r');
       } else if (el.name === 'ellipse') {
-        known.add('cx');
-        known.add('cy');
-        node.center = [coordinate('cx'), coordinate('cy')];
+        // Painted ellipses take cx/cy, not circle's center pair.
+        node.cx = coordinate('cx');
+        node.cy = coordinate('cy');
         numeric('rx', 'rx');
         numeric('ry', 'ry');
       } else if (['line', 'polyline', 'polygon'].includes(el.name)) {

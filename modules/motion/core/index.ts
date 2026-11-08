@@ -115,6 +115,8 @@ export const motion: Module = {
       }
       return (player) => {
         const value = player.get(raw)!;
+        // A child's $parent context binds after construction; its first step resamples.
+        if (value === undefined && raw.startsWith('$parent.')) return addr.rest;
         if (
           (input.accepts && !input.accepts(value)) ||
           (['int', 'uint', 'reference'].includes(kind) &&

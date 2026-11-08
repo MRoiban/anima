@@ -174,7 +174,8 @@ export function importLottie(source: string, name: string): Imported {
         else
           Object.assign(node, {
             type: 'ellipse',
-            center: pos.slice(0, 2),
+            cx: pos[0],
+            cy: pos[1],
             rx: size[0]! / 2,
             ry: size[1]! / 2,
           });

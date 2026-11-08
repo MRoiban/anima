@@ -123,6 +123,10 @@ export const componentpaint: Module = {
               name: match[1],
               requires: model.doc.requires,
               components: Object.fromEntries([...used].map((name) => [name, definitions[name]])),
+              // Asset names resolve locally, then in the enclosing catalog (SPEC assets scope).
+              ...(model.doc.assets && {
+                assets: { ...model.doc.assets, ...(definition as { assets?: object }).assets },
+              }),
             });
             for (const diag of result.diagnostics)
               if (diag.severity === 'error')

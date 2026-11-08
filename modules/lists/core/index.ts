@@ -351,15 +351,6 @@ function resolve(
   };
   const previous = model.nesting;
   model.nesting = (p) => {
-    // Construction (including nested initial expansion) shares the step's instance budget.
-    enter(p, plans[0]?.node);
-    try {
-      return nest(p);
-    } finally {
-      depth--;
-    }
-  };
-  const nest = (p: Player) => {
     const base = previous?.(p);
     const state: ListState = { runs: plans.map((spec) => ({ spec, items: [] })), warnings: [] };
     const tree = drawTree(model);
@@ -421,18 +412,7 @@ function property(data: DataModule, model: Model, path: string) {
 }
 
 let depth = 0,
-  expanded = 0,
-  pass = 0;
-const counted = new WeakMap<Player, number>();
-// Counts each list player once per outermost construction or step.
-function enter(p: Player, node?: number) {
-  if (!depth) {
-    expanded = 0;
-    pass++;
-  } else if (counted.get(p) !== pass && ++expanded > 256) throw limit(p, node);
-  counted.set(p, pass);
-  depth++;
-}
+  expanded = 0;
 function extend(
   p: Player,
   base: PlayerExtension | undefined,
@@ -506,14 +486,18 @@ function extend(
       }
     },
     step(dt) {
-      if (!initializing) enter(p, state.runs[0]?.spec.node);
-      // Descendant writes to shared data need another parent binding sample (SPEC inherited data context).
-      const scope = initializing
-        ? []
-        : [...p.model.inputs.keys()]
-            .filter((n) => n[0] === '$')
-            .map((n) => [n, JSON.stringify(p.get(n))]);
+      if (!initializing) {
+        if (!depth) expanded = 0;
+        else if (++expanded > 256) throw limit(p, state.runs[0]?.spec.node);
+        depth++;
+      }
       try {
+        // Descendant writes to shared data need another parent binding sample (SPEC inherited data context).
+        const scope = initializing
+          ? []
+          : [...p.model.inputs.keys()]
+              .filter((n) => n[0] === '$')
+              .map((n) => [n, JSON.stringify(p.get(n))]);
         const result = (initializing ? undefined : base?.step(dt)) ?? { events: [], settled: true };
         let total = 0;
         for (const run of state.runs) {

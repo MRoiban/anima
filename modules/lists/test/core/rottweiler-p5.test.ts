@@ -79,10 +79,61 @@ it('stays unsettled after a repeated child writes inherited shared data', () => 
   expect(p.value('dot.r')).toBe(5);
 });
 
-// R1-05: initial nested expansion is bounded before allocation, not only on the first step.
-it('rejects nested repeats over 256 live instances during construction', () => {
-  const nestedDoc = (n: number) => ({
+// R2-01: a child's initial expansion uses model defaults before its item context binds, so
+// construction is not counted against the live-instance budget (R1-05 deferred, see ledger).
+it('constructs a row whose bound count is small although its model default is large', () => {
+  const p = player({
+    ...base(0),
+    data: {
+      models: {
+        Root: { properties: { rows: { type: 'list', of: 'Row' } } },
+        Row: { properties: { n: { type: 'number', default: 256 } } },
+      },
+      model: 'Root',
+      instances: { main: { model: 'Root', values: { rows: [{ n: 0 }] } } },
+    },
+    components: {
+      row: {
+        grid: 24,
+        data: 'Row',
+        nodes: [{ id: 'inner', type: 'repeat', count: '$n', component: 'leaf' }],
+      },
+      leaf: {
+        grid: 24,
+        nodes: [{ id: 'dot', type: 'circle', center: [1, 1], r: 1, fill: { color: '#000' } }],
+      },
+    },
+    nodes: [{ id: 'outer', type: 'repeat', list: '$rows', component: 'row' }],
+  });
+  expect(p.step(0).settled).toBe(true);
+  expect(listState(listState(p)!.runs[0]!.items[0]!.player)!.runs[0]!.items).toHaveLength(0);
+});
+
+// R2-02: an independent root built re-entrantly during another tree's step has its own budget.
+it('keeps independent roots built during a step out of the stepping tree budget', () => {
+  const doc = (n: number) => ({
     ...base(n),
+    components: {
+      row: {
+        grid: 24,
+        nodes: [{ id: 'dot', type: 'circle', center: [1, 1], r: 1, fill: { color: '#000' } }],
+      },
+    },
+    nodes: [{ id: 'rows', type: 'repeat', count: '$n', component: 'row' }],
+  });
+  const independent = load(doc(100)).model!;
+  const p = player(doc(200));
+  p.step(0);
+  const child = listState(p)!.runs[0]!.items.at(-1)!.player;
+  const original = child.step.bind(child);
+  child.step = (dt) => {
+    new Player(independent);
+    return original(dt);
+  };
+  expect(() => p.step(0)).not.toThrow();
+  // The step budget itself still applies to nested repeats.
+  const nested = player({
+    ...base(20),
     components: {
       row: { grid: 24, nodes: [{ id: 'inner', type: 'repeat', count: '$n', component: 'leaf' }] },
       leaf: {
@@ -92,14 +143,5 @@ it('rejects nested repeats over 256 live instances during construction', () => {
     },
     nodes: [{ id: 'outer', type: 'repeat', count: '$n', component: 'row' }],
   });
-  const { model, diagnostics } = load(nestedDoc(20));
-  expect(diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
-  expect(() => new Player(model!)).toThrow(expect.objectContaining({ code: 'limit-exceeded' }));
-  // A tree under the limit still constructs, and growing within one step is not double counted.
-  const q = player(nestedDoc(0));
-  q.step(0);
-  q.set('$n', 15);
-  expect(() => q.step(0)).not.toThrow();
-  q.set('$n', 16);
-  expect(() => q.step(0)).toThrow(expect.objectContaining({ code: 'limit-exceeded' }));
+  expect(() => nested.step(0)).toThrow(expect.objectContaining({ code: 'limit-exceeded' }));
 });
