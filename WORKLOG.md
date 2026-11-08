@@ -12,7 +12,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   constraints, IK, skinning, meshes, vertex weights; heavy modules on the canvas backend; path
   measurement internal) plus the `a11y.tree-bounds` carry-over.
 - P7 merged (PR #36, c3b79b4). Branch `p8` from main. In scope 860/886 (97 %).
-- Next: P8 design (`design/p8/DESIGN.md`) and briefs; ask nothing unless it's on the owner list.
+- Now (owner, 2026-11-08): per-phase Rottweiler review before P8 — one Opus 5.5 lead per phase
+  (P1 = PRs #1–#7, P2 #8, P3 #9/#19/#20, P4 #10/#12–#16, P5 #11/#17, P6 #21, P7 #36), each running 5
+  rounds with one GPT-6.1-sol reviewer at a time and fixing on its own branch from p8; brief
+  `design/rottweiler/LEAD.md`, ledgers `design/rottweiler/<PHASE>-LEDGER.md`. Batches of 3 leads
+  (machine load). Running: P4, P5, P6 leads; P7 round-1 fix coder (7 findings, ledger in my
+  scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
+  instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
+  then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
+- After the review: P8 design (rigging).
 - Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
   authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
   markup-libraries 2,176/2,176, fonts-info 7,952/8,192 (heavy).
