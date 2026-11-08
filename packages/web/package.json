@@ -50,6 +50,7 @@
     "./a11y-dom": "./src/a11y-dom.ts",
     "./nested": "./src/nested.ts",
     "./data-artboard": "./src/data-artboard.ts",
+    "./data-artboard-values": "./src/data-artboard-values.ts",
     "./markup-data-artboard": "./src/markup-data-artboard.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",

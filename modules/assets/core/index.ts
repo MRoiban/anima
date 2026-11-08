@@ -74,7 +74,13 @@ export function validDataURI(s: string): boolean {
   return !/%(?![0-9a-fA-F]{2})/.test(m[2]!);
 }
 export const resolvedAssets = new WeakMap<object, Record<string, Asset>>();
-export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
+// seam(P7-7): per-load catalogs include unused lexical components without global resolver state.
+export const assetCatalogs = new WeakMap<object, Map<object, Record<string, Asset>>>();
+export const assets: Module & {
+  resolvedAssets: typeof resolvedAssets;
+  catalogs: typeof assetCatalogs;
+} = {
+  catalogs: assetCatalogs,
   resolvedAssets,
   name: 'assets',
   after,

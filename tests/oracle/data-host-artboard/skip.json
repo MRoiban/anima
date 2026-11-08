@@ -3,7 +3,8 @@
   "reason": "The local native CLI rejects artboard data writes (existing independently captured modules/nested/oracle/property/session.txt). Its documented bindable-artboard host API requires decoded native files, which this ticket forbids reading/emitting. Browser host assignment has no faithful permitted headless command. See modules/data-artboard/NATIVE.md.",
   "tests": [
     "modules/data-artboard/test/core/artboard.test.ts",
-    "modules/data-artboard/test/web/artboard.test.ts"
+    "modules/data-artboard/test/web/artboard.test.ts",
+    "modules/data-artboard/test/web/resources.test.ts"
   ],
   "captureEvidence": [
     "modules/nested/oracle/property/commands.txt",

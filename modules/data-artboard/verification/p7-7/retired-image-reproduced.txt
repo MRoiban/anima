@@ -1,0 +1,35 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-db8307eb
+
+ ❯ |browser| modules/data-artboard/test/web/resources.test.ts (4 tests | 2 failed | 2 skipped) 22856ms
+   × Chromium adopts unused image/font components, scoped by source load (assets first) 10774ms
+   × Chromium adopts unused image/font components, scoped by source load (fonts first) 12080ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/data-artboard/test/web/resources.test.ts > Chromium adopts unused image/font components, scoped by source load (assets first)
+ FAIL  |browser| modules/data-artboard/test/web/resources.test.ts > Chromium adopts unused image/font components, scoped by source load (fonts first)
+Error: page.evaluate: TypeError: Cannot read properties of undefined (reading 'width')
+    at <anonymous>:1:43030
+    at Object.attrs (<anonymous>:1:43084)
+    at dt (<anonymous>:1:53458)
+    at #y (<anonymous>:1:64862)
+    at e.invalidate (<anonymous>:1:61352)
+    at eval (eval at evaluate (:370:30), <anonymous>:6:10)
+    at UtilityScript.evaluate (<anonymous>:372:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+ ❯ modules/data-artboard/test/web/resources.test.ts:214:37
+    212|         expect(before.join()).toContain('anima-font-');
+    213|         await expect.poll(widths).toEqual([expect.closeTo(3.6, 1), exp…
+    214|         const released = await page.evaluate(async (families) => {
+       |                                     ^
+    215|           const target = document.getElementById('target') as AnimaIco…
+    216|             other = document.getElementById('other') as AnimaIcon;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 skipped (4)
+   Start at  12:05:28
+   Duration  23.70s (tests 97%, import 3%)

@@ -16,6 +16,14 @@ export interface FontModule extends Module {
     player: import('../../../packages/core/src/player.ts').Player,
     input: import('../../text/core/layout.ts').LayoutInput,
   ) => { revision: number; layout?: import('../../text/core/layout.ts').TextLayout } | undefined;
+  // seam(P7-7): instance-local resource ownership for cross-document artboards.
+  controller?: (player: import('../../../packages/core/src/player.ts').Player) =>
+    | {
+        revision: number;
+        ready(spec: import('./css.ts').FontStyle, text?: string): Promise<void>;
+        cssFont: typeof import('./css.ts').cssFont;
+      }
+    | undefined;
   accepts?: (face: unknown) => face is object;
   assign?: (api: HostData, path: string, face: object) => Promise<void>;
 }

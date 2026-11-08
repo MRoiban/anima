@@ -374,3 +374,198 @@ it('keeps invalid cyclic defaults on the normal diagnostic path', () => {
   expect(() => load(document)).not.toThrow();
   expect(load(document).diagnostics).toContainEqual(expect.objectContaining({ code: 'data-type' }));
 });
+
+it('diagnoses incompatible inherited foreign model properties before rebinding', () => {
+  const p = make(),
+    raw = doc();
+  const source = make({
+    ...raw,
+    data: {
+      ...raw.data,
+      models: {
+        Card: {
+          properties: {
+            ...raw.data.models.Card.properties,
+            radius: { type: 'string', default: 'wrong' },
+          },
+        },
+      },
+    },
+    components: { ...raw.components, front: { ...raw.components.front, bind: {} } },
+  });
+  p.data.artboard('content').set(component(source.model, 'front'));
+  expect(() => p.step(0)).toThrowError(
+    expect.objectContaining({
+      code: 'artboard-model',
+      pointer: '/data/$content',
+      message: expect.stringContaining('incompatible'),
+      hint: expect.stringContaining('matching data'),
+    }),
+  );
+});
+
+it('checks explicit placement data against the assigned component schema', () => {
+  const raw = doc(),
+    source = make(raw);
+  const p = make({
+    ...raw,
+    data: {
+      ...raw.data,
+      models: {
+        ...raw.data.models,
+        Wrong: {
+          properties: {
+            content: { type: 'artboard', default: '' },
+            radius: { type: 'string', default: 'bad' },
+          },
+        },
+      },
+      instances: { ...raw.data.instances, other: { model: 'Wrong', values: {} } },
+    },
+    nodes: [{ id: 'content', type: 'instance', component: '$content', data: 'other' }],
+    components: { ...raw.components, front: { ...raw.components.front, bind: {} } },
+  });
+  p.data.artboard('content').set(component(source.model, 'front'));
+  expect(() => p.step(0)).toThrowError(expect.objectContaining({ code: 'artboard-model' }));
+});
+
+it('permits a foreign component with independent model data', () => {
+  const raw = doc(),
+    p = make();
+  const source = make({
+    ...raw,
+    components: {
+      ...raw.components,
+      independent: {
+        grid: 20,
+        data: {
+          models: { Own: { properties: { title: { type: 'string', default: 'independent' } } } },
+        },
+        nodes: [{ id: 'own', type: 'circle', center: [5, 5], r: 4 }],
+      },
+    },
+  });
+  p.data.artboard('content').set(component(source.model, 'independent'));
+  p.step(0);
+  expect(ids(p)).toContain('content/own');
+});
+
+it('respects the artboard property expected model for an independently modeled component', () => {
+  const raw = doc();
+  const p = make({
+    ...raw,
+    data: {
+      ...raw.data,
+      models: {
+        Card: {
+          properties: {
+            ...raw.data.models.Card.properties,
+            content: { type: 'artboard', default: 'front', model: 'Card' },
+          },
+        },
+      },
+    },
+  });
+  const source = make({
+    ...raw,
+    nodes: [{ id: 'root', type: 'group', children: [] }],
+    components: {
+      ...raw.components,
+      wrong: {
+        grid: 20,
+        data: { models: { Other: { properties: { radius: { type: 'string', default: 'bad' } } } } },
+        nodes: [{ id: 'empty', type: 'group', children: [] }],
+      },
+    },
+  });
+  p.data.artboard('content').set(component(source.model, 'wrong'));
+  expect(() => p.step(0)).toThrowError(
+    expect.objectContaining({ code: 'artboard-model', pointer: '/data/$content' }),
+  );
+});
+
+it('validates enum, nested model and list element contracts', () => {
+  const schema = (radius: string, members = ['a', 'b']) => ({
+    instances: { main: { model: 'Card', default: true, values: {} } },
+    models: {
+      Card: {
+        properties: {
+          content: { type: 'artboard', default: 'front' },
+          child: { type: 'model-ref', model: 'Child' },
+          items: { type: 'list', of: 'Child' },
+          mode: { type: 'enum', values: members },
+        },
+      },
+      Child: { properties: { radius: { type: radius } } },
+    },
+  });
+  const raw = doc();
+  const target = () =>
+    make({
+      ...raw,
+      data: schema('number'),
+      components: { ...raw.components, front: { ...raw.components.front, bind: {} } },
+    });
+  const source = (data: object) =>
+    make({
+      ...raw,
+      data,
+      components: { ...raw.components, front: { ...raw.components.front, bind: {} } },
+    });
+  for (const data of [schema('string'), schema('number', ['a', 'c'])]) {
+    const p = target();
+    p.data.bind(p.data.instances()[0]!);
+    p.data.artboard('content').set(component(source(data).model, 'front'));
+    expect(() => p.step(0)).toThrowError(expect.objectContaining({ code: 'artboard-model' }));
+  }
+  const base = schema('number');
+  const listMismatch = {
+    ...base,
+    models: {
+      ...base.models,
+      Card: {
+        properties: { ...base.models.Card.properties, items: { type: 'list', of: 'Other' } },
+      },
+      Other: { properties: { radius: { type: 'string' } } },
+    },
+  };
+  const p = target();
+  p.data.artboard('content').set(component(source(listMismatch).model, 'front'));
+  expect(() => p.step(0)).toThrowError(expect.objectContaining({ code: 'artboard-model' }));
+  const compatible = target();
+  compatible.data
+    .artboard('content')
+    .set(component(source(schema('number', ['b', 'a'])).model, 'front'));
+  compatible.step(0);
+  expect(ids(compatible)).toContain('content/front');
+});
+
+it('validates shared named instances before foreign bindings can consume incompatible values', () => {
+  const raw = doc();
+  const document = (type: string, value: unknown, foreign = false) => ({
+    ...raw,
+    data: {
+      ...raw.data,
+      models: { ...raw.data.models, Other: { properties: { value: { type } } } },
+      instances: { ...raw.data.instances, shared: { model: 'Other', values: { value } } },
+    },
+    nodes: foreign ? [{ id: 'root', type: 'group', children: [] }] : raw.nodes,
+    components: {
+      ...raw.components,
+      front: {
+        ...raw.components.front,
+        bind: foreign ? { 'front.r': '$shared:value' } : raw.components.front.bind,
+      },
+    },
+  });
+  const source = make(document('number', 7, true));
+  const p = make(document('string', 'bad'));
+  p.data.artboard('content').set(component(source.model, 'front'));
+  expect(() => p.step(0)).toThrowError(
+    expect.objectContaining({ code: 'artboard-model', pointer: '/data/$content' }),
+  );
+  const compatible = make(document('number', 5));
+  compatible.data.artboard('content').set(component(source.model, 'front'));
+  compatible.step(0);
+  expect(compatible.values()['content/front.r']).toBe(5);
+});

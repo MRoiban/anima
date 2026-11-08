@@ -7,6 +7,7 @@ import type { ComponentModule } from '../../components/core/index.ts';
 import type { HostData } from '../../host/core/api.ts';
 import { after } from '../manifest.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { compatible } from './schema.ts';
 import { entries } from '../capabilities/data-host-artboard/registry.ts';
 
 export interface ComponentValue {
@@ -17,15 +18,31 @@ export function component(document: Model, name: string): ComponentValue {
   return { document, name };
 }
 function failure(code: string, path: string): never {
-  throw Object.assign(new Error(V ? 'invalid artboard value (' + code + ')' : code), {
-    code,
-    pointer: '/data/' + path.replace(/~/g, '~0').replace(/\//g, '~1'),
-    hint: V && 'use a declared component and its loaded document',
-  });
+  throw Object.assign(
+    new Error(
+      V
+        ? code === 'artboard-model'
+          ? 'assigned artboard data model is incompatible with the placement model'
+          : 'invalid artboard value (' + code + ')'
+        : code,
+    ),
+    {
+      code,
+      pointer: '/data/' + path.replace(/~/g, '~0').replace(/\//g, '~1'),
+      hint:
+        V &&
+        (code === 'artboard-model'
+          ? 'use matching data property types, enum members and referenced models in the placement context'
+          : 'use a declared component and its loaded document'),
+    },
+  );
 }
 const assignments = new WeakMap<Player, Map<string, Model>>();
 const parents = new WeakMap<Player, Player>();
-export const dataArtboard: Module = {
+export const dataArtboard: Module & {
+  resources: { adopt?: (parent: Player, child: Player) => void };
+} = {
+  resources: {},
   name: 'dataartboard',
   after,
   entries,
@@ -44,11 +61,24 @@ export const dataArtboard: Module = {
     ).of as ObjShape;
     const type = property.p.type as Extract<Shape, { k: 'str' }>;
     if (!type.of!.includes('artboard')) type.of = [...type.of!, 'artboard'];
+    const extension = { ...dataArtboard };
     const configure = components.configure;
     let depth = 0;
     components.configure = (parent, child, node) => {
       parents.set(child, parent);
       configure?.(parent, child, node);
+      const target = data.compiled.get(parent.model),
+        source = data.compiled.get(child.model);
+      if (
+        target &&
+        String(data.dataState(parent)?.read(node.raw.component)).startsWith('$external:') &&
+        ((source && child.model.inheritedData) ||
+          node.raw.data ||
+          target.refs.get(node.raw.component)?.property.model) &&
+        !compatible(target, source, node.raw.data, node.raw.component)
+      )
+        failure('artboard-model', node.raw.component);
+      dataArtboard.resources.adopt?.(parent, child);
       if (!parent.model.doc.requires?.includes('dataartboard') && !depth) return;
       const step = child.step;
       child.step = function (dt) {
@@ -134,8 +164,7 @@ export const dataArtboard: Module = {
         },
       };
     };
-    return {
-      ...dataArtboard,
+    return Object.assign(extension, {
       prepare(model) {
         if (
           model.doc.requires?.includes('dataartboard') &&
@@ -195,7 +224,7 @@ export const dataArtboard: Module = {
           return base;
         };
       },
-    };
+    } satisfies Pick<Module, 'prepare' | 'load'>);
   },
 };
 declare module '../../host/core/api.ts' {

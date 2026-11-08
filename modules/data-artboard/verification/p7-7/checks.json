@@ -1,0 +1,143 @@
+{
+  "status": "done",
+  "branch": "t3/p7-7-implementation",
+  "base": "39ab6837",
+  "rowsClosed": [
+    "data.host-artboard",
+    "host-api.bindable-artboards",
+    "host-api.data-artboard",
+    "components.host-artboard-reference"
+  ],
+  "rowsLeft": [],
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exit": 0,
+    "pass": 9417,
+    "fail": 0,
+    "todo": 54,
+    "filesPass": 309,
+    "filesSkipped": 13,
+    "engines": ["Chromium", "Firefox"],
+    "seconds": 690.05
+  },
+  "resourceBrowsers": {
+    "command": "npx vitest run --project browser modules/data-artboard/test/web/resources.test.ts --maxWorkers=1",
+    "exit": 0,
+    "pass": 6,
+    "fail": 0,
+    "perEngine": {
+      "Chromium": 3,
+      "Firefox": 3
+    }
+  },
+  "coreScope": {
+    "command": "npm run test:scope -- data-artboard --no-browser",
+    "exit": 0,
+    "pass": 1288,
+    "fail": 0,
+    "hostCases": 23
+  },
+  "scopedChromiumBeforeFinalAdditions": {
+    "pass": 3414,
+    "fail": 0
+  },
+  "scopedFirefoxBeforeFinalAdditions": {
+    "pass": 3413,
+    "fail": 1,
+    "reason": "existing 5-second asset pipeline deadline",
+    "isolatedRetry": {
+      "pass": 11,
+      "fail": 0,
+      "originalLimits": true
+    }
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exit": 0
+  },
+  "eslint": {
+    "exit": 0
+  },
+  "prettier": {
+    "exit": 0
+  },
+  "wiring": {
+    "command": "node tools/modules.ts --check",
+    "exit": 0
+  },
+  "parity": {
+    "command": "node tools/parity.ts --check",
+    "exit": 0
+  },
+  "artifacts": {
+    "commands": [
+      "npm run gen",
+      "node tools/build-web.ts --check",
+      "node tools/build-animl.ts --check"
+    ],
+    "exit": 0
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 0,
+    "cases": 309,
+    "samples": 524,
+    "failedCases": 0,
+    "retainedFindings": 24,
+    "hostSkips": 4,
+    "thresholdsChanged": false
+  },
+  "size": {
+    "command": "node tools/size.ts",
+    "exit": 0,
+    "before": {
+      "coreWeb": 21165,
+      "largestScene": 53982,
+      "appUI": 99988,
+      "runtimeSum": 122300,
+      "authoring": 14808,
+      "riveClass": 132306
+    },
+    "after": {
+      "coreWeb": 21165,
+      "largestScene": 53982,
+      "appUI": 100134,
+      "runtimeSum": 123747,
+      "authoring": 14808,
+      "riveClass": 133703
+    },
+    "dataArtboard": {
+      "completeOverNested": 2253,
+      "resources": 832,
+      "values": 1421,
+      "resourceBudget": 1024,
+      "valuesBudget": 1536
+    },
+    "existingBudgetRaised": false
+  },
+  "perf": {
+    "command": "node tools/perf.ts",
+    "exit": 0,
+    "bellCompileMs": 2.2,
+    "prefixMs": 643,
+    "frameUs": {
+      "bell": 33.5,
+      "composite": 21.1,
+      "toolbar": 27.2
+    },
+    "toolbarCompileMs": 4.64,
+    "controlledThreePercentGuard": "unverified under shared load"
+  },
+  "supersededChangedRuns": {
+    "stopped": 2,
+    "exit": 143,
+    "reasons": ["named-instance compatibility regression", "align generated-font fixture"]
+  },
+  "deviations": [
+    "optional values entry split; no existing ceiling raised",
+    "minimal additional marked seam in modules/paint/core/svg.ts for retired image geometry"
+  ],
+  "published": false,
+  "pushed": false,
+  "pullRequest": false
+}
