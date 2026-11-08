@@ -18,6 +18,7 @@ export const entries: ModuleEntry[] = [
           multiline: bool,
           obscured: bool,
           placeholder: str,
+          placeholderColor: { ...color, markup: 'placeholder-color' },
           selectOnFocus: { ...bool, markup: 'select-on-focus' },
           maxLength: { k: 'num', int: true, min: 0, markup: 'max-length' },
           maxLines: { k: 'num', int: true, min: 1, markup: 'max-lines' },

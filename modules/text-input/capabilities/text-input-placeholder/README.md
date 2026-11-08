@@ -1,10 +1,14 @@
 # text-input-placeholder
 
-Implementation: `modules/text-input/core/registry.ts`, `core/index.ts`, `core/svg.ts` and `web/index.ts`.
-Normative contract: `modules/text-input/SPEC.md`; the associated marker is in spec/SPEC.md.
+`textInput.placeholderColor` (`<text-input placeholder-color="…"/>`) authors a distinct solid
+placeholder paint. Without it, the field's ink draws at 50% opacity; caret/selection remain
+undimmed. See `modules/text-input/SPEC.md`. The example uses the original generated font.
 
-Evidence: `modules/text-input/test/core/field.test.ts`, `test/web/field.browser.test.ts`,
-`test/cli/field.test.ts`; shared authored example: `modules/text-input/examples/search-card.animl` + `.ani`.
-Independent deterministic snapshots are in `spec/conformance/text-input-placeholder` where its marker is absent.
-A remaining marker explicitly identifies an outstanding probe. All inventory statuses stay planned:
-independent native captures/comparison are outstanding, and benchmark matching is exact-label only.
+Tests: `test/core/text-input-placeholder.test.ts` (both spellings, errors, alpha and edit/clear),
+`test/core/drawing-conformance.test.ts` (independent original-font conformance),
+`test/cli/placeholder.test.ts` (tool/browser-text literal controls), and
+`test/web/placeholder.browser.test.ts` (native edits with SVG/Canvas2D in both engines).
+
+Parity remains planned: a faithful independent native placeholder comparison is missing.
+The local native CLI schema search for placeholder has no matching type or property;
+`TextInputPlaceholder` is unknown. This does not prove an absence in the native runtime.

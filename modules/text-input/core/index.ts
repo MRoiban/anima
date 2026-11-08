@@ -5,6 +5,7 @@ import type { a11y } from '../../a11y/core/index.ts';
 import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
 import type { SemanticNode } from '../../a11y/core/types.ts';
 import { apply } from '../../../packages/core/src/geom.ts';
+import { drawColor } from '../../../packages/core/src/draw.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { registerEventKinds } from '../../components/core/events.ts';
 import { nodePointer } from '../../components/core/node-pointer.ts';
@@ -15,6 +16,7 @@ export interface FieldConfig {
   multiline?: boolean;
   obscured?: boolean;
   placeholder?: string;
+  placeholderColor?: string;
   selectOnFocus?: boolean;
   maxLength?: number;
   maxLines?: number;
@@ -295,6 +297,14 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
         const c = config(p, i);
         if (!c) return;
         const f = field(p, p.model.nodes[i]!.id)!;
+        const drawing = (node as FieldNode).text;
+        if (drawing && !f.value) {
+          if (c.placeholderColor)
+            drawing.paints = [
+              [{ kind: 'fill', visible: true, color: drawColor(p, c.placeholderColor) }],
+            ];
+          else drawing.opacity = 0.5;
+        }
         const boxes: Box[] = [];
         if (p.focused === p.model.nodes[i]!.id) {
           const layout = text.textLayout(p, i);

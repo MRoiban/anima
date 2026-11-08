@@ -1,0 +1,7 @@
+P6-11 probes use only local schema commands; no source, documentation text or binary file was read.
+~/.rive/bin/rive schema TextInputPlaceholder --all --json: exit 1, unknown type "TextInputPlaceholder".
+~/.rive/bin/rive schema --search placeholder: exit 1, no type or property matching "placeholder".
+~/.rive/bin/rive schema TextInput --all --json: exit 0; no placeholder property.
+~/.rive/bin/rive schema TextInputText --all --json: exit 0; no placeholder property.
+These observations leave native parity open; they do not establish native runtime absence.
+Live native-list and typed-style mutation failures remain as recorded in tests/oracle/P6-9b-REPORT.md and their original native source/session logs.

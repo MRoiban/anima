@@ -10,7 +10,15 @@ and their own text-field semantics; do not add an `a11y` object. The native fiel
 
 `editable` defaults true; false makes the field readonly. `multiline` selects textarea instead of
 input. `obscured` masks the drawn value and uses a password input for single-line fields.
-`placeholder` draws when empty. `maxLength` (`max-length`) counts UTF-16 code units as HTML does;
+`placeholder` draws when empty. `placeholderColor` (`placeholder-color`) authors a separate solid
+placeholder paint: a hexadecimal colour (3/4/6/8 digits) or `currentColor`. It replaces the run's
+fill/stroke only while the value is empty. When omitted, the placeholder uses the field's normal
+ink (including gradients, strokes, colour slots and authored alpha) at 50% opacity. This opacity
+affects only glyphs; caret, selection and node opacity retain their normal values. Typing restores
+the normal paint; clearing restores the placeholder. JSON and AniML use the same renderer-neutral
+drawing data in tool SVG/outlines, browser SVG and Canvas2D. Invalid placeholder colours use the
+registry diagnostic at `/nodes/<index>/textInput/placeholderColor`.
+`maxLength` (`max-length`) counts UTF-16 code units as HTML does;
 truncation drops a trailing high surrogate. `maxLines` (`max-lines`, multiline only) counts explicit
 newline-delimited lines. CRLF/CR normalize to LF; single-line fields drop line separators.
 `selectOnFocus` (`select-on-focus`) selects the entire native value on focus. Selection offsets

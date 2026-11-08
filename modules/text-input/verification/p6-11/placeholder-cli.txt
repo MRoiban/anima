@@ -1,0 +1,128 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+ ❯ |unit| modules/text-input/test/cli/placeholder.test.ts (1 test | 1 failed) 37ms
+   × CLI schema exposes placeholder spelling and tool/browser-text paint matches literal controls 34ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/text-input/test/cli/placeholder.test.ts > CLI schema exposes placeholder spelling and tool/browser-text paint matches literal controls
+AssertionError: expected 'text\n animatable (address: <id>.<pro…' to contain 'placeholderColor'
+
+- Expected
++ Received
+
+- placeholderColor
++ text
++  animatable (address: <id>.<property>)
++   x            number  default 0
++   y            number  default 0
++   rotate       number  default 0
++   scale        number  default 1
++   scaleX       number  default 1
++   scaleY       number  default 1
++   opacity      number  default 1  range [0, 1]
++   visible      bool    default true
++   width        number  default null  range [0, ∞] [text]
++   height       number  default null  range [0, ∞] [text]
++   lineHeight   number  default null  range [0, ∞] [text]
++   paragraphSpacing number  default null  range [0, ∞] [text]
++   pointerEnabled bool    default true [input]
++   collapsed    bool    default false [input]
++   pivotX       number  default 0 [motion]
++   pivotY       number  default 0 [motion]
++  not animatable: id, type, pivot, runs, styles, sizing, align, valign, overflow, wrap, wordBreak, origin, verticalTrimTop, verticalTrimBottom, fitFromBaseline, fitFontSizeResizesBox, textField, styleField, effects, background, direction, textInput, focus, opaque, cursor, channels, blend, mask, clip, drawOrder, paints, properties, a11y, slice, mix, fill, stroke, knockout
++  markup ↔ .ani
++   word-break ↔ wordBreak
++   vertical-trim-top ↔ verticalTrimTop
++   vertical-trim-bottom ↔ verticalTrimBottom
++   fit-from-baseline ↔ fitFromBaseline
++   fit-font-size-resizes-box ↔ fitFontSizeResizesBox
++   text-field ↔ textField
++   style-field ↔ styleField
++   text-effects ↔ effects
++   mix-blend-mode ↔ blend
++   line-height ↔ lineHeight
++   paragraph-spacing ↔ paragraphSpacing
++   fill ↔ fill.color
++   fill-rule ↔ fill.rule
++   fill-visible ↔ fill.visible
++   fill-winding ↔ fill.winding
++   fill-blend ↔ fill.blend
++   fill-blend-amount ↔ fill.blendAmount
++   paint ↔ fill.paint
++   stroke ↔ stroke.color
++   stroke-width ↔ stroke.width
++   stroke-linecap ↔ stroke.cap
++   stroke-linejoin ↔ stroke.join
++   trimStart ↔ stroke.trimStart
++   trimEnd ↔ stroke.trimEnd
++   trimOffset ↔ stroke.trimOffset
++   stroke-dasharray ↔ stroke.dash
++   stroke-dashoffset ↔ stroke.dashOffset
++   stroke-scale ↔ stroke.scale
++   stroke-visible ↔ stroke.visible
++   stroke-position ↔ stroke.position
++   trim ↔ stroke.trim
++   effects ↔ stroke.effects
++   stroke-blend ↔ stroke.blend
++   stroke-blend-amount ↔ stroke.blendAmount
++  module fields
++   type [text]
++   width [text]
++   height [text]
++   lineHeight [text]
++   paragraphSpacing [text]
++   runs [text]
++   styles [text]
++   sizing [text]
++   align [text]
++   valign [text]
++   overflow [text]
++   wrap [text]
++   wordBreak [text]
++   origin [text]
++   verticalTrimTop [text]
++   verticalTrimBottom [text]
++   fitFromBaseline [text]
++   fitFontSizeResizesBox [text]
++   textField [text]
++   styleField [text]
++   effects [texteffects]
++   background [texteffects]
++   direction [texteffects]
++   textInput [textinput]
++   focus [focus]
++   pointerEnabled [input]
++   opaque [input]
++   cursor [input]
++   collapsed [input]
++   pivotX [motion]
++   pivotY [motion]
++   channels [motion]
++   blend [composite]
++   mask [composite]
++   clip [composite]
++   drawOrder [composite]
++   paints [composite]
++   properties [data]
++   a11y [a11y]
++   slice [surface]
++   mix [mix]
++
+
+ ❯ modules/text-input/test/cli/placeholder.test.ts:18:20
+     16|     };
+     17|     expect(await run(['schema', 'text'], io)).toBe(0);
+     18|     expect(output).toContain('placeholderColor');
+       |                    ^
+     19|     expect(output).toContain('placeholder-color');
+     20|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  01:07:18
+   Duration  1.44s (transform 48%, import 48%, tests 3%, worker 1%)

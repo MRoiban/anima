@@ -1,0 +1,2 @@
+packages/web/dist/build.json is stale: run node tools/build-web.ts
+Built 56 browser entries; examples/web/index.html 72307 B

@@ -1,0 +1,177 @@
+{
+  "status": "partial",
+  "branch": "t3/implement-p6-11-ticket",
+  "base": "790d402b",
+  "rowsClosed": [],
+  "rowsPlanned": {
+    "text.run-list": "Native live-list DataBindPath rendering comparison missing; Anima passes mutations.",
+    "data.property-text-style": "Native typed setter comparison missing; Anima accepts shared names and clearing, rejects wrong values.",
+    "text.input-placeholder": "Distinct color/default half-opacity implemented; native placeholder comparison missing."
+  },
+  "checks": [
+    {
+      "command": "npm run test:scope -- text text-input --browser=chromium",
+      "exit": 0,
+      "passed": 3259,
+      "filtered": 549,
+      "files": 25
+    },
+    {
+      "command": "npx vitest run --project browser modules/text/test/web modules/text-input/test/web -t Firefox --maxWorkers=2",
+      "exit": 0,
+      "passed": 10,
+      "filtered": 10,
+      "files": 5
+    },
+    {
+      "command": "npx vitest run --project browser modules/text/test/web/live-runs.test.ts modules/text-input/test/web/placeholder.browser.test.ts --maxWorkers=2",
+      "exit": 0,
+      "passed": 4,
+      "note": "Final stronger placeholder control verified separately."
+    },
+    {
+      "command": "npx vitest run --project browser modules/text-input/test/web/placeholder.browser.test.ts --maxWorkers=1",
+      "exit": 0,
+      "passed": 2,
+      "engines": ["Chromium", "Firefox"],
+      "note": "Exact SVG/authored color controls; Canvas default alpha versus isolated-node alpha maximum channel delta 1. Optional SVG adapter loaded."
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+      "exit": 1,
+      "passed": 9212,
+      "failed": 2,
+      "todo": 58,
+      "passedFiles": 296,
+      "failedFiles": 1,
+      "skippedFiles": 13,
+      "seconds": 592.17,
+      "failures": "Both standalone demo checks rejected stale cache fingerprint after diagnostic wording change."
+    },
+    {
+      "command": "node tools/build-web.ts; npx vitest run --project browser packages/web/test/browser.test.ts -t 'ships a current standalone' --maxWorkers=1",
+      "exit": 0,
+      "passed": 2,
+      "filtered": 78,
+      "note": "Original limits; all 56 cache entries subsequently verify source fingerprint and output hashes."
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx tsc -p packages/web/test",
+      "exit": 0
+    },
+    {
+      "command": "changed-source ESLint / Prettier --check --ignore-unknown",
+      "exit": 0
+    },
+    {
+      "command": "node tools/modules.ts --check",
+      "exit": 0,
+      "stale": 0
+    },
+    {
+      "command": "npm run gen; node tools/parity.ts --check; node tools/build-animl.ts --check",
+      "exit": 0,
+      "animlSources": 633
+    },
+    {
+      "command": "node tools/oracle.ts --strict",
+      "exit": 0,
+      "cases": 307,
+      "samples": 522,
+      "note": "Existing findings retained; no native comparison newly claimed."
+    },
+    {
+      "command": "node tools/size.ts",
+      "exit": 0
+    },
+    {
+      "command": "node tools/perf.ts",
+      "exit": 0,
+      "controlledGuard": "unverified (shared load, no controlled before measurement)"
+    }
+  ],
+  "sizes": {
+    "text": {
+      "before": 6136,
+      "after": 6136
+    },
+    "text-host": {
+      "before": 355,
+      "after": 355
+    },
+    "text-hit": {
+      "before": 983,
+      "after": 983
+    },
+    "markup-text": {
+      "before": 530,
+      "after": 530
+    },
+    "text-input": {
+      "before": 3789,
+      "after": 3671
+    },
+    "text-input-svg": {
+      "before": 356,
+      "after": 363
+    },
+    "text-input-clipboard": {
+      "before": 118,
+      "after": 122
+    },
+    "text-input-canvas": {
+      "before": 92,
+      "after": 104
+    },
+    "markup-text-input": {
+      "before": -45,
+      "after": -45
+    }
+  },
+  "gates": {
+    "core+web": {
+      "before": 21136,
+      "after": 21136
+    },
+    "largest scene (30)": {
+      "before": 53857,
+      "after": 53857
+    },
+    "app-UI scene": {
+      "before": 98674,
+      "after": 98674
+    },
+    "runtime sum": {
+      "before": 118903,
+      "after": 118903
+    },
+    "authoring add-on": {
+      "before": 14649,
+      "after": 14649
+    },
+    "Rive-class (heavy)": {
+      "before": 128523,
+      "after": 128645
+    }
+  },
+  "deviations": [
+    "Reported first two failures were native-side, so Anima working paths get regression tests without speculative setter changes.",
+    "Local style paint objects remain static; docs and diagnostic point to tested node-paint or typed-style binding alternatives.",
+    "Placeholder opacity remains in input adapters to keep the text entry unchanged."
+  ],
+  "sourceSeamsOutsideOwnedFiles": [],
+  "generatedOutsideOwnedFiles": [
+    "spec/schema/ani.schema.json",
+    "docs/parity/MATRIX.md",
+    "docs/parity/matrix.json"
+  ],
+  "problems": [
+    "All three native comparisons remain open.",
+    "Complete changed command exits 1 for the two cache failures; both exact retries pass after rebuild.",
+    "Controlled performance guard remains unverified."
+  ]
+}

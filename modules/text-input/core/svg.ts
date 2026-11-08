@@ -37,6 +37,10 @@ export const textinputSVG: SVGBackend = {
     walk(tree.root);
   },
   attrs(f, e, _paint, _id, a) {
+    if (e.role === 'module:text-content') {
+      const opacity = (f.nodes[e.node] as FieldNode).text?.opacity;
+      if (opacity !== undefined) a.opacity = String(opacity);
+    }
     if (e.role === 'module:field') e.kids = boxes(f, e.node);
     if (e.role === 'module:field-box') Object.assign(a, boxAttrs(f, e));
   },

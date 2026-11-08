@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+ ❯ |browser| modules/text-input/test/web/placeholder.browser.test.ts (2 tests | 2 failed) 3522ms
+   × Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels 507ms
+   × Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels 3013ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text-input/test/web/placeholder.browser.test.ts > Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels
+ FAIL  |browser| modules/text-input/test/web/placeholder.browser.test.ts > Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels
+AssertionError: expected 126 to be greater than or equal to 127
+ ❯ modules/text-input/test/web/placeholder.browser.test.ts:106:27
+    104|               for (let i = 0; i < pixels.length; i += 4)
+    105|                 if (pixels[i + 2]! > 240) min = Math.min(min, pixels[i…
+    106|               expect(min).toBeGreaterThanOrEqual(127);
+       |                           ^
+    107|               expect(min).toBeLessThanOrEqual(128);
+    108|             }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  01:12:56
+   Duration  13.78s (import 74%, tests 26%, transform 1%)

@@ -25507,6 +25507,10 @@
                 "placeholder": {
                   "type": "string"
                 },
+                "placeholderColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
                 "selectOnFocus": {
                   "type": "boolean"
                 },

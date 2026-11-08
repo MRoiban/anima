@@ -16,6 +16,11 @@ override shared names. An absent style uses sans-serif, size 1, weight 400, norm
 Styles contain `font`, `size` (>0), `weight` (1–1000), `style` (normal/italic), `tracking`, optional
 `lineHeight` and ordinary `fill`/`stroke` paint objects. Paint extensions require their own modules.
 Style sizes, weights, tracking, lineHeight and font are addressable at `node.styles.name.field`;
+Local/shared style paint objects are authored values, not animation or binding addresses.
+To bind a colour, put `fill`/`stroke` on the text node and omit the corresponding paints from
+the run's style, then bind `node.fill.color`/`node.stroke.color`. To switch complete paints,
+bind `node.runs.index.style` to a `text-style` property naming a shared style. An unsupported
+`node.styles.name.fill|stroke` binding reports `unknown-address` at the binding with this repair hint.
 Numeric animation values clamp to the same size/weight/range bounds as authored styles.
 Omitted local style fields and run style references retain their defaults when animated;
 run strings and references are addressable at `node.runs.index.text|style` for animation and binding.
