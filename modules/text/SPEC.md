@@ -245,7 +245,9 @@ rather than losing geometry. Path/clip ids avoid every existing document/definit
 
 Text-only animation/binding addresses are retained for validation and cause `font-flatten` rather
 than being silently removed. Group-compatible animation addresses remain live. Editable fields
-are rejected; remove `textInput` explicitly before freezing. Diagnostics use code `font-flatten`,
+are rejected; remove `textInput` explicitly before freezing. Text that is a direct child of a
+`layout` container is rejected too: the replacing group has no intrinsic size, so the measured
+footprint and baseline would be lost. Diagnostics use code `font-flatten`,
 empty pointer for the command-level conversion, a message identifying the unsupported operation
 and a repair hint. This is a CLI operation, with no additional JSON/AniML field or runtime entry.
 The generated-font path and raster regressions cover both output spellings. Native outline conversion has no permitted headless counterpart; the P7-8 acceptance and

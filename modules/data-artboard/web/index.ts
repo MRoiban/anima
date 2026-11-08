@@ -9,6 +9,9 @@ import type { assets } from '../../assets/core/index.ts';
 import type { FontModule } from '../../fonts/core/index.ts';
 import type { FontController } from '../../fonts/web/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+const live = Icon.modules.get('dataartboard') as typeof dataArtboard;
+// A separately bundled second import keeps the first bridge's maps and hooks.
+const installed = !!live.resources.adopt;
 type Resource = { records?: Model['doc']['assets']; fonts?: (target: FontController) => void };
 type Scope = Map<object, Resource>;
 const initialized = new WeakSet<Player>();
@@ -47,29 +50,31 @@ function owner(player: Player): AnimaIcon | undefined {
 // Values use a cloned document identity; source hosts may share the same compiled catalog.
 const component = Icon.prototype.component;
 const values = new WeakMap<Model, Map<string, ReturnType<typeof component>>>();
-Icon.prototype.component = (document, name) => {
-  const scope = sources.get(document),
-    components = module<ComponentModule>('components');
-  const source = components?.catalog.get(document)?.get(name);
-  if (!scope || !source) return component(document, name);
-  let choices = values.get(document);
-  if (!choices) values.set(document, (choices = new Map()));
-  let value = choices.get(name);
-  if (!value) {
-    const child = { ...source, doc: { ...source.doc } },
-      wrapper = { ...document };
-    components!.forkModel(source, child);
-    const data = module<DataModule>('data'),
-      compiled = data?.compiled.get(source);
-    if (compiled) data!.compiled.set(child, compiled);
-    components!.catalog.set(wrapper, new Map([[name, child]]));
-    contexts.set(child.doc, new Map([...scope, [child.doc, scope.get(source.doc)!]]));
-    choices.set(name, (value = component(wrapper, name)));
-  }
-  return value;
-};
+if (!installed)
+  Icon.prototype.component = (document, name) => {
+    const scope = sources.get(document),
+      components = module<ComponentModule>('components');
+    const source = components?.catalog.get(document)?.get(name);
+    if (!scope || !source) return component(document, name);
+    let choices = values.get(document);
+    if (!choices) values.set(document, (choices = new Map()));
+    let value = choices.get(name);
+    if (!value) {
+      const child = { ...source, doc: { ...source.doc } },
+        wrapper = { ...document };
+      components!.forkModel(source, child);
+      const data = module<DataModule>('data'),
+        compiled = data?.compiled.get(source);
+      if (compiled) data!.compiled.set(child, compiled);
+      components!.catalog.set(wrapper, new Map([[name, child]]));
+      contexts.set(child.doc, new Map([...scope, [child.doc, scope.get(source.doc)!]]));
+      choices.set(name, (value = component(wrapper, name)));
+    }
+    return value;
+  };
 const previousLoader = Icon.loadAssets;
-Icon.loadAssets = async (icon, model) => initialize(model, await previousLoader?.(icon, model));
+if (!installed)
+  Icon.loadAssets = async (icon, model) => initialize(model, await previousLoader?.(icon, model));
 // Cached initializers retain models/catalogs, never the first host that decoded them.
 function initialize(root: Model, prior?: (player: Player) => boolean): (player: Player) => boolean {
   const scopes = new WeakMap<Player, Scope>();
@@ -114,45 +119,48 @@ function initialize(root: Model, prior?: (player: Player) => boolean): (player: 
   };
 }
 // The composed module survives separately bundled imports; no second core registry is used.
-module<typeof dataArtboard>('dataartboard')!.resources.adopt = (parent, child) => {
-  const icon = owner(parent);
-  if (!icon) return;
-  const scope = contexts.get(child.model.doc) ?? contexts.get(parent);
-  each(child, (p) => {
-    owners.set(p, icon);
-    if (!scope) return;
-    contexts.set(p, scope);
-    const resource = scope.get(p.model.doc);
-    if (resource?.records) module<typeof assets>('assets')?.resolvedAssets.set(p, resource.records);
-    if (resource?.fonts && icon.fonts && !controllers.has(p)) {
-      const controller = new (icon.fonts.constructor as typeof FontController)(icon);
-      resource.fonts(controller);
-      controllers.set(p, controller);
-      let owned = retained.get(icon);
-      if (!owned) retained.set(icon, (owned = new Map()));
-      owned.set(p, controller);
-    }
-  });
-  const fonts = module<FontModule>('fonts');
-  if (fonts) fonts.controller = (p) => controllers.get(p);
-};
-const previousHook = Icon.eventHook;
-Icon.eventHook = (icon, kind, detail) => {
-  if (!known.has(icon)) {
-    known.add(icon);
-    hosts.add(new WeakRef(icon));
-  }
-  const owned = retained.get(icon);
-  if (owned && (kind === 'cleanup' || kind === 'draw')) {
-    const live = new Set<Player>();
-    if (kind !== 'cleanup' && icon.player) each(icon.player, (p) => live.add(p));
-    for (const [p, controller] of owned)
-      if (!live.has(p)) {
-        controller.clear();
-        controllers.delete(p);
-        owned.delete(p);
+if (!installed)
+  live.resources.adopt = (parent, child) => {
+    const icon = owner(parent);
+    if (!icon) return;
+    const scope = contexts.get(child.model.doc) ?? contexts.get(parent);
+    each(child, (p) => {
+      owners.set(p, icon);
+      if (!scope) return;
+      contexts.set(p, scope);
+      const resource = scope.get(p.model.doc);
+      if (resource?.records)
+        module<typeof assets>('assets')?.resolvedAssets.set(p, resource.records);
+      if (resource?.fonts && icon.fonts && !controllers.has(p)) {
+        const controller = new (icon.fonts.constructor as typeof FontController)(icon);
+        resource.fonts(controller);
+        controllers.set(p, controller);
+        let owned = retained.get(icon);
+        if (!owned) retained.set(icon, (owned = new Map()));
+        owned.set(p, controller);
       }
-    if (!owned.size) retained.delete(icon);
-  }
-  previousHook?.(icon, kind, detail);
-};
+    });
+    const fonts = module<FontModule>('fonts');
+    if (fonts) fonts.controller = (p) => controllers.get(p);
+  };
+const previousHook = Icon.eventHook;
+if (!installed)
+  Icon.eventHook = (icon, kind, detail) => {
+    if (!known.has(icon)) {
+      known.add(icon);
+      hosts.add(new WeakRef(icon));
+    }
+    const owned = retained.get(icon);
+    if (owned && (kind === 'cleanup' || kind === 'draw')) {
+      const live = new Set<Player>();
+      if (kind !== 'cleanup' && icon.player) each(icon.player, (p) => live.add(p));
+      for (const [p, controller] of owned)
+        if (!live.has(p)) {
+          controller.clear();
+          controllers.delete(p);
+          owned.delete(p);
+        }
+      if (!owned.size) retained.delete(icon);
+    }
+    previousHook?.(icon, kind, detail);
+  };

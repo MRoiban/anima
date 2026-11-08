@@ -61,15 +61,17 @@ export function flattenText(
       player.step(0);
       return player;
     };
-    const visit = (nodes: unknown) => {
+    const visit = (nodes: unknown, inLayout = false) => {
       if (!Array.isArray(nodes)) return;
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i] as ObjectValue;
         if (node.type !== 'text' || (nodeId && nodeId !== prefix + node.id)) {
-          visit(node.children);
+          visit(node.children, node.type === 'layout');
           continue;
         }
         if (node.textInput) fail('cannot flatten an editable field; remove textInput first');
+        // A group has no intrinsic size: its layout footprint and baseline would be lost.
+        if (inLayout) fail('cannot flatten a layout participant; its measured size would be lost');
         found = true;
         const p = getPlayer(),
           index = p.model.ids.get(String(node.id))!,

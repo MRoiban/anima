@@ -117,7 +117,9 @@ export const dataArtboard: Module & {
     };
     const prepare = data.prepare!;
     data.prepare = function (model, diag) {
-      const original = model.doc;
+      // Keep the document identity: context hooks (lists' $parent) are keyed by it.
+      const original = model.doc,
+        raw = original.data;
       if (
         original.requires?.includes('dataartboard') &&
         original.data &&
@@ -134,12 +136,13 @@ export const dataArtboard: Module & {
           for (const [key, p] of Object.entries(properties))
             if (p.type === 'artboard') properties[key] = { ...p, type: 'component' };
         }
-        model.doc = { ...original, data: document };
+        original.data = document;
       }
       try {
         prepare.call(this, model, diag);
       } finally {
-        model.doc = original;
+        // Restore only a swapped document: never add an absent key or write an untouched one.
+        if (original.data !== raw) original.data = raw;
       }
     };
     host.Data.prototype.artboard = function (path) {
