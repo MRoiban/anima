@@ -94,3 +94,50 @@ it('stops a semantic action at a data breakpoint and resumes it after clearing',
   expect(later.diagnostics).toEqual([]);
   expect(later.stopped).toBe(false);
 });
+
+// Rottweiler P3 R3-04: a semantic command that fails after mutating keeps its mutations journaled.
+it('replays a semantic command that failed after mutating the player', () => {
+  const { model, diagnostics } = load({
+    anima: '0.1',
+    name: 'throwing',
+    grid: 20,
+    requires: ['data', 'a11y', 'focus', 'components', 'nested', 'bind'],
+    data: {
+      models: {
+        M: {
+          properties: {
+            enabled: { type: 'bool', default: false },
+            bad: { type: 'bool', default: true },
+          },
+        },
+      },
+    },
+    components: {
+      row: {
+        grid: 20,
+        nodes: [{ id: 'dot', type: 'circle', center: [1, 1], r: 1, fill: { color: '#000' } }],
+      },
+    },
+    nodes: [
+      {
+        id: 'button',
+        type: 'circle',
+        center: [5, 5],
+        r: 1,
+        fill: { color: '#000' },
+        a11y: { role: 'switch', label: 'B', checked: '$enabled' },
+      },
+      { id: 'child', type: 'instance', component: 'row', time: '-($enabled and $bad)' },
+    ],
+  });
+  expect(diagnostics).toEqual([]);
+  const s = createScriptSession(model!);
+  s.execute('advance 0');
+  expect(s.execute('expect-error instance-time\nsemantic button tap').diagnostics).toEqual([]);
+  expect(s.player.get('$enabled')).toBe(true);
+  s.execute('data set $bad false');
+  const stopped = s.execute('data break $enabled == false\nsemantic button tap');
+  expect(stopped.stopped).toBe(true);
+  expect(stopped.diagnostics).toMatchObject([{ code: 'script-breakpoint' }]);
+  expect(s.player.get('$enabled')).toBe(true);
+});

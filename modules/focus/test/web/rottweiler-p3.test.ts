@@ -151,6 +151,74 @@ for (const [name, engine, cache] of [
         await browser.close();
       }
     }, 30_000);
+    it('keeps semantic focus targets from an empty start and resets after growth', async () => {
+      const browser = await engine.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        const errors: string[] = [];
+        page.on('pageerror', (e) => errors.push(e.message));
+        await page.setContent(
+          '<anima-icon paused style="display:block;width:100px;height:100px"></anima-icon>',
+        );
+        await page.addScriptTag({
+          type: 'module',
+          content: await bundle(resolve('modules/focus/test/web/p3-entry.ts')),
+        });
+        await page.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon | undefined)?.modules.has('lists'),
+        );
+        const result = await page.evaluate(() => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          icon.load({
+            anima: '0.1',
+            name: 'semantic-repeat',
+            grid: 20,
+            requires: ['focus', 'components', 'data', 'lists', 'a11y'],
+            data: {
+              models: { M: { properties: { n: { type: 'number', default: 0 } } } },
+              instances: { main: { model: 'M', default: true } },
+            },
+            components: {
+              row: {
+                grid: 20,
+                nodes: [
+                  {
+                    id: 'target',
+                    type: 'circle',
+                    r: 1,
+                    center: [2, 2],
+                    fill: { color: '#000' },
+                    focus: { tabStops: true },
+                    a11y: { role: 'button', label: 'Target' },
+                  },
+                ],
+              },
+            },
+            nodes: [{ id: 'rows', type: 'repeat', component: 'row', count: '$n', dx: 5 }],
+          });
+          const grow = (n: number) => {
+            icon.set('$n', n);
+            icon.player!.step(0);
+            icon.invalidate();
+            icon.focusNext();
+            return {
+              targets: icon.shadowRoot!.querySelectorAll('[data-focus]').length,
+              active: (icon.shadowRoot!.activeElement as HTMLElement | null)?.dataset.focus,
+            };
+          };
+          icon.player!.step(0);
+          const grown = grow(2);
+          icon.reset();
+          icon.player!.step(0);
+          return { grown, reset: grow(2) };
+        });
+        expect(result.grown).toEqual({ targets: 2, active: 'rows.0.target' });
+        expect(result.reset).toEqual({ targets: 2, active: 'rows.0.target' });
+        expect(errors).toEqual([]);
+      } finally {
+        await browser.close();
+      }
+    }, 30_000);
     it('installs the bridge through loadModel() on a fresh host', async () => {
       const { browser, page, errors } = await open(['focus']);
       try {

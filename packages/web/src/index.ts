@@ -78,6 +78,7 @@ let ids = 0;
 export class AnimaIcon extends HTMLElement {
   /** Instantiate a compiled model without reparsing or recompiling it. */
   loadModel(model: Model): void {
+    this.#model = model;
     const selected = AnimaIcon.selectModel?.(this, model);
     if (selected && !selected.model) {
       this.#fail(selected.diagnostics);
@@ -160,6 +161,7 @@ export class AnimaIcon extends HTMLElement {
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   #prepare?: (player: Player) => boolean;
+  #model?: Model;
   static observedAttributes = [
     'src',
     'motion',
@@ -466,7 +468,7 @@ export class AnimaIcon extends HTMLElement {
       inputs: [...m.inputs.values()].map((i) => ({
         name: i.name,
         type: i.type,
-        default: i.def,
+        default: Array.isArray(i.def) ? [...i.def] : i.def,
         ...(i.type === 'number' && Number.isFinite(i.min) ? { min: i.min } : {}),
         ...(i.type === 'number' && Number.isFinite(i.max) ? { max: i.max } : {}),
       })),
@@ -480,7 +482,8 @@ export class AnimaIcon extends HTMLElement {
   }
 
   reset(): void {
-    if (this.player) this.loadModel(this.player.model);
+    // The compiled model as loaded: the player's model may be a runtime fork (repeat expansion).
+    if (this.player) this.loadModel(this.#model!);
   }
 
   destroy(): void {
@@ -506,7 +509,7 @@ export class AnimaIcon extends HTMLElement {
     if (this.player) {
       for (const rec of this.#els) rec[2] = {};
       this.#draw(true);
-    } else this.#order();
+    }
   }
 
   /** Set a bool or number input. */

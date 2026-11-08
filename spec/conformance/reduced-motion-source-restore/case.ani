@@ -1,0 +1,54 @@
+{
+  "anima": "0.1",
+  "name": "source-clock-restore",
+  "grid": 20,
+  "requires": ["components", "nested"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "row",
+      "fps": 60
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "timelines": {
+        "go": {
+          "duration": 1,
+          "loop": "loop",
+          "tracks": {
+            "dot.x": [
+              [0, 0],
+              [1, 10]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "main": {
+            "initial": "go",
+            "states": {
+              "go": {
+                "play": "go"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

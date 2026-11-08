@@ -1,0 +1,9 @@
+motion reduce
+fire go
+advance 0
+snapshot a.x b.x
+motion full
+advance 0.25
+snapshot a.x b.x
+advance 0.25
+snapshot a.x b.x

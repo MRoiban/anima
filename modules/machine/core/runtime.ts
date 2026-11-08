@@ -211,8 +211,6 @@ export class MachinePolicy implements PlaybackPolicy {
     const r = run as Run,
       d = this.runs.get(r)!;
     d.eligible = eligible;
-    // Restoring full motion resumes blend children frozen at state entry.
-    if (!this.p.reducedMotion) d.reduced = false;
     d.chosen = undefined;
     d.consumed.clear();
     d.changed.clear();
@@ -363,6 +361,11 @@ export class MachinePolicy implements PlaybackPolicy {
     found.sort((a, b) => a[0] - b[0]);
     for (const [, time, name] of found) out.push({ name, layer, time });
   }
+  /** Restoring full motion resumes looping blend children; reduced `once` children keep their end. */
+  held(t: TimelineM, reduced?: boolean): boolean {
+    return !!reduced && (this.p.reducedMotion || t.loop === 'once');
+  }
+
   childClock(t: TimelineM, elapsed: number, speed: number, reduced = false): number {
     const raw = this.p.model.doc.requires?.includes('motion')
       ? this.p.model.doc.timelines[t.name]
@@ -405,7 +408,7 @@ export class MachinePolicy implements PlaybackPolicy {
     const values = children.map((c) => {
       const t = this.p.model.timelines[c.timeline]!,
         track = t.tracks.find((tr) => tr.addr === address);
-      const time = this.childClock(t, elapsed, state.speed, reduced || frozen >= 0);
+      const time = this.childClock(t, elapsed, state.speed, this.held(t, reduced || frozen >= 0));
       return track ? sample(track, time) : rest;
     });
     if (info.mix!.mode !== '1d') {
@@ -442,7 +445,7 @@ export class MachinePolicy implements PlaybackPolicy {
             const [a, b] = raw.work ?? [0, t.duration],
               rate = s.speed * (raw.speed ?? 1);
             return (
-              (this.runs.get(r)?.reduced && t.reduced !== 'play') ||
+              (this.held(t, this.runs.get(r)?.reduced) && t.reduced !== 'play') ||
               rate === 0 ||
               (t.loop === 'once' && reached(r.time * Math.abs(rate), b - a))
             );

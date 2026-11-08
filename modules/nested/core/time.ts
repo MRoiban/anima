@@ -64,7 +64,8 @@ export function clock(
     resume(run, time) {
       state.set(
         run,
-        source - (old ? (run as { time: number }).time : time / (rates.get(run) ?? 1)),
+        // Resuming happens inside this step: the origin precedes its source advance.
+        before - (old ? (run as { time: number }).time : time / (rates.get(run) ?? 1)),
       );
       old?.resume(run, time);
     },

@@ -96,8 +96,8 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
         },
         () => ({}) as Snapshot,
       );
-    } catch (e) {
-      if (e !== stop) throw e;
+    } catch {
+      // The stop sentinel, or the same failure the live command reported at this boundary.
     }
   };
   const groups: string[] = [];
@@ -242,9 +242,10 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
         trace.close();
       }
     }
-    const r = opts.onEvents ? captureStep(() => p.step(dt)) : p.step(dt);
+    // Counts attempted live steps: a step that throws has still mutated the player.
     if (semantic) semantic.steps++;
-    else
+    const r = opts.onEvents ? captureStep(() => p.step(dt)) : p.step(dt);
+    if (!semantic)
       journal.push({
         op: (player) => {
           player.step(dt);
@@ -386,12 +387,12 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             cmd !== 'snapshot' &&
             semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot);
         } catch (e) {
-          handled = e instanceof Breakpoint;
+          handled = true;
           throw e;
         } finally {
           semantic = undefined;
           if (handled) {
-            // A breakpoint keeps the accepted mutations, up to the step it stopped.
+            // A failure or breakpoint keeps the accepted mutations, up to the step it stopped.
             const limit = s.steps;
             journal.push({ op: (player) => replaySemantic(player, s.cmd, s.args, limit), writer });
             lastWriter = writer;
