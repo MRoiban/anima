@@ -19,7 +19,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   (machine load). Done: P5 (20 fixed, 6 deferred; 2c09c86), P7 (R1 7 + R2–R5 15 fixed, 2 deferred: R2-5 fonts
   faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Done also: P3 (25 fixed, 2
   pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
-  deferred; merged with P3 input/machine overlap combined). Running: P6, P2, P1 leads; P7 round-1 fix coder (7 findings, ledger in my
+  deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
+  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Running: P6, P2
+  leads; P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
@@ -30,7 +32,10 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   `fonts.set` (sent to the P6 lead — check its ledger); P5 deferrals waiting on a `markup-libraries`
   split; P4 R3-03 re-registering base paint replaces the sampling backend (P5b code), R4-02 pointer
   focus and hit order ignore composite `drawOrder` (needs a joint input/focus/composite decision),
-  R2-05 gamepad polling stops after a long detach (needs a host connect signal).
+  R2-05 gamepad polling stops after a long detach (needs a host connect signal). P1: P2/P6 share
+  `packages/web/src/index.ts` ARIA edits (expect a conflict); P1 R2-03 knockouts ignore stroke trims
+  (needs bell fixture + canvas change). Decided (owner may revisit): add a loader limit on overall JSON
+  nesting depth with a diagnostic (P1 R3-04/R4-08 root cause).
 - After the review: P8 design (rigging).
 - Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
   authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
@@ -85,8 +90,10 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Budget headroom: markup-libraries 2,176/2,176 (full), markup-hooks ~4,534/4,544, data-artboard
   1,013/1,024, host-fit 733/768 — growth there needs a split first.
 - Disk fills during review waves: every reviewer gets a ~245 MB worktree and agents leave
-  `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove clean idle worktrees (keep running
-  leads' and reviewers'), and delete `/tmp/anima-*` older than 3 h — on 2026-11-08 `/tmp` hit 100 %
+  `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove only worktrees on an explicit list
+  of finished branches — never by "clean + idle + name matches": a lead waiting on its reviewer is
+  clean and idle (2026-11-09 I removed the P2 and P6 leads' worktrees that way and recreated them from
+  their tips b5214b08 / 342e586e at the same paths); and delete `/tmp/anima-*` older than 3 h — on 2026-11-08 `/tmp` hit 100 %
   and `/` 97 %. Abandoned P4-era worktree diffs were saved to `/data/t3/projects/anima-worktree-backups/`.
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
