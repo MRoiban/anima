@@ -1,7 +1,7 @@
 // Renderer-neutral draw data. No DOM, CSS attributes, element tags or renderer callbacks.
 import { pathLength } from './path.ts';
 import { formatHex } from './color.ts';
-import type { Mat } from './geom.ts';
+import { IDENTITY, mul, type Mat } from './geom.ts';
 import type { Model } from './load.ts';
 import { modules } from './modules.ts';
 import type { Player } from './player.ts';
@@ -273,4 +273,12 @@ export function drawFrame(p: Player): DrawFrame {
 }
 export function drawOrder(f: DrawFrame, nodes: number[]): number[] {
   return [...nodes].sort((a, b) => (f.order?.[a] ?? a) - (f.order?.[b] ?? b));
+}
+
+/** Geometry-to-artboard matrix, including module drawing transforms. */
+export function drawWorld(p: Player, i: number, frame = p.hitFrame?.()): Mat {
+  if (!frame) return p.world(i);
+  let m = IDENTITY;
+  for (let n = i; n >= 0; n = p.model.nodes[n]!.parent) m = mul(frame.nodes[n]!.transform, m);
+  return m;
 }

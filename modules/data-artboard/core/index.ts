@@ -4,7 +4,6 @@ import type { Model } from '../../../packages/core/src/load.ts';
 import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
 import type { DataModule } from '../../data/core/index.ts';
 import type { ComponentModule } from '../../components/core/index.ts';
-import type { HostData } from '../../host/core/api.ts';
 import { after } from '../manifest.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { compatible } from './schema.ts';
@@ -37,7 +36,8 @@ function failure(code: string, path: string): never {
     },
   );
 }
-const assignments = new WeakMap<Player, Map<string, Model>>();
+export const assignments = new WeakMap<Player, Map<string, Model> & { next?: number }>();
+const queued = new WeakMap<Player, string[]>();
 const parents = new WeakMap<Player, Player>();
 export const dataArtboard: Module & {
   resources: { adopt?: (parent: Player, child: Player) => void };
@@ -51,7 +51,7 @@ export const dataArtboard: Module & {
     const components = registry.get('components') as ComponentModule | undefined;
     const lists = registry.get('lists') as
       (Module & { parents: WeakMap<Player, Player> }) | undefined;
-    const host = registry.get('host') as (Module & { Data: typeof HostData }) | undefined;
+    const host = registry.get('host') as typeof import('../../host/core/index.ts').host | undefined;
     if (!data || !components || !host) return dataArtboard;
     const property = (
       (
@@ -61,11 +61,35 @@ export const dataArtboard: Module & {
     ).of as ObjShape;
     const type = property.p.type as Extract<Shape, { k: 'str' }>;
     if (!type.of!.includes('artboard')) type.of = [...type.of!, 'artboard'];
-    const extension = { ...dataArtboard };
+    const ownerOf = (p: Player): Player => {
+      const parent = parents.get(p) ?? lists?.parents.get(p);
+      return parent ? ownerOf(parent) : p;
+    };
+    const prune = (p: Player) => {
+      const choices = assignments.get(p);
+      if (!choices) return;
+      const live = new Set<unknown>(queued.get(p)),
+        seen = new Set<unknown>();
+      const scan = (value: unknown) => {
+        if (!value || typeof value !== 'object') live.add(value);
+        else if (!seen.has(value)) {
+          seen.add(value);
+          Object.values(value).forEach(scan);
+        }
+      };
+      const visit = (player: Player) => {
+        scan(data.dataState(player)?.instances);
+        for (const child of host.children!(player)) visit(child);
+      };
+      visit(p);
+      for (const [name] of choices) if (!live.has(name)) choices.delete(name);
+    };
     const configure = components.configure;
     let depth = 0;
     components.configure = (parent, child, node) => {
       parents.set(child, parent);
+      const scope = data.dataState(child);
+      if (scope) scope.componentValues = assignments.get(ownerOf(parent));
       configure?.(parent, child, node);
       const target = data.compiled.get(parent.model),
         source = data.compiled.get(child.model);
@@ -126,36 +150,29 @@ export const dataArtboard: Module & {
           return handle.value;
         },
         set: (value) => {
-          let name: string;
+          let name: string | undefined;
           if (typeof value === 'string') name = value;
           else {
             if (!value || typeof value !== 'object') failure('data-type', path);
             const child =
               value?.document && components.catalog.get(value.document)?.get(value.name);
             if (!child) failure(value?.document ? 'unknown-component' : 'artboard-document', path);
-            let owner = this.player;
-            let parent: Player | undefined;
-            while ((parent = parents.get(owner) ?? lists?.parents.get(owner))) owner = parent;
+            const owner = ownerOf(this.player);
             let choices = assignments.get(owner);
             if (!choices) assignments.set(owner, (choices = new Map()));
-            name =
-              [...choices].find(([, model]) => model === child)?.[0] ?? '$external:' + choices.size;
+            name = [...choices].find(([, model]) => model === child)?.[0];
+            if (!name) name = '$external:' + (choices.next = (choices.next ?? -1) + 1);
             choices.set(name, child);
-            const seen = new Set<Model>();
-            const install = (model: Model) => {
-              if (seen.has(model)) return;
-              seen.add(model);
-              const c = data.compiled.get(model);
-              for (const def of Object.values(c?.document.models ?? {}))
-                for (const p of Object.values(def.properties ?? {}))
-                  if (p.type === 'component' && !p.values?.includes(name)) p.values?.push(name);
-              for (const child of components.catalog.get(model)?.values() ?? []) install(child);
-            };
-            install(owner.model);
-            for (const source of choices.values()) install(source);
+            const scope = data.dataState(this.player);
+            if (scope) scope.componentValues = choices;
           }
           try {
             handle.set(name);
+            const owner = ownerOf(this.player);
+            let pending = queued.get(owner);
+            if (!pending) queued.set(owner, (pending = []));
+            pending.push(name);
+            this.enqueue(() => pending!.splice(pending!.indexOf(name), 1));
           } catch (error) {
             if (name && (error as { code?: string }).code === 'data-type')
               failure('unknown-component', path);
@@ -164,7 +181,8 @@ export const dataArtboard: Module & {
         },
       };
     };
-    return Object.assign(extension, {
+    return {
+      ...dataArtboard,
       prepare(model) {
         if (
           model.doc.requires?.includes('dataartboard') &&
@@ -181,8 +199,14 @@ export const dataArtboard: Module & {
           };
       },
       load(model) {
+        if (!model.doc.requires?.includes('dataartboard')) return;
+        const after = model.afterStep;
+        model.afterStep = (p) => {
+          after?.(p);
+          prune(p);
+        };
         const factory = model.nesting;
-        if (!factory || !model.doc.requires?.includes('dataartboard')) return;
+        if (!factory) return;
         model.nesting = (p) => {
           const base = factory(p);
           // seam(P7-2): the nesting factory may decline (no nested scene for this player).
@@ -226,7 +250,7 @@ export const dataArtboard: Module & {
           return base;
         };
       },
-    } satisfies Pick<Module, 'prepare' | 'load'>);
+    } satisfies Module;
   },
 };
 declare module '../../host/core/api.ts' {

@@ -1,3 +1,4 @@
+import { contentBox } from '../../../packages/web/src/content-box.ts';
 // Canvas2D consumes only the resolved draw frame. No second player or SVG rasterization.
 import type { CanvasSourceHost } from './sources.ts';
 import type { AnimaIcon, IconRenderer } from '../../../packages/web/src/index.ts';
@@ -97,8 +98,7 @@ export class CanvasRenderer implements IconRenderer {
     const fitted = (this.#icon.constructor as typeof AnimaIcon).viewBox?.(this.#icon);
     const [x, y, w, h] = (fitted ?? m.viewBox) as [number, number, number, number],
       g = m.grid;
-    const css = getComputedStyle(this.#icon);
-    const host = { width: parseFloat(css.width), height: parseFloat(css.height) };
+    const host = contentBox(this.#icon);
     const fit = fitted ? 'fill' : this.#icon.getAttribute('fit');
     const align = this.#icon.getAttribute('align') ?? 'center';
     const factor = (lo: string, hi: string) =>
@@ -110,13 +110,13 @@ export class CanvasRenderer implements IconRenderer {
       height: ch + 'px',
       left:
         (fitted
-          ? 0
+          ? host.left
           : fit === 'none'
             ? (host.width - w) * factor('left', 'right')
             : (host.width * x) / g) + 'px',
       top:
         (fitted
-          ? 0
+          ? host.top
           : fit === 'none'
             ? (host.height - h) * factor('top', 'bottom')
             : (host.height * y) / g) + 'px',

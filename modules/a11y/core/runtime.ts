@@ -1,6 +1,6 @@
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
-import { drawFrame } from '../../../packages/core/src/draw.ts';
+import { drawFrame, drawWorld } from '../../../packages/core/src/draw.ts';
 import { apply, mul, IDENTITY, type Mat } from '../../../packages/core/src/geom.ts';
 import { parsePath, flatten } from '../../../packages/core/src/path.ts';
 import type { A11yConfig, SemanticNode } from './types.ts';
@@ -67,9 +67,10 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       const children = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
       track(() => children?.size);
       const frame = drawFrame(p);
+      track(() => p.drawRevision);
       p.model.nodes.forEach((n, i) => {
         const c = n.raw.a11y as A11yConfig | undefined;
-        const m = mul(matrix, p.world(i)),
+        const m = mul(matrix, drawWorld(p, i, frame)),
           g = frame.nodes[i]?.geometry;
         let points: [number, number][] = [];
         let bounds = c?.bounds;

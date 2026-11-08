@@ -1,8 +1,8 @@
-import '../../../packages/web/src/index.ts';
+import { contentBox } from '../../../packages/web/src/content-box.ts';
+import { sizes, refresh } from './size.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 const observers = new WeakMap<AnimaIcon, ResizeObserver>();
-const sizes = new WeakMap<AnimaIcon, [number, number]>();
 const previous = Icon.eventHook;
 Icon.eventHook = (icon, kind, detail) => {
   previous?.(icon, kind, detail);
@@ -10,10 +10,6 @@ Icon.eventHook = (icon, kind, detail) => {
     observers.get(icon)?.disconnect();
     observers.delete(icon);
   }
-};
-const refresh = (icon: AnimaIcon) => {
-  icon.attributeChangedCallback('fit', null, icon.getAttribute('fit'));
-  if (icon.player) icon.invalidate();
 };
 // Root layout sizes are grid units: fit="layout" uses one CSS pixel per grid unit.
 export interface HostLayoutPlayer {
@@ -29,45 +25,6 @@ for (const name of ['fit', 'alignment'])
       this.setAttribute(name, value);
     },
   });
-Object.defineProperty(Icon.prototype, 'size', {
-  get(this: AnimaIcon) {
-    return [
-      ...((this.fit === 'layout'
-        ? (this.player as HostLayoutPlayer | undefined)?.layoutSize
-        : undefined) ??
-        sizes.get(this) ??
-        this.player?.model.viewBox.slice(2) ?? [0, 0]),
-    ];
-  },
-  set(this: AnimaIcon, value: [number, number]) {
-    if (
-      !Array.isArray(value) ||
-      value.length !== 2 ||
-      ![...value].every((v) => Number.isFinite(v) && v > 0)
-    ) {
-      this.dispatchEvent(
-        new CustomEvent('anima:error', {
-          detail: [
-            {
-              code: 'host-size',
-              severity: 'error',
-              pointer: '',
-              message: 'invalid artboard size',
-              hint: 'set size to [width, height] with finite positive grid units',
-            },
-          ],
-        }),
-      );
-      return;
-    }
-    sizes.set(this, [...value]);
-    refresh(this);
-  },
-});
-Icon.prototype.resetSize = function () {
-  sizes.delete(this);
-  refresh(this);
-};
 Icon.viewBox = (icon, svg) => {
   const m = icon.player?.model;
   if (!m) return;
@@ -77,9 +34,7 @@ Icon.viewBox = (icon, svg) => {
     observer.observe(icon);
   }
   const fit = icon.getAttribute('fit');
-  const css = getComputedStyle(icon),
-    width = parseFloat(css.width),
-    height = parseFloat(css.height);
+  const { width, height, left, top } = contentBox(icon);
   if (!(width > 0 && height > 0)) return;
   const [x, y, w, h] = m.viewBox;
   const player = icon.player! as typeof icon.player & HostLayoutPlayer;
@@ -125,7 +80,7 @@ Icon.viewBox = (icon, svg) => {
     height / sy,
   ];
   if (svg) {
-    svg.style.cssText = 'left:0;top:0;width:100%;height:100%;overflow:hidden';
+    svg.style.cssText = `left:${left}px;top:${top}px;width:${width}px;height:${height}px;overflow:hidden`;
     svg.setAttribute('viewBox', box.join(' '));
     svg.setAttribute('preserveAspectRatio', 'none');
   }

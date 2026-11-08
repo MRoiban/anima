@@ -5,7 +5,8 @@ export default {
     after: [],
     core: { entry: 'core/index.ts', export: 'layout', svg: 'core/svg.ts', svgExport: 'layoutSVG' },
     web: [
-      { name: 'layout', budget: 4096 },
+      { name: 'layout', budget: 4096, over: 'layout-svg' },
+      { name: 'layout-svg', budget: 256 },
       { name: 'layout-reflow', budget: 1024, over: 'layout' },
       { name: 'markup-layout', budget: 512, over: 'markup', authoring: true },
     ],
@@ -20,6 +21,7 @@ export default {
       'packages/core/src/modules/layout/svg.ts': 'core/svg.ts',
       'packages/markup/src/markup-layout.ts': 'markup/index.ts',
       'packages/web/src/layout.ts': 'web/index.ts',
+      'packages/web/src/layout-svg.ts': 'web/svg.ts',
       'packages/web/src/layout-reflow.ts': 'web/reflow.ts',
       'packages/web/src/markup-layout.ts': 'web/markup.ts',
     },
@@ -28,6 +30,7 @@ export default {
       'markup:./layout': 'packages/markup/src/markup-layout.ts',
       'web:./layout-reflow': 'packages/web/src/layout-reflow.ts',
       'web:./layout': 'packages/web/src/layout.ts',
+      'web:./layout-svg': 'packages/web/src/layout-svg.ts',
       'web:./markup-layout': 'packages/web/src/markup-layout.ts',
     },
     tests: [

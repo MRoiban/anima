@@ -1,5 +1,6 @@
 import type { ListenerM, Model } from '../../../packages/core/src/load.ts';
 import type { Player, PointerKind } from '../../../packages/core/src/player.ts';
+import { drawWorld } from '../../../packages/core/src/draw.ts';
 import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
 import type {
   Cursor,
@@ -157,7 +158,7 @@ export class InputController {
       const values = { ...data };
       if (l.align && data.x !== undefined && data.y !== undefined && l.target >= 0) {
         const n = this.player.model.nodes[l.target]!,
-          inv = n.parent < 0 ? undefined : invert(this.player.world(n.parent));
+          inv = n.parent < 0 ? undefined : invert(drawWorld(this.player, n.parent));
         const [x, y] =
           n.parent < 0
             ? [Number(data.x), Number(data.y)]
@@ -177,7 +178,7 @@ export class InputController {
         data.y !== undefined &&
         l.target >= 0
       ) {
-        const inv = invert(this.player.world(l.target));
+        const inv = invert(drawWorld(this.player, l.target));
         const text = peers?.get('text') as
           import('../../text/core/index.ts').TextModule | undefined;
         if (inv && text?.hitTest) {
@@ -202,7 +203,7 @@ export class InputController {
       id,
       player,
       node: p.model.ids.get(id)!,
-      matrix: p.world(p.model.ids.get(id)!),
+      matrix: drawWorld(p, p.model.ids.get(id)!),
     }));
     const lists = peers?.get('lists') as
       typeof import('../../lists/core/index.ts').lists | undefined;
@@ -213,7 +214,7 @@ export class InputController {
           id: p.model.nodes[run.spec.node]!.id + '.' + item.index,
           player: item.player,
           node: run.spec.node,
-          matrix: mul(p.world(run.spec.node), [
+          matrix: mul(drawWorld(p, run.spec.node), [
             1,
             0,
             0,
@@ -335,7 +336,7 @@ export class InputController {
       for (const n of now)
         if (n >= 0) {
           const parent = this.player.model.nodes[n]!.parent,
-            inv = parent < 0 ? undefined : invert(this.player.world(parent));
+            inv = parent < 0 ? undefined : invert(drawWorld(this.player, parent));
           const pt = parent < 0 ? [x, y] : inv ? apply(inv, x, y) : [x, y];
           c.origins.set(n, [
             this.player.num(n, 'x', 0) - pt[0]!,

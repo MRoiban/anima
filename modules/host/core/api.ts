@@ -382,7 +382,15 @@ export class HostData {
         );
       value = names[0] ?? value;
     }
-    if (!['list', 'model-ref'].includes(p.type) && !accepts(p, value))
+    if (
+      !['list', 'model-ref'].includes(p.type) &&
+      !accepts(p, value) &&
+      !(
+        p.type === 'component' &&
+        typeof value === 'string' &&
+        this.scope.componentValues?.has(value)
+      )
+    )
       fail('type', path, 'value does not match property type');
     if (
       p.type === 'asset-ref' &&

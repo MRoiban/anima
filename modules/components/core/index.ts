@@ -11,7 +11,7 @@ import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/regis
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
-import { drawFrame, drawTree, type DrawNode } from '../../../packages/core/src/draw.ts';
+import { drawFrame, drawTree, drawWorld, type DrawNode } from '../../../packages/core/src/draw.ts';
 
 declare module '../../../packages/core/src/load.ts' {
   interface Model {
@@ -567,7 +567,7 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       const n = parent.model.nodes[node]!;
       if (active?.selected?.(parent, n) === false) return false;
       const inv = invert(
-        mul(parent.world(node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
+        mul(drawWorld(parent, node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
       );
       if (!inv) return false;
       const [lx, ly] = apply(inv, x, y),
@@ -596,9 +596,10 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
     pointer(kind, x, y) {
       for (const i of data.instances) {
         const n = parent.model.nodes[i.node]!,
-          child = players.get(n.id)!;
+          child = players.get(n.id);
+        if (!child) continue;
         const inv = invert(
-          mul(parent.world(i.node), active?.matrix?.(parent, child, n) ?? [1, 0, 0, 1, 0, 0]),
+          mul(drawWorld(parent, i.node), active?.matrix?.(parent, child, n) ?? [1, 0, 0, 1, 0, 0]),
         );
         const [lx, ly] = inv ? apply(inv, x, y) : [0, 0];
         players
