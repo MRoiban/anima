@@ -20,8 +20,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Done also: P3 (25 fixed, 2
   pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
   deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
-  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Running: P6, P2
-  leads; P7 round-1 fix coder (7 findings, ledger in my
+  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1).
+  Running: P6 lead; P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
