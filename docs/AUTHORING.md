@@ -2,7 +2,10 @@
 
 Write `.animl`; `anima build` produces `.ani` for the runtime. Check motion from markup.
 Read `anima docs markup` for syntax and `anima docs spec` for playback rules.
-Use `anima docs --list` to find topics, then fetch one with `anima docs <topic>`.
+`anima docs` shows a table of contents. Use `anima docs --list` to find topics,
+then fetch one with `anima docs <topic>` or a guide section with
+`anima docs authoring <section-slug>`. Topic names accept camelCase or kebab-case;
+near misses suggest the closest topic (for example `textInput` resolves to `text-input`).
 
 ## The loop
 
@@ -71,7 +74,8 @@ compose motion. Enlarge `viewBox` for bleed; the layout box still uses `grid`.
 
 Use SVG-style attribute names: `cx`, `cy`, `width`, `height`, `fill`, `fill-rule`,
 `stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin`.
-`anima schema <type>` shows both the markup and JSON spellings.
+`anima schema <type>` shows both the markup and JSON spellings and marks required attributes.
+For example, `anima schema rect` marks `x0`, `y0`, `width` and `height` as required.
 Rects start at `x0`, `y0`; `x`, `y` translate any node. Arcs take `cx`, `cy`, `r`,
 `from`, `to` and stroke paint. Caps and joins default to `round`; strokes scale with nodes.
 A fill detail needs `fill`; every stroke detail needs `stroke`.

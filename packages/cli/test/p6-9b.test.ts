@@ -87,7 +87,8 @@ it('help and docs describe local fonts for every command that installs them', as
     'build',
   ])
     expect(help).toMatch(new RegExp(`anima ${command}[^\\n]*--font`));
-  for (const topic of [[], ['authoring'], ['text']]) {
+  expect((await invoke(['docs'])).out.join('\n')).toContain('Contents');
+  for (const topic of [['authoring'], ['text']]) {
     const docs = await invoke(['docs', ...topic]);
     expect(docs.code).toBe(0);
     expect(docs.out.join('\n')).toContain('--font');

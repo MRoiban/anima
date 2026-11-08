@@ -7,6 +7,16 @@ conveniences that compile away (named eases, the keyframe text form, `and` in co
 
 `examples/bell.animl` is the reference document; it builds to `examples/bell.ani` byte for byte.
 
+The CLI's `anima schema <element>` marks required attributes in text output and exposes
+`required` booleans per field in JSON output. Topic lookups in `schema` and `docs` accept
+camelCase and kebab-case spellings; near misses suggest a known topic. `anima docs` defaults
+to contents, with guide sections available through `anima docs authoring <section-slug>`.
+
+`grid` is one number (units per side), following the grid-unit convention in
+`docs/research/glyphy-compat.md` §1. A pair such as `grid="40 30"` reports `bad-attribute`
+at `/grid` with a hint to use `viewBox="0 0 40 30"` for a rectangular scene. `grid` remains
+required with a rectangular viewBox.
+
 ## 1. File
 
 - Extension `.animl`, media type `application/vnd.anima+xml`, UTF-8.
