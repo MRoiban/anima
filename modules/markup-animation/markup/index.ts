@@ -30,21 +30,21 @@ function resolveEase(c: Compiler, name: string): string {
   return result;
 }
 function condition(s: string): string {
-  // Quoted guard literals are values: park them so no rewrite below touches their text.
-  const quoted: string[] = [];
-  s = s.replace(/"(?:[^"\\]|\\.)*"/g, (q) => `"${quoted.push(q) - 1}"`);
+  // Rewrite only between quoted literals (odd split parts), which are values.
   // Replace the word only between terms: an input itself may legally be named "and".
   return s
-    .split(/\s+and\s+|\s*&&\s*/)
-    .map((t) =>
-      t
-        .trim()
-        .replace(/\s*(==|!=|<=|>=|<|>)\s*/g, ' $1 ')
-        .replace(/^!\s+/, '!')
-        .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
+    .split(/("(?:[^"\\]|\\.)*")/)
+    .map((t, i) =>
+      i % 2
+        ? t
+        : t
+            .replace(/\s+and\s+|\s*&&\s*/g, ' && ')
+            .replace(/\s*(==|!=|<=|>=|<|>)\s*/g, ' $1 ')
+            .replace(/!\s+/g, '!')
+            .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
     )
-    .join(' && ')
-    .replace(/"(\d+)"/g, (_, i: string) => quoted[+i]!);
+    .join('')
+    .trim();
 }
 // Retain source spans without decoding entities a second time.
 function text(el: Element): { value: string; offsets: number[] } {
