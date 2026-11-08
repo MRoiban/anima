@@ -7,12 +7,16 @@ import { sniff } from './asset-info.ts';
 import { encodeImage, ImageEncoder } from './encode.ts';
 import { imagePixels, type Asset } from '@anima-format/core/assets';
 
-export function embedAssets(
-  doc: { assets?: Record<string, Asset> },
-  file: string,
-  imagesOnly = false,
-): void {
-  for (const a of Object.values(doc.assets ?? {})) {
+type AssetDoc = { assets?: Record<string, Asset>; components?: Record<string, unknown> };
+// Root and component-local catalogs (components may declare their own assets).
+const catalogs = (doc: AssetDoc): Asset[] => [
+  ...Object.values(doc.assets ?? {}),
+  ...Object.values(doc.components ?? {}).flatMap((c) =>
+    c && typeof c === 'object' ? catalogs(c as AssetDoc) : [],
+  ),
+];
+export function embedAssets(doc: AssetDoc, file: string, imagesOnly = false): void {
+  for (const a of catalogs(doc)) {
     if ((imagesOnly && a.type !== 'image') || a.source.startsWith('data:')) continue;
     const url = new URL(a.source, pathToFileURL(resolve(file)));
     const bytes = readFileSync(url);
@@ -36,10 +40,10 @@ export function embedAssets(
     a.storage = 'embedded';
   }
 }
-export async function imageDimensions(doc: { assets?: Record<string, Asset> }): Promise<void> {
+export async function imageDimensions(doc: AssetDoc): Promise<void> {
   const encoder = new ImageEncoder();
   try {
-    for (const a of Object.values(doc.assets ?? {})) {
+    for (const a of catalogs(doc)) {
       if (a.type !== 'image') continue;
       if (a.source.startsWith('data:image/webp;')) {
         const bytes = Buffer.from(a.source.slice(a.source.indexOf(',') + 1), 'base64');

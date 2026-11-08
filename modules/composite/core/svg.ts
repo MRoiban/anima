@@ -252,6 +252,13 @@ export const compositeSVG: SVGBackend = {
       Object.assign(a, box, { fill: '#fff' });
       return;
     }
+    if (key === 'paint') {
+      // Only the selected paint: aggregate attributes would leak another entry's stroke.
+      const selected = r.paints[el.index!]!;
+      Object.assign(a, shapeAttrs(render, p, el, paint, `${id}m${el.index}-`, [selected]));
+      a.display = selected.visible ? 'inline' : 'none';
+      return;
+    }
     Object.assign(a, shapeAttrs(render, p, el, paint, id));
     if (['outline', 'black'].includes(key)) {
       a.fill = key === 'black' ? '#000' : '#fff';
@@ -270,11 +277,6 @@ export const compositeSVG: SVGBackend = {
       a.fill = 'none';
       a['stroke-width'] = fmt(2 * r.paints.find((p) => p.kind === 'stroke')!.width!);
       return;
-    }
-    if (key === 'paint') {
-      const selected = r.paints[el.index!]!;
-      Object.assign(a, shapeAttrs(render, p, el, paint, `${id}m${el.index}-`, [selected]));
-      a.display = selected.visible ? 'inline' : 'none';
     }
   },
 };

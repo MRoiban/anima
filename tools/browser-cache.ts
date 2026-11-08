@@ -17,6 +17,8 @@ export function browserFingerprint(base = root): string {
     [
       'packages/{core,markup,web}/src/**/*.ts',
       'modules/*/{core,web,markup}/**/*.ts',
+      // Runtime entries import capability registries too.
+      'modules/*/capabilities/**/*.ts',
       'modules/*/manifest.ts',
       'tools/modules.generated.ts',
       'packages/{core,markup,web}/package.json',

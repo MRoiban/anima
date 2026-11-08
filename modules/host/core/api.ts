@@ -549,6 +549,10 @@ export class HostData {
     }
     this.wake();
   }
+  /** Whether this player issued the instance handle (list editors reject foreign/forged records). */
+  owns(instance: unknown): boolean {
+    return this.#owned.has(instance as DataInstance);
+  }
   record(name: string): RecordInstance | undefined {
     return this.#records.get(name);
   }

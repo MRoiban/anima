@@ -644,11 +644,14 @@ export class AnimaIcon extends HTMLElement {
   #resources(p: Player): boolean {
     if (!this.#prepare) return false;
     let changed = this.#prepare(p);
-    const nested = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
+    const nested = p.nested as
+      { players?: Map<string, Player>; sources?: Map<number, Player> } | undefined;
     const lists = AnimaIcon.modules.get('lists') as
       typeof import('../../../modules/lists/core/index.ts').lists | undefined;
     for (const child of [
-      ...(nested?.values() ?? []),
+      ...(nested?.players?.values() ?? []),
+      // Component paint source players (componentpaint) resolve per host too.
+      ...(nested?.sources?.values() ?? []),
       ...(lists?.listState(p)?.runs.flatMap((r) => r.items.map((i) => i.player)) ?? []),
     ])
       changed = this.#resources(child) || changed;
