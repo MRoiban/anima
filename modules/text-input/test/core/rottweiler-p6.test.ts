@@ -76,7 +76,7 @@ it('R3-06: negative tracking selects the union of cluster advances, never a nega
   const n = drawFrame(p).nodes[0] as FieldNode;
   expect(n.fieldBoxes![0]).toMatchObject({ x: -2, width: 3 });
 });
-it('R3-07: field semantic bounds follow animated dimensions', () => {
+it('R3-07/R4-04: field semantic bounds follow animated dimensions', () => {
   registerTextMeasurer(fixedMeasurer);
   const { model } = load({
     anima: '0.1',
@@ -108,6 +108,43 @@ it('R3-07: field semantic bounds follow animated dimensions', () => {
     machine: { layers: { l: { initial: 's', states: { s: { play: 't' } } } } },
   });
   const p = new Player(model!);
-  p.step(1);
+  // R4-04: a cached tree read at each width (glyph extents unchanged) still refreshes.
+  p.step(0);
+  expect(p.semantics()[0]!.bounds).toEqual([0, 0, 10, 4]);
+  p.step(0.5);
+  expect(p.semantics()[0]!.bounds).toEqual([0, 0, 7.5, 4]);
+  p.step(0.5);
   expect(p.semantics()[0]!.bounds).toEqual([0, 0, 5, 4]);
+});
+it('R4-06: a negative cluster advance (kerning) still yields a nonnegative selection box', () => {
+  // Prefix widths A = 12, AV = 6: V's advance is -6.
+  registerTextMeasurer({
+    measure: (font, text) => ({
+      ...fixedMeasurer.measure(font, text),
+      advances: Float64Array.from([12, 6].slice(0, [...text].length)),
+    }),
+  });
+  const { model } = load({
+    anima: '0.1',
+    name: 'kerned',
+    grid: 20,
+    requires: ['text', 'textinput', 'a11y', 'focus'],
+    nodes: [
+      {
+        id: 'q',
+        type: 'text',
+        sizing: 'fixed',
+        width: 20,
+        height: 4,
+        runs: [{ text: 'AV' }],
+        textInput: {},
+      },
+    ],
+  });
+  const p = new Player(model!);
+  p.step(0);
+  p.focusTarget('q');
+  select(p, 'q', 1, 2);
+  const n = drawFrame(p).nodes[0] as FieldNode;
+  expect(n.fieldBoxes![0]).toMatchObject({ x: 6, width: 6 });
 });

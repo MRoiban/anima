@@ -127,9 +127,9 @@ for (const [name, engine, executablePath] of [
             components: { child: { grid: 20, nodes: [label] } },
             nodes: [label, { id: 'inst', type: 'instance', component: 'child' }],
           });
-          const child = (icon.player!.nested as { players: Map<string, never> }).players.get(
-            'inst',
-          )!;
+          const child = (
+            icon.player!.nested as unknown as { players: Map<string, never> }
+          ).players.get('inst')!;
           const widths = () => [
             module.textLayout(icon.player!, 0).lines[0]!.width,
             module.textLayout(child, 0).lines[0]!.width,

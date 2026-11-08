@@ -6,6 +6,7 @@ import { chromium, firefox } from 'playwright-core';
 import { expect, it } from 'vitest';
 import { cachedBundle as bundle } from '../../../../tools/browser-cache.ts';
 import { testFont } from '../font.ts';
+import { testFont as kernedFont } from '../../../../tools/test-font.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 import type {} from '../../web/index.ts';
 for (const [name, browserType, executablePath] of [
@@ -132,7 +133,7 @@ for (const [name, browserType, executablePath] of [
               });
             });
             const child = (
-              icon.player!.nested as { players: Map<string, { model: object }> }
+              icon.player!.nested as unknown as { players: Map<string, { model: object }> }
             ).players.get('i')!;
             const scope = icon.fonts.forModel(child.model as never);
             await scope.add(await new FontFace('fallback-child', new Uint8Array(bytes)).load());
@@ -202,6 +203,76 @@ for (const [name, browserType, executablePath] of [
           [...testFont()],
         );
         expect(result).toEqual({ sizes: [1, 1, 1], kept: true, released: true, total: 3 });
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R4-01 a font load keeps the options-aware measurer (kern:0 stays unkerned)`,
+    async () => {
+      const browser = await browserType.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.route('http://font.test/late.ttf', (r) =>
+          r.fulfill({
+            body: kernedFont(),
+            headers: { 'access-control-allow-origin': '*', 'content-type': 'font/ttf' },
+          }),
+        );
+        await page.setContent('<anima-icon paused></anima-icon>');
+        for (const entry of ['fonts-options'])
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.get('text'),
+        );
+        const widths = await page.evaluate(
+          async (bytes) => {
+            document.fonts.add(await new FontFace('Kerned', new Uint8Array(bytes)).load());
+            const icon = document.querySelector('anima-icon') as AnimaIcon;
+            const diagnostics = icon.load({
+              anima: '0.1',
+              name: 'kern-off',
+              grid: 20,
+              requires: ['text', 'fonts'],
+              nodes: [
+                {
+                  id: 't',
+                  type: 'text',
+                  styles: { s: { font: 'Kerned', size: 20, features: { kern: 0 } } },
+                  runs: [{ text: 'AV', style: 's' }],
+                },
+              ],
+            });
+            const text = (customElements.get('anima-icon') as typeof AnimaIcon).modules.get(
+              'text',
+            ) as unknown as { textLayout(p: unknown, i: number): { width: number } };
+            if (!icon.player) return diagnostics;
+            // Font readiness gates layout: wait for a measured width each time.
+            const settled = async () => {
+              for (let i = 0; i < 100; i++) {
+                const width = text.textLayout(icon.player, 0).width;
+                if (width) return width;
+                await new Promise((r) => setTimeout(r, 20));
+              }
+              return 0;
+            };
+            const before = await settled();
+            // A real, unrelated font load fires loadingdone.
+            document.fonts.add(new FontFace('Unrelated', 'url(http://font.test/late.ttf)'));
+            await document.fonts.load('20px Unrelated', 'AV');
+            await new Promise((r) => setTimeout(r, 100));
+            return [before, await settled()];
+          },
+          [...kernedFont()],
+        );
+        expect(widths).toHaveLength(2);
+        expect((widths as number[])[0]).toBeGreaterThan(0);
+        expect((widths as number[])[1]).toBe((widths as number[])[0]);
       } finally {
         await browser.close();
       }

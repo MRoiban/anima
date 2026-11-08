@@ -47,20 +47,13 @@ export type FieldNode = TextDrawNode & { fieldBoxes?: Box[] };
 let text: TextModule;
 let semanticsRuntime: typeof a11y.runtime | undefined;
 let previousUpdate: typeof a11y.runtime.update;
-const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
-  const live = new Map(semanticsRuntime!.flat(cache.tree).map((n) => [n.id, n]));
-  for (const e of cache.entries) {
-    const c = config(e.p, e.i);
-    if (!c || !e.visible) continue;
-    e.config = { role: 'text-field' };
-    e.data.readonly = c.editable === false;
-    let parent = cache.entries.find((n) => n.id === e.parent);
-    while (parent && !parent.config) parent = cache.entries.find((n) => n.id === parent!.parent);
-    const container = parent ? live.get(parent.id)?.children : cache.tree;
-    if (!container || container.some((n) => n.states.modal)) continue;
-    const raw = e.p.model.nodes[e.i]!.raw;
-    const f = field(e.p, raw.id)!;
-    // Animated or bound dimensions, as drawn.
+let previousEnrich: typeof a11y.runtime.enrich;
+// Field boxes (animated or bound dimensions, as drawn) are set before the semantic signature,
+// so size changes refresh cached semantics.
+const enrich: NonNullable<typeof a11y.runtime.enrich> = (entries, track) => {
+  previousEnrich?.(entries, track);
+  for (const e of entries) {
+    if (!config(e.p, e.i)) continue;
     const w = e.p.prop(e.i, 'width') as number,
       h = e.p.prop(e.i, 'height') as number;
     const points = [
@@ -77,6 +70,21 @@ const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
       Math.max(...xs) - Math.min(...xs),
       Math.max(...ys) - Math.min(...ys),
     ];
+  }
+};
+const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
+  const live = new Map(semanticsRuntime!.flat(cache.tree).map((n) => [n.id, n]));
+  for (const e of cache.entries) {
+    const c = config(e.p, e.i);
+    if (!c || !e.visible) continue;
+    e.config = { role: 'text-field' };
+    e.data.readonly = c.editable === false;
+    let parent = cache.entries.find((n) => n.id === e.parent);
+    while (parent && !parent.config) parent = cache.entries.find((n) => n.id === parent!.parent);
+    const container = parent ? live.get(parent.id)?.children : cache.tree;
+    if (!container || container.some((n) => n.states.modal)) continue;
+    const raw = e.p.model.nodes[e.i]!.raw;
+    const f = field(e.p, raw.id)!;
     container.push({
       id: e.id,
       role: 'text-field',
@@ -208,6 +216,8 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
       if (semanticsRuntime) {
         if (semanticsRuntime.update !== update) previousUpdate = semanticsRuntime.update;
         semanticsRuntime.update = update;
+        if (semanticsRuntime.enrich !== enrich) previousEnrich = semanticsRuntime.enrich;
+        semanticsRuntime.enrich = enrich;
       }
       return {
         ...textinput,
@@ -334,9 +344,10 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
               sep = /^(\r\n|\n|\r)/.exec(full.slice(to))?.[0];
             pos = to + (sep?.length ?? 0);
             const chosen = gs.filter((g) => g.index < f.end && g.index + g.text.length > f.start);
-            // The union of selected advances; negative tracking can move later clusters left.
-            const left = Math.min(...chosen.map((g) => g.x)),
-              right = Math.max(...chosen.map((g) => g.x + g.advance));
+            // The union of selected advances; negative tracking or kerning can make them run left.
+            const edges = chosen.flatMap((g) => [g.x, g.x + g.advance]),
+              left = Math.min(...edges),
+              right = Math.max(...edges);
             if (chosen.length)
               boxes.push({
                 x: left,

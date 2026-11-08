@@ -89,9 +89,15 @@ if (!Icon.prototype.textInput) {
         el.readOnly = c.editable === false;
         const f = field(p, id)!,
           range = f.start + ',' + f.end;
-        // Push core value or selection changes; a native selection in progress is left alone.
-        if (!f.composing && (el.value !== f.value || range !== ranges.get(el))) {
-          el.value = f.value;
+        // Push core value or selection changes; a native selection in progress, or one already
+        // matching (which may be backward), is left alone.
+        if (
+          !f.composing &&
+          (el.value !== f.value ||
+            (range !== ranges.get(el) &&
+              (el.selectionStart !== f.start || el.selectionEnd !== f.end)))
+        ) {
+          if (el.value !== f.value) el.value = f.value;
           el.setSelectionRange(f.start, f.end);
         }
         ranges.set(el, range);

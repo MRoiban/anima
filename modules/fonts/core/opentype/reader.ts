@@ -103,32 +103,42 @@ export class Font<T extends Uint8Array = Uint8Array> {
     if (!b) fault('missing font table ' + tag);
     return new Bytes(b);
   }
+  // Name records are indexed once (best record per id) and decoded on demand, with a bounded
+  // total: overlapping records cannot amplify per-instance lookups.
+  #names?: Map<number, string | [number, number, number]>;
+  #decoded = 0;
   name(id: number): string {
     if (!this.tables.has('name')) return '';
-    const b = this.table('name'),
-      n = b.u16(2),
-      base = b.u16(4);
-    let result = '',
-      score = -1;
-    for (let i = 0; i < n; i++) {
-      const p = 6 + i * 12;
-      if (b.u16(p + 6) !== id) continue;
-      const platform = b.u16(p),
-        language = b.u16(p + 4),
-        raw = b.slice(base + b.u16(p + 10), b.u16(p + 8));
-      const s =
-        platform === 3 || platform === 0
-          ? [...Array(Math.floor(raw.length / 2))]
-              .map((_, j) => String.fromCharCode(raw[j * 2]! * 256 + raw[j * 2 + 1]!))
-              .join('')
-          : Array.from(raw, (v) => String.fromCharCode(v)).join('');
-      const rank = (platform === 3 ? 2 : platform === 0 ? 1 : 0) + (language === 0x409 ? 2 : 0);
-      if (rank > score) {
-        result = s;
-        score = rank;
+    const b = this.table('name');
+    if (!this.#names) {
+      const n = b.u16(2),
+        base = b.u16(4),
+        ranks = new Map<number, number>();
+      this.#names = new Map();
+      for (let i = 0; i < n; i++) {
+        const p = 6 + i * 12,
+          key = b.u16(p + 6),
+          platform = b.u16(p),
+          rank = (platform === 3 ? 2 : platform === 0 ? 1 : 0) + (b.u16(p + 4) === 0x409 ? 2 : 0);
+        if (rank > (ranks.get(key) ?? -1)) {
+          ranks.set(key, rank);
+          this.#names.set(key, [platform, base + b.u16(p + 10), b.u16(p + 8)]);
+        }
       }
     }
-    return result;
+    const entry = this.#names.get(id);
+    if (entry === undefined || typeof entry === 'string') return entry ?? '';
+    const [platform, offset, length] = entry,
+      raw = b.slice(offset, length);
+    if ((this.#decoded += length) > 1 << 20) fault(V ? 'font name limit' : '', 'font-limit');
+    const s =
+      platform === 3 || platform === 0
+        ? [...Array(Math.floor(raw.length / 2))]
+            .map((_, j) => String.fromCharCode(raw[j * 2]! * 256 + raw[j * 2 + 1]!))
+            .join('')
+        : Array.from(raw, (v) => String.fromCharCode(v)).join('');
+    this.#names.set(id, s);
+    return s;
   }
   #cmap(): void {
     const b = this.table('cmap'),

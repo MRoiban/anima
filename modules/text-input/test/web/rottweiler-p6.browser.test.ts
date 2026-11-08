@@ -140,4 +140,67 @@ for (const [name, engine, executablePath] of [
     },
     30000,
   );
+  it.skipIf(!existsSync(executablePath))(
+    `${name}: R4-02 keyboard selection keeps extending backward`,
+    async () => {
+      const browser = await engine.launch({ executablePath, headless: true });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(
+          '<anima-icon style="position:relative;display:block;width:200px;height:200px"></anima-icon>',
+        );
+        for (const content of bundles) await page.addScriptTag({ type: 'module', content });
+        await page.waitForFunction(
+          () => !!(customElements.get('anima-icon') as typeof AnimaIcon).modules.get('textinput'),
+        );
+        const errors = await page.evaluate(() =>
+          document
+            .querySelector('anima-icon')!
+            .load({
+              anima: '0.1',
+              name: 'backward',
+              grid: 20,
+              requires: ['text', 'textinput', 'a11y', 'focus'],
+              nodes: [
+                {
+                  id: 't',
+                  type: 'text',
+                  sizing: 'fixed',
+                  width: 18,
+                  height: 5,
+                  runs: [{ text: 'abcdef' }],
+                  textInput: {},
+                },
+              ],
+            })
+            .filter((d) => d.severity === 'error'),
+        );
+        expect(errors).toEqual([]);
+        await page.waitForFunction(() => !!document.querySelector('anima-icon')!.textInput('t'));
+        await page.evaluate(() => {
+          const el = document.querySelector('anima-icon')!.textInput('t')!;
+          el.focus();
+          el.setSelectionRange(4, 4);
+          el.dispatchEvent(new Event('select'));
+        });
+        const read = () =>
+          page.evaluate(() => {
+            const el = document.querySelector('anima-icon')!.textInput('t')!;
+            return [el.selectionStart, el.selectionEnd];
+          });
+        for (const expected of [
+          [3, 4],
+          [2, 4],
+          [1, 4],
+        ]) {
+          await page.keyboard.press('Shift+ArrowLeft');
+          await page.waitForTimeout(100);
+          expect(await read()).toEqual(expected);
+        }
+      } finally {
+        await browser.close();
+      }
+    },
+    30000,
+  );
 }
