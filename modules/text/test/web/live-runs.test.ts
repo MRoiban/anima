@@ -104,6 +104,13 @@ for (const [name, engine, executablePath] of [
               icon.load(doc);
               await ready;
             }, control);
+            // Both hosts redraw on their next frames; capture only after they have painted.
+            await page.evaluate(
+              () =>
+                new Promise<void>((r) =>
+                  requestAnimationFrame(() => requestAnimationFrame(() => r())),
+                ),
+            );
             expect(await page.locator('#live').screenshot()).toEqual(
               await page.locator('#control').screenshot(),
             );

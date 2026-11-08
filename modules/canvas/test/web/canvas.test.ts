@@ -280,6 +280,14 @@ for (const [name, engine, paths] of [
           body: '<style>body{margin:0;background:white}anima-icon{isolation:isolate}</style>',
         }),
       );
+      // Corpus documents reference repository font fixtures by relative URL; serve them so text
+      // renders with the declared font, not a platform fallback that differs between machines.
+      await page.route('https://canvas.test/fixtures/**', (r) => {
+        const file = resolve('.' + new URL(r.request().url()).pathname);
+        return existsSync(file)
+          ? r.fulfill({ body: readFileSync(file) })
+          : r.fulfill({ status: 404 });
+      });
       await page.goto('https://canvas.test/');
       await page.addScriptTag({
         type: 'module',

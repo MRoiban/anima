@@ -71,6 +71,7 @@ PR, do one full local run only for what CI cannot run; do not repeatedly run the
 - AniML library files (imported, not scenes) live in `examples/lib/`; under `modules/*/examples/` the corpus test treats them as scenes.
 - `docs/parity/inventory.json` is written with 2-space indent and unescaped Unicode (`json.dumps(..., indent=2, ensure_ascii=False)`).
 - `tests/oracle/generate.py` rewrites `tests/oracle/cases.json` with different formatting; restore it unless thresholds really change. Its Rive scenes encode Anima's spec geometry (e.g. rounded corners as cubic handles), so a spec geometry change means re-authoring the scene there and recapturing, never a threshold change.
+- Browser tests that render text must load the declared font (serve fixture files to the page) and wait for the redraw (two animation frames) before comparing pixels; a platform fallback font or an early screenshot passes locally and fails on CI.
 - The rect-corners oracle passes with a thin margin (0.1198 % vs 0.12 %): a paint or anti-aliasing change may tip it.
 
 ## Adding a module
