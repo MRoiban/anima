@@ -355,6 +355,13 @@ describe('AniML compiler', () => {
         '<anima><text background="{}" text-effects="[]" direction="ltr" runs="$items" styles="{}" sizing="fixed" width="4" height="4" align="left" valign="top" overflow="visible" wrap="true" word-break="normal" origin="baseline" line-height="1" paragraph-spacing="0" vertical-trim-top="cap" vertical-trim-bottom="baseline" fit-from-baseline="false" fit-font-size-resizes-box="false" text-field="label" style-field="style"/></anima>',
       ).doc.root!,
     );
+    // seam(P7-4): include reflow in the layout spelling census.
+    // seam(P7-2): cover every layout container/participant spelling in the independent fixture census.
+    collectPaint(
+      parseXml(
+        '<anima><layout reflow="0.25 out" direction="row" justify="space-between" align="stretch" gap="1" padding="1" min-width="0" max-width="20" min-height="0" max-height="20" corners="1"><rect layout-width="fill" layout-height="fill" align-self="end" margin="1" display="none"/></layout></anima>',
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

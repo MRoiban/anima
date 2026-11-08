@@ -1,0 +1,5 @@
+
+/home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3/tests/oracle/text-modifier-variation-canvas/probe.mjs
+  25:21  error  'document' is not defined  no-undef
+
+✖ 1 problem (1 error, 0 warnings)

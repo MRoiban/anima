@@ -33,7 +33,7 @@ export default {
       'data-bind-converter-options',
       'data-bind-instance-values',
       'data-bind-keyframes',
-      'data-bind-layout',
+      // seam(P7-2): layout owns data.bind-layout and its completed probes.
       'data-bind-script-inputs',
       'data-bind-text',
       'data-binding-absolute',

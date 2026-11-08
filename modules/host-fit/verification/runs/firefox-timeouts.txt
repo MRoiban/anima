@@ -1,0 +1,53 @@
+
+> test:scope
+> node tools/test-scope.ts host-fit --browser=firefox
+
+Scopes: host-fit
+  unit: packages/markup/test/corpus.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+ ❯ |scope-browser| modules/host-fit/test/web/fit.test.ts (58 tests | 4 failed | 29 skipped) 192477ms
+   ❯ host fit Firefox (29)
+     × svg: contain shares drawing, pointer and semantic matrices 10016ms
+     × svg: cover shares drawing, pointer and semantic matrices 10004ms
+     × svg: fill shares drawing, pointer and semantic matrices 10623ms
+     × svg: all eight fits match independent native captures at 240x120 9200ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: contain shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: cover shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: fill shares drawing, pointer and semantic matrices
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/host-fit/test/web/fit.test.ts:75:5
+     73|       await browser?.close();
+     74|     });
+     75|     beforeEach(async () => {
+       |     ^
+     76|       page = await browser.newPage();
+     77|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: all eight fits match independent native captures at 240x120
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-fit/test/web/fit.test.ts:146:7
+    144|         },
+    145|       );
+    146|       it(`${renderer}: all eight fits match independent native capture…
+       |       ^
+    147|         for (const [fit] of cases) {
+    148|           await page.evaluate(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  4 failed | 1274 passed | 29 skipped (1307)
+   Start at  10:01:36
+   Duration  194.24s (tests 98%, import 1%)

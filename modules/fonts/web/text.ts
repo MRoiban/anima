@@ -34,7 +34,10 @@ export function prepareText(
     if (!player.model.doc.requires?.includes('fonts')) return;
     const icon = owner(player);
     if (!icon) return;
-    const controller = icon.fonts.forModel(player.model);
+    // seam(P7-7): adopted faces are scoped to this player, never the source host.
+    const controller =
+      (Icon.modules.get('fonts') as FontModule).controller?.(player) ??
+      icon.fonts.forModel(player.model);
     input.styles[''] ??= {};
     const key = JSON.stringify([controller.revision, icon.fonts.revision, input]);
     let state = states.get(player);

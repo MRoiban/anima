@@ -89,7 +89,7 @@ probe deliberately compares missing-glyph outlines; it does not certify a partic
 Caret width remains Anima's steady 0.06 grid units. Selection uses SVG rx (or the equivalent
 canvas rounded rectangle) over logical cluster intervals; the native capture's caret coverage
 and selection rounding differ. Those drawable comparisons remain pending with no passing
-budget. Arbitrary selected-text paint/drawable references are not exposed.
+budget. P7-8 adds selected-text color and reusable style paint references; see below.
 
 IME, DOM host handles, clipboard routing and native field accessibility use the browser contract
 rather than a native window proxy. The permitted headless native command route rejects text,
@@ -98,3 +98,49 @@ Row-specific `tests/oracle/*/skip.json` files link the attempted commands and bo
 These skips do not certify actual OS IME sessions, clipboard grants, mobile keyboards or
 screen-reader announcements. Four conformance cases project the field state used by these
 DOM APIs; their README files explicitly distinguish that projection from executing a DOM API in Node.
+
+### P7 comparison boundaries
+
+The caret deliberately remains a steady **0.06 grid units**, transformed like the text, rather
+than a capture-pixel hairline. Core drawing has no host pixel ratio or viewport, and this choice
+keeps headless, SVG and canvas geometry consistent. The native probe draws a 1-pixel caret even
+with scaleX 0.72; that difference is retained, not covered by an antialiasing tolerance.
+
+Edit limits deliberately follow HTML UTF-16 maxlength and explicit paragraph counts. Wrapped-line
+limits would change accepted input when a host resizes or a font loads; Anima does not make stored
+input validity depend on those events. The native schema uses scalar counts and displayed lines.
+The local headless route cannot deliver native text-edit transactions, so it cannot faithfully
+compare that alternative. Existing surrogate, newline, composition and direct-write regressions
+specify Anima's contract. A direct data write or initial value can exceed limits until an edit.
+
+The local native TextInput authoring surface rejects placeholder and placeholderColor (see
+`tests/oracle/text-input-placeholder/rive/verify.txt`). A static label cannot prove placeholder
+switching or independent paint. This row uses an evidenced native-observation skip plus original-
+font conformance and both-engine SVG/canvas regressions, not a substitute static-text comparison.
+
+Selection rounding is intentionally the SVG/canvas rounded rectangle of each selected line:
+use the authored radius (default zero), with the renderer's half-extent clamp. Native authored
+radii 0 and 2.4 retain identical rounding in the captured controls; Anima honors its radius rather
+than emulating that observation. This keeps line metrics, selected logical clusters and drawing
+consistent in both backends. Select-on-focus selects the full value; its native capture already
+confirms the interaction. Its remaining pixel difference shares this documented geometry choice.
+P7-8 adds separate selected paint and reusable text-style paint references, specified below.
+
+### Separate selected text paint (P7-8)
+
+`selectedTextColor` (`selected-text-color`) is an optional hexadecimal/currentColor paint for
+selected glyphs, independent of the `selectionColor` background. Omission keeps normal text ink.
+While focused with a nonempty value and selection, intersecting grapheme clusters receive the
+selected fill in shared draw data; nonselected clusters keep their original fill/stroke. The
+selected fill replaces the original stroke. Collapsing the selection, blurring, or clearing the
+value restores normal ink. The cached measured layout is not mutated. SVG and canvas consume
+the same split paint runs. Registry errors use `/nodes/N/textInput/selectedTextColor`.
+
+Paint boundaries follow grapheme clusters. As with the existing run renderer, a font's ligatures
+across different paint runs may be reshaped; no fractional-glyph painting is implied. `selectedTextStyle` (`selected-text-style`) optionally names a local or shared text style whose
+fill/stroke paints replace selected ink, including gradients and color slots. Only its paints are
+used: font, size, axes and metrics stay those of the original text. A missing style produces
+`text-input-config` with a precise field pointer and repair hint. A color, when both are supplied,
+overrides the style. Styles with no paint make selected glyphs transparent. This reuses declared
+text styles rather than a reference to a rendered scene node. Both backends consume the same
+resolved fill/stroke; no special selected-font layout is introduced.

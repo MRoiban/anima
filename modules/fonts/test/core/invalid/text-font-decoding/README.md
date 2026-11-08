@@ -1,0 +1,1 @@
+API invalid-source/option cases are constructed in text-font-metrics.test.ts and text-font-decoding.test.ts. They assert structured font-format/font-invalid/font-axis/font-feature errors at the root API pointer. There is no separate .ani syntax for an API method.

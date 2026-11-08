@@ -1,5 +1,6 @@
-import { graphemes, type FontSpec, type TextMeasurer, type Measured } from '../core/measure.ts';
-export const cssFont = (f: FontSpec) => `${f.style} ${f.weight} ${f.size}px ${f.family}`;
+import { graphemes, type TextMeasurer, type Measured } from '../core/measure.ts';
+import { cssFont } from './css.ts';
+export { cssFont } from './css.ts';
 /** Prefix measurement retains the browser's kerning and ligature widths. Cache is bounded. */
 export function browserMeasurer(): TextMeasurer {
   const context = document.createElement('canvas').getContext('2d')!;

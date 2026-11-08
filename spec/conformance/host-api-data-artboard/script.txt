@@ -1,0 +1,9 @@
+advance 0
+snapshot content/dot.r
+set $content ""
+advance 0
+snapshot $content
+set $radius 6
+set $content "front"
+advance 0
+snapshot content/dot.r

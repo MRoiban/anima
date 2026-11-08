@@ -1,0 +1,85 @@
+{
+  "method": "Raw 240×240 RGBA largest-channel delta, threshold >16; no image transforms or tolerance assignment.",
+  "nativeControls": [
+    {
+      "control": "p7-text-fit-controls/rive/frames/9.png",
+      "reference": "text-overflow-fit-font-size/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "control": "p7-text-fit-controls/rive/frames/9.png",
+      "reference": "text-fit-layout-measure/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "control": "p7-text-geometry-controls/rive/frames/baseline-false.png",
+      "reference": "text-fit-baseline/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "control": "p7-text-geometry-controls/rive/frames/trim-none.png",
+      "reference": "text-vertical-trim/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "control": "p7-text-geometry-controls/rive/frames/trim-explicit.png",
+      "reference": "text-vertical-trim/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "control": "p7-text-geometry-controls/rive/frames/ellipsis-dots.png",
+      "reference": "text-overflow-ellipsis/rive/frames/0.png",
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    }
+  ],
+  "anima": [
+    {
+      "name": "text-fit-baseline",
+      "maxDiff": 255,
+      "over": 178,
+      "overPercent": 0.3090277777777778
+    },
+    {
+      "name": "text-fit-layout-measure",
+      "maxDiff": 255,
+      "over": 204,
+      "overPercent": 0.3541666666666667
+    },
+    {
+      "name": "text-overflow-fit-font-size",
+      "maxDiff": 255,
+      "over": 204,
+      "overPercent": 0.3541666666666667
+    },
+    {
+      "name": "text-overflow-ellipsis",
+      "maxDiff": 255,
+      "over": 72,
+      "overPercent": 0.125
+    },
+    {
+      "name": "text-vertical-trim",
+      "maxDiff": 128,
+      "over": 94,
+      "overPercent": 0.16319444444444445
+    },
+    {
+      "name": "text-flatten",
+      "maxDiff": 32,
+      "over": 1,
+      "overPercent": 0.001736111111111111
+    }
+  ]
+}

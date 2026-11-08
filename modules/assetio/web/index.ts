@@ -1,5 +1,5 @@
 import '../../../packages/web/src/index.ts';
-import { resolvedAssets, imagePixels, type Asset } from '../../assets/core/index.ts';
+import { assetCatalogs, resolvedAssets, imagePixels, type Asset } from '../../assets/core/index.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
@@ -36,7 +36,10 @@ Icon.loadAssets = async (icon, model) => {
   const load = async (model: NonNullable<AnimaIcon['player']>['model']): Promise<void> => {
     if (seen.has(model.doc)) return;
     const records: Record<string, Asset> = Object.fromEntries(
-      Object.entries(model.doc.assets as Record<string, Asset>).map(([k, a]) => [k, { ...a }]),
+      Object.entries((model.doc.assets ?? {}) as Record<string, Asset>).map(([k, a]) => [
+        k,
+        { ...a },
+      ]),
     );
     seen.set(model.doc, records);
     resolvedAssets.set(model, records);
@@ -83,7 +86,11 @@ Icon.loadAssets = async (icon, model) => {
     const components = Icon.modules.get('components') as
       import('../../components/core/index.ts').ComponentModule | undefined;
     await Promise.all(
-      model.nodes.flatMap((n) => [...(components?.placements.get(n)?.values() ?? [])]).map(load),
+      // seam(P7-7): host-assignable unused definitions need resolved resources too.
+      [
+        ...(components?.catalog.get(model)?.values() ?? []),
+        ...model.nodes.flatMap((n) => [...(components?.placements.get(n)?.values() ?? [])]),
+      ].map(load),
     );
   };
   await load(model);
@@ -98,6 +105,8 @@ Icon.loadAssets = async (icon, model) => {
 // A separate closure captures only catalogs; cached initializers must not retain a host element.
 function initialize(records: Map<object, Record<string, Asset>>): (player: Player) => boolean {
   return (player) => {
+    // seam(P7-7): retain the exact source load, even when models share declarations.
+    assetCatalogs.set(player, records);
     if (resolvedAssets.has(player)) return false;
     resolvedAssets.set(player, records.get(player.model.doc)!);
     return true;

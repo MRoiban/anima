@@ -1,0 +1,14 @@
+# P7 parity closure
+
+P7 (minimal layout, host fit, bindable artboards, P6 text carry-overs) audited: **56 of 57 rows done**; `a11y.tree-bounds` moves to P8 (carried since P3c; standard geometric and stroke bounds now work, but clipped, masked, dashed, feathered and text-ink extents don't; a maybe-later candidate for the owner). In scope: **860/886 done (97 %)**, up from 804/886 (91 %) at the end of P6.
+
+Evidence rule as in `docs/parity/P6-closure.md`: implementation, tests and conformance, plus a completed native comparison (strict oracle, budgets from measured anti-aliasing only), an evidenced skip where the Rive CLI cannot observe the behaviour headlessly, or an intentional difference recorded in the spec with its reason. Strict oracle at closure: 324 cases, exit 0.
+
+Intentional differences decided in P7 (owner may revisit): layout is our own single-line flexbox subset (no wrap); a retargeted reflow continues from the drawn box like a CSS transition (`tests/oracle/layout-animated-reflow/skip.json`; start, midpoint and end match natively); P7-6's text rows keep Anima's continuous fitting, typographic ellipsis, effective trim and native-field semantics (reasons in the text and text-input specs). Native observation limits closed as evidenced skips: host alignment and artboard size, host artboard assignment, text-style setters, run-list mutations and text to outlines.
+
+## Done in P7, by area
+
+- **P6 text carry-overs** (17): `data.property-text-style`, `text.fit-baseline`, `text.fit-layout-measure`, `text.flatten`, `text.font-decoding`, `text.font-metrics`, `text.input-cursor`, `text.input-focus-selection`, `text.input-limits`, `text.input-placeholder`, `text.input-selection`, `text.input-selection-rounding`, `text.modifier-variation`, `text.overflow-ellipsis`, `text.overflow-fit-font-size`, `text.run-list`, `text.vertical-trim`
+- **bindable artboards** (4): `components.host-artboard-reference`, `data.host-artboard`, `host-api.bindable-artboards`, `host-api.data-artboard`
+- **host fit and artboard size** (18): `host-api.align-bottom-center`, `host-api.align-bottom-left`, `host-api.align-bottom-right`, `host-api.align-center`, `host-api.align-center-left`, `host-api.align-center-right`, `host-api.align-top-center`, `host-api.align-top-left`, `host-api.align-top-right`, `host-api.artboard-size`, `host-api.fit-contain`, `host-api.fit-cover`, `host-api.fit-fill`, `host-api.fit-fit-height`, `host-api.fit-fit-width`, `host-api.fit-layout`, `host-api.fit-none`, `host-api.fit-scale-down`
+- **layout and reflow** (17): `data.bind-layout`, `layout.alignment`, `layout.animated-reflow`, `layout.containers`, `layout.fill-sizing`, `layout.fixed-sizing`, `layout.flex-align-items`, `layout.flex-direction`, `layout.flex-justify`, `layout.hug-sizing`, `layout.intrinsic`, `layout.paint`, `layout.participants`, `layout.self-alignment`, `layout.size-bounds`, `layout.spacing`, `layout.visibility`

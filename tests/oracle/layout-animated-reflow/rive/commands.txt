@@ -1,0 +1,15 @@
+advance 1s
+screenshot frames/0.png
+data size=216
+advance 0
+screenshot frames/1.png
+advance 0.5s
+screenshot frames/2.png
+data size=72
+advance 0.25s
+screenshot frames/3.png
+advance 0.5s
+screenshot frames/4.png
+advance 0.5s
+screenshot frames/5.png
+quit

@@ -160,7 +160,9 @@ export class HostData {
         record.model,
         scope.compiled.document.instances![name]!.values,
       );
-    const busy = Object.getOwnPropertyDescriptor(shared.Player.prototype, 'busy')!.get!;
+    // Chain an instance-level busy installed by another module (e.g. layout reflow).
+    const busy = (Object.getOwnPropertyDescriptor(player, 'busy') ??
+      Object.getOwnPropertyDescriptor(shared.Player.prototype, 'busy'))!.get!;
     Object.defineProperty(player, 'busy', {
       configurable: true,
       get: () => this.#pending.length > 0 || busy.call(player),

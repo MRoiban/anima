@@ -1,0 +1,37 @@
+<anima version="0.1" name="reflow-card" grid="40" viewBox="0 0 40 30" requires="layout text data bind">
+  <model name="Card">
+    <string name="title" default="Your workspace"/>
+    <string name="buttonLabel" default="Save"/>
+    <string name="chip1Label" default="Draft"/>
+    <string name="chip2Label" default="Flexible"/>
+    <string name="chip3Label" default="Local"/>
+    <bool name="hideChip3" default="false"/>
+    <enum name="chip3Display" values="flex none" default="flex"/>
+  </model>
+  <instance name="main" model="Card" default="true"/>
+  <text-style id="titleStyle" font="AnimaTest" size="2" line-height="1.1" fill="#141413"/>
+  <text-style id="buttonStyle" font="AnimaTest" size="1.6" line-height="1.1" fill="#141413"/>
+  <text-style id="chipStyle" font="AnimaTest" size="1.2" line-height="1.1" fill="#141413"/>
+  <layout id="card" width="fill" height="fill" direction="column" padding="1.5" gap="1" fill="#f0eee6" corners="1">
+    <text id="title" wrap="false"><run text="$title" style="titleStyle"/></text>
+    <layout id="button" width="hug" height="hug" padding="0.5 1" corners="0.5" fill="#d97757" reflow="0.3 linear">
+      <text id="buttonText" wrap="false"><run text="$buttonLabel" style="buttonStyle"/></text>
+    </layout>
+    <layout id="chips" width="fill" height="hug" direction="row" gap="0.5">
+      <layout id="chip1" width="hug" height="hug" padding="0.4 0.7" corners="0.4" fill="#e3dacc">
+        <text id="chip1Text" wrap="false"><run text="$chip1Label" style="chipStyle"/></text>
+      </layout>
+      <layout id="chip2" width="fill" height="hug" padding="0.4 0.7" corners="0.4" fill="#e3dacc">
+        <text id="chip2Text" wrap="false"><run text="$chip2Label" style="chipStyle"/></text>
+      </layout>
+      <layout id="chip3" width="hug" height="hug" padding="0.4 0.7" corners="0.4" fill="#e3dacc">
+        <text id="chip3Text" wrap="false"><run text="$chip3Label" style="chipStyle"/></text>
+      </layout>
+    </layout>
+  </layout>
+  <bind target="chip3.display" value="$chip3Display"/>
+  <layer name="visibility" initial="shown">
+    <state name="shown"><on when="$hideChip3" to="hidden" actions='{"set":{"$chip3Display":"\"none\""}}' /></state>
+    <state name="hidden"><on when="not $hideChip3" to="shown" actions='{"set":{"$chip3Display":"\"flex\""}}' /></state>
+  </layer>
+</anima>

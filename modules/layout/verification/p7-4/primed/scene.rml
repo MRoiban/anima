@@ -1,0 +1,17 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Reflow" width="240" height="240" viewModelId="0:400" defaultStateMachineId="0:501">
+  <Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+  <LayoutComponent id="0:20" name="root" width="120" height="48" styleId="0:21">
+    <LayoutComponentStyle id="0:21" layoutWidthScaleType="fixed" layoutHeightScaleType="fixed" flexDirectionValue="row" animationStyleType="custom" interpolationType="linear" interpolationTime="1"/>
+    <DataBindContext sourcePathIds="0:400-0:402" propertyKey="7"/>
+    <Fill><SolidColor colorValue="FFD97757"/></Fill>
+    <LayoutComponent id="0:30" name="child" width="24" height="24" styleId="0:31">
+      <LayoutComponentStyle id="0:31" layoutWidthScaleType="fill" layoutHeightScaleType="fixed" flexShrink="0" animationStyleType="inherit"/>
+      <Fill><SolidColor colorValue="FF000000"/></Fill>
+    </LayoutComponent>
+  </LayoutComponent>
+  <LinearAnimation id="0:500" name="Hold" duration="60" fps="60"/>
+  <StateMachine id="0:501" name="Main"><StateMachineLayer><EntryState><StateTransition stateToId="0:502"/></EntryState><AnimationState id="0:502" animationId="0:500"/></StateMachineLayer></StateMachine>
+</Artboard>
+<ViewModel id="0:400" name="Main" defaultInstanceId="0:401"><ViewModelPropertyNumber id="0:402" name="size"/><ViewModelInstance id="0:401" name="main" exports="true"><ViewModelInstanceNumber viewModelPropertyId="0:402" propertyValue="120"/></ViewModelInstance></ViewModel>
+</Rive>

@@ -92,7 +92,7 @@ export const PHASES: [string, string][] = [
     'P7',
     'Minimal layout (hug, padding, min/max, fixed, row/column stacks), host fit, P6 text carry-overs',
   ],
-  ['P8', 'Rigging'],
+  ['P8', 'Rigging (heavy), plus the a11y tree-bounds carry-over'],
   ['P9', "Scripting — won't do (owner triage, 2026-11-07)"],
   ['P10', 'GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07)'],
 ];
@@ -113,11 +113,12 @@ export const FINISHED = [
   'P5',
   'P5b',
   'P6',
+  'P7',
   'Pc',
 ];
 
 /** The phase being worked on: its rows may be done before the phase is finished. */
-export const IN_PROGRESS = ['P7'];
+export const IN_PROGRESS = ['P8'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

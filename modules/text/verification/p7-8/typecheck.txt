@@ -1,0 +1,5 @@
+
+> typecheck
+> tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/markup && tsc -p packages/markup/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools && tsc -p packages/playground
+
+modules/fonts/core/info.ts(16,5): error TS1294: This syntax is not allowed when 'erasableSyntaxOnly' is enabled.

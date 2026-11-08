@@ -1,0 +1,10 @@
+<anima version="0.1" name="data-bind-layout" grid="20" requires="layout data bind">
+  <layout id="root" width="16" height="10" gap="1" padding="1" x="2" y="2">
+    <rect id="a" x0="0" y0="0" width="2" height="2" fill="#000" layout-width="2"/>
+    <rect id="b" x0="0" y0="0" width="4" height="3" fill="#000"/>
+  </layout>
+  <model name="Main">
+    <number name="size" default="2"/>
+  </model>
+  <bind target="a.layout-width" value="$size"/>
+</anima>

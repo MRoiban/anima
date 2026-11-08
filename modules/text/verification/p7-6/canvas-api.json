@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Chromium",
+    "version": "156.0.8078.4",
+    "fontVariationSettings": false,
+    "fontFeatureSettings": false,
+    "fontKerning": true
+  },
+  {
+    "name": "Firefox",
+    "version": "157.0",
+    "fontVariationSettings": false,
+    "fontFeatureSettings": false,
+    "fontKerning": true
+  }
+]

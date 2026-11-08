@@ -52,3 +52,41 @@ selection and complex-script shaping are not implemented; use the browser path. 
 advance is assigned to its first grapheme; the tool does not invent internal caret metrics.
 The implementation follows the primary [OpenType GSUB specification](https://learn.microsoft.com/en-us/typography/opentype/spec/gsub),
 not another runtime's source. No Rive implementation algorithm is used.
+
+### P7 variation platform boundary
+
+Arbitrary Canvas font axes remain conditional on a real `fontVariationSettings` member on the
+2D context. Both measurement and drawing use the same feature detection; unsupported hosts
+apply only `wght` via CSS font weight and `kern` via `fontKerning`. No invented property is
+assigned. SVG and tool outlines retain all supported authored axes. Both tested engines lack
+this Canvas API; the arbitrary-axis Canvas comparison is an evidenced platform skip, while
+wght retains its completed native raster comparison. Browser tests expose the detected support
+flags; synthetic-context tests exercise the native branch and reset settings between fonts.
+This limitation does not imply that unsupported axes render in Canvas or that fallback metrics
+match arbitrary-axis SVG drawing. The optional P7-8 fonts-info API below supplies explicit-byte decoding/metrics introspection.
+
+### Font introspection (P7-8)
+
+The optional [fonts-info contract](INFO.md) specifies decoded metrics, coverage, effective options,
+derived fonts and glyph paths in the browser and headless APIs. The resources-only entry still
+loads browser fonts without including this parser. Introspection explicitly requires SFNT source
+bytes; it cannot recover bytes from externally created FontFace objects.
+
+For example, after importing `@anima-format/web/fonts-info`:
+
+```ts
+const face = await icon.fonts.decode(sfntBytes);
+const font = await icon.fonts.info(face);
+font.metrics; // unitsPerEm, ascent, positive descent, lineGap, capHeight, xHeight, glyphCount
+font.hasGlyph(0x1f600); // cmap coverage, independent of CSS fallback
+const bold = font.derive({ axes: { wght: 900 } });
+bold.options; // immutable effective axes and supported feature settings
+bold.glyphs('AB'); // context-free glyphs, UTF-16 offsets, font-unit advance/path
+bold.glyphPath(34); // raw glyph index, baseline zero, +Y down
+```
+
+Headless clients import `decodeFont` from `@anima-format/core/fonts-info`. Tool clients with an
+already decoded CLI `Font` can use `new FontInfo(face)`. `font-source`, `font-format`,
+`font-invalid`, `font-axis`, `font-feature` and `font-unsupported` carry the API root pointer and a
+repair hint. Read INFO.md for the explicit SFNT/source-byte and shaping limits before choosing
+this API for a font with contextual scripts or variable metric tables.

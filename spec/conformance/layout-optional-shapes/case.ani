@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "layout-optional-shapes",
+  "grid": 20,
+  "requires": ["layout", "paint"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "ellipse",
+          "type": "ellipse",
+          "rx": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "cx": 0,
+          "cy": 0,
+          "ry": 3
+        },
+        {
+          "id": "polygon",
+          "type": "polygon",
+          "fill": {
+            "color": "#000"
+          },
+          "cx": 0,
+          "cy": 0,
+          "sides": 4,
+          "radius": 3
+        }
+      ],
+      "width": "hug",
+      "height": "hug",
+      "gap": [1]
+    }
+  ],
+  "timelines": {
+    "grow": {
+      "duration": 1,
+      "tracks": {
+        "ellipse.rx": [
+          [0, 1],
+          [1, 3]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "play",
+        "states": {
+          "play": {
+            "play": "grow"
+          }
+        }
+      }
+    }
+  }
+}

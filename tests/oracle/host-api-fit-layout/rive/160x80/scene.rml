@@ -1,0 +1,10 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Responsive" width="24" height="12" styleId="0:2">
+<LayoutComponentStyle id="0:2" flexDirectionValue="row" paddingTop="2" paddingRight="2" paddingBottom="2" paddingLeft="2"/>
+<Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+<LayoutComponent name="child" width="1" height="1" styleId="0:21">
+<LayoutComponentStyle id="0:21" layoutWidthScaleType="fill" layoutHeightScaleType="fill"/>
+<Fill><SolidColor colorValue="FFFF0000"/></Fill>
+</LayoutComponent>
+</Artboard>
+</Rive>

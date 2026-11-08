@@ -35,6 +35,8 @@ it('exposes all model property types and binding modes through JSON Schema', asy
     'model-ref',
     'asset-ref',
     'component',
+    // seam(P7-5): registry-composed artboard property spelling.
+    'artboard',
     'text-style',
   ]);
   expect(JSON.stringify(schema.properties.bind)).toContain('two-way');

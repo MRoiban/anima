@@ -1,0 +1,77 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2f4e2ca3
+
+ ❯ |browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 1 failed) 15093ms
+   ❯ Firefox optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5002ms
+ ❯ |browser| modules/nested/test/web/nested.test.ts (10 tests | 3 failed) 34845ms
+   ❯ Firefox nested components (5)
+     × swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested 5007ms
+     × swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components 5003ms
+     × fits child drawing and pointer hit coordinates and exposes live outputs 5002ms
+ ❯ |browser| modules/host-edit/test/web/components.test.ts (4 tests | 2 failed) 23236ms
+   ❯ Firefox component values and data keyframes (2)
+     × keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup 5022ms
+     × keeps typed host changes and keyframes local across separately loaded bundles: index,markup,host-edit,host,motion,data,nested,components 5005ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup
+ FAIL  |browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,markup,host-edit,host,motion,data,nested,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-edit/test/web/components.test.ts:50:7
+     48|     });
+     49|     for (const order of [entries, ['index', ...entries.slice(1).revers…
+     50|       it(
+       |       ^
+     51|         'keeps typed host changes and keyframes local across separatel…
+     52|           order.join(','),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+ FAIL  |browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:42:7
+     40|       ['index', 'nested', 'data', 'bind', 'components'],
+     41|     ])
+     42|       it('swaps live SVG/canvas instances with separate bundles: ' + o…
+       |       ^
+     43|         const page = await browser.newPage();
+     44|         try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |browser| modules/nested/test/web/nested.test.ts > Firefox nested components > fits child drawing and pointer hit coordinates and exposes live outputs
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:130:5
+    128|         }
+    129|       });
+    130|     it('fits child drawing and pointer hit coordinates and exposes liv…
+       |     ^
+    131|       const page = await browser.newPage();
+    132|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+
+ Test Files  3 failed | 4 passed (7)
+      Tests  6 failed | 98 passed (104)
+   Start at  12:40:23
+   Duration  234.54s (tests 94%, import 4%, transform 1%)

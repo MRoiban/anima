@@ -1,0 +1,19 @@
+p7-text-fit-controls 9 0
+p7-text-fit-controls 9.6 0
+p7-text-fit-controls 10 0
+p7-text-fit-controls 10.2 0
+p7-text-fit-controls 10.5 0
+p7-text-geometry-controls baseline-visible 0
+p7-text-geometry-controls baseline-false 0
+p7-text-geometry-controls baseline-1.5 0
+p7-text-geometry-controls trim-none 0
+p7-text-geometry-controls trim-explicit 0
+p7-text-geometry-controls ellipsis-literal 0
+p7-text-geometry-controls ellipsis-dots 0
+p7-text-run-list-controls property-only 0
+p7-text-run-list-controls root-relative 0
+p7-text-run-list-controls property-relative 0
+p7-text-run-list-controls global-symbol 0
+p7-text-run-list-controls local-symbol 0
+p7-text-run-list-controls global-property 0
+p7-text-style-global-control two expected setter rejections

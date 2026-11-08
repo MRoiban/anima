@@ -1,0 +1,22 @@
+{
+  "anima": "0.1",
+  "name": "invalid-layout",
+  "grid": 20,
+  "requires": [
+    "layout"
+  ],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [],
+      "padding": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ]
+}

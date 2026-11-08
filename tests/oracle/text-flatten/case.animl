@@ -1,0 +1,5 @@
+<anima version="0.1" name="text-flatten" grid="20" requires="paint">
+  <group id="label">
+    <path id="letter" d="M0.1 1.6L1 1.6L1 0.2L0.1 0.2Z" fill="#000"/>
+  </group>
+</anima>

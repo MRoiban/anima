@@ -1,0 +1,13 @@
+{"code":"script-expect","pointer":"/script/10","message":"button.layoutBox.width ~ 13.52 failed (actual 13.040000000000003)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/13","message":"button.drawnLayoutBox.width ~ 9.68 failed (actual 9.440000000000001)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/16","message":"button.drawnLayoutBox.width ~ 13.52 failed (actual 13.040000000000003)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/21","message":"button.drawnLayoutBox.width ~ 13.52 failed (actual 13.040000000000003)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/24","message":"button.drawnLayoutBox.width ~ 9.68 failed (actual 9.440000000000001)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/28","message":"button.drawnLayoutBox.width ~ 9.68 failed (actual 9.440000000000001)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/31","message":"button.drawnLayoutBox.width ~ 11.6 failed (actual 11.240000000000002)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/34","message":"button.drawnLayoutBox.width ~ 13.52 failed (actual 13.040000000000003)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/45","message":"chip1.layoutBox.width ~ 10.76 failed (actual 10.4)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/46","message":"chip2.layoutBox.width ~ 20.24 failed (actual 20.6)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/51","message":"chip2.layoutBox.width ~ 25.74 failed (actual 26.1)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/52","message":"chip2.layoutBox.x ~ 11.26 failed (actual 10.9)","hint":"check the expected value or advance queued writes before asserting"}
+{"code":"script-expect","pointer":"/script/58","message":"chip2.layoutBox.width ~ 20.24 failed (actual 20.6)","hint":"check the expected value or advance queued writes before asserting"}

@@ -1,0 +1,40 @@
+{
+  "anima": "0.1",
+  "name": "layout-intrinsic",
+  "grid": 20,
+  "requires": ["layout"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "x": 2,
+      "y": 2,
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "b",
+          "type": "circle",
+          "center": [2, 2],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "width": "hug",
+      "height": "hug",
+      "gap": [1],
+      "padding": [1]
+    }
+  ]
+}

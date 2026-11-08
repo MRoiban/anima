@@ -1,0 +1,4 @@
+screenshot frames/normal.png
+pointer click@25,41
+advance 0s
+screenshot frames/selected.png

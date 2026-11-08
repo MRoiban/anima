@@ -173,7 +173,8 @@ it('rejects invalid requests without writes and notes unsupported oracle counter
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
-});
+  // Copies a scratch repository; ~10 s under load, beyond the 5 s default.
+}, 30_000);
 
 it('requires an explicit nonempty pending marker', () => {
   const root = mkdtempSync(resolve(tmpdir(), 'anima-pending-'));

@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "No faithful decoded-face metrics/coverage/options observation is exposed by the permitted local native headless command route. The retained font-info/font-metrics attempts are unknown commands. Anima has independent original-font metric/coverage vectors and both-engine decoded FontFace info tests. The resource renderer is not substituted for metric API evidence. SFNT bytes are explicitly required for browser introspection.",
+  "tests": [
+    "modules/fonts/test/core/info-conformance.test.ts",
+    "modules/fonts/test/core/text-font-metrics.test.ts",
+    "modules/fonts/test/web/info.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-8-font-api/rive/commands.txt",
+    "tests/oracle/p7-8-font-api/rive/session.txt",
+    "tests/oracle/p7-8-font-api/rive/frames/reference.png"
+  ]
+}

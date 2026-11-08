@@ -1,0 +1,20 @@
+Format: AniML, using the Anima CLI.
+
+Wall time (first command to done): approximately 8 minutes (rounded; first command 2026-11-08 12:15:08 UTC), including dependency installation, verification and commit.
+
+Check/validate/build/render runs: 15 total: 4 validate, 1 build, 4 render, 6 sample; 0 check/session. Errors seen: unknown-attribute ×2; bad-name ×1; script-expect ×13 (my incorrect space-glyph width expectations); script-usage ×1 (`Cannot redefine property: busy`). Also: missing CLI dependencies ×1; browser executable missing ×1; browser `Cannot redefine property: busy` ×2; follow-on FileNotFoundError ×1. Six browser helper runs, final three clean. RUNS.md records the runs and errors; help/docs/schema queries are excluded.
+
+Source size: 316 lines, 11,156 characters across reflow.animl, exercise.txt, host.html, verify-host.mjs and the retained failed exercise script. Scene alone: 37 lines, 2,326 characters. Generated export, rendered SVGs, reports and evidence excluded.
+
+Brief items met (1–6), each with how you checked it:
+
+1. Met. The native hugging button measures 5.84 units, its label 3.84; the difference is exactly 2. Card padding is 1.5, vertical gaps 1, and data supplies title and labels. Full positions and sizes are in sample-06.jsonl.
+2. Met through CLI scripting. Native 0.3-second linear reflow grows 5.84 → 9.44 at 0.15 s → 13.04 at 0.3 s. At the label write, the drawn box remains 5.84 while its target changes. Shrinking reaches 9.44 halfway; a mid-flight change preserves 9.44 without a jump, then reaches 11.24 and 13.04. A complete shrink returns to 5.84. exercise.txt passes all 19 assertions.
+3. Met. The row is 37 units; chips 1 and 3 initially measure 5 each, leaving chip 2 at 26 after two 0.5 gaps. Changing chip 1 to “Draft version” makes it 10.4 and chip 2 becomes 20.6. Layout computes these sizes; no helper measures or assigns widths.
+4. Met. Setting the data boolean hideChip3 removes chip 3 through a scene state transition and display binding. Its box becomes zero; chip 2 becomes 26.1, exactly 37 − 10.4 − 0.5. Restoring the boolean restores chip 3 and the second gap. Both directions are sampled and asserted.
+5. Met. Browser SVG geometry in host-02.json shows contain mode at 480 × 360 with uniform scale 12 and a 480 × 360 painted card. Native layout fit gives card/row widths 480/477 at a 480 × 360 host and 600/597 at a 600 × 300 host, at scale 1. Chip 2 grows from approximately 466.0746 to 586.0746. The host helper passes 10 assertions; host.html toggles sizing modes.
+6. Met. sample-06.jsonl retains every target/drawn box before, during and after growth, shrink and retarget, and after hide/show. geometry.csv summarizes them. host-02.json contains numeric boxes and screen matrices at both host sizes. Four rendered SVG frames supplement the numeric proof. Final validate reports “ok”.
+
+Items not met or approximated, and why: No brief item is approximated by page-side layout or animation. Data interaction and animation proof use the permitted test-script route. Browser data controls were removed because both auto-bind and icon.data access encountered the runtime error above; the delivered host page demonstrates sizing only. Browser and CLI font widths differ slightly, so exact cross-backend text-metric equivalence is not claimed. Only the supplied test font is used; no font files were added.
+
+What was hardest; what the docs or diagnostics got wrong or left out: The documented `data set` path fails with the unhelpful `Cannot redefine property: busy`, reported as script-usage with a syntax hint; the documented `set $path` alternative works. Browser data access encounters the same message. The short action example did not show transition action syntax; schema transition and docs bind supplied the required JSON actions attribute. My first numeric expectations treated spaces as full-width glyphs; actual font measurement corrected that mistake. The CLI's layout/reflow and host-fit documentation otherwise provided the constructs needed without reading repository implementation, specs or examples.

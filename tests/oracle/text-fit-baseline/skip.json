@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: baseline fitting excludes the first ascent and fits the distance below the first baseline, useful for baseline-aligned labels. Native true/false controls are pixel-identical on the retained probe and shrink the full line; Anima keeps the documented baseline-relative measurement. No native pixel-equivalence claim.",
+  "tests": [
+    "modules/text/test/core/text-fit-baseline.test.ts",
+    "modules/text/test/core/layout.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-text-geometry-controls/rive/baseline-visible.rml.txt",
+    "tests/oracle/p7-text-geometry-controls/rive/baseline-false.rml.txt",
+    "tests/oracle/p7-text-geometry-controls/rive/frames/baseline-false.png"
+  ]
+}

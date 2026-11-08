@@ -1,0 +1,99 @@
+{
+  "base": "049f5d66",
+  "scope": {
+    "chromium": {
+      "passed": 1280,
+      "failed": 0,
+      "filtered": 31,
+      "browserCases": 31,
+      "corpusChecks": 1249
+    },
+    "firefox": {
+      "passed": 1280,
+      "failed": 0,
+      "filtered": 31,
+      "browserCases": 31,
+      "corpusChecks": 1249
+    }
+  },
+  "changed": {
+    "passed": 9095,
+    "failed": 143,
+    "skipped": 82,
+    "todo": 54,
+    "passedFiles": 249,
+    "failedFiles": 55,
+    "skippedFiles": 13
+  },
+  "retries": {
+    "unit": {
+      "passed": 255,
+      "failed": 0,
+      "files": 10
+    },
+    "browser": {
+      "passed": 3016,
+      "failed": 2,
+      "passedFiles": 44,
+      "failedFiles": 1
+    },
+    "firefoxPipeline": {
+      "passed": 10,
+      "failed": 1,
+      "filtered": 11
+    },
+    "firefoxLastCase": {
+      "passed": 1,
+      "failed": 0,
+      "filtered": 21
+    }
+  },
+  "regressionSelection": {
+    "passed": 12,
+    "failed": 0,
+    "filtered": 174,
+    "files": 3
+  },
+  "oracle": {
+    "cases": 309,
+    "samples": 524,
+    "failingSamples": 0,
+    "retainedFindings": 23,
+    "exitCode": 0
+  },
+  "perf": {
+    "exitCode": 0,
+    "controlledComparisonVerified": false
+  },
+  "sizes": {
+    "before": {
+      "coreWeb": 21136,
+      "largestScene": 53857,
+      "appUI": 98890,
+      "runtime": 120281,
+      "authoring": 14742,
+      "heavy": 130077
+    },
+    "after": {
+      "coreWeb": 21165,
+      "largestScene": 53928,
+      "appUI": 99002,
+      "runtime": 121168,
+      "authoring": 14737,
+      "heavy": 130884
+    },
+    "entries": {
+      "host-fit": 733,
+      "canvas": 5406,
+      "input": 6743,
+      "a11y-dom": 2139,
+      "markup": 7341,
+      "markup-libraries": 2176
+    }
+  },
+  "remaining": [
+    "P7-2 consumes player.layoutSize and verifies real responsive reflow",
+    "Orchestrator updates parity metadata",
+    "Controlled performance guard and phase CI"
+  ]
+}

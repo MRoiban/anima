@@ -1,0 +1,141 @@
+
+> test:scope
+> node tools/test-scope.ts layout host-fit --browser=chromium
+
+Scopes: layout, host-fit
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout-animated-reflow.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/layout/test/web/reflow.test.ts
+  cases: ^conformance > (data-bind-layout|layout-alignment|layout-animated-reflow|layout-baseline|layout-bound-hug|layout-containers|layout-fill-bounds-difference|layout-fill-sizing|layout-fixed-sizing|layout-flex-align-items|layout-flex-direction|layout-flex-justify|layout-hug-sizing|layout-image-intrinsic|layout-intrinsic|layout-optional-shapes|layout-paint|layout-participants|layout-self-alignment|layout-size-bounds|layout-spacing|layout-visibility)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-6709f12a
+
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1307 tests | 4 failed) 4968ms
+   ❯ authored AniML corpus (1307)
+     × includes the bell example and all conformance sources 77ms
+     × modules/layout/examples/reflow.animl is canonically formatted 9ms
+     × modules/layout/examples/wrapped.animl is canonically formatted 7ms
+     × spec/conformance/layout-animated-reflow/case.animl is canonically formatted 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(605) ] to have a length of 604 but got 605
+
+- Expected
++ Received
+
+- 604
++ 605
+
+ ❯ packages/markup/test/corpus.test.ts:46:19
+     44|     // seam(P7-5): four bindable-artboard swap probes.
+     45|     // seam(P7-2): twenty-one independently specified layout probes.
+     46|     expect(cases).toHaveLength(604);
+       |                   ^
+     47|     for (const file of cases) expect(files).toContain(file.replace(/\.…
+     48|     const drawCases = globSync('spec/draw-conformance/*/case.ani', { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/layout/examples/reflow.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="reflow-but…' to be '<anima version="0.1" name="reflow-but…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -2,11 +2,11 @@
+    <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+    <model name="Button">
+      <string name="label" default="Go"/>
+    </model>
+    <text-style id="body" font="body" size="2"/>
+-   <layout id="button" width="hug" height="hug" align="center" padding="1 2" corners="0.5" reflow="0.25 out" x="2" y="2" fill="#d97757">
++   <layout id="button" width="hug" height="hug" align="center" padding="1 2" reflow="0.25 out" corners="0.5" x="2" y="2" fill="#d97757">
+      <text id="label" layout-width="hug">
+        <run text="$label" style="body"/>
+      </text>
+    </layout>
+  </anima>
+
+ ❯ packages/markup/test/corpus.test.ts:67:25
+     65|     const result = formatMarkup(source);
+     66|     expect(result.diagnostics).toEqual([]);
+     67|     expect(result.text).toBe(source);
+       |                         ^
+     68|   });
+     69| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/layout/examples/wrapped.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="wrapped-la…' to be '<anima version="0.1" name="wrapped-la…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="wrapped-layout" grid="20" requires="layout text assets fonts">
+    <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+    <text-style id="body" font="body" size="2"/>
+    <layout id="root" width="8" height="hug" direction="column" padding="1">
+-     <layout id="nested" layout-width="fill" height="hug" direction="column">
++     <layout id="nested" height="hug" direction="column" layout-width="fill">
+-       <text id="label" layout-width="fill" wrap="true"><run text="Go Go Go Go" style="body"/></text>
++       <text id="label" wrap="true" layout-width="fill">
++         <run text="Go Go Go Go" style="body"/>
++       </text>
+      </layout>
+    </layout>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:67:25
+     65|     const result = formatMarkup(source);
+     66|     expect(result.diagnostics).toEqual([]);
+     67|     expect(result.text).toBe(source);
+       |                         ^
+     68|   });
+     69| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/layout-animated-reflow/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="layout-ani…' to be '<anima version="0.1" name="layout-ani…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="layout-animated-reflow" grid="20" requires="layout bind">
+    <number name="w" default="10"/>
+-   <layout id="root" width="10" height="4" fill="#d97757" reflow="1 linear">
++   <layout id="root" width="10" height="4" reflow="1 linear" fill="#d97757">
+      <rect id="child" x0="0" y0="0" width="2" height="2" fill="#000" layout-width="fill"/>
+    </layout>
+    <bind target="root.width" value="w"/>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:67:25
+     65|     const result = formatMarkup(source);
+     66|     expect(result.diagnostics).toEqual([]);
+     67|     expect(result.text).toBe(source);
+       |                         ^
+     68|   });
+     69| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed | 10 passed (11)
+      Tests  4 failed | 3298 passed | 625 skipped (3927)
+   Start at  12:23:59
+   Duration  46.03s (tests 77%, transform 13%, import 10%)

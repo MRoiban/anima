@@ -295,6 +295,9 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 4. **Bindings, then clamp.** Evaluate declared `bind` expressions against the current inputs,
    overriding the state-machine values (see the bind chapter). Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
    `rx`, `stroke.width` ≥ 0).
+   **Layout stage (optional).** After bindings and clamping, resolve participating boxes using
+   the layout contract, including nested-player/post-step updates, before drawing. Guards read
+   the previous step's boxes; layout never reruns transitions in the current step.
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
    it has been pending for longer than `buffer` seconds of step time, or is consumed.
@@ -2426,7 +2429,7 @@ endpoints against the current player before interpolation, including blends and 
 without mutating shared tracks. JSON `[0.5, "$peak"]` and AniML `<key t="0.5" value="$peak"/>`
 are equivalent. Full typing, diagnostics and timing: [data](../modules/data/SPEC.md#data-keyframe-values).
 
-<!-- capability: data.bind-layout -->
+<!-- seam(P7-2): data.bind-layout is specified with layout below. -->
 <!-- capability: data.bind-script-inputs -->
 <!-- capability: data.bind-text -->
 <!-- capability: data.binding-absolute -->
@@ -3039,6 +3042,10 @@ No new asset fields or deterministic player channels are added. Core accepts fon
 a browser; decoding is a web concern. This keeps the optional asset boundary described in
 `docs/research/rive-web-runtime.md` without adopting its shaping engine or resource format.
 
+<!-- // seam(P7-8): optional font introspection normative link. -->
+Decoded metrics, coverage, effective options and derived glyph paths are specified in the
+[optional fonts-info contract](../modules/fonts/INFO.md).
+
 ### Resources, decoding and readiness
 
 The `@anima-format/web/fonts` entry loads font assets before `anima:load` and the first render.
@@ -3102,6 +3109,13 @@ drawing and named host run access. Its normative fields, defaults, validation, m
 contract, fit/overflow algorithms and verification limits are specified in
 [modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
 and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
+
+<!-- capability: text.flatten -->
+### Text outline conversion
+
+<!-- // seam(P7-6): normative CLI behavior belongs to the owned text specification. -->
+`anima flatten` traverses root and component-definition text, preserves clips and common group
+properties, and rejects remaining text-only references. See [the normative text contract](../modules/text/SPEC.md#text-outline-conversion-p7-6).
 
 ## text-effects
 
@@ -3247,3 +3261,147 @@ See [the normative field contract](../modules/text-input/SPEC.md) for both spell
 ### Accessible text proxy
 
 See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+
+## Host fit and artboard size (`host-fit`)
+
+`@anima-format/web/host-fit` is an optional **host-only** entry. It adds no document
+keys, `requires` name, registry entries, AniML attributes or CLI render options. An
+AniML scene and its compiled `.ani` have identical host-fit behaviour; put host
+attributes on `<anima-icon>`, not on `<anima>`. Existing static CLI fit options are
+independent. This separation follows the host/scene distinction in
+`docs/research/rive-web-runtime.md` (input mapping and accessibility overlay).
+
+The HTML `fit` and `alignment` attributes have reflecting string properties with the
+same names. `fit` accepts `contain`, `cover`, `fill`, `fit-width`, `fit-height`,
+`none`, `scale-down`, `layout`; absent/unknown means contain. `alignment` accepts
+`top-left`, `top-center`, `top-right`, `center-left`, `center`, `center-right`,
+`bottom-left`, `bottom-center`, `bottom-right`. Legacy `align` remains an alias;
+`alignment` takes precedence when both exist. `top`, `left`, `right`, `bottom`
+are accepted aliases for the middle edge positions. Unknown alignment means center.
+The properties return the attribute spelling, or `contain`/`center` when absent.
+
+With no fit, alignment or size request, loading the entry preserves the existing SVG
+grid/bleed viewport and default host aspect ratio (B8). An explicit host-fit request
+fits the whole artboard rectangle into the CSS content box, including any nonzero
+viewBox origin. It clips drawing to that viewport in both backends. For a source
+rectangle `(x,y,w,h)` and host `W×H` CSS pixels, scale is:
+
+| fit | scale |
+| --- | --- |
+| contain (including unknown) | `s = min(W/w,H/h)` |
+| cover | `s = max(W/w,H/h)` |
+| fill | `sx = W/w`, `sy = H/h` |
+| fit-width | `s = W/w` |
+| fit-height | `s = H/h` |
+| none | `s = 1` CSS pixel per grid unit |
+| scale-down | `s = min(1,W/w,H/h)` |
+| layout | `s = 1`; artboard size becomes `W×H` grid units |
+
+Uniform fits use `sx=sy=s`. For alignment fractions `ax,ay ∈ {0,0.5,1}`, the source
+to host matrix is `[sx,0,0,sy,(W-w*sx)*ax-x*sx,(H-h*sy)*ay-y*sy]`. Negative free
+space aligns cropping by the same rule. SVG expresses this matrix with an equivalent
+virtual viewBox and `preserveAspectRatio="none"`; canvas uses the identical virtual
+viewBox before DPR scaling. Neither requires a transformed scene group. Pointer
+coordinates invert that matrix; semantic bounds use it forwards. Resize, fit,
+alignment, size overrides and renderer switches update these consumers together.
+Zero-sized hosts defer fitting until they become positive-sized. Disconnect and
+destroy stop resize observation; reconnect resumes it.
+
+`icon.size` reads a detached `[width,height]` array of grid units (without a loaded
+document or explicit override, `[0,0]`). Assign a pair of finite positive numbers to override the
+artboard dimensions for this host, retaining its authored origin. The scene and shared compiled model
+are never mutated; another host is unaffected. Invalid writes preserve the previous
+size and dispatch `anima:error` with diagnostic `host-size`, pointer `""` (host API),
+message and hint. `resetSize()` removes the override. The override persists across
+loads on the same host. In layout fit, the host dimensions take precedence; resetting
+size clears the explicit override but keeps responsive sizing while layout is active.
+
+<!-- seam(P7-4): real per-player root layout integration. -->
+
+**Layout integration:** fitting writes `player.layoutSize?: [w,h]` per
+player, where undefined means authored root width/height. A layout provider consumes
+this override for root containers without mutating model defaults and exposes
+`player.layoutBox(id)`. On a changed override, the host calls `player.step(0)` when
+that reader exists, then redraws. The scale for layout fit is one CSS pixel per grid
+unit; DPR changes only the canvas backing store. Leaving layout restores the explicit
+size if set, otherwise authored root dimensions. The layout module now consumes the override for
+root containers through their normal bounds. Both engines compare real responsive child drawing
+against native layout-fit captures at two host sizes, in SVG and canvas.
+
+## dataartboard — bindable component data
+
+<!-- capability: data.host-artboard -->
+<!-- capability: host-api.bindable-artboards -->
+<!-- capability: host-api.data-artboard -->
+<!-- capability: components.host-artboard-reference -->
+
+The normative contract is [modules/data-artboard/SPEC.md](../modules/data-artboard/SPEC.md):
+`artboard` model properties, `instance component="$content"`, queued host handles and
+values referencing components from another loaded document. Re-instantiation follows
+the existing nested-player and data-context rules; a changed selection restarts the
+child clock, and the same selection retains it. The four deterministic probes are
+`data-host-artboard`, `host-api-bindable-artboards`, `host-api-data-artboard`, and
+`components-host-artboard-reference`. Host comparison limits are evidenced in
+[the native comparison note](../modules/data-artboard/NATIVE.md).
+
+## layout
+
+`requires: ["layout"]` adds single-line row/column containers, child sizing and a deterministic
+layout stage. [The normative layout contract](../modules/layout/SPEC.md) defines both spellings,
+the CSS-based algorithm, units, caching, geometry, guard timing, diagnostics and intentional native
+differences. Animated reflow belongs to the separate `layout-reflow` entry.
+
+<!-- capability: layout.containers -->
+
+<!-- capability: layout.flex-direction -->
+
+<!-- capability: layout.flex-justify -->
+
+<!-- capability: layout.flex-align-items -->
+
+<!-- capability: layout.self-alignment -->
+
+<!-- capability: layout.alignment -->
+
+<!-- capability: layout.spacing -->
+
+<!-- capability: layout.fixed-sizing -->
+
+<!-- capability: layout.hug-sizing -->
+
+<!-- capability: layout.fill-sizing -->
+
+<!-- capability: layout.size-bounds -->
+
+<!-- capability: layout.visibility -->
+
+<!-- capability: layout.participants -->
+
+<!-- capability: layout.intrinsic -->
+
+<!-- capability: layout.paint -->
+
+<!-- capability: data.bind-layout -->
+
+
+<!-- seam(P7-4): optional animated-reflow contract and host-fit closure. -->
+<!-- capability: layout.animated-reflow -->
+### Animated layout reflow
+
+The normative [layout reflow contract](../modules/layout/SPEC.md#animated-reflow-layout-reflow)
+defines container/participant `reflow`, §5 easing, inherited settings, uninterrupted retargets,
+reduced motion and the target/drawn box readers. The optional `layout-reflow` web entry owns
+interpolation and diagnostics; CLI tooling includes it. Deterministic target/drawn observations
+are in `layout-animated-reflow`, with allocated text measurement in `layout-text-wrap`.
+Native timing and retarget mapping remain pending; raw captures are retained without a new tolerance.
+
+<!-- capability: host-api.fit-layout -->
+### Responsive host layout
+
+`<anima-icon fit="layout">` / `icon.fit = "layout"` uses the host's CSS content size as root layout
+dimensions, at one CSS pixel per grid unit (DPR affects backing pixels only). Root layout reflows;
+it is not merely scaled. `player.layoutSize` is the per-player grid-unit override; clearing it
+restores authored sizing. The host adapter applies normal explicit-size/reset precedence as above.
+Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
+This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.

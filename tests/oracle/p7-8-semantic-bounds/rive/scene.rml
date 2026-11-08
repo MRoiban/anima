@@ -1,0 +1,13 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="Bounds" width="240" height="240" defaultStateMachineId="0:10" styleId="0:20"><LayoutComponentStyle id="0:20"/><Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+    <Shape id="0:2" name="stroked" x="60" y="60">
+      <SemanticData role="button" label="stroked"/>
+      <Rectangle width="24" height="12"/>
+      <Stroke thickness="8" join="miter" cap="butt"><SolidColor colorValue="FF000000"/></Stroke>
+    </Shape>
+    <LinearAnimation id="0:3" name="move" duration="60" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:2"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="60" interpolationType="linear"/><KeyFrameDouble frame="60" value="120"/></KeyedProperty></KeyedObject>
+    </LinearAnimation>
+    <StateMachine id="0:10" name="main"><StateMachineLayer><EntryState><StateTransition stateToId="0:11"/></EntryState><AnimationState id="0:11" animationId="0:3"/></StateMachineLayer></StateMachine>
+  </Artboard>
+</Rive>

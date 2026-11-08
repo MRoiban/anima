@@ -1,0 +1,1 @@
+P7-8: see the parent skip.json and its retained native command/capture evidence. The native headless surface cannot faithfully observe this API/conversion. Static native text is not substituted for that missing operation. Anima has independent generated-font vectors and raster/API tests.

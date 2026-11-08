@@ -1,0 +1,4 @@
+{"time":0.25,"values":{"content/dot.x":2.5},"states":{"content/move":"moving"},"events":[],"settled":false}
+{"time":0.25,"values":{"content/box.x":20},"states":{"content/move":"moving"},"events":[],"settled":false}
+{"time":0.5,"values":{"content/box.x":22.5},"states":{"content/move":"moving"},"events":[],"settled":false}
+{"time":0.5,"values":{"content/dot.x":0},"states":{"content/move":"moving"},"events":[],"settled":false}

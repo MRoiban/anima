@@ -37,6 +37,8 @@ export const listState = (p: Player) => states.get(p);
 export const dynamicTrees = new WeakSet<DrawTree>();
 export const lists: Module & {
   listState: typeof listState;
+  // seam(P7-5): identify the owner of repeated-item data assignments.
+  parents: typeof parents;
   dynamicTrees: typeof dynamicTrees;
   beforeDraw?: (player: Player) => void;
 } = {
@@ -44,6 +46,7 @@ export const lists: Module & {
   after,
   entries,
   listState,
+  parents,
   dynamicTrees,
   init(registry, shared) {
     const data = registry.get('data') as DataModule | undefined;

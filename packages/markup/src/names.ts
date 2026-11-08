@@ -1,6 +1,8 @@
 // The two spellings, from one registry (spec/ANIML.md §3): which AniML attribute carries which `.ani`
 // key on a node, and how animation addresses translate. Compiler and decompiler both use this.
 
+// seam(P7-2): optional module owns flattened layout child attributes.
+import { layoutCompiler } from './module-hooks.ts';
 import {
   COMMON,
   NODE_TYPES,
@@ -66,6 +68,7 @@ export function nodeFields(type: NodeType): NodeField[] {
     }
     out.push({ attr: 'knockout', path: ['knockout'], shape: ns.p.knockout! });
   }
+  layoutCompiler.fields?.(out, ns);
   return out;
 }
 
@@ -76,7 +79,7 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
     animatable:
       a.index === undefined &&
       (a.path.length === 2
-        ? a.path[1]! in PAINT[a.path[0] as 'fill' | 'stroke']
+        ? a.path[1]! in (PAINT[a.path[0] as 'fill' | 'stroke'] ?? {})
         : a.path[0]! in COMMON || a.path[0]! in OWN[type]),
   }));
 }

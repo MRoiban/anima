@@ -1,0 +1,1792 @@
+
+> test:scope
+> node tools/test-scope.ts changed
+
+Scopes: core, markup, web, cli, playground, tools, a11y-dom, a11y, assetio, bind, canvas, components, convert, data, derive, events, focus, fonts, host-edit, host, input, markup-animation, markup-hooks, markup-libraries, motion, nested, paint, text-effects, text-input, text, assets, a11y-text, fonts-options, fonts-text, markup-text, markup-text-effects, markup-text-input, text-hit, text-host, text-input-canvas, text-input-clipboard, text-input-svg, conformance, oracle, machine, layout, markup-layout
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/bind/test/core/strings.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/invalid-source.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/composite/test/core/paint-composite.test.ts
+  unit: modules/contour/test/core/contour.test.ts
+  unit: modules/contour/test/core/effects.test.ts
+  unit: modules/contour/test/core/path-evidence.test.ts
+  unit: modules/contour/test/core/raster-evidence.test.ts
+  unit: modules/contour/test/core/winding.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/color-pattern.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/data-converter-color-formatting.test.ts
+  unit: modules/convert/test/core/data-converter-trigger.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/core/p5b-oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/derive/test/core/settled-guard.test.ts
+  unit: modules/devtools/test/core/policy.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/machine/test/core/diagnostics.test.ts
+  unit: modules/machine/test/core/p5b-oracle.test.ts
+  unit: modules/machine/test/core/runtime.test.ts
+  unit: modules/machine/test/core/state-machine-any-state.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-input.test.ts
+  unit: modules/machine/test/core/state-machine-blend-additive.test.ts
+  unit: modules/machine/test/core/state-machine-blend-direct.test.ts
+  unit: modules/machine/test/core/state-machine-blend-exit-clock.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-constant.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-input.test.ts
+  unit: modules/machine/test/core/state-machine-condition-artboard.test.ts
+  unit: modules/machine/test/core/state-machine-condition-component.test.ts
+  unit: modules/machine/test/core/state-machine-condition-data.test.ts
+  unit: modules/machine/test/core/state-machine-condition-focus.test.ts
+  unit: modules/machine/test/core/state-machine-continue-on-exit.test.ts
+  unit: modules/machine/test/core/state-machine-entry-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-time-relative.test.ts
+  unit: modules/machine/test/core/state-machine-literal-asset.test.ts
+  unit: modules/machine/test/core/state-machine-literal-boolean.test.ts
+  unit: modules/machine/test/core/state-machine-literal-color.test.ts
+  unit: modules/machine/test/core/state-machine-literal-enum.test.ts
+  unit: modules/machine/test/core/state-machine-literal-string.test.ts
+  unit: modules/machine/test/core/state-machine-literal-trigger.test.ts
+  unit: modules/machine/test/core/state-machine-state-entry-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-exit-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-random.test.ts
+  unit: modules/machine/test/core/state-machine-state-reset.test.ts
+  unit: modules/machine/test/core/state-machine-transition-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-disabled.test.ts
+  unit: modules/machine/test/core/state-machine-transition-duration-relative.test.ts
+  unit: modules/machine/test/core/state-machine-transition-end-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-random-weight.test.ts
+  unit: modules/markup-animation/test/markup/positions.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/mix/test/core/mix.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/motion/test/core/animation-cubic-value.test.ts
+  unit: modules/motion/test/core/animation-elastic-in-out.test.ts
+  unit: modules/motion/test/core/animation-elastic-in.test.ts
+  unit: modules/motion/test/core/animation-host-loop-override.test.ts
+  unit: modules/motion/test/core/animation-host-play-pause-stop.test.ts
+  unit: modules/motion/test/core/animation-keys-reference.test.ts
+  unit: modules/motion/test/core/animation-keys-signed-integer.test.ts
+  unit: modules/motion/test/core/animation-keys-string.test.ts
+  unit: modules/motion/test/core/animation-keys-unsigned-integer.test.ts
+  unit: modules/motion/test/core/animation-mix-discrete.test.ts
+  unit: modules/motion/test/core/animation-mix-numeric.test.ts
+  unit: modules/motion/test/core/animation-quantized-playback.test.ts
+  unit: modules/motion/test/core/animation-reverse.test.ts
+  unit: modules/motion/test/core/animation-seek.test.ts
+  unit: modules/motion/test/core/animation-work-area.test.ts
+  unit: modules/motion/test/core/boundaries.test.ts
+  unit: modules/motion/test/core/control.test.ts
+  unit: modules/motion/test/core/data-bind-keyframes.test.ts
+  unit: modules/motion/test/core/data-keys-oracle.test.ts
+  unit: modules/motion/test/core/diagnostics.test.ts
+  unit: modules/motion/test/core/host-api-animation-metadata.test.ts
+  unit: modules/motion/test/core/host-api-low-level-animation.test.ts
+  unit: modules/motion/test/core/host-api-low-level-scene-query.test.ts
+  unit: modules/motion/test/core/host-api-multi-state-machine.test.ts
+  unit: modules/motion/test/core/host-api-scrub.test.ts
+  unit: modules/motion/test/core/reduced-live.test.ts
+  unit: modules/motion/test/core/runtime.test.ts
+  unit: modules/motion/test/core/state-machine-exit-time-seconds.test.ts
+  unit: modules/motion/test/core/transforms-origin-animation.test.ts
+  unit: modules/motion/test/core/typed-oracle.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/core/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/cli/placeholder.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/p6-12.test.ts
+  unit: packages/cli/test/p6-9b.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/core/test/bell-parity.test.ts
+  unit: packages/core/test/draw.test.ts
+  unit: packages/core/test/examples.test.ts
+  unit: packages/core/test/feature-hints.test.ts
+  unit: packages/core/test/inspect.test.ts
+  unit: packages/core/test/invalid.test.ts
+  unit: packages/core/test/module-order.test.ts
+  unit: packages/core/test/modules.test.ts
+  unit: packages/core/test/path.test.ts
+  unit: packages/core/test/player.test.ts
+  unit: packages/core/test/smoke.test.ts
+  unit: packages/core/test/svg-compat.test.ts
+  unit: packages/core/test/time.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: packages/playground/test/pure.test.ts
+  unit: packages/playground/test/server.test.ts
+  unit: tools/browser-cache.test.ts
+  unit: tools/modules.test.ts
+  unit: tools/new-capability.test.ts
+  unit: tools/oracle.test.ts
+  unit: tools/parity.test.ts
+  unit: tools/test-scope.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup-animation/test/web/animation.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/playground/test/browser.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-8d33895f
+
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (22 tests | 5 failed) 84506ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5072ms
+     × enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver 5058ms
+     × host-decodes original WAV bytes without consuming the cached buffer 5008ms
+     × host-decodes genuine mp3 source with independently known frame counts 5017ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 5002ms
+ ❯ |scope-browser| modules/events/test/web/events.browser.test.ts (32 tests | 1 failed) 92391ms
+   ❯ events in Firefox (16)
+     × plays a trusted repeated-row click (nested=false), using its scoped clip 15365ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed) 120822ms
+   ❯ overlay Firefox (22)
+     × maps every role to a real element, with heading levels and state attributes 10617ms
+ ❯ |scope-browser| modules/input/test/web/browser.test.ts (62 tests | 1 failed) 129501ms
+   ❯ input browser Firefox (31)
+     × maps client positions through the actual SVG viewport matrix 10992ms
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (10 tests | 1 failed) 26264ms
+   ❯ Firefox nested components (5)
+     × swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested 5012ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 1 failed) 37760ms
+   ❯ motion host in Firefox (10)
+     × recovers a connected document when motion registers late 6575ms
+ ❯ |scope-browser| modules/host-edit/test/web/components.test.ts (4 tests | 1 failed) 14985ms
+   ❯ Firefox component values and data keyframes (2)
+     × keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup 5046ms
+ ❯ |scope-browser| packages/playground/test/browser.test.ts (16 tests | 1 failed) 127982ms
+   ❯ playground in Firefox (8)
+     × opens the built-in example without write access 32548ms
+ ❯ |scope-unit| packages/markup/test/compile.test.ts (51 tests | 1 failed) 4857ms
+   ❯ AniML compiler (51)
+     × keeps the fixture coverage honest (23 element names; all node attribute spellings) 64ms
+ ❯ |scope-unit| packages/markup/test/decompile.test.ts (1800 tests | 19 failed) 19915ms
+   ❯ decompile (601)
+     × data-bind-layout preserves every compiled value deterministically 97ms
+     × layout-alignment preserves every compiled value deterministically 15ms
+     × layout-baseline preserves every compiled value deterministically 14ms
+     × layout-containers preserves every compiled value deterministically 16ms
+     × layout-fill-bounds-difference preserves every compiled value deterministically 13ms
+     × layout-fill-sizing preserves every compiled value deterministically 20ms
+     × layout-fixed-sizing preserves every compiled value deterministically 23ms
+     × layout-flex-align-items preserves every compiled value deterministically 18ms
+     × layout-flex-direction preserves every compiled value deterministically 16ms
+     × layout-flex-justify preserves every compiled value deterministically 24ms
+     × layout-hug-sizing preserves every compiled value deterministically 38ms
+     × layout-intrinsic preserves every compiled value deterministically 29ms
+     × layout-optional-shapes preserves every compiled value deterministically 22ms
+     × layout-paint preserves every compiled value deterministically 20ms
+     × layout-participants preserves every compiled value deterministically 10ms
+     × layout-self-alignment preserves every compiled value deterministically 11ms
+     × layout-size-bounds preserves every compiled value deterministically 12ms
+     × layout-spacing preserves every compiled value deterministically 55ms
+     × layout-visibility preserves every compiled value deterministically 13ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > keeps the fixture coverage honest (23 element names; all node attribute spellings)
+AssertionError: layout-width: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ packages/markup/test/compile.test.ts:362:74
+    363|     );
+    364|     const attrs = new Set(
+    365|       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) =…
+       |                     ^
+    366|     );
+    367|     for (const type of NODE_TYPES)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > data-bind-layout preserves every compiled value deterministically
+AssertionError: expected { name: 'data-bind-layout', …(6) } to deeply equal { anima: '0.1', …(6) }
+
+- Expected
++ Received
+
+@@ -17,45 +17,14 @@
+    },
+    "grid": 20,
+    "name": "data-bind-layout",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "layout": {
+-             "width": 2,
+-           },
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-alignment preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-alignment', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -3,43 +3,15 @@
+    "grid": 20,
+    "name": "layout-alignment",
+    "nodes": [
+      {
+        "align": "end",
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+        "justify": "end",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-baseline preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-baseline', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -3,42 +3,14 @@
+    "grid": 20,
+    "name": "layout-baseline",
+    "nodes": [
+      {
+        "align": "baseline",
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-containers preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-containers', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,66 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-containers",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "children": [
+-             {
+-               "fill": {
+-                 "color": "#000",
+-               },
+-               "h": 1,
+-               "id": "c",
+-               "type": "rect",
+-               "w": 2,
+-               "x0": 0,
+-               "y0": 0,
+-             },
+-             {
+-               "fill": {
+-                 "color": "#000",
+-               },
+-               "h": 2,
+-               "id": "d",
+-               "type": "rect",
+-               "w": 3,
+-               "x0": 0,
+-               "y0": 0,
+-             },
+-           ],
+-           "direction": "column",
+-           "gap": [
+-             1,
+-           ],
+-           "id": "b",
+-           "padding": [
+-             1,
+-           ],
+-           "type": "layout",
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-fill-bounds-difference preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-size-bounds', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,50 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-size-bounds",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "layout": {
+-             "minWidth": 8,
+-             "width": "fill",
+-           },
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "layout": {
+-             "maxWidth": 4,
+-             "width": "fill",
+-           },
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-fill-sizing preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-fill-sizing', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,45 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-fill-sizing",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "layout": {
+-             "width": "fill",
+-           },
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-fixed-sizing preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-fixed-sizing', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,46 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-fixed-sizing",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "layout": {
+-             "height": 4,
+-             "width": 5,
+-           },
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-flex-align-items preserves every compiled value deterministically
+AssertionError: expected { …(5) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -3,42 +3,14 @@
+    "grid": 20,
+    "name": "layout-flex-align-items",
+    "nodes": [
+      {
+        "align": "center",
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-flex-direction preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-flex-direction', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,43 +2,15 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-flex-direction",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+        "direction": "column-reverse",
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-flex-justify preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-flex-justify', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,40 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-flex-justify",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+        "height": 10,
+        "id": "root",
+        "justify": "space-between",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-hug-sizing preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-hug-sizing', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,42 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-hug-sizing",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": "hug",
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": "hug",
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-intrinsic preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-intrinsic', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,43 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-intrinsic",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "center": [
+-             2,
+-             2,
+-           ],
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "id": "b",
+-           "r": 2,
+-           "type": "circle",
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": "hug",
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": "hug",
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-optional-shapes preserves every compiled value deterministically
+AssertionError: expected { Object (name, grid, ...) } to deeply equal { anima: '0.1', …(6) }
+
+- Expected
++ Received
+
+@@ -14,37 +14,11 @@
+      },
+    },
+    "name": "layout-optional-shapes",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "cx": 0,
+-           "cy": 0,
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "id": "ellipse",
+-           "rx": 1,
+-           "ry": 3,
+-           "type": "ellipse",
+-         },
+-         {
+-           "cx": 0,
+-           "cy": 0,
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "id": "polygon",
+-           "radius": 3,
+-           "sides": 4,
+-           "type": "polygon",
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": "hug",
+        "id": "root",
+        "type": "layout",
+        "width": "hug",
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-paint preserves every compiled value deterministically
+AssertionError: expected { Object (name, grid, ...) } to deeply equal { anima: '0.1', …(6) }
+
+- Expected
++ Received
+
+@@ -17,45 +17,17 @@
+      },
+    ],
+    "name": "layout-paint",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+        "fill": {
+          "color": "#f0eee6",
+        },
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-participants preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-participants', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,43 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-participants",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "center": [
+-             2,
+-             2,
+-           ],
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "id": "b",
+-           "r": 2,
+-           "type": "circle",
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-self-alignment preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-self-alignment', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,45 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-self-alignment",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "layout": {
+-             "alignSelf": "end",
+-           },
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-size-bounds preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-size-bounds', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,49 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-size-bounds",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "layout": {
+-             "minWidth": 5,
+-             "width": 2,
+-           },
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "layout": {
+-             "maxWidth": 3,
+-           },
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-spacing preserves every compiled value deterministically
+SyntaxError: Unexpected non-whitespace character after JSON at position 2 (line 1 column 3)
+ ❯ scalar packages/markup/test/decompile.test.ts:28:80
+     26| const attrs = (e: Element) => Object.fromEntries(e.attrs.map((a) => [a…
+     27| const scalar = (s: string): unknown =>
+     28|   s.startsWith('"') || s === 'true' || s === 'false' || /^-?\d/.test(s…
+       |                                                                                ^
+     29| const vector = (s: string) => s.split(/\s+/).map(Number);
+     30| const recoverStyle = (e: Element): Obj => {
+ ❯ node packages/markup/test/decompile.test.ts:133:19
+ ❯ recover packages/markup/test/decompile.test.ts:362:77
+ ❯ check packages/markup/test/decompile.test.ts:620:10
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/34]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > layout-visibility preserves every compiled value deterministically
+AssertionError: expected { name: 'layout-visibility', …(4) } to deeply equal { anima: '0.1', …(4) }
+
+- Expected
++ Received
+
+@@ -2,56 +2,14 @@
+    "anima": "0.1",
+    "grid": 20,
+    "name": "layout-visibility",
+    "nodes": [
+      {
+-       "children": [
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "a",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 3,
+-           "id": "b",
+-           "layout": {
+-             "display": "none",
+-           },
+-           "type": "rect",
+-           "w": 4,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-         {
+-           "fill": {
+-             "color": "#000",
+-           },
+-           "h": 2,
+-           "id": "c",
+-           "type": "rect",
+-           "w": 2,
+-           "x0": 0,
+-           "y0": 0,
+-         },
+-       ],
+-       "gap": [
+-         1,
+-       ],
++       "gap": 1,
+        "height": 10,
+        "id": "root",
+-       "padding": [
+-         1,
+-       ],
++       "padding": 1,
+        "type": "layout",
+        "width": 16,
+        "x": 2,
+        "y": 2,
+      },
+
+ ❯ check packages/markup/test/decompile.test.ts:620:25
+    618|             ((expected.components as Obj)[attrs(e).name!] as Obj).outp…
+    619|           );
+    620|         } else expect(attrOrder(e.name)).toContain(a.name);
+       |                         ^
+    621|       }
+    622|     elements(e).forEach(names);
+ ❯ packages/markup/test/decompile.test.ts:625:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/34]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > opens the built-in example without write access
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/playground/test/browser.test.ts:214:5
+    212|       );
+    213|     });
+    214|     it('opens the built-in example without write access', async () => {
+       |     ^
+    215|       await host.close();
+    216|       host = await startPlayground({ port: 0, html });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/34]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > opens the built-in example without write access
+Error: Server is not running.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/34]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > maps every role to a real element, with heading levels and state attributes
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:92:5
+     90|       await browser?.close();
+     91|     });
+     92|     beforeEach(async () => {
+       |     ^
+     93|       page = await browser.newPage();
+     94|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/34]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > maps every role to a real element, with heading levels and state attributes
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:114:18
+    112|     });
+    113|     afterEach(async () => {
+    114|       await page.close();
+       |                  ^
+    115|     });
+    116|     const target = (id: string) => page.locator(`[data-semantic="${id}…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/34]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/34]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:154:5
+    152|       }
+    153|     });
+    154|     it('enforces local policy; provides detached metadata and lazy cac…
+       |     ^
+    155|       const browser = await shared.newContext();
+    156|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/34]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes original WAV bytes without consuming the cached buffer
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:250:5
+    248|       }
+    249|     });
+    250|     it('host-decodes original WAV bytes without consuming the cached b…
+       |     ^
+    251|       const source =
+    252|         'data:audio/wav;base64,' +
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/34]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes genuine mp3 source with independently known frame counts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:302:29
+    300|       }
+    301|     });
+    302|     it.each(['flac', 'mp3'])(
+       |                             ^
+    303|       'host-decodes genuine %s source with independently known frame c…
+    304|       async (ext) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/34]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:488:31
+    486|       }
+    487|     });
+    488|     it.each(['svg', 'canvas'])(
+       |                               ^
+    489|       'matches independently enumerated repeat/mirror/clamp texels in …
+    490|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/34]⎯
+
+ FAIL  |scope-browser| modules/events/test/web/events.browser.test.ts > events in Firefox > plays a trusted repeated-row click (nested=false), using its scoped clip
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/events/test/web/events.browser.test.ts:101:27
+     99|       await page.close();
+    100|     });
+    101|     it.each([false, true])(
+       |                           ^
+    102|       'plays a trusted repeated-row click (nested=%s), using its scope…
+    103|       async (nested) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/34]⎯
+
+ FAIL  |scope-browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-edit/test/web/components.test.ts:50:7
+     48|     });
+     49|     for (const order of [entries, ['index', ...entries.slice(1).revers…
+     50|       it(
+       |       ^
+     51|         'keeps typed host changes and keyframes local across separatel…
+     52|           order.join(','),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/34]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > maps client positions through the actual SVG viewport matrix
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:73:5
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+     73|     beforeEach(async () => {
+       |     ^
+     74|       page = await browser.newPage();
+     75|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/34]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > recovers a connected document when motion registers late
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:280:5
+    278|     });
+    279|
+    280|     it('recovers a connected document when motion registers late', asy…
+       |     ^
+    281|       const other = await browser.newPage();
+    282|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/34]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:42:7
+     40|       ['index', 'nested', 'data', 'bind', 'components'],
+     41|     ])
+     42|       it('swaps live SVG/canvas instances with separate bundles: ' + o…
+       |       ^
+     43|         const page = await browser.newPage();
+     44|         try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/34]⎯
+
+
+ Test Files  10 failed | 296 passed | 13 skipped (319)
+      Tests  32 failed | 9453 passed | 52 todo (9537)
+   Start at  10:48:54
+   Duration  610.49s (tests 89%, import 10%, transform 1%)

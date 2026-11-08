@@ -251,10 +251,13 @@ function attach(icon: AnimaIcon) {
       icon.dispatchEvent(new CustomEvent('anima:semantics', { detail: diff }));
   };
   roots.set(icon, () => {
+    // seam(P7-8): optional painted bounds can change a settled tree without a step.
+    if (p.semantics() !== tree) update();
     if (!box.isConnected) {
       icon.shadowRoot!.append(style, box);
       update();
     }
+    if (Icon.viewBox) layout(); // seam(P7-3): only host-fit needs draw-time matrix refresh.
   });
   const step = p.step;
   p.step = function (...args) {
@@ -266,7 +269,8 @@ function attach(icon: AnimaIcon) {
   const observer = new MutationObserver(update);
   observer.observe(icon, {
     attributes: true,
-    attributeFilter: ['a11y', 'aria-hidden', 'fit', 'align'],
+    // seam(P7-3): the canonical alignment attribute also moves semantic bounds.
+    attributeFilter: ['a11y', 'aria-hidden', 'fit', 'align', 'alignment'],
   });
   const resize = new ResizeObserver(layout);
   resize.observe(icon);

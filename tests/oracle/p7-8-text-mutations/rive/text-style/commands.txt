@@ -1,0 +1,4 @@
+screenshot frames/initial.png
+data-dump frames/data.json
+advance 1s
+screenshot frames/settled.png

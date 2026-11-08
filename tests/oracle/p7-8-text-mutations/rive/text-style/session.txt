@@ -1,0 +1,13 @@
+ok screenshot: frames/initial.png
+ok data-dump: frames/data.json
+ok advance
+ok screenshot: frames/settled.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[13:34:21.581] rive  deferred replay: inline
+[13:34:21.586] rive  built (8285 bytes, 4ms, 0 errors, 0 warnings)
+[13:34:21.586] rive  showing Probe [1/1]
+[13:34:21.586] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[13:34:21.592] rive  wrote frames/initial.png
+[13:34:21.592] rive  wrote frames/data.json
+[13:34:21.595] rive  wrote frames/settled.png

@@ -1,0 +1,151 @@
+<Rive version="1" kind="fragment">
+  <Artboard name="Reflow" id="0:2" width="480" height="360" styleId="0:3"
+    viewModelId="0:100" viewModelInstanceId="0:110" defaultStateMachineId="0:7">
+    <LayoutComponentStyle id="0:3" flexDirectionValue="column"/>
+    <LayoutComponent name="Card" id="0:10" styleId="0:11">
+      <SemanticData role="group" label="Card"/>
+      <LayoutComponentStyle id="0:11" layoutWidthScaleType="fill" layoutHeightScaleType="fill"
+        flexDirectionValue="column" layoutAlignmentType="topLeft" gapVertical="12"
+        paddingLeft="18" paddingRight="18" paddingTop="18" paddingBottom="18"
+        cornerRadiusTL="18" cornerRadiusTR="18" cornerRadiusBL="18" cornerRadiusBR="18"/>
+      <Fill><SolidColor colorValue="FFF0EEE6"/></Fill>
+      <Text name="Title" sizingValue="autoWidth" wrapValue="noWrap">
+      <SemanticData role="text" label="Title"/>
+      <LayoutParticipant layoutWidthScaleType="hug" layoutHeightScaleType="hug" hugUnbounded="true"/>
+      <TextStylePaint id="0:15" fontSize="24" fontAssetId="0:90">
+        <Fill><SolidColor colorValue="FF141413"/></Fill>
+      </TextStylePaint>
+      <TextValueRun styleId="0:15" text="Reflow card"><DataBindContext sourcePathIds="0:100-0:102" propertyKey="268"/></TextValueRun>
+    </Text>
+      <LayoutComponent name="Button" id="0:20" styleId="0:21">
+      <DataBindContext sourcePathIds="0:100-0:109" propertyKey="7"/>
+      <SemanticData role="group" label="Button"/>
+      <LayoutComponentStyle id="0:21" layoutWidthScaleType="fixed"
+        layoutHeightScaleType="hug" flexDirectionValue="row" layoutAlignmentType="centerLeft"
+        paddingLeft="12" paddingRight="12" paddingTop="6" paddingBottom="6"
+        cornerRadiusTL="8" cornerRadiusTR="8" cornerRadiusBL="8" cornerRadiusBR="8" />
+      <Fill><SolidColor colorValue="FFD97757"/></Fill>
+      <Text name="Button label" sizingValue="autoWidth" wrapValue="noWrap">
+      <DataBindContext sourcePathIds="0:100-0:108" propertyKey="810" direction="true"/>
+      <SemanticData role="text" label="Button label"/>
+      <LayoutParticipant layoutWidthScaleType="hug" layoutHeightScaleType="hug" hugUnbounded="true"/>
+      <TextStylePaint id="0:25" fontSize="19.2" fontAssetId="0:90">
+        <Fill><SolidColor colorValue="FF141413"/></Fill>
+      </TextStylePaint>
+      <TextValueRun styleId="0:25" text="Save"><DataBindContext sourcePathIds="0:100-0:103" propertyKey="268"/></TextValueRun>
+    </Text>
+    </LayoutComponent>
+      <LayoutComponent name="Chips row" id="0:30" styleId="0:31">
+        <SemanticData role="group" label="Chips row"/>
+        <LayoutComponentStyle id="0:31" layoutWidthScaleType="fill" layoutHeightScaleType="hug"
+          flexDirectionValue="row" gapHorizontal="6"/>
+        <LayoutComponent name="Chip 1" id="0:40" styleId="0:41">
+      <SemanticData role="group" label="Chip 1"/>
+      <LayoutComponentStyle id="0:41" layoutWidthScaleType="hug"
+        layoutHeightScaleType="hug" flexDirectionValue="row" layoutAlignmentType="centerLeft"
+        paddingLeft="12" paddingRight="12" paddingTop="6" paddingBottom="6"
+        cornerRadiusTL="8" cornerRadiusTR="8" cornerRadiusBL="8" cornerRadiusBR="8" />
+      <Fill><SolidColor colorValue="FFE3DACC"/></Fill>
+      <Text name="Chip 1 label" sizingValue="autoWidth" wrapValue="noWrap">
+      <SemanticData role="text" label="Chip 1 label"/>
+      <LayoutParticipant layoutWidthScaleType="hug" layoutHeightScaleType="hug" hugUnbounded="true"/>
+      <TextStylePaint id="0:42" fontSize="16.8" fontAssetId="0:90">
+        <Fill><SolidColor colorValue="FF141413"/></Fill>
+      </TextStylePaint>
+      <TextValueRun styleId="0:42" text="One"><DataBindContext sourcePathIds="0:100-0:104" propertyKey="268"/></TextValueRun>
+    </Text>
+    </LayoutComponent><LayoutComponent name="Chip 2" id="0:50" styleId="0:51">
+      <SemanticData role="group" label="Chip 2"/>
+      <LayoutComponentStyle id="0:51" layoutWidthScaleType="fill"
+        layoutHeightScaleType="hug" flexDirectionValue="row" layoutAlignmentType="centerLeft"
+        paddingLeft="12" paddingRight="12" paddingTop="6" paddingBottom="6"
+        cornerRadiusTL="8" cornerRadiusTR="8" cornerRadiusBL="8" cornerRadiusBR="8" />
+      <Fill><SolidColor colorValue="FFE3DACC"/></Fill>
+      <Text name="Chip 2 label" sizingValue="autoWidth" wrapValue="noWrap">
+      <SemanticData role="text" label="Chip 2 label"/>
+      <LayoutParticipant layoutWidthScaleType="hug" layoutHeightScaleType="hug" hugUnbounded="true"/>
+      <TextStylePaint id="0:52" fontSize="16.8" fontAssetId="0:90">
+        <Fill><SolidColor colorValue="FF141413"/></Fill>
+      </TextStylePaint>
+      <TextValueRun styleId="0:52" text="Flexible"><DataBindContext sourcePathIds="0:100-0:105" propertyKey="268"/></TextValueRun>
+    </Text>
+    </LayoutComponent><LayoutComponent name="Chip 3" id="0:60" styleId="0:61">
+      <SemanticData role="group" label="Chip 3"/>
+      <LayoutComponentStyle id="0:61" layoutWidthScaleType="hug"
+        layoutHeightScaleType="hug" flexDirectionValue="row" layoutAlignmentType="centerLeft"
+        paddingLeft="12" paddingRight="12" paddingTop="6" paddingBottom="6"
+        cornerRadiusTL="8" cornerRadiusTR="8" cornerRadiusBL="8" cornerRadiusBR="8" />
+      <Fill><SolidColor colorValue="FFE3DACC"/></Fill>
+      <Text name="Chip 3 label" sizingValue="autoWidth" wrapValue="noWrap">
+      <SemanticData role="text" label="Chip 3 label"/>
+      <LayoutParticipant layoutWidthScaleType="hug" layoutHeightScaleType="hug" hugUnbounded="true"/>
+      <TextStylePaint id="0:62" fontSize="16.8" fontAssetId="0:90">
+        <Fill><SolidColor colorValue="FF141413"/></Fill>
+      </TextStylePaint>
+      <TextValueRun styleId="0:62" text="Three"><DataBindContext sourcePathIds="0:100-0:106" propertyKey="268"/></TextValueRun>
+    </Text>
+    </LayoutComponent>
+      </LayoutComponent>
+    </LayoutComponent>
+    <ScriptedDrawable name="Width motion" scriptAssetId="0:130"/>
+    <StateMachine name="Card state" id="0:7">
+      <StateMachineLayer name="Chip visibility">
+        <AnyState x="180" y="-120"/>
+        <ExitState x="360" y="-120"/>
+        <EntryState x="0" y="0"><StateTransition stateToId="0:71"/></EntryState>
+        <AnimationState id="0:71" x="180" y="0" animationId="0:81">
+          <StateTransition stateToId="0:72" duration="0">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator><BindablePropertyBoolean>
+                <DataBindContext sourcePathIds="0:100-0:107" propertyKey="634"/>
+              </BindablePropertyBoolean></TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="true"/>
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:72" x="360" y="80" animationId="0:82">
+          <StateTransition stateToId="0:71" duration="0">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator><BindablePropertyBoolean>
+                <DataBindContext sourcePathIds="0:100-0:107" propertyKey="634"/>
+              </BindablePropertyBoolean></TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false"/>
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+    <LinearAnimation name="Chip shown" id="0:81" duration="1">
+      <KeyedObject objectId="0:61"><KeyedProperty propertyKey="596">
+        <KeyFrameUint value="0" interpolationType="hold"/>
+      </KeyedProperty></KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Chip hidden" id="0:82" duration="1">
+      <KeyedObject objectId="0:61"><KeyedProperty propertyKey="596">
+        <KeyFrameUint value="1" interpolationType="hold"/>
+      </KeyedProperty></KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <FontAsset name="Anima Test" id="0:90" file="anima-test.ttf"/>
+  <ViewModel name="CardData" id="0:100" defaultInstanceId="0:110">
+    <ViewModelPropertyString name="title" id="0:102"/>
+    <ViewModelPropertyString name="buttonLabel" id="0:103"/>
+    <ViewModelPropertyString name="chip1Label" id="0:104"/>
+    <ViewModelPropertyString name="chip2Label" id="0:105"/>
+    <ViewModelPropertyString name="chip3Label" id="0:106"/>
+    <ViewModelPropertyNumber name="buttonWidth" id="0:109"/>
+    <ViewModelPropertyNumber name="buttonTextWidth" id="0:108"/>
+    <ViewModelPropertyBoolean name="hideChip3" id="0:107"/>
+    <ViewModelInstance name="Default" id="0:110" exports="true">
+      <ViewModelInstanceString viewModelPropertyId="0:102" propertyValue="Reflow card"/>
+      <ViewModelInstanceString viewModelPropertyId="0:103" propertyValue="Save"/>
+      <ViewModelInstanceString viewModelPropertyId="0:104" propertyValue="One"/>
+      <ViewModelInstanceString viewModelPropertyId="0:105" propertyValue="Flexible"/>
+      <ViewModelInstanceString viewModelPropertyId="0:106" propertyValue="Three"/>
+      <ViewModelInstanceNumber viewModelPropertyId="0:109" propertyValue="24"/>
+      <ViewModelInstanceNumber viewModelPropertyId="0:108" propertyValue="0"/>
+      <ViewModelInstanceBoolean viewModelPropertyId="0:107" propertyValue="false"/>
+    </ViewModelInstance>
+  </ViewModel>
+  <ScriptAsset id="0:130" name="Width motion" file="width-motion.luau"/>
+</Rive>

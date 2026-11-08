@@ -48,6 +48,22 @@ export function invalidateText(p: Player): void {
 export function textLayout(p: Player, i: number): TextLayout {
   return resolveText(p, i).layout;
 }
+/** Text-local box and first visible baseline; constrained probes do not replace drawing layout. */
+export function measureText(p: Player, nodeId: string | number, maxWidth?: number) {
+  const module = p.model.drawModules?.find((m) => m.name === 'text') as TextModule | undefined;
+  const i = typeof nodeId === 'number' ? nodeId : p.model.ids.get(nodeId);
+  if (!module || i === undefined || String(p.model.nodes[i]?.type) !== 'text') return;
+  let layout: TextLayout;
+  if (maxWidth === undefined) layout = module.textLayout(p, i);
+  else {
+    const input = module.input(p, i);
+    const sizing = textSizing(input);
+    input.sizing = sizing === 'fixed' ? 'fixed' : 'auto-height';
+    input.width = sizing === 'auto-width' ? maxWidth : Math.min(input.width ?? Infinity, maxWidth);
+    layout = module.fonts?.prepareText?.(p, input)?.layout ?? module.layout(input, module.overflow);
+  }
+  return { width: layout.width, height: layout.height, baseline: layout.lines[0]?.baseline ?? 0 };
+}
 function textInput(p: Player, i: number): LayoutInput {
   const raw = p.model.nodes[i]!.raw;
   const read = (v: string) => (v.startsWith('$') ? data?.dataState(p)?.read(v) : v);
@@ -86,7 +102,7 @@ function resolveText(p: Player, i: number) {
   if (!state) cache.set(p, (state = new Map()));
   let value = state.get(i);
   if (!value || value.signature !== signature) {
-    value = { signature, input, layout: prepared?.layout ?? layoutText(input) };
+    value = { signature, input, layout: prepared?.layout ?? layoutText(input, text.overflow) };
     state.set(i, value);
     // seam(P6-9b): semantic readers may refresh layout before afterStep checks it.
     p.drawVersions[i] = ++p.drawRevision;
@@ -120,11 +136,15 @@ const paint = (
       } as DrawPaint)
     : undefined;
 export interface TextModule extends Module {
+  overflow?: import('./overflow.ts').TextOverflow;
+  fonts?: import('../../fonts/core/index.ts').FontModule;
   // seam(P6-7): optional text-hit listener adapter.
   hitTest?: (p: Player, i: number, x: number, y: number) => number;
+  layout: typeof layoutText;
   invalidateText: typeof invalidateText;
   textLayout: typeof textLayout;
   input: typeof textInput;
+  paint: typeof paint;
   override?: (player: Player, node: number, run: string | number) => string | undefined;
   textRun?: TextRunAccess;
 }
@@ -132,13 +152,19 @@ export const text: TextModule = {
   name: 'text',
   after,
   entries,
+  layout: layoutText,
   invalidateText,
   textLayout,
   input: textInput,
+  paint,
   init(registry, shared) {
+    // Live paint shapes belong to the active registry, including separately emitted bundles.
+    styleShape.p.fill = shared.FILL;
+    styleShape.p.stroke = shared.STROKE;
+    Object.assign((entries[0]!.elements!.style!.shape as ObjShape).p, styleShape.p);
     if (V) installTextHit(text); // seam(P6-7): stripped from the display bundle.
     data = registry.get('data') as typeof data;
-    fonts = registry.get('fonts') as typeof fonts;
+    text.fonts = fonts = registry.get('fonts') as typeof fonts;
     fonts?.use(entries, registerTextMeasurer); // seam(P6-13): optional font registry fields.
     if (data) {
       const models = ((shared.DOC as ObjShape).p.data as ObjShape).p.models as Extract<

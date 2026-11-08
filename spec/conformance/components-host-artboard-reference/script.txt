@@ -1,0 +1,5 @@
+advance 0
+snapshot rows/0/body/dot.r rows/1/body/dot.r
+set $items.0.content "back"
+advance 0
+snapshot rows/0/body/box.w rows/1/body/dot.r

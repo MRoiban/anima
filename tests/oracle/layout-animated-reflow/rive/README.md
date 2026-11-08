@@ -1,0 +1,1 @@
+Independent authored fixed/fill layout reflow driven by live numeric data. Capture: python3 modules/layout/verification/p7-4/capture.py. Initial/mutated/start/middle/retarget/end samples are retained even where they disagree. No native source or binary is read.

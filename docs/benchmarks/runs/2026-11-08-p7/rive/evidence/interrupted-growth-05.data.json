@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "artboard": "Reflow",
+  "stateMachine": "Card state",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "CardData",
+    "properties": [
+      {
+        "name": "title",
+        "path": "title",
+        "type": "string",
+        "value": "Reflow card",
+        "changed": false
+      },
+      {
+        "name": "buttonLabel",
+        "path": "buttonLabel",
+        "type": "string",
+        "value": "Save changes",
+        "changed": true
+      },
+      {
+        "name": "chip1Label",
+        "path": "chip1Label",
+        "type": "string",
+        "value": "One",
+        "changed": false
+      },
+      {
+        "name": "chip2Label",
+        "path": "chip2Label",
+        "type": "string",
+        "value": "Flexible",
+        "changed": false
+      },
+      {
+        "name": "chip3Label",
+        "path": "chip3Label",
+        "type": "string",
+        "value": "Three",
+        "changed": false
+      },
+      {
+        "name": "buttonWidth",
+        "path": "buttonWidth",
+        "type": "number",
+        "value": 94.0901031,
+        "changed": true
+      },
+      {
+        "name": "buttonTextWidth",
+        "path": "buttonTextWidth",
+        "type": "number",
+        "value": 132.496872,
+        "changed": true
+      },
+      {
+        "name": "hideChip3",
+        "path": "hideChip3",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

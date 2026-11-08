@@ -1,0 +1,15 @@
+{
+  "status": "skip",
+  "reason": "Intentional Anima difference in retargeting only. With one positive native update frame (native reflow does not start on an advance(0) boundary), native and Anima agree at the initial, start, midpoint and settled samples (max channel delta 1, zero pixels over 16). After a mid-flight retarget, Anima continues from the currently drawn box at progress zero (spec: layout reflow contract, like a CSS transition retarget), while the native runtime draws a different intermediate path; those two samples differ by geometry (192 and 576 pixels over 16). This is the decided P7 behaviour (design/p7/DESIGN.md §4, no snap on retarget), not a tolerance question, so no strict comparison is claimed for the retarget samples.",
+  "tests": [
+    "modules/layout/test/core/layout-animated-reflow.test.ts",
+    "modules/layout/test/web/reflow.test.ts",
+    "spec/conformance/layout-animated-reflow"
+  ],
+  "captureEvidence": [
+    "tests/oracle/layout-animated-reflow/rive/scene.rml",
+    "tests/oracle/layout-animated-reflow/rive/commands.txt",
+    "modules/layout/verification/p7-4/native-metrics.json",
+    "modules/layout/verification/p7-4/primed-metrics.json"
+  ]
+}

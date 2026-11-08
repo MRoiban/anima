@@ -34,6 +34,8 @@ interface Info {
 const info = new WeakMap<Model, Info>();
 export type ComponentModule = EventModule & {
   placements: WeakMap<NodeM, Map<string, Model>>;
+  // seam(P7-5): validated component models for cross-document values.
+  catalog: WeakMap<Model, Map<string, Model>>;
   selected?: (parent: Player, node: NodeM) => boolean;
   choices?: (model: Model, node: NodeM) => string[] | undefined;
   configure?: (parent: Player, child: Player, node: NodeM) => void;
@@ -52,6 +54,8 @@ export type ComponentModule = EventModule & {
   ) => ReturnType<ModuleRegistry['load']>;
 };
 const placements = new WeakMap<NodeM, Map<string, Model>>();
+// seam(P7-5): lexical catalogs never contain player state.
+const catalog = new WeakMap<Model, Map<string, Model>>();
 // Synchronous loader context: definitions are lexical to the enclosing document, never global.
 interface Context {
   definitions: Model['doc'];
@@ -74,10 +78,14 @@ function create(
   return {
     eventKinds,
     placements,
+    catalog,
     forkModel(source, target) {
       const i = info.get(source);
       if (i) info.set(target, i);
       target.inheritedData = source.inheritedData;
+      // seam(P7-5): dynamic player models retain their lexical component catalog.
+      const models = catalog.get(source);
+      if (models) catalog.set(target, models);
     },
     name: 'components',
     after,
@@ -168,6 +176,9 @@ function create(
         data: model.doc.data,
         used: new Set(),
       });
+      // seam(P7-5): retain both placed and validated unused components.
+      const models = new Map<string, Model>();
+      catalog.set(model, models);
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
       const err = (code: string, pointer: string, message: string) =>
@@ -200,6 +211,7 @@ function create(
         ctx.used.add(name);
         if (ctx.cache.has(key)) {
           const child = ctx.cache.get(key);
+          if (child) models.set(name, child);
           return child;
         }
         if (!Object.hasOwn(ctx.definitions, name) || name === '$comment') {
@@ -262,6 +274,7 @@ function create(
               : ptr('/components', name) + d.pointer,
           });
         ctx.cache.set(key, result.model);
+        if (result.model) models.set(name, result.model);
         return result.model;
       };
       try {
@@ -287,6 +300,8 @@ function create(
           const names = active?.choices?.(model, node) ?? [node.raw.component];
           const choices = new Map<string, Model>();
           for (const name of names) {
+            // seam(P7-5): a dynamic choice cannot recursively instantiate an ancestor.
+            if (node.raw.component.startsWith('$') && ctx.stack.has(name)) continue;
             const child = component(
               name,
               pointer + '/component',

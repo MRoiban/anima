@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: Anima honors CSS-style per-child align-self. A native child LayoutComponentStyle alignSelfValue=flexEnd builds without errors but remains at y=36px rather than the equivalent allocated y=96px; raw frames/session are retained. The parent native positional picker works in the separate alignment probes. No widened raster tolerance or manually positioned replacement is used.",
+  "tests": ["modules/layout/test/core/layout.test.ts", "spec/conformance/layout-self-alignment"],
+  "captureEvidence": [
+    "tests/oracle/layout-self-alignment/rive/scene.rml",
+    "tests/oracle/layout-self-alignment/rive/frames/0.png",
+    "tests/oracle/layout-self-alignment/rive/session.txt"
+  ]
+}

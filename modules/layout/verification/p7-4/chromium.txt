@@ -1,0 +1,52 @@
+
+> test:scope
+> node tools/test-scope.ts layout host-fit --browser=chromium
+
+Scopes: layout, host-fit
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout-animated-reflow.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/layout/test/web/reflow.test.ts
+  cases: ^conformance > (data-bind-layout|layout-alignment|layout-animated-reflow|layout-baseline|layout-bound-hug|layout-containers|layout-fill-bounds-difference|layout-fill-sizing|layout-fixed-sizing|layout-flex-align-items|layout-flex-direction|layout-flex-justify|layout-hug-sizing|layout-image-intrinsic|layout-intrinsic|layout-optional-shapes|layout-paint|layout-participants|layout-self-alignment|layout-size-bounds|layout-spacing|layout-text-wrap|layout-visibility)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-6709f12a
+
+ ❯ |scope-conformance| packages/core/test/conformance.test.ts (613 tests | 1 failed | 590 skipped) 1009ms
+   ❯ conformance (613)
+     × layout-text-wrap 88ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > layout-text-wrap
+AssertionError: snapshot 2: expected '.values.label.layoutBox.height: 2.2 ≠…' to be null
+
+- Expected:
+null
+
++ Received:
+".values.label.layoutBox.height: 2.2 ≠ 2"
+
+ ❯ packages/core/test/conformance.test.ts:65:75
+     63|         .map((l) => JSON.parse(l));
+     64|       expect(got.length).toBe(want.length);
+     65|       want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1…
+       |                                                                           ^
+     66|     });
+     67|   }
+ ❯ packages/core/test/conformance.test.ts:65:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 10 passed (11)
+      Tests  1 failed | 3309 passed | 627 skipped (3937)
+   Start at  12:30:14
+   Duration  13.89s (tests 62%, transform 19%, import 19%)

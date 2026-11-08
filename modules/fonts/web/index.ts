@@ -21,6 +21,20 @@ export class FontController {
     if (!child) this.children.set(model, (child = new FontController(this.icon)));
     return child;
   }
+  // seam(P7-7): a host value captures faces without retaining the source controller/host.
+  capture(): (target: FontController) => void {
+    const families = new Map(this.families),
+      faces = new Set(this.faces),
+      fallback = [...this.fallback],
+      fallbackFaces = new Set(this.fallbackFaces);
+    return (target) => {
+      for (const face of faces) target.retain(face);
+      target.families = new Map(families);
+      target.fallback = [...fallback];
+      target.fallbackFaces = new Set(fallbackFaces);
+      target.revision++;
+    };
+  }
   private families = new Map<string, string>();
   private faces = new Set<FontFace>();
   private fallback: string[] = [];
@@ -198,7 +212,11 @@ if (!Object.getOwnPropertyDescriptor(Icon.prototype, 'fonts')) {
       const components = Icon.modules.get('components') as
         import('../../components/core/index.ts').ComponentModule | undefined;
       await Promise.all(
-        model.nodes.flatMap((n) => [...(components?.placements.get(n)?.values() ?? [])]).map(load),
+        // seam(P7-7): host-assignable unused definitions need resolved resources too.
+        [
+          ...(components?.catalog.get(model)?.values() ?? []),
+          ...model.nodes.flatMap((n) => [...(components?.placements.get(n)?.values() ?? [])]),
+        ].map(load),
       );
     };
     await load(model);

@@ -1644,8 +1644,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
-      "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: measured text layout boxes are independently tested with both measurers, clipping, transforms and cache invalidation. Exact painted path/stroke extents remain unimplemented (outside the owned text consumer); native/tool automatic line-gap difference is retained. This broader row stays planned without a widened tolerance."
+      "phase": "P8",
+      "reason": "Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned."
     }
   },
   {
@@ -4354,12 +4354,12 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
-      "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/components-host-artboard-reference/registry.ts; modules/data-artboard/capabilities/components-host-artboard-reference/example.animl",
+      "module": "data-artboard",
+      "status": "done",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/components-host-artboard-reference; tests/oracle/components-host-artboard-reference/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts."
     }
   },
   {
@@ -5346,10 +5346,10 @@
       "rive-runtime/include/rive/layout/layout_component_style.hpp:17@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl",
-      "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/data-bind-layout/example.animl",
+      "module": "layout",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
       "phase": "P7"
     }
   },
@@ -7841,12 +7841,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
-      "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/data-host-artboard/registry.ts; modules/data-artboard/capabilities/data-host-artboard/example.animl",
+      "module": "data-artboard",
+      "status": "done",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/data-host-artboard; tests/oracle/data-host-artboard/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts."
     }
   },
   {
@@ -9113,10 +9113,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
+      "reason": "P7-8: existing typed shared-style setters/clear/rejections and tool/both-engine SVG/canvas drawing pass. Retrying an alternate initial instance style assignment still exposes an empty native artboard value and unchanged normal text; live writes were already rejected. Captures/dumps retained in the evidenced native observation skip."
     }
   },
   {
@@ -15202,10 +15202,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomCenter\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15231,10 +15231,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15260,10 +15260,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"BottomRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"bottom-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-bottom-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15289,10 +15289,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"Center\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15318,10 +15318,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"CenterLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15347,10 +15347,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"CenterRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"center-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-center-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15376,10 +15376,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopCenter\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-center\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-center",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15405,10 +15405,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopLeft\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-left\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-left",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15434,10 +15434,10 @@
       "rive-wasm/js/src/rive.ts:88@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon align=\"TopRight\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon alignment=\"top-right\"> (icon.alignment); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/align-top-right",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15523,10 +15523,10 @@
       "rive-wasm/js/src/rive.ts:4944@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: scene width/height overrides",
+      "construct": "modules/host-fit/web/index.ts: icon.size / icon.resetSize(); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/artboard-size",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/skip.json; modules/host-fit/verification/native/session.txt (no headless native counterpart; evidenced skip); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     }
   },
@@ -15772,12 +15772,12 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
-      "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-bindable-artboards/registry.ts; modules/data-artboard/capabilities/host-api-bindable-artboards/example.animl",
+      "module": "data-artboard",
+      "status": "done",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-bindable-artboards; tests/oracle/host-api-bindable-artboards/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts."
     }
   },
   {
@@ -15879,12 +15879,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
-      "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-data-artboard/registry.ts; modules/data-artboard/capabilities/host-api-data-artboard/example.animl",
+      "module": "data-artboard",
+      "status": "done",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-data-artboard; tests/oracle/host-api-data-artboard/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-7: queued local/external artboard values preserve lexical definitions and compatible inherited/explicit model contexts. Browser values adopt resolved source-load image catalogs and font faces per instance, including unused/nested components, shared declarations with distinct resolvers, resource-free destinations, source reload/destroy, clearing/reassignment and cleanup. Both engines cover SVG/canvas. Structural model mismatches diagnose artboard-model before rebinding. Native host-assignment comparisons remain the evidenced CLI skips in modules/data-artboard/NATIVE.md. Resource lifecycle evidence: modules/data-artboard/test/web/resources.test.ts."
     }
   },
   {
@@ -16694,10 +16694,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"contain\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"contain\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-contain",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16729,10 +16729,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"cover\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"cover\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-cover",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16764,10 +16764,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fill\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fill\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fill",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16799,10 +16799,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fit-height\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fit-height\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fit-height",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16834,10 +16834,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"fit-width\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"fit-width\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-fit-width",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16869,10 +16869,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"layout\">",
+      "construct": "<anima-icon fit=\"layout\"> / icon.fit; host-fit/web and layout per-player root sizing (spec/SPEC.md, modules/layout/SPEC.md)",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-layout",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts (real root/child resize and byte-exact native frames, SVG/canvas, both engines); tests/oracle/host-api-fit-layout/skip.json",
       "phase": "P7"
     },
     "aliases": [
@@ -16904,10 +16904,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"none\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"none\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-none",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -16939,10 +16939,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"scale-down\">",
+      "construct": "modules/host-fit/web/index.ts: <anima-icon fit=\"scale-down\"> (icon.fit); docs/WEB.md",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-scale-down",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md",
       "phase": "P7"
     },
     "aliases": [
@@ -21306,10 +21306,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-alignment/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-alignment",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-alignment; tests/oracle/layout-alignment",
       "phase": "P7"
     }
   },
@@ -21337,12 +21337,11 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts reflow / layout.reflow; optional @anima-format/web/layout-reflow; modules/layout/examples/reflow.animl; modules/layout/SPEC.md",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-animated-reflow",
-      "phase": "P7",
-      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
+      "status": "done",
+      "test": "modules/layout/test/core/layout-animated-reflow.test.ts; modules/layout/test/web/reflow.test.ts; spec/conformance/layout-animated-reflow; tests/oracle/layout-animated-reflow/skip.json (retarget: intentional difference)",
+      "phase": "P7"
     }
   },
   {
@@ -21491,10 +21490,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-containers/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-containers",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-containers; tests/oracle/layout-containers",
       "phase": "P7"
     }
   },
@@ -21585,10 +21584,10 @@
       "rive-runtime/include/rive/generated/layout/layout_participant_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fill-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-fill-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fill-sizing; tests/oracle/layout-fill-sizing",
       "phase": "P7"
     }
   },
@@ -21619,10 +21618,10 @@
       "rive-runtime/include/rive/generated/layout/layout_node_style_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fixed-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-fixed-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fixed-sizing; tests/oracle/layout-fixed-sizing",
       "phase": "P7"
     }
   },
@@ -21676,10 +21675,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-align-items/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-align-items",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-align-items; tests/oracle/layout-flex-align-items",
       "phase": "P7"
     }
   },
@@ -21734,10 +21733,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-direction/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-direction",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-direction; tests/oracle/layout-flex-direction",
       "phase": "P7"
     }
   },
@@ -21793,10 +21792,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-justify/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-justify",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-justify; tests/oracle/layout-flex-justify",
       "phase": "P7"
     }
   },
@@ -21974,10 +21973,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-hug-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-hug-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-hug-sizing; tests/oracle/layout-hug-sizing",
       "phase": "P7"
     }
   },
@@ -22002,10 +22001,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-intrinsic/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-intrinsic",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-intrinsic; tests/oracle/layout-intrinsic",
       "phase": "P7"
     }
   },
@@ -22127,10 +22126,10 @@
       "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-paint/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-paint",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-paint; tests/oracle/layout-paint",
       "phase": "P7"
     }
   },
@@ -22159,10 +22158,10 @@
       "rive-runtime/include/rive/generated/layout/layout_node_style_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-participants/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-participants",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-participants; tests/oracle/layout-participants",
       "phase": "P7"
     }
   },
@@ -22505,11 +22504,12 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-self-alignment/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-self-alignment",
-      "phase": "P7"
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-self-alignment; tests/oracle/layout-self-alignment",
+      "phase": "P7",
+      "reason": "Intentional native difference: Anima honors per-child CSS-style alignment; the local native CLI accepts alignSelfValue but leaves the captured child unchanged. Independent Anima vectors and the retained native scene/frame/session are linked by tests/oracle/layout-self-alignment/skip.json and modules/layout/SPEC.md."
     }
   },
   {
@@ -22536,10 +22536,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-size-bounds/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-size-bounds",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-size-bounds; tests/oracle/layout-size-bounds",
       "phase": "P7"
     }
   },
@@ -22622,10 +22622,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-spacing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-spacing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-spacing; tests/oracle/layout-spacing",
       "phase": "P7"
     }
   },
@@ -22712,10 +22712,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-visibility/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-visibility",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-visibility; tests/oracle/layout-visibility",
       "phase": "P7"
     }
   },
@@ -29441,10 +29441,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-baseline/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
+      "reason": "P7-6: Intentional difference: baseline fitting excludes the first ascent and fits the distance below the first baseline, useful for baseline-aligned labels. Native true/false controls are pixel-identical on the retained probe and shrink the full line; Anima keeps the documented baseline-relative measurement. No native pixel-equivalence claim."
     }
   },
   {
@@ -29470,10 +29470,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-layout-measure/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
+      "reason": "P7-6: Intentional difference: report the actual continuously fitted content width/height to consumers rather than the native conservative fitted candidate. Eight 0.6-em advances fit 48 px at font size 10; the native fitted frame equals an independently authored 9 px visible control exactly. Continuous grid-unit fitting avoids unnecessary measured slack. See modules/text/SPEC.md P7 dispositions."
     }
   },
   {
@@ -29493,10 +29493,10 @@
     "anima": {
       "construct": "new: text outline conversion through a separate optional module; seconds, degrees and grid units at the format boundary",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "oracle/text-flatten",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
+      "reason": "P7-8: root/component, clip/mask, gradients/effects and text-only reference policy are implemented. Independent internal raster acceptance compares live resvg-generated-font text against flattened tool-measured paths exactly (the live side does not use outlineSVG). Native headless conversion is unavailable and its attempted command is evidenced in skip.json; no oracle threshold changed."
     }
   },
   {
@@ -29555,10 +29555,10 @@
     "anima": {
       "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
+      "reason": "P7-8: shared bounded OpenType reader supplies headless/browser FontInfo.derive axes/features, glyphPath and context-free glyphs access without mutating the original face. Both engines and independent original-font paths/options pass; native derived/path headless API skip evidenced. Browser introspection requires SFNT bytes (normalize WOFF/WOFF2 with import-font); shaping and MVAR limits documented in INFO.md."
     }
   },
   {
@@ -29611,10 +29611,10 @@
     "anima": {
       "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
+      "reason": "P7-8: optional fonts-info exposes immutable face metrics, scalar coverage and effective axes/features from icon.fonts.info and headless decodeFont/FontInfo. Independent generated-font vectors, structured diagnostics, authored option projections and both-engine decoded-face tests; evidenced native API skip. Browser inspection explicitly requires SFNT bytes and cannot recover an external FontFace source; see modules/fonts/INFO.md."
     }
   },
   {
@@ -29723,10 +29723,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-cursor; tests/oracle/text-input-cursor (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
+      "reason": "P7-6: Intentional difference: a steady 0.06-grid-unit caret scales with the scene and its transforms in both renderers. The retained native caret remains one capture pixel despite scaleX=0.72; adopting that would make headless geometry depend on a viewport/DPR absent from Player.step. Original-font standalone drawing conformance specifies scalable caret geometry. Blink timing is delegated to neither renderer."
     }
   },
   {
@@ -29781,10 +29781,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-focus-selection; tests/oracle/text-input-focus-selection (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
+      "reason": "P7-6: Native select-all-on-focus is captured and Anima selects the same complete UTF-16 value on focus in core and both browser engines. The remaining drawing difference follows the intentional per-line rounded selection rectangle contract (modules/text-input/SPEC.md), rather than an interaction discrepancy. Existing native captures are retained without a passing geometry tolerance."
     }
   },
   {
@@ -29837,10 +29837,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-limits; tests/oracle/text-input-limits (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
+      "reason": "P7-6: Intentional DOM contract: maxlength counts UTF-16 units like the native HTML field; maxLines counts explicit LF-delimited paragraphs, independent of font readiness, host width and wrapping. Native schema instead advertises code points and displayed lines. The local headless route rejects text/compose delivery, so no faithful native user-edit comparison is available. Programmatic data writes bypass edit limits intentionally, as HTML value assignment does."
     }
   },
   {
@@ -29921,10 +29921,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending); modules/text-input/test/core/text-input-placeholder.test.ts; modules/text-input/test/web/placeholder.browser.test.ts; modules/text-input/test/core/drawing-conformance.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
+      "reason": "P7-6: No faithful native placeholder counterpart is exposed by the permitted local CLI. TextInput rejects both placeholder and placeholderColor in the independently authored probe; static Text would not test empty-value switching or placeholder paint. Anima implements solid placeholder paint and default half-opacity normal ink with restoration, original-font conformance, tooling and both-engine SVG/canvas tests."
     }
   },
   {
@@ -29951,10 +29951,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection; tests/oracle/text-input-selection (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
+      "reason": "P7-8: independent selected glyph color or local/shared style fill/stroke paint (including gradients), both registry spellings, diagnostics and conformance; SVG/canvas pixel tests in both engines. Native TextInputSelectedText direct-fill/nested-style retries leave selected glyphs blank, recorded as an evidenced observation skip. Logical grapheme boxes/radius semantics remain the documented P7 difference."
     }
   },
   {
@@ -29980,10 +29980,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection-rounding; tests/oracle/text-input-selection-rounding (native comparison pending)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
+      "reason": "P7-6: Intentional difference: selection uses independent measured line rectangles with an authored circular radius, clamped by SVG/canvas to half the box extent. The native radius-0 and radius-2.4 captures retain the same rounding, so copying those pixels would ignore Anima's authored radius. Original-font drawing conformance fixes exact Anima boxes and radii; no native pixel identity or widened tolerance is claimed."
     }
   },
   {
@@ -30254,10 +30254,10 @@
     "anima": {
       "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-variation/example.animl",
       "module": "text-effects",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-variation; tests/oracle/text-modifier-variation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
+      "reason": "P7-6: Platform-conditional support: SVG and tool outlines support arbitrary authored axes; Canvas applies native fontVariationSettings when exposed, otherwise only wght through CSS font weight. Both tested browser engines lack the arbitrary Canvas API. Inventing a property would silently draw the default face, so unsupported axes are an explicit platform limitation. Existing generated-font wght native comparison passes; arbitrary-axis Canvas identity is skipped only on hosts without that API. Disposition: tests/oracle/text-modifier-variation-canvas/skip.json."
     }
   },
   {
@@ -30375,10 +30375,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-ellipsis/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
+      "reason": "P7-6: Intentional difference: use one typographic U+2026 grapheme rather than three U+002E glyphs. The native truncation frame is pixel-identical to the independently authored abc... control and differs from abcde…; Anima retains the largest grapheme prefix plus one measured ellipsis. This preserves typographic style and never splits a grapheme. No geometry tolerance is assigned."
     }
   },
   {
@@ -30435,10 +30435,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit-font-size/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native fitted font size differs; no passing tolerance."
+      "reason": "P7-6: Intentional difference: retain twenty-step continuous font-size bisection instead of the native conservative fitted candidate (the retained native frame is exactly the independent 9 px control; 10 px fits the 48 px advance bound). Fractional grid-unit sizing retains the maximal measured fit. Native fitted-size identity is not claimed."
     }
   },
   {
@@ -30772,10 +30772,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-run-list/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
+      "reason": "P7-8: existing list text/style writes retain core/tool/browser-text and both-engine SVG/canvas regressions. Retried a different native authoring path (direct Text binding context and preauthored changed item): native still draws the literal fallback rather than list content. Captures and data dumps justify the evidenced observation-path skip; tests/oracle/text-run-list/skip.json."
     }
   },
   {
@@ -31124,10 +31124,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-trim/example.animl",
       "module": "text",
-      "status": "planned",
+      "status": "done",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
       "phase": "P7",
-      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
+      "reason": "P7-6: Intentional difference: cap/x-height and baseline trims translate drawing to the selected metric edge and report the trimmed content height. Native packed-257 and explicit cap/alphabetic controls draw exactly like trim-none on the retained fixed-box probe. Keeping effective metric trimming provides stable label alignment; native fixed-box drawing identity is not claimed."
     }
   },
   {

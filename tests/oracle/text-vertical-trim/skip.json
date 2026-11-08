@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: cap/x-height and baseline trims translate drawing to the selected metric edge and report the trimmed content height. Native packed-257 and explicit cap/alphabetic controls draw exactly like trim-none on the retained fixed-box probe. Keeping effective metric trimming provides stable label alignment; native fixed-box drawing identity is not claimed.",
+  "tests": [
+    "modules/text/test/core/text-fit-baseline.test.ts",
+    "modules/text/test/core/layout.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-text-geometry-controls/rive/trim-explicit.rml.txt",
+    "tests/oracle/p7-text-geometry-controls/rive/trim-none.rml.txt",
+    "tests/oracle/p7-text-geometry-controls/rive/frames/trim-explicit.png"
+  ]
+}

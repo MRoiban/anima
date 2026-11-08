@@ -24,6 +24,8 @@ export interface FieldConfig {
   label?: string;
   caretColor?: string;
   selectionColor?: string;
+  selectedTextColor?: string;
+  selectedTextStyle?: string;
   selectionRadius?: number;
 }
 export interface Field {
@@ -268,6 +270,16 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
           );
         if (n.raw.a11y)
           error('/a11y', 'the native field owns semantics', 'set label on text-input instead');
+        if (
+          c.selectedTextStyle &&
+          !n.raw.styles?.[c.selectedTextStyle] &&
+          !model.doc.textStyles?.[c.selectedTextStyle]
+        )
+          error(
+            '/textInput/selectedTextStyle',
+            'unknown selected text style',
+            'declare a local style or shared text-style',
+          );
         if (c.multiline && c.obscured)
           error(
             '/textInput/obscured',
@@ -336,6 +348,37 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
               if (g) break;
             }
           }
+        }
+        if (
+          drawing &&
+          (c.selectedTextColor || c.selectedTextStyle) &&
+          f.value &&
+          p.focused === p.model.nodes[i]!.id &&
+          f.start < f.end
+        ) {
+          const style = drawing.styles[c.selectedTextStyle ?? ''];
+          const selected = c.selectedTextColor
+            ? [{ kind: 'fill' as const, visible: true, color: drawColor(p, c.selectedTextColor) }]
+            : (['fill', 'stroke'] as const).flatMap((kind) => {
+                const paint = text.paint(
+                  p,
+                  style?.[kind] as Record<string, unknown> | undefined,
+                  kind,
+                );
+                return paint ? [paint] : [];
+              });
+          drawing.paints = [...drawing.paints, selected];
+          drawing.layout = {
+            ...drawing.layout,
+            lines: drawing.layout.lines.map((line) => ({
+              ...line,
+              clusters: line.clusters.map((g) =>
+                g.index < f.end && g.index + g.text.length > f.start
+                  ? { ...g, run: drawing.paints.length - 1 }
+                  : g,
+              ),
+            })),
+          };
         }
         (node as FieldNode).fieldBoxes = boxes;
       },

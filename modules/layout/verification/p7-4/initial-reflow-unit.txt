@@ -1,0 +1,98 @@
+
+> test:scope
+> node tools/test-scope.ts layout host-fit --no-browser
+
+Scopes: layout, host-fit
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout-animated-reflow.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (data-bind-layout|layout-alignment|layout-animated-reflow|layout-baseline|layout-bound-hug|layout-containers|layout-fill-bounds-difference|layout-fill-sizing|layout-fixed-sizing|layout-flex-align-items|layout-flex-direction|layout-flex-justify|layout-hug-sizing|layout-image-intrinsic|layout-intrinsic|layout-optional-shapes|layout-paint|layout-participants|layout-self-alignment|layout-size-bounds|layout-spacing|layout-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-6709f12a
+
+ ❯ |scope-unit| packages/markup/test/decompile.test.ts (0 test)
+ ❯ |scope-unit| modules/layout/test/core/layout-animated-reflow.test.ts (18 tests | 1 failed) 272ms
+   × keeps targets immediate, advances drawn boxes, retargets at current time, and settles exactly at completion 85ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1303 tests | 1 failed) 2298ms
+   ❯ authored AniML corpus (1303)
+     × modules/layout/examples/wrapped.animl is canonically formatted 14ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts [ packages/markup/test/decompile.test.ts ]
+Error: ENOENT: no such file or directory, open '/home/jarvis/.t3/worktrees/anima/t3-6709f12a/spec/conformance/host-api-fit-layout/case.ani'
+ ❯ read packages/markup/test/decompile.test.ts:9:29
+      7| import { attrOrder, ATTR_ORDER } from '../src/layout.ts';
+      8|
+      9| const read = (p: string) => readFileSync(new URL('../../../' + p, impo…
+       |                             ^
+     10| const cases = readdirSync(new URL('../../../spec/conformance/', import…
+     11|   withFileTypes: true,
+ ❯ packages/markup/test/decompile.test.ts:22:27
+ ❯ packages/markup/test/decompile.test.ts:22:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/layout/examples/wrapped.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="wrapped-la…' to be '<anima version="0.1" name="wrapped-la…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="wrapped-layout" grid="20" requires="layout text assets fonts">
+    <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+    <text-style id="body" font="body" size="2"/>
+    <layout id="root" width="8" height="hug" direction="column" padding="1">
+-     <layout id="nested" layout-width="fill" height="hug" direction="column">
++     <layout id="nested" height="hug" direction="column" layout-width="fill">
+-       <text id="label" layout-width="fill" wrap="true"><run text="Go Go Go Go" style="body"/></text>
++       <text id="label" wrap="true" layout-width="fill">
++         <run text="Go Go Go Go" style="body"/>
++       </text>
+      </layout>
+    </layout>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:67:25
+     65|     const result = formatMarkup(source);
+     66|     expect(result.diagnostics).toEqual([]);
+     67|     expect(result.text).toBe(source);
+       |                         ^
+     68|   });
+     69| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |scope-unit| modules/layout/test/core/layout-animated-reflow.test.ts > keeps targets immediate, advances drawn boxes, retargets at current time, and settles exactly at completion
+AssertionError: expected 24 to be 23 // Object.is equality
+
+- Expected
++ Received
+
+- 23
++ 24
+
+ ❯ modules/layout/test/core/layout-animated-reflow.test.ts:63:26
+     61|   const revision = p.drawRevision;
+     62|   p.step(1);
+     63|   expect(p.drawRevision).toBe(revision);
+       |                          ^
+     64|   const copy = p.drawnLayoutBox('root')!;
+     65|   copy.width = 100;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  3 failed | 5 passed (8)
+      Tests  2 failed | 1439 passed | 592 skipped (2033)
+   Start at  12:23:04
+   Duration  4.37s (tests 36%, transform 33%, import 31%, worker 1%)

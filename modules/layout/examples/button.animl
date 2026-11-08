@@ -1,0 +1,12 @@
+<anima version="0.1" name="hug-button" grid="20" requires="layout text assets fonts data bind">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <model name="Button">
+    <string name="label" default="Go"/>
+  </model>
+  <text-style id="body" font="body" size="2"/>
+  <layout id="button" width="hug" height="hug" align="center" padding="1 2" corners="0.5" x="2" y="2" fill="#d97757">
+    <text id="label" layout-width="hug">
+      <run text="$label" style="body"/>
+    </text>
+  </layout>
+</anima>

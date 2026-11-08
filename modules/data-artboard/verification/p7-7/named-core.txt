@@ -1,0 +1,18 @@
+
+> test:scope
+> node tools/test-scope.ts data-artboard --no-browser
+
+Scopes: data-artboard
+  unit: modules/data-artboard/test/core/artboard.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (components-host-artboard-reference|data-host-artboard|host-api-bindable-artboards|host-api-data-artboard)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-db8307eb
+
+
+ Test Files  4 passed (4)
+      Tests  1288 passed | 587 skipped (1875)
+   Start at  12:28:22
+   Duration  1.74s (tests 36%, transform 32%, import 31%, worker 1%)

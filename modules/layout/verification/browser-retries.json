@@ -1,0 +1,42 @@
+[
+  {
+    "file": "modules/assets/test/web/pipeline.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-0.txt"
+  },
+  {
+    "file": "modules/events/test/web/events.browser.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-1.txt"
+  },
+  {
+    "file": "modules/a11y-dom/test/web/overlay.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-2.txt"
+  },
+  {
+    "file": "modules/input/test/web/browser.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-3.txt"
+  },
+  {
+    "file": "modules/nested/test/web/nested.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-4.txt"
+  },
+  {
+    "file": "modules/motion/test/web/browser.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-5.txt"
+  },
+  {
+    "file": "modules/host-edit/test/web/components.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-6.txt"
+  },
+  {
+    "file": "packages/playground/test/browser.test.ts",
+    "exit": 0,
+    "log": "retries/firefox-7.txt"
+  }
+]

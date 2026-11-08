@@ -1,0 +1,3 @@
+[11:55:40.273] error   scene.rml:6:1  [rml] TextInput has no property "placeholder"
+[11:55:40.273] error   scene.rml:6:1  [rml] TextInput has no property "placeholderColor"
+[11:55:40.273] rive  build failed (0 bytes, 5ms, 2 errors, 0 warnings)

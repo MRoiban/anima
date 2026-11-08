@@ -1,0 +1,444 @@
+{
+  "status": "partial",
+  "branch": "t3/implement-p7-6-ticket",
+  "base": "39ab6837",
+  "rowsClosed": [
+    "text.fit-baseline",
+    "text.fit-layout-measure",
+    "text.input-cursor",
+    "text.input-focus-selection",
+    "text.input-limits",
+    "text.input-placeholder",
+    "text.input-selection-rounding",
+    "text.modifier-variation",
+    "text.overflow-ellipsis",
+    "text.overflow-fit-font-size",
+    "text.vertical-trim"
+  ],
+  "rowsLeft": {
+    "a11y.tree-bounds": "Exact painted path/stroke extents remain unimplemented; geometry/text boxes are not a substitute.",
+    "data.property-text-style": "Proper native artboard-backed default style renders, but both native mutation setters remain rejected.",
+    "text.flatten": "Root/definition traversal, clips, paints/effects and reference policy implemented; native outline-conversion evidence and owner-assigned strict acceptance remain open. Raw visual reference: max32, one glyph-corner pixel over16.",
+    "text.font-decoding": "Integrated browser derived-font axes/features/glyph-path API and independent native evidence remain missing.",
+    "text.font-metrics": "Integrated runtime metrics, nominal coverage and options introspection plus native evidence remain missing.",
+    "text.input-selection": "Arbitrary separate selected-text paint/drawable references and their native comparison remain missing.",
+    "text.run-list": "All six native path/style variants stay blank despite successful item writes; faithful live-list mutation drawing comparison remains missing."
+  },
+  "note": "Closures use documented intentional semantics or evidenced platform/observation skips; no new native raster tolerances or matching-pixel claims.",
+  "verification": [
+    {
+      "command": "npm ci",
+      "initialExit": 255,
+      "retryExit": 0,
+      "note": "Shared git config lock in prepare; retry succeeded without removing the lock."
+    },
+    {
+      "command": "npx vitest run --project unit modules/text/test/core/text-flatten.test.ts modules/text/test/core/text-fit-baseline.test.ts modules/text/test/cli/flatten.test.ts",
+      "passed": 16,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "npm run test:scope -- text text-input text-effects fonts cli conformance oracle --browser=chromium",
+      "passed": 4812,
+      "failed": 4,
+      "todo": 32,
+      "exit": 1,
+      "note": "Two 5s asset timeouts; canonical AniML fixture fixed; TMPDIR alias mismatch fixed by canonical path."
+    },
+    {
+      "command": "npx vitest run --project unit modules/assets/test/cli/pipeline.test.ts packages/cli/test/commands.test.ts packages/markup/test/corpus.test.ts",
+      "passed": 1298,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "npm run test:scope -- text text-input text-effects fonts --browser=firefox",
+      "passed": 3425,
+      "failed": 1,
+      "exit": 1,
+      "note": "Existing 30s text browser deadline."
+    },
+    {
+      "command": "npx vitest run --project browser modules/text/test/web/text.test.ts -t Firefox --maxWorkers=1",
+      "passed": 4,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+      "passed": 9433,
+      "failed": 7,
+      "todo": 45,
+      "exit": 1,
+      "note": "Seven existing Firefox timeouts; this broad command remains failed."
+    },
+    {
+      "command": "npx vitest run --project browser modules/assets/test/web/pipeline.test.ts modules/a11y-dom/test/web/bf4.test.ts modules/componentpaint/test/web/sources.test.ts modules/nested/test/web/nested.test.ts modules/machine/test/web/browser.test.ts modules/surface/test/web/surface.test.ts modules/host-edit/test/web/components.test.ts --maxWorkers=1",
+      "passed": 98,
+      "failed": 6,
+      "exit": 1,
+      "note": "Component-paint, host-edit and nested still hit 5s deadlines; remaining four files pass in both engines."
+    },
+    {
+      "command": "npx vitest run --project browser modules/componentpaint/test/web/sources.test.ts -t Firefox --maxWorkers=1",
+      "passed": 6,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "npx vitest run --project browser modules/host-edit/test/web/components.test.ts -t Firefox --maxWorkers=1",
+      "passed": 2,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "npx vitest run --project browser modules/nested/test/web/nested.test.ts -t Firefox --maxWorkers=1",
+      "passed": 5,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "command": "node tools/oracle.ts --strict",
+      "cases": 309,
+      "samples": 524,
+      "failedCompletedSamples": 0,
+      "exit": 0,
+      "note": "Existing findings retained separately; existing thresholds/findings and measurement tools unchanged."
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 0,
+      "note": "Initial test-only type casts corrected; final full typecheck passes."
+    },
+    {
+      "command": "node tools/perf.ts",
+      "exit": 0,
+      "note": "Shared load: compile bell7.82ms, frame bell84.0us/composite54.4us/toolbar64.1us, toolbar compile9.26ms. No controlled <=3% claim."
+    },
+    {
+      "command": "node tools/size.ts",
+      "exit": 0,
+      "identicalBeforeAfter": true
+    },
+    {
+      "command": "node tools/modules.ts --check",
+      "exit": 0
+    },
+    {
+      "command": "node tools/parity.ts --check",
+      "exit": 0
+    },
+    {
+      "command": "node tools/build-animl.ts --check",
+      "sources": 639,
+      "exit": 0
+    },
+    {
+      "command": "node tools/build-web.ts --check",
+      "entries": 62,
+      "exit": 0
+    },
+    {
+      "command": "npm run gen",
+      "exit": 0,
+      "note": "Generated schema unchanged."
+    },
+    {
+      "command": "node tests/oracle/capture-p7-text.py",
+      "exit": 0,
+      "note": "18 successful parameter/list controls plus two expected global-style setter rejections."
+    },
+    {
+      "command": "node tests/oracle/measure-p7-text.mjs",
+      "exit": 0,
+      "note": "Six native controls have zero pixel differences; native/Anima geometry differences retained without assigned tolerances."
+    },
+    {
+      "command": "node tests/oracle/text-modifier-variation-canvas/probe.mjs",
+      "exit": 0,
+      "note": "Chromium156/Firefox157 both lack arbitrary Canvas variation/feature members."
+    }
+  ],
+  "sizes": {
+    "markup": {
+      "before": 7341,
+      "after": 7341
+    },
+    "markup-libraries": {
+      "before": 2176,
+      "after": 2176
+    },
+    "markup-components": {
+      "before": 763,
+      "after": 763
+    },
+    "markup-paint": {
+      "before": 385,
+      "after": 385
+    },
+    "markup-surface": {
+      "before": 385,
+      "after": 385
+    },
+    "markup-bind": {
+      "before": 121,
+      "after": 121
+    },
+    "paint": {
+      "before": 4037,
+      "after": 4037
+    },
+    "composite": {
+      "before": 3741,
+      "after": 3741
+    },
+    "bind": {
+      "before": 1899,
+      "after": 1899
+    },
+    "assets": {
+      "before": 1813,
+      "after": 1813
+    },
+    "surface": {
+      "before": 7652,
+      "after": 7652
+    },
+    "components": {
+      "before": 3393,
+      "after": 3393
+    },
+    "assetio": {
+      "before": 711,
+      "after": 711
+    },
+    "canvas": {
+      "before": 5702,
+      "after": 5702
+    },
+    "devtools": {
+      "before": 383,
+      "after": 383
+    },
+    "focus": {
+      "before": 3091,
+      "after": 3091
+    },
+    "host-fit": {
+      "before": 733,
+      "after": 733
+    },
+    "input": {
+      "before": 6743,
+      "after": 6743
+    },
+    "markup-hooks": {
+      "before": 4528,
+      "after": 4528
+    },
+    "markup-animation": {
+      "before": 927,
+      "after": 927
+    },
+    "media": {
+      "before": 2816,
+      "after": 2816
+    },
+    "motion": {
+      "before": 5878,
+      "after": 5878
+    },
+    "events": {
+      "before": 2925,
+      "after": 2925
+    },
+    "machine": {
+      "before": 6126,
+      "after": 6126
+    },
+    "paint-sampling": {
+      "before": 1098,
+      "after": 1098
+    },
+    "contour": {
+      "before": 3474,
+      "after": 3474
+    },
+    "data": {
+      "before": 6504,
+      "after": 6504
+    },
+    "convert": {
+      "before": 5917,
+      "after": 5917
+    },
+    "markup-convert": {
+      "before": 535,
+      "after": 535
+    },
+    "derive": {
+      "before": 2394,
+      "after": 2394
+    },
+    "host-values": {
+      "before": 1237,
+      "after": 1237
+    },
+    "host": {
+      "before": 3684,
+      "after": 3684
+    },
+    "data-host": {
+      "before": 1009,
+      "after": 1009
+    },
+    "host-edit": {
+      "before": 3777,
+      "after": 3777
+    },
+    "fonts": {
+      "before": 1929,
+      "after": 1929
+    },
+    "fonts-text": {
+      "before": 528,
+      "after": 528
+    },
+    "fonts-options": {
+      "before": 3400,
+      "after": 3400
+    },
+    "lists": {
+      "before": 4603,
+      "after": 4603
+    },
+    "a11y": {
+      "before": 2327,
+      "after": 2327
+    },
+    "a11y-text": {
+      "before": 448,
+      "after": 448
+    },
+    "markup-a11y": {
+      "before": 1039,
+      "after": 1039
+    },
+    "a11y-actions": {
+      "before": 1066,
+      "after": 1066
+    },
+    "a11y-dom": {
+      "before": 2139,
+      "after": 2139
+    },
+    "nested": {
+      "before": 4559,
+      "after": 4559
+    },
+    "data-artboard": {
+      "before": 1014,
+      "after": 1014
+    },
+    "markup-data-artboard": {
+      "before": 35,
+      "after": 35
+    },
+    "mix": {
+      "before": 1651,
+      "after": 1651
+    },
+    "componentpaint": {
+      "before": 1967,
+      "after": 1967
+    },
+    "text": {
+      "before": 5569,
+      "after": 5569
+    },
+    "text-overflow": {
+      "before": 413,
+      "after": 413
+    },
+    "text-canvas": {
+      "before": 323,
+      "after": 323
+    },
+    "text-hit": {
+      "before": 979,
+      "after": 979
+    },
+    "text-host": {
+      "before": 354,
+      "after": 354
+    },
+    "markup-text": {
+      "before": 527,
+      "after": 527
+    },
+    "text-effects": {
+      "before": 3790,
+      "after": 3790
+    },
+    "markup-text-effects": {
+      "before": 0,
+      "after": 0
+    },
+    "text-input": {
+      "before": 3668,
+      "after": 3668
+    },
+    "text-input-svg": {
+      "before": 362,
+      "after": 362
+    },
+    "text-input-clipboard": {
+      "before": 121,
+      "after": 121
+    },
+    "text-input-canvas": {
+      "before": 104,
+      "after": 104
+    },
+    "markup-text-input": {
+      "before": -46,
+      "after": -46
+    }
+  },
+  "gates": {
+    "coreWeb": [21165, 21165, 24576],
+    "largestScene30": [53982, 53982, 65536],
+    "appUI": [99988, 99988, 131072],
+    "runtimeSum": [122300, 122300, 163840],
+    "authoring": [14808, 14808, 16384],
+    "riveClass": [132306, 132306, 256000]
+  },
+  "additionalGuards": {
+    "text": 5632,
+    "authoring": 15360
+  },
+  "seams": [
+    "spec/SPEC.md: marked normative link",
+    "packages/markup/test/corpus.test.ts: marked 583→584 static outline projection census",
+    "tools/modules.generated.ts: generated conformance prefix",
+    "docs/parity/MATRIX.md and matrix.json: generated views",
+    "WORKLOG.md: append-only checkpoints"
+  ],
+  "problems": [
+    "Seven rows remain planned.",
+    "Full changed command exits1; every failed file later passes at its original limits. No green broad/CI claim.",
+    "Controlled performance non-regression remains unverified."
+  ],
+  "staticChecks": {
+    "typecheck": 0,
+    "changedSourceESLint": 0,
+    "prettier": 0,
+    "moduleWiring": 0,
+    "parityViews": 0,
+    "schemaRegeneration": 0,
+    "aniArtifacts": 0,
+    "webArtifacts": 0
+  },
+  "pendingTodoNote": "The broad run reports 45 TODOs, including the explicitly pending new flatten oracle; they are not passes."
+}

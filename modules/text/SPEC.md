@@ -68,6 +68,18 @@ content, `width`/`height` the chosen layout box, `fittedSize` the first run's re
 the rendering scale. Layout object identity is cached until runs, styles, dimensions or font revision
 change; transform-only changes preserve it. `invalidateText(player)` refreshes after font replacement.
 
+### Layout measurement hook (P7-1)
+
+`measureText(player, nodeId, maxWidth?)`, exported by `@anima-format/core/text`, returns
+`{width, height, baseline}` in text-local grid units, using the registered text module's existing
+layout and measurer (including live runs, styles and font readiness). `nodeId` is a local node id
+or index; unknown and non-text nodes return undefined. `baseline` is the first visible line's
+aligned baseline, or zero without a visible line. Without `maxWidth`, dimensions are the existing
+layout box; with a nonnegative width constraint, auto-width becomes auto-height, other sizing is
+preserved, and the authored width (when active) is capped by the constraint. The constrained box
+retains fixed height, overflow, trim and origin rules. A constrained probe does not replace the
+cached drawing layout or mutate the document. This is a consumer hook, not another font measurer.
+
 ## Overflow
 
 Non-visible overflow requires fixed sizing. `visible` keeps all content. `hidden` keeps only complete
@@ -82,6 +94,22 @@ reports `scale: 0`. `fitFromBaseline` excludes the first baseline distance from 
 `fitFontSizeResizesBox` reports the reduced content dimensions in place of the original fixed box.
 
 ## Rendering and host access
+
+The base `@anima-format/web/text` entry supplies SVG drawing, browser measurement and ordinary
+layout. Hosts using `hidden`, `ellipsis`, `fit` or `fit-font-size` import
+`@anima-format/web/text-overflow` before loading their document; it includes the text entry and
+installs the original overflow policies on the active module, including across separately emitted
+bundles. Omitting it when requesting those layouts throws `text-overflow` at `/requires` (verbose
+tooling includes the import hint). `visible` and `clipped` need no overflow entry. Tooling and
+`core/all` retain all policies automatically; JSON/AniML and CLI commands are unchanged.
+
+Canvas text drawing lives in `@anima-format/web/text-canvas`, loaded automatically by
+`@anima-format/web/canvas`; canvas hosts keep their existing imports. A host that directly consumes
+`canvasShapes` without that renderer imports `text-canvas` explicitly. This entry does not register
+text or a measurer and can arrive before or after text. SVG-only pages pay neither its drawer nor
+the overflow policies they do not use. Renderer separation follows the optional-renderer rationale
+in [the web-runtime research notes](../../docs/research/rive-web-runtime.md), §1; only Anima's
+existing code was moved.
 
 SVG uses `<text>` per line and `<tspan>` per run fragment, with escaped text content; solid/slot,
 linear and radial paints are resolved through paint's gradient helpers. Angular SVG paint retains
@@ -166,3 +194,72 @@ With `fonts` registered and declared, local and shared styles additionally accep
 AniML and the schema. Settings, numeric axis addresses, tool shaping limits and browser/Canvas
 fallbacks are normative in [the fonts option contract](../fonts/SPEC.md). Compound AniML
 attributes use JSON, e.g. `axes='{"wght":650}'`; compact CSS tag-list strings are not accepted.
+
+### P7 native geometry dispositions
+
+These are intentional Anima semantics, not passing native pixel comparisons. They preserve
+continuous grid-unit layout and the documented authoring contract. Raw native captures and
+independent parameter controls are retained in `tests/oracle/p7-text-fit-controls/` and
+`p7-text-geometry-controls/`; row-specific `skip.json` files describe the comparison boundary.
+No raster tolerance covers these differences.
+
+- Font-size fitting uses twenty continuous bisection steps. Eight 0.6-em advances in a
+  48-pixel-equivalent box fit at size 10, within bisection precision. The native fit capture
+  instead exactly matches a size-9 visible control. Anima retains the largest measured fit
+  to avoid unnecessary measured slack. The resized layout
+  box reports that same measured content, so layout consumers and drawing agree.
+- Baseline fitting excludes the first ascent and leading above the baseline: it measures
+  `contentHeight - firstBaseline + topTrim`. This lets a baseline-aligned label fit its
+  descenders below the anchor. The retained native true/false controls are pixel-identical
+  and shrink the full line; adopting that behavior would defeat this baseline-relative contract.
+- Ellipsis is **one U+2026 grapheme**, measured in the ellipsis style. The maximal prefix of
+  complete graphemes that leaves room for it is retained. The native probe exactly matches
+  the separate `abc...` control; Anima's generated-font probe retains `abcde…`. The Unicode
+  ellipsis permits a font-designed mark and consumes one logical grapheme rather than three
+  periods. Drawing, hit testing and measured line width use the same retained clusters.
+- Vertical trim translates the first baseline to cap/x-height and removes the final descent
+  at baseline trim. This makes metric edges useful for aligning labels. On the retained native
+  fixed-box probe both packed and explicit cap/alphabetic settings render exactly like no trim.
+  Anima keeps effective metric trimming, including its reported content height.
+
+This follows the renderer-boundary distinction in `docs/research/rive-web-runtime.md` and the
+independent-scene method in `docs/research/rive-format-and-graph.md`. No native implementation
+was read or copied; the controls establish observed behavior, not an inferred internal algorithm.
+
+### Text outline conversion (P7-6)
+
+`anima flatten` freezes the default stepped text drawing into editable paths. All root text and
+all component definitions are traversed; `--node id` selects a root node and `--node component/id`
+selects a definition node. Component-local styles and data defaults retain their scope. An
+instance override is not baked into a shared definition: its default is frozen once for every
+instance. Shorthand/list text resolves at default data values; further changes no longer edit it.
+The source document is not mutated.
+
+The replacement group retains the original id and registry-defined group properties, including
+transforms, visibility, opacity, focus, accessibility, external masks and clips. Text's rectangular
+overflow clip becomes a transparent rectangle source and a clipped child group (`composite`
+is added when needed). Gradients, run paints, glyph transforms and installed font options pass
+through the existing SVG backend and bounded outline converter. Unsupported SVG features fail
+rather than losing geometry. Path/clip ids avoid every existing document/definition id.
+
+Text-only animation/binding addresses are retained for validation and cause `font-flatten` rather
+than being silently removed. Group-compatible animation addresses remain live. Editable fields
+are rejected; remove `textInput` explicitly before freezing. Diagnostics use code `font-flatten`,
+empty pointer for the command-level conversion, a message identifying the unsupported operation
+and a repair hint. This is a CLI operation, with no additional JSON/AniML field or runtime entry.
+The generated-font path and raster regressions cover both output spellings. Native outline conversion has no permitted headless counterpart; the P7-8 acceptance and
+evidenced skip below replace that pending comparison.
+
+### Flatten acceptance and native mutation limits (P7-8)
+
+Flatten acceptance includes a direct raster comparison: live text rendered by resvg with the
+original generated font against frozen path geometry laid out with the tool measurer. The live
+side does not call the outline converter. The fixture matches exactly; component/clip/effect
+projections retain their independent existing tests. There is no headless native outline-convert
+operation, so `tests/oracle/text-flatten/skip.json` records that observation boundary.
+
+Native run-list and text-style mutation retries also use a different authoring route: direct
+binding context at the Text node and preassigned instance style values. The former still draws
+its literal run fallback; the latter exposes an empty artboard-typed value and does not apply the
+style. These cannot faithfully compare the Anima mutation. Evidenced skips preserve those native
+captures alongside Anima's tool/browser SVG/canvas and typed-data regressions.

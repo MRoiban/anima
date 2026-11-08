@@ -16,8 +16,10 @@ export const assetsSVG: SVGBackend = {
   },
   attrs(f, el, _paint, _id, a) {
     if (!el.role.startsWith('module:image')) return;
-    const g = f.nodes[el.node]!.geometry!,
-      image = g.image!;
+    // seam(P7-7): a cleared external instance retires slots before the retained DOM refresh.
+    const g = f.nodes[el.node]?.geometry;
+    if (!g?.image) return;
+    const image = g.image;
     const w = g.width!,
       h = g.height!;
     if (el.role === 'module:image-box') {

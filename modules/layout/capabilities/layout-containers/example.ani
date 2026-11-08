@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "layout-containers",
+  "grid": 20,
+  "requires": ["layout"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "x": 2,
+      "y": 2,
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "b",
+          "type": "layout",
+          "children": [
+            {
+              "id": "c",
+              "type": "rect",
+              "x0": 0,
+              "y0": 0,
+              "w": 2,
+              "h": 1,
+              "fill": {
+                "color": "#000"
+              }
+            },
+            {
+              "id": "d",
+              "type": "rect",
+              "x0": 0,
+              "y0": 0,
+              "w": 3,
+              "h": 2,
+              "fill": {
+                "color": "#000"
+              }
+            }
+          ],
+          "direction": "column",
+          "gap": [1],
+          "padding": [1]
+        }
+      ],
+      "width": 16,
+      "height": 10,
+      "gap": [1],
+      "padding": [1]
+    }
+  ]
+}

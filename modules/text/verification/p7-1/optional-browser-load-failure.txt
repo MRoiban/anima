@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e650c713
+
+ ❯ |browser| modules/text/test/web/optional.test.ts (2 tests | 1 failed) 48516ms
+   × Firefox optional text entries share layout, caches and the registered measurer across bundles 30694ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text/test/web/optional.test.ts > Firefox optional text entries share layout, caches and the registered measurer across bundles
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/optional.test.ts:25:41
+     23|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     24| ] as const)
+     25|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     26|     `${name} optional text entries share layout, caches and the regist…
+     27|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  10:01:33
+   Duration  57.99s (tests 97%, import 2%, transform 1%)

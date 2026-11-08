@@ -10,6 +10,7 @@ import type {
 import { inputMatrix } from './mapping.ts';
 import '../../../packages/web/src/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
+import type {} from '../../canvas/web/index.ts';
 export { inputMatrix } from './mapping.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(input);
@@ -50,6 +51,9 @@ function point(i: AnimaIcon, x: number, y: number): DOMPoint {
     if (m) return new DOMPoint(x, y).matrixTransform(m.inverse());
   }
   if (!i.player) throw Error('anima: empty icon');
+  // seam(P7-3): invert the drawn backend matrix, including before resize observation fires.
+  const fitted = Icon.viewBox && Icon.canvasBox?.(i, [0, 0, 1, 1]);
+  if (fitted) return new DOMPoint((x - fitted.x) / fitted.width, (y - fitted.y) / fitted.height);
   const canvas = i.shadowRoot?.querySelector('canvas');
   const rect = canvas?.getBoundingClientRect() ?? i.getBoundingClientRect();
   const width = canvas ? parseFloat(getComputedStyle(canvas).width) : rect.width;

@@ -1,0 +1,127 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[13:18:13.023] rive  deferred replay: inline
+[13:18:13.047] rive  built (9953 bytes, 24ms, 0 errors, 0 warnings)
+[13:18:13.048] rive  showing Reflow [1/1]
+[13:18:13.048] rive  viewport 480x360 @1x
+[13:18:13.048] rive  viewport 480x360 @1x
+ok fit: contain
+ok viewport
+ok advance
+[13:18:13.059] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.semantics.json
+[13:18:13.059] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[13:18:13.080] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/baseline.png
+[13:18:13.080] rive  data: buttonLabel = Save changes (mid-run)
+ok data
+[13:18:13.081] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.semantics.json
+[13:18:13.081] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.data.json
+[13:18:13.101] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-start.png
+ok advance
+[13:18:13.102] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.semantics.json
+[13:18:13.102] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.data.json
+[13:18:13.119] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-mid.png
+ok advance
+[13:18:13.122] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.semantics.json
+[13:18:13.122] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.data.json
+[13:18:13.141] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-end.png
+ok advance
+[13:18:13.146] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.semantics.json
+[13:18:13.146] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.data.json
+[13:18:13.169] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/grow-settled.png
+[13:18:13.170] rive  data: buttonLabel = Save (mid-run)
+ok data
+[13:18:13.170] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.semantics.json
+[13:18:13.171] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.data.json
+[13:18:13.191] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-start.png
+ok advance
+[13:18:13.193] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.semantics.json
+[13:18:13.193] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.data.json
+[13:18:13.209] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/shrink-mid.png
+[13:18:13.210] rive  data: buttonLabel = Save changes (mid-run)
+ok data
+[13:18:13.210] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.semantics.json
+[13:18:13.210] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.data.json
+[13:18:13.225] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-start.png
+ok advance
+[13:18:13.227] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.semantics.json
+[13:18:13.227] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.data.json
+[13:18:13.239] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-mid.png
+ok advance
+[13:18:13.242] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.semantics.json
+[13:18:13.243] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.data.json
+[13:18:13.256] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/retarget-end.png
+[13:18:13.257] rive  data: chip1Label = Longer first chip (mid-run)
+ok data
+ok advance
+[13:18:13.261] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.semantics.json
+[13:18:13.261] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.data.json
+[13:18:13.275] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip1-long.png
+[13:18:13.276] rive  data: hideChip3 = true (mid-run)
+ok data
+ok advance
+[13:18:13.279] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.semantics.json
+[13:18:13.279] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.data.json
+[13:18:13.295] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/chip3-hidden.png
+[13:18:13.295] rive  viewport 480x360 @1x
+ok fit: layout
+[13:18:13.296] rive  viewport 600x300 @1x
+ok viewport
+ok advance
+[13:18:13.300] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.semantics.json
+[13:18:13.300] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.data.json
+[13:18:13.318] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-600x300.png
+[13:18:13.319] rive  viewport 480x360 @1x
+ok viewport
+[13:18:13.319] rive  data: hideChip3 = false (mid-run)
+ok data
+[13:18:13.319] rive  data: chip1Label = One (mid-run)
+ok data
+[13:18:13.319] rive  data: buttonLabel = Save (mid-run)
+ok data
+ok advance
+[13:18:13.333] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.semantics.json
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.semantics.json
+[13:18:13.333] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.data.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.data.json
+[13:18:13.355] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.png
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-1a8dd8ac/docs/benchmarks/runs/2026-11-08-p7/rive/evidence/host-480x360-layout.png
+ok quit

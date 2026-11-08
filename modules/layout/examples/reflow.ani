@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "reflow-button",
+  "grid": 20,
+  "requires": ["layout", "text", "assets", "fonts", "data", "bind"],
+  "nodes": [
+    {
+      "id": "button",
+      "type": "layout",
+      "x": 2,
+      "y": 2,
+      "fill": {
+        "color": "#d97757"
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "layout": {
+            "width": "hug"
+          },
+          "runs": [
+            {
+              "text": "$label",
+              "style": "body"
+            }
+          ]
+        }
+      ],
+      "width": "hug",
+      "height": "hug",
+      "align": "center",
+      "padding": [1, 2],
+      "reflow": "0.25 out",
+      "corners": 0.5
+    }
+  ],
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "data": {
+    "models": {
+      "Button": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "default": "Go"
+          }
+        }
+      }
+    }
+  },
+  "textStyles": {
+    "body": {
+      "font": "body",
+      "size": 2
+    }
+  }
+}

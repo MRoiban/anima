@@ -1,0 +1,16 @@
+
+> test:scope
+> node tools/test-scope.ts host-fit --browser=firefox
+
+Scopes: host-fit
+  unit: packages/markup/test/corpus.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+
+ Test Files  2 passed (2)
+      Tests  1280 passed | 31 skipped (1311)
+   Start at  10:30:32
+   Duration  38.56s (tests 92%, import 5%, transform 3%)

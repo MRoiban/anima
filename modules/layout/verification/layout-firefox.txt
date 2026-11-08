@@ -1,0 +1,23 @@
+
+> test:scope
+> node tools/test-scope.ts layout --browser=firefox
+
+Scopes: layout
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  cases: ^conformance > (data-bind-layout|layout-alignment|layout-baseline|layout-bound-hug|layout-containers|layout-fill-bounds-difference|layout-fill-sizing|layout-fixed-sizing|layout-flex-align-items|layout-flex-direction|layout-flex-justify|layout-hug-sizing|layout-image-intrinsic|layout-intrinsic|layout-optional-shapes|layout-paint|layout-participants|layout-self-alignment|layout-size-bounds|layout-spacing|layout-visibility)$
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-8d33895f
+
+
+ Test Files  8 passed (8)
+      Tests  3219 passed | 588 skipped (3807)
+   Start at  11:34:46
+   Duration  7.51s (tests 72%, import 18%, transform 9%)

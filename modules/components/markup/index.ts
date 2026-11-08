@@ -1,3 +1,5 @@
+// seam(P7-5): optional property spelling, eliminated from lean browser markup.
+import '../../data-artboard/markup/index.ts';
 // Optional component authoring layer. Imports Compiler only as a type so the runtime entry
 // can register these hooks without carrying the markup compiler.
 import { ptr, type NodeType } from '@anima-format/core';

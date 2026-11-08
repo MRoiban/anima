@@ -88,6 +88,8 @@ export class MachinePolicy implements PlaybackPolicy {
   }
   operand(o: Operand): import('../../../packages/core/src/load.ts').Value {
     if (typeof o !== 'object') return o;
+    // seam(P7-2): layout guards observe the preceding step's boxes.
+    if (o.layout !== undefined) return this.p.machineLayout?.(o.layout) ?? 0;
     if (o.focus !== undefined) return this.p.machineFocus?.(o.focus) ?? false;
     if (o.component !== undefined) return this.p.get(o.component)!;
     const [, , w, h] = this.p.model.viewBox;

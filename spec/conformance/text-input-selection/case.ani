@@ -20,7 +20,8 @@
       ],
       "textInput": {
         "writeText": "$query",
-        "label": "Search"
+        "label": "Search",
+        "selectedTextColor": "#ff0000"
       }
     }
   ],

@@ -1,0 +1,8 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="HostFit" width="24" height="10">
+    <Shape id="0:2" name="tile" x="5" y="4">
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF4263EB"/></Fill>
+    </Shape>
+  </Artboard>
+</Rive>

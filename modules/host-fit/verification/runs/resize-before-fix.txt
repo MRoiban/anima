@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+ ❯ |browser| modules/host-fit/test/web/fit.test.ts (62 tests | 1 failed | 60 skipped) 2512ms
+   ❯ host fit Chromium (31)
+     × canvas: pointer inversion follows the currently drawn matrix before resize delivery 782ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/host-fit/test/web/fit.test.ts > host fit Chromium > canvas: pointer inversion follows the currently drawn matrix before resize delivery
+AssertionError: expected 7.5 to be close to 5, received difference is 2.5, but expected 0.00005
+ ❯ modules/host-fit/test/web/fit.test.ts:160:26
+    158|           return [p.x, p.y];
+    159|         }, renderer);
+    160|         expect(point[0]).toBeCloseTo(5, 4);
+       |                          ^
+    161|         expect(point[1]).toBeCloseTo(3.5, 4);
+    162|       });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 60 skipped (62)
+   Start at  10:16:55
+   Duration  5.22s (tests 54%, import 36%, transform 9%)

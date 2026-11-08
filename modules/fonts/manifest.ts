@@ -8,6 +8,8 @@ export default {
       { name: 'fonts', budget: 2048 },
       { name: 'fonts-text', budget: 768, over: 'fonts' },
       { name: 'fonts-options', budget: 4096, over: 'text' },
+      // Heavy: ships a font-file reader to the page for metrics, coverage and glyph paths (niche).
+      { name: 'fonts-info', budget: 8192, over: 'fonts', heavy: true },
     ],
     adapters: {
       'packages/core/src/modules/fonts/index.ts': 'core/index.ts',
@@ -16,6 +18,8 @@ export default {
       'packages/web/src/fonts.ts': 'web/index.ts',
       'packages/web/src/fonts-text.ts': 'web/consumer.ts',
       'packages/web/src/fonts-options.ts': 'web/options.ts',
+      'packages/web/src/fonts-info.ts': 'web/info.ts',
+      'packages/core/src/modules/fonts/info.ts': 'core/info.ts',
     },
     exports: {
       'core:./fonts': 'packages/core/src/modules/fonts/index.ts',
@@ -23,6 +27,8 @@ export default {
       'web:./fonts': 'packages/web/src/fonts.ts',
       'web:./fonts-text': 'packages/web/src/fonts-text.ts',
       'web:./fonts-options': 'packages/web/src/fonts-options.ts',
+      'web:./fonts-info': 'packages/web/src/fonts-info.ts',
+      'core:./fonts-info': 'packages/core/src/modules/fonts/info.ts',
     },
     tests: [
       'modules/fonts/test/**/*.test.ts',

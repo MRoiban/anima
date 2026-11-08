@@ -408,14 +408,23 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       (`docs/parity/P6-closure.md`). Benchmarks: settings card AniML 6/6 (item 1 met) ≥ Rive 5/6;
       search card AniML 6/6 (after `contains`/`lower`) ≥ Rive 6/6. Gates: core+web 21,136,
       largest scene 53,857, app-UI 98,890, runtime sum 120,281, authoring 14,717, Rive-class 130,077.
-- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner; plus
+- [x] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner; plus
       18 P6 text carry-overs listed in `docs/parity/P6-closure.md`): hug content, padding/gaps, min/max, fixed sizes,
       row/column stacks with alignment and distribution, nested containers, painted layout boxes,
       layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
       button whose background grows with a label of changing length and animates as it grows (no
       snap). **Estimate:** 3–4 KB plus ~1 KB for animated reflow (host fit/alignment mostly in the
       existing web element).
-- [ ] P8 Rigging (25 rows): bones, constraints, IK, skinning, meshes and vertex weights, as optional
+      **Done (2026-11-08):** `layout` (own single-line flexbox subset: containers, direction,
+      justify/align, spacing, fixed/hug/fill, min/max, display, participants incl. measured text,
+      layout paint, bound layout values), `layout-reflow` (animated reflow that continues from the
+      drawn box on retarget), `host-fit` (eight fits, nine alignments, scene size, `fit="layout"`),
+      `data-artboard` (bindable artboards across documents), the `text` split, `fonts-info` (heavy)
+      and `a11y-bounds`. 56 of 57 rows done (in scope 804 → 860 of 886, 97 %); `a11y.tree-bounds`
+      → P8 (`docs/parity/P7-closure.md`). Benchmark: reflow card AniML 6/6 (37-line scene) = Rive 6/6
+      (151 lines + a Luau controller). Gates: core+web 21,165, largest scene 55,444, app-UI 104,592,
+      runtime sum 130,133, authoring 14,899, Rive-class 148,870.
+- [ ] P8 Rigging (25 rows, plus the `a11y.tree-bounds` carry-over): bones, constraints, IK, skinning, meshes and vertex weights, as optional
       **heavy** modules on the canvas backend (owner confirmed 2026-11-07); path measurement stays internal
       to rigging (follow-path), not a public API. **Estimate:** 8–11 KB, counted toward Rive-class
       (114.5 KB now) rather than the full-featured page.

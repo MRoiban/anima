@@ -1,0 +1,3 @@
+fit layout
+screenshot frames/0.png
+quit

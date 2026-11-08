@@ -17,7 +17,12 @@ export type Source = number | string | { bind: string };
 export type Operand =
   | number
   | boolean
-  | { artboard?: 'width' | 'height' | 'aspect'; component?: string; focus?: string };
+  | {
+      artboard?: 'width' | 'height' | 'aspect';
+      component?: string;
+      focus?: string;
+      layout?: string;
+    };
 export interface TransitionOptions {
   disabled?: boolean;
   weight?: number;
@@ -59,5 +64,7 @@ declare module '../../../packages/core/src/player.ts' {
   interface Player {
     /** Focus module supplies this live reader and wakes onChange after focus changes. */
     machineFocus?: (target: string) => boolean;
+    // seam(P7-2): optional layout reader, evaluated before this step's layout pass.
+    machineLayout?: (target: string) => number;
   }
 }

@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Intentional difference: report the actual continuously fitted content width/height to consumers rather than the native conservative fitted candidate. Eight 0.6-em advances fit 48 px at font size 10; the native fitted frame equals an independently authored 9 px visible control exactly. Continuous grid-unit fitting avoids unnecessary measured slack. See modules/text/SPEC.md P7 dispositions.",
+  "tests": [
+    "modules/text/test/core/text-fit-baseline.test.ts",
+    "modules/text/test/core/layout-measure.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/p7-text-fit-controls/rive/frames/9.png",
+    "tests/oracle/text-fit-layout-measure/rive/scene.rml"
+  ]
+}

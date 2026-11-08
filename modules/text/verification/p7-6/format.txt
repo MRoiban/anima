@@ -1,0 +1,4 @@
+Checking formatting...
+[warn] tests/oracle/text-flatten/todo.json
+[warn] tests/oracle/text-input-limits/skip.json
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.

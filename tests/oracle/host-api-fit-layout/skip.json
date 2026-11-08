@@ -1,0 +1,11 @@
+{
+  "status": "skip",
+  "reason": "This host-only API has no static scene/CLI counterpart in the square 240x240 oracle harness. Actual native responsive drawing is captured at 240x100 and 160x80 and compared byte-for-byte in the SVG/canvas browser conformance tests; no pixel tolerance is used. No document registry key or synthetic scene flag is invented.",
+  "tests": ["modules/host-fit/test/web/fit.test.ts"],
+  "captureEvidence": [
+    "tests/oracle/host-api-fit-layout/rive/240x100/commands.txt",
+    "tests/oracle/host-api-fit-layout/rive/240x100/session.txt",
+    "tests/oracle/host-api-fit-layout/rive/160x80/commands.txt",
+    "tests/oracle/host-api-fit-layout/rive/160x80/session.txt"
+  ]
+}

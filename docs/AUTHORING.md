@@ -682,7 +682,9 @@ same evaluator as property bindings. Spaces around subtraction avoid hyphenated 
 
 Sets within one action read one pre-action snapshot; separate actions see prior writes. Numbers
 clamp to their input bounds. Machine state `entry`/`exit` and transition `actions` JSON attributes
-accept the same actions. Emit `shared` on pulse entry and define its fields with
+accept the same actions, with the listener action keys as JSON:
+`<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`. Emit `shared` on pulse entry and define its fields with
 `<event-def name="shared" payload='{"count":{"type":"number","value":"{count}"},"channel":{"type":"string","value":"button"}}'/>`.
 Fields resolve at the end of the step. Run `anima schema listener`, `anima schema state` or `anima schema transition` to inspect
 the forms. See `modules/events/examples/share.animl` and its sample scripts for a complete share
@@ -1068,6 +1070,20 @@ For headless text sampling, supply a font with `--font sans-serif=fixtures/fonts
 Browser hosts load `/text`, `/text-input`, `/a11y`, `/focus`, `/data`, `/bind`, `/derive` and
 `/convert` beside the base web entry. The complete example pair is
 `modules/bind/examples/filtering-list.animl` and `.ani`; `anima docs bind` includes this recipe.
+
+<!-- // seam(P7-1): hosts must opt into the text overflow implementation after the text split. -->
+
+## Text browser imports
+
+Import `@anima-format/web/text` for text measurement and retained SVG. For text nodes using
+`overflow="hidden"`, `"ellipsis"`, `"fit"` or `"fit-font-size"`, import
+`@anima-format/web/text-overflow` before loading the document (it includes `/text`). `visible` and
+`clipped` need only `/text`. A missing overflow implementation reports `text-overflow` at
+`/requires`; add the overflow import. CLI commands already include all overflow modes.
+Canvas hosts import `/canvas` as before; it now includes the optional `/text-canvas` drawer.
+Direct `canvasShapes` consumers import `/text-canvas` explicitly. The `.ani`/AniML spellings,
+measurer contract and fitting results are unchanged. See [text's spec](../modules/text/SPEC.md)
+for the `measureText(player, nodeId, maxWidth?)` layout-consumer hook.
 
 ## Lists
 

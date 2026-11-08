@@ -1,0 +1,26 @@
+{
+  "layout-value-0.ani": {
+    "code": "layout-value",
+    "pointer": "/nodes/0/width"
+  },
+  "layout-bounds-1.ani": {
+    "code": "layout-bounds",
+    "pointer": "/nodes/0/minWidth"
+  },
+  "layout-fill-hug-2.ani": {
+    "code": "layout-fill-hug",
+    "pointer": "/nodes/0/children/0/layout/width"
+  },
+  "layout-outside-3.ani": {
+    "code": "layout-outside",
+    "pointer": "/nodes/0/layout"
+  },
+  "layout-value-4.ani": {
+    "code": "layout-value",
+    "pointer": "/nodes/0/padding"
+  },
+  "layout-value-5.ani": {
+    "code": "layout-value",
+    "pointer": "/nodes/0/minWidth"
+  }
+}

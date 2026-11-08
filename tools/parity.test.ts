@@ -12,17 +12,17 @@ describe('docs/parity', () => {
 
   it('allows done rows in the phase in progress only, and requires done in finished phases', () => {
     const row = structuredClone(rows.find((row) => row.id === 'text.wrap')!);
-    row.anima.phase = 'P7';
+    row.anima.phase = 'P8';
     row.anima.status = 'done';
     expect(lint([row])).toEqual([]);
     row.anima.status = 'planned';
     expect(lint([row])).toEqual([]);
-    row.anima.phase = 'P6';
+    row.anima.phase = 'P7';
     expect(lint([row])).not.toEqual([]);
     row.anima.phase = 'P0';
     expect(lint([row])).not.toEqual([]);
     row.anima.status = 'done';
-    row.anima.phase = 'P8';
+    row.anima.phase = 'P10';
     expect(lint([row])).not.toEqual([]);
   });
 

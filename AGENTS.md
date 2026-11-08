@@ -50,28 +50,27 @@ CI runs the complete `npm run check` on every PR and push, including Chromium an
 size budgets, generated artifacts and the perf report. Merge only when CI is green. Before a phase
 PR, do one full local run only for what CI cannot run; do not repeatedly run the full suite while coding.
 
-## Work log
-`WORKLOG.md` (repo root) holds task state outside your context window.
-- **On start and after compaction:** read `WORKLOG.md` and `git log --oneline -15` before acting.
-- **Reality wins:** if `Now` or a Gotcha contradicts the repo or test output, trust the repo; fix the log and record the correction.
-- **Update at checkpoints:** after a milestone, before a risky or long step, when the plan changes, and before you stop. Don't let the context run out with unlogged work.
-- **Now** (top): keep it short; goal, verified state, next step, don'ts. Re-read it right before rewriting it, in case another agent changed it.
-- **Gotchas:** when you learn something a future session would get wrong without being told (a trap, a non-obvious constraint, a fix that took several tries), add one line: `- <rule> — <evidence>`. Edit or delete it if it turns out wrong. Never condense this section. If a gotcha holds for anyone working in this repo, move it to a `## Repo rules` section in `AGENTS.md`.
-- **Log** (below): append only, one line per entry: `- YYYY-MM-DD HH:MM [who]: did X → result (evidence: command/number/commit/...)`. Log failures and dead ends too. Tag anything unchecked `(unverified)`.
-- Facts, not narration. Commit the log with the code it describes.
-- Past ~200 lines: move lasting lessons to Gotchas, then condense the oldest half of Log into a 5-line summary at the top of Log.
-- Adapt these rules to fit your work and tasks.
+## Memory
+Your context resets; this repo doesn't. `WORKLOG.md` is your external memory, shared with every agent that works here. Read it when you start or resume. Keep whatever a later session would need but couldn't get from the code or git history; what that is, and how you shape it, is up to you. It's committed, so never write secrets into it.
+
+Every so often, dream: check the memory against the repo, git log and test output, which are the ground truth, so it stays correct, current and short enough to read in full. Agents that rewrite the same page lose each other's work, so give parallel work its own file.
 
 ## Repo rules
 - Test timeouts while several agents share the machine usually pass when rerun alone; rerun the failing file isolated before calling it a bug, and report both runs.
 - Timings under shared load are not perf evidence; say so rather than claiming the ≤ 3 % guard.
 - After editing a manifest, run `node tools/build-web.ts`: browser demo tests read its cache and fail with "run build-web" when it is stale.
 - `node tools/size.ts` can take over 2 minutes under load; give it a long timeout.
-- `markup` and `surface` are at the 8 KB module cap: new markup goes into its own `markup-*` module.
+- No module entry may exceed 8,192 B. `markup` (7,341 B) and `surface` (7,660 B) have under 1 KB left, and `text` and `markup-libraries` are full: new AniML spellings go into your module's own `markup-*` entry, and growth in a full entry needs a split into an optional entry first (check with `node tools/size.ts`).
+- A fresh worktree has no `node_modules`: run `npm ci` before tests, `tools/size.ts` or committing (the format hook skips `prettier` with a warning without it).
+- Don't edit sources while `node tools/size.ts` or a test scope is running; the run mixes versions and is invalid. Measure and test from a frozen tree.
+- Committed verification logs must not end with blank lines (`git diff --cached --check` fails); trim them before committing.
+- Module registry feature names can't contain hyphens (feature `textinput`, entry and folder `text-input`).
+- New browser test files need an explicit timeout (adjacent suites use 30 s); Vitest's 5 s default fails under load.
+- Optional loader hooks chain: a wrapper around `Icon.loadAssets` must return the previous loader's per-player initializer, or asset catalogs are lost when the modules load in the other order.
 - AniML library files (imported, not scenes) live in `examples/lib/`; under `modules/*/examples/` the corpus test treats them as scenes.
 - `docs/parity/inventory.json` is written with 2-space indent and unescaped Unicode (`json.dumps(..., indent=2, ensure_ascii=False)`).
 - `tests/oracle/generate.py` rewrites `tests/oracle/cases.json` with different formatting; restore it unless thresholds really change. Its Rive scenes encode Anima's spec geometry (e.g. rounded corners as cubic handles), so a spec geometry change means re-authoring the scene there and recapturing, never a threshold change.
-- Browser tests that render text must load the declared font (serve fixture files to the page) and wait for the redraw (two animation frames) before comparing pixels; a platform fallback font or an early screenshot passes locally and fails on CI.
+- Browser tests that render text must load the declared font (serve fixture files to the page) and wait for the redraw before comparing pixels — poll the exact comparison (`expect.poll`, a few seconds) rather than a fixed two-frame wait; a platform fallback font or an early screenshot passes locally and fails on CI (live-runs failed CI twice).
 - The rect-corners oracle passes with a thin margin (0.1198 % vs 0.12 %): a paint or anti-aliasing change may tip it.
 
 ## Adding a module

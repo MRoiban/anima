@@ -2,22 +2,42 @@
   "anima": "0.1",
   "name": "text-font-decoding",
   "grid": 20,
-  "requires": ["assets", "fonts"],
+  "requires": ["text", "fonts", "assets", "bind"],
+  "inputs": {
+    "option": {
+      "type": "number",
+      "default": 900
+    }
+  },
   "nodes": [
     {
-      "id": "dot",
-      "type": "circle",
-      "center": [10, 10],
-      "r": 1,
-      "fill": {
-        "color": "#000"
-      }
+      "id": "label",
+      "type": "text",
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 2,
+          "axes": {
+            "wght": 900
+          }
+        }
+      },
+      "runs": [
+        {
+          "text": "AB",
+          "style": "s"
+        }
+      ]
     }
   ],
+  "bind": {
+    "label.styles.s.axes.wght": "option"
+  },
   "assets": {
     "body": {
       "type": "font",
-      "source": "data:font/ttf;base64,AAEAAAAKAIAAAwAgT1MvMgWZBTMAAACsAAAATmNtYXAAXwGeAAAA/AAAAOpnbHlmA74FtAAAAegAAAAiaGVhZGEGQ6EAAAIMAAAANmhoZWEDIgGTAAACRAAAACRobXR4BLAAAAAAAmgAAAAIbG9jYQARAAAAAAJwAAAABm1heHAABAAFAAACeAAAACBuYW1lAAYAAAAAApgAAAAGcG9zdAADAAAAAAKgAAAAIAAAAlgBkAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAB+AyD/OAAAAyAAyAAAAAAAAQADAAEAAAAMAAQA3gAAAAQABAABAAAAfv//AAAAIP//AAAAAQAEAAAAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAAAAQAAAAAB9AK8AAMAAAEBAQEAAAH0AAD+DAAAAAACvAAAAAAAAQAAAAAAAMA/8z9fDzz1AAAD6AAAAAAAAAAAAAAAAAAAAAAAAAAAAfQCvAAAAAgAAgAAAAAAAAABAAADIP84AAACWAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgJYAAACWAAAAAAAAAARAAAAAQAAAAIABAABAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+      "source": "../../../../fixtures/fonts/anima-test.ttf"
     }
   }
 }

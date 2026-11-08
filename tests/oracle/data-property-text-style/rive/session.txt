@@ -8,15 +8,15 @@ ok advance
 ok screenshot: frames/2.png
 ok data-dump: frames/final.json
 [egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
-[00:06:55.057] rive  deferred replay: inline
-[00:06:55.068] rive  built (8285 bytes, 10ms, 0 errors, 0 warnings)
-[00:06:55.068] rive  showing Probe [1/1]
-[00:06:55.069] rive  viewport 240x240 @1x
+[11:55:00.639] rive  deferred replay: inline
+[11:55:00.649] rive  built (8285 bytes, 10ms, 0 errors, 0 warnings)
+[11:55:00.650] rive  showing Probe [1/1]
+[11:55:00.650] rive  viewport 240x240 @1x
 rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
-[00:06:55.087] rive  wrote frames/0.png
-[00:06:55.088] rive  wrote frames/initial.json
+[11:55:00.662] rive  wrote frames/0.png
+[11:55:00.662] rive  wrote frames/initial.json
 --data style, mid-run: no property at this path
-[00:06:55.097] rive  wrote frames/1.png
+[11:55:00.667] rive  wrote frames/1.png
 --data style, mid-run: no property at this path
-[00:06:55.106] rive  wrote frames/2.png
-[00:06:55.107] rive  wrote frames/final.json
+[11:55:00.673] rive  wrote frames/2.png
+[11:55:00.674] rive  wrote frames/final.json

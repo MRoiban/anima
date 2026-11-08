@@ -1,0 +1,3 @@
+name: oracle-data-bind-layout
+logs:
+  file: build/runtime.log
