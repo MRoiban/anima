@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "layout-animated-reflow",
+  "grid": 20,
+  "requires": ["layout", "bind"],
+  "inputs": {
+    "w": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "fill": {
+        "color": "#d97757"
+      },
+      "children": [
+        {
+          "id": "child",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          },
+          "layout": {
+            "width": "fill"
+          }
+        }
+      ],
+      "width": 10,
+      "height": 4,
+      "reflow": "1 linear"
+    }
+  ],
+  "bind": {
+    "root.width": "w"
+  }
+}

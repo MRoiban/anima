@@ -38,7 +38,10 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
     host-fit (and layout, layout-reflow when they land); data-artboard, text-hit, text-canvas stay
     optional.
   - P7: layout is our own single-line flexbox subset (no wrap, no Rive engine port); conditions read
-    the previous step's boxes.
+    the previous step's boxes; a retargeted reflow continues from the drawn box (CSS-transition
+    style) — closed as an intentional difference from Rive (start/middle/end match natively);
+    P7-6 closed 11 text rows as documented differences (continuous fitting, typographic ellipsis,
+    effective trim, native-field semantics).
   - Test deadlines raised for the larger corpus: module-order 90 s, scaffolder 120 s.
 
 ## Gotchas

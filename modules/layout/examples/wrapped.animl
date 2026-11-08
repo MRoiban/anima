@@ -1,0 +1,11 @@
+<anima version="0.1" name="wrapped-layout" grid="20" requires="layout text assets fonts">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text-style id="body" font="body" size="2"/>
+  <layout id="root" width="8" height="hug" direction="column" padding="1">
+    <layout id="nested" height="hug" direction="column" layout-width="fill">
+      <text id="label" wrap="true" layout-width="fill">
+        <run text="Go Go Go Go" style="body"/>
+      </text>
+    </layout>
+  </layout>
+</anima>

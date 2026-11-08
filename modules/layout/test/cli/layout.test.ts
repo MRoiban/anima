@@ -36,5 +36,20 @@ it('validates both syntaxes, exposes schema, samples boxes, and renders a huggin
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+  for (const ext of ['ani', 'animl'])
+    expect(await run(['validate', `modules/layout/examples/reflow.${ext}`], io)).toBe(0);
+  output.length = 0;
+  expect(
+    await run(
+      [
+        'sample',
+        'spec/conformance/layout-animated-reflow/case.ani',
+        '--script',
+        'spec/conformance/layout-animated-reflow/script.txt',
+      ],
+      io,
+    ),
+  ).toBe(0);
+  expect(output.join('\n')).toContain('"root.drawnLayoutBox.width":14');
   expect(errors).toEqual([]);
 });

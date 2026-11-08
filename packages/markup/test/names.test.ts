@@ -70,6 +70,8 @@ describe('one registry, two spellings', () => {
       'align-self',
       'margin',
       'display',
+      // seam(P7-4): participant reflow is a registry-derived attribute.
+      'reflow',
     ]);
   });
 

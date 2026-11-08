@@ -1,0 +1,9 @@
+{"time":0,"values":{"root.layoutBox.width":10,"root.drawnLayoutBox.width":10,"child.drawnLayoutBox.width":10},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"root.layoutBox.width":18,"root.drawnLayoutBox.width":10,"child.drawnLayoutBox.width":10},"states":{},"events":[],"settled":false}
+{"time":0.5,"values":{"root.layoutBox.width":18,"root.drawnLayoutBox.width":14,"child.drawnLayoutBox.width":14},"states":{},"events":[],"settled":false}
+{"time":0.75,"values":{"root.layoutBox.width":6,"root.drawnLayoutBox.width":16,"child.drawnLayoutBox.width":16},"states":{},"events":[],"settled":false}
+{"time":1.25,"values":{"root.layoutBox.width":6,"root.drawnLayoutBox.width":11,"child.drawnLayoutBox.width":11},"states":{},"events":[],"settled":false}
+{"time":1.75,"values":{"root.layoutBox.width":6,"root.drawnLayoutBox.width":6,"child.drawnLayoutBox.width":6},"states":{},"events":[],"settled":true}
+{"time":2,"values":{"root.layoutBox.width":18,"root.drawnLayoutBox.width":18,"child.drawnLayoutBox.width":18},"states":{},"events":[],"settled":true}
+{"time":2.15,"values":{"root.layoutBox.width":1,"root.drawnLayoutBox.width":15.45,"elastic.drawnLayoutBox.width":0},"states":{},"events":[],"settled":false}
+{"time":3,"values":{"root.layoutBox.width":1,"root.drawnLayoutBox.width":1,"elastic.drawnLayoutBox.width":1},"states":{},"events":[],"settled":true}

@@ -5974,10 +5974,10 @@
   "id": "host-api.fit-layout",
   "category": "host-api",
   "capability": "Fit: Responsive layout fit",
-  "construct": "new: <anima-icon fit=\"layout\">",
+  "construct": "<anima-icon fit=\"layout\"> / icon.fit; host-fit/web and layout per-player root sizing (spec/SPEC.md, modules/layout/SPEC.md)",
   "module": "layout",
-  "status": "planned",
-  "test": "browser/fit-layout",
+  "status": "done",
+  "test": "modules/host-fit/test/web/fit.test.ts (real root/child resize and byte-exact native frames, SVG/canvas, both engines); tests/oracle/host-api-fit-layout/skip.json",
   "phase": "P7"
  },
  {
@@ -7607,12 +7607,11 @@
   "id": "layout.animated-reflow",
   "category": "layout",
   "capability": "Animated layout reflow",
-  "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/layout/core/registry.ts reflow / layout.reflow; optional @anima-format/web/layout-reflow; modules/layout/examples/reflow.animl; modules/layout/SPEC.md",
   "module": "layout",
-  "status": "planned",
-  "test": "oracle/layout-animated-reflow",
-  "phase": "P7",
-  "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
+  "status": "done",
+  "test": "modules/layout/test/core/layout-animated-reflow.test.ts; modules/layout/test/web/reflow.test.ts; spec/conformance/layout-animated-reflow; tests/oracle/layout-animated-reflow/skip.json (retarget: intentional difference)",
+  "phase": "P7"
  },
  {
   "id": "layout.artboard-alignment",

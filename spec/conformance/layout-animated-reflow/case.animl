@@ -1,0 +1,9 @@
+<anima version="0.1" name="layout-animated-reflow" grid="20" requires="layout bind">
+  <number name="w" default="10"/>
+  <layout id="root" width="10" height="4" reflow="1 linear" fill="#d97757">
+    <rect id="child" x0="0" y0="0" width="2" height="2" fill="#000" layout-width="fill"/>
+  </layout>
+  <layout id="elastic" width="10" height="2" reflow="1 elastic(1,0.3)"/>
+  <bind target="elastic.width" value="w"/>
+  <bind target="root.width" value="w"/>
+</anima>

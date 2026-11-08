@@ -1,0 +1,30 @@
+ok advance
+ok screenshot: frames/0.png
+ok data
+ok advance
+ok screenshot: frames/1.png
+ok advance
+ok screenshot: frames/2.png
+ok advance
+ok data
+ok advance
+ok screenshot: frames/3.png
+ok advance
+ok screenshot: frames/4.png
+ok advance
+ok screenshot: frames/5.png
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:27:48.357] rive  deferred replay: inline
+[12:27:48.362] rive  built (376 bytes, 5ms, 0 errors, 0 warnings)
+[12:27:48.363] rive  showing Reflow [1/1]
+[12:27:48.363] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[12:27:48.370] rive  wrote frames/0.png
+[12:27:48.371] rive  data: size = 216 (mid-run)
+[12:27:48.376] rive  wrote frames/1.png
+[12:27:48.381] rive  wrote frames/2.png
+[12:27:48.382] rive  data: size = 72 (mid-run)
+[12:27:48.386] rive  wrote frames/3.png
+[12:27:48.391] rive  wrote frames/4.png
+[12:27:48.396] rive  wrote frames/5.png

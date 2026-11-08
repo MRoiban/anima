@@ -44,7 +44,8 @@ describe('authored AniML corpus', () => {
     // seam(P7-5): four bindable-artboard swap probes.
     // seam(P7-2): twenty-one independently specified layout probes.
     // seam(P7-6): independent original-font flatten path projection.
-    expect(cases).toHaveLength(605);
+    // seam(P7-4): deterministic reflow and wrapped-text samples.
+    expect(cases).toHaveLength(607);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

@@ -1,0 +1,29 @@
+ok advance
+ok screenshot: frames/0.png
+ok data
+ok advance
+ok screenshot: frames/1.png
+err advance: advance wants frames, seconds or milliseconds (30, 1.5s, 250ms), got "0.5"
+ok screenshot: frames/2.png
+ok data
+err advance: advance wants frames, seconds or milliseconds (30, 1.5s, 250ms), got "0.25"
+ok screenshot: frames/3.png
+err advance: advance wants frames, seconds or milliseconds (30, 1.5s, 250ms), got "0.5"
+ok screenshot: frames/4.png
+err advance: advance wants frames, seconds or milliseconds (30, 1.5s, 250ms), got "0.5"
+ok screenshot: frames/5.png
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:26:49.984] rive  deferred replay: inline
+[12:26:49.994] rive  built (376 bytes, 10ms, 0 errors, 0 warnings)
+[12:26:49.995] rive  showing Reflow [1/1]
+[12:26:49.995] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[12:26:50.009] rive  wrote frames/0.png
+[12:26:50.010] rive  data: size = 216 (mid-run)
+[12:26:50.018] rive  wrote frames/1.png
+[12:26:50.026] rive  wrote frames/2.png
+[12:26:50.027] rive  data: size = 72 (mid-run)
+[12:26:50.034] rive  wrote frames/3.png
+[12:26:50.042] rive  wrote frames/4.png
+[12:26:50.050] rive  wrote frames/5.png

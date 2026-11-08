@@ -1,0 +1,57 @@
+[
+  {
+    sample: 0,
+    time: 0,
+    target: 10,
+    drawn: 10,
+    maxDiff: 1,
+    pixelsOver16: 0
+  },
+  {
+    sample: 1,
+    time: 0,
+    target: 18,
+    drawn: 10,
+    maxDiff: 1,
+    pixelsOver16: 0
+  },
+  {
+    sample: 2,
+    time: 0.5,
+    target: 18,
+    drawn: 14,
+    maxDiff: 255,
+    pixelsOver16: 96
+  },
+  {
+    sample: 3,
+    time: 0.75,
+    target: 6,
+    drawn: 16,
+    maxDiff: 255,
+    pixelsOver16: 1344
+  },
+  {
+    sample: 4,
+    time: 1.25,
+    target: 6,
+    drawn: 11,
+    maxDiff: 255,
+    pixelsOver16: 1056
+  },
+  {
+    sample: 5,
+    time: 1.75,
+    target: 6,
+    drawn: 6,
+    maxDiff: 1,
+    pixelsOver16: 0
+  }
+] [
+  { sample: 0, time: 0, drawn: 10, maxDiff: 1, pixelsOver16: 0 },
+  { sample: 1, time: 0, drawn: 10, maxDiff: 1, pixelsOver16: 0 },
+  { sample: 2, time: 0.5, drawn: 14, maxDiff: 1, pixelsOver16: 0 },
+  { sample: 3, time: 0.75, drawn: 16, maxDiff: 255, pixelsOver16: 192 },
+  { sample: 4, time: 1.25, drawn: 11, maxDiff: 255, pixelsOver16: 576 },
+  { sample: 5, time: 1.75, drawn: 6, maxDiff: 1, pixelsOver16: 0 }
+]

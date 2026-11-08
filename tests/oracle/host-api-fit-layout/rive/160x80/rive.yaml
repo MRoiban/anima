@@ -1,0 +1,3 @@
+name: p7-layout-probe
+logs:
+  file: build/runtime.log

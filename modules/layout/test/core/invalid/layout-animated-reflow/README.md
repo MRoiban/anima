@@ -1,0 +1,1 @@
+The layout-reflow diagnostic is exercised with both container and child JSON pointers in ../../layout-animated-reflow.test.ts. Invalid durations, unknown eases and out-of-range cubic handles are rejected with an actionable hint.

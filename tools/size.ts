@@ -58,6 +58,7 @@ const APP_UI = [
   'a11y-text',
   'host-fit',
   'layout',
+  'layout-reflow',
 ];
 
 import { moduleBudgets as MODULES, webOwners } from './modules.generated.ts';

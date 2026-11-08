@@ -15,7 +15,7 @@ const refresh = (icon: AnimaIcon) => {
   icon.attributeChangedCallback('fit', null, icon.getAttribute('fit'));
   if (icon.player) icon.invalidate();
 };
-// seam(P7-3): P7-2 consumes this per-player override for the root layout's width/height.
+// Root layout sizes are grid units: fit="layout" uses one CSS pixel per grid unit.
 export interface HostLayoutPlayer {
   layoutSize?: [number, number];
   layoutBox?: (id: string) => unknown;
@@ -86,7 +86,7 @@ Icon.viewBox = (icon, svg) => {
   const target: [number, number] | undefined = fit === 'layout' ? [width, height] : sizes.get(icon);
   if (String(target) !== String(player.layoutSize)) {
     player.layoutSize = target;
-    // seam(P7-2): re-step only when the layout module is registered.
+    // Re-step only when the layout module is registered.
     if ((player as { layoutBox?: unknown }).layoutBox) {
       player.step(0);
       icon.invalidate();
