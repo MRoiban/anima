@@ -49,12 +49,16 @@ function text(el: Element): { value: string; offsets: number[] } {
   for (const t of el.children) {
     if (t.kind !== 'text') continue;
     const start = offsets.length;
+    const raw = t.raw;
     value += t.value;
     // XML has already decoded valid entities. Only reconstruct their source spans here.
-    for (const m of t.raw.matchAll(/&[^;]+;|[^]/g)) {
-      const units =
-        m[0].length > 1 && t.value.codePointAt(offsets.length - start)! > 0xffff ? 2 : 1;
-      for (let j = 0; j < units; j++) offsets.push(t.offsets?.[m.index] ?? t.at.offset + m.index);
+    // An index loop, not matchAll per character: compile time is on the perf guard.
+    for (let i = 0; i < raw.length;) {
+      const e = raw.charCodeAt(i) === 38 ? raw.indexOf(';', i + 1) : -1;
+      const n = e > i + 1 ? e - i + 1 : 1;
+      const units = n > 1 && t.value.codePointAt(offsets.length - start)! > 0xffff ? 2 : 1;
+      for (let j = 0; j < units; j++) offsets.push(t.offsets?.[i] ?? t.at.offset + i);
+      i += n;
     }
   }
   return { value, offsets };
