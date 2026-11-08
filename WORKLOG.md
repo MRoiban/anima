@@ -11,16 +11,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Goal: a smaller, agent-native Rive for animated web UI. Order: P7 (minimal layout, host fit,
   bindable artboards, 18 P6 text carry-overs) → P8 rigging (heavy).
 - Branch `p7` from main 8ffd714. Design `design/p7/DESIGN.md`; briefs `design/p7/tickets/`.
-- P7 rows: 50/57 done (layout 16 + reflow + fit-layout, host fit 17, artboards 4, text 11);
-  in scope 854/886. P7-8 running on the last 7 text rows (tree-bounds extents, font metrics and
-  decoding APIs, selected-text paint, run-list/text-style/flatten skips if native can't observe).
-- Benchmark done: reflow card AniML 6/6 (37-line scene) = Rive 6/6 (151 lines + Luau controller);
-  recorded; its `busy` bug fixed with a regression test. Docs to do: transition `actions` syntax in
-  the short actions example.
-- Next: merge P7-8; closure note, PLAN, LOG;
-  `test:scope -- changed --no-browser` once; perf A/B vs main; PR.
-- Gates now: core+web 21,165; largest scene 53,982; app-UI 104,505; runtime sum 128,157;
-  authoring 14,899; Rive-class 138,167. Full: layout 4,084/4,096, markup-libraries 2,176/2,176.
+- P7 closed on p7: 56/57 done (`a11y.tree-bounds` → P8, maybe-later candidate), in scope 860/886;
+  `docs/parity/P7-closure.md`, PLAN, LOG written; reflow-card benchmark AniML 6/6 = Rive 6/6.
+- Pre-PR checks: `test:scope -- changed --no-browser` 6,605 pass / 0 fail; perf vs main 8ffd714
+  (pinned, minimums, load 3–5): frames equal; bell compile +2.9 % average (+1.7…+4.0), spread over
+  the registry-driven compile (more element types), no single hot spot — at the ≤ 3 % guard.
+- Next: P7 PR, CI green, merge; then P8 design (rigging, heavy, canvas backend).
+- Gates now: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
+  authoring 14,899; Rive-class 148,870. Full: layout 4,084/4,096, markup-libraries 2,176/2,176,
+  fonts-info 7,952/8,192 (heavy).
 
 ## Owner
 
