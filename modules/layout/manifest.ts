@@ -6,6 +6,7 @@ export default {
     core: { entry: 'core/index.ts', export: 'layout', svg: 'core/svg.ts', svgExport: 'layoutSVG' },
     web: [
       { name: 'layout', budget: 4096 },
+      { name: 'layout-reflow', budget: 1024, over: 'layout' },
       { name: 'markup-layout', budget: 512, over: 'markup', authoring: true },
     ],
     markupHook: {
@@ -19,11 +20,13 @@ export default {
       'packages/core/src/modules/layout/svg.ts': 'core/svg.ts',
       'packages/markup/src/markup-layout.ts': 'markup/index.ts',
       'packages/web/src/layout.ts': 'web/index.ts',
+      'packages/web/src/layout-reflow.ts': 'web/reflow.ts',
       'packages/web/src/markup-layout.ts': 'web/markup.ts',
     },
     exports: {
       'core:./layout': 'packages/core/src/modules/layout/index.ts',
       'markup:./layout': 'packages/markup/src/markup-layout.ts',
+      'web:./layout-reflow': 'packages/web/src/layout-reflow.ts',
       'web:./layout': 'packages/web/src/layout.ts',
       'web:./markup-layout': 'packages/web/src/markup-layout.ts',
     },
@@ -35,6 +38,7 @@ export default {
       'packages/markup/test/decompile.test.ts',
     ],
     conformance: [
+      'layout-text-wrap',
       'layout-bound-hug',
       'layout-image-intrinsic',
       'layout-optional-shapes',
@@ -56,6 +60,7 @@ export default {
       'layout-intrinsic',
       'layout-paint',
       'data-bind-layout',
+      'layout-animated-reflow',
     ],
     docs: ['spec/SPEC.md', 'modules/layout/SPEC.md'],
   },

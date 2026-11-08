@@ -3,7 +3,7 @@
 `requires: ["layout"]` installs a dependency-free, single-line layout pass. Lengths are grid units.
 It adds no code to the base core/web entries. This is an independently implemented subset of
 [CSS Flexbox §9](https://www.w3.org/TR/css-flexbox-1/#layout-algorithm), with normalized positive
-fill weights, zero fill basis, no implicit shrink, no wrapping, percentages or auto margins.
+fill weights, zero fill basis, no implicit shrink, no flex-line wrapping, percentages or auto margins.
 It is not an implementation of Rive's layout engine.
 
 ## Nodes and both spellings
@@ -27,12 +27,14 @@ Its properties are:
 Padding and margin expand in top/right/bottom/left order, using CSS's 1–4-value expansion.
 Dimensions include padding; stroke does not consume layout space. Paint is behind the children.
 Root `x`, `y` keep their ordinary transform meanings. Root fill resolves against the artboard's
-viewBox dimensions. There are no implicit pixel conversions.
+viewBox dimensions. A per-player `layoutSize` override replaces root dimensions through their normal min/max bounds;
+without it the authored dimensions apply. Roots beneath ordinary groups follow the same rule.
+The host-fit adapter supplies grid units, using one CSS pixel per unit in `fit="layout"`.
 
 Every direct child participates. Child JSON is `layout: {width, height, minWidth, maxWidth,
-minHeight, maxHeight, alignSelf, margin, display}`. The corresponding AniML attributes are
+minHeight, maxHeight, alignSelf, margin, display, reflow}`. The corresponding AniML attributes are
 `layout-width`, `layout-height`, `min-width`, `max-width`, `min-height`, `max-height`, `align-self`,
-`margin`, `display`. `alignSelf` uses the `align` vocabulary and defaults to inheritance;
+`margin`, `display`, `reflow`. `alignSelf` uses the `align` vocabulary and defaults to inheritance;
 `display` is `flex` (default) or `none`. On a nested layout, its own width/height/bounds also
 serve as child sizing unless the JSON child `layout` explicitly overrides them. AniML writes
 bounds once on the nested container. Children may be layouts themselves.
@@ -82,11 +84,15 @@ of whether a renderer ever draws. `step(0)` applies bindings and reflows normall
 
 Each container keeps its previous resolved-input signature as its dirty flag. Unchanged signatures
 reuse the allocated boxes. A changed box advances that node's draw revision; it does not consume
-the renderer's dirty-slot reads. Constrained text measurements receive an explicit child width or maximum width when authored. Text is measured through the optional `measureText(player,
-nodeId, maxWidth?)` contract; until installed, the existing `textLayout` measured box is used.
+the renderer's dirty-slot reads. Constrained text measurements receive an explicit child width or maximum width when authored. Text is measured directly through `measureText(player, nodeId, maxWidth?)` from the text module;
+there is no fallback adapter. After top-down width allocation, text is remeasured within its actual
+width (including fill widths). Repeat measurement/allocation until the text sizes stop changing,
+bounded by node count plus one passes so nested hug heights propagate to ancestors. The generated
+font's 100-unit line gap is included: size 2 yields 2.2 per line. Drawing uses the same constraint
+and font preparation without changing the text module's standalone measurement cache.
 
 `player.layoutBox(id)` returns a detached `{x,y,width,height}`, or undefined for nonparticipants.
-Child positions are in the immediate container's space. `local()`/`world()` expose those allocated positions; layout containers have the ordinary rectangle hit outline. Root box positions are the root's `x/y`.
+Child positions are in the immediate container's space. `local()`/`world()` expose the drawn positions (equal to targets without reflow); layout containers have the ordinary rectangle hit outline. Root box positions are the root's `x/y`.
 `player.values()` / CLI snapshots additionally expose `<id>.layoutBox.x`, `.y`, `.width`, `.height`.
 These are observations, not writable binding destinations. Boxes are written into the neutral
 frame's container/rect/image geometry and child transforms, including shape scaling. SVG and
@@ -141,4 +147,60 @@ Two differences are intentional:
   extension of our independent cross-axis vocabulary; native positional-picker equivalence is not
   a claim of native baseline support.
 
-These are semantic differences, never rasterizer tolerances. Wrapping remains outside this entry.
+These are semantic differences, never rasterizer tolerances. Flex-line wrapping remains outside this entry; text wrapping is supplied by the text module.
+
+## Animated reflow (`layout-reflow`)
+
+Load `@anima-format/web/layout-reflow` in addition to `layout` to animate boxes. Tooling installs
+it automatically. With only the base layout entry, boxes snap as before; the reflow entry adds no
+new `requires` feature or base core/web bytes. It also installs runtime validation of its settings.
+
+A container's JSON `reflow` and AniML `reflow` accept a finite nonnegative duration in seconds,
+or a string `"<seconds> <ease>"`, e.g. `"0.25 out"`. The default ease is `linear`; the ease vocabulary
+is SPEC §5 (`linear`, `hold`, `in`, `out`, `inOut`, `cubic(...)`, `elastic(...)`), plus
+`elastic-in(...)` and `elastic-in-out(...)` when the document declares `motion`. These are
+weight eases, not timeline value curves. The design's illustrative `ease-out` means §5 `out`.
+Duration zero explicitly disables animation. Settings are static, not binding/track destinations.
+
+Participants override their own box with `layout: {reflow: ...}` / `reflow="..."`. Otherwise they
+inherit from the nearest container declaring `reflow`, walking ancestors if needed; no declaration
+means snap. A nested container's `layout.reflow` affects its own box; its container `reflow` is what
+its descendants inherit. A nested container's own `reflow` also applies to its own box unless
+`layout.reflow` overrides it. In AniML the nested container's `reflow` is the container setting;
+JSON can additionally express the independent child override.
+
+First allocation snaps. After the target layout has converged, each changed box starts a flight
+from the box currently drawn to its new target, interpolating all four components in the immediate
+container's coordinate space. At a step boundary, first advance the old flight to `player.time`,
+then retarget from that exact drawn box at progress zero. Thus a write followed by `step(0)` does
+not move the drawing. A write followed by `step(dt)` advances any old flight by `dt` before starting
+the new flight. Subsequent steps use elapsed time / duration and the selected ease. The endpoint
+is exactly the target even for `hold` or overshooting eases. Interpolated dimensions clamp at zero
+so elastic undershoot never emits an invalid negative drawing size; positions may overshoot freely. Unchanged targets do not restart flights.
+Reduced motion snaps active and newly changed boxes on the next step and clears the flights.
+Re-enabling motion does not resume an old flight. `step().settled` stays false and `player.busy`
+stays true until every flight ends; other player activity retains its ordinary settled rules.
+
+`player.layoutBox(id)` and machine guards always observe the target box. The detached
+`player.drawnLayoutBox(id)` observes the current drawn box, or undefined for a nonparticipant;
+without reflow it equals the target. With the optional entry (and always in tooling), CLI snapshots / `values()` expose
+`<id>.drawnLayoutBox.x`, `.y`, `.width`, `.height`. Drawing, container hit outlines, and child
+`local()` / `world()` translations use drawn boxes. Text is laid out for drawing at its drawn
+width; those visual line breaks do not feed back into the target calculation during a flight.
+
+`layout-reflow` is a load diagnostic at the exact container `/reflow` or participant
+`/layout/reflow` pointer for an invalid duration or ease, with a corrective hint. Registry shapes
+and the module's existing AniML hook supply both spellings, schema and CLI validation. The paired
+`examples/reflow.animl` / `.ani` is the data-bound label button. Conformance samples cover the start,
+midpoint, nonzero-dt retarget, completion and reduced-motion snap. Both browser engines also verify
+SVG/canvas drawing and scheduler completion.
+
+The implementation is independent of native engine code. The native probe and raw pixel differences
+are retained under `tests/oracle/layout-animated-reflow` and `verification/p7-4`. The local native
+CLI starts a changed-size interpolation on a positive update frame, whereas Anima's `step(0)` starts
+it immediately. Adding an explicit native update frame aligns the first midpoint, but the retained
+mid-flight retarget samples still disagree. Anima keeps the deterministic boundary contract above;
+no raster tolerance disguises this timing/geometry difference. Native parity remains pending an
+accepted comparison mapping or explicit closure decision. This distinction follows the update-pass
+pitfall in [the state-machine research](../../docs/research/rive-animation-and-state.md) and the
+independent-renderer cautions in [the web research](../../docs/research/rive-web-runtime.md).

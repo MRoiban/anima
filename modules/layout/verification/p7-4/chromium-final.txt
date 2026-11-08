@@ -1,0 +1,26 @@
+
+> test:scope
+> node tools/test-scope.ts layout host-fit --browser=chromium
+
+Scopes: layout, host-fit
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout-animated-reflow.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/layout/test/web/reflow.test.ts
+  cases: ^conformance > (data-bind-layout|layout-alignment|layout-animated-reflow|layout-baseline|layout-bound-hug|layout-containers|layout-fill-bounds-difference|layout-fill-sizing|layout-fixed-sizing|layout-flex-align-items|layout-flex-direction|layout-flex-justify|layout-hug-sizing|layout-image-intrinsic|layout-intrinsic|layout-optional-shapes|layout-paint|layout-participants|layout-self-alignment|layout-size-bounds|layout-spacing|layout-text-wrap|layout-visibility)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-6709f12a
+
+
+ Test Files  11 passed (11)
+      Tests  3313 passed | 627 skipped (3940)
+   Start at  12:36:38
+   Duration  31.44s (tests 78%, transform 12%, import 10%)

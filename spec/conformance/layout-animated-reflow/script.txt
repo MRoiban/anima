@@ -1,0 +1,27 @@
+advance 0
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+set w 18
+advance 0
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+advance 0.5
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+set w 6
+advance 0.25
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+advance 0.5
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+advance 0.5
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+set w 18
+advance 0
+advance 0.25
+motion reduce
+advance 0
+snapshot root.layoutBox.width root.drawnLayoutBox.width child.drawnLayoutBox.width
+motion full
+set w 1
+advance 0
+advance 0.15
+snapshot root.layoutBox.width root.drawnLayoutBox.width elastic.drawnLayoutBox.width
+advance 0.85
+snapshot root.layoutBox.width root.drawnLayoutBox.width elastic.drawnLayoutBox.width

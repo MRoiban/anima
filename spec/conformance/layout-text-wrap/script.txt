@@ -1,0 +1,5 @@
+advance 0
+snapshot root.layoutBox.height nested.layoutBox.height label.layoutBox.width label.layoutBox.height
+set width 18
+advance 0
+snapshot root.layoutBox.height nested.layoutBox.height label.layoutBox.width label.layoutBox.height

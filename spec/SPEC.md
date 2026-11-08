@@ -3306,14 +3306,17 @@ message and hint. `resetSize()` removes the override. The override persists acro
 loads on the same host. In layout fit, the host dimensions take precedence; resetting
 size clears the explicit override but keeps responsive sizing while layout is active.
 
-**Layout integration seam (P7-2):** fitting writes `player.layoutSize?: [w,h]` per
+<!-- seam(P7-4): real per-player root layout integration. -->
+
+**Layout integration:** fitting writes `player.layoutSize?: [w,h]` per
 player, where undefined means authored root width/height. A layout provider consumes
 this override for root containers without mutating model defaults and exposes
 `player.layoutBox(id)`. On a changed override, the host calls `player.step(0)` when
 that reader exists, then redraws. The scale for layout fit is one CSS pixel per grid
 unit; DPR changes only the canvas backing store. Leaving layout restores the explicit
-size if set, otherwise authored root dimensions. This checkout tests this contract
-with a stub; the layout provider must be integrated before responsive reflow is claimed.
+size if set, otherwise authored root dimensions. The layout module now consumes the override for
+root containers through their normal bounds. Both engines compare real responsive child drawing
+against native layout-fit captures at two host sizes, in SVG and canvas.
 
 ## dataartboard — bindable component data
 
@@ -3369,3 +3372,25 @@ differences. Animated reflow belongs to the separate `layout-reflow` entry.
 <!-- capability: layout.paint -->
 
 <!-- capability: data.bind-layout -->
+
+
+<!-- seam(P7-4): optional animated-reflow contract and host-fit closure. -->
+<!-- capability: layout.animated-reflow -->
+### Animated layout reflow
+
+The normative [layout reflow contract](../modules/layout/SPEC.md#animated-reflow-layout-reflow)
+defines container/participant `reflow`, §5 easing, inherited settings, uninterrupted retargets,
+reduced motion and the target/drawn box readers. The optional `layout-reflow` web entry owns
+interpolation and diagnostics; CLI tooling includes it. Deterministic target/drawn observations
+are in `layout-animated-reflow`, with allocated text measurement in `layout-text-wrap`.
+Native timing and retarget mapping remain pending; raw captures are retained without a new tolerance.
+
+<!-- capability: host-api.fit-layout -->
+### Responsive host layout
+
+`<anima-icon fit="layout">` / `icon.fit = "layout"` uses the host's CSS content size as root layout
+dimensions, at one CSS pixel per grid unit (DPR affects backing pixels only). Root layout reflows;
+it is not merely scaled. `player.layoutSize` is the per-player grid-unit override; clearing it
+restores authored sizing. The host adapter applies normal explicit-size/reset precedence as above.
+Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
+This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.

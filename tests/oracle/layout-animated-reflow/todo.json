@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Implementation and deterministic/browser tests are complete. Native advance(0) does not start reflow on the same update boundary; a positive-frame priming probe aligns the first midpoint but mid-flight retarget samples still disagree. Raw metrics/captures retained in modules/layout/verification/p7-4; needs an accepted native timing mapping or explicit intentional-difference decision, then orchestrator-owned oracle acceptance. No tolerance or finding changed."
+}

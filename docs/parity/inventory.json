@@ -16869,10 +16869,10 @@
       "rive-wasm/js/src/rive.ts:75@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon fit=\"layout\">",
+      "construct": "<anima-icon fit=\"layout\"> / icon.fit; host-fit/web and layout per-player root sizing (spec/SPEC.md, modules/layout/SPEC.md)",
       "module": "layout",
-      "status": "planned",
-      "test": "browser/fit-layout",
+      "status": "done",
+      "test": "modules/host-fit/test/web/fit.test.ts (real root/child resize and byte-exact native frames, SVG/canvas, both engines); tests/oracle/host-api-fit-layout/skip.json",
       "phase": "P7"
     },
     "aliases": [
@@ -21337,10 +21337,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts reflow / layout.reflow; optional @anima-format/web/layout-reflow; modules/layout/examples/reflow.animl; modules/layout/SPEC.md",
       "module": "layout",
       "status": "planned",
-      "test": "oracle/layout-animated-reflow",
+      "test": "modules/layout/test/core/layout-animated-reflow.test.ts; modules/layout/test/web/reflow.test.ts; spec/conformance/layout-animated-reflow; tests/oracle/layout-animated-reflow (native timing/retarget mapping remains pending)",
       "phase": "P7",
       "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
     }

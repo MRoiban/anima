@@ -28,6 +28,7 @@ import './host-fit.ts';
 import './host-values.ts';
 import './input.ts';
 import './layout.ts';
+import './layout-reflow.ts';
 import './lists.ts';
 import './machine.ts';
 import './media.ts';

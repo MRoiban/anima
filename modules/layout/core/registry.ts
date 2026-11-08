@@ -22,6 +22,7 @@ export const childShape: Shape = {
     alignSelf: { k: 'str', of: alignments, markup: 'align-self' },
     margin: edges,
     display: { k: 'str', of: ['flex', 'none'] },
+    reflow: size,
   },
 };
 export const entries: ModuleEntry[] = [
@@ -42,6 +43,7 @@ export const entries: ModuleEntry[] = [
       align: { k: 'str', of: alignments },
       gap: edges,
       padding: edges,
+      reflow: size,
       corners: { k: 'num', min: 0 },
     },
   },

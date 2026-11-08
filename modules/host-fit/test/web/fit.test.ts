@@ -59,7 +59,7 @@ for (const [engineName, engine, executablePath] of [
     let bundles: string[];
     beforeAll(async () => {
       bundles = await Promise.all(
-        ['index', 'input', 'a11y-dom', 'canvas', 'host-fit'].map((n) =>
+        ['index', 'input', 'a11y-dom', 'canvas', 'host-fit', 'layout'].map((n) =>
           cachedBundle(new URL(`packages/web/src/${n}.ts`, root).pathname),
         ),
       );
@@ -213,6 +213,79 @@ for (const [engineName, engine, executablePath] of [
           expect(max, fit).toBeLessThanOrEqual(2);
         }
       });
+      it(`${renderer}: responsive child bounds and every pixel match native layout fit at two sizes`, async () => {
+        await page.evaluate((renderer) => {
+          document.body.style.cssText = 'margin:0;background:white';
+          const i = document.querySelector('anima-icon')!;
+          i.setAttribute('renderer', renderer);
+          i.fit = 'layout';
+          i.load({
+            anima: '0.1',
+            name: 'responsive-native',
+            grid: 20,
+            requires: ['layout'],
+            nodes: [
+              {
+                id: 'root',
+                type: 'layout',
+                width: 24,
+                height: 12,
+                padding: 2,
+                fill: { color: '#fff' },
+                children: [
+                  {
+                    id: 'child',
+                    type: 'rect',
+                    x0: 0,
+                    y0: 0,
+                    w: 1,
+                    h: 1,
+                    layout: { width: 'fill', height: 'fill' },
+                    fill: { color: '#f00' },
+                  },
+                ],
+              },
+            ],
+          });
+        }, renderer);
+        for (const [w, h] of [
+          [240, 100],
+          [160, 80],
+        ]) {
+          await page.evaluate(
+            ([w, h]) => {
+              const i = document.querySelector('anima-icon')!;
+              i.style.width = w + 'px';
+              i.style.height = h + 'px';
+            },
+            [w!, h!],
+          );
+          await page.waitForFunction(
+            ([w, h]) => {
+              const b = document.querySelector('anima-icon')!.player!.layoutBox('child');
+              return b?.width === w! - 4 && b.height === h! - 4;
+            },
+            [w!, h!],
+          );
+          await page.evaluate(
+            () =>
+              new Promise<void>((r) =>
+                requestAnimationFrame(() => requestAnimationFrame(() => r())),
+              ),
+          );
+          const actual = PNG.sync.read(await page.locator('anima-icon').screenshot());
+          const expected = PNG.sync.read(
+            readFileSync(
+              new URL(
+                `../../../../tests/oracle/host-api-fit-layout/rive/${w}x${h}/frames/0.png`,
+                import.meta.url,
+              ),
+            ),
+          );
+          expect([actual.width, actual.height]).toEqual([w, h]);
+          expect(Buffer.compare(actual.data, expected.data)).toBe(0);
+        }
+      }, 30_000);
       it(`${renderer}: all nine alignments and legacy aliases are live`, async () => {
         for (const [alignment, ax, ay] of [
           ['top-left', 0, 0],
@@ -281,38 +354,67 @@ for (const [engineName, engine, executablePath] of [
           authored: [-2, -1, 24, 12],
         });
       });
-      it(`${renderer}: layout root seam resizes/reflows with a stub and restores authored size`, async () => {
-        const result = await page.evaluate((renderer) => {
+      it(`${renderer}: real root reflows on host resize and restores authored sizing`, async () => {
+        const result = await page.evaluate(async (renderer) => {
           const i = document.querySelector('anima-icon')!;
           i.setAttribute('renderer', renderer);
-          const p = i.player! as typeof i.player & HostLayoutPlayer;
-          const snapshots: unknown[] = [];
-          const step = p.step;
-          // seam(P7-2): stub with the layout module's Box shape until fit="layout" is wired.
-          p.layoutBox = () => ({
-            x: 0,
-            y: 0,
-            width: p.layoutSize?.[0] ?? 24,
-            height: p.layoutSize?.[1] ?? 12,
+          i.load({
+            anima: '0.1',
+            name: 'responsive',
+            grid: 20,
+            requires: ['layout'],
+            nodes: [
+              {
+                id: 'root',
+                type: 'layout',
+                width: 24,
+                height: 12,
+                padding: 2,
+                fill: { color: '#fff' },
+                children: [
+                  {
+                    id: 'child',
+                    type: 'rect',
+                    x0: 0,
+                    y0: 0,
+                    w: 1,
+                    h: 1,
+                    layout: { width: 'fill', height: 'fill' },
+                    fill: { color: '#f00' },
+                  },
+                ],
+              },
+            ],
           });
-          p.step = function (dt) {
-            snapshots.push(p.layoutBox!('root'));
-            return step.call(this, dt);
-          };
+          const wait = () =>
+            new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+          await wait();
+          const p = i.player!;
           i.fit = 'layout';
-          const dynamic = i.size;
+          await wait();
+          const dynamic = [p.layoutBox('root'), p.layoutBox('child')];
+          i.style.width = '160px';
+          i.style.height = '80px';
+          await wait();
+          await wait();
+          const resized = [p.layoutBox('root'), p.layoutBox('child')];
           i.fit = 'contain';
-          return { dynamic, restored: i.size, snapshots };
+          await wait();
+          const restored = p.layoutBox('root');
+          return { dynamic, resized, restored };
         }, renderer);
         expect(result).toEqual({
-          dynamic: [240, 100],
-          restored: [24, 12],
-          snapshots: [
+          dynamic: [
             { x: 0, y: 0, width: 240, height: 100 },
-            { x: 0, y: 0, width: 24, height: 12 },
+            { x: 2, y: 2, width: 236, height: 96 },
           ],
+          resized: [
+            { x: 0, y: 0, width: 160, height: 80 },
+            { x: 2, y: 2, width: 156, height: 76 },
+          ],
+          restored: { x: 0, y: 0, width: 24, height: 12 },
         });
-      });
+      }, 30_000);
       it(`${renderer}: settles through host resize, zero dimensions, disconnect/reconnect and renderer changes`, async () => {
         await page.evaluate((renderer) => {
           const i = document.querySelector('anima-icon')!;

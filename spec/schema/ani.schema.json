@@ -4401,6 +4401,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -6383,6 +6393,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -8369,6 +8389,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -10383,6 +10413,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -12379,6 +12419,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -13172,6 +13222,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -13943,6 +14003,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -15797,6 +15867,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -17797,6 +17877,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -19799,6 +19889,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -21790,6 +21890,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -23122,6 +23232,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -24498,6 +24618,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },
@@ -26393,6 +26523,16 @@
                     "flex",
                     "none"
                   ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -28012,6 +28152,17 @@
               ],
               "feature": "layout"
             },
+            "reflow": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "feature": "layout"
+            },
             "corners": {
               "type": "number",
               "minimum": 0,
@@ -28721,6 +28872,16 @@
                   "enum": [
                     "flex",
                     "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
                   ]
                 }
               },

@@ -10,46 +10,36 @@ import type { ObjShape } from '../../../packages/core/src/registry.ts';
 import { entries, axes } from './registry.ts';
 import { arrange, edges, weight, clamp, type Box, type Size, type Item } from './algorithm.ts';
 import { after } from '../manifest.ts';
+import { measureText, textSizing } from '../../text/core/index.ts';
+import type { TextModule, TextDrawNode } from '../../text/core/index.ts';
+import { reflow, validateReflow } from './reflow.ts';
 export type { Box } from './algorithm.ts';
 let geometryModules: ReadonlyMap<string, Module> = new Map();
-const states = new WeakMap<Player, { boxes: Map<number, Box>; signatures: Map<number, string> }>();
-let text:
-  | {
-      measureText?: (
-        p: Player,
-        id: string,
-        maxWidth?: number,
-      ) => { width: number; height: number; baseline?: number };
-      textLayout?: (
-        p: Player,
-        i: number,
-      ) => { width: number; height: number; lines?: { baseline: number }[] };
-    }
-  | undefined;
-// seam(P7-2): P7-1 supplies measureText(player, nodeId, maxWidth?); use the existing measured box until merged.
-function measureText(p: Player, i: number, maxWidth?: number) {
-  const value = text?.measureText?.(p, p.model.nodes[i]!.id, maxWidth) ?? text?.textLayout?.(p, i);
-  return (
-    value && {
-      width: value.width,
-      height: value.height,
-      baseline:
-        ('baseline' in value
-          ? value.baseline
-          : 'lines' in value
-            ? value.lines?.[0]?.baseline
-            : undefined) ?? value.height,
-    }
-  );
+const states = new WeakMap<
+  Player,
+  {
+    boxes: Map<number, Box>;
+    drawn: Map<number, Box>;
+    signatures: Map<number, string>;
+    measured: Map<number, { width: number; height: number; baseline: number }>;
+  }
+>();
+let text: TextModule | undefined;
+export interface LayoutModule extends Module {
+  reflow?: typeof reflow;
+  validateReflow?: typeof validateReflow;
 }
-export function layoutBox(p: Player, id: string): Box | undefined {
+const drawn = (p: Player, i: number) => states.get(p)?.drawn.get(i);
+export function layoutBox(p: Player, id: string, visual?: boolean): Box | undefined {
   const i = p.model.ids.get(id),
-    box = i === undefined ? undefined : states.get(p)?.boxes.get(i);
+    box = i === undefined ? undefined : states.get(p)?.[visual ? 'drawn' : 'boxes'].get(i);
   return box && { ...box };
 }
 declare module '../../../packages/core/src/player.ts' {
   interface Player {
     layoutBox(id: string): Box | undefined;
+    drawnLayoutBox(id: string): Box | undefined;
+    layoutSize?: Size;
   }
 }
 function configuration(p: Player, i: number) {
@@ -118,9 +108,15 @@ function intrinsic(p: Player, i: number): Size {
 }
 export function resolveLayout(p: Player): void {
   let state = states.get(p);
-  if (!state) states.set(p, (state = { boxes: new Map(), signatures: new Map() }));
-  const { boxes, signatures } = state,
+  if (!state)
+    states.set(
+      p,
+      (state = { boxes: new Map(), drawn: new Map(), signatures: new Map(), measured: new Map() }),
+    );
+  const { boxes, signatures, measured } = state,
     natural = new Map<number, Size>();
+  // Refresh at the previous allocation, so unchanged wrapping does not churn intermediate boxes.
+  for (const [i, m] of measured) measured.set(i, measureText(p, i, m.width)!);
   const update = (i: number, box: Box) => {
     const old = boxes.get(i);
     if (!old || Object.keys(box).some((k) => box[k as keyof Box] !== old[k as keyof Box])) {
@@ -130,7 +126,9 @@ export function resolveLayout(p: Player): void {
   };
   const item = (i: number): Item => {
     const c = configuration(p, i),
-      size = natural.get(i) ?? intrinsic(p, i);
+      size = natural.get(i) ?? intrinsic(p, i),
+      m = measured.get(i);
+    if (m) size[1] = m.height;
     return {
       id: i,
       ...c,
@@ -143,7 +141,7 @@ export function resolveLayout(p: Player): void {
       ) as Size,
       baseline:
         String(p.model.nodes[i]!.type) === 'text'
-          ? (measureText(p, i)?.baseline ?? size[1])
+          ? (measured.get(i)?.baseline ?? measureText(p, i)?.baseline ?? size[1])
           : size[1],
     };
   };
@@ -168,76 +166,97 @@ export function resolveLayout(p: Player): void {
       align: String(p.prop(i, 'align') ?? 'start'),
     };
   };
-  // Bottom-up intrinsic sizes, then top-down allocation (a nested fill receives its actual box).
-  for (let i = p.model.nodes.length - 1; i >= 0; i--)
-    if (String(p.model.nodes[i]!.type) === 'layout') {
-      const s = settings(i),
-        a = s.direction.startsWith('column') ? 1 : 0,
-        b = 1 - a,
-        items = children(i).map(item),
-        size: Size = [0, 0];
-      items.forEach((c) => {
-        size[a] += c.size[a]! + c.margin[a === 0 ? 1 : 0]! + c.margin[a === 0 ? 3 : 2]!;
-        size[b] = Math.max(
-          size[b]!,
-          c.size[b]! + c.margin[b === 0 ? 1 : 0]! + c.margin[b === 0 ? 3 : 2]!,
-        );
-      });
-      if (a === 0) {
-        const baseline = items.filter((c) => (c.align || s.align) === 'baseline');
-        size[1] = Math.max(
-          size[1],
-          Math.max(0, ...baseline.map((c) => c.margin[0]! + c.baseline)) +
-            Math.max(0, ...baseline.map((c) => c.margin[2]! + c.size[1] - c.baseline)),
+  let changed = true;
+  for (let pass = 0; changed && pass <= p.model.nodes.length; pass++) {
+    changed = false;
+    // Bottom-up intrinsic sizes, then top-down allocation (a nested fill receives its actual box).
+    for (let i = p.model.nodes.length - 1; i >= 0; i--)
+      if (String(p.model.nodes[i]!.type) === 'layout') {
+        const s = settings(i),
+          a = s.direction.startsWith('column') ? 1 : 0,
+          b = 1 - a,
+          items = children(i).map(item),
+          size: Size = [0, 0];
+        items.forEach((c) => {
+          size[a] += c.size[a]! + c.margin[a === 0 ? 1 : 0]! + c.margin[a === 0 ? 3 : 2]!;
+          size[b] = Math.max(
+            size[b]!,
+            c.size[b]! + c.margin[b === 0 ? 1 : 0]! + c.margin[b === 0 ? 3 : 2]!,
+          );
+        });
+        if (a === 0) {
+          const baseline = items.filter((c) => (c.align || s.align) === 'baseline');
+          size[1] = Math.max(
+            size[1],
+            Math.max(0, ...baseline.map((c) => c.margin[0]! + c.baseline)) +
+              Math.max(0, ...baseline.map((c) => c.margin[2]! + c.size[1] - c.baseline)),
+          );
+        }
+        size[a] += Math.max(0, items.length - 1) * s.gap;
+        size[0] += s.padding[1]! + s.padding[3]!;
+        size[1] += s.padding[0]! + s.padding[2]!;
+        const c = configuration(p, i);
+        natural.set(
+          i,
+          size.map((v, k) =>
+            clamp(
+              p.layoutSize && String(p.model.nodes[p.model.nodes[i]!.parent]?.type) !== 'layout'
+                ? p.layoutSize[k]!
+                : typeof c.mode[k] === 'number'
+                  ? (c.mode[k] as number)
+                  : weight(c.mode[k]) &&
+                      String(p.model.nodes[p.model.nodes[i]!.parent]?.type) !== 'layout'
+                    ? p.model.viewBox[k + 2]!
+                    : v,
+              c.min[k]!,
+              c.max[k]!,
+            ),
+          ) as Size,
         );
       }
-      size[a] += Math.max(0, items.length - 1) * s.gap;
-      size[0] += s.padding[1]! + s.padding[3]!;
-      size[1] += s.padding[0]! + s.padding[2]!;
-      const c = configuration(p, i);
-      natural.set(
-        i,
-        size.map((v, k) =>
-          clamp(
-            typeof c.mode[k] === 'number'
-              ? (c.mode[k] as number)
-              : weight(c.mode[k]) &&
-                  String(p.model.nodes[p.model.nodes[i]!.parent]?.type) !== 'layout'
-                ? p.model.viewBox[k + 2]!
-                : v,
-            c.min[k]!,
-            c.max[k]!,
-          ),
-        ) as Size,
-      );
-    }
-  for (const [i, n] of p.model.nodes.entries())
-    if (String(n.type) === 'layout') {
-      const s = settings(i),
-        items = children(i).map(item),
-        assigned = boxes.get(i),
-        size: Size =
-          n.parent >= 0 && String(p.model.nodes[n.parent]!.type) === 'layout' && assigned
-            ? [assigned.width, assigned.height]
-            : natural.get(i)!;
-      if (n.parent < 0 || String(p.model.nodes[n.parent]!.type) !== 'layout')
-        update(i, { x: p.num(i, 'x', 0), y: p.num(i, 'y', 0), width: size[0], height: size[1] });
-      const signature = JSON.stringify([items, size, s]);
-      if (signatures.get(i) === signature) continue;
-      signatures.set(i, signature);
-      const result = arrange(items, size, s.padding, s.direction, s.gap, s.justify, s.align);
-      items.forEach((c, k) => update(c.id, result[k]!));
-      for (const k of n.children)
-        if (p.prop(k, 'layout.display') === 'none') update(k, { x: 0, y: 0, width: 0, height: 0 });
-    }
+    for (const [i, n] of p.model.nodes.entries())
+      if (String(n.type) === 'layout') {
+        const s = settings(i),
+          items = children(i).map(item),
+          assigned = boxes.get(i),
+          size: Size =
+            n.parent >= 0 && String(p.model.nodes[n.parent]!.type) === 'layout' && assigned
+              ? [assigned.width, assigned.height]
+              : natural.get(i)!;
+        if (n.parent < 0 || String(p.model.nodes[n.parent]!.type) !== 'layout')
+          update(i, { x: p.num(i, 'x', 0), y: p.num(i, 'y', 0), width: size[0], height: size[1] });
+        const signature = JSON.stringify([items, size, s]);
+        if (signatures.get(i) === signature) continue;
+        signatures.set(i, signature);
+        const result = arrange(items, size, s.padding, s.direction, s.gap, s.justify, s.align);
+        items.forEach((c, k) => {
+          const box = result[k]!;
+          if (String(p.model.nodes[c.id]!.type) === 'text') {
+            const m = measureText(p, c.id, box.width)!;
+            const old = measured.get(c.id);
+            if (!old || old.height !== m.height || old.width !== m.width) changed = true;
+            measured.set(c.id, m);
+          }
+          update(c.id, box);
+        });
+        for (const k of n.children)
+          if (p.prop(k, 'layout.display') === 'none')
+            update(k, { x: 0, y: 0, width: 0, height: 0 });
+      }
+  }
+  state.drawn = layout.reflow?.(p, boxes) ?? boxes;
 }
-export const layout: Module = {
+export const layout: LayoutModule = {
   name: 'layout',
   after,
   entries,
   init(registry, shared) {
     geometryModules = registry;
-    text = registry.get('text') as typeof text;
+    if (V) {
+      layout.reflow = reflow;
+      layout.validateReflow = validateReflow;
+    }
+    text = registry.get('text') as TextModule | undefined;
     const guard = registry.get('machine')?.entries.find((e) => e.target === 'transition')?.shapes
       .guard as ObjShape | undefined;
     if (guard)
@@ -260,6 +279,9 @@ export const layout: Module = {
           for (const [key, value] of Object.entries(box))
             result[this.model.nodes[i]!.id + '.layoutBox.' + key] = value;
         return result;
+      };
+      shared.Player.prototype.drawnLayoutBox = function (id) {
+        return layoutBox(this, id, true);
       };
       shared.Player.prototype.layoutBox = function (id) {
         return layoutBox(this, id);
@@ -305,158 +327,153 @@ export const layout: Module = {
     )
       return value;
   },
-  ...(V
-    ? {
-        load(model: Model, _raw: Model['doc'], d: Diags) {
-          if (!model.doc.requires?.includes('layout')) return;
-          if (V)
-            for (const [i, n] of model.nodes.entries())
-              if (String(n.type) === 'layout') {
-                const pointer = nodePointer(model, i),
-                  index = d.list.findIndex((v) => v.code === 'no-paint' && v.pointer === pointer);
-                if (index >= 0) d.list.splice(index, 1);
-              }
-          if (V)
-            for (const [name, layer] of Object.entries(model.doc.machine?.layers ?? {}) as [
-              string,
-              {
-                states: Record<
-                  string,
-                  { on?: { guard?: { left?: { layout?: string }; right?: { layout?: string } } }[] }
-                >;
-              },
-            ][])
-              for (const [state, s] of Object.entries(layer.states))
-                for (const [i, t] of (s.on ?? []).entries())
-                  for (const key of ['left', 'right'] as const) {
-                    const target = t.guard?.[key]?.layout;
-                    if (target !== undefined) {
-                      const match = /^([^.]+)\.(x|y|width|height)$/.exec(target),
-                        ni = match && model.ids.get(match[1]!);
-                      if (
-                        ni === undefined ||
-                        ni === null ||
-                        !(
-                          String(model.nodes[ni]!.type) === 'layout' ||
-                          String(model.nodes[model.nodes[ni]!.parent]?.type) === 'layout'
-                        )
-                      )
-                        d.err(
-                          'layout-target',
-                          `/machine/layers/${name}/states/${state}/on/${i}/guard/${key}/layout`,
-                          'unknown layout box target',
-                          'use a layout container or participant id followed by .x, .y, .width or .height',
-                        );
-                    }
-                  }
-          if (V)
-            for (const [i, n] of model.nodes.entries()) {
-              const at = nodePointer(model, i),
-                parent = model.nodes[n.parent];
-              const error = (code: string, key: string, message: string, hint: string) =>
-                d.err(code, at + key, message, hint);
-              const childAddress = [...model.addrs].find(
-                ([, a]) => a.node === i && a.key.startsWith('layout.'),
-              )?.[0];
-              if ((n.raw.layout || childAddress) && String(parent?.type) !== 'layout') {
-                if (n.raw.layout)
-                  error(
-                    'layout-outside',
-                    '/layout',
-                    'layout child properties need a layout parent',
-                    'move the node inside a layout container',
-                  );
-                else
-                  d.err(
-                    'layout-outside',
-                    model.doc.bind?.[childAddress!] !== undefined ? '/bind/' + childAddress : at,
-                    'layout child properties need a layout parent',
-                    'move the node inside a layout container',
-                  );
-              }
-              for (const [prefix, raw] of [
-                ['', String(n.type) === 'layout' ? n.raw : undefined],
-                ['/layout', n.raw.layout],
-              ] as const)
-                if (raw) {
-                  for (const key of ['minWidth', 'maxWidth', 'minHeight', 'maxHeight'])
-                    if (raw[key] !== undefined && raw[key] < 0)
-                      error(
-                        'layout-value',
-                        prefix + '/' + key,
-                        'layout bounds must be nonnegative',
-                        'use nonnegative grid lengths',
-                      );
-                  for (const a of axes) {
-                    const cap = a[0]!.toUpperCase() + a.slice(1),
-                      value = raw[a];
-                    if (
-                      value !== undefined &&
-                      !(typeof value === 'number' && value >= 0) &&
-                      value !== 'hug' &&
-                      !(weight(value) > 0 && Number.isFinite(weight(value)))
-                    )
-                      error(
-                        'layout-value',
-                        prefix + '/' + a,
-                        'invalid layout length or fill weight',
-                        'use a nonnegative number, hug, fill or fill(weight > 0)',
-                      );
-                    if ((raw['min' + cap] ?? 0) > (raw['max' + cap] ?? Infinity))
-                      error(
-                        'layout-bounds',
-                        prefix + '/min' + cap,
-                        'minimum exceeds maximum',
-                        'use min <= max',
-                      );
-                    if (
-                      weight(value) &&
-                      parent &&
-                      String(parent.type) === 'layout' &&
-                      (parent.raw.layout?.[a] ?? parent.raw[a] ?? 'hug') === 'hug' &&
-                      !model.addrs.has(
-                        parent.id +
-                          '.' +
-                          (parent.raw.layout?.[a] !== undefined ||
-                          model.addrs.has(parent.id + '.layout.' + a)
-                            ? 'layout.'
-                            : '') +
-                          a,
-                      )
-                    )
-                      error(
-                        'layout-fill-hug',
-                        prefix + '/' + a,
-                        'fill cannot resolve against a hug parent',
-                        'give the parent a fixed size or use hug for the child',
-                      );
-                  }
-                  for (const key of ['padding', 'margin', 'gap'])
-                    if (raw[key] !== undefined) {
-                      const values = typeof raw[key] === 'number' ? [raw[key]] : raw[key];
-                      if (
-                        !Array.isArray(values) ||
-                        values.length > (key === 'gap' ? 2 : 4) ||
-                        !values.length ||
-                        values.some(
-                          (v: unknown) =>
-                            typeof v !== 'number' ||
-                            !Number.isFinite(v) ||
-                            (key !== 'margin' && v < 0),
-                        )
-                      )
-                        error(
-                          'layout-value',
-                          prefix + '/' + key,
-                          'invalid spacing',
-                          'use 1–4 finite grid lengths (gap: 1–2); padding and gap are nonnegative',
-                        );
-                    }
-                }
-            }
+  load(model: Model, _raw: Model['doc'], d: Diags) {
+    if (!model.doc.requires?.includes('layout')) return;
+    layout.validateReflow?.(model, d);
+    if (V)
+      for (const [i, n] of model.nodes.entries())
+        if (String(n.type) === 'layout') {
+          const pointer = nodePointer(model, i),
+            index = d.list.findIndex((v) => v.code === 'no-paint' && v.pointer === pointer);
+          if (index >= 0) d.list.splice(index, 1);
+        }
+    if (V)
+      for (const [name, layer] of Object.entries(model.doc.machine?.layers ?? {}) as [
+        string,
+        {
+          states: Record<
+            string,
+            { on?: { guard?: { left?: { layout?: string }; right?: { layout?: string } } }[] }
+          >;
         },
+      ][])
+        for (const [state, s] of Object.entries(layer.states))
+          for (const [i, t] of (s.on ?? []).entries())
+            for (const key of ['left', 'right'] as const) {
+              const target = t.guard?.[key]?.layout;
+              if (target !== undefined) {
+                const match = /^([^.]+)\.(x|y|width|height)$/.exec(target),
+                  ni = match && model.ids.get(match[1]!);
+                if (
+                  ni === undefined ||
+                  ni === null ||
+                  !(
+                    String(model.nodes[ni]!.type) === 'layout' ||
+                    String(model.nodes[model.nodes[ni]!.parent]?.type) === 'layout'
+                  )
+                )
+                  d.err(
+                    'layout-target',
+                    `/machine/layers/${name}/states/${state}/on/${i}/guard/${key}/layout`,
+                    'unknown layout box target',
+                    'use a layout container or participant id followed by .x, .y, .width or .height',
+                  );
+              }
+            }
+    if (V)
+      for (const [i, n] of model.nodes.entries()) {
+        const at = nodePointer(model, i),
+          parent = model.nodes[n.parent];
+        const error = (code: string, key: string, message: string, hint: string) =>
+          d.err(code, at + key, message, hint);
+        const childAddress = [...model.addrs].find(
+          ([, a]) => a.node === i && a.key.startsWith('layout.'),
+        )?.[0];
+        if ((n.raw.layout || childAddress) && String(parent?.type) !== 'layout') {
+          if (n.raw.layout)
+            error(
+              'layout-outside',
+              '/layout',
+              'layout child properties need a layout parent',
+              'move the node inside a layout container',
+            );
+          else
+            d.err(
+              'layout-outside',
+              model.doc.bind?.[childAddress!] !== undefined ? '/bind/' + childAddress : at,
+              'layout child properties need a layout parent',
+              'move the node inside a layout container',
+            );
+        }
+        for (const [prefix, raw] of [
+          ['', String(n.type) === 'layout' ? n.raw : undefined],
+          ['/layout', n.raw.layout],
+        ] as const)
+          if (raw) {
+            for (const key of ['minWidth', 'maxWidth', 'minHeight', 'maxHeight'])
+              if (raw[key] !== undefined && raw[key] < 0)
+                error(
+                  'layout-value',
+                  prefix + '/' + key,
+                  'layout bounds must be nonnegative',
+                  'use nonnegative grid lengths',
+                );
+            for (const a of axes) {
+              const cap = a[0]!.toUpperCase() + a.slice(1),
+                value = raw[a];
+              if (
+                value !== undefined &&
+                !(typeof value === 'number' && value >= 0) &&
+                value !== 'hug' &&
+                !(weight(value) > 0 && Number.isFinite(weight(value)))
+              )
+                error(
+                  'layout-value',
+                  prefix + '/' + a,
+                  'invalid layout length or fill weight',
+                  'use a nonnegative number, hug, fill or fill(weight > 0)',
+                );
+              if ((raw['min' + cap] ?? 0) > (raw['max' + cap] ?? Infinity))
+                error(
+                  'layout-bounds',
+                  prefix + '/min' + cap,
+                  'minimum exceeds maximum',
+                  'use min <= max',
+                );
+              if (
+                weight(value) &&
+                parent &&
+                String(parent.type) === 'layout' &&
+                (parent.raw.layout?.[a] ?? parent.raw[a] ?? 'hug') === 'hug' &&
+                !model.addrs.has(
+                  parent.id +
+                    '.' +
+                    (parent.raw.layout?.[a] !== undefined ||
+                    model.addrs.has(parent.id + '.layout.' + a)
+                      ? 'layout.'
+                      : '') +
+                    a,
+                )
+              )
+                error(
+                  'layout-fill-hug',
+                  prefix + '/' + a,
+                  'fill cannot resolve against a hug parent',
+                  'give the parent a fixed size or use hug for the child',
+                );
+            }
+            for (const key of ['padding', 'margin', 'gap'])
+              if (raw[key] !== undefined) {
+                const values = typeof raw[key] === 'number' ? [raw[key]] : raw[key];
+                if (
+                  !Array.isArray(values) ||
+                  values.length > (key === 'gap' ? 2 : 4) ||
+                  !values.length ||
+                  values.some(
+                    (v: unknown) =>
+                      typeof v !== 'number' || !Number.isFinite(v) || (key !== 'margin' && v < 0),
+                  )
+                )
+                  error(
+                    'layout-value',
+                    prefix + '/' + key,
+                    'invalid spacing',
+                    'use 1–4 finite grid lengths (gap: 1–2); padding and gap are nonnegative',
+                  );
+              }
+          }
       }
-    : {}),
+  },
   resolve(model) {
     if (!model.doc.requires?.includes('layout')) return;
     const initialize = model.nesting;
@@ -466,11 +483,11 @@ export const layout: Module = {
         visible = p.visible.bind(p);
       p.local = (i) => {
         const m = local(i),
-          box = states.get(p)?.boxes.get(i);
+          box = drawn(p, i);
         if (
           box &&
-          p.model.nodes[i]!.parent >= 0 &&
-          String(p.model.nodes[p.model.nodes[i]!.parent]!.type) === 'layout'
+          (String(p.model.nodes[i]!.type) === 'layout' ||
+            String(p.model.nodes[p.model.nodes[i]!.parent]?.type) === 'layout')
         ) {
           m[4] += box.x - p.num(i, 'x', 0);
           m[5] += box.y - p.num(i, 'y', 0);
@@ -493,7 +510,7 @@ export const layout: Module = {
   },
   outline(p, i) {
     if (String(p.model.nodes[i]!.type) !== 'layout') return;
-    const box = states.get(p)?.boxes.get(i);
+    const box = drawn(p, i);
     return box
       ? [{ pts: [0, 0, box.width, 0, box.width, box.height, 0, box.height], closed: true }]
       : [];
@@ -507,7 +524,7 @@ export const layout: Module = {
         }
     },
     frame(p, i, data) {
-      const box = states.get(p)?.boxes.get(i),
+      const box = drawn(p, i),
         n = p.model.nodes[i]!,
         type = String(n.type);
       if (p.prop(i, 'layout.display') === 'none') data.visible = false;
@@ -527,7 +544,15 @@ export const layout: Module = {
           data.geometry.width = box.width;
           data.geometry.height = box.height;
         }
-      } else if (type !== 'text') {
+      } else if (type === 'text') {
+        const input = text!.input(p, i);
+        const sizing = textSizing(input);
+        input.sizing = sizing === 'fixed' ? 'fixed' : 'auto-height';
+        input.width =
+          sizing === 'auto-width' ? box.width : Math.min(input.width ?? Infinity, box.width);
+        (data as TextDrawNode).text!.layout =
+          text!.fonts?.prepareText?.(p, input)?.layout ?? text!.layout(input, text!.overflow);
+      } else {
         const size = intrinsic(p, i);
         const sx = size[0] ? box.width / size[0] : 1,
           sy = size[1] ? box.height / size[1] : 1;

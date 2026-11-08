@@ -30,12 +30,12 @@ scope by the owner's triage of 2026-11-07).
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
 | Accessibility | 63 | 62 |  | 1 |  |  |  |
-| Host runtime API | 125 | 91 |  | 20 |  | 11 | 3 |
+| Host runtime API | 125 | 92 |  | 19 |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **820** | **0** | **66** | **0** | **188** | **164** |
+| **Total** | **1238** | **821** | **0** | **65** | **0** | **188** | **164** |
 
-**Progress:** 820 of 886 in-scope capabilities done (93 %); 820 of 1238 in the full matrix (66 %).
+**Progress:** 821 of 886 in-scope capabilities done (93 %); 821 of 1238 in the full matrix (66 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1260,7 +1260,7 @@ scope by the owner's triage of 2026-11-07).
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
 | `layout.alignment` | Container alignment | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-alignment/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-alignment; tests/oracle/layout-alignment |  |
-| `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-animated-reflow | Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate. |
+| `layout.animated-reflow` | Animated layout reflow | modules/layout/core/registry.ts reflow / layout.reflow; optional @anima-format/web/layout-reflow; modules/layout/examples/reflow.animl; modules/layout/SPEC.md | layout | planned | modules/layout/test/core/layout-animated-reflow.test.ts; modules/layout/test/web/reflow.test.ts; spec/conformance/layout-animated-reflow; tests/oracle/layout-animated-reflow (native timing/retarget mapping remains pending) | Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate. |
 | `layout.containers` | Nested layout containers | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-containers/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-containers; tests/oracle/layout-containers |  |
 | `layout.fill-sizing` | Weighted fill sizing | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fill-sizing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fill-sizing; tests/oracle/layout-fill-sizing |  |
 | `layout.fixed-sizing` | Fixed dimensions | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fixed-sizing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fixed-sizing; tests/oracle/layout-fixed-sizing |  |
@@ -1303,7 +1303,7 @@ scope by the owner's triage of 2026-11-07).
 | `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |  |
 | `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |  |
 | `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |  |
-| `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |  |
+| `host-api.fit-layout` | Fit: Responsive layout fit | <anima-icon fit="layout"> / icon.fit; host-fit/web and layout per-player root sizing (spec/SPEC.md, modules/layout/SPEC.md) | layout | done | modules/host-fit/test/web/fit.test.ts (real root/child resize and byte-exact native frames, SVG/canvas, both engines); tests/oracle/host-api-fit-layout/skip.json |  |
 | `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |  |
 | `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |  |
 

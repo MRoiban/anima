@@ -1,0 +1,55 @@
+{
+  "anima": "0.1",
+  "name": "wrapped-layout",
+  "grid": 20,
+  "requires": ["layout", "text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "nested",
+          "type": "layout",
+          "children": [
+            {
+              "id": "label",
+              "type": "text",
+              "wrap": true,
+              "layout": {
+                "width": "fill"
+              },
+              "runs": [
+                {
+                  "text": "Go Go Go Go",
+                  "style": "body"
+                }
+              ]
+            }
+          ],
+          "height": "hug",
+          "direction": "column",
+          "layout": {
+            "width": "fill"
+          }
+        }
+      ],
+      "width": 8,
+      "height": "hug",
+      "direction": "column",
+      "padding": [1]
+    }
+  ],
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "textStyles": {
+    "body": {
+      "font": "body",
+      "size": 2
+    }
+  }
+}
