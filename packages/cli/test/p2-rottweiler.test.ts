@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { run } from '../src/index.ts';
 import { inspectGlyph } from '../src/glyphs.ts';
-import { compareSVG } from '../src/render.ts';
+import { compareSVG, comparisonSVG } from '../src/render.ts';
 
 const dir = mkdtempSync(join(tmpdir(), 'anima-p2-rt-'));
 afterAll(() => rmSync(dir, { recursive: true, force: true }));
@@ -73,6 +73,24 @@ describe('render --compare', () => {
       `<svg xmlns="http://www.w3.org/2000/svg" data-note=' style="opacity:0"' viewBox="0 0 20 20">${body}`,
     ])
       expect(compareSVG(plain, reference, 20).pass, reference).toBe(true);
+  });
+
+  it('keeps the intrinsic user space of a root without viewBox (R4-1)', () => {
+    const plain = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">${body}`;
+    for (const size of ['20', '20px'])
+      expect(
+        compareSVG(
+          plain,
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">${body}`,
+          64,
+        ).pass,
+      ).toBe(true);
+  });
+
+  it('normalizes a root with long trailing whitespace in linear time (R4-2)', () => {
+    const start = performance.now();
+    comparisonSVG('<svg xmlns="http://www.w3.org/2000/svg"' + ' '.repeat(100_000) + '/>', 256);
+    expect(performance.now() - start).toBeLessThan(1000); // was ~15 s
   });
 
   it('normalizes the reference ink and viewport with --browser-text too (R1-3)', async () => {

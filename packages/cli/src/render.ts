@@ -81,12 +81,21 @@ export function comparisonSVG(svg: string, size: number): string {
       /^<((?:[\w.-]+:)?svg)\b((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/i,
       (_, name: string, attrs: string, end: string) => {
         let style = '';
+        const own: Record<string, string> = {};
         // Whole attributes only, so attribute-like text inside a value stays text.
-        const kept = (attrs.match(/\s+[^\s=]+\s*=\s*(?:"[^"]*"|'[^']*')/g) ?? []).filter((a) => {
-          const [, key, value] = /^\s+([^\s=]+)\s*=\s*["']([\s\S]*)["']$/.exec(a)!;
-          if (/^style$/i.test(key!)) style = value!.replaceAll('"', '&quot;');
-          return !/^(?:width|height|color|style)$/i.test(key!);
-        });
+        const kept = (attrs.trimEnd().match(/\s+[^\s=]+\s*=\s*(?:"[^"]*"|'[^']*')/g) ?? []).filter(
+          (a) => {
+            const [, key, value] = /^\s+([^\s=]+)\s*=\s*["']([\s\S]*)["']$/.exec(a)!;
+            own[key!.toLowerCase()] = value!;
+            if (/^style$/i.test(key!)) style = value!.replaceAll('"', '&quot;');
+            return !/^(?:width|height|color|style)$/i.test(key!);
+          },
+        );
+        // Without a viewBox the intrinsic size is the user space; keep it so the content scales.
+        const [w, h] = [own.width, own.height].map(
+          (v) => /^\s*(\d*\.?\d+)(?:px)?\s*$/.exec(v ?? '')?.[1],
+        );
+        if (!('viewbox' in own) && w && h) kept.push(` viewBox="0 0 ${w} ${h}"`);
         return `<${name}${kept.join('')} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important"${end}>`;
       },
     );

@@ -30,3 +30,10 @@ Round 3 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope:
 | R3-1 | minor | compare normalization rewrote an `<svg` inside a leading comment/doctype instead of the real root (wrong verdict or malformed XML) | fixed: skip the prolog (declaration, comments, PIs, doctype) before matching the root (packages/cli/test/p2-rottweiler.test.ts) |
 | R3-2 | minor | namespace-prefixed root (`<s:svg …>`) not normalized → raster dimension error | fixed: root name may be prefixed and is preserved (same test) |
 | R3-3 | minor | attribute-like text inside another attribute's value (`data-note=' style="opacity:0"'`) became the root style | fixed: whole root attributes are tokenized; only real `width`/`height`/`color`/`style` are replaced (same test) |
+
+Round 4 (P2 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope: round-3 rewrite of `comparisonSVG` (3b140268) and remaining P2 scope. BOM, spaced `=`, prefixed roots with style/color, `xml:space`, uppercase `WIDTH`, multi-MB content/prologs, unterminated comments/quotes: no defects. No further defects in the rest of P2.
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R4-1 | minor (realistic) | a root without `viewBox` (`width="20" height="20"`) had its size replaced without scaling: false FAIL at any `--size` but 20 (also `--browser-text`); present since P2 | fixed: a missing viewBox is derived from unitless/px intrinsic width and height (packages/cli/test/p2-rottweiler.test.ts) |
+| R4-2 | minor (contrived) | quadratic attribute scan on trailing root whitespace (100,000 spaces: ~15 s) | fixed: trim before tokenizing (packages/cli/test/p2-rottweiler.test.ts) |
