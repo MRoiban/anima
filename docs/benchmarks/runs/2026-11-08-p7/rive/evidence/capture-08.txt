@@ -1,0 +1,504 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[13:20:34.305] rive  deferred replay: inline
+[13:20:34.333] rive  built (10995 bytes, 28ms, 0 errors, 0 warnings)
+[13:20:34.334] rive  showing Reflow [1/1]
+[13:20:34.334] rive  viewport 480x360 @1x
+[13:20:34.334] rive  viewport 480x360 @1x
+ok fit: contain
+ok viewport
+ok advance
+[13:20:34.335] rive  wrote evidence/baseline.semantics.json
+ok semantics: evidence/baseline.semantics.json
+[13:20:34.335] rive  wrote evidence/baseline.data.json
+ok data-dump: evidence/baseline.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[13:20:34.355] rive  wrote evidence/baseline.png
+ok screenshot: evidence/baseline.png
+[13:20:34.356] rive  data: buttonLabel = Save changes (mid-run)
+ok data
+[13:20:34.356] rive  wrote evidence/growth-00.semantics.json
+ok semantics: evidence/growth-00.semantics.json
+[13:20:34.356] rive  wrote evidence/growth-00.data.json
+ok data-dump: evidence/growth-00.data.json
+ok advance
+[13:20:34.356] rive  wrote evidence/growth-01.semantics.json
+ok semantics: evidence/growth-01.semantics.json
+[13:20:34.357] rive  wrote evidence/growth-01.data.json
+ok data-dump: evidence/growth-01.data.json
+ok advance
+[13:20:34.357] rive  wrote evidence/growth-02.semantics.json
+ok semantics: evidence/growth-02.semantics.json
+[13:20:34.357] rive  wrote evidence/growth-02.data.json
+ok data-dump: evidence/growth-02.data.json
+ok advance
+[13:20:34.357] rive  wrote evidence/growth-03.semantics.json
+ok semantics: evidence/growth-03.semantics.json
+[13:20:34.357] rive  wrote evidence/growth-03.data.json
+ok data-dump: evidence/growth-03.data.json
+ok advance
+[13:20:34.357] rive  wrote evidence/growth-04.semantics.json
+ok semantics: evidence/growth-04.semantics.json
+[13:20:34.357] rive  wrote evidence/growth-04.data.json
+ok data-dump: evidence/growth-04.data.json
+ok advance
+[13:20:34.358] rive  wrote evidence/growth-05.semantics.json
+ok semantics: evidence/growth-05.semantics.json
+[13:20:34.358] rive  wrote evidence/growth-05.data.json
+ok data-dump: evidence/growth-05.data.json
+ok advance
+[13:20:34.358] rive  wrote evidence/growth-06.semantics.json
+ok semantics: evidence/growth-06.semantics.json
+[13:20:34.358] rive  wrote evidence/growth-06.data.json
+ok data-dump: evidence/growth-06.data.json
+ok advance
+[13:20:34.358] rive  wrote evidence/growth-07.semantics.json
+ok semantics: evidence/growth-07.semantics.json
+[13:20:34.358] rive  wrote evidence/growth-07.data.json
+ok data-dump: evidence/growth-07.data.json
+ok advance
+[13:20:34.359] rive  wrote evidence/growth-08.semantics.json
+ok semantics: evidence/growth-08.semantics.json
+[13:20:34.359] rive  wrote evidence/growth-08.data.json
+ok data-dump: evidence/growth-08.data.json
+ok advance
+[13:20:34.359] rive  wrote evidence/growth-09.semantics.json
+ok semantics: evidence/growth-09.semantics.json
+[13:20:34.359] rive  wrote evidence/growth-09.data.json
+ok data-dump: evidence/growth-09.data.json
+ok advance
+[13:20:34.359] rive  wrote evidence/growth-10.semantics.json
+ok semantics: evidence/growth-10.semantics.json
+[13:20:34.359] rive  wrote evidence/growth-10.data.json
+ok data-dump: evidence/growth-10.data.json
+ok advance
+[13:20:34.360] rive  wrote evidence/growth-11.semantics.json
+ok semantics: evidence/growth-11.semantics.json
+[13:20:34.360] rive  wrote evidence/growth-11.data.json
+ok data-dump: evidence/growth-11.data.json
+ok advance
+[13:20:34.360] rive  wrote evidence/growth-12.semantics.json
+ok semantics: evidence/growth-12.semantics.json
+[13:20:34.360] rive  wrote evidence/growth-12.data.json
+ok data-dump: evidence/growth-12.data.json
+ok advance
+[13:20:34.360] rive  wrote evidence/growth-13.semantics.json
+ok semantics: evidence/growth-13.semantics.json
+[13:20:34.360] rive  wrote evidence/growth-13.data.json
+ok data-dump: evidence/growth-13.data.json
+ok advance
+[13:20:34.361] rive  wrote evidence/growth-14.semantics.json
+ok semantics: evidence/growth-14.semantics.json
+[13:20:34.361] rive  wrote evidence/growth-14.data.json
+ok data-dump: evidence/growth-14.data.json
+ok advance
+[13:20:34.361] rive  wrote evidence/growth-15.semantics.json
+ok semantics: evidence/growth-15.semantics.json
+[13:20:34.361] rive  wrote evidence/growth-15.data.json
+ok data-dump: evidence/growth-15.data.json
+ok advance
+[13:20:34.361] rive  wrote evidence/growth-16.semantics.json
+ok semantics: evidence/growth-16.semantics.json
+[13:20:34.361] rive  wrote evidence/growth-16.data.json
+ok data-dump: evidence/growth-16.data.json
+ok advance
+[13:20:34.362] rive  wrote evidence/growth-17.semantics.json
+ok semantics: evidence/growth-17.semantics.json
+[13:20:34.362] rive  wrote evidence/growth-17.data.json
+ok data-dump: evidence/growth-17.data.json
+ok advance
+[13:20:34.362] rive  wrote evidence/growth-18.semantics.json
+ok semantics: evidence/growth-18.semantics.json
+[13:20:34.362] rive  wrote evidence/growth-18.data.json
+ok data-dump: evidence/growth-18.data.json
+ok advance
+[13:20:34.362] rive  wrote evidence/growth-19.semantics.json
+ok semantics: evidence/growth-19.semantics.json
+[13:20:34.362] rive  wrote evidence/growth-19.data.json
+ok data-dump: evidence/growth-19.data.json
+ok advance
+[13:20:34.362] rive  wrote evidence/growth-20.semantics.json
+ok semantics: evidence/growth-20.semantics.json
+[13:20:34.362] rive  wrote evidence/growth-20.data.json
+ok data-dump: evidence/growth-20.data.json
+[13:20:34.362] rive  data: buttonLabel = Save (mid-run)
+ok data
+[13:20:34.363] rive  wrote evidence/shrink-00.semantics.json
+ok semantics: evidence/shrink-00.semantics.json
+[13:20:34.363] rive  wrote evidence/shrink-00.data.json
+ok data-dump: evidence/shrink-00.data.json
+ok advance
+[13:20:34.363] rive  wrote evidence/shrink-01.semantics.json
+ok semantics: evidence/shrink-01.semantics.json
+[13:20:34.363] rive  wrote evidence/shrink-01.data.json
+ok data-dump: evidence/shrink-01.data.json
+ok advance
+[13:20:34.363] rive  wrote evidence/shrink-02.semantics.json
+ok semantics: evidence/shrink-02.semantics.json
+[13:20:34.363] rive  wrote evidence/shrink-02.data.json
+ok data-dump: evidence/shrink-02.data.json
+ok advance
+[13:20:34.364] rive  wrote evidence/shrink-03.semantics.json
+ok semantics: evidence/shrink-03.semantics.json
+[13:20:34.364] rive  wrote evidence/shrink-03.data.json
+ok data-dump: evidence/shrink-03.data.json
+ok advance
+[13:20:34.364] rive  wrote evidence/shrink-04.semantics.json
+ok semantics: evidence/shrink-04.semantics.json
+[13:20:34.364] rive  wrote evidence/shrink-04.data.json
+ok data-dump: evidence/shrink-04.data.json
+ok advance
+[13:20:34.364] rive  wrote evidence/shrink-05.semantics.json
+ok semantics: evidence/shrink-05.semantics.json
+[13:20:34.364] rive  wrote evidence/shrink-05.data.json
+ok data-dump: evidence/shrink-05.data.json
+ok advance
+[13:20:34.365] rive  wrote evidence/shrink-06.semantics.json
+ok semantics: evidence/shrink-06.semantics.json
+[13:20:34.365] rive  wrote evidence/shrink-06.data.json
+ok data-dump: evidence/shrink-06.data.json
+ok advance
+[13:20:34.365] rive  wrote evidence/shrink-07.semantics.json
+ok semantics: evidence/shrink-07.semantics.json
+[13:20:34.365] rive  wrote evidence/shrink-07.data.json
+ok data-dump: evidence/shrink-07.data.json
+ok advance
+[13:20:34.365] rive  wrote evidence/shrink-08.semantics.json
+ok semantics: evidence/shrink-08.semantics.json
+[13:20:34.365] rive  wrote evidence/shrink-08.data.json
+ok data-dump: evidence/shrink-08.data.json
+ok advance
+[13:20:34.366] rive  wrote evidence/shrink-09.semantics.json
+ok semantics: evidence/shrink-09.semantics.json
+[13:20:34.366] rive  wrote evidence/shrink-09.data.json
+ok data-dump: evidence/shrink-09.data.json
+ok advance
+[13:20:34.366] rive  wrote evidence/shrink-10.semantics.json
+ok semantics: evidence/shrink-10.semantics.json
+[13:20:34.366] rive  wrote evidence/shrink-10.data.json
+ok data-dump: evidence/shrink-10.data.json
+ok advance
+[13:20:34.366] rive  wrote evidence/shrink-11.semantics.json
+ok semantics: evidence/shrink-11.semantics.json
+[13:20:34.366] rive  wrote evidence/shrink-11.data.json
+ok data-dump: evidence/shrink-11.data.json
+ok advance
+[13:20:34.367] rive  wrote evidence/shrink-12.semantics.json
+ok semantics: evidence/shrink-12.semantics.json
+[13:20:34.367] rive  wrote evidence/shrink-12.data.json
+ok data-dump: evidence/shrink-12.data.json
+ok advance
+[13:20:34.367] rive  wrote evidence/shrink-13.semantics.json
+ok semantics: evidence/shrink-13.semantics.json
+[13:20:34.367] rive  wrote evidence/shrink-13.data.json
+ok data-dump: evidence/shrink-13.data.json
+ok advance
+[13:20:34.367] rive  wrote evidence/shrink-14.semantics.json
+ok semantics: evidence/shrink-14.semantics.json
+[13:20:34.367] rive  wrote evidence/shrink-14.data.json
+ok data-dump: evidence/shrink-14.data.json
+ok advance
+[13:20:34.368] rive  wrote evidence/shrink-15.semantics.json
+ok semantics: evidence/shrink-15.semantics.json
+[13:20:34.368] rive  wrote evidence/shrink-15.data.json
+ok data-dump: evidence/shrink-15.data.json
+ok advance
+[13:20:34.368] rive  wrote evidence/shrink-16.semantics.json
+ok semantics: evidence/shrink-16.semantics.json
+[13:20:34.368] rive  wrote evidence/shrink-16.data.json
+ok data-dump: evidence/shrink-16.data.json
+ok advance
+[13:20:34.368] rive  wrote evidence/shrink-17.semantics.json
+ok semantics: evidence/shrink-17.semantics.json
+[13:20:34.368] rive  wrote evidence/shrink-17.data.json
+ok data-dump: evidence/shrink-17.data.json
+ok advance
+[13:20:34.369] rive  wrote evidence/shrink-18.semantics.json
+ok semantics: evidence/shrink-18.semantics.json
+[13:20:34.369] rive  wrote evidence/shrink-18.data.json
+ok data-dump: evidence/shrink-18.data.json
+ok advance
+[13:20:34.369] rive  wrote evidence/shrink-19.semantics.json
+ok semantics: evidence/shrink-19.semantics.json
+[13:20:34.369] rive  wrote evidence/shrink-19.data.json
+ok data-dump: evidence/shrink-19.data.json
+ok advance
+[13:20:34.369] rive  wrote evidence/shrink-20.semantics.json
+ok semantics: evidence/shrink-20.semantics.json
+[13:20:34.369] rive  wrote evidence/shrink-20.data.json
+ok data-dump: evidence/shrink-20.data.json
+[13:20:34.369] rive  data: buttonLabel = Save changes (mid-run)
+ok data
+[13:20:34.369] rive  wrote evidence/interrupted-growth-00.semantics.json
+ok semantics: evidence/interrupted-growth-00.semantics.json
+[13:20:34.370] rive  wrote evidence/interrupted-growth-00.data.json
+ok data-dump: evidence/interrupted-growth-00.data.json
+ok advance
+[13:20:34.370] rive  wrote evidence/interrupted-growth-01.semantics.json
+ok semantics: evidence/interrupted-growth-01.semantics.json
+[13:20:34.370] rive  wrote evidence/interrupted-growth-01.data.json
+ok data-dump: evidence/interrupted-growth-01.data.json
+ok advance
+[13:20:34.370] rive  wrote evidence/interrupted-growth-02.semantics.json
+ok semantics: evidence/interrupted-growth-02.semantics.json
+[13:20:34.370] rive  wrote evidence/interrupted-growth-02.data.json
+ok data-dump: evidence/interrupted-growth-02.data.json
+ok advance
+[13:20:34.370] rive  wrote evidence/interrupted-growth-03.semantics.json
+ok semantics: evidence/interrupted-growth-03.semantics.json
+[13:20:34.370] rive  wrote evidence/interrupted-growth-03.data.json
+ok data-dump: evidence/interrupted-growth-03.data.json
+ok advance
+[13:20:34.371] rive  wrote evidence/interrupted-growth-04.semantics.json
+ok semantics: evidence/interrupted-growth-04.semantics.json
+[13:20:34.371] rive  wrote evidence/interrupted-growth-04.data.json
+ok data-dump: evidence/interrupted-growth-04.data.json
+ok advance
+[13:20:34.371] rive  wrote evidence/interrupted-growth-05.semantics.json
+ok semantics: evidence/interrupted-growth-05.semantics.json
+[13:20:34.371] rive  wrote evidence/interrupted-growth-05.data.json
+ok data-dump: evidence/interrupted-growth-05.data.json
+ok advance
+[13:20:34.371] rive  wrote evidence/interrupted-growth-06.semantics.json
+ok semantics: evidence/interrupted-growth-06.semantics.json
+[13:20:34.371] rive  wrote evidence/interrupted-growth-06.data.json
+ok data-dump: evidence/interrupted-growth-06.data.json
+ok advance
+[13:20:34.372] rive  wrote evidence/interrupted-growth-07.semantics.json
+ok semantics: evidence/interrupted-growth-07.semantics.json
+[13:20:34.372] rive  wrote evidence/interrupted-growth-07.data.json
+ok data-dump: evidence/interrupted-growth-07.data.json
+ok advance
+[13:20:34.372] rive  wrote evidence/interrupted-growth-08.semantics.json
+ok semantics: evidence/interrupted-growth-08.semantics.json
+[13:20:34.372] rive  wrote evidence/interrupted-growth-08.data.json
+ok data-dump: evidence/interrupted-growth-08.data.json
+ok advance
+[13:20:34.372] rive  wrote evidence/interrupted-growth-09.semantics.json
+ok semantics: evidence/interrupted-growth-09.semantics.json
+[13:20:34.372] rive  wrote evidence/interrupted-growth-09.data.json
+ok data-dump: evidence/interrupted-growth-09.data.json
+[13:20:34.372] rive  data: buttonLabel = Save (mid-run)
+ok data
+[13:20:34.372] rive  wrote evidence/interrupted-shrink-00.semantics.json
+ok semantics: evidence/interrupted-shrink-00.semantics.json
+[13:20:34.372] rive  wrote evidence/interrupted-shrink-00.data.json
+ok data-dump: evidence/interrupted-shrink-00.data.json
+ok advance
+[13:20:34.372] rive  wrote evidence/interrupted-shrink-01.semantics.json
+ok semantics: evidence/interrupted-shrink-01.semantics.json
+[13:20:34.372] rive  wrote evidence/interrupted-shrink-01.data.json
+ok data-dump: evidence/interrupted-shrink-01.data.json
+ok advance
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-02.semantics.json
+ok semantics: evidence/interrupted-shrink-02.semantics.json
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-02.data.json
+ok data-dump: evidence/interrupted-shrink-02.data.json
+ok advance
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-03.semantics.json
+ok semantics: evidence/interrupted-shrink-03.semantics.json
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-03.data.json
+ok data-dump: evidence/interrupted-shrink-03.data.json
+ok advance
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-04.semantics.json
+ok semantics: evidence/interrupted-shrink-04.semantics.json
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-04.data.json
+ok data-dump: evidence/interrupted-shrink-04.data.json
+ok advance
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-05.semantics.json
+ok semantics: evidence/interrupted-shrink-05.semantics.json
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-05.data.json
+ok data-dump: evidence/interrupted-shrink-05.data.json
+ok advance
+[13:20:34.373] rive  wrote evidence/interrupted-shrink-06.semantics.json
+ok semantics: evidence/interrupted-shrink-06.semantics.json
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-06.data.json
+ok data-dump: evidence/interrupted-shrink-06.data.json
+ok advance
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-07.semantics.json
+ok semantics: evidence/interrupted-shrink-07.semantics.json
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-07.data.json
+ok data-dump: evidence/interrupted-shrink-07.data.json
+ok advance
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-08.semantics.json
+ok semantics: evidence/interrupted-shrink-08.semantics.json
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-08.data.json
+ok data-dump: evidence/interrupted-shrink-08.data.json
+ok advance
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-09.semantics.json
+ok semantics: evidence/interrupted-shrink-09.semantics.json
+[13:20:34.374] rive  wrote evidence/interrupted-shrink-09.data.json
+ok data-dump: evidence/interrupted-shrink-09.data.json
+[13:20:34.374] rive  data: buttonLabel = Save changes (mid-run)
+ok data
+[13:20:34.374] rive  wrote evidence/reversal-00.semantics.json
+ok semantics: evidence/reversal-00.semantics.json
+[13:20:34.374] rive  wrote evidence/reversal-00.data.json
+ok data-dump: evidence/reversal-00.data.json
+ok advance
+[13:20:34.375] rive  wrote evidence/reversal-01.semantics.json
+ok semantics: evidence/reversal-01.semantics.json
+[13:20:34.375] rive  wrote evidence/reversal-01.data.json
+ok data-dump: evidence/reversal-01.data.json
+ok advance
+[13:20:34.375] rive  wrote evidence/reversal-02.semantics.json
+ok semantics: evidence/reversal-02.semantics.json
+[13:20:34.375] rive  wrote evidence/reversal-02.data.json
+ok data-dump: evidence/reversal-02.data.json
+ok advance
+[13:20:34.375] rive  wrote evidence/reversal-03.semantics.json
+ok semantics: evidence/reversal-03.semantics.json
+[13:20:34.375] rive  wrote evidence/reversal-03.data.json
+ok data-dump: evidence/reversal-03.data.json
+ok advance
+[13:20:34.375] rive  wrote evidence/reversal-04.semantics.json
+ok semantics: evidence/reversal-04.semantics.json
+[13:20:34.375] rive  wrote evidence/reversal-04.data.json
+ok data-dump: evidence/reversal-04.data.json
+ok advance
+[13:20:34.375] rive  wrote evidence/reversal-05.semantics.json
+ok semantics: evidence/reversal-05.semantics.json
+[13:20:34.375] rive  wrote evidence/reversal-05.data.json
+ok data-dump: evidence/reversal-05.data.json
+ok advance
+[13:20:34.376] rive  wrote evidence/reversal-06.semantics.json
+ok semantics: evidence/reversal-06.semantics.json
+[13:20:34.376] rive  wrote evidence/reversal-06.data.json
+ok data-dump: evidence/reversal-06.data.json
+ok advance
+[13:20:34.376] rive  wrote evidence/reversal-07.semantics.json
+ok semantics: evidence/reversal-07.semantics.json
+[13:20:34.376] rive  wrote evidence/reversal-07.data.json
+ok data-dump: evidence/reversal-07.data.json
+ok advance
+[13:20:34.376] rive  wrote evidence/reversal-08.semantics.json
+ok semantics: evidence/reversal-08.semantics.json
+[13:20:34.376] rive  wrote evidence/reversal-08.data.json
+ok data-dump: evidence/reversal-08.data.json
+ok advance
+[13:20:34.376] rive  wrote evidence/reversal-09.semantics.json
+ok semantics: evidence/reversal-09.semantics.json
+[13:20:34.376] rive  wrote evidence/reversal-09.data.json
+ok data-dump: evidence/reversal-09.data.json
+ok advance
+[13:20:34.376] rive  wrote evidence/reversal-10.semantics.json
+ok semantics: evidence/reversal-10.semantics.json
+[13:20:34.376] rive  wrote evidence/reversal-10.data.json
+ok data-dump: evidence/reversal-10.data.json
+ok advance
+[13:20:34.377] rive  wrote evidence/reversal-11.semantics.json
+ok semantics: evidence/reversal-11.semantics.json
+[13:20:34.377] rive  wrote evidence/reversal-11.data.json
+ok data-dump: evidence/reversal-11.data.json
+ok advance
+[13:20:34.377] rive  wrote evidence/reversal-12.semantics.json
+ok semantics: evidence/reversal-12.semantics.json
+[13:20:34.377] rive  wrote evidence/reversal-12.data.json
+ok data-dump: evidence/reversal-12.data.json
+ok advance
+[13:20:34.377] rive  wrote evidence/reversal-13.semantics.json
+ok semantics: evidence/reversal-13.semantics.json
+[13:20:34.377] rive  wrote evidence/reversal-13.data.json
+ok data-dump: evidence/reversal-13.data.json
+ok advance
+[13:20:34.377] rive  wrote evidence/reversal-14.semantics.json
+ok semantics: evidence/reversal-14.semantics.json
+[13:20:34.377] rive  wrote evidence/reversal-14.data.json
+ok data-dump: evidence/reversal-14.data.json
+ok advance
+[13:20:34.377] rive  wrote evidence/reversal-15.semantics.json
+ok semantics: evidence/reversal-15.semantics.json
+[13:20:34.377] rive  wrote evidence/reversal-15.data.json
+ok data-dump: evidence/reversal-15.data.json
+ok advance
+[13:20:34.378] rive  wrote evidence/reversal-16.semantics.json
+ok semantics: evidence/reversal-16.semantics.json
+[13:20:34.378] rive  wrote evidence/reversal-16.data.json
+ok data-dump: evidence/reversal-16.data.json
+ok advance
+[13:20:34.378] rive  wrote evidence/reversal-17.semantics.json
+ok semantics: evidence/reversal-17.semantics.json
+[13:20:34.378] rive  wrote evidence/reversal-17.data.json
+ok data-dump: evidence/reversal-17.data.json
+ok advance
+[13:20:34.378] rive  wrote evidence/reversal-18.semantics.json
+ok semantics: evidence/reversal-18.semantics.json
+[13:20:34.378] rive  wrote evidence/reversal-18.data.json
+ok data-dump: evidence/reversal-18.data.json
+ok advance
+[13:20:34.378] rive  wrote evidence/reversal-19.semantics.json
+ok semantics: evidence/reversal-19.semantics.json
+[13:20:34.378] rive  wrote evidence/reversal-19.data.json
+ok data-dump: evidence/reversal-19.data.json
+ok advance
+[13:20:34.378] rive  wrote evidence/reversal-20.semantics.json
+ok semantics: evidence/reversal-20.semantics.json
+[13:20:34.378] rive  wrote evidence/reversal-20.data.json
+ok data-dump: evidence/reversal-20.data.json
+[13:20:34.378] rive  data: chip1Label = Longer first chip (mid-run)
+ok data
+ok advance
+[13:20:34.379] rive  wrote evidence/chip1-long.semantics.json
+ok semantics: evidence/chip1-long.semantics.json
+[13:20:34.379] rive  wrote evidence/chip1-long.data.json
+ok data-dump: evidence/chip1-long.data.json
+[13:20:34.392] rive  wrote evidence/chip1-long.png
+ok screenshot: evidence/chip1-long.png
+[13:20:34.393] rive  data: hideChip3 = true (mid-run)
+ok data
+ok advance
+[13:20:34.393] rive  wrote evidence/chip3-hidden.semantics.json
+ok semantics: evidence/chip3-hidden.semantics.json
+[13:20:34.393] rive  wrote evidence/chip3-hidden.data.json
+ok data-dump: evidence/chip3-hidden.data.json
+[13:20:34.406] rive  wrote evidence/chip3-hidden.png
+ok screenshot: evidence/chip3-hidden.png
+[13:20:34.407] rive  data: hideChip3 = false (mid-run)
+ok data
+[13:20:34.407] rive  data: chip1Label = One (mid-run)
+ok data
+[13:20:34.407] rive  data: buttonLabel = Save (mid-run)
+ok data
+ok advance
+[13:20:34.408] rive  wrote evidence/contain-480x360.semantics.json
+ok semantics: evidence/contain-480x360.semantics.json
+[13:20:34.408] rive  wrote evidence/contain-480x360.data.json
+ok data-dump: evidence/contain-480x360.data.json
+[13:20:34.420] rive  wrote evidence/contain-480x360.png
+ok screenshot: evidence/contain-480x360.png
+[13:20:34.421] rive  viewport 600x300 @1x
+ok viewport
+ok advance
+[13:20:34.421] rive  wrote evidence/contain-600x300.semantics.json
+ok semantics: evidence/contain-600x300.semantics.json
+[13:20:34.421] rive  wrote evidence/contain-600x300.data.json
+ok data-dump: evidence/contain-600x300.data.json
+[13:20:34.435] rive  wrote evidence/contain-600x300.png
+ok screenshot: evidence/contain-600x300.png
+[13:20:34.436] rive  viewport 600x300 @1x
+ok fit: layout
+ok advance
+[13:20:34.436] rive  wrote evidence/layout-600x300.semantics.json
+ok semantics: evidence/layout-600x300.semantics.json
+[13:20:34.436] rive  wrote evidence/layout-600x300.data.json
+ok data-dump: evidence/layout-600x300.data.json
+[13:20:34.451] rive  wrote evidence/layout-600x300.png
+ok screenshot: evidence/layout-600x300.png
+[13:20:34.451] rive  viewport 480x360 @1x
+ok viewport
+ok advance
+[13:20:34.452] rive  wrote evidence/layout-480x360.semantics.json
+ok semantics: evidence/layout-480x360.semantics.json
+[13:20:34.452] rive  wrote evidence/layout-480x360.data.json
+ok data-dump: evidence/layout-480x360.data.json
+[13:20:34.465] rive  wrote evidence/layout-480x360.png
+ok screenshot: evidence/layout-480x360.png
+[13:20:34.465] rive  data: title = Updated title (mid-run)
+ok data
+ok advance
+[13:20:34.465] rive  wrote evidence/title-updated.semantics.json
+ok semantics: evidence/title-updated.semantics.json
+[13:20:34.466] rive  wrote evidence/title-updated.data.json
+ok data-dump: evidence/title-updated.data.json
+[13:20:34.478] rive  wrote evidence/title-updated.png
+ok screenshot: evidence/title-updated.png
+ok quit

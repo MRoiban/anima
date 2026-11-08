@@ -1,0 +1,1 @@
+PASS: six brief items; semantic geometry, per-frame continuity, 18-frame duration, hide, host reflow, title data binding.

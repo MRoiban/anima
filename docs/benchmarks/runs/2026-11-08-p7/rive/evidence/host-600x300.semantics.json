@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "artboard": "Reflow",
+  "roots": [
+    {
+      "id": 1,
+      "role": "group",
+      "roleValue": 9,
+      "label": "Card",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 0, "y": 0, "width": 600, "height": 300 },
+      "children": [
+        {
+          "id": 2,
+          "role": "text",
+          "roleValue": 7,
+          "label": "Title",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 0,
+          "bounds": { "x": 18, "y": 18, "width": 151.21875, "height": 24 },
+          "children": []
+        },
+        {
+          "id": 3,
+          "role": "group",
+          "roleValue": 9,
+          "label": "Button",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 0,
+          "bounds": { "x": 18, "y": 54, "width": 156.496872, "height": 31.1999969 },
+          "children": [
+            {
+              "id": 4,
+              "role": "text",
+              "roleValue": 7,
+              "label": "Button label",
+              "value": "",
+              "hint": "",
+              "headingLevel": 0,
+              "stateFlags": 0,
+              "traitFlags": 0,
+              "bounds": { "x": 30, "y": 60, "width": 132.496872, "height": 19.1999969 },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "role": "group",
+          "roleValue": 9,
+          "label": "Chips row",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 0,
+          "bounds": { "x": 18, "y": 97.1999969, "width": 564, "height": 28.8000031 },
+          "children": [
+            {
+              "id": 6,
+              "role": "group",
+              "roleValue": 9,
+              "label": "Chip 1",
+              "value": "",
+              "hint": "",
+              "headingLevel": 0,
+              "stateFlags": 0,
+              "traitFlags": 0,
+              "bounds": { "x": 18, "y": 97.1999969, "width": 185.298035, "height": 28.8000031 },
+              "children": [
+                {
+                  "id": 7,
+                  "role": "text",
+                  "roleValue": 7,
+                  "label": "Chip 1 label",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "stateFlags": 0,
+                  "traitFlags": 0,
+                  "bounds": { "x": 30, "y": 103.199997, "width": 161.298035, "height": 16.8000031 },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "role": "group",
+              "roleValue": 9,
+              "label": "Chip 2",
+              "value": "",
+              "hint": "",
+              "headingLevel": 0,
+              "stateFlags": 0,
+              "traitFlags": 0,
+              "bounds": {
+                "x": 209.298035,
+                "y": 97.1999969,
+                "width": 372.701965,
+                "height": 28.8000031
+              },
+              "children": [
+                {
+                  "id": 9,
+                  "role": "text",
+                  "roleValue": 7,
+                  "label": "Chip 2 label",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "stateFlags": 0,
+                  "traitFlags": 0,
+                  "bounds": {
+                    "x": 221.298035,
+                    "y": 103.199997,
+                    "width": 80.6531372,
+                    "height": 16.8000031
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
