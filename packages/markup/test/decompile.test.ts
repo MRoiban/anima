@@ -602,6 +602,8 @@ function check(source: string | object) {
       'text-range',
       // seam(P6-6): new registry-owned field child.
       'text-input',
+      // seam(P7-5): typed component data property.
+      'artboard',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

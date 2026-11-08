@@ -3247,3 +3247,19 @@ See [the normative field contract](../modules/text-input/SPEC.md) for both spell
 ### Accessible text proxy
 
 See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+## dataartboard — bindable component data
+
+<!-- capability: data.host-artboard -->
+<!-- capability: host-api.bindable-artboards -->
+<!-- capability: host-api.data-artboard -->
+<!-- capability: components.host-artboard-reference -->
+
+The normative contract is [modules/data-artboard/SPEC.md](../modules/data-artboard/SPEC.md):
+`artboard` model properties, `instance component="$content"`, queued host handles and
+values referencing components from another loaded document. Re-instantiation follows
+the existing nested-player and data-context rules; a changed selection restarts the
+child clock, and the same selection retains it. The four deterministic probes are
+`data-host-artboard`, `host-api-bindable-artboards`, `host-api-data-artboard`, and
+`components-host-artboard-reference`. Host comparison limits are evidenced in
+[the native comparison note](../modules/data-artboard/NATIVE.md).

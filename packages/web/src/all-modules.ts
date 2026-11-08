@@ -13,6 +13,7 @@ import './composite.ts';
 import './contour.ts';
 import './convert.ts';
 import './data.ts';
+import './data-artboard.ts';
 import './data-host.ts';
 import './derive.ts';
 import './devtools.ts';

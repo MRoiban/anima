@@ -2633,6 +2633,7 @@
                         "model-ref",
                         "asset-ref",
                         "component",
+                        "artboard",
                         "text-style"
                       ]
                     },

@@ -391,6 +391,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     for (const [key, inst] of Object.entries(b.compiled.document.instances ?? {}))
       if ((child.model.inheritedData || defs[inst.model]?.global) && a.instances[key])
         b.instances[key] = a.instances[key]!;
+    // seam(P7-5): foreign inherited models may use a different default instance name.
+    if (
+      child.model.inheritedData &&
+      typeof node.raw.component === 'string' &&
+      String(a.read(node.raw.component)).startsWith('$external:')
+    )
+      b.instances[b.compiled.defaultName] = a.instances[a.compiled.defaultName]!;
     if (node.raw.data) {
       const source = a.instances[String(node.raw.data).replace(/^\$/, '').replace(/:$/, '')];
       if (source) b.instances[b.compiled.defaultName] = source;

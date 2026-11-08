@@ -4354,12 +4354,12 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/components-host-artboard-reference/registry.ts; modules/data-artboard/capabilities/components-host-artboard-reference/example.animl",
+      "module": "data-artboard",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/components-host-artboard-reference; tests/oracle/components-host-artboard-reference/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-5 partial: artboard source type/host handles, local and external vector/data swaps, isolated target identities, repeated contexts and empty external-first slots are implemented. Cross-document browser resource ownership remains: source image resolver/base-URI state and font-face lifetime are not transferred to the destination; integrate and test those before closure. Native host-assignment comparison is an evidenced CLI skip (modules/data-artboard/NATIVE.md). Cross-document data-schema compatibility validation also remains; the compiled source bindings are reused."
     }
   },
   {
@@ -7841,12 +7841,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/data-host-artboard/registry.ts; modules/data-artboard/capabilities/data-host-artboard/example.animl",
+      "module": "data-artboard",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/data-host-artboard; tests/oracle/data-host-artboard/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-5 partial: artboard source type/host handles, local and external vector/data swaps, isolated target identities, repeated contexts and empty external-first slots are implemented. Cross-document browser resource ownership remains: source image resolver/base-URI state and font-face lifetime are not transferred to the destination; integrate and test those before closure. Native host-assignment comparison is an evidenced CLI skip (modules/data-artboard/NATIVE.md). Cross-document data-schema compatibility validation also remains; the compiled source bindings are reused."
     }
   },
   {
@@ -15772,12 +15772,12 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-bindable-artboards/registry.ts; modules/data-artboard/capabilities/host-api-bindable-artboards/example.animl",
+      "module": "data-artboard",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-bindable-artboards; tests/oracle/host-api-bindable-artboards/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-5 partial: artboard source type/host handles, local and external vector/data swaps, isolated target identities, repeated contexts and empty external-first slots are implemented. Cross-document browser resource ownership remains: source image resolver/base-URI state and font-face lifetime are not transferred to the destination; integrate and test those before closure. Native host-assignment comparison is an evidenced CLI skip (modules/data-artboard/NATIVE.md). Cross-document data-schema compatibility validation also remains; the compiled source bindings are reused."
     }
   },
   {
@@ -15879,12 +15879,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
-      "module": "data-host",
+      "construct": "modules/data-artboard/SPEC.md; modules/data-artboard/capabilities/host-api-data-artboard/registry.ts; modules/data-artboard/capabilities/host-api-data-artboard/example.animl",
+      "module": "data-artboard",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "test": "modules/data-artboard/test/core/artboard.test.ts; modules/data-artboard/test/web/artboard.test.ts; spec/conformance/host-api-data-artboard; tests/oracle/host-api-data-artboard/skip.json",
       "phase": "P7",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
+      "reason": "P7-5 partial: artboard source type/host handles, local and external vector/data swaps, isolated target identities, repeated contexts and empty external-first slots are implemented. Cross-document browser resource ownership remains: source image resolver/base-URI state and font-face lifetime are not transferred to the destination; integrate and test those before closure. Native host-assignment comparison is an evidenced CLI skip (modules/data-artboard/NATIVE.md). Cross-document data-schema compatibility validation also remains; the compiled source bindings are reused."
     }
   },
   {
