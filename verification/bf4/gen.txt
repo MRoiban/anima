@@ -1,0 +1,5 @@
+
+> gen
+> node tools/gen-schema.ts
+
+wrote spec/schema/ani.schema.json

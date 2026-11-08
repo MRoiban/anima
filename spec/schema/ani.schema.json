@@ -241,7 +241,7 @@
       "items": {
         "$ref": "#/$defs/node"
       },
-      "minItems": 1
+      "minItems": 0
     },
     "timelines": {
       "type": "object",
@@ -1229,7 +1229,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "(?:(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$))|^change:\\$[\\w:.-]+$"
+            "pattern": "(?:(?:(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$))|^change:\\$[\\w:.-]+$)|^text$"
           },
           "target": {
             "type": "string",
@@ -1405,7 +1405,7 @@
         }
       },
       "propertyNames": {
-        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*$"
       },
       "additionalProperties": {},
       "feature": "components"
@@ -2632,7 +2632,8 @@
                         "list",
                         "model-ref",
                         "asset-ref",
-                        "component"
+                        "component",
+                        "text-style"
                       ]
                     },
                     "default": {},
@@ -2959,6 +2960,714 @@
         "type": "string"
       },
       "feature": "nested"
+    },
+    "textStyles": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "$comment": {
+            "type": "string"
+          },
+          "font": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "italic"
+            ]
+          },
+          "tracking": {
+            "type": "number"
+          },
+          "lineHeight": {
+            "type": "number",
+            "minimum": 0
+          },
+          "fill": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "rule": {
+                "type": "string",
+                "enum": [
+                  "nonzero",
+                  "evenodd"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "linear",
+                  "radial",
+                  "angular",
+                  "image"
+                ],
+                "feature": "paint"
+              },
+              "x1": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "y1": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "x2": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "y2": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "cx": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "cy": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "r": {
+                "type": "number",
+                "minimum": 0,
+                "feature": "paint"
+              },
+              "fx": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "fy": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "gradientTransform": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "items": false,
+                "minItems": 6,
+                "maxItems": 6,
+                "feature": "paint"
+              },
+              "stops": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "position": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "position",
+                    "color"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 2,
+                "feature": "paint"
+              },
+              "visible": {
+                "type": "boolean",
+                "feature": "composite"
+              },
+              "winding": {
+                "type": "string",
+                "enum": [
+                  "clockwise"
+                ],
+                "feature": "contour"
+              },
+              "asset": {
+                "type": "string",
+                "feature": "surface"
+              },
+              "imageWidth": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "feature": "surface"
+              },
+              "imageHeight": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "feature": "surface"
+              },
+              "imageX": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageY": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageRotate": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageScaleX": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageScaleY": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "modulate": {
+                "type": "string",
+                "feature": "surface"
+              },
+              "feather": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "inner": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "outer": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "offset": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "space": {
+                    "type": "string",
+                    "enum": [
+                      "local",
+                      "world"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "feature": "surface"
+              },
+              "blend": {
+                "type": "string",
+                "enum": [
+                  "inherit",
+                  "normal",
+                  "multiply",
+                  "screen",
+                  "overlay",
+                  "darken",
+                  "lighten",
+                  "color-dodge",
+                  "color-burn",
+                  "hard-light",
+                  "soft-light",
+                  "difference",
+                  "exclusion",
+                  "hue",
+                  "saturation",
+                  "color",
+                  "luminosity",
+                  "additive"
+                ],
+                "feature": "mix"
+              },
+              "blendAmount": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "feature": "mix"
+              },
+              "paint": {
+                "type": "string",
+                "feature": "componentpaint"
+              }
+            },
+            "additionalProperties": false
+          },
+          "stroke": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0
+              },
+              "cap": {
+                "type": "string",
+                "enum": [
+                  "butt",
+                  "round",
+                  "square"
+                ]
+              },
+              "join": {
+                "type": "string",
+                "enum": [
+                  "miter",
+                  "round",
+                  "bevel"
+                ]
+              },
+              "trimStart": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "trimEnd": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "trimOffset": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "linear",
+                  "radial",
+                  "angular",
+                  "image"
+                ],
+                "feature": "paint"
+              },
+              "x1": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "y1": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "x2": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "y2": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "cx": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "cy": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "r": {
+                "type": "number",
+                "minimum": 0,
+                "feature": "paint"
+              },
+              "fx": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "fy": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "gradientTransform": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "items": false,
+                "minItems": 6,
+                "maxItems": 6,
+                "feature": "paint"
+              },
+              "stops": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "position": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "position",
+                    "color"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 2,
+                "feature": "paint"
+              },
+              "dash": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                    }
+                  ]
+                },
+                "minItems": 1,
+                "feature": "paint"
+              },
+              "dashOffset": {
+                "type": "number",
+                "feature": "paint"
+              },
+              "scale": {
+                "type": "string",
+                "enum": [
+                  "normal",
+                  "fixed"
+                ],
+                "feature": "paint"
+              },
+              "visible": {
+                "type": "boolean",
+                "feature": "composite"
+              },
+              "position": {
+                "type": "string",
+                "enum": [
+                  "center",
+                  "inside",
+                  "outside"
+                ],
+                "feature": "composite"
+              },
+              "trim": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "end": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "offset": {
+                    "type": "number"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "sequential",
+                      "synchronized"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "feature": "contour"
+              },
+              "effects": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            },
+                            "start": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "end": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "offset": {
+                              "type": "number"
+                            },
+                            "mode": {
+                              "type": "string",
+                              "enum": [
+                                "sequential",
+                                "synchronized"
+                              ]
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "trim",
+                                "dash"
+                              ]
+                            },
+                            "dash": {
+                              "type": "array",
+                              "items": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "minItems": 1
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "feature": "contour"
+              },
+              "asset": {
+                "type": "string",
+                "feature": "surface"
+              },
+              "imageWidth": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "feature": "surface"
+              },
+              "imageHeight": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "feature": "surface"
+              },
+              "imageX": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageY": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageRotate": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageScaleX": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "imageScaleY": {
+                "type": "number",
+                "feature": "surface"
+              },
+              "modulate": {
+                "type": "string",
+                "feature": "surface"
+              },
+              "feather": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "inner": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "outer": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "offset": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "space": {
+                    "type": "string",
+                    "enum": [
+                      "local",
+                      "world"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "feature": "surface"
+              },
+              "blend": {
+                "type": "string",
+                "enum": [
+                  "inherit",
+                  "normal",
+                  "multiply",
+                  "screen",
+                  "overlay",
+                  "darken",
+                  "lighten",
+                  "color-dodge",
+                  "color-burn",
+                  "hard-light",
+                  "soft-light",
+                  "difference",
+                  "exclusion",
+                  "hue",
+                  "saturation",
+                  "color",
+                  "luminosity",
+                  "additive"
+                ],
+                "feature": "mix"
+              },
+              "blendAmount": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "feature": "mix"
+              }
+            },
+            "additionalProperties": false
+          },
+          "axes": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+            },
+            "additionalProperties": {
+              "type": "number"
+            },
+            "feature": "fonts"
+          },
+          "features": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "feature": "fonts"
+          }
+        },
+        "additionalProperties": false
+      },
+      "feature": "text"
     }
   },
   "required": [
@@ -2968,6 +3677,27 @@
     "nodes"
   ],
   "additionalProperties": false,
+  "if": {
+    "required": [
+      "requires"
+    ],
+    "properties": {
+      "requires": {
+        "type": "array",
+        "contains": {
+          "const": "components"
+        }
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "nodes": {
+        "type": "array",
+        "minItems": 1
+      }
+    }
+  },
   "$defs": {
     "node": {
       "oneOf": [
@@ -3311,7 +4041,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -3339,6 +4072,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -5215,7 +5951,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -5243,6 +5982,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -7122,7 +7864,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -7150,6 +7895,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -9056,7 +9804,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -9084,6 +9835,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -10973,7 +11727,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -11001,6 +11758,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -11308,7 +12068,7 @@
             },
             "component": {
               "type": "string",
-              "pattern": "^(?:[a-z][a-zA-Z0-9-]*|\\$[\\w:.-]+)$",
+              "pattern": "^(?:[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*|\\$[\\w:.-]+)$",
               "feature": "components"
             },
             "inputs": {
@@ -11625,7 +12385,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -11653,6 +12416,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -12380,7 +13146,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -12408,6 +13177,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -14155,7 +14927,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -14183,6 +14958,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -16076,7 +16854,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -16104,6 +16885,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -17998,7 +18782,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -18026,6 +18813,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -19910,7 +20700,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -19938,6 +20731,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -21164,7 +21960,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -21192,6 +21991,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -22461,7 +23263,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -22489,6 +23294,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -22985,6 +23793,3022 @@
             "id",
             "type",
             "component"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "text"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "text"
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "text"
+            },
+            "lineHeight": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "text"
+            },
+            "paragraphSpacing": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "text"
+            },
+            "runs": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "style": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "feature": "text"
+            },
+            "styles": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "font": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "weight": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "style": {
+                    "type": "string",
+                    "enum": [
+                      "normal",
+                      "italic"
+                    ]
+                  },
+                  "tracking": {
+                    "type": "number"
+                  },
+                  "lineHeight": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "fill": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "rule": {
+                        "type": "string",
+                        "enum": [
+                          "nonzero",
+                          "evenodd"
+                        ]
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "radial",
+                          "angular",
+                          "image"
+                        ],
+                        "feature": "paint"
+                      },
+                      "x1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "x2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "r": {
+                        "type": "number",
+                        "minimum": 0,
+                        "feature": "paint"
+                      },
+                      "fx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "fy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "gradientTransform": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 6,
+                        "maxItems": 6,
+                        "feature": "paint"
+                      },
+                      "stops": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            },
+                            "position": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "color": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "position",
+                            "color"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2,
+                        "feature": "paint"
+                      },
+                      "visible": {
+                        "type": "boolean",
+                        "feature": "composite"
+                      },
+                      "winding": {
+                        "type": "string",
+                        "enum": [
+                          "clockwise"
+                        ],
+                        "feature": "contour"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "stroke": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "cap": {
+                        "type": "string",
+                        "enum": [
+                          "butt",
+                          "round",
+                          "square"
+                        ]
+                      },
+                      "join": {
+                        "type": "string",
+                        "enum": [
+                          "miter",
+                          "round",
+                          "bevel"
+                        ]
+                      },
+                      "trimStart": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "trimEnd": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "trimOffset": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "radial",
+                          "angular",
+                          "image"
+                        ],
+                        "feature": "paint"
+                      },
+                      "x1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "x2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "r": {
+                        "type": "number",
+                        "minimum": 0,
+                        "feature": "paint"
+                      },
+                      "fx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "fy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "gradientTransform": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 6,
+                        "maxItems": 6,
+                        "feature": "paint"
+                      },
+                      "stops": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            },
+                            "position": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "color": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "position",
+                            "color"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2,
+                        "feature": "paint"
+                      },
+                      "dash": {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "number",
+                              "minimum": 0
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                            }
+                          ]
+                        },
+                        "minItems": 1,
+                        "feature": "paint"
+                      },
+                      "dashOffset": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "scale": {
+                        "type": "string",
+                        "enum": [
+                          "normal",
+                          "fixed"
+                        ],
+                        "feature": "paint"
+                      },
+                      "visible": {
+                        "type": "boolean",
+                        "feature": "composite"
+                      },
+                      "position": {
+                        "type": "string",
+                        "enum": [
+                          "center",
+                          "inside",
+                          "outside"
+                        ],
+                        "feature": "composite"
+                      },
+                      "trim": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "end": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "offset": {
+                            "type": "number"
+                          },
+                          "mode": {
+                            "type": "string",
+                            "enum": [
+                              "sequential",
+                              "synchronized"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "contour"
+                      },
+                      "effects": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "$comment": {
+                                      "type": "string"
+                                    },
+                                    "start": {
+                                      "type": "number",
+                                      "minimum": 0,
+                                      "maximum": 1
+                                    },
+                                    "end": {
+                                      "type": "number",
+                                      "minimum": 0,
+                                      "maximum": 1
+                                    },
+                                    "offset": {
+                                      "type": "number"
+                                    },
+                                    "mode": {
+                                      "type": "string",
+                                      "enum": [
+                                        "sequential",
+                                        "synchronized"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "trim",
+                                        "dash"
+                                      ]
+                                    },
+                                    "dash": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "minItems": 1
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "feature": "contour"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "axes": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "number"
+                    },
+                    "feature": "fonts"
+                  },
+                  "features": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "feature": "fonts"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "feature": "text"
+            },
+            "sizing": {
+              "type": "string",
+              "enum": [
+                "fixed",
+                "auto-width",
+                "auto-height"
+              ],
+              "feature": "text"
+            },
+            "align": {
+              "type": "string",
+              "enum": [
+                "left",
+                "center",
+                "right",
+                "start",
+                "end"
+              ],
+              "feature": "text"
+            },
+            "valign": {
+              "type": "string",
+              "enum": [
+                "top",
+                "middle",
+                "bottom"
+              ],
+              "feature": "text"
+            },
+            "overflow": {
+              "type": "string",
+              "enum": [
+                "visible",
+                "hidden",
+                "clipped",
+                "ellipsis",
+                "fit",
+                "fit-font-size"
+              ],
+              "feature": "text"
+            },
+            "wrap": {
+              "type": "boolean",
+              "feature": "text"
+            },
+            "wordBreak": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "break-word",
+                "break-all"
+              ],
+              "feature": "text"
+            },
+            "origin": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "top-left",
+                    "baseline"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              ],
+              "feature": "text"
+            },
+            "verticalTrimTop": {
+              "type": "string",
+              "enum": [
+                "none",
+                "cap",
+                "x-height"
+              ],
+              "feature": "text"
+            },
+            "verticalTrimBottom": {
+              "type": "string",
+              "enum": [
+                "none",
+                "baseline"
+              ],
+              "feature": "text"
+            },
+            "fitFromBaseline": {
+              "type": "boolean",
+              "feature": "text"
+            },
+            "fitFontSizeResizesBox": {
+              "type": "boolean",
+              "feature": "text"
+            },
+            "textField": {
+              "type": "string",
+              "feature": "text"
+            },
+            "styleField": {
+              "type": "string",
+              "feature": "text"
+            },
+            "fill": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial",
+                    "angular",
+                    "image"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "gradientTransform": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 6,
+                  "maxItems": 6,
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "visible": {
+                  "type": "boolean",
+                  "feature": "composite"
+                },
+                "winding": {
+                  "type": "string",
+                  "enum": [
+                    "clockwise"
+                  ],
+                  "feature": "contour"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
+                },
+                "paint": {
+                  "type": "string",
+                  "feature": "componentpaint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "stroke": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": [
+                    "butt",
+                    "round",
+                    "square"
+                  ]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": [
+                    "miter",
+                    "round",
+                    "bevel"
+                  ]
+                },
+                "trimStart": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimEnd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimOffset": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial",
+                    "angular",
+                    "image"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "gradientTransform": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 6,
+                  "maxItems": 6,
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "dash": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                      }
+                    ]
+                  },
+                  "minItems": 1,
+                  "feature": "paint"
+                },
+                "dashOffset": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
+                },
+                "visible": {
+                  "type": "boolean",
+                  "feature": "composite"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "center",
+                    "inside",
+                    "outside"
+                  ],
+                  "feature": "composite"
+                },
+                "trim": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "start": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "end": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "sequential",
+                        "synchronized"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "contour"
+                },
+                "effects": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "start": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "end": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "offset": {
+                                "type": "number"
+                              },
+                              "mode": {
+                                "type": "string",
+                                "enum": [
+                                  "sequential",
+                                  "synchronized"
+                                ]
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "trim",
+                                  "dash"
+                                ]
+                              },
+                              "dash": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number",
+                                  "minimum": 0
+                                },
+                                "minItems": 1
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "feature": "contour"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
+                }
+              },
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "units": {
+                    "type": "string",
+                    "enum": [
+                      "glyphs",
+                      "words",
+                      "lines"
+                    ]
+                  },
+                  "falloff": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "ease": {
+                    "type": "string"
+                  },
+                  "combine": {
+                    "type": "string",
+                    "enum": [
+                      "add",
+                      "intersect",
+                      "subtract",
+                      "max",
+                      "replace"
+                    ]
+                  },
+                  "run": {
+                    "type": "string"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "rotate": {
+                    "type": "number"
+                  },
+                  "scaleX": {
+                    "type": "number"
+                  },
+                  "scaleY": {
+                    "type": "number"
+                  },
+                  "opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "amount": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "originX": {
+                    "type": "number"
+                  },
+                  "originY": {
+                    "type": "number"
+                  },
+                  "axes": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[\\x20-\\x7e]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "number"
+                    }
+                  },
+                  "followPath": {
+                    "type": "string"
+                  },
+                  "pathOffset": {
+                    "type": "number"
+                  },
+                  "ranges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "start": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "units": {
+                          "type": "string",
+                          "enum": [
+                            "glyphs",
+                            "words",
+                            "lines"
+                          ]
+                        },
+                        "falloff": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "ease": {
+                          "type": "string"
+                        },
+                        "combine": {
+                          "type": "string",
+                          "enum": [
+                            "add",
+                            "intersect",
+                            "subtract",
+                            "max",
+                            "replace"
+                          ]
+                        },
+                        "run": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "feature": "texteffects"
+            },
+            "background": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "radius": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "texteffects"
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "ltr",
+                "rtl"
+              ],
+              "feature": "texteffects"
+            },
+            "textInput": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "editable": {
+                  "type": "boolean"
+                },
+                "multiline": {
+                  "type": "boolean"
+                },
+                "obscured": {
+                  "type": "boolean"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "placeholderColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectOnFocus": {
+                  "type": "boolean"
+                },
+                "maxLength": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxLines": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "writeText": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "caretColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectionColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectionRadius": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false,
+              "feature": "textinput"
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
+            },
+            "blend": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+              ],
+              "feature": "composite"
+            },
+            "mask": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "alpha",
+                    "luminance",
+                    "inverted-alpha",
+                    "inverted-luminance"
+                  ]
+                },
+                "sourceDraws": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source",
+                "mode",
+                "sourceDraws"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "clip": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ],
+                  "default": "nonzero"
+                }
+              },
+              "required": [
+                "source"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "drawOrder": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "before",
+                    "after"
+                  ]
+                },
+                "active": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "target",
+                "position"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "paints": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "fill": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "rule": {
+                        "type": "string",
+                        "enum": [
+                          "nonzero",
+                          "evenodd"
+                        ]
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "radial",
+                          "angular",
+                          "image"
+                        ],
+                        "feature": "paint"
+                      },
+                      "x1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "x2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "r": {
+                        "type": "number",
+                        "minimum": 0,
+                        "feature": "paint"
+                      },
+                      "fx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "fy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "gradientTransform": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 6,
+                        "maxItems": 6,
+                        "feature": "paint"
+                      },
+                      "stops": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            },
+                            "position": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "color": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "position",
+                            "color"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2,
+                        "feature": "paint"
+                      },
+                      "visible": {
+                        "type": "boolean",
+                        "feature": "composite"
+                      },
+                      "winding": {
+                        "type": "string",
+                        "enum": [
+                          "clockwise"
+                        ],
+                        "feature": "contour"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
+                      },
+                      "paint": {
+                        "type": "string",
+                        "feature": "componentpaint"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "stroke": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "cap": {
+                        "type": "string",
+                        "enum": [
+                          "butt",
+                          "round",
+                          "square"
+                        ]
+                      },
+                      "join": {
+                        "type": "string",
+                        "enum": [
+                          "miter",
+                          "round",
+                          "bevel"
+                        ]
+                      },
+                      "trimStart": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "trimEnd": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "trimOffset": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "radial",
+                          "angular",
+                          "image"
+                        ],
+                        "feature": "paint"
+                      },
+                      "x1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y1": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "x2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "y2": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "cy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "r": {
+                        "type": "number",
+                        "minimum": 0,
+                        "feature": "paint"
+                      },
+                      "fx": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "fy": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "gradientTransform": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 6,
+                        "maxItems": 6,
+                        "feature": "paint"
+                      },
+                      "stops": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            },
+                            "position": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "color": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "position",
+                            "color"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2,
+                        "feature": "paint"
+                      },
+                      "dash": {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "number",
+                              "minimum": 0
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                            }
+                          ]
+                        },
+                        "minItems": 1,
+                        "feature": "paint"
+                      },
+                      "dashOffset": {
+                        "type": "number",
+                        "feature": "paint"
+                      },
+                      "scale": {
+                        "type": "string",
+                        "enum": [
+                          "normal",
+                          "fixed"
+                        ],
+                        "feature": "paint"
+                      },
+                      "visible": {
+                        "type": "boolean",
+                        "feature": "composite"
+                      },
+                      "position": {
+                        "type": "string",
+                        "enum": [
+                          "center",
+                          "inside",
+                          "outside"
+                        ],
+                        "feature": "composite"
+                      },
+                      "trim": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "end": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "offset": {
+                            "type": "number"
+                          },
+                          "mode": {
+                            "type": "string",
+                            "enum": [
+                              "sequential",
+                              "synchronized"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "contour"
+                      },
+                      "effects": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "$comment": {
+                                      "type": "string"
+                                    },
+                                    "start": {
+                                      "type": "number",
+                                      "minimum": 0,
+                                      "maximum": 1
+                                    },
+                                    "end": {
+                                      "type": "number",
+                                      "minimum": 0,
+                                      "maximum": 1
+                                    },
+                                    "offset": {
+                                      "type": "number"
+                                    },
+                                    "mode": {
+                                      "type": "string",
+                                      "enum": [
+                                        "sequential",
+                                        "synchronized"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "trim",
+                                        "dash"
+                                      ]
+                                    },
+                                    "dash": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "minItems": 1
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "feature": "contour"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
+            "a11y": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "button",
+                    "checkbox",
+                    "switch",
+                    "radio",
+                    "radio-group",
+                    "slider",
+                    "tab",
+                    "tab-list",
+                    "link",
+                    "list",
+                    "list-item",
+                    "group",
+                    "dialog",
+                    "alert-dialog",
+                    "heading",
+                    "text",
+                    "img",
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "hint": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "valueText": {
+                  "type": "string"
+                },
+                "level": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "href": {
+                  "type": "string"
+                },
+                "controls": {
+                  "type": "string"
+                },
+                "activate": {
+                  "type": "string"
+                },
+                "checked": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "pressed": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "selected": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "expanded": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "disabled": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "hidden": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "required": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "readonly": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "modal": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "checkedMixed": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "live": {
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "polite",
+                    "assertive"
+                  ]
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                },
+                "step": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "required": [
+                "role"
+              ],
+              "additionalProperties": false,
+              "feature": "a11y"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "runs"
           ],
           "additionalProperties": false
         }

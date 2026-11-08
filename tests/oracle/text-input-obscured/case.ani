@@ -1,0 +1,41 @@
+{
+  "anima": "0.1",
+  "name": "text-input-obscured",
+  "grid": 20,
+  "requires": ["text", "textinput", "a11y", "focus", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "field",
+      "type": "text",
+      "x": 2,
+      "y": 3,
+      "sizing": "fixed",
+      "width": 10,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "text": "abcd",
+          "style": "s"
+        }
+      ],
+      "textInput": {
+        "obscured": true,
+        "label": "Field",
+        "caretColor": "#ff0000",
+        "selectionColor": "#b3d4fc"
+      }
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

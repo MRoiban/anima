@@ -93,7 +93,9 @@ function attach(i: AnimaIcon): void {
       const ev = e as PointerEvent,
         o = config(i),
         c = i.input();
-      e.stopImmediatePropagation();
+      // The host's legacy route must not process this event a second time.
+      Icon.inputEvents.add(e);
+      if ((e.composedPath()[0] as Element).hasAttribute('data-semantic')) return;
       if (
         !o.listeners ||
         (!o.multitouch && ev.isPrimary === false) ||
@@ -124,9 +126,9 @@ function attach(i: AnimaIcon): void {
     ['keyup', 'up'],
   ] as const)
     listen(type, (e) => {
-      if (!active(i)) return;
+      // Semantic controls own their native keys before the drawn-input capture route.
+      if (!active(i) || (e.composedPath()[0] as HTMLElement)?.hasAttribute('data-semantic')) return;
       if (!config(i).listeners) {
-        e.stopImmediatePropagation();
         return;
       }
       const k = e as KeyboardEvent;

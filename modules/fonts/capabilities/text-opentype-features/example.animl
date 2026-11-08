@@ -1,0 +1,7 @@
+<anima version="0.1" name="text-opentype-features" grid="20" requires="text fonts assets">
+  <asset name="body" type="font" src="../../../../fixtures/fonts/anima-test.ttf"/>
+  <text-style id="off" font="body" size="2" features="{&quot;kern&quot;:0}"/>
+  <text id="label" line-height="1">
+    <run text="AV" style="off"/>
+  </text>
+</anima>

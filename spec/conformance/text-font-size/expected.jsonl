@@ -1,0 +1,3 @@
+{"time":0,"values":{"label.styles.s.size":1,"label.runs.0.text":"ab","label.runs.0.style":"","label.styles.s.weight":400},"states":{"main":"playing"},"events":[],"settled":false}
+{"time":0.5,"values":{"label.styles.s.size":1.5,"label.runs.0.text":"ab","label.runs.0.style":"","label.styles.s.weight":1000},"states":{"main":"playing"},"events":[],"settled":false}
+{"time":1,"values":{"label.styles.s.size":2,"label.runs.0.text":"cd","label.runs.0.style":"s","label.styles.s.weight":1000},"states":{"main":"playing"},"events":[],"settled":true}

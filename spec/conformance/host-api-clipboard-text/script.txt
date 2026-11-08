@@ -1,0 +1,4 @@
+focus target q
+type "abc"
+select 1 3
+snapshot --semantics $query

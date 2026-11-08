@@ -31,6 +31,8 @@ import { hostValues } from '../../../modules/host-values/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
 import { dataHost } from '../../../modules/data-host/core/index.ts';
 import { hostEdit } from '../../../modules/host-edit/core/index.ts';
+import { fonts } from '../../../modules/fonts/core/index.ts';
+import { fontsSVG } from '../../../modules/fonts/core/svg.ts';
 import { lists } from '../../../modules/lists/core/index.ts';
 import { listsSVG } from '../../../modules/lists/core/svg.ts';
 import { a11y } from '../../../modules/a11y/core/index.ts';
@@ -44,6 +46,12 @@ import { mix } from '../../../modules/mix/core/index.ts';
 import { mixSVG } from '../../../modules/mix/core/svg.ts';
 import { componentpaint } from '../../../modules/componentpaint/core/index.ts';
 import { componentpaintSVG } from '../../../modules/componentpaint/core/svg.ts';
+import { text } from '../../../modules/text/core/index.ts';
+import { textSVG } from '../../../modules/text/core/svg.ts';
+import { textEffects } from '../../../modules/text-effects/core/index.ts';
+import { textEffectsSVG } from '../../../modules/text-effects/core/svg.ts';
+import { textinput } from '../../../modules/text-input/core/index.ts';
+import { textinputSVG } from '../../../modules/text-input/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -74,6 +82,8 @@ if (VERBOSE) {
   registerModule(host);
   registerModule(dataHost);
   registerModule(hostEdit);
+  registerModule(fonts);
+  registerSVGBackend('fonts', fontsSVG);
   registerModule(lists);
   registerSVGBackend('lists', listsSVG);
   registerModule(a11y);
@@ -87,4 +97,10 @@ if (VERBOSE) {
   registerSVGBackend('mix', mixSVG);
   registerModule(componentpaint);
   registerSVGBackend('componentpaint', componentpaintSVG);
+  registerModule(text);
+  registerSVGBackend('text', textSVG);
+  registerModule(textEffects);
+  registerSVGBackend('text-effects', textEffectsSVG);
+  registerModule(textinput);
+  registerSVGBackend('text-input', textinputSVG);
 }

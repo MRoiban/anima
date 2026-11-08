@@ -1,0 +1,39 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-22fba684
+
+ ❯ |unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 2019ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 2015ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node /home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/test/helpers/module-order.ts text,componentpaint,mix,surface,nested,a11y-actions,a11y,lists,fonts,host-edit,data-host,host,host-values,derive,convert,data,contour,composite,machine,events,motion,media,input,focus,bind,components,paint,assets
+file:///home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/src/script.ts:751
+        throw new ScriptError((e         ).message.replace(/^anima: /, ''), line);
+              ^
+
+ScriptError: line 1: text-measurer: register a text measurer before drawing
+    at Object.execute (file:///home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/src/script.ts:751:15)
+    at runScript (file:///home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/src/script.ts:787:26)
+    at file:///home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/test/helpers/module-order.ts:29:16
+    at Array.map (<anonymous>)
+    at file:///home/jarvis/.t3/worktrees/anima/t3-22fba684/packages/core/test/helpers/module-order.ts:19:22 {
+  code: 'script-usage',
+  pointer: '/script/0',
+  hint: 'check the command syntax in spec §11.2',
+  line: 1
+}
+
+Node.js v24.22.0
+
+ ❯ Object.execute packages/core/src/script.ts:751:15
+ ❯ runScript packages/core/src/script.ts:787:26
+ ❯ packages/core/test/helpers/module-order.ts:29:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  23:25:27
+   Duration  2.70s (tests 86%, transform 8%, import 6%, worker 1%)

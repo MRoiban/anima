@@ -1,0 +1,109 @@
+{
+  "branch": "t3/p6-font-tools",
+  "base": "216eecf3",
+  "status": "partial delivery; runtime integration and green broad checks outstanding",
+  "font": {
+    "passed": 25,
+    "skipped": 1,
+    "total": 26,
+    "reason": "text module contract file absent on checkout and p6 ref",
+    "evidence": "font-focused.txt"
+  },
+  "cli_initial": {
+    "passed": 358,
+    "failed": 0,
+    "evidence": "cli-scope.txt"
+  },
+  "cli_later": {
+    "passed": 358,
+    "failed": 4,
+    "skipped": 1,
+    "failure_kind": "timeouts; persist in serial selected-case retry",
+    "evidence": "cli-latest.txt"
+  },
+  "changed_full": {
+    "passed": 8087,
+    "failed": 24,
+    "skipped": 5,
+    "todo": 40,
+    "files_passed": 237,
+    "files_failed": 12,
+    "files_skipped": 13,
+    "exit": 1,
+    "note": "run began before CFF follow-up; final focused suite verifies that follow-up",
+    "evidence": "changed-full.txt"
+  },
+  "changed_final_no_browser": {
+    "exit": 1,
+    "passed": 5293,
+    "failed": 6,
+    "skipped": 1,
+    "todo": 40,
+    "files_passed": 214,
+    "files_failed": 4,
+    "files_skipped": 13,
+    "failure_kind": "5 timeouts and 1 nested Vitest command failure (cause unresolved)",
+    "evidence": "changed-unit-final.txt",
+    "followup": "native Chromium rejection and generated x-height checked in final focused font suite"
+  },
+  "isolated": {
+    "overlay_firefox": {
+      "passed": 1,
+      "failed": 0,
+      "original_limits": true
+    },
+    "demo": {
+      "passed": 2,
+      "failed": 0,
+      "after_generated_artifact_refresh": true
+    },
+    "assets_firefox": {
+      "passed": 8,
+      "failed": 3,
+      "failure_kind": "timeouts; unresolved"
+    },
+    "cli_selected_serial": {
+      "failed": 4,
+      "failure_kind": "timeouts; unresolved"
+    }
+  },
+  "static": {
+    "cli_typecheck": 0,
+    "core_test_typecheck": 0,
+    "tools_typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "module_wiring": 0
+  },
+  "oracle": {
+    "exit": 0,
+    "strict_cases": 266,
+    "strict_samples": 475,
+    "strict_failed": 0,
+    "retained_findings": 24
+  },
+  "perf": {
+    "exit": 0,
+    "non_regression_verified": false,
+    "reason": "shared-machine load; no controlled baseline",
+    "evidence": "perf.txt"
+  },
+  "size": {
+    "exit": 0,
+    "delta_runtime_bytes": 0,
+    "before": [20622, 52122, 85154, 104285, 14544, 109904],
+    "after": [20622, 52122, 85154, 104285, 14544, 109904],
+    "order": [
+      "core+web",
+      "largest scene",
+      "app-UI scene",
+      "runtime sum",
+      "authoring add-on",
+      "heavy class"
+    ]
+  },
+  "protected_inputs_changed": false,
+  "parity_statuses_changed": false,
+  "third_party_font_files_added": false,
+  "pushed": false
+}

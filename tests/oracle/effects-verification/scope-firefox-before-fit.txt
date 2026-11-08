@@ -1,0 +1,49 @@
+
+> test:scope
+> node tools/test-scope.ts text-effects a11y text --browser=firefox
+
+Scopes: text-effects, a11y, text
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (text-background|text-background-negative-tracking|text-modifier-follow-path|text-modifier-opacity|text-modifier-origin|text-modifier-rotation|text-modifier-scale|text-modifier-translation|text-modifier-variation|text-range-combine|text-range-easing|text-range-falloff|text-range-run|text-range-units|text-script-direction|a11y-action-edges|a11y-actions-input-limits|a11y-actions-range|a11y-bf4-radio|a11y-bf4-roles|a11y-focus-condition|a11y-focus-policy|a11y-focus-repeat|a11y-headless-keys|a11y-inferred-text|a11y-manual-tabs|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-role-text-field|a11y-slider-value-text|a11y-spatial-focus|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-multiline|a11y-state-obscured|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-text-proxy|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility|data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap)$
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-9c7619f2
+
+
+ Test Files  33 passed | 1 skipped (34)
+      Tests  3313 passed | 498 skipped | 1 todo (3812)
+   Start at  23:52:18
+   Duration  104.56s (tests 88%, import 10%, transform 1%)

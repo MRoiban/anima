@@ -1,0 +1,25 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:47:07.858] rive  deferred replay: inline
+[23:47:07.887] rive  built (12708 bytes, 28ms, 0 errors, 0 warnings)
+[23:47:07.888] rive  showing Search card [1/1]
+[23:47:07.888] rive  viewport 480x360 @1x
+[23:47:07.888] rive  a command is its flag without the dashes, one per line:
+[23:47:07.888] rive    advance <N|Ns|Nms>          step animation time
+[23:47:07.888] rive    pointer <spec>              a mouse gesture
+[23:47:07.888] rive    touch <spec>                a finger gesture
+[23:47:07.888] rive    key <spec>                  a key event
+[23:47:07.888] rive    gamepad <spec>              a gamepad event
+[23:47:07.888] rive    data <path>=<value>         write a view model property
+[23:47:07.888] rive    semantic-action <type@lbl>  an accessibility action
+[23:47:07.888] rive    screenshot [path]           write a png
+[23:47:07.888] rive    semantics [path]            write the accessibility tree
+[23:47:07.888] rive    data-dump [path]            write the view model state
+[23:47:07.888] rive    viewport <WxH>              lay the artboard out at a size
+[23:47:07.888] rive    artboard [name]             switch artboard, or list them
+[23:47:07.888] rive    fit [mode]                  set the fit, or report it
+[23:47:07.888] rive    reload                      rebuild the project and load it
+[23:47:07.888] rive    quit                        end the run
+[23:47:07.888] rive    help, ?                     this list
+[23:47:07.888] rive  blank lines and # comments are skipped; every command answers ok or err on stdout
+ok help
+ok quit

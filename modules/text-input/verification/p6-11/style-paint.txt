@@ -1,0 +1,43 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+ ❯ |unit| modules/text/test/markup/authoring.test.ts (16 tests | 1 failed) 130ms
+   × static local style paint binding has an actionable fallback (animl) 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/text/test/markup/authoring.test.ts > static local style paint binding has an actionable fallback (animl)
+AssertionError: expected [ { code: 'type', …(3) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "unknown-address",
+  "hint": StringContaining "bind label.fill.color",
+  "pointer": "/bind/label.styles.s.fill.color",
+}
+
++ Received:
+[
+  {
+    "code": "type",
+    "message": "a document is a JSON object",
+    "pointer": "",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/text/test/markup/authoring.test.ts:416:35
+    414|     };
+    415|     const doc = syntax === 'animl' ? compile(decompile(raw)).doc! : ra…
+    416|     expect(load(doc).diagnostics).toContainEqual(
+       |                                   ^
+    417|       expect.objectContaining({
+    418|         code: 'unknown-address',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+   Start at  01:00:54
+   Duration  859ms (transform 44%, import 36%, tests 18%, worker 1%)

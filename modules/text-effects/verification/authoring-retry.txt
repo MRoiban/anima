@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fbf935b6
+
+ ❯ |unit| packages/cli/test/authoring.test.ts (58 tests | 1 failed | 57 skipped) 7866ms
+   ❯ authoring guide executable examples (37)
+     × exposes the forgotten pivot through inspect and rendered geometry 7853ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 57 skipped (58)
+   Start at  22:06:14
+   Duration  9.03s (tests 96%, transform 3%, import 2%)

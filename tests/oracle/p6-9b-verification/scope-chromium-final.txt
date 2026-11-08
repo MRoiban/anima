@@ -1,0 +1,76 @@
+
+> test:scope
+> node tools/test-scope.ts text text-input fonts cli --browser=chromium
+
+Scopes: text, text-input, fonts, cli
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/p6-9b.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap|a11y-role-text-field|a11y-state-multiline|a11y-state-obscured|a11y-text-proxy|host-api-clipboard-text|host-api-text-input|input-text-listener|input-write-text|text-input-clipboard|text-input-cursor|text-input-editable|text-input-focus-selection|text-input-ime|text-input-limits|text-input-multiline|text-input-obscured|text-input-placeholder|text-input-selection|text-input-selection-rounding|text-input-text|assets-font|assets-host-decode-font|assets-replacement-scope-font|data-host-font|host-api-data-font|host-api-font-fallback|text-font-assets|text-font-decoding|text-font-fallback|text-font-metrics|text-opentype-features|text-variable-axes)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a72c88f9
+
+
+ Test Files  61 passed (61)
+      Tests  3632 passed | 545 skipped (4177)
+   Start at  00:11:14
+   Duration  82.02s (tests 72%, import 24%, transform 3%)

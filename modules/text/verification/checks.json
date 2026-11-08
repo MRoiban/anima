@@ -1,0 +1,146 @@
+{
+  "ticket": "P6-1",
+  "status": "partial",
+  "branch": "t3/p6-text-module",
+  "parent": "4a5fd75b58138076d4ca607e45ea9e86f88a47eb",
+  "closureReady": [],
+  "rowsLeft": 29,
+  "setters": ["registerTextMeasurer", "setTextMeasurer"],
+  "verification": {
+    "owned": {
+      "passed": 3783,
+      "todo": 52
+    },
+    "browserText": {
+      "passed": 8
+    },
+    "fontContract": {
+      "passed": 26
+    },
+    "scaffolder": {
+      "passed": 4
+    },
+    "changed": {
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 8396,
+      "todo": 65,
+      "filesPassed": 256,
+      "filesSkipped": 13,
+      "log": "changed-final.txt"
+    },
+    "typecheck": "passed",
+    "lint": "passed",
+    "format": "passed",
+    "wiring": "passed",
+    "animl": "passed",
+    "parity": "passed",
+    "strictOracle": "passed",
+    "canvasRegression": {
+      "passed": 10,
+      "log": "canvas-hook-regression.txt"
+    },
+    "orderHookRegression": {
+      "failedBeforeFix": 2330,
+      "passedOtherTestsBeforeFix": 6062,
+      "resolved": true,
+      "log": "changed-order-hook-before-fix.txt"
+    }
+  },
+  "native": {
+    "captures": 25,
+    "completedOracleRows": 0,
+    "comparison": "native-comparison.json"
+  },
+  "baseByteIdentity": {
+    "equal": true,
+    "before": "24f0b6d4e452f7e17a1b236c867ab1f0adc1d85f79d326d1ec10fcfd74d97250",
+    "after": "24f0b6d4e452f7e17a1b236c867ab1f0adc1d85f79d326d1ec10fcfd74d97250"
+  },
+  "gates": {
+    "coreWeb": [20622, 20622],
+    "largestScene": [52122, 52197],
+    "appUI": [85154, 85224],
+    "runtimeSum": [104285, 110372],
+    "authoring": [14544, 14971],
+    "heavy": [109904, 115972]
+  },
+  "entries": {
+    "text": {
+      "before": 0,
+      "after": 6079
+    },
+    "text-host": {
+      "before": 0,
+      "after": 367
+    },
+    "markup-text": {
+      "before": 0,
+      "after": 529
+    },
+    "canvas": {
+      "before": 5351,
+      "after": 5382
+    },
+    "data": {
+      "before": 6375,
+      "after": 6415
+    },
+    "host": {
+      "before": 3570,
+      "after": 3591
+    },
+    "host-values": {
+      "before": 1211,
+      "after": 1210
+    },
+    "paint": {
+      "before": 3983,
+      "after": 3983
+    },
+    "paint-sampling": {
+      "before": 1093,
+      "after": 1093
+    },
+    "markup-paint": {
+      "before": 396,
+      "after": 396
+    },
+    "markup-surface": {
+      "before": 396,
+      "after": 396
+    },
+    "markup": {
+      "before": 8007,
+      "after": 8178
+    },
+    "markup-hooks": {
+      "before": 4123,
+      "after": 4138
+    },
+    "markup-a11y": {
+      "before": 970,
+      "after": 1014
+    },
+    "markup-libraries": {
+      "before": 1925,
+      "after": 1916
+    },
+    "lists": {
+      "before": 4623,
+      "after": 4636
+    },
+    "derive": {
+      "before": 2383,
+      "after": 2390
+    }
+  },
+  "unresolved": [
+    "Native differences and completed oracle integration",
+    "Independent native data/host interactions",
+    "P6-3 controller family/readiness/revision integration",
+    "Existing markup growth and optional non-text bundle growth",
+    "Controlled non-text performance <=3% unverified",
+    "Optional text-host entry is a design deviation"
+  ]
+}

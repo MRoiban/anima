@@ -1,3 +1,4 @@
+import { componentNames } from '../../components/core/names.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { DataState } from '../../data/core/storage.ts';
@@ -30,6 +31,7 @@ interface HandleValues {
   audio: string;
   blob: string;
   component: string;
+  'text-style': string;
   list: unknown[];
   'model-ref': Record<string, unknown>;
   trigger: undefined;
@@ -367,6 +369,17 @@ export class HostData {
     if (a.readonly) fail('readonly', path, 'list length is read-only');
     if (a.property.type === 'trigger') fail('type', path, 'triggers must be fired');
     const p = a.property;
+    if (p.type === 'component' && typeof value === 'string' && value) {
+      const names = componentNames(this.player.model.doc, value);
+      if (names.length > 1)
+        throw new DataError(
+          'ambiguous-component',
+          '/data/' + path,
+          'ambiguous component name',
+          'use ' + names.join(' or '),
+        );
+      value = names[0] ?? value;
+    }
     if (!['list', 'model-ref'].includes(p.type) && !accepts(p, value))
       fail('type', path, 'value does not match property type');
     if (
@@ -438,6 +451,9 @@ export class HostData {
   }
   image(path: string): DataHandle<string> {
     return this.#handle(path, 'image');
+  }
+  textStyle(path: string): DataHandle<string> {
+    return this.#handle(path, 'text-style');
   }
   component(path: string): DataHandle<string> {
     return this.#handle(path, 'component');

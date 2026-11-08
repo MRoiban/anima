@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Anima exposes the native HTML input as the accessible textbox rather than a second canvas semantic proxy. Native headless semantic JSON is not a browser accessibility tree; it cannot prove native input role ownership or duplicate DOM suppression. Both-engine role queries assert one labelled textbox, with headless semantic value/focus projections.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/a11y-role-text-field/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

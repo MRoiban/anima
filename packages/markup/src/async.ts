@@ -8,6 +8,6 @@ export async function compileAsync(
   opts: AsyncCompileOptions,
 ): Promise<CompileResult> {
   return libraryCompiler.async
-    ? libraryCompiler.async(source, opts)
+    ? libraryCompiler.async(source, opts, compile)
     : compile(source, { file: opts.file, validate: opts.validate });
 }

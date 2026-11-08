@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Committed-text listeners require the native text delivery route, distinct from key presses. The permitted local headless CLI rejects text and compose delivery, so its key route cannot faithfully fire a committed-text listener. Anima headless conformance asserts ordered events, and both-engine tests assert composition boundaries and bubbling native events.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/input-text-listener/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

@@ -355,3 +355,39 @@ it('reserves every instance registry property at the component input declaration
     );
   }
 });
+
+it('[BF-1] resolves unique, qualified and legacy library names and diagnoses ambiguity', async () => {
+  const { compile } = await import('../../../../packages/markup/src/index.ts');
+  const { componentNames } = await import('../../core/index.ts');
+  const library =
+    '<library name="ui"><component name="switch" grid="10"><circle id="dot" cx="5" cy="5" r="1" fill="#123456"/></component></library>';
+  const source = (imports = '') =>
+    `<anima version="0.1" name="test" grid="10" requires="components"><import src="ui.animl" as="ui"/>${imports}<instance id="one" component="ui:switch"/></anima>`;
+  const unique = compile(source(), { resolve: () => library }).doc!;
+  for (const name of ['switch', 'ui:switch', 'import-99-switch']) {
+    expect(componentNames(unique, name)).toEqual(['switch']);
+    const r = load({ ...unique, nodes: [{ id: 'one', type: 'instance', component: name }] });
+    expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    expect(new Player(r.model!).model).toBeDefined();
+  }
+  const duplicate = compile(source('<import src="ui.animl" as="other"/>'), {
+    resolve: () => library,
+  }).doc!;
+  for (const name of ['switch', 'import-99-switch']) {
+    const r = load({ ...duplicate, nodes: [{ id: 'one', type: 'instance', component: name }] });
+    expect(r.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'ambiguous-component',
+        pointer: '/nodes/0/component',
+        message: expect.any(String),
+        hint: expect.stringContaining('ui:switch'),
+      }),
+    );
+  }
+  const legacy = {
+    ...unique,
+    components: { 'import-4-switch': (unique.components as Record<string, object>).switch },
+    nodes: [{ id: 'one', type: 'instance', component: 'import-4-switch' }],
+  };
+  expect(load(legacy).diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+});

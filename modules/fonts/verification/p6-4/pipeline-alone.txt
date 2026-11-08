@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-8c8d54fc
+
+ ❯ |browser| modules/assets/test/web/pipeline.test.ts (22 tests | 1 failed) 42520ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5010ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  22:09:06
+   Duration  46.52s (tests 92%, import 6%, transform 2%)

@@ -11,7 +11,12 @@ export type AsyncCompileOptions = Omit<CompileOptions, 'resolve'> & {
 };
 export const libraryCompiler: {
   expand?: (xml: XmlDocument, opts: CompileOptions, diagnostics: MarkupDiagnostic[]) => void;
-  async?: (source: string, opts: AsyncCompileOptions) => Promise<CompileResult>;
+  // seam(P6-4a): use the caller's prepared compiler across separately emitted bundles.
+  async?: (
+    source: string,
+    opts: AsyncCompileOptions,
+    compiler?: (source: string, opts?: CompileOptions) => CompileResult,
+  ) => Promise<CompileResult>;
 } = {};
 export function location(at: Pos): { file?: string; line: number; column: number } {
   return { file: at.file, line: at.line, column: at.col };

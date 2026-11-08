@@ -7,10 +7,12 @@ same names: `<string name="label" value="$score" convert="points"/>`.
 
 Inside that expression `$name` resolves against the containing instance, including each list
 item. `$main:path` remains absolute. Computed properties can depend on other computed properties;
-cycles fail with `derive-cycle`. Values initialize per player and recompute at the data binding
-position before ordinary data bindings sample their snapshot. Conditions/actions before that
-position observe the previous resolved computed value; events/subscriptions after it see the new
-value. Read paths work in conditions, bindings, events, CLI samples and host handles.
+cycles fail with `derive-cycle`. Values initialize per player and recompute once per step after
+queued writes and before clocks and machine guards. A single write to a source property on a
+settled player therefore updates derived guards and the selected state in the same step, including
+`step(0)`. Stateful converters receive the step's `dt` exactly once. Transition/entry actions that
+change sources after this snapshot affect computed values on the following step; there is no
+feedback iteration. Bindings and events/subscriptions observe the computed snapshot from this step. Read paths work in conditions, bindings, events, CLI samples and host handles.
 
 `set`, `copy`, `toggle`, input `write`, reverse binding modes and instance initializers reject
 computed destinations with `read-only-path`, an authored JSON pointer, message and hint. Host

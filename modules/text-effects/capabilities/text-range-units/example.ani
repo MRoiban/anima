@@ -1,0 +1,37 @@
+{
+  "anima": "0.1",
+  "name": "text-range-units",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ],
+      "effects": [
+        {
+          "start": 1,
+          "end": 2,
+          "units": "words",
+          "opacity": 0
+        }
+      ]
+    }
+  ]
+}

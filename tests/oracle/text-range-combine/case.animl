@@ -1,0 +1,12 @@
+<anima version="0.1" name="text-range-combine" grid="20" requires="text texteffects assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="label" line-height="1" x="4" y="4">
+    <style id="s" size="1"/>
+    <run id="first" text="ab " style="s"/>
+    <run id="last" text="cd" style="s"/>
+    <text-effect end="4" opacity="0">
+      <text-range start="1" end="3" combine="intersect"/>
+      <text-range start="2" end="3" combine="subtract"/>
+    </text-effect>
+  </text>
+</anima>

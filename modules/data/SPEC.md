@@ -86,8 +86,13 @@ Initial compound values use JSON in `value`; enum member lists use whitespace, o
 for root enum display labels. Optional root `data='{"preview":"main","model":"Player"}'`
 retains metadata while child declarations populate models/instances. Node placements use
 `data="main"`; components declare `data="Player"` as their public model. Each child has local
-storage unless explicitly bound to a parent instance. Global-model named instances share their
-storage through the component tree. Each root player remains independent.
+storage when it declares its own `data` model, unless explicitly bound to a parent instance.
+A component without a `data` declaration shares the inherited document's live named instances,
+including non-global models, recursively through context-free descendants. Host writes (batched or
+unbatched) and document actions use that same storage. Descendants are rebound after their parent,
+so initialization order cannot leave a grandchild attached to a detached copy. A descendant write
+after an ancestor has sampled keeps it unsettled; the ancestor resamples on the next step. Global-model named
+instances also share through explicit child contexts. Each root player remains independent.
 
 Bindings retain the old string form and add `{value,mode?,prefer?,convert?,options?}`.
 Modes are `to-target` (default), `to-source`, `two-way`, `once`. Reverse modes require a direct
@@ -178,3 +183,34 @@ endpoint ordinates sample data. Lists and component properties are not numeric k
 Key elements use `t`, `value`, optional `ease`. A track cannot mix elements and text (`bad-keyframe`
 with a hint); missing/unknown attributes retain structural diagnostics. Canonical decompilation
 may emit quoted paths in text; both forms round-trip to the same tuples.
+
+
+### Animate a bound position
+
+Use the existing `interpolate` converter for a travelling indicator; its `duration` is
+milliseconds and `ease` uses the timeline easing grammar:
+
+```xml
+<anima version="0.1" name="travelling-indicator" grid="120" requires="data bind convert">
+  <model name="Position"><number name="x"/></model>
+  <converter name="travel" type="interpolate" duration="200" ease="cubic(0.42, 0, 1, 1)"/>
+  <circle id="indicator" cx="10" cy="10" r="3" fill="#4263eb"/>
+  <bind target="indicator.x" value="$x" convert="travel"/>
+</anima>
+```
+
+Sample the initial state (`advance 0`), then `set $x 100`, `advance 0`, and
+`advance 0.1`: x is about 31.5357. Another 0.1 seconds reaches 100. In a browser,
+set the typed number/path and let the player's ordinary frame loop advance the converter.
+Retargeting begins at the current sample; no page-side interpolation is needed. The first
+binding evaluation initializes immediately. Timelines use seconds; converter duration uses ms.
+
+<!-- seam(P6-10): data docs point to the shared string-filter recipe. -->
+### Filtering a list by typed text
+
+A field's `write-text="$query"` writes a string. With `bind` and `derive`, compute each bool
+`shownN` as `contains(lower($labelN), lower($query))`, bind the corresponding row's `visible`
+to `$shownN`, and compute number `$count` as `$shown0 + $shown1` (bools become 0/1).
+An empty query shows all rows. Query writes update visibility and count in the same step.
+The full recipe and example are in `anima docs bind` and
+[Filtering a list by typed text](../../docs/AUTHORING.md#filtering-a-list-by-typed-text).

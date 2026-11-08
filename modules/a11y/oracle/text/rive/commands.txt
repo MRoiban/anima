@@ -1,0 +1,4 @@
+advance 0
+semantics frames/tree.json
+screenshot frames/0.png
+quit

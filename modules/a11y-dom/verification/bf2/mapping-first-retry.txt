@@ -1,0 +1,41 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fad971e9
+
+ ❯ |browser| modules/input/test/web/browser.test.ts (56 tests | 2 failed | 48 skipped) 86881ms
+   ❯ input browser Firefox (28)
+     × keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit contain 10041ms
+     × keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit cover 12881ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/input/test/web/browser.test.ts > input browser Firefox > keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit contain
+ FAIL  |browser| modules/input/test/web/browser.test.ts > input browser Firefox > keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit cover
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:73:5
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+     73|     beforeEach(async () => {
+       |     ^
+     74|       page = await browser.newPage();
+     75|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |browser| modules/input/test/web/browser.test.ts > input browser Firefox > keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit contain
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/browser.test.ts:84:32
+     82|       await page.evaluate((d) => document.querySelector('anima-icon')!…
+     83|     });
+     84|     afterEach(async () => page.close());
+       |                                ^
+     85|     it('maps client positions through the actual SVG viewport matrix',…
+     86|       const r = await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 passed | 48 skipped (56)
+   Start at  17:14:22
+   Duration  96.93s (tests 92%, import 6%, transform 2%)

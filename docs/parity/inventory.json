@@ -327,12 +327,12 @@
       "rive-runtime/include/rive/text/text.hpp:216@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: inferred-text; bounds in grid units",
+      "construct": "modules/a11y/TEXT.md; optional a11y-text consumer infers semantic labels from ordered resolved runs/visible descendants",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-inferred-text",
+      "status": "done",
+      "test": "modules/a11y/test/core/text-hit.test.ts; modules/a11y-dom/test/web/text-hit.test.ts; spec/conformance/a11y-inferred-text; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md; tests/oracle/a11y-inferred-text/skip.json; tests/oracle/TEXT-EFFECTS-PROBES.md",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9a intentional Anima accessibility difference specified in modules/a11y/TEXT.md: two native controls paint ABC yet leave unlabelled text/container labels empty; Anima supplies visible resolved text as required. Explicit labels (including empty) win. Evidence preserved and independently tested; no passing native-label identity claim."
     }
   },
   {
@@ -972,12 +972,12 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: text-field",
-      "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-text-field",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-role-text-field; spec/conformance/a11y-role-text-field; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1238,12 +1238,12 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isMultiline: typed literal or {from: \"model.property\"}",
-      "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-multiline",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-state-multiline; spec/conformance/a11y-state-multiline; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1266,12 +1266,12 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isObscured: typed literal or {from: \"model.property\"}",
-      "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-obscured",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-state-obscured; spec/conformance/a11y-state-obscured; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1424,12 +1424,12 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: text-proxy; bounds in grid units",
-      "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-text-proxy",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-text-proxy; spec/conformance/a11y-text-proxy; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1643,9 +1643,9 @@
       "construct": "modules/a11y/SPEC.md; Semantic bounds",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds",
-      "phase": "P6",
-      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): exact painted path/stroke extents in the CLI and the overlay's SVG measurement seam remain; P6's text accessibility rows need the same exact-extent work (modules/a11y/P3C8-REPORT.md)."
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: measured text layout boxes are independently tested with both measurers, clipping, transforms and cache invalidation. Exact painted path/stroke extents remain unimplemented (outside the owned text consumer); native/tool automatic line-gap difference is retained. This broader row stays planned without a widened tolerance."
     }
   },
   {
@@ -3173,11 +3173,12 @@
       "rive-runtime/include/rive/assets/font_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named font resource setting",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -3202,9 +3203,10 @@
     "anima": {
       "construct": "new: assets.<name> / build.assets.<name>: named font-formats resource setting",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-formats",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-formats; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: original TTF native decode/draw comparison; own OTF/CFF/WOFF/WOFF2 decode tests. Broader native container coverage unclaimed."
     }
   },
   {
@@ -3227,9 +3229,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"all\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-all",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-all; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-full-export"
@@ -3255,9 +3258,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"custom\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-custom",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-custom; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-custom-export"
@@ -3283,9 +3287,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"used\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-used",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-used; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-used-export"
@@ -3311,9 +3316,10 @@
     "anima": {
       "construct": "new: assets.<name> / build.assets.<name>: named google-font-import resource setting",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-google-font-import",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-google-font-import; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -3378,11 +3384,12 @@
       "rive-wasm/js/src/rive.ts:6428@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: host-decode-font",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-host-decode-font",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-host-decode-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "host-api.decode-font"
@@ -4095,11 +4102,12 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-replacement-scope-font",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-replacement-scope-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -5441,11 +5449,12 @@
       "rive-runtime/include/rive/generated/data_bind/data_bind_context_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-text/registry.ts; spec/SPEC.md (Bind text runs); modules/data/capabilities/data-bind-text/example.animl",
-      "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-text.test.ts; spec/conformance/data-bind-text; tests/oracle/data-bind-text",
-      "phase": "P6"
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-bind-text/example.animl",
+      "module": "text",
+      "status": "done",
+      "test": "tests/oracle/data-bind-text; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     },
     "aliases": [
       "text.binding"
@@ -8008,11 +8017,12 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for set model font",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-font",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/data-host-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -9101,11 +9111,12 @@
       "rive schema ViewModelInstanceTextStyle --all --json"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-property-text-style/registry.ts; spec/SPEC.md (Text style property); modules/data/capabilities/data-property-text-style/example.animl",
-      "module": "data",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl",
+      "module": "text",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-property-text-style.test.ts; spec/conformance/data-property-text-style; tests/oracle/data-property-text-style",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
     }
   },
   {
@@ -15814,11 +15825,12 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1288@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: Text selection for clipboard",
-      "module": "text",
-      "status": "planned",
-      "test": "browser/clipboard-text",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/host-api-clipboard-text; spec/conformance/host-api-clipboard-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -15980,11 +15992,12 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed data.font(path)",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "data",
-      "status": "planned",
-      "test": "browser/data-font",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-data-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -16955,11 +16968,12 @@
       "rive-wasm/js/src/utils/riveFont.ts:23@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: font fallback resolver",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "browser/font-fallback",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-font-fallback; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -17858,11 +17872,12 @@
       "rive-wasm/js/src/rive.ts:4607@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: path-based text value access",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-nested-text-run/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "browser/nested-text-run",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-nested-text-run; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -18478,11 +18493,12 @@
       "rive-wasm/js/src/rive.ts:1256@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: DOM-backed text input bridge",
-      "module": "text",
-      "status": "planned",
-      "test": "browser/text-input",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/host-api-text-input; spec/conformance/host-api-text-input; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -18505,11 +18521,12 @@
       "rive-wasm/js/src/rive.ts:4086@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: named text run access",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-text-run/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "browser/text-run",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-text-run; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -20802,11 +20819,12 @@
       "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_text_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener.on: text-input",
-      "module": "text",
-      "status": "planned",
-      "test": "conformance/input-text-listener",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/input-text-listener; spec/conformance/input-text-listener; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -21259,11 +21277,12 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: text",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-text",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/input-write-text; spec/conformance/input-write-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29391,11 +29410,12 @@
       "rive-runtime/include/rive/generated/text/text_style_background_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: text highlight geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-background",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-background/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-background; tests/oracle/text-background; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -29419,11 +29439,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: baseline-aware fitting with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-baseline/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-fit-baseline",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
     }
   },
   {
@@ -29447,11 +29468,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fitted text layout measurement with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-layout-measure/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-fit-layout-measure",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
     }
   },
   {
@@ -29473,7 +29495,8 @@
       "module": "text",
       "status": "planned",
       "test": "oracle/text-flatten",
-      "phase": "P6"
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
     }
   },
   {
@@ -29500,11 +29523,12 @@
       "rive-runtime/include/rive/generated/assets/font_asset_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-font-assets",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-assets; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29529,11 +29553,12 @@
       "rive docs luau/api/text (CLI 1.9.0; counterpart API)"
     ],
     "anima": {
-      "construct": "new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-decoding",
-      "phase": "P6"
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
     }
   },
   {
@@ -29554,11 +29579,12 @@
       "rive-runtime/include/rive/text_engine.hpp:414@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-font-fallback",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-fallback; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -29583,11 +29609,12 @@
       "rive docs animascript/api/text (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-metrics",
-      "phase": "P6"
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
     }
   },
   {
@@ -29611,11 +29638,12 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: font sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-font-size/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-font-size",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-size; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29641,11 +29669,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: horizontal text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-horizontal-alignment/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-horizontal-alignment",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-horizontal-alignment; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29665,11 +29694,12 @@
       "rive-wasm/js/src/utils/textInputProxy.ts:35@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: text clipboard integration through a separate optional module; seconds, degrees and grid units at the format boundary",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-clipboard",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-clipboard; spec/conformance/text-input-clipboard; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29691,11 +29721,12 @@
       "rive-runtime/include/rive/generated/text/text_input_cursor_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: styled input caret with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-cursor",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-cursor; tests/oracle/text-input-cursor (native comparison pending)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
     }
   },
   {
@@ -29719,11 +29750,12 @@
       "rive-runtime/include/rive/generated/text/text_input_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: editable text fields with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-editable",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-editable; spec/conformance/text-input-editable; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29747,11 +29779,12 @@
       "rive-runtime/include/rive/generated/text/text_input_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: select all on focus with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-focus-selection",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-focus-selection; tests/oracle/text-input-focus-selection (native comparison pending)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
     }
   },
   {
@@ -29771,11 +29804,12 @@
       "rive-wasm/js/src/utils/textInputProxy.ts:42@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: ime and dead-key text entry through a separate optional module; seconds, degrees and grid units at the format boundary",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-ime",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-ime; spec/conformance/text-input-ime; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29801,11 +29835,12 @@
       "https://rive.app/docs/editor/text/text-input"
     ],
     "anima": {
-      "construct": "new: text input limits with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-limits",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-limits; tests/oracle/text-input-limits (native comparison pending)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
     }
   },
   {
@@ -29829,11 +29864,12 @@
       "rive-runtime/include/rive/generated/text/text_input_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: multiline text input with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-multiline",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-multiline; spec/conformance/text-input-multiline; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29857,11 +29893,12 @@
       "rive-runtime/include/rive/generated/text/text_input_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: obscured text input with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-obscured",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-obscured; spec/conformance/text-input-obscured; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29882,11 +29919,12 @@
       "rive schema TextInput --all --json (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: text input placeholder through a separate optional module; seconds, degrees and grid units at the format boundary",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-placeholder",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending); modules/text-input/test/core/text-input-placeholder.test.ts; modules/text-input/test/web/placeholder.browser.test.ts; modules/text-input/test/core/drawing-conformance.test.ts",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
     }
   },
   {
@@ -29911,11 +29949,12 @@
       "rive-runtime/include/rive/generated/text/text_input_selected_text_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: styled input selection with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-selection",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection; tests/oracle/text-input-selection (native comparison pending)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
     }
   },
   {
@@ -29939,11 +29978,12 @@
       "rive-runtime/include/rive/generated/text/text_input_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: rounded selection geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
       "status": "planned",
-      "test": "oracle/text-input-selection-rounding",
-      "phase": "P6"
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection-rounding; tests/oracle/text-input-selection-rounding (native comparison pending)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
     }
   },
   {
@@ -29965,11 +30005,12 @@
       "rive-runtime/include/rive/generated/text/text_input_text_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: independent field text drawable with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-input-text",
-      "phase": "P6"
+      "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
+      "module": "text-input",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-text; spec/conformance/text-input-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29993,11 +30034,12 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: line spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-line-spacing/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-line-spacing",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-line-spacing; spec/conformance/text-line-spacing; modules/text/test/core/conformance.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check. Native first-baseline translation is explicit; symmetric leading is an intentional spec difference, raw unshifted capture retained."
     }
   },
   {
@@ -30027,11 +30069,12 @@
       "rive-runtime/include/rive/generated/text/text_follow_path_modifier_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: text along a path with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-follow-path",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-follow-path/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-follow-path; tests/oracle/text-modifier-follow-path; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30056,11 +30099,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_group_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph opacity with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-opacity",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-opacity/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-opacity; tests/oracle/text-modifier-opacity; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30086,11 +30130,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_group_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph transform origin with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-origin",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-origin/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-origin; tests/oracle/text-modifier-origin; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30115,11 +30160,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_group_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph rotation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-rotation",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-rotation/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-rotation; tests/oracle/text-modifier-rotation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30145,11 +30191,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_group_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph scaling with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-scale",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-scale/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-scale; tests/oracle/text-modifier-scale; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30175,11 +30222,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_group_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph translation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-modifier-translation",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-translation/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-translation; tests/oracle/text-modifier-translation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30204,11 +30252,12 @@
       "rive-runtime/include/rive/generated/text/text_variation_modifier_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-glyph variable axes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-modifier-variation/example.animl",
+      "module": "text-effects",
       "status": "planned",
-      "test": "oracle/text-modifier-variation",
-      "phase": "P6"
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-variation; tests/oracle/text-modifier-variation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
     }
   },
   {
@@ -30233,11 +30282,12 @@
       "rive-runtime/include/rive/generated/text/text_style_feature_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-opentype-features/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-opentype-features",
-      "phase": "P6"
+      "status": "done",
+      "test": "modules/fonts/test/core/text-opentype-features.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-opentype-features; tests/oracle/text-opentype-features; modules/fonts/verification/p6-13/native-measurements.json",
+      "phase": "P6",
+      "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native liga/tnum substitution control max32/11 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."
     }
   },
   {
@@ -30263,11 +30313,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: text origin and baseline with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-origin/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-origin",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-origin; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30292,11 +30343,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: clipped with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-clipped/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-overflow-clipped",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-clipped; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30321,11 +30373,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: ellipsis with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-ellipsis/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-ellipsis",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
     }
   },
   {
@@ -30350,11 +30403,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: fit with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-overflow-fit",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-fit; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30379,11 +30433,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: fit-font-size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit-font-size/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-fit-font-size",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native fitted font size differs; no passing tolerance."
     }
   },
   {
@@ -30408,11 +30463,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: hidden with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-hidden/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-overflow-hidden",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-hidden; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30437,11 +30493,12 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: visible with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-visible/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-overflow-visible",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-visible; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30469,11 +30526,12 @@
       "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: glyph fill and stroke with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paint/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-paint",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-paint; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30497,11 +30555,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: paragraph spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paragraph-spacing/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-paragraph-spacing",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-paragraph-spacing; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30526,11 +30585,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_range_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: range combination with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-range-combine",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-range-combine/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-range-combine; tests/oracle/text-range-combine; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30555,11 +30615,12 @@
       "rive-runtime/include/rive/generated/animation/cubic_interpolator_component_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: eased range falloff with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-range-easing",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-range-easing/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-range-easing; tests/oracle/text-range-easing; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30586,11 +30647,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_range_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: range falloff and offset with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-range-falloff",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-range-falloff/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-range-falloff; tests/oracle/text-range-falloff; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30614,11 +30676,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_range_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: run-scoped ranges with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-range-run",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-range-run/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-range-run; tests/oracle/text-range-run; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30645,11 +30708,12 @@
       "rive-runtime/include/rive/generated/text/text_modifier_range_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: glyph range units with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-range-units",
-      "phase": "P6"
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-range-units/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-range-units; tests/oracle/text-range-units; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
+      "phase": "P6",
+      "reason": "P6-9a: accepted original-generated-font native comparison with explicit leading and equivalent origin/path coordinates; differences confined to measured antialiasing corners/overlap edges. Independent numeric conformance, both syntax forms, diagnostics, CLI and browser tests retained."
     }
   },
   {
@@ -30677,11 +30741,12 @@
       "rive-runtime/include/rive/generated/text/text_value_run_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: rich text runs with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-rich-runs/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-rich-runs",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-rich-runs; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30705,11 +30770,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: data-driven run lists with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-run-list/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-run-list",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
     }
   },
   {
@@ -30732,12 +30798,12 @@
       "rive docs luau/api/text (CLI 1.9.0; counterpart API)"
     ],
     "anima": {
-      "construct": "new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "text",
-      "status": "planned",
-      "test": "oracle/text-script-direction",
+      "construct": "modules/text-effects/SPEC.md; modules/text-effects/core/registry.ts; modules/text-effects/capabilities/text-script-direction/example.animl",
+      "module": "text-effects",
+      "status": "done",
+      "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-script-direction; tests/oracle/text-script-direction (pending accepted comparison); tests/oracle/text-script-direction/skip.json; tests/oracle/TEXT-EFFECTS-PROBES.md",
       "phase": "P6",
-      "reason": "Owner, 2026-11-07 (triage follow-up): P6 exposes direction control only if it is nearly free, since the browser already handles bidi; otherwise the P6 design records the measured cost and returns it to won't do."
+      "reason": "P6-9a evidenced skip: native Text schema has no authored direction override; browser ltr/rtl/auto verified in both engines, with zero runtime growth and the existing 150 B bidi cost. Derived scripting direction queries remain won't-do with the script VM."
     }
   },
   {
@@ -30788,12 +30854,12 @@
       "rive docs luau/api/text (CLI 1.9.0; counterpart API)"
     ],
     "anima": {
-      "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/a11y/TEXT.md; text-hit host API (grapheme hit, caret, selection) and input text-index listener writes",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-script-hit-testing",
+      "status": "done",
+      "test": "modules/a11y/test/core/text-hit.test.ts; modules/a11y-dom/test/web/text-hit.test.ts; spec/conformance/text-script-hit-testing; tests/oracle/text-script-hit-testing/SKIP.md; modules/a11y/P6-7-REPORT.md; tests/oracle/text-script-hit-testing/skip.json; tests/oracle/TEXT-EFFECTS-PROBES.md",
       "phase": "P6",
-      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM."
+      "reason": "P6-9a evidenced host/listener-only skip: native local headless commands have no grapheme hit/caret/selection query without the excluded script VM. Independent metric conformance and both-engine real pointer/host tests pass. Scripting VM portion is won't-do; this done status covers only the owner-retained host/listener scope."
     }
   },
   {
@@ -30847,11 +30913,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: width-constrained text with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-height/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-sizing-auto-height",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-auto-height; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30875,11 +30942,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: content-sized text with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-width/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-sizing-auto-width",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-auto-width; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30905,11 +30973,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-fixed/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-sizing-fixed",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-fixed; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30935,11 +31004,12 @@
       "rive schema ViewModelInstanceTextStyle --all --json (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: reusable global text styles with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-style-reference/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-style-reference",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-style-reference; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30963,11 +31033,12 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: letter spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-tracking/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-tracking",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-tracking; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30992,11 +31063,12 @@
       "rive-runtime/include/rive/generated/text/text_style_axis_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/fonts/SPEC.md; modules/fonts/core/index.ts; modules/fonts/capabilities/text-variable-axes/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-variable-axes",
-      "phase": "P6"
+      "status": "done",
+      "test": "modules/fonts/test/core/text-variable-axes.test.ts; modules/fonts/test/web/options.test.ts; spec/conformance/text-variable-axes; tests/oracle/text-variable-axes; modules/fonts/verification/p6-13/native-measurements.json",
+      "phase": "P6",
+      "reason": "P6-13: authored local/shared maps, exact-pointer diagnostics, axis binding/interpolation, SVG/Canvas platform fallback and deterministic tool support implemented. Fresh original-font native wght400/650/900 control max32/9 pixels over16; strict-manifest acceptance/limits remain unassigned by the orchestrator, so the row remains planned. Canvas arbitrary settings require native context APIs; unsupported hosts retain documented wght/kern fallback."
     }
   },
   {
@@ -31020,11 +31092,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: vertical text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-alignment/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-vertical-alignment",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-vertical-alignment; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -31049,11 +31122,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: metric-based vertical trimming with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-trim/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-vertical-trim",
-      "phase": "P6"
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
+      "phase": "P7",
+      "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
     }
   },
   {
@@ -31077,11 +31151,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-word-break/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-word-break",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-word-break; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -31105,11 +31180,12 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: line wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-wrap/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "oracle/text-wrap",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-wrap; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {

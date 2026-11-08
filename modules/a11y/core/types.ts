@@ -9,6 +9,7 @@ export interface SemanticNode {
   valueText?: string;
   level?: number;
   href?: string;
+  controls?: string;
   states: {
     checked?: boolean | 'mixed';
     pressed?: boolean;
@@ -41,6 +42,7 @@ export interface A11yConfig {
   valueText?: string;
   level?: number | string;
   href?: string;
+  controls?: string;
   checked?: boolean | string;
   checkedMixed?: boolean | string;
   pressed?: boolean | string;

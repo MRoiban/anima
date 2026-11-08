@@ -1,0 +1,38 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:45:15.645] rive  deferred replay: inline
+[23:45:15.764] rive  built (16331 bytes, 119ms, 0 errors, 0 warnings)
+[23:45:15.766] rive  showing Settings [1/1]
+[23:45:15.767] rive  viewport 480x360 @1x
+[23:45:15.767] rive  wrote evidence/01-general.tree.json
+[23:45:15.768] rive  wrote evidence/01-general.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:45:15.796] rive  wrote evidence/01-general.png
+[23:45:15.798] rive  wrote evidence/02-sound.tree.json
+[23:45:15.798] rive  wrote evidence/02-sound.data.json
+[23:45:15.820] rive  wrote evidence/02-sound.png
+[23:45:15.821] rive  wrote evidence/03-volume45.tree.json
+[23:45:15.821] rive  wrote evidence/03-volume45.data.json
+[23:45:15.838] rive  wrote evidence/03-volume45.png
+[23:45:15.839] rive  wrote evidence/04-volume40.tree.json
+[23:45:15.839] rive  wrote evidence/04-volume40.data.json
+[23:45:15.840] rive  wrote evidence/05-muted.tree.json
+[23:45:15.840] rive  wrote evidence/05-muted.data.json
+[23:45:15.858] rive  wrote evidence/05-muted.png
+[23:45:15.859] rive  wrote evidence/05b-sound-focused.tree.json
+[23:45:15.859] rive  wrote evidence/06-general-again.tree.json
+[23:45:15.859] rive  wrote evidence/06-general-again.data.json
+[23:45:15.860] rive  wrote evidence/07-all-checked.tree.json
+[23:45:15.860] rive  wrote evidence/07-all-checked.data.json
+[23:45:15.875] rive  wrote evidence/07-all-checked.png
+[23:45:15.876] rive  wrote evidence/08-none-checked.tree.json
+[23:45:15.876] rive  wrote evidence/08-none-checked.data.json
+[23:45:15.876] rive  wrote evidence/09-email-mixed.tree.json
+[23:45:15.876] rive  wrote evidence/09-email-mixed.data.json
+[23:45:15.876] rive  wrote evidence/10-two-mixed.tree.json
+[23:45:15.877] rive  wrote evidence/10-two-mixed.data.json
+[23:45:15.877] rive  wrote evidence/11-all-via-children.tree.json
+[23:45:15.877] rive  wrote evidence/11-all-via-children.data.json
+[23:45:15.877] rive  data: generalTitle = Preferences (mid-run)
+[23:45:15.877] rive  wrote evidence/12-renamed.tree.json
+[23:45:15.877] rive  wrote evidence/12-renamed.data.json
+[23:45:15.894] rive  wrote evidence/12-renamed.png

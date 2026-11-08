@@ -1,0 +1,3 @@
+name: oracle-text-vertical-alignment
+logs:
+  file: build/runtime.log

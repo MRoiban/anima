@@ -1,0 +1,3 @@
+name: oracle-text-input-selection-rounding
+logs:
+  file: build/runtime.log

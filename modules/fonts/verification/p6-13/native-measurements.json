@@ -1,0 +1,12 @@
+[
+  {
+    "name": "text-variable-axes",
+    "max": 32,
+    "pixelsOver16": 9
+  },
+  {
+    "name": "text-opentype-features",
+    "max": 32,
+    "pixelsOver16": 11
+  }
+]

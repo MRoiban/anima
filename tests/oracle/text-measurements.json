@@ -1,0 +1,221 @@
+{
+  "fontSha256": "6eb4d6184c84a56e0b7384c6841ea5dd048b924394922c78fab6ea33aeef55d2",
+  "threshold": 16,
+  "explicitLeading": [
+    {
+      "name": "text-fit-baseline",
+      "maxDiff": 255,
+      "over": 178,
+      "overPercent": 0.3090277777777778
+    },
+    {
+      "name": "text-fit-layout-measure",
+      "maxDiff": 255,
+      "over": 204,
+      "overPercent": 0.3541666666666667
+    },
+    {
+      "name": "text-font-size",
+      "maxDiff": 32,
+      "over": 2,
+      "overPercent": 0.003472222222222222
+    },
+    {
+      "name": "text-horizontal-alignment",
+      "maxDiff": 32,
+      "over": 4,
+      "overPercent": 0.006944444444444444
+    },
+    {
+      "name": "text-leading-default",
+      "maxDiff": 255,
+      "over": 106,
+      "overPercent": 0.1840277777777778
+    },
+    {
+      "name": "text-line-spacing",
+      "maxDiff": 255,
+      "over": 291,
+      "overPercent": 0.5052083333333334
+    },
+    {
+      "name": "text-origin",
+      "maxDiff": 1,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "name": "text-overflow-clipped",
+      "maxDiff": 32,
+      "over": 14,
+      "overPercent": 0.024305555555555556
+    },
+    {
+      "name": "text-overflow-ellipsis",
+      "maxDiff": 255,
+      "over": 72,
+      "overPercent": 0.125
+    },
+    {
+      "name": "text-overflow-fit-font-size",
+      "maxDiff": 255,
+      "over": 204,
+      "overPercent": 0.3541666666666667
+    },
+    {
+      "name": "text-overflow-fit",
+      "maxDiff": 1,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "name": "text-overflow-hidden",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-overflow-visible",
+      "maxDiff": 32,
+      "over": 14,
+      "overPercent": 0.024305555555555556
+    },
+    {
+      "name": "text-paint",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-paragraph-spacing",
+      "maxDiff": 32,
+      "over": 4,
+      "overPercent": 0.006944444444444444
+    },
+    {
+      "name": "text-rich-runs",
+      "maxDiff": 32,
+      "over": 6,
+      "overPercent": 0.010416666666666666
+    },
+    {
+      "name": "text-run-list",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-sizing-auto-height",
+      "maxDiff": 32,
+      "over": 6,
+      "overPercent": 0.010416666666666666
+    },
+    {
+      "name": "text-sizing-auto-width",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-sizing-fixed",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-style-reference",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-tracking",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-vertical-alignment",
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-vertical-trim",
+      "maxDiff": 128,
+      "over": 94,
+      "overPercent": 0.16319444444444445
+    },
+    {
+      "name": "text-word-break",
+      "maxDiff": 32,
+      "over": 6,
+      "overPercent": 0.010416666666666666
+    },
+    {
+      "name": "text-wrap",
+      "maxDiff": 32,
+      "over": 6,
+      "overPercent": 0.010416666666666666
+    }
+  ],
+  "additionalSamples": [
+    {
+      "name": "data-bind-text",
+      "time": 0,
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "data-bind-text",
+      "time": 1,
+      "maxDiff": 32,
+      "over": 5,
+      "overPercent": 0.008680555555555556
+    },
+    {
+      "name": "data-bind-text",
+      "time": 2,
+      "maxDiff": 32,
+      "over": 14,
+      "overPercent": 0.024305555555555556
+    },
+    {
+      "name": "assets-font",
+      "time": 0,
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-font-assets",
+      "time": 0,
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-font-size",
+      "time": 0,
+      "maxDiff": 32,
+      "over": 2,
+      "overPercent": 0.003472222222222222
+    },
+    {
+      "name": "text-font-size",
+      "time": 0.5,
+      "maxDiff": 32,
+      "over": 4,
+      "overPercent": 0.006944444444444444
+    },
+    {
+      "name": "text-font-size",
+      "time": 1,
+      "maxDiff": 32,
+      "over": 2,
+      "overPercent": 0.003472222222222222
+    }
+  ],
+  "note": "Raw measurements; unresolved geometry is never an accepted tolerance. assets-font-formats is independently measured by the strict runner."
+}

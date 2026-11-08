@@ -1,0 +1,56 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:47:18.961] rive  deferred replay: inline
+[23:47:19.009] rive  built (12708 bytes, 48ms, 0 errors, 0 warnings)
+[23:47:19.011] rive  showing Search card [1/1]
+[23:47:19.011] rive  viewport 480x360 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:47:19.023] rive  screenshot failed: evidence/title-000.png
+err screenshot: could not write evidence/title-000.png
+ok advance
+[23:47:19.029] rive  screenshot failed: evidence/title-250.png
+err screenshot: could not write evidence/title-250.png
+ok advance
+[23:47:19.033] rive  screenshot failed: evidence/title-500.png
+err screenshot: could not write evidence/title-500.png
+ok advance
+[23:47:19.040] rive  screenshot failed: evidence/title-1100.png
+err screenshot: could not write evidence/title-1100.png
+[23:47:19.041] rive  semantics: could not write evidence/before.tree.json
+err semantics: could not write evidence/before.tree.json
+[23:47:19.041] rive  data: could not write evidence/before.data.json
+err data-dump: could not write evidence/before.data.json
+ok key
+ok advance
+[23:47:19.042] rive  semantics: could not write evidence/o.tree.json
+err semantics: could not write evidence/o.tree.json
+[23:47:19.042] rive  data: could not write evidence/o.data.json
+err data-dump: could not write evidence/o.data.json
+[23:47:19.044] rive  screenshot failed: evidence/o.png
+err screenshot: could not write evidence/o.png
+ok key
+ok key
+ok key
+ok advance
+[23:47:19.045] rive  semantics: could not write evidence/so.tree.json
+err semantics: could not write evidence/so.tree.json
+[23:47:19.045] rive  data: could not write evidence/so.data.json
+err data-dump: could not write evidence/so.data.json
+[23:47:19.047] rive  screenshot failed: evidence/so.png
+err screenshot: could not write evidence/so.png
+ok key
+ok key
+ok advance
+[23:47:19.048] rive  semantics: could not write evidence/clear.tree.json
+err semantics: could not write evidence/clear.tree.json
+[23:47:19.048] rive  data: could not write evidence/clear.data.json
+err data-dump: could not write evidence/clear.data.json
+[23:47:19.048] rive  data: label3 = Audio settings (mid-run)
+ok data
+ok advance
+[23:47:19.048] rive  semantics: could not write evidence/renamed.tree.json
+err semantics: could not write evidence/renamed.tree.json
+[23:47:19.048] rive  data: could not write evidence/renamed.data.json
+err data-dump: could not write evidence/renamed.data.json
+[23:47:19.050] rive  screenshot failed: evidence/renamed.png
+err screenshot: could not write evidence/renamed.png
+ok quit

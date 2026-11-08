@@ -1,0 +1,158 @@
+[
+  {
+    "name": "text-font-size",
+    "time": 0,
+    "over": 2,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-font-size",
+    "time": 0.5,
+    "over": 4,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-font-size",
+    "time": 1,
+    "over": 2,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-horizontal-alignment",
+    "time": 0,
+    "over": 4,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-origin",
+    "time": 0,
+    "over": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-overflow-clipped",
+    "time": 0,
+    "over": 14,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-overflow-fit",
+    "time": 0,
+    "over": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-overflow-hidden",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-overflow-visible",
+    "time": 0,
+    "over": 14,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-paint",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-paragraph-spacing",
+    "time": 0,
+    "over": 4,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-rich-runs",
+    "time": 0,
+    "over": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-sizing-auto-height",
+    "time": 0,
+    "over": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-sizing-auto-width",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-sizing-fixed",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-style-reference",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-tracking",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-vertical-alignment",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-word-break",
+    "time": 0,
+    "over": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-wrap",
+    "time": 0,
+    "over": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "data-bind-text",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "data-bind-text",
+    "time": 1,
+    "over": 5,
+    "nonCorner": 0
+  },
+  {
+    "name": "data-bind-text",
+    "time": 2,
+    "over": 14,
+    "nonCorner": 0
+  },
+  {
+    "name": "assets-font",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-font-assets",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "assets-font-formats",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  }
+]

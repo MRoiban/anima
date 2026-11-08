@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-overflow-clipped" grid="20" requires="text">
+  <text id="label" sizing="fixed" overflow="clipped" wrap="false" width="4" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcdefgh" style="s"/>
+  </text>
+</anima>

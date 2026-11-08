@@ -1,0 +1,224 @@
+{
+  "anima": "0.1",
+  "name": "bf4-writes",
+  "grid": 80,
+  "viewBox": [
+    0,
+    0,
+    80,
+    20
+  ],
+  "requires": [
+    "data",
+    "bind",
+    "input",
+    "components",
+    "lists",
+    "focus"
+  ],
+  "data": {
+    "models": {
+      "Row": {
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "dx": {
+            "type": "number"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "n": {
+            "type": "number"
+          },
+          "copy": {
+            "type": "number"
+          },
+          "key": {
+            "type": "string"
+          }
+        }
+      },
+      "Root": {
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "dx": {
+            "type": "number"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "n": {
+            "type": "number"
+          },
+          "copy": {
+            "type": "number"
+          },
+          "key": {
+            "type": "string"
+          },
+          "child": {
+            "type": "model-ref",
+            "model": "Branch"
+          },
+          "rows": {
+            "type": "list",
+            "of": "Row"
+          }
+        }
+      },
+      "Branch": {
+        "properties": {
+          "leaf": {
+            "type": "model-ref",
+            "model": "Row"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Root",
+        "default": true,
+        "values": {
+          "rows": [
+            {},
+            {}
+          ]
+        }
+      }
+    }
+  },
+  "components": {
+    "row": {
+      "grid": 20,
+      "data": "Row",
+      "nodes": [
+        {
+          "id": "pad",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 20,
+          "h": 20,
+          "fill": {
+            "color": "#123456"
+          },
+          "focus": {}
+        }
+      ],
+      "listeners": [
+        {
+          "on": "move",
+          "target": "pad",
+          "write": {
+            "pointer-x": "$x",
+            "pointer-y": "$y",
+            "pointer-delta-x": "$dx",
+            "pointer-delta-y": "$dy"
+          }
+        },
+        {
+          "on": "click",
+          "target": "pad",
+          "set": {
+            "$n": 7
+          }
+        },
+        {
+          "on": "up",
+          "target": "pad",
+          "copy": "$n -> $copy"
+        },
+        {
+          "on": "key-down",
+          "target": "pad",
+          "write": {
+            "key-pressed": "$key"
+          }
+        }
+      ]
+    },
+    "wrap": {
+      "grid": 20,
+      "data": "Branch",
+      "nodes": [
+        {
+          "id": "inner",
+          "type": "instance",
+          "component": "row",
+          "data": "$leaf"
+        }
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "pad",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#123456"
+      },
+      "focus": {}
+    },
+    {
+      "id": "outer",
+      "type": "instance",
+      "component": "wrap",
+      "x": 20,
+      "data": "$child"
+    },
+    {
+      "id": "rows",
+      "type": "repeat",
+      "component": "row",
+      "list": "$rows",
+      "x": 40,
+      "dx": 20
+    }
+  ],
+  "listeners": [
+    {
+      "on": "move",
+      "target": "pad",
+      "write": {
+        "pointer-x": "$x",
+        "pointer-y": "$y",
+        "pointer-delta-x": "$dx",
+        "pointer-delta-y": "$dy"
+      }
+    },
+    {
+      "on": "click",
+      "target": "pad",
+      "set": {
+        "$n": 7
+      }
+    },
+    {
+      "on": "up",
+      "target": "pad",
+      "copy": "$n -> $copy"
+    },
+    {
+      "on": "key-down",
+      "target": "pad",
+      "write": {
+        "key-pressed": "$key"
+      }
+    }
+  ]
+}

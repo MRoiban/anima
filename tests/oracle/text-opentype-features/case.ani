@@ -1,0 +1,60 @@
+{
+  "anima": "0.1",
+  "name": "text-opentype-features",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label0",
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 1,
+          "features": {
+            "liga": 1,
+            "tnum": 0
+          }
+        }
+      },
+      "runs": [
+        {
+          "text": "fi1",
+          "style": "s"
+        }
+      ]
+    },
+    {
+      "id": "label1",
+      "type": "text",
+      "x": 4,
+      "y": 8,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 1,
+          "features": {
+            "liga": 0,
+            "tnum": 1
+          }
+        }
+      },
+      "runs": [
+        {
+          "text": "fi1",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "rive/feature-fixture.ttf"
+    }
+  }
+}

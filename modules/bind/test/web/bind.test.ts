@@ -112,6 +112,30 @@ for (const [name, engine, paths] of [
           dash: '31.41593 18.84956',
           busy: false,
         });
+        // Exercise the string branch in the shipped, terse browser bundle as well.
+        const strings = await page.evaluate(async () => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          await icon.load({
+            anima: '0.1',
+            name: 'string-bindings',
+            grid: 20,
+            requires: ['bind'],
+            inputs: { shown: { type: 'bool', default: true } },
+            nodes: [{ id: 'row', type: 'circle', center: [10, 10], r: 1 }],
+            bind: {
+              'row.visible': 'shown and contains(lower("SOUND"), "so")',
+              'row.x': 'lower("İ") == "i̇" and contains("", "")',
+            },
+          });
+          const tick = () => (window as unknown as { tick(): void }).tick();
+          tick();
+          const before = icon.player!.value('row.visible');
+          const x = icon.player!.value('row.x');
+          icon.set('shown', false);
+          tick();
+          return { before, x, after: icon.player!.value('row.visible') };
+        });
+        expect(strings).toEqual({ before: true, x: 1, after: false });
       } finally {
         await browser.close();
       }

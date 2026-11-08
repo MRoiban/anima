@@ -1,0 +1,28 @@
+{
+  "rive_invocations": {
+    "verify": 5,
+    "inspect": 4,
+    "headless_commands": 9,
+    "total": 18
+  },
+  "diagnostics": {
+    "nullable_property_type_errors": 66,
+    "semantic_action_scene_refused": 10,
+    "states_overlap_warning": 1,
+    "python_assertion_failure": 1
+  },
+  "corrections": [
+    "Assert required view-model fields after guarding absent view model.",
+    "Reverse drawable siblings to match RML front-to-back paint order.",
+    "Use Solo for inactive panel visibility and hit testing.",
+    "Explicitly focus controls on activation.",
+    "Refocus Sound tab before testing Left arrow: after Mute activation focus belongs to Mute."
+  ],
+  "final_evidence": {
+    "primary": "capture-09",
+    "extra": "capture-08",
+    "verify": "verify-05",
+    "inspect": "inspect-04"
+  },
+  "earlier_evidence_note": "Earlier transcripts are retained, but numbered tree/data/png files are overwritten by the final replay. Capture 04 also revealed that pointer activation did not focus controls: slider keys, switch pointer/key sequence and child keyboard checks did not reach intended states; no tool diagnostic was emitted. A subsequent helper assertion caught the replay focus assumption (one AssertionError)."
+}

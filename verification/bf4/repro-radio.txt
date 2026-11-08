@@ -1,0 +1,62 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/a11y-dom/test/web/bf4.test.ts (6 tests | 2 failed | 4 skipped) 7989ms
+   ❯ [BF-4] downstream Chromium (3)
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=false 176ms
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=true 143ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=true
+AssertionError: expected [ { code: 'state-kind', …(3) }, …(3) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "state-kind",
++     "message": "state-kind",
++     "pointer": "/machine/layers/selection/states/none",
++     "severity": "error",
++   },
++   {
++     "code": "state-kind",
++     "message": "state-kind",
++     "pointer": "/machine/layers/selection/states/s0",
++     "severity": "error",
++   },
++   {
++     "code": "state-kind",
++     "message": "state-kind",
++     "pointer": "/machine/layers/selection/states/s1",
++     "severity": "error",
++   },
++   {
++     "code": "state-kind",
++     "message": "state-kind",
++     "pointer": "/machine/layers/selection/states/s2",
++     "severity": "error",
++   },
++ ]
+
+ ❯ load modules/a11y-dom/test/web/bf4.test.ts:65:9
+     63|       expect(
+     64|         await page.evaluate((d) => document.querySelector('anima-icon'…
+     65|       ).toEqual([]);
+       |         ^
+     66|     };
+     67|     const target = (id: string) => page.locator(`[data-semantic="${id}…
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:111:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 skipped (6)
+   Start at  18:26:42
+   Duration  8.73s (tests 93%, import 6%, transform 1%)
+

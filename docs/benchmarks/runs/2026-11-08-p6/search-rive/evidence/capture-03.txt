@@ -1,0 +1,56 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:47:25.042] rive  deferred replay: inline
+[23:47:25.085] rive  built (12708 bytes, 42ms, 0 errors, 0 warnings)
+[23:47:25.086] rive  showing Search card [1/1]
+[23:47:25.086] rive  viewport 480x360 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:47:25.115] rive  wrote evidence/title-000.png
+ok screenshot: evidence/title-000.png
+ok advance
+[23:47:25.132] rive  wrote evidence/title-250.png
+ok screenshot: evidence/title-250.png
+ok advance
+[23:47:25.148] rive  wrote evidence/title-500.png
+ok screenshot: evidence/title-500.png
+ok advance
+[23:47:25.166] rive  wrote evidence/title-1100.png
+ok screenshot: evidence/title-1100.png
+[23:47:25.166] rive  wrote evidence/before.tree.json
+ok semantics: evidence/before.tree.json
+[23:47:25.166] rive  wrote evidence/before.data.json
+ok data-dump: evidence/before.data.json
+ok key
+ok advance
+[23:47:25.167] rive  wrote evidence/o.tree.json
+ok semantics: evidence/o.tree.json
+[23:47:25.167] rive  wrote evidence/o.data.json
+ok data-dump: evidence/o.data.json
+[23:47:25.180] rive  wrote evidence/o.png
+ok screenshot: evidence/o.png
+ok key
+ok key
+ok key
+ok advance
+[23:47:25.182] rive  wrote evidence/so.tree.json
+ok semantics: evidence/so.tree.json
+[23:47:25.182] rive  wrote evidence/so.data.json
+ok data-dump: evidence/so.data.json
+[23:47:25.202] rive  wrote evidence/so.png
+ok screenshot: evidence/so.png
+ok key
+ok key
+ok advance
+[23:47:25.204] rive  wrote evidence/clear.tree.json
+ok semantics: evidence/clear.tree.json
+[23:47:25.204] rive  wrote evidence/clear.data.json
+ok data-dump: evidence/clear.data.json
+[23:47:25.204] rive  data: label3 = Audio settings (mid-run)
+ok data
+ok advance
+[23:47:25.204] rive  wrote evidence/renamed.tree.json
+ok semantics: evidence/renamed.tree.json
+[23:47:25.205] rive  wrote evidence/renamed.data.json
+ok data-dump: evidence/renamed.data.json
+[23:47:25.224] rive  wrote evidence/renamed.png
+ok screenshot: evidence/renamed.png
+ok quit

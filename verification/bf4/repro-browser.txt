@@ -1,0 +1,76 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/a11y-dom/test/web/bf4.test.ts (6 tests | 3 failed | 3 skipped) 9826ms
+   ❯ [BF-4] downstream Chromium (3)
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=false 246ms
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=true 225ms
+     × B16: Escape and pointerdown/move/up reach ancestor bubble listeners exactly once 235ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=true
+AssertionError: expected [ { code: 'unknown-key', …(3) }, …(2) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unknown-key",
++     "message": "unknown-key",
++     "pointer": "/machine/layers/selection/states/s0/entry",
++     "severity": "error",
++   },
++   {
++     "code": "unknown-key",
++     "message": "unknown-key",
++     "pointer": "/machine/layers/selection/states/s1/entry",
++     "severity": "error",
++   },
++   {
++     "code": "unknown-key",
++     "message": "unknown-key",
++     "pointer": "/machine/layers/selection/states/s2/entry",
++     "severity": "error",
++   },
++ ]
+
+ ❯ load modules/a11y-dom/test/web/bf4.test.ts:65:9
+     63|       expect(
+     64|         await page.evaluate((d) => document.querySelector('anima-icon'…
+     65|       ).toEqual([]);
+       |         ^
+     66|     };
+     67|     const target = (id: string) => page.locator(`[data-semantic="${id}…
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:111:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B16: Escape and pointerdown/move/up reach ancestor bubble listeners exactly once
+AssertionError: expected null to be '1' // Object.is equality
+
+- Expected:
+"1"
+
++ Received:
+null
+
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:133:71
+    131|       });
+    132|       await target('drawing').focus(); await page.keyboard.press('Esca…
+    133|       expect(await page.locator('body').getAttribute('data-keydown')).…
+       |                                                                       ^
+    134|       const box = (await page.locator('anima-icon').boundingBox())!;
+    135|       await page.mouse.move(box.x+30,box.y+30);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 skipped (6)
+   Start at  18:25:50
+   Duration  10.86s (tests 92%, import 7%, transform 1%)
+

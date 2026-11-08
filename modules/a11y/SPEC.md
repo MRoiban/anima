@@ -10,17 +10,18 @@ Every node can have `a11y`, declared with `requires: ["a11y"]`, or an AniML
 
 | JSON field | AniML attribute | Values |
 |---|---|---|
-| role | role | button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none |
-| label, hint, value | same | literal string or `$path` string data binding; slider value requires a number input/path |
-| valueText | value-text | slider only: literal string or `$path` string data binding; spoken value independent of numeric value |
+| role | role | button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none, progressbar, meter, status |
+| label, hint, value | same | literal string or `$path` string data binding; slider/meter value requires a number input/path; progressbar value is optional and numeric when present |
+| valueText | value-text | slider/progressbar/meter: literal string or `$path` string data binding; spoken value independent of numeric value |
 | level | level | integer 1–6 or number input/data path; heading only; bound AniML values are JSON strings (`&quot;depth&quot;`) |
 | href | href | string; link only |
+| controls | controls | local id of another node with a non-none a11y role; maps to aria-controls |
 | checked | checked | bool literal, bool input name or `$path` |
 | checkedMixed | checked-mixed | bool literal/input/path; checkbox only; true overrides checked with `mixed` |
 | pressed, selected, expanded, disabled, hidden, required, readonly, modal | same | bool literal/input/path |
 | live | live | off (default), polite, assertive |
 | activate | activate | trigger input (fire), or bool input (toggle) |
-| min, max, step | same | slider numbers, defaults 0, 100, 1; min < max, step > 0 |
+| min, max, step | same | min/max for slider/progressbar/meter, step for slider only; defaults 0, 100, 1; min < max, step > 0 |
 | bounds | bounds | local [x,y,w,h]; nonnegative width and height; defaults to painted bounds |
 
 Anima has no standalone string inputs: label, hint, non-slider value and valueText
@@ -47,7 +48,7 @@ modal on dialog/alert-dialog. Disabled and hidden apply to all roles.
 entry. `semanticDiff` is exported as a function from `@anima-format/core/a11y-actions`. `test/fixtures/tree.json` is the tree contract, checked by
 `test/core/semantics.test.ts`. The tree is an ordered forest. Every node has id,
 role, states, world-grid bounds [x,y,w,h], actions and children; optional fields are
-label, hint, value (string/number), valueText (string), level, href, min, max, step. States include
+label, hint, value (string/number), valueText (string), level, href, controls, min, max, step. States include
 checked (boolean or `mixed`), pressed, selected, expanded, disabled, required,
 readonly, modal, focused, live (`polite`/`assertive`). No DOM objects are exposed.
 
@@ -116,16 +117,16 @@ one dispatch plus an import; the command implementation is tooling only.
 In scripts, `key down|up <key>` and input-module `key repeat <key>` on a focused
 semantic control take the overlay's native route before generic focus traversal.
 Slider ArrowRight/Up increase, ArrowLeft/Down decrease; Home/End reach the ends.
-Button and switch Enter activate on down; Space activates on release after a down
+Button, switch and tab Enter activate on down; Space activates on release after a down
 on the same control. Checkbox/radio use Space; an already checked radio stays
 checked. Links use Enter. Arrows in a tab-list rove enabled direct tabs, wrapping;
 Home/End choose its first/last tab. Focus order matches the loaded focus module.
 Readonly/disabled action policy still applies. Shift is accepted; control/alt/meta
 and explicit targets other than the focused node use the generic input route.
-These events are handled once, like overlay events that stop before drawn-node
+These events are handled once, using the semantic routing owner rather than drawn-node
 key listeners. Other unmodified semantic keys are consumed without generic spatial
 traversal; Tab/Shift+Tab use the focus module, including repeated child tab stops. Key translation lives only in core/commands.ts (tooling); browser
-entries add no key emulation bytes.
+entries use native buttons for tab activation, adding no key emulation bytes.
 
 The derived example `examples/slider-value-text.animl` uses numeric `$volume`
 and read-only `$volumeText` via a template converter to speak "Volume 40 %".
@@ -148,8 +149,8 @@ them as false. `live` defaults to off (absent from the tree). Slider defaults ar
 omission of that metadata. An omitted activation binding does not make a static
 literal checked/pressed/selected state writable. Explicit activate takes precedence
 and may name a trigger or writable bool. Numeric input/data constraints still apply
-after the semantic range clamp. These rules do not infer text labels or add fields
-to the shared tree contract.
+after the semantic range clamp. The optional text consumer infers labels as specified in [TEXT.md](TEXT.md), without adding
+fields to the shared tree contract.
 
 Independent conformance now covers every role (including none/heading),
 state changes through semantic actions, a legal role × state trait matrix, live
@@ -220,3 +221,30 @@ This split follows the platform separation described in
 `docs/research/rive-web-runtime.md` and the shared-registry discipline described in
 `docs/research/rive-format-and-graph.md`; no external algorithm is ported. The phase statuses remain planned. See REPORT.md for the 2,104 B centered-stroke
 probe that exceeded the fixed budget and was reverted. Remaining work and measured limits are recorded in REPORT.md; no additional runtime module was added.
+
+## Additional Anima roles and relations (BF-4)
+
+`progressbar`, `meter`, `status` and `controls` are Anima extensions; the parity inventory
+has no corresponding rows. No inventory status or new row is inferred. Progressbar and meter
+expose numeric min/max (0/100 by default), and a bound number value; meter requires value,
+progressbar without value is indeterminate. Neither range role synthesizes range-edit or focus actions. Explicit activate bindings retain the
+ordinary authored action policy.
+`valueText` may supply independent spoken text on these roles. Numeric values use the ordinary
+input/data constraints; metadata does not install additional clamping. `status` defaults to
+`live: polite`; an authored polite/assertive live priority overrides that default.
+`controls` is a local node id, never a data binding. Its target must have a non-none semantic
+role in the same component; invalid targets produce `bad-value` at the controls field with a hint.
+The shared tree prefixes the relation with the same instance/repeat path as its owning node.
+A hidden target may be omitted from the tree/overlay; controls does not force it visible.
+
+Headless keys mirror radio-group arrows/Home/End: move to the enabled radio in focus order,
+then tap it unless already checked. Group exclusivity belongs to authored selection state,
+just as for pointer activation; a shared selected index with derived checked values or selection
+triggers can express it. Browser Tab entry uses the checked enabled radio, else the first;
+arrow movement wraps and selects. Tabs retain manual activation. This extends the existing
+`a11y.roving-focus` policy rather than introducing a new focus system.
+
+## Optional text consumer (P6)
+
+[TEXT.md](TEXT.md) specifies grapheme host/listener access, inferred labels, and measured
+text layout bounds. Exact path/stroke bounds remain open as recorded above.

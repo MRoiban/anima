@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "P6-8: default OpenType line-gap leading differs from native automatic leading; TEXT-PROBES.md preserves measured geometry; no passing tolerance assigned."
+}

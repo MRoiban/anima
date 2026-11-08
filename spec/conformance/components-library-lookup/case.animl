@@ -1,0 +1,8 @@
+<anima version="0.1" name="library-lookup" grid="10" requires="components">
+  <meta>{"componentNames":{"ui:switch":"switch"}}</meta>
+  <component name="switch" grid="10">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#123456"/>
+  </component>
+  <instance id="qualified" component="ui:switch"/>
+  <instance id="legacy" component="import-4-switch"/>
+</anima>

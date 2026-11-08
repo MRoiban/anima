@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Composition transaction boundaries belong to the native DOM input. The permitted local headless CLI rejects compose/text commands; it cannot deliver an OS IME transaction or construct a browser composition event. Both-engine tests assert that intermediate input changes do not commit and compositionend commits once.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/text-input-ime/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

@@ -1,0 +1,3 @@
+npm warn exec The following package was not found and will be installed: prettier@3.9.10
+Checking formatting...
+All matched files use Prettier code style!

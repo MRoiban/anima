@@ -8,6 +8,17 @@ import { bundle } from '../../../../tools/browser-build.ts';
 import '@anima-format/core/all';
 import { load, drawFrame, runScript, Player, toSVG } from '@anima-format/core';
 import type {} from './harness.ts';
+import { registerTextMeasurer } from '../../../text/core/measure.ts';
+import { ToolMeasurer } from '../../../../packages/cli/src/font/measure.ts';
+import { Font } from '../../../../packages/cli/src/font/reader.ts';
+import { testFont } from '../../../../tools/test-font.ts';
+import { documentFonts } from '../../../../packages/cli/src/font/document.ts';
+
+// Corpus enumeration draws before filtering geometry; text needs deterministic tool metrics.
+// The text module's browser suite owns generated-font text rendering comparisons.
+const textMeasurer = new ToolMeasurer();
+textMeasurer.register('sans-serif', new Font(testFont()));
+registerTextMeasurer(textMeasurer);
 
 // Fixed feature tolerances, declared before measurements; see README. Never widen on failure.
 const limit = (doc: object) => {
@@ -26,6 +37,17 @@ for (const file of globSync([
 ])) {
   if (existsSync(resolve(dirname(file), 'todo.json'))) continue;
   const doc = JSON.parse(readFileSync(file, 'utf8'));
+  // seam(P6-8): corpus text can now bind actual font assets, not only sans-serif.
+  if (doc.requires?.includes('text')) {
+    const fonts = documentFonts(doc, file);
+    expect(
+      fonts.diagnostics.filter((d) => d.severity === 'error'),
+      file,
+    ).toEqual([]);
+    if (!fonts.measurer.fonts.has('sans-serif'))
+      fonts.measurer.register('sans-serif', new Font(testFont()));
+    registerTextMeasurer(fonts.measurer);
+  }
   const model = load(doc).model;
   if (!model) throw Error('invalid visual corpus ' + file);
   const scriptFile = resolve(dirname(file), 'script.txt');
@@ -258,6 +280,14 @@ for (const [name, engine, paths] of [
           body: '<style>body{margin:0;background:white}anima-icon{isolation:isolate}</style>',
         }),
       );
+      // Corpus documents reference repository font fixtures by relative URL; serve them so text
+      // renders with the declared font, not a platform fallback that differs between machines.
+      await page.route('https://canvas.test/fixtures/**', (r) => {
+        const file = resolve('.' + new URL(r.request().url()).pathname);
+        return existsSync(file)
+          ? r.fulfill({ body: readFileSync(file) })
+          : r.fulfill({ status: 404 });
+      });
       await page.goto('https://canvas.test/');
       await page.addScriptTag({
         type: 'module',

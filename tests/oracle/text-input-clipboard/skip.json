@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Pasting and the system clipboard belong to the HTML input and browser permission policy. The local headless CLI rejects clipboard/text commands and has no browser clipboard permission surface. Both-engine tests verify native selected text/cut routing, committed input and password privacy; real system clipboard grants are not claimed.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/text-input-clipboard/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

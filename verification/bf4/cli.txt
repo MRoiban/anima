@@ -1,0 +1,30 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |unit| modules/a11y/test/cli/bf4.test.ts (2 tests | 1 failed) 73ms
+   × B17/B18: CLI docs expose node roles/modal/expanded/controls and easing recipes for data and convert 29ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/a11y/test/cli/bf4.test.ts > B17/B18: CLI docs expose node roles/modal/expanded/controls and easing recipes for data and convert
+AssertionError: expected '{"topic":"rect.a11y","markup":"a11y",…' to contain 'progressbar'
+
+Expected: "progressbar"
+Received: "{"topic":"rect.a11y","markup":"a11y","ani":"a11y","type":"obj","required":false,"feature":"a11y"}"
+
+ ❯ modules/a11y/test/cli/bf4.test.ts:16:46
+     14|     expect(docs).toContain('travelling'); expect(docs).toContain('dura…
+     15|   }
+     16|   expect(await invoke('schema','rect.a11y')).toContain('progressbar');
+       |                                              ^
+     17| });
+     18| it('B17: CLI semantic snapshots expose new roles, indeterminate progre…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  18:40:17
+   Duration  1.38s (transform 58%, import 35%, tests 6%, worker 1%)
+

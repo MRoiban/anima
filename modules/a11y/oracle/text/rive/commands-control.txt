@@ -1,0 +1,4 @@
+advance 0
+semantics frames/no-child-semantic.json
+screenshot frames/no-child-semantic.png
+quit

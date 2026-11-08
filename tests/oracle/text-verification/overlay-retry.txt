@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-55664599
+
+ ❯ |browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed) 83614ms
+   ❯ overlay Firefox (22)
+     × attaches after separately bundled focus/actions and an already loaded model 6666ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 43 passed (44)
+   Start at  23:03:02
+   Duration  86.62s (tests 97%, import 2%, transform 1%)

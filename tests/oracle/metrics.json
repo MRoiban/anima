@@ -133,8 +133,8 @@
       {
         "time": 0,
         "maxDiff": 70,
-        "over": 44,
-        "overPercent": 0.0763888888888889,
+        "over": 69,
+        "overPercent": 0.11979166666666667,
         "pass": true
       }
     ]
@@ -11550,6 +11550,650 @@
         "maxDiff": 0,
         "over": 0,
         "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-font-size",
+    "threshold": 16,
+    "maxOverPercent": 0.010417,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-horizontal-alignment",
+    "threshold": 16,
+    "maxOverPercent": 0.010417,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-origin",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-overflow-clipped",
+    "threshold": 16,
+    "maxOverPercent": 0.027778,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 14,
+        "overPercent": 0.024305555555555556,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-overflow-fit",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-overflow-hidden",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-overflow-visible",
+    "threshold": 16,
+    "maxOverPercent": 0.027778,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 14,
+        "overPercent": 0.024305555555555556,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-paint",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-paragraph-spacing",
+    "threshold": 16,
+    "maxOverPercent": 0.010417,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-rich-runs",
+    "threshold": 16,
+    "maxOverPercent": 0.013889,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-sizing-auto-height",
+    "threshold": 16,
+    "maxOverPercent": 0.013889,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-sizing-auto-width",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-sizing-fixed",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-style-reference",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-tracking",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-vertical-alignment",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-word-break",
+    "threshold": 16,
+    "maxOverPercent": 0.013889,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-wrap",
+    "threshold": 16,
+    "maxOverPercent": 0.013889,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-bind-text",
+    "threshold": 16,
+    "maxOverPercent": 0.027778,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 32,
+        "over": 5,
+        "overPercent": 0.008680555555555556,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 32,
+        "over": 14,
+        "overPercent": 0.024305555555555556,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-font",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-font-assets",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-font-formats",
+    "threshold": 16,
+    "maxOverPercent": 0.017361,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-translation",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-rotation",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 16,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-scale",
+    "threshold": 16,
+    "maxOverPercent": 0.034722222222222224,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 63,
+        "over": 18,
+        "overPercent": 0.03125,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-opacity",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 8,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-origin",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-variation",
+    "threshold": 16,
+    "maxOverPercent": 0.017361111111111112,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-units",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-falloff",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-easing",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-combine",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-range-run",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-background",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-background-fit",
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-text",
+    "threshold": 16,
+    "maxOverPercent": 0.017361111111111112,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-editable",
+    "threshold": 16,
+    "maxOverPercent": 0.027777777777777776,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 32,
+        "over": 5,
+        "overPercent": 0.008680555555555556,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 32,
+        "over": 14,
+        "overPercent": 0.024305555555555556,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-multiline",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-obscured",
+    "threshold": 16,
+    "maxOverPercent": 0.013888888888888888,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-line-spacing",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-variable-axes",
+    "threshold": 16,
+    "maxOverPercent": 0.024306,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 9,
+        "overPercent": 0.015625,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-opentype-features",
+    "threshold": 16,
+    "maxOverPercent": 0.024306,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 11,
+        "overPercent": 0.019097222222222224,
         "pass": true
       }
     ]

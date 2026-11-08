@@ -1,0 +1,143 @@
+{
+  "base": "e2442114",
+  "fontSHA256": "6eb4d6184c84a56e0b7384c6841ea5dd048b924394922c78fab6ea33aeef55d2",
+  "closedRows": [
+    "a11y.inferred-text",
+    "text.background",
+    "text.modifier-follow-path",
+    "text.modifier-opacity",
+    "text.modifier-origin",
+    "text.modifier-rotation",
+    "text.modifier-scale",
+    "text.modifier-translation",
+    "text.range-combine",
+    "text.range-easing",
+    "text.range-falloff",
+    "text.range-run",
+    "text.range-units",
+    "text.script-direction",
+    "text.script-hit-testing"
+  ],
+  "plannedRows": {
+    "text.modifier-variation": "Arbitrary-axis Canvas drawing is not implemented. Accepted generated-font wght comparison is narrower.",
+    "a11y.tree-bounds": "Exact painted path/stroke extents are missing outside the optional text-layout consumer."
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exitCode": 0,
+    "cases": 302,
+    "samples": 515,
+    "newCases": 14,
+    "newSamples": 14,
+    "retainedFindings": 24
+  },
+  "contours": {
+    "command": "node tests/oracle/check-effects-contours.mjs",
+    "exitCode": 0,
+    "cases": 14,
+    "nonBoundaryDifferences": 0,
+    "scaledOverlapBoundaryPixels": 6
+  },
+  "chromium": {
+    "command": "npm run test:scope -- text-effects a11y text conformance oracle --browser=chromium",
+    "passed": 4256,
+    "failed": 1,
+    "todo": 67,
+    "failure": "New conformance AniML canonical attribute order; corrected without runtime/expectation changes.",
+    "retry": {
+      "command": "npx vitest run --project unit packages/markup/test/corpus.test.ts",
+      "passed": 1227,
+      "failed": 0
+    }
+  },
+  "firefox": {
+    "command": "npm run test:scope -- text-effects a11y text --browser=firefox",
+    "passed": 3320,
+    "failed": 0,
+    "todo": 1
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "static": {
+    "moduleWiring": 0,
+    "parityViews": 0,
+    "animlArtifacts": 0,
+    "browserArtifacts": 0,
+    "changedSourceESLint": 0,
+    "changedFilePrettier": 0
+  },
+  "size": {
+    "command": "node tools/size.ts",
+    "exitCode": 0,
+    "entries": {
+      "text-effects": [3359, 3365, 4096],
+      "text": [6142, 6142, 6144],
+      "text-hit": [983, 983, 1024],
+      "a11y-text": [448, 448, 576]
+    },
+    "gates": {
+      "core+web": [21136, 21136, 24576],
+      "largest-scene": [53780, 53780, 65536],
+      "app-UI": [98604, 98603, 131072],
+      "runtime-sum": [118830, 118829, 163840],
+      "authoring": [14649, 14649, 16384],
+      "Rive-class": [128449, 128449, 256000]
+    }
+  },
+  "perf": {
+    "command": "node tools/perf.ts",
+    "exitCode": 0,
+    "controlledNonRegression": "unverified; shared machine load, no paired controlled A/B"
+  },
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exitCode": 1,
+    "passed": 9058,
+    "failed": 2,
+    "todo": 79,
+    "passedFiles": 285,
+    "failedFiles": 2,
+    "skippedFiles": 13,
+    "durationSeconds": 1050.87,
+    "bothBrowserEngines": "all browser files pass",
+    "failures": [
+      "packages/core/test/module-order.test.ts: 30000ms timeout",
+      "modules/contour/test/core/raster-evidence.test.ts: 5000ms timeout"
+    ],
+    "isolatedRetries": {
+      "contour": {
+        "command": "VITEST_MAX_WORKERS=1 npx vitest run --project unit modules/contour/test/core/raster-evidence.test.ts",
+        "exitCode": 1,
+        "passed": 1,
+        "failed": 1,
+        "reason": "same 5000ms timeout (6593ms body)"
+      },
+      "moduleOrder": {
+        "command": "VITEST_MAX_WORKERS=1 npx vitest run --project unit packages/core/test/module-order.test.ts",
+        "exitCode": 1,
+        "passed": 0,
+        "failed": 1,
+        "reason": "same 30000ms timeout"
+      }
+    },
+    "standaloneOutputChecks": {
+      "raster": {
+        "exitCode": 0,
+        "records": 9,
+        "exactRecordedEquality": true,
+        "nonEdgeDifferences": 0,
+        "timedTestStillFailing": true
+      },
+      "moduleOrder": {
+        "exitCode": 0,
+        "orders": 12,
+        "same": true,
+        "seconds": 74.97995169000001,
+        "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+        "timedTestStillFailing": true
+      }
+    }
+  }
+}

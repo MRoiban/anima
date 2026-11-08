@@ -1,0 +1,47 @@
+{
+  "branch": "t3/runtime-fonts-module",
+  "focused": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- fonts",
+    "exit": 0,
+    "passed": 1090,
+    "browserCases": 10
+  },
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exit": 1,
+    "passed": 8111,
+    "todo": 63,
+    "failed": 4,
+    "failure": "Firefox startup/import timeouts in packages/web/test/browser.test.ts"
+  },
+  "isolatedRetry": {
+    "file": "packages/web/test/browser.test.ts",
+    "pattern": "Firefox.*(refuses paint|compiles paint markup|compiles ordinary inline)",
+    "exit": 0,
+    "passed": 4,
+    "sameLimits": true
+  },
+  "typecheck": 0,
+  "eslint": 0,
+  "moduleWiring": 0,
+  "schemaGeneration": 0,
+  "strictOracle": 0,
+  "perf": {
+    "exit": 0,
+    "controlledComparison": "unverified: shared-host load"
+  },
+  "fontBudget": {
+    "before": 0,
+    "after": 1789,
+    "ceiling": 2048
+  },
+  "sixGates": {
+    "coreWeb": [20622, 20622],
+    "largestScene": [52122, 52122],
+    "appUIFixedSet": [85154, 85175],
+    "runtimeSum": [104285, 105973],
+    "authoring": [14544, 14544],
+    "heavy": [109904, 111567]
+  },
+  "parity": "12 rows remain planned; closure limits in REPORT.md"
+}

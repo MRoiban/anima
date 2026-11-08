@@ -1,0 +1,122 @@
+{
+  "anima": "0.1",
+  "name": "filtering-list",
+  "grid": 20,
+  "requires": ["text", "textinput", "a11y", "focus", "data", "bind", "derive", "convert"],
+  "nodes": [
+    {
+      "id": "search",
+      "type": "text",
+      "x": 1,
+      "y": 1,
+      "sizing": "fixed",
+      "width": 18,
+      "height": 2,
+      "runs": [
+        {
+          "text": "",
+          "style": "body"
+        }
+      ],
+      "textInput": {
+        "placeholder": "Filter labels",
+        "writeText": "$query",
+        "label": "Search labels"
+      }
+    },
+    {
+      "id": "row0",
+      "type": "text",
+      "x": 1,
+      "y": 5,
+      "runs": [
+        {
+          "text": "$label0",
+          "style": "body"
+        }
+      ]
+    },
+    {
+      "id": "row1",
+      "type": "text",
+      "x": 1,
+      "y": 8,
+      "runs": [
+        {
+          "text": "$label1",
+          "style": "body"
+        }
+      ]
+    },
+    {
+      "id": "total",
+      "type": "text",
+      "x": 1,
+      "y": 12,
+      "runs": [
+        {
+          "text": "$summary",
+          "style": "body"
+        }
+      ]
+    }
+  ],
+  "bind": {
+    "row0.visible": "$shown0",
+    "row1.visible": "$shown1"
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "label0": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "label1": {
+            "type": "string",
+            "default": "Motion"
+          },
+          "shown0": {
+            "type": "bool",
+            "value": "contains(lower($label0), lower($query))"
+          },
+          "shown1": {
+            "type": "bool",
+            "value": "contains(lower($label1), lower($query))"
+          },
+          "count": {
+            "type": "number",
+            "value": "$shown0 + $shown1"
+          },
+          "summary": {
+            "type": "string",
+            "value": "$count",
+            "convert": "results"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "results": {
+      "type": "template",
+      "text": "{0} results"
+    }
+  },
+  "textStyles": {
+    "body": {
+      "size": 1
+    }
+  }
+}

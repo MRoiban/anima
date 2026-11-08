@@ -1,0 +1,42 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:44:17.036] rive  deferred replay: inline
+[23:44:17.145] rive  built (16331 bytes, 109ms, 0 errors, 0 warnings)
+[23:44:17.148] rive  showing Settings [1/1]
+[23:44:17.148] rive  viewport 480x360 @1x
+[23:44:17.149] rive  wrote evidence/01-general.tree.json
+[23:44:17.149] rive  wrote evidence/01-general.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:44:17.178] rive  wrote evidence/01-general.png
+[23:44:17.179] rive  wrote evidence/02-sound.tree.json
+[23:44:17.179] rive  wrote evidence/02-sound.data.json
+[23:44:17.197] rive  wrote evidence/02-sound.png
+[23:44:17.197] rive  wrote evidence/03-volume45.tree.json
+[23:44:17.198] rive  wrote evidence/03-volume45.data.json
+[23:44:17.218] rive  wrote evidence/03-volume45.png
+[23:44:17.219] rive  wrote evidence/04-volume40.tree.json
+[23:44:17.219] rive  wrote evidence/04-volume40.data.json
+[23:44:17.220] rive  wrote evidence/05-muted.tree.json
+[23:44:17.220] rive  wrote evidence/05-muted.data.json
+[23:44:17.235] rive  wrote evidence/05-muted.png
+[23:44:17.236] rive  wrote evidence/06-general-again.tree.json
+[23:44:17.236] rive  wrote evidence/06-general-again.data.json
+[23:44:17.236] rive  semantic action: no semantic node is labelled "Notifications"
+[23:44:17.236] rive  wrote evidence/07-all-checked.tree.json
+[23:44:17.236] rive  wrote evidence/07-all-checked.data.json
+[23:44:17.250] rive  wrote evidence/07-all-checked.png
+[23:44:17.251] rive  semantic action: no semantic node is labelled "Notifications"
+[23:44:17.251] rive  wrote evidence/08-none-checked.tree.json
+[23:44:17.251] rive  wrote evidence/08-none-checked.data.json
+[23:44:17.251] rive  semantic action: no semantic node is labelled "Email"
+[23:44:17.251] rive  wrote evidence/09-email-mixed.tree.json
+[23:44:17.252] rive  wrote evidence/09-email-mixed.data.json
+[23:44:17.252] rive  semantic action: no semantic node is labelled "Push"
+[23:44:17.252] rive  wrote evidence/10-two-mixed.tree.json
+[23:44:17.252] rive  wrote evidence/10-two-mixed.data.json
+[23:44:17.252] rive  semantic action: no semantic node is labelled "SMS"
+[23:44:17.252] rive  wrote evidence/11-all-via-children.tree.json
+[23:44:17.252] rive  wrote evidence/11-all-via-children.data.json
+[23:44:17.252] rive  data: generalTitle = Preferences (mid-run)
+[23:44:17.253] rive  wrote evidence/12-renamed.tree.json
+[23:44:17.253] rive  wrote evidence/12-renamed.data.json
+[23:44:17.268] rive  wrote evidence/12-renamed.png

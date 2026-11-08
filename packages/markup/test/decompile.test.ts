@@ -27,6 +27,27 @@ const attrs = (e: Element) => Object.fromEntries(e.attrs.map((a) => [a.name, a.v
 const scalar = (s: string): unknown =>
   s.startsWith('"') || s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
 const vector = (s: string) => s.split(/\s+/).map(Number);
+const recoverStyle = (e: Element): Obj => {
+  const o: Obj = {};
+  for (const [k, v] of Object.entries(attrs(e))) {
+    if (k === 'id') continue;
+    o[k === 'line-height' ? 'lineHeight' : k] = [
+      'size',
+      'weight',
+      'tracking',
+      'line-height',
+    ].includes(k)
+      ? Number(v)
+      : ['axes', 'features'].includes(k) // seam(P6-13): independent compound-style recovery.
+        ? JSON.parse(v)
+        : ['fill', 'stroke'].includes(k)
+          ? v.startsWith('{')
+            ? JSON.parse(v)
+            : { color: v }
+          : v;
+  }
+  return o;
+};
 
 // Independent structural reader for emitted markup: compare every value, not just snapshots.
 function recover(root: Element): Obj {
@@ -111,6 +132,27 @@ function recover(root: Element): Obj {
                 ? JSON.parse(v)
                 : scalar(v);
     }
+    // seam(P6-5): independent recovery of structural effects and ranges.
+    const recoverEffect = (el: Element): Obj => {
+      const effect: Obj = {};
+      for (const [key, value] of Object.entries(attrs(el))) {
+        const jsonKey = key.replace(/-([a-z])/g, (_m, c: string) => c.toUpperCase());
+        effect[jsonKey] = ['units', 'ease', 'combine', 'run', 'follow-path'].includes(key)
+          ? value
+          : value.startsWith('{')
+            ? JSON.parse(value)
+            : Number(value);
+      }
+      const ranges = elements(el).filter((c) => c.name === 'text-range');
+      if (ranges.length) effect.ranges = ranges.map(recoverEffect);
+      return effect;
+    };
+    for (const child of elements(e)) {
+      if (child.name === 'text-effect') ((o.effects ??= []) as Obj[]).push(recoverEffect(child));
+      if (child.name === 'style')
+        ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
+      if (child.name === 'run') ((o.runs ??= []) as Obj[]).push(attrs(child));
+    }
     for (const g of elements(e).filter((c) =>
       ['linearGradient', 'radialGradient', 'angularGradient'].includes(c.name),
     )) {
@@ -136,6 +178,21 @@ function recover(root: Element): Obj {
     }
     for (const child of elements(e)) {
       const a = attrs(child);
+      // seam(P6-6): independently recover field attribute names and primitive types.
+      if (child.name === 'text-input') {
+        const field = base(child);
+        for (const [key, value] of Object.entries(a)) {
+          const jsonKey = key.replace(/-([a-z])/g, (_match, letter: string) =>
+            letter.toUpperCase(),
+          );
+          field[jsonKey] = ['editable', 'multiline', 'obscured', 'selectOnFocus'].includes(jsonKey)
+            ? value === 'true'
+            : ['maxLength', 'maxLines', 'selectionRadius'].includes(jsonKey)
+              ? Number(value)
+              : value;
+        }
+        o.textInput = field;
+      }
       if (child.name === 'focus') {
         const focus = base(child);
         for (const [key, value] of Object.entries(a)) {
@@ -212,6 +269,10 @@ function recover(root: Element): Obj {
   if (d.machineSeed !== undefined) d.machineSeed = Number(d.machineSeed);
   if (d.viewBox) d.viewBox = vector(d.viewBox as string);
   if (typeof d.data === 'string' && d.data.startsWith('{')) d.data = JSON.parse(d.data);
+  if (d['text-styles']) {
+    d.textStyles = JSON.parse(String(d['text-styles']));
+    delete d['text-styles'];
+  }
   if (d.requires) d.requires = (d.requires as string).split(' ');
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);
   for (const el of elements(root)) {
@@ -237,6 +298,8 @@ function recover(root: Element): Obj {
                   : value;
       }
       insert('converters', name, converter);
+    } else if (el.name === 'text-style') {
+      ((d.textStyles ??= {}) as Obj)[a.id!] = recoverStyle(el);
     } else if (el.name === 'model') {
       const data = (d.data ??= {}) as Obj,
         models = (data.models ??= {}) as Obj,
@@ -531,6 +594,14 @@ function check(source: string | object) {
       'asset-ref',
       'string',
       'set',
+      'style',
+      'run',
+      'text-style',
+      // seam(P6-5): registry-defined structural text modifiers.
+      'text-effect',
+      'text-range',
+      // seam(P6-6): new registry-owned field child.
+      'text-input',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

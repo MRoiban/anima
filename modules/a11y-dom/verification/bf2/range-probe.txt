@@ -1,0 +1,2 @@
+{"engine":"Chromium","normalOpacityPixels":0,"liftedOpacityResetPixels":0,"liftedOpacityWithoutResetPixels":6789}
+{"engine":"Firefox","normalOpacityPixels":0,"liftedOpacityResetPixels":0,"liftedOpacityWithoutResetPixels":15421}

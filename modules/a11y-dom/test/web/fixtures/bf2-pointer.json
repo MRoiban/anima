@@ -1,0 +1,84 @@
+{
+  "anima": "0.1",
+  "name": "bf2",
+  "grid": 24,
+  "viewBox": [
+    0,
+    0,
+    24,
+    24
+  ],
+  "requires": [
+    "a11y",
+    "input"
+  ],
+  "nodes": [
+    {
+      "id": "drawing",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#123456"
+      },
+      "a11y": {
+        "role": "button",
+        "label": "Drawing",
+        "activate": "on"
+      }
+    }
+  ],
+  "inputs": {
+    "hover": {
+      "type": "bool"
+    },
+    "pressed": {
+      "type": "bool"
+    },
+    "dragged": {
+      "type": "bool"
+    },
+    "on": {
+      "type": "bool"
+    }
+  },
+  "listeners": [
+    {
+      "on": "enter",
+      "target": "drawing",
+      "set": {
+        "hover": true
+      }
+    },
+    {
+      "on": "down",
+      "target": "drawing",
+      "set": {
+        "pressed": true
+      }
+    },
+    {
+      "on": "up",
+      "target": "drawing",
+      "set": {
+        "pressed": false
+      }
+    },
+    {
+      "on": "drag",
+      "target": "drawing",
+      "set": {
+        "dragged": true
+      }
+    },
+    {
+      "on": "click",
+      "target": "drawing",
+      "set": {
+        "on": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+focus target q
+snapshot --semantics $query

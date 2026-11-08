@@ -1,0 +1,9 @@
+{
+  "command": "node tools/oracle.ts --strict",
+  "exit": 0,
+  "cases": 266,
+  "samples": 475,
+  "failedSamples": 0,
+  "retainedFindings": 24,
+  "note": "Existing findings/intentional differences are separate from strict cases; no inputs, thresholds or status edits."
+}

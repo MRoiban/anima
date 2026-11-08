@@ -282,7 +282,8 @@ for (const [name, engine, executablePath] of [
               deliveries: 2,
               helpers: ['#010203', ['calm', 'happy'], 1],
               childRadius: 6,
-              nestedValue: 'calm',
+              // A context-free child shares the parent's live named instance (BF-1).
+              nestedValue: 'happy',
               replaced: true,
               isolatedImage: true,
               blobReplaced: true,

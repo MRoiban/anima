@@ -1,0 +1,17 @@
+Pending spec/conformance/assets-host-decode-font/case.animl: assets-host-decode-font: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/assets-replacement-scope-font/case.animl: assets-replacement-scope-font: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/data-bind-layout/case.animl: Layout consumers are P7; no layout dimensions/style target exists on this branch.
+Pending spec/conformance/data-bind-script-inputs/case.animl: Script inputs require the P9 VM and typed script interface.
+Pending spec/conformance/data-editor-preview-instance/case.animl: Preview naming metadata round-trips; the editor does not yet consume it.
+Pending spec/conformance/data-host-font/case.animl: data-host-font: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/data-script-model-api/case.animl: The requested scripting API requires P9 and is outside the defined data runtime contract.
+Pending spec/conformance/data-scripted-converter/case.animl: Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design.
+Pending spec/conformance/host-api-data-font/case.animl: host-api-data-font: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/host-api-font-fallback/case.animl: host-api-font-fallback: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-font-assets/case.animl: text-font-assets: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-font-decoding/case.animl: text-font-decoding: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-font-fallback/case.animl: text-font-fallback: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-font-metrics/case.animl: text-font-metrics: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-opentype-features/case.animl: text-opentype-features: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Pending spec/conformance/text-variable-axes/case.animl: text-variable-axes: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure
+Checked 593 AniML files

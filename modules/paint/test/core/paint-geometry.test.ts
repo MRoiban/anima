@@ -1,4 +1,5 @@
 import '@anima-format/core/all';
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { Player, load, toSVG, jsonSchema, nodeShape } from '../../../../packages/core/src/index.ts';
 import { pathLength } from '../../../../packages/core/src/path.ts';
@@ -137,5 +138,31 @@ describe('paint geometry', () => {
     expect(svg).toBe(toSVG(p));
     expect(svg).not.toContain('pathLength');
     expect(svg).toContain('stroke-dasharray="2 1" stroke-dashoffset="2"');
+  });
+});
+
+// B14: an independent quarter-circle midpoint, not a quadratic through the corner.
+it('B14: 40px pill corners are circular cubics and clamped axes are elliptical', () => {
+  for (const [w, h, a, b] of [
+    [40, 40, 20, 20],
+    [40, 20, 20, 10],
+  ]) {
+    const r = load(doc({ type: 'rect', x0: 0, y0: 0, w, h, corners: [20, 20, 20, 20] }));
+    const svg = toSVG(new Player(r.model!));
+    const k = (4 * (Math.sqrt(2) - 1)) / 3;
+    const f = (n: number) => String(Number(n.toFixed(5)));
+    expect(svg).toContain(`M0 ${b}C0 ${f(b * (1 - k))} ${f(a * (1 - k))} 0 ${a} 0`);
+    expect(svg).not.toContain('Q');
+  }
+});
+
+it('B14: drawing conformance for paint-shape-corners at 0, 0.5 and 1s', () => {
+  const base = new URL('../../../../spec/conformance/paint-shape-corners/', import.meta.url);
+  const r = load(readFileSync(new URL('case.ani', base), 'utf8'));
+  const paths = JSON.parse(readFileSync(new URL('expected-paths.json', base), 'utf8')) as string[];
+  const p = new Player(r.model!);
+  paths.forEach((d, i) => {
+    p.step(i ? 0.5 : 0);
+    expect(toSVG(p)).toContain(`d="${d}"`);
   });
 });

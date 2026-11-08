@@ -1,0 +1,168 @@
+{
+  "baseline": "efb624bd",
+  "size": {
+    "before": {
+      "core+web": {
+        "bytes": 20622,
+        "ceiling": 24576
+      },
+      "largest scene (30)": {
+        "bytes": 52122,
+        "ceiling": 65536
+      },
+      "app-UI scene": {
+        "bytes": 85154,
+        "ceiling": 131072
+      },
+      "runtime sum": {
+        "bytes": 104285,
+        "ceiling": 163840
+      },
+      "authoring add-on": {
+        "bytes": 14544,
+        "ceiling": 16384
+      },
+      "Rive-class (heavy)": {
+        "bytes": 109904,
+        "ceiling": 256000
+      }
+    },
+    "after": {
+      "core+web": {
+        "bytes": 20635,
+        "ceiling": 24576
+      },
+      "largest scene (30)": {
+        "bytes": 52153,
+        "ceiling": 65536
+      },
+      "app-UI scene": {
+        "bytes": 85244,
+        "ceiling": 131072
+      },
+      "runtime sum": {
+        "bytes": 104366,
+        "ceiling": 163840
+      },
+      "authoring add-on": {
+        "bytes": 14543,
+        "ceiling": 16384
+      },
+      "Rive-class (heavy)": {
+        "bytes": 109982,
+        "ceiling": 256000
+      }
+    }
+  },
+  "newBrowserRegressions": {
+    "passed": 18,
+    "engines": ["Chromium", "Firefox"]
+  },
+  "overlayScope": {
+    "passed": 59,
+    "timeouts": 1
+  },
+  "lateAttachRetry": {
+    "passed": 2,
+    "failed": 0
+  },
+  "assetRetry": {
+    "passed": 6,
+    "failed": 0
+  },
+  "checks": {
+    "typecheck": 0,
+    "eslintOwned": 0,
+    "prettierOwned": 0,
+    "moduleWiring": 0,
+    "webArtifacts": 0,
+    "animlArtifacts": 0,
+    "finalWebTypecheck": 0
+  },
+  "changedScope": {
+    "unfilteredExit": 143,
+    "unfilteredSummary": "none; 12 browser timeouts observed before SIGTERM",
+    "chromium": {
+      "exit": 143,
+      "reportedPassed": 6698,
+      "reportedFailed": 1,
+      "skipped": 1418,
+      "todo": 40,
+      "failure": "scaffolder nested Vitest command; isolated retry passed"
+    },
+    "firefoxFiltered": {
+      "exit": 143,
+      "summary": "none; late-attachment timeout observed"
+    },
+    "firefoxBrowserOnly": {
+      "exit": 0,
+      "passed": 1415,
+      "skipped": 1421,
+      "filesPassed": 31,
+      "filesSkipped": 1
+    },
+    "firefoxNativePaint": {
+      "exit": 0,
+      "passed": 3,
+      "skipped": 3
+    },
+    "coverage": {
+      "distinctSelected": 8157,
+      "distinctPassedAcrossSlices": 8117,
+      "existingTodos": 40,
+      "calculation": "6698 + 1 recovered scaffolder check + 1415 Firefox + 3 lowercase Firefox native-paint",
+      "monolithicGreenExitVerified": false
+    }
+  },
+  "perf": "not run: orchestrator-owned",
+  "strictOracle": "not run: orchestrator-owned",
+  "rejectedCandidate": {
+    "reason": "vertical SVG percentage adjustment broke canvas coordinate equivalence",
+    "changedExit": 130,
+    "evidence": "changed-rejected.txt"
+  },
+  "mappingRetry": {
+    "passed": 6,
+    "setupHookFailures": 2
+  },
+  "mappingFirefoxRetry": {
+    "passed": 4,
+    "failed": 0
+  },
+  "overlayFirefoxRetry": {
+    "passed": 2,
+    "failed": 0
+  },
+  "webChromiumRetry": {
+    "passed": 2,
+    "failed": 0
+  },
+  "assetsFirefoxRetry": {
+    "passed": 3,
+    "failed": 0
+  },
+  "componentPaintRetries": {
+    "chromiumPassed": 2,
+    "firefoxPassed": 1,
+    "firefoxTimeouts": 1,
+    "priorAttempt": "1 test timeout and 1 Firefox hook timeout; retained in componentpaint-retry.txt"
+  },
+  "scaffolderRetry": {
+    "passed": 4,
+    "failed": 0,
+    "workers": 2
+  },
+  "inputFirefoxRetry": {
+    "passed": 2,
+    "failed": 0
+  },
+  "residualRetry": {
+    "passed": 2,
+    "failed": 2,
+    "remainingTimeouts": [
+      "Firefox componentpaint index-first bundle order",
+      "Firefox nested index-first bundle order"
+    ],
+    "resolvedBy": "final Firefox browser project, exit 0; all 1415 selected passed"
+  }
+}

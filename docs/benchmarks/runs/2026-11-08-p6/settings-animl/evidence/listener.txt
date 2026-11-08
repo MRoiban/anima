@@ -1,0 +1,22 @@
+listener (markup ↔ .ani: type)
+  on ↔ on: string (required)
+  target ↔ target: string
+  hitPadding ↔ hitPadding: number
+  fire ↔ fire: string | array<string>
+  set ↔ set: map<number | bool | string>
+  toggle ↔ toggle: string | array<string>
+  emit ↔ emit: string
+  button ↔ button: number [input]
+  capture ↔ capture: bool [input]
+  consume ↔ consume: bool [input]
+  propagate ↔ propagate: bool [input]
+  key ↔ key: string [input]
+  modifiers ↔ modifiers: string [input]
+  index ↔ index: number [input]
+  control ↔ control: number [input]
+  mapping ↔ mapping: "standard" | "raw" [input]
+  phase ↔ phase: "press" | "release" | "both" [input]
+  value ↔ value: string [data]
+  write ↔ write: string | map<string> [input] — Map event field → declared input name (not an expression). Available event fields: x (number), y (number), dx (number), dy (number), startX (number), startY (number), pointerId (number), button (number), value (number), pressed (bool), index (number), control (number), deltaX (number), deltaY (number), text-index (number), pointer-x (number), pointer-y (number), pointer-delta-x (number), pointer-delta-y (number), key-pressed (string). Missing fields leave inputs unchanged. x/y use target parent coordinates; align="preserve" retains the grab offset. Example: write='{"x":"dragX"}'.
+  align ↔ align: "preserve" | "snap" [input]
+  copy ↔ copy: string [data]

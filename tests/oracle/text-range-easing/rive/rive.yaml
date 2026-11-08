@@ -1,0 +1,3 @@
+name: oracle-text-range-easing
+logs:
+  file: build/runtime.log

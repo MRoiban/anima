@@ -1,0 +1,154 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |unit| modules/a11y/test/core/bf4.test.ts (5 tests | 1 failed) 114ms
+   × B17: progress, indeterminate progress, meter, status, controls and existing dialog metadata survive both spellings and headless commands 105ms
+ ❯ |unit| modules/paint/test/core/paint-geometry.test.ts (26 tests | 1 failed) 206ms
+   × B14: 40px pill corners are circular cubics and clamped axes are elliptical 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: progress, indeterminate progress, meter, status, controls and existing dialog metadata survive both spellings and headless commands
+AssertionError: expected undefined to deeply equal [ { id: 'progress', …(9) }, …(5) ]
+
+- Expected:
+[
+  {
+    "actions": [],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "id": "progress",
+    "label": "Loading",
+    "max": 80,
+    "min": 0,
+    "role": "progressbar",
+    "states": {},
+    "value": 40,
+  },
+  {
+    "actions": [],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "id": "pending",
+    "label": "Waiting",
+    "max": 100,
+    "min": 0,
+    "role": "progressbar",
+    "states": {},
+  },
+  {
+    "actions": [],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "id": "meter",
+    "label": "Capacity",
+    "max": 80,
+    "min": 0,
+    "role": "meter",
+    "states": {},
+    "value": 40,
+  },
+  {
+    "actions": [],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "id": "status",
+    "label": "Ready",
+    "role": "status",
+    "states": {
+      "live": "polite",
+    },
+  },
+  {
+    "actions": [
+      "focus",
+    ],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "controls": "panel",
+    "id": "opener",
+    "label": "Details",
+    "role": "button",
+    "states": {
+      "expanded": true,
+      "focused": false,
+    },
+  },
+  {
+    "actions": [],
+    "bounds": [
+      0,
+      0,
+      0,
+      0,
+    ],
+    "children": [],
+    "id": "panel",
+    "label": "Details",
+    "role": "dialog",
+    "states": {
+      "modal": false,
+    },
+  },
+]
+
++ Received:
+undefined
+
+ ❯ modules/a11y/test/core/bf4.test.ts:47:59
+     45|     ]);
+     46|     expect(p.semantics()[1]).not.toHaveProperty('value');
+     47|     expect(runScript(r.model!, 'semantics').snapshots[0]).toEqual(p.se…
+       |                                                           ^
+     48|   }
+     49|   expect(JSON.stringify(jsonSchema())).toContain('progressbar');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| modules/paint/test/core/paint-geometry.test.ts > B14: 40px pill corners are circular cubics and clamped axes are elliptical
+AssertionError: expected '<svg xmlns="http://www.w3.org/2000/sv…' to contain 'M0 20C0 8.9543 8.9543 0 20 0'
+
+Expected: "M0 20C0 8.9543 8.9543 0 20 0"
+Received: "<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline"><path d="M0 20C0 8.95431 8.95431 0 20 0L20 0C31.04569 0 40 8.95431 40 20L40 20C40 31.04569 31.04569 40 20 40L20 40C8.95431 40 0 31.04569 0 20Z" fill="#000"/></g></svg>"
+
+ ❯ modules/paint/test/core/paint-geometry.test.ts:153:17
+    151|     const k = (4 * (Math.sqrt(2) - 1)) / 3;
+    152|     const f = (n: number) => String(Number(n.toFixed(4)));
+    153|     expect(svg).toContain(`M0 ${b}C0 ${f(b * (1 - k))} ${f(a * (1 - k)…
+       |                 ^
+    154|     expect(svg).not.toContain('Q');
+    155|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 41 passed (43)
+   Start at  18:26:45
+   Duration  1.32s (transform 45%, import 40%, tests 14%, worker 1%)
+

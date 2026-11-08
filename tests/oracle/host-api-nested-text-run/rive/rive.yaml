@@ -1,0 +1,3 @@
+name: oracle-text-sizing-fixed
+logs:
+  file: build/runtime.log

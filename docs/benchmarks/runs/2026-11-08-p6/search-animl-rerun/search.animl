@@ -1,0 +1,109 @@
+<anima version="0.1" name="search-card" grid="40" viewBox="0 0 40 30" requires="text texteffects textinput a11y focus data bind derive convert">
+  <model name="Search">
+    <string name="query"/>
+    <string name="label0" default="Notifications"/>
+    <string name="label1" default="Network and connectivity preferences"/>
+    <string name="label2" default="Sound"/>
+    <string name="label3" default="Display brightness and colour"/>
+    <string name="label4" default="Privacy"/>
+    <bool name="shown0" value="contains(lower($label0), lower($query))"/>
+    <bool name="shown1" value="contains(lower($label1), lower($query))"/>
+    <bool name="shown2" value="contains(lower($label2), lower($query))"/>
+    <bool name="shown3" value="contains(lower($label3), lower($query))"/>
+    <bool name="shown4" value="contains(lower($label4), lower($query))"/>
+    <number name="count" value="$shown0 + $shown1 + $shown2 + $shown3 + $shown4"/>
+    <string name="summary" value="$count" convert="results"/>
+  </model>
+  <instance name="main" model="Search" default="true" export="true"/>
+  <converter name="results" type="template" text="{0} results"/>
+  <text-style id="body" font="sans-serif" size="1.8" line-height="1" fill="#141413"/>
+  <text-style id="heading" font="sans-serif" size="2.5" line-height="1" fill="#141413"/>
+  <rect id="panel" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+  <text id="title" x="2" y="2">
+    <run text="Find a setting" style="heading"/>
+    <text-effect start="0" end="1" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="1" end="2" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="2" end="3" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="3" end="4" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="4" end="5" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="5" end="6" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="6" end="7" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="7" end="8" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="8" end="9" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="9" end="10" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="10" end="11" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="11" end="12" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="12" end="13" units="glyphs" y="1" opacity="0"/>
+    <text-effect start="13" end="14" units="glyphs" y="1" opacity="0"/>
+  </text>
+  <rect id="field-box" x0="2" y0="6" width="36" height="4" rx="0.7" fill="#f0eee6" stroke="#141413" stroke-width="0.12"/>
+  <rect id="accent" x0="3" y0="9.5" width="34" height="0.08" fill="#d97757"/>
+  <text id="search" x="2.7" y="7" width="34.6" height="2" sizing="fixed" wrap="false">
+    <style id="field" font="sans-serif" size="1.8" line-height="1" fill="#141413"/>
+    <run text="" style="field"/>
+    <text-input placeholder="Search" label="Search" write-text="$query" caret-color="#d97757"/>
+  </text>
+  <bind target="search.opacity" value="0.5 + 0.5 * ($query != &quot;&quot;)"/>
+  <text id="row0" x="2" y="12" width="14" height="2.5" sizing="fixed" wrap="false" overflow="ellipsis">
+    <run text="$label0" style="body"/>
+    <a11y role="text" label="$label0"/>
+  </text>
+  <bind target="row0.visible" value="$shown0"/>
+  <text id="row1" x="2" y="15" width="14" height="2.5" sizing="fixed" wrap="false" overflow="ellipsis">
+    <run text="$label1" style="body"/>
+    <a11y role="text" label="$label1"/>
+  </text>
+  <bind target="row1.visible" value="$shown1"/>
+  <text id="row2" x="2" y="18" width="14" height="2.5" sizing="fixed" wrap="false" overflow="ellipsis">
+    <run text="$label2" style="body"/>
+    <a11y role="text" label="$label2"/>
+  </text>
+  <bind target="row2.visible" value="$shown2"/>
+  <text id="row3" x="2" y="21" width="14" height="2.5" sizing="fixed" wrap="false" overflow="ellipsis">
+    <run text="$label3" style="body"/>
+    <a11y role="text" label="$label3"/>
+  </text>
+  <bind target="row3.visible" value="$shown3"/>
+  <text id="row4" x="2" y="24" width="14" height="2.5" sizing="fixed" wrap="false" overflow="ellipsis">
+    <run text="$label4" style="body"/>
+    <a11y role="text" label="$label4"/>
+  </text>
+  <bind target="row4.visible" value="$shown4"/>
+  <text id="total" x="2" y="27">
+    <run text="$summary" style="body"/>
+    <a11y role="text" label="$summary"/>
+  </text>
+  <timeline name="wave" duration="1.1" reducedMotion="end">
+    <track target="title.effects.0.y">0 1; 0.35 0</track>
+    <track target="title.effects.0.opacity">0 0; 0.35 1</track>
+    <track target="title.effects.1.y">0 1; 0.05 1 out; 0.40 0</track>
+    <track target="title.effects.1.opacity">0 0; 0.05 0 out; 0.40 1</track>
+    <track target="title.effects.2.y">0 1; 0.10 1 out; 0.45 0</track>
+    <track target="title.effects.2.opacity">0 0; 0.10 0 out; 0.45 1</track>
+    <track target="title.effects.3.y">0 1; 0.15 1 out; 0.50 0</track>
+    <track target="title.effects.3.opacity">0 0; 0.15 0 out; 0.50 1</track>
+    <track target="title.effects.4.y">0 1; 0.20 1 out; 0.55 0</track>
+    <track target="title.effects.4.opacity">0 0; 0.20 0 out; 0.55 1</track>
+    <track target="title.effects.5.y">0 1; 0.25 1 out; 0.60 0</track>
+    <track target="title.effects.5.opacity">0 0; 0.25 0 out; 0.60 1</track>
+    <track target="title.effects.6.y">0 1; 0.30 1 out; 0.65 0</track>
+    <track target="title.effects.6.opacity">0 0; 0.30 0 out; 0.65 1</track>
+    <track target="title.effects.7.y">0 1; 0.35 1 out; 0.70 0</track>
+    <track target="title.effects.7.opacity">0 0; 0.35 0 out; 0.70 1</track>
+    <track target="title.effects.8.y">0 1; 0.40 1 out; 0.75 0</track>
+    <track target="title.effects.8.opacity">0 0; 0.40 0 out; 0.75 1</track>
+    <track target="title.effects.9.y">0 1; 0.45 1 out; 0.80 0</track>
+    <track target="title.effects.9.opacity">0 0; 0.45 0 out; 0.80 1</track>
+    <track target="title.effects.10.y">0 1; 0.50 1 out; 0.85 0</track>
+    <track target="title.effects.10.opacity">0 0; 0.50 0 out; 0.85 1</track>
+    <track target="title.effects.11.y">0 1; 0.55 1 out; 0.90 0</track>
+    <track target="title.effects.11.opacity">0 0; 0.55 0 out; 0.90 1</track>
+    <track target="title.effects.12.y">0 1; 0.60 1 out; 0.95 0</track>
+    <track target="title.effects.12.opacity">0 0; 0.60 0 out; 0.95 1</track>
+    <track target="title.effects.13.y">0 1; 0.65 1 out; 1.00 0</track>
+    <track target="title.effects.13.opacity">0 0; 0.65 0 out; 1.00 1</track>
+  </timeline>
+  <layer name="load" initial="enter">
+    <state name="enter" play="wave"/>
+  </layer>
+</anima>

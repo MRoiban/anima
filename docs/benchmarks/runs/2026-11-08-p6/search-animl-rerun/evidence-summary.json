@@ -1,0 +1,941 @@
+{
+  "snapshots": [
+    {
+      "query": "",
+      "count": 5,
+      "rows": [
+        "Notifications",
+        "Network and connectivity preferences",
+        "Sound",
+        "Display brightness and colour",
+        "Privacy"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": false
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row0",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            12,
+            12.96,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Notifications"
+        },
+        {
+          "id": "row1",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            15,
+            12.960000000000003,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Network and connectivity preferences"
+        },
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Sound"
+        },
+        {
+          "id": "row3",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            21,
+            13.500000000000002,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Display brightness and colour"
+        },
+        {
+          "id": "row4",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            24,
+            7.5600000000000005,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Privacy"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "5 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": false
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "o",
+      "count": 4,
+      "rows": [
+        "Notifications",
+        "Network and connectivity preferences",
+        "Sound",
+        "Display brightness and colour"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "o",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row0",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            12,
+            12.96,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Notifications"
+        },
+        {
+          "id": "row1",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            15,
+            12.960000000000003,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Network and connectivity preferences"
+        },
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Sound"
+        },
+        {
+          "id": "row3",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            21,
+            13.500000000000002,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Display brightness and colour"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "4 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "o",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "so",
+      "count": 1,
+      "rows": [
+        "Sound"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "so",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Sound"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "1 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "so",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "",
+      "count": 5,
+      "rows": [
+        "Notifications",
+        "Network and connectivity preferences",
+        "Sound",
+        "Display brightness and colour",
+        "Privacy"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row0",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            12,
+            12.96,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Notifications"
+        },
+        {
+          "id": "row1",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            15,
+            12.960000000000003,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Network and connectivity preferences"
+        },
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Sound"
+        },
+        {
+          "id": "row3",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            21,
+            13.500000000000002,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Display brightness and colour"
+        },
+        {
+          "id": "row4",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            24,
+            7.5600000000000005,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Privacy"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "5 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "",
+      "count": 5,
+      "rows": [
+        "Notifications",
+        "Network and connectivity preferences",
+        "Audio",
+        "Display brightness and colour",
+        "Privacy"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row0",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            12,
+            12.96,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Notifications"
+        },
+        {
+          "id": "row1",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            15,
+            12.960000000000003,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Network and connectivity preferences"
+        },
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Audio"
+        },
+        {
+          "id": "row3",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            21,
+            13.500000000000002,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Display brightness and colour"
+        },
+        {
+          "id": "row4",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            24,
+            7.5600000000000005,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Privacy"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "5 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "SO",
+      "count": 0,
+      "rows": [],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "SO",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "0 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "SO",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "AU",
+      "count": 1,
+      "rows": [
+        "Audio"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "AU",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Audio"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "1 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "AU",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "query": "",
+      "count": 5,
+      "rows": [
+        "Notifications",
+        "Network and connectivity preferences",
+        "Audio",
+        "Display brightness and colour",
+        "Privacy"
+      ],
+      "field": {
+        "id": "search",
+        "role": "text-field",
+        "label": "Search",
+        "value": "",
+        "states": {
+          "readonly": false,
+          "multiline": false,
+          "obscured": false,
+          "focused": true
+        },
+        "bounds": [
+          2.7,
+          7,
+          34.6,
+          2
+        ],
+        "actions": [
+          "focus"
+        ],
+        "children": []
+      },
+      "tree": [
+        {
+          "id": "row0",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            12,
+            12.96,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Notifications"
+        },
+        {
+          "id": "row1",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            15,
+            12.960000000000003,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Network and connectivity preferences"
+        },
+        {
+          "id": "row2",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            18,
+            5.4,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Audio"
+        },
+        {
+          "id": "row3",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            21,
+            13.500000000000002,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Display brightness and colour"
+        },
+        {
+          "id": "row4",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            24,
+            7.5600000000000005,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "Privacy"
+        },
+        {
+          "id": "total",
+          "role": "text",
+          "states": {},
+          "bounds": [
+            2,
+            27,
+            9.180000000000001,
+            1.8000000000000007
+          ],
+          "actions": [],
+          "children": [],
+          "label": "5 results"
+        },
+        {
+          "id": "search",
+          "role": "text-field",
+          "label": "Search",
+          "value": "",
+          "states": {
+            "readonly": false,
+            "multiline": false,
+            "obscured": false,
+            "focused": true
+          },
+          "bounds": [
+            2.7,
+            7,
+            34.6,
+            2
+          ],
+          "actions": [
+            "focus"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ],
+  "drawnText": {
+    "text.svg": [
+      "Search",
+      "Notificatio…",
+      "Network and …",
+      "Sound",
+      "Display brig…",
+      "Privacy",
+      "5 results"
+    ],
+    "renamed.svg": [
+      "Search",
+      "Notificatio…",
+      "Network and …",
+      "Audio",
+      "Display brig…",
+      "Privacy",
+      "5 results"
+    ]
+  }
+}

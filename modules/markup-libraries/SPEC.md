@@ -43,3 +43,14 @@ The lexical expansion choice follows [graph research](../../docs/research/rive-f
 §6. Native library probes require account-touching library commands banned by the project.
 Each library oracle therefore records an evidenced skip linked to DESIGN §3; no native
 equivalence is claimed.
+
+## Stable component lookup
+
+Imported components keep their original key when unique; otherwise their key is the full
+`as` alias chain plus `:` plus the original name. Local exact keys win. `meta.componentNames`
+retains qualified aliases for all compiled library components while preserving other metadata.
+AniML component references, web/CLI root selectors, the exported core `componentNames(doc, name)`
+lookup and host component property writes accept a unique original, qualified alias or existing
+key. Ambiguous originals (including legacy generated suffix lookups after a rebuild) report
+`ambiguous-component` with qualified alternatives in verbose hints. Existing generated `.ani`
+keys remain valid. Import order and unrelated resources do not affect the stable component key.

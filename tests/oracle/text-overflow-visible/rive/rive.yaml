@@ -1,0 +1,3 @@
+name: oracle-text-overflow-visible
+logs:
+  file: build/runtime.log

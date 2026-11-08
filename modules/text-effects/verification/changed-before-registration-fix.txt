@@ -1,0 +1,411 @@
+
+> test:scope
+> node tools/test-scope.ts changed
+
+Scopes: core, markup, web, cli, playground, tools, a11y-dom, a11y, assetio, canvas, components, convert, data, derive, focus, fonts, host-edit, host, input, markup-libraries, nested, paint, text, assets, markup-text, text-host, conformance, oracle, text-effects, markup-text-effects
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/invalid-source.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/composite/test/core/paint-composite.test.ts
+  unit: modules/contour/test/core/contour.test.ts
+  unit: modules/contour/test/core/effects.test.ts
+  unit: modules/contour/test/core/path-evidence.test.ts
+  unit: modules/contour/test/core/raster-evidence.test.ts
+  unit: modules/contour/test/core/winding.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/color-pattern.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/data-converter-color-formatting.test.ts
+  unit: modules/convert/test/core/data-converter-trigger.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/core/p5b-oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/derive/test/core/settled-guard.test.ts
+  unit: modules/devtools/test/core/policy.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/machine/test/core/diagnostics.test.ts
+  unit: modules/machine/test/core/p5b-oracle.test.ts
+  unit: modules/machine/test/core/runtime.test.ts
+  unit: modules/machine/test/core/state-machine-any-state.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-input.test.ts
+  unit: modules/machine/test/core/state-machine-blend-additive.test.ts
+  unit: modules/machine/test/core/state-machine-blend-direct.test.ts
+  unit: modules/machine/test/core/state-machine-blend-exit-clock.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-constant.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-input.test.ts
+  unit: modules/machine/test/core/state-machine-condition-artboard.test.ts
+  unit: modules/machine/test/core/state-machine-condition-component.test.ts
+  unit: modules/machine/test/core/state-machine-condition-data.test.ts
+  unit: modules/machine/test/core/state-machine-condition-focus.test.ts
+  unit: modules/machine/test/core/state-machine-continue-on-exit.test.ts
+  unit: modules/machine/test/core/state-machine-entry-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-time-relative.test.ts
+  unit: modules/machine/test/core/state-machine-literal-asset.test.ts
+  unit: modules/machine/test/core/state-machine-literal-boolean.test.ts
+  unit: modules/machine/test/core/state-machine-literal-color.test.ts
+  unit: modules/machine/test/core/state-machine-literal-enum.test.ts
+  unit: modules/machine/test/core/state-machine-literal-string.test.ts
+  unit: modules/machine/test/core/state-machine-literal-trigger.test.ts
+  unit: modules/machine/test/core/state-machine-state-entry-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-exit-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-random.test.ts
+  unit: modules/machine/test/core/state-machine-state-reset.test.ts
+  unit: modules/machine/test/core/state-machine-transition-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-disabled.test.ts
+  unit: modules/machine/test/core/state-machine-transition-duration-relative.test.ts
+  unit: modules/machine/test/core/state-machine-transition-end-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-random-weight.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/mix/test/core/mix.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/motion/test/core/animation-cubic-value.test.ts
+  unit: modules/motion/test/core/animation-elastic-in-out.test.ts
+  unit: modules/motion/test/core/animation-elastic-in.test.ts
+  unit: modules/motion/test/core/animation-host-loop-override.test.ts
+  unit: modules/motion/test/core/animation-host-play-pause-stop.test.ts
+  unit: modules/motion/test/core/animation-keys-reference.test.ts
+  unit: modules/motion/test/core/animation-keys-signed-integer.test.ts
+  unit: modules/motion/test/core/animation-keys-string.test.ts
+  unit: modules/motion/test/core/animation-keys-unsigned-integer.test.ts
+  unit: modules/motion/test/core/animation-mix-discrete.test.ts
+  unit: modules/motion/test/core/animation-mix-numeric.test.ts
+  unit: modules/motion/test/core/animation-quantized-playback.test.ts
+  unit: modules/motion/test/core/animation-reverse.test.ts
+  unit: modules/motion/test/core/animation-seek.test.ts
+  unit: modules/motion/test/core/animation-work-area.test.ts
+  unit: modules/motion/test/core/boundaries.test.ts
+  unit: modules/motion/test/core/control.test.ts
+  unit: modules/motion/test/core/data-bind-keyframes.test.ts
+  unit: modules/motion/test/core/data-keys-oracle.test.ts
+  unit: modules/motion/test/core/diagnostics.test.ts
+  unit: modules/motion/test/core/host-api-animation-metadata.test.ts
+  unit: modules/motion/test/core/host-api-low-level-animation.test.ts
+  unit: modules/motion/test/core/host-api-low-level-scene-query.test.ts
+  unit: modules/motion/test/core/host-api-multi-state-machine.test.ts
+  unit: modules/motion/test/core/host-api-scrub.test.ts
+  unit: modules/motion/test/core/reduced-live.test.ts
+  unit: modules/motion/test/core/runtime.test.ts
+  unit: modules/motion/test/core/state-machine-exit-time-seconds.test.ts
+  unit: modules/motion/test/core/transforms-origin-animation.test.ts
+  unit: modules/motion/test/core/typed-oracle.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/core/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/core/test/bell-parity.test.ts
+  unit: packages/core/test/draw.test.ts
+  unit: packages/core/test/examples.test.ts
+  unit: packages/core/test/feature-hints.test.ts
+  unit: packages/core/test/inspect.test.ts
+  unit: packages/core/test/invalid.test.ts
+  unit: packages/core/test/module-order.test.ts
+  unit: packages/core/test/modules.test.ts
+  unit: packages/core/test/path.test.ts
+  unit: packages/core/test/player.test.ts
+  unit: packages/core/test/smoke.test.ts
+  unit: packages/core/test/svg-compat.test.ts
+  unit: packages/core/test/time.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: packages/playground/test/pure.test.ts
+  unit: packages/playground/test/server.test.ts
+  unit: tools/browser-cache.test.ts
+  unit: tools/modules.test.ts
+  unit: tools/new-capability.test.ts
+  unit: tools/oracle.test.ts
+  unit: tools/parity.test.ts
+  unit: tools/test-scope.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/playground/test/browser.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fbf935b6
+
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed) 102994ms
+   ❯ overlay Firefox (22)
+     × attaches after separately bundled focus/actions and an already loaded model 8126ms
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (22 tests | 1 failed) 36050ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5057ms
+ ❯ |scope-unit| tools/new-capability.test.ts (4 tests | 2 failed) 74511ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 64724ms
+   × rejects invalid requests without writes and notes unsupported oracle counterparts 5824ms
+ ❯ |scope-unit| packages/cli/test/authoring.test.ts (58 tests | 1 failed) 108289ms
+   ❯ authoring guide executable examples (37)
+     × exposes the forgotten pivot through inspect and rendered geometry 5803ms
+ ❯ |scope-unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 1406ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 1402ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:38:1
+     36| }
+     37|
+     38| it('plans without writing, is idempotent, and generates a registered, …
+       | ^
+     39|   const root = scratch();
+     40|   // A row that stays planned until P8 (it was tooling.seed until P3b …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |scope-unit| tools/new-capability.test.ts > rejects invalid requests without writes and notes unsupported oracle counterparts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:154:1
+    152| }, 60000);
+    153|
+    154| it('rejects invalid requests without writes and notes unsupported orac…
+       | ^
+    155|   const root = scratch();
+    156|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |scope-unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node /home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/test/helpers/module-order.ts text-effects,text,componentpaint,mix,surface,nested,a11y-actions,a11y,lists,fonts,host-edit,data-host,host,host-values,derive,convert,data,contour,composite,machine,events,motion,media,input,focus,bind,components,paint,assets
+file:///home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/src/registry.ts:188
+      ...Object.keys(OWN[type]).filter((k) => OWN[type][k] .def === undefined),
+                ^
+
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at nodeShape (file:///home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/src/registry.ts:188:17)
+    at applyEntry (file:///home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/src/modules.ts:202:23)
+    at registerModule (file:///home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/src/modules.ts:151:37)
+    at file:///home/jarvis/.t3/worktrees/anima/t3-fbf935b6/packages/core/test/helpers/module-order.ts:10:3
+
+Node.js v24.22.0
+
+ ❯ nodeShape packages/core/src/registry.ts:188:17
+    186|       'id',
+    187|       'type',
+    188|       ...Object.keys(OWN[type]).filter((k) => OWN[type][k]!.def === un…
+       |                 ^
+    189|     ];
+    190|     if (type === 'circle' || type === 'arc') req.push('center');
+ ❯ applyEntry packages/core/src/modules.ts:202:23
+ ❯ registerModule packages/core/src/modules.ts:151:37
+ ❯ packages/core/test/helpers/module-order.ts:10:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  5 failed | 270 passed | 13 skipped (288)
+      Tests  6 failed | 8767 passed | 102 todo (8875)
+   Start at  21:48:02
+   Duration  1193.85s (tests 89%, import 10%, transform 1%)

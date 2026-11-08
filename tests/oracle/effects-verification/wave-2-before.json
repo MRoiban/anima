@@ -1,0 +1,135 @@
+{
+  "note": "Raw comparisons only. Native baseline/pivot and range semantics differ; no accepted tolerance, pass promotion or finding override. Thirteen independently authored generated-font reference captures.",
+  "cases": [
+    {
+      "name": "text-modifier-translation",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 183,
+      "overPercent": 0.3177083333333333,
+      "nativeInkPixels": 173
+    },
+    {
+      "name": "text-modifier-rotation",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 256,
+      "overPercent": 0.4444444444444444,
+      "nativeInkPixels": 174
+    },
+    {
+      "name": "text-modifier-scale",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 284,
+      "overPercent": 0.4930555555555555,
+      "nativeInkPixels": 330
+    },
+    {
+      "name": "text-modifier-opacity",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 64,
+      "over": 102,
+      "overPercent": 0.17708333333333331,
+      "nativeInkPixels": 173
+    },
+    {
+      "name": "text-modifier-origin",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 160,
+      "overPercent": 0.2777777777777778,
+      "nativeInkPixels": 160
+    },
+    {
+      "name": "text-modifier-variation",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 195,
+      "overPercent": 0.3385416666666667,
+      "nativeInkPixels": 193
+    },
+    {
+      "name": "text-modifier-follow-path",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 177,
+      "overPercent": 0.30729166666666663,
+      "nativeInkPixels": 150
+    },
+    {
+      "name": "text-range-units",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 96,
+      "overPercent": 0.16666666666666669,
+      "nativeInkPixels": 90
+    },
+    {
+      "name": "text-range-falloff",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 164,
+      "overPercent": 0.2847222222222222,
+      "nativeInkPixels": 173
+    },
+    {
+      "name": "text-range-combine",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 132,
+      "overPercent": 0.22916666666666666,
+      "nativeInkPixels": 125
+    },
+    {
+      "name": "text-range-run",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 138,
+      "overPercent": 0.23958333333333331,
+      "nativeInkPixels": 132
+    },
+    {
+      "name": "text-background",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 227,
+      "overPercent": 0.39409722222222227,
+      "nativeInkPixels": 299
+    },
+    {
+      "name": "text-range-easing",
+      "code": 0,
+      "errors": [],
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 170,
+      "overPercent": 0.2951388888888889,
+      "nativeInkPixels": 173
+    }
+  ]
+}

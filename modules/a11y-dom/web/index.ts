@@ -4,6 +4,7 @@ import type {} from '../../canvas/web/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 const trees = new WeakMap<AnimaIcon, SemanticNode[]>();
+const roots = new WeakMap<AnimaIcon, () => void>();
 const attached = new WeakMap<AnimaIcon, () => void>();
 const roles: Record<string, string> = {
   'radio-group': 'radiogroup',
@@ -21,6 +22,7 @@ Icon.prototype.semanticAction = function (id, action) {
   if (changed) {
     this.player!.step(0);
     this.invalidate();
+    if (!this.hasAttribute('paused')) this.play();
   }
   return changed;
 };
@@ -39,9 +41,10 @@ function attach(icon: AnimaIcon) {
   const box = document.createElement('span');
   box.style.cssText = 'position:absolute;inset:0;pointer-events:none;transform-origin:0 0';
   let transform = '';
-  icon.shadowRoot!.append(box);
-  for (const event of ['keydown', 'keyup', 'pointerdown', 'pointerup', 'pointermove'])
-    box.addEventListener(event, (e) => e.stopPropagation());
+  const style = document.createElement('style');
+  style.textContent =
+    'input{appearance:none;background:none}input::-webkit-slider-thumb{appearance:none;width:0;height:0}input::-moz-range-thumb,input::-moz-range-track{width:0;height:0;border:0;background:none}';
+  icon.shadowRoot!.append(style, box);
   const layout = () => {
     const c = Icon.canvasBox?.(icon, [0, 0, 1, 1]);
     const m = c
@@ -82,7 +85,7 @@ function attach(icon: AnimaIcon) {
           const tag =
             n.role === 'heading'
               ? 'h' + (n.level ?? 1)
-              : ['button', 'switch'].includes(n.role)
+              : ['button', 'switch', 'tab'].includes(n.role)
                 ? 'button'
                 : ['checkbox', 'radio', 'slider'].includes(n.role)
                   ? 'input'
@@ -95,12 +98,17 @@ function attach(icon: AnimaIcon) {
             old?.replaceWith(el);
             targets.set(n.id, el);
             el.dataset.semantic = n.id;
+            el.id = 'semantic-' + n.id;
             el.addEventListener('focus', () => icon.semanticAction(n.id, 'focus'));
             el.addEventListener(
               n.role === 'slider' ? 'input' : n.role === 'radio' ? 'change' : 'click',
               (event) => {
-                if (tag !== 'input' && !current.get(n.id)?.actions.includes('tap')) return;
-                event.stopPropagation();
+                if (
+                  Icon.inputEvents.has(event) ||
+                  (tag !== 'input' && !current.get(n.id)?.actions.includes('tap'))
+                )
+                  return;
+                Icon.inputEvents.add(event);
                 if (n.role === 'slider') {
                   const target = +(event.target as HTMLInputElement).value;
                   let value = Number(current.get(n.id)?.value);
@@ -131,6 +139,11 @@ function attach(icon: AnimaIcon) {
           for (const [key, value] of Object.entries({
             label: n.label,
             description: n.hint,
+            controls: n.controls === undefined ? undefined : 'semantic-' + n.controls,
+            valuemin: n.min,
+            valuemax: n.max,
+            valuenow: n.value === undefined || typeof n.value !== 'number' ? undefined : n.value,
+            valuetext: n.valueText,
             ...n.states,
           })) {
             if (key === 'focused') continue;
@@ -159,8 +172,6 @@ function attach(icon: AnimaIcon) {
             input.indeterminate = n.states.checked === 'mixed';
             for (const key of ['min', 'max', 'step'] as const) input[key] = String(n[key] ?? '');
             if (typeof n.value === 'number') input.value = String(n.value);
-            if (n.valueText !== undefined) el.setAttribute('aria-valuetext', n.valueText);
-            else el.removeAttribute('aria-valuetext');
           }
           if (tag === 'a') (el as HTMLAnchorElement).href = n.href ?? '';
           input.disabled = !!n.states.disabled;
@@ -172,16 +183,20 @@ function attach(icon: AnimaIcon) {
                 ? 0
                 : -1;
           const [x, y, w, h] = n.bounds;
-          el.style.cssText = `position:absolute;opacity:0;pointer-events:auto;margin:0;padding:0;border:0;left:${x - origin[0]!}px;top:${y - origin[1]!}px;width:${w}px;height:${h}px`;
+          el.style.cssText = `position:absolute;opacity:0;pointer-events:none;margin:0;padding:0;border:0;left:${x - origin[0]!}px;top:${y - origin[1]!}px;width:${w}px;height:${h}px`;
         }
         if (!el) continue;
         if (parent.children[i] !== el) parent.insertBefore(el, parent.children[i] ?? null);
         walk(n.children, el, n.bounds, n.role === 'radio-group' ? n.id : group, moved.has(n.id));
-        if (n.role === 'tab-list') {
-          const tabs = ([...el.children] as HTMLElement[]).filter((t) => t.ariaDisabled !== 'true');
+        if (['tab-list', 'radio-group'].includes(n.role)) {
+          const radio = n.role === 'radio-group';
+          const tabs = ([...el.children] as HTMLElement[]).filter(
+            (t) =>
+              t.getAttribute('role') === (radio ? 'radio' : 'tab') && t.ariaDisabled !== 'true',
+          );
           const active =
             tabs.find((t) => t === icon.shadowRoot!.activeElement) ??
-            tabs.find((t) => t.getAttribute('aria-selected') === 'true') ??
+            tabs.find((t) => t.getAttribute(radio ? 'aria-checked' : 'aria-selected') === 'true') ??
             tabs[0];
           for (const t of tabs) {
             const index = t === active ? 0 : -1;
@@ -192,7 +207,6 @@ function attach(icon: AnimaIcon) {
             if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(key))
               return;
             event.preventDefault();
-            event.stopPropagation();
             const order = p.focusItems?.().map((n) => n.id);
             const enabled = tabs
               .filter((t) => t.getAttribute('aria-disabled') !== 'true')
@@ -208,9 +222,9 @@ function attach(icon: AnimaIcon) {
                   ? enabled.at(-1)
                   : enabled[(at + (reverse ? -1 : 1) + enabled.length) % enabled.length];
             if (target) {
-              if (p.focusTraverse && key.startsWith('Arrow'))
-                p.focusTraverse(reverse ? 'previous' : 'next');
               target.focus();
+              if (radio && target.getAttribute('aria-checked') !== 'true')
+                icon.semanticAction(target.dataset.semantic!, 'tap');
               update();
             }
           };
@@ -236,6 +250,12 @@ function attach(icon: AnimaIcon) {
     if (diff.added.length || diff.removed.length || diff.changed.length)
       icon.dispatchEvent(new CustomEvent('anima:semantics', { detail: diff }));
   };
+  roots.set(icon, () => {
+    if (!box.isConnected) {
+      icon.shadowRoot!.append(style, box);
+      update();
+    }
+  });
   const step = p.step;
   p.step = function (...args) {
     const result = step.apply(this, args);
@@ -256,7 +276,9 @@ function attach(icon: AnimaIcon) {
     resize.disconnect();
     p.step = step;
     box.remove();
+    style.remove();
     trees.delete(icon);
+    roots.delete(icon);
     attached.delete(icon);
   });
 }
@@ -282,3 +304,9 @@ declare module '../../../packages/web/src/index.ts' {
     let semanticElement: (icon: AnimaIcon, id: string) => HTMLElement | null | undefined;
   }
 }
+
+const previousEvent = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  previousEvent?.(icon, kind, detail);
+  if (kind === 'draw') roots.get(icon)?.();
+};

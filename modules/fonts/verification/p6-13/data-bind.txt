@@ -1,0 +1,1 @@
+PASS: data-bound local axis resolves wght650 then wght900 in the write step; no diagnostics.

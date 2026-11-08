@@ -10,7 +10,6 @@ import {
   VERBOSE,
   formatAni,
   load,
-  parseEase,
   parseHex,
   suggest,
   ptr,
@@ -19,7 +18,9 @@ import {
 } from '@anima-format/core';
 import { libraryCompiler, location } from './library-hooks.ts';
 import {
+  animationCompiler,
   moduleCompiler,
+  textCompiler,
   componentCompiler,
   bindCompiler,
   motionCompiler,
@@ -31,12 +32,13 @@ import { elementFields, compoundField } from './fields.ts';
 import { componentMarkup } from './components.ts';
 
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
-import { aniAddress, nodeAttrs, type NodeAttr } from './names.ts';
+import { aniAddress, nodeFields, type NodeField } from './names.ts';
 import { parseXml, type Attr, type Element, type Pos, type XmlDocument } from './xml.ts';
 
 type Json = Record<string, unknown>;
 export type Kind =
   | 'json'
+  | 'mixed'
   | 'string'
   | 'name'
   | 'number'
@@ -125,6 +127,18 @@ const FORMS: Record<string, Form> = {
 };
 if (VERBOSE)
   FORMS.component = componentMarkup.componentForm({ name: 'component' } as Element, FORMS.anima!)!;
+// Root maps share one spelling table instead of parallel dispatch lists.
+const NAMED: Record<string, string> = {
+  color: 'colors',
+  glyph: 'glyphs',
+  asset: 'assets',
+  component: 'components',
+  bool: 'inputs',
+  number: 'inputs',
+  trigger: 'inputs',
+  timeline: 'timelines',
+  layer: 'layers',
+};
 const IS_NUMBER = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/;
 
 const object = (x: unknown): x is Json => typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -145,17 +159,17 @@ export class Compiler {
     if (!fields) this.fieldCache.set(name, (fields = elementFields(name)));
     return fields;
   }
-  private readonly attributes = new Map<NodeType, NodeAttr[]>();
-  nodeAttrs = (type: NodeType): NodeAttr[] => {
+  private readonly attributes = new Map<NodeType, NodeField[]>();
+  nodeAttrs = (type: NodeType): NodeField[] => {
     let attrs = this.attributes.get(type);
-    if (!attrs) this.attributes.set(type, (attrs = nodeAttrs(type)));
+    if (!attrs) this.attributes.set(type, (attrs = nodeFields(type)));
     return attrs;
   };
   eases = new Map<string, Attr>();
   resolved = new Map<string, string>();
-  private readonly resolving = new Set<string>();
+  readonly resolving = new Set<string>();
   private readonly finalEases: { key: unknown[]; pointer: string }[] = [];
-  private xml: XmlDocument | undefined;
+  xml: XmlDocument | undefined;
   private opts: CompileOptions;
 
   constructor(opts: CompileOptions) {
@@ -173,6 +187,19 @@ export class Compiler {
       column: at.col,
       file: at.file ?? this.opts.file,
       ...(at.related ? { related: [location(at.related)] } : {}),
+    });
+  }
+  unavailable(feature: string, entry: string, p: string, at: Pos): void {
+    const hint = `load @anima-format/web/${entry} or run anima build`;
+    this.diagnostics.push({
+      code: `markup-${feature}-unavailable`,
+      severity: 'error',
+      pointer: p,
+      message: hint,
+      hint,
+      file: at.file ?? this.opts.file,
+      line: at.line,
+      column: at.col,
     });
   }
   get failed(): boolean {
@@ -258,12 +285,12 @@ export class Compiler {
       }
       base = { ...base, attrs };
     }
-    const form = motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
-    const extended = eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
-    const converted = convertCompiler.form?.(el, extended ?? { attrs: {} }) ?? extended;
-    return dataCompiler.form?.(el, converted ?? { attrs: {} }) ?? converted;
+    for (const hooks of [motionCompiler, eventsCompiler, convertCompiler, dataCompiler])
+      base = hooks.form?.(el, base ?? { attrs: {} }) ?? base;
+    return base;
   }
   private kind(s: Shape): Kind {
+    if (s.k === 'alt' && s.of.some((s) => s.k === 'str')) return 'mixed';
     if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
     if (s.k === 'num') return 'number';
     if (s.k === 'bool') return 'boolean';
@@ -306,7 +333,12 @@ export class Compiler {
   }
   children(el: Element, p: string): Element[] {
     const out: Element[] = [];
-    const allowed = this.form(el).children ?? [];
+    const allowed = [
+      ...(this.form(el).children ?? []),
+      ...(el.name === 'anima'
+        ? Object.keys(this.elements).filter((k) => this.elements[k]!.root)
+        : []),
+    ];
     for (const c of el.children) {
       if (c.kind === 'text' && c.value.trim() && !['track', 'meta'].includes(el.name))
         this.error(
@@ -325,21 +357,17 @@ export class Compiler {
             ? 'components'
             : c.name === 'bind' && !bindCompiler.build
               ? 'bind'
-              : !moduleCompiler.node && ELEMENTS[c.name]?.target
+              : !moduleCompiler.node &&
+                  ELEMENTS[c.name]?.target &&
+                  !(
+                    textCompiler.node &&
+                    (ELEMENTS[c.name]!.target!.mapKey ||
+                      (ELEMENTS[c.name]!.target!.array && !ELEMENTS[c.name]!.target!.wrapper))
+                  )
                 ? 'paint'
                 : undefined;
         if (feature) {
-          const hint = `load @anima-format/web/${feature === 'paint' ? 'markup-paint' : feature} or run anima build`;
-          this.diagnostics.push({
-            code: `markup-${feature}-unavailable`,
-            severity: 'error',
-            pointer: p,
-            message: hint,
-            hint,
-            line: c.at.line,
-            column: c.at.col,
-            file: c.at.file ?? this.opts.file,
-          });
+          this.unavailable(feature, feature === 'paint' ? 'markup-paint' : feature, p, c.at);
         }
         if (feature) continue;
       }
@@ -398,7 +426,7 @@ export class Compiler {
     if (NAME.test(s) || parseHex(s)) return s;
     throw new Error(VERBOSE ? 'expected a colour literal or slot name' : '');
   }
-  private scalar(s: string, color = true): number | boolean | string {
+  scalar(s: string, color = true): number | boolean | string {
     if (s.startsWith('"')) return JSON.parse(s) as string;
     if (s === 'true' || s === 'false') return s === 'true';
     if (IS_NUMBER.test(s)) return this.num(s);
@@ -410,47 +438,6 @@ export class Compiler {
           : 'expected a number or boolean'
         : '',
     );
-  }
-  private ease(s: string): string {
-    if (this.eases.has(s)) return this.resolveEase(s);
-    const m = /^(cubic|elastic)\((.*)\)$/s.exec(s);
-    if (!m) return s; // the loader owns bad-ease and reserved diagnostics
-    const args = m[2]!.split(',').map((s) => this.num(s.trim()));
-    if (args.length !== (m[1] === 'cubic' ? 4 : 2))
-      throw new Error(VERBOSE ? 'wrong number of ease arguments' : '');
-    return `${m[1]}(${args.join(', ')})`;
-  }
-  resolveEase(name: string): string {
-    if (this.resolved.has(name)) return this.resolved.get(name)!;
-    const a = this.eases.get(name)!;
-    if (this.resolving.has(name)) {
-      this.error(
-        'bad-attribute',
-        '',
-        a.valueAt,
-        VERBOSE ? `cyclic ease declaration "${name}"` : '',
-      );
-      return name;
-    }
-    this.resolving.add(name);
-    const value = this.read(a, 'ease', '');
-    this.resolving.delete(name);
-    const result = typeof value === 'string' ? value : name;
-    this.resolved.set(name, result);
-    return result;
-  }
-  private condition(s: string): string {
-    // Replace the word only between terms: an input itself may legally be named "and".
-    return s
-      .split(/\s+and\s+|\s*&&\s*/)
-      .map((t) =>
-        t
-          .trim()
-          .replace(/\s*(==|!=|<=|>=|<|>)\s*/g, ' $1 ')
-          .replace(/^!\s+/, '!')
-          .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
-      )
-      .join(' && ');
   }
   read(a: Attr, kind: Kind, p: string): unknown {
     const s = a.value.trim();
@@ -502,33 +489,18 @@ export class Compiler {
             throw new Error(VERBOSE ? 'expected a whitespace-separated name list' : '');
           return v;
         }
-        case 'set': {
-          const o: Json = {};
-          for (const pair of s
-            ? s.split(/\s+(?=(?:\$[\w-]+:)?\$?[a-zA-Z][\w-]*(?:\.[\w-]+)*=)/)
-            : []) {
-            const m = /^((?:\$[\w-]+:)?\$?[a-zA-Z][\w-]*(?:\.[\w-]+)*)=(.+)$/.exec(pair);
-            if (!m)
-              throw new Error(
-                VERBOSE ? 'expected whitespace-separated name=value assignments' : '',
-              );
-            if (Object.hasOwn(o, m[1]!))
-              throw new Error(VERBOSE ? `repeated assignment "${m[1]}"` : '');
-            const source = m[2]!.trim();
-            own(
-              o,
-              m[1]!,
-              IS_NUMBER.test(source) || /^(true|false)$/.test(source)
-                ? this.scalar(source, false)
-                : source,
-            );
-          }
-          return o;
-        }
+        case 'set':
         case 'ease':
-          return this.ease(s);
         case 'condition':
-          return this.condition(s);
+          if (!animationCompiler.read)
+            this.unavailable('animation', 'markup-animation', p, a.valueAt);
+          return animationCompiler.read?.(this, s, kind);
+        case 'mixed':
+          try {
+            return JSON.parse(s);
+          } catch {
+            return a.value;
+          }
         case 'string':
           return a.value;
       }
@@ -538,6 +510,9 @@ export class Compiler {
         p,
         a.valueAt,
         VERBOSE ? (e instanceof Error ? e.message : 'invalid attribute value') : '',
+        a.name === 'grid'
+          ? 'grid is one number (units per side); use viewBox="0 0 40 30" for a rectangular scene'
+          : undefined,
       );
       return undefined;
     }
@@ -580,7 +555,8 @@ export class Compiler {
     if (!['track', 'event', 'color', 'ease'].includes(el.name)) this.comment(el, o, p);
     if (NODES.includes(el.name)) {
       this.copyNode(el, a, o, p);
-      moduleCompiler.node?.(this, el, children, o, p);
+      const rest = textCompiler.node?.(this, el, children, o, p) ?? children;
+      moduleCompiler.node?.(this, el, rest, o, p);
       componentCompiler.node?.(this, el, a, o, p);
       motionCompiler.node?.(this, el, children, o, p);
       dataCompiler.node?.(el, o);
@@ -597,7 +573,13 @@ export class Compiler {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
       this.map.set(p, a.get('target')?.valueAt ?? el.at);
-      const keys = motionCompiler.frames?.(this, el, children, p) ?? this.frames(el, p);
+      const keys =
+        motionCompiler.frames?.(this, el, children, p) ??
+        animationCompiler.frames?.(this, el, p, motionCompiler.keyValue);
+      if (!keys) {
+        this.unavailable('animation', 'markup-animation', p, el.at);
+        return [];
+      }
       // Both element and text spellings validate the final ease before omitting it.
       if (keys.length && (keys.at(-1) as unknown[]).length === 3)
         this.finalEases.push({
@@ -646,7 +628,8 @@ export class Compiler {
       }
     } else {
       this.copy(el, a, o, p, ['name', 'xmlns']);
-      if (a.has('name') && el.name !== 'anima') this.read(a.get('name')!, 'name', p);
+      if (a.has('name') && el.name !== 'anima' && el.name !== 'component')
+        this.read(a.get('name')!, 'name', p);
       if (el.name === 'anima' || el.name === 'component') {
         if (el.name === 'anima' && a.has('name'))
           this.put(o, 'name', a.get('name')!.value, p, a.get('name')!.valueAt);
@@ -662,33 +645,25 @@ export class Compiler {
             el.at,
             VERBOSE ? '<hit> needs exactly one of circle or rect' : '',
           );
-      } else if (el.name === 'timeline') {
-        this.put(o, 'tracks', {}, p, el.at);
+      } else if (el.name === 'timeline' || el.name === 'layer') {
+        const key = el.name === 'timeline' ? 'tracks' : 'states';
+        this.put(o, key, {}, p, el.at);
         for (const c of children) {
-          if (c.name === 'track') {
-            const target = c.attrs.find((x) => x.name === 'target');
-            this.addNamed(
-              o.tracks as Json,
-              this.address(target?.value.trim() ?? ''),
-              c,
-              p + '/tracks',
-              target?.valueAt ?? c.at,
-            );
-          } else {
+          if (c.name === 'event') {
             const [events, ep] = this.append(o, 'events', p, c.at);
             events.push(this.build(c, ep));
+          } else {
+            const name = c.attrs.find((a) => a.name === (key === 'tracks' ? 'target' : 'name'));
+            const value = name?.value.trim() ?? '';
+            this.addNamed(
+              o[key] as Json,
+              key === 'tracks' ? this.address(value) : value,
+              c,
+              p + '/' + key,
+              name?.valueAt ?? c.at,
+            );
           }
         }
-      } else if (el.name === 'layer') {
-        this.put(o, 'states', {}, p, el.at);
-        for (const c of children)
-          this.addNamed(
-            o.states as Json,
-            c.attrs.find((x) => x.name === 'name')?.value.trim() ?? '',
-            c,
-            p + '/states',
-            c.attrs.find((x) => x.name === 'name')?.valueAt ?? c.at,
-          );
       } else if (el.name === 'state') {
         if (!a.has('play')) this.put(o, 'pose', {}, p, el.at);
         let pose = false;
@@ -719,14 +694,15 @@ export class Compiler {
 
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
-    if (
-      convertCompiler.rootChild?.(this, c, o, p) ||
-      dataCompiler.rootChild?.(this, c, o, p) ||
-      eventsCompiler.rootChild?.(this, c, o, p) ||
-      bindCompiler.rootChild?.(this, c, o, p) ||
-      motionCompiler.rootChild?.(this, c, o, p)
-    )
-      return;
+    for (const hooks of [
+      convertCompiler,
+      dataCompiler,
+      eventsCompiler,
+      bindCompiler,
+      motionCompiler,
+      textCompiler,
+    ])
+      if (hooks.rootChild?.(this, c, o, p)) return;
     if (c.name === 'ease') {
       this.attrs(c, p);
       this.children(c, p);
@@ -735,33 +711,8 @@ export class Compiler {
     if (NODES.includes(c.name) || c.name === 'listener') {
       const [list, cp] = this.append(o, c.name === 'listener' ? 'listeners' : 'nodes', p, c.at);
       list.push(this.build(c, cp));
-    } else if (
-      [
-        'color',
-        'glyph',
-        'asset',
-        'component',
-        'bool',
-        'number',
-        'trigger',
-        'timeline',
-        'layer',
-      ].includes(c.name)
-    ) {
-      const key =
-        c.name === 'color'
-          ? 'colors'
-          : c.name === 'component'
-            ? 'components'
-            : c.name === 'asset'
-              ? 'assets'
-              : c.name === 'glyph'
-                ? 'glyphs'
-                : c.name === 'timeline'
-                  ? 'timelines'
-                  : c.name === 'layer'
-                    ? 'layers'
-                    : 'inputs';
+    } else if (Object.hasOwn(NAMED, c.name)) {
+      const key = NAMED[c.name]!;
       const parent = key === 'layers' ? this.container(o, 'machine', p, c.at) : o;
       const base = key === 'layers' ? p + '/machine' : p;
       const map = this.container(parent, key, base, c.at);
@@ -823,73 +774,6 @@ export class Compiler {
     }
   }
 
-  // Decode the text while retaining an offset for each decoded character. Entity lengths differ
-  // from their decoded lengths; indexing `value` directly into `raw` would misplace later tokens.
-  private text(el: Element): { value: string; offsets: number[] } {
-    let value = '';
-    const offsets: number[] = [];
-    for (const t of el.children) {
-      if (t.kind !== 'text') continue;
-      for (let i = 0; i < t.raw.length;) {
-        const m =
-          t.raw[i] === '&'
-            ? /^&(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9a-fA-F]+);/.exec(t.raw.slice(i))
-            : null;
-        let s = t.raw[i]!;
-        if (m) {
-          const entity = m[0].slice(1, -1);
-          s =
-            entity[0] === '#'
-              ? String.fromCodePoint(
-                  parseInt(entity.slice(entity[1] === 'x' ? 2 : 1), entity[1] === 'x' ? 16 : 10),
-                )
-              : { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }[entity]!;
-        }
-        value += s;
-        for (let j = 0; j < s.length; j++) offsets.push(t.offsets?.[i] ?? t.at.offset + i);
-        i += m ? m[0].length : 1;
-      }
-    }
-    return { value, offsets };
-  }
-  private frames(el: Element, p: string): unknown[] {
-    const { value, offsets } = this.text(el);
-    const keys: unknown[][] = [];
-    for (const m of value.matchAll(/[^;\r\n]+/g)) {
-      const line = m[0];
-      const tokens = [...line.matchAll(/"(?:\\.|[^"\\])*"|\S+/g)];
-      if (!tokens.length) continue;
-      const at = (i: number) => ({
-        ...el.at,
-        ...(el.at.locate ?? this.xml!.pos)(offsets[m.index + i] ?? el.at.offset),
-      });
-      const kp = ptr(p, keys.length);
-      try {
-        if (tokens.length < 2) throw new Error(VERBOSE ? 'expected time value [ease]' : '');
-        const time = this.num(tokens[0]![0]);
-        const val = motionCompiler.keyValue?.(tokens[1]![0]) ?? this.scalar(tokens[1]![0]);
-        const key: unknown[] = [time, val];
-        this.map.set(kp, at(tokens[0]!.index));
-        this.map.set(kp + '/0', at(tokens[0]!.index));
-        this.map.set(kp + '/1', at(tokens[1]!.index));
-        if (tokens.length > 2) {
-          const start = tokens[2]!.index;
-          key.push(this.ease(line.slice(start).trim()));
-          this.map.set(kp + '/2', at(start));
-        }
-        keys.push(key);
-      } catch (e) {
-        this.error(
-          'bad-keyframe',
-          kp,
-          at(tokens[0]!.index),
-          VERBOSE ? (e instanceof Error ? e.message : 'invalid keyframe') : '',
-        );
-      }
-    }
-    return keys;
-  }
-
   collectTypes(el: Element, scoped = false): void {
     if (NODES.includes(el.name)) {
       const id = el.attrs.find((a) => a.name === 'id');
@@ -899,37 +783,11 @@ export class Compiler {
       if (c.kind === 'element' && (scoped || c.name !== 'component')) this.collectTypes(c, scoped);
   }
   collectEases(el: Element, p: string): void {
-    const local = new Set<string>();
-    for (const c of el.children) {
-      if (c.kind !== 'element' || c.name !== 'ease') continue;
-      const n = c.attrs.find((a) => a.name === 'name');
-      const curve = c.attrs.find((a) => a.name === 'curve');
-      if (!n) continue;
-      if (local.has(n.value.trim()) || BUILTINS.includes(n.value.trim()))
-        this.error(
-          'duplicate-name',
-          p,
-          n.valueAt,
-          VERBOSE ? `ease "${n.value}" is already declared or built in` : '',
-        );
-      else if (curve) this.eases.set(n.value.trim(), curve);
-      local.add(n.value.trim());
-      this.read(n, 'name', p);
-    }
-    this.checkEases(local, p);
-  }
-  checkEases(names: Iterable<string>, p: string): void {
-    for (const name of names) {
-      if (!this.eases.has(name)) continue;
-      const curve = this.resolveEase(name);
-      if (typeof parseEase(curve) === 'string' && !this.failed)
-        this.error(
-          curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
-          p,
-          this.eases.get(name)!.valueAt,
-          VERBOSE ? (p ? 'invalid ease curve' : `invalid ease curve "${curve}"`) : '',
-        );
-    }
+    if (animationCompiler.collectEases) animationCompiler.collectEases(this, el, p);
+    else
+      for (const c of el.children)
+        if (c.kind === 'element' && c.name === 'ease')
+          this.unavailable('animation', 'markup-animation', p, c.at);
   }
   run(source: string): CompileResult {
     this.attributes.clear();
@@ -940,17 +798,7 @@ export class Compiler {
     if (!root) return this.result();
     if (/<(?:import|template|apply)\b/.test(source)) {
       if (libraryCompiler.expand) libraryCompiler.expand(xml, this.opts, this.diagnostics);
-      else
-        this.diagnostics.push({
-          code: 'markup-libraries-unavailable',
-          severity: 'error',
-          pointer: '',
-          message: 'load @anima-format/web/markup-libraries or run anima build',
-          hint: 'load @anima-format/web/markup-libraries or run anima build',
-          file: this.opts.file,
-          line: root.at.line,
-          column: root.at.col,
-        });
+      else this.unavailable('libraries', 'markup-libraries', '', root.at);
       if (this.failed) return this.result();
     }
     if (root.name !== 'anima') {

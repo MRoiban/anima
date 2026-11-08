@@ -1,0 +1,86 @@
+{
+  "anima": "0.1",
+  "name": "string-filter",
+  "grid": 20,
+  "requires": ["data", "bind", "derive"],
+  "nodes": [
+    {
+      "id": "row0",
+      "type": "circle",
+      "center": [4, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "row1",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "row2",
+      "type": "circle",
+      "center": [16, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "row0.visible": "$shown0",
+    "row1.visible": "$shown1",
+    "row2.visible": "$shown2"
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "label0": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "label1": {
+            "type": "string",
+            "default": "Motion"
+          },
+          "label2": {
+            "type": "string",
+            "default": "Other options"
+          },
+          "count": {
+            "type": "number",
+            "value": "$shown0 + $shown1 + $shown2"
+          },
+          "shown0": {
+            "type": "bool",
+            "value": "contains(lower($label0), lower($query))"
+          },
+          "shown1": {
+            "type": "bool",
+            "value": "contains(lower($label1), lower($query))"
+          },
+          "shown2": {
+            "type": "bool",
+            "value": "contains(lower($label2), lower($query))"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

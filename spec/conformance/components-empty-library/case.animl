@@ -1,0 +1,5 @@
+<anima version="0.1" name="empty-library" grid="20" requires="components">
+  <component name="dot" grid="20">
+    <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  </component>
+</anima>

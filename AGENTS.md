@@ -53,11 +53,26 @@ PR, do one full local run only for what CI cannot run; do not repeatedly run the
 ## Work log
 `WORKLOG.md` (repo root) holds task state outside your context window.
 - **On start and after compaction:** read `WORKLOG.md` and `git log --oneline -15` before acting.
+- **Reality wins:** if `Now` or a Gotcha contradicts the repo or test output, trust the repo; fix the log and record the correction.
 - **Update at checkpoints:** after a milestone, before a risky or long step, when the plan changes, and before you stop. Don't let the context run out with unlogged work.
-- **Now** (top): rewrite it to stay at 10 lines or fewer: goal, verified state, next step, don'ts.
-- **Log** (below): append only, one line per entry: `- YYYY-MM-DD HH:MM [who]: did X → result (evidence: command/number/commit)`. Log failures and dead ends too. Tag anything unchecked `(unverified)`.
+- **Now** (top): keep it short; goal, verified state, next step, don'ts. Re-read it right before rewriting it, in case another agent changed it.
+- **Gotchas:** when you learn something a future session would get wrong without being told (a trap, a non-obvious constraint, a fix that took several tries), add one line: `- <rule> — <evidence>`. Edit or delete it if it turns out wrong. Never condense this section. If a gotcha holds for anyone working in this repo, move it to a `## Repo rules` section in `AGENTS.md`.
+- **Log** (below): append only, one line per entry: `- YYYY-MM-DD HH:MM [who]: did X → result (evidence: command/number/commit/...)`. Log failures and dead ends too. Tag anything unchecked `(unverified)`.
 - Facts, not narration. Commit the log with the code it describes.
-- Past ~200 lines: condense the oldest half into a 5-line summary at the top of Log.
+- Past ~200 lines: move lasting lessons to Gotchas, then condense the oldest half of Log into a 5-line summary at the top of Log.
+- Adapt these rules to fit your work and tasks.
+
+## Repo rules
+- Test timeouts while several agents share the machine usually pass when rerun alone; rerun the failing file isolated before calling it a bug, and report both runs.
+- Timings under shared load are not perf evidence; say so rather than claiming the ≤ 3 % guard.
+- After editing a manifest, run `node tools/build-web.ts`: browser demo tests read its cache and fail with "run build-web" when it is stale.
+- `node tools/size.ts` can take over 2 minutes under load; give it a long timeout.
+- `markup` and `surface` are at the 8 KB module cap: new markup goes into its own `markup-*` module.
+- AniML library files (imported, not scenes) live in `examples/lib/`; under `modules/*/examples/` the corpus test treats them as scenes.
+- `docs/parity/inventory.json` is written with 2-space indent and unescaped Unicode (`json.dumps(..., indent=2, ensure_ascii=False)`).
+- `tests/oracle/generate.py` rewrites `tests/oracle/cases.json` with different formatting; restore it unless thresholds really change. Its Rive scenes encode Anima's spec geometry (e.g. rounded corners as cubic handles), so a spec geometry change means re-authoring the scene there and recapturing, never a threshold change.
+- Browser tests that render text must load the declared font (serve fixture files to the page) and wait for the redraw (two animation frames) before comparing pixels; a platform fallback font or an early screenshot passes locally and fails on CI.
+- The rect-corners oracle passes with a thin margin (0.1198 % vs 0.12 %): a paint or anti-aliasing change may tip it.
 
 ## Adding a module
 

@@ -1,0 +1,3 @@
+name: oracle-text-fit-baseline
+logs:
+  file: build/runtime.log

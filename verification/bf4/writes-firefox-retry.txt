@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 9744ms
+   ❯ [BF-4 writes] downstream Firefox (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 6159ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Firefox > B19: real pointer and key writes reach plain, nested and repeated data
+AssertionError: expected 6.800000101327896 to be close to 7, received difference is 0.19999989867210388, but expected 0.000005
+ ❯ modules/input/test/web/bf4-writes.test.ts:95:46
+     93|         await move(offset + 8, 7);
+     94|         await expect.poll(() => read('$' + path + 'x'), { message: pat…
+     95|         expect(await read('$' + path + 'y')).toBeCloseTo(7, 5);
+       |                                              ^
+     96|         expect(await read('$' + path + 'dx')).toBeCloseTo(3, 5);
+     97|         expect(await read('$' + path + 'dy')).toBeCloseTo(2, 5);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  18:54:59
+   Duration  12.06s (tests 85%, import 14%, transform 1%)
+

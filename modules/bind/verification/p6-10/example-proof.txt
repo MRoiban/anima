@@ -1,0 +1,8 @@
+advance 0
+snapshot $query $shown0 $shown1 $count row0.visible row1.visible
+set $query "SO"
+advance 0
+snapshot $query $shown0 $shown1 $count row0.visible row1.visible
+set $query ""
+advance 0
+snapshot $query $shown0 $shown1 $count row0.visible row1.visible

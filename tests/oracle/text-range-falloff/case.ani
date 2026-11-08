@@ -1,0 +1,46 @@
+{
+  "anima": "0.1",
+  "name": "text-range-falloff",
+  "grid": 20,
+  "requires": ["text", "texteffects", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ],
+      "effects": [
+        {
+          "start": 2,
+          "end": 3,
+          "falloff": 2,
+          "opacity": 0
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

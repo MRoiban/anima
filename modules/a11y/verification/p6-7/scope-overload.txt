@@ -1,0 +1,276 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-dom text input --browser=chromium
+
+Scopes: a11y, a11y-dom, text, input
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (a11y-action-edges|a11y-actions-input-limits|a11y-actions-range|a11y-bf4-radio|a11y-bf4-roles|a11y-focus-condition|a11y-focus-policy|a11y-focus-repeat|a11y-headless-keys|a11y-inferred-text|a11y-manual-tabs|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-slider-value-text|a11y-spatial-focus|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility|data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap|host-api-coordinate-mapping|host-api-dom-listener-control|host-api-gamepad|host-api-low-level-pointer|host-api-low-level-scroll|host-api-manual-gamepad-batch|host-api-multitouch|host-api-pointer-exit|host-api-scroll-hit-policy|host-api-scroll-latching|input-align-preserve|input-align-snap|input-bf4-data-writes|input-bounded-hit-tests|input-button-middle|input-button-secondary|input-capture-phase|input-cursor-arrow|input-cursor-hidden|input-cursor-intent|input-cursor-pointer|input-cursor-resize-horizontal|input-cursor-resize-vertical|input-cursor-text|input-disable-listeners|input-focus-machine-integration|input-gamepad-axis|input-gamepad-button|input-gamepad-button-phases|input-gamepad-connected|input-gamepad-disconnected|input-gamepad-host|input-gamepad-index-mapping|input-hit-occlusion-query|input-hit-parent-chain|input-hit-shape-geometry|input-hit-test-host|input-key-down|input-key-filter|input-key-focused-component|input-key-modifiers|input-key-repeat|input-key-up|input-keyboard-bubbling|input-multi-touch|input-multi-trigger-listener|input-opaque-targets|input-pointer-cancel|input-pointer-drag|input-pointer-drag-end|input-pointer-drag-start|input-pointer-enable|input-touch-page-scroll|input-trackpad-scroll|input-wheel-scroll|input-write-key-pressed|input-write-pointer-delta-x|input-write-pointer-delta-y|input-write-pointer-x|input-write-pointer-y|transforms-collapse|transforms-solo)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-22fba684
+
+ ❯ |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts (4 tests | 2 failed | 2 skipped) 10063ms
+   × Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host 5031ms
+   × Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index 5010ms
+ ❯ |scope-unit| packages/markup/test/compile.test.ts (51 tests | 1 failed) 15191ms
+   ❯ AniML compiler (51)
+     × never throws on every prefix of bell.animl 13287ms
+ ❯ |scope-browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 32081ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 10019ms
+ ❯ |scope-browser| modules/input/test/web/integration.test.ts (16 tests | 1 failed | 8 skipped) 47467ms
+   ❯ interaction integration Chromium components→focus→input→machine (4)
+     × dispatches one key route, traverses arrows/Tab once and preserves native activation 10016ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/downstream.test.ts (18 tests | 1 failed | 9 skipped) 48005ms
+   ❯ [BF-2] downstream Chromium (9)
+     × B2: one ArrowRight moves one tab with input and focus loaded 10054ms
+ ❯ |scope-browser| modules/text/test/web/text.test.ts (8 tests | 1 failed | 4 skipped) 46625ms
+   × Chromium text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30017ms
+ ❯ |scope-browser| modules/input/test/web/browser.test.ts (62 tests | 1 failed | 31 skipped) 53422ms
+   ❯ input browser Chromium (31)
+     × maps client positions through the actual SVG viewport matrix 10029ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed | 22 skipped) 54512ms
+   ❯ overlay Chromium (22)
+     × maps every role to a real element, with heading levels and state attributes 10021ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/bf4.test.ts (50 tests | 1 failed | 25 skipped) 61835ms
+   ❯ [BF-4] downstream Chromium (25)
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=false 10039ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:45:5
+     43|       await browser?.close();
+     44|     });
+     45|     beforeEach(async () => {
+       |     ^
+     46|       page = await browser.newPage();
+     47|       await page.setContent('<anima-icon fit="fill" style="width:240px…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:61:18
+     59|     });
+     60|     afterEach(async () => {
+     61|       await page.close();
+       |                  ^
+     62|     });
+     63|     const load = async (doc: object) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B2: one ArrowRight moves one tab with input and focus loaded
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:45:5
+     43|       await browser?.close();
+     44|     });
+     45|     beforeEach(async () => {
+       |     ^
+     46|       page = await browser.newPage();
+     47|       await page.setContent('<anima-icon fit="fill" style="width:240px…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B2: one ArrowRight moves one tab with input and focus loaded
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:61:18
+     59|     });
+     60|     afterEach(async () => {
+     61|       await page.close();
+       |                  ^
+     62|     });
+     63|     const load = async (doc: object) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Chromium > maps every role to a real element, with heading levels and state attributes
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:92:5
+     90|       await browser?.close();
+     91|     });
+     92|     beforeEach(async () => {
+       |     ^
+     93|       page = await browser.newPage();
+     94|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Chromium > maps every role to a real element, with heading levels and state attributes
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:114:18
+    112|     });
+    113|     afterEach(async () => {
+    114|       await page.close();
+       |                  ^
+    115|     });
+    116|     const target = (id: string) => page.locator(`[data-semantic="${id}…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/text-hit.test.ts:26:43
+     24|     ['text-hit', 'a11y-text', 'input', 'a11y-dom', 'text-host', 'text'…
+     25|   ])
+     26|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     27|       `${name} text hit and semantics ${order.join('→')}`,
+     28|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/bf4-writes.test.ts:44:5
+     42|       await browser?.close();
+     43|     });
+     44|     beforeEach(async () => {
+       |     ^
+     45|       page = await browser.newPage();
+     46|       page.on('pageerror', (e) => console.error(e.message));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/bf4-writes.test.ts:61:18
+     59|     });
+     60|     afterEach(async () => {
+     61|       await page.close();
+       |                  ^
+     62|     });
+     63|     const load = async (doc: object) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Chromium > maps client positions through the actual SVG viewport matrix
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:73:5
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+     73|     beforeEach(async () => {
+       |     ^
+     74|       page = await browser.newPage();
+     75|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Chromium > maps client positions through the actual SVG viewport matrix
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/browser.test.ts:84:32
+     82|       await page.evaluate((d) => document.querySelector('anima-icon')!…
+     83|     });
+     84|     afterEach(async () => page.close());
+       |                                ^
+     85|     it('maps client positions through the actual SVG viewport matrix',…
+     86|       const r = await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Chromium components→focus→input→machine > dispatches one key route, traverses arrows/Tab once and preserves native activation
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:97:9
+     95|         }, 30000);
+     96|         afterAll(async () => browser?.close());
+     97|         beforeEach(async () => {
+       |         ^
+     98|           page = await browser.newPage();
+     99|           await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Chromium components→focus→input→machine > dispatches one key route, traverses arrows/Tab once and preserves native activation
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/integration.test.ts:112:36
+    110|           }, doc);
+    111|         });
+    112|         afterEach(async () => page.close());
+       |                                    ^
+    113|         const focused = () =>
+    114|           page.evaluate(() => document.querySelector('anima-icon')!.pl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯
+
+ FAIL  |scope-browser| modules/text/test/web/text.test.ts > Chromium text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/text.test.ts:37:43
+     35|     ['index', 'text', 'componentpaint', 'lists', 'data', 'components',…
+     36|   ])
+     37|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     38|       `${name} text ${order.join('→')}: prefix metrics, escaped retain…
+     39|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/16]⎯
+
+ FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > never throws on every prefix of bell.animl
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/markup/test/compile.test.ts:687:3
+    685|   });
+    686|
+    687|   it('never throws on every prefix of bell.animl', () => {
+       |   ^
+    688|     for (let i = 0; i <= bell.length; i++) {
+    689|       const result = compile(bell.slice(0, i));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/16]⎯
+
+
+ Test Files  9 failed | 32 passed | 1 skipped (42)
+      Tests  10 failed | 3349 passed | 513 skipped | 1 todo (3873)
+   Start at  22:57:56
+   Duration  65.87s (tests 82%, import 16%, transform 2%)

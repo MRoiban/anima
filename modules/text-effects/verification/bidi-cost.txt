@@ -1,0 +1,2 @@
+with bidi 30550
+without bidi 30400

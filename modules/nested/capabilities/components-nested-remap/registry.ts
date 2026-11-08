@@ -4,7 +4,11 @@ export const entries: ModuleEntry[] = [
   {
     target: 'instance',
     shapes: {
-      component: { k: 'str', feature: 'components', re: /^(?:[a-z][a-zA-Z0-9-]*|\$[\w:.-]+)$/ },
+      component: {
+        k: 'str',
+        feature: 'components',
+        re: /^(?:[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*|\$[\w:.-]+)$/,
+      },
       time: { k: 'alt', of: [{ k: 'num', min: 0 }, { k: 'str' }] },
       fps: { k: 'num', gt: 0 },
       size: {

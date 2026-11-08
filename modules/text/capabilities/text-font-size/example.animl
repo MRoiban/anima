@@ -1,0 +1,15 @@
+<anima version="0.1" name="text-font-size" grid="20" requires="text">
+  <text id="label" sizing="fixed" width="4" height="4">
+    <style id="s"/>
+    <run id="first" text="ab"/>
+  </text>
+  <timeline name="grow" duration="1">
+    <track target="label.styles.s.weight">0 400; 1 2000</track>
+    <track target="label.styles.s.size">0 1; 1 2</track>
+    <track target="label.runs.0.style">0 ""; 1 "s"</track>
+    <track target="label.runs.0.text">0 "ab"; 1 "cd"</track>
+  </timeline>
+  <layer name="main" initial="playing">
+    <state name="playing" play="grow"/>
+  </layer>
+</anima>

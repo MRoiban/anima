@@ -1,0 +1,311 @@
+## Data: view models, `$` paths and converters
+
+Declare `requires="data bind"` for view models and bindings, adding `convert` for named
+converters. A model declares types; an instance stores values. This complete document declares
+every supported property type. `type` on an `asset-ref` is the asset kind, not a model name.
+Empty asset references need no asset declaration; nonempty references must name a declared asset
+of the same kind (`image`, `audio`, `font` or `blob`, with `requires="assets"`).
+
+```xml
+<anima version="0.1" name="data-types" grid="20" requires="data bind">
+  <model name="Team"><string name="title" default="Blue"/></model>
+  <model name="Player" global="true">
+    <number name="score" default="0" min="0" max="100"/>
+    <string name="name" default="Ada"/>
+    <bool name="online" default="true"/>
+    <color name="tint" default="#d97757"/>
+    <trigger name="levelUp"/>
+    <enum name="mood" values="calm happy angry" default="calm"/>
+    <list name="items" of="Team"/>
+    <model-ref name="team" model="Team"/>
+    <asset-ref name="avatar" type="image"/>
+  </model>
+  <instance name="main" model="Player" default="true">
+    <set path="score" value="12"/>
+    <set path="team" value="blue"/>
+  </instance>
+  <instance name="other" model="Player"><set path="name" value="Grace"/></instance>
+  <instance name="blue" model="Team"/>
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <bind target="dot.x" value="$score / 10"/>
+  <bind target="dot.fill" value="$tint"/>
+</anima>
+```
+
+`$score` resolves in the default instance; `$main:score` explicitly selects `main`.
+`$team.title` walks a model reference. The default instance is the one flagged `default="true"`
+(at most one), otherwise the first authored instance. With no instances the runtime constructs
+`default` from the first model. Root `data='{"model":"Player"}'` explicitly selects a default
+model. Instance `<set path="score">` initializes a property by its bare name; it is not a listener
+action. Compound initializers use JSON in `value`. A named reference preserves identity.
+`global="true"` shares matching named instances through a component tree; independent root players
+still have independent storage. A component can declare `data="Player"` and its placement can use
+`data="main"` to share the parent's instance; components without `data` inherit their parent when `lists` is declared; components with a public model keep local storage unless explicitly supplied a context.
+
+Use `$` paths wherever an input name is accepted: conditions, binding expressions, listener and
+state/transition actions, event fields and component input expressions. Strings/enums compare with
+double-quoted literals; numbers accept arithmetic. Triggers use `fire`, never a stored default.
+This document demonstrates conditions, `set`, `fire`, `copy`, event fields and a component input:
+
+```xml
+<anima version="0.1" name="data-actions" grid="20" requires="data bind events components">
+  <model name="Score">
+    <number name="score"/><number name="saved"/>
+    <bool name="online" default="true"/><trigger name="pulse"/>
+  </model>
+  <instance name="main" model="Score" default="true"/>
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <component name="badge" grid="4">
+    <number name="count"/>
+    <circle id="pip" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="pip.x" value="count"/>
+  </component>
+  <instance id="badge" component="badge" count="{$main:score}"/>
+  <layer name="status" initial="idle">
+    <state name="idle"><on when="$pulse and $online and $score > 0" to="done"/></state>
+    <state name="done"><pose dot.x="2"/></state>
+  </layer>
+  <listener on="click" set="$score=$score+1" fire="$pulse" emit="scored"/>
+  <listener on="change:$score" copy="$score -> $saved"/>
+  <event-def name="scored" payload='{"score":{"type":"number","value":"{$score}"}}'/>
+</anima>
+```
+
+Event fields resolve at the end of the step. `change:$score` compares final values after the step;
+multiple writes coalesce. Its actions queue for the **next** step, including `advance 0`; they never
+re-enter the current step. Change listeners observe every source, including host writes, bindings
+and state actions firing triggers. This intentionally differs from the native internal-trigger
+observation in `tests/oracle/input-data-listener/internal-trigger-difference/finding.json`.
+Host API subscriptions also run after the step; callback writes wait for the next step.
+
+A list of N items can drive N explicitly authored nodes without the lists module. The Lists section
+below shows automatic repetition and item contexts. Here three model instances drive three nodes; `$items.2.title` selects the third
+item and `$items.length` is a read-only number. `data-label` declares a custom string property;
+`properties` JSON declares typed number/bool/string/color/enum/trigger properties when needed.
+Custom channels use `node.properties.name`; strings/enums are discrete, hold-only channels.
+
+```xml
+<anima version="0.1" name="data-list" grid="20" requires="data bind">
+  <model name="Item"><string name="title"/><number name="score"/></model>
+  <model name="Board"><list name="items" of="Item"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="items" value='[{"title":"Ada","score":2},{"title":"Grace","score":4},{"title":"Lin","score":6}]'/>
+  </instance>
+  <circle id="a" cx="4" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="c" cx="16" cy="10" r="1" fill="#000" data-label=""/>
+  <bind target="a.r" value="$items.0.score"/>
+  <bind target="b.r" value="$items.1.score"/>
+  <bind target="c.r" value="$items.2.score"/>
+  <bind target="a.properties.label" value="$items.0.title"/>
+  <bind target="b.properties.label" value="$items.1.title"/>
+  <bind target="c.properties.label" value="$items.2.title"/>
+  <bind target="c.x" value="$items.length"/>
+</anima>
+```
+
+Add `derive` for computed scalar properties. `value` is a bind expression, with optional
+`convert` (requires `convert`). Inside a model `$score` means that instance's score;
+`$main:players.0.score` remains absolute. Each list item gets its own computed values.
+Number, string, bool, color and enum properties can be computed. Their `$` paths work in
+conditions, bindings, event fields, selected sample snapshots and host handles.
+They initialize on load and recompute in the data binding pass, before visual bindings.
+Conditions earlier in the step see the previous resolved computed value. Host subscriptions
+observe the final value after the step. Computed dependencies must be acyclic.
+
+This scoreboard exposes `$players.0.label` as `1,250 pts`, `$players.1.label` as `980 pts`,
+and `$players.2.label` as `40 pts`. Updating a score updates its label on the next step.
+The three comparison bindings choose exactly one leader, with earlier players winning ties.
+
+```xml
+<anima version="0.1" name="derived-scoreboard" grid="20" requires="data bind derive convert">
+  <model name="Player">
+    <string name="name"/>
+    <number name="score" min="0" max="2000"/>
+    <string name="label" value="$score" convert="points"/>
+    <bool name="milestone" value="$score >= 1500"/>
+  </model>
+  <model name="Board"><list name="players" of="Player"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value='[{"name":"Ada","score":1250},{"name":"Lin","score":980},{"name":"Sam","score":40}]'/>
+  </instance>
+  <converter name="grouped" type="number-format" decimals="0" grouping="true"/>
+  <converter name="suffix" type="template" text="{0} pts"/>
+  <converter-group name="points" chain="grouped suffix"/>
+  <circle id="a" cx="4" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="c" cx="16" cy="10" r="1" fill="#000" data-label=""/>
+  <bind target="a.properties.label" value="$players.0.label"/>
+  <bind target="b.properties.label" value="$players.1.label"/>
+  <bind target="c.properties.label" value="$players.2.label"/>
+  <bind target="a.x" value="$players.0.score >= $players.1.score and $players.0.score >= $players.2.score"/>
+  <bind target="b.x" value="$players.1.score > $players.0.score and $players.1.score >= $players.2.score"/>
+  <bind target="c.x" value="$players.2.score > $players.0.score and $players.2.score > $players.1.score"/>
+</anima>
+```
+
+Computed properties are read-only: `set`, `copy`, reverse binding modes and instance
+initializers fail with `read-only-path`. Host `.set()` throws the same code; write `score`
+instead. For example `icon.data.string('players.0.label').value` reads the label and
+`.on('change', callback)` observes it after a step. Load `/derive` beside `/data` and `/bind`,
+plus `/convert` when formatting. See `anima docs derive` and `modules/derive/examples/scoreboard.animl`.
+
+Bind expressions also accept `<`, `<=`, `>`, `>=`, `==`, `!=`, `and`, `or`, `not`.
+In XML attributes escape `<` as `&lt;`. Precedence, strongest first: unary `+ -`,
+`* /`, `+ -`, comparisons, `not`, `and`, `or`; parentheses override it.
+Comparisons require matching types; ordering requires numbers, equality accepts strings/enums
+and booleans. Logic requires booleans and short-circuits. Results are bool; number targets
+receive 0 or 1. The same grammar applies to `set` actions and computed expressions.
+
+Bindings default to `mode="to-target"`: sample the source after state/timeline resolution and
+write the target. `to-source` writes the target's underlying animated/rest value into the source.
+`two-way` tracks both sides; simultaneous changes use `prefer="source"` (default) or `target`.
+The initial evaluation counts both as changed. Reverse modes require a direct writable scalar
+path, not arithmetic or list length. `once` computes once and holds the result. Reverse writes
+apply in authored order after all bindings sample their snapshot; there is no binding iteration.
+
+```xml
+<anima version="0.1" name="data-modes" grid="20" requires="data bind">
+  <model name="Controls">
+    <number name="forward" default="2"/><number name="reverse"/>
+    <number name="both"/><number name="initial" default="3"/>
+  </model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <bind target="dot.x" value="$forward" mode="to-target"/>
+  <bind target="dot.y" value="$reverse" mode="to-source"/>
+  <bind target="dot.r" value="$both" mode="two-way" prefer="target"/>
+  <bind target="dot.rotate" value="$initial" mode="once"/>
+</anima>
+```
+
+`convert="name"` selects a declared converter or group. Groups run left to right; forward
+references work, cycles do not. This example maps a fraction to a percentage, rounds it, formats
+thousands with grouping, inserts it into a label, and smooths a numeric channel over 200 ms.
+`interpolate` is initialized from the load value; duration uses milliseconds, unlike timelines.
+Binding `options` JSON overrides declaration options; a whole `$path` option reads live data.
+
+```xml
+<anima version="0.1" name="data-converters" grid="20" requires="data bind convert">
+  <model name="Score"><number name="progress" default="0.25"/><number name="points" default="1234.5"/></model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000" data-label="" data-total=""/>
+  <converter name="pct" type="range" from="0 1" to="0 100" clamp="true"/>
+  <converter name="whole" type="round" decimals="0" mode="round"/>
+  <converter name="label" type="template" text="{0} percent"/>
+  <converter-group name="percentage" chain="pct whole label"/>
+  <converter name="money" type="number-format" decimals="2" grouping="true"/>
+  <converter name="smooth" type="interpolate" duration="200"/>
+  <bind target="dot.properties.label" value="$progress" convert="percentage"/>
+  <bind target="dot.properties.total" value="$points" convert="money"/>
+  <bind target="dot.x" value="$progress" convert="smooth"/>
+</anima>
+```
+
+The label starts as `25 percent`; total is `1,234.50`. Other converter types:
+
+| Type | Use and options |
+| --- | --- |
+| `formula` | `expression="sin(value) * 2"`; trig uses radians. `random="always|once|on-change"` controls seeded random evaluation. Math also includes cos/tan/inverse trig, log/exp/pow/sqrt/abs/round/ceil/floor. |
+| `calculate` | `operation="add" operand="2"` (or a numeric `$path`); arithmetic/math operation. |
+| `negate` | Invert a boolean. |
+| `to-number`, `to-string` | ECMAScript conversion; nonnumeric strings become zero for to-number. |
+| `color-format` | Hex/RGBA input; `format="hex|hexa|rgb|rgba"`. |
+| `pad` | `length="8" fill="0" side="start|end"`; UTF-16 string length. |
+| `trim` | Whitespace removal with `mode="start|end|all|none"`. |
+| `remove-zeros` | Remove redundant fractional zeros and an empty decimal point. |
+| `enum-to-index` | `values="calm happy angry"`; zero-based ordered member index. |
+| `list-length` | List to number. |
+| `number-to-list` | Bounded integer count to index values or repeated `item`; no retained model creation. |
+| `trigger` | Boolean passthrough or truncated integer counter; a trigger destination fires on output changes after the baseline, on the next step. |
+| `degrees-to-radians` | Multiply by pi/180; reverse multiplies by 180/pi. |
+| `normalize` | `from="0 100"`; reverse denormalizes, no implicit clamp. |
+
+`range` also supports modulo, reverse and easing. `round` accepts floor/ceil and 0–100 decimals.
+Templates support positional/named `args` JSON (including `$path` values), sequential `{}` slots,
+custom `open`/`close`, grouping and precision/padding such as `{points:2:8}`.
+See `anima docs convert` for all defaults and limits.
+
+Check a saved list example with these commands (shell single quotes preserve `$`):
+
+```sh
+anima validate board.animl
+anima inspect board.animl
+anima sample board.animl -e 'advance 0; snapshot $items.2.title $items.length $main:items.0.score c.r'
+anima schema data
+anima schema bind
+anima docs data
+anima docs convert
+anima docs host
+```
+
+`inspect` lists scalar `$` paths as inputs; selected sample snapshots print their typed values.
+For the list above the selected data values are `"Lin"`, `3`, `2`, with `c.r` equal to `6`.
+Use `set $score 12`, `set $name "Ada"` and `fire $pulse` in sample scripts. Import
+`@anima-format/web/data`, `/bind`, `/convert` as needed alongside the web runtime; host access
+additionally needs `/host`. Inline markup also needs its matching markup bundles.
+
+Common diagnostics carry a code, JSON pointer, message and hint (AniML also gives source positions):
+
+| Code | Fix |
+| --- | --- |
+| `data-path` | Declare the property/instance; check the list index and `$main:score` spelling. |
+| `data-type` | Match the declared type; use `fire` for triggers, not defaults or sets. |
+| `data-model`, `data-instance` | Declare the referenced model/instance; flag only one default. |
+| `data-property`, `data-enum` | Use valid property names, ordered numeric limits and unique enum members. |
+| `data-readonly` | Write an item property, not list length. |
+| `data-cycle` | Make nested defaults/references acyclic. |
+| `data-guard` | Match the declared literal type and use equality; asset literals need a typed declared asset. |
+| `data-asset` | Declare an asset with the reference's kind. |
+| `data-binding` | Reverse modes need a direct writable path and compatible target. |
+| `data-converter`, `convert-reference` | Declare the converter/group name. |
+| `convert-cycle`, `convert-options`, `convert-type`, `convert-unknown-type` | Break group cycles; check type/option names and operand types. |
+| `data-copy`, `data-value-source` | Use `$source -> $destination` of matching types; load input/focus for their value sources. |
+
+
+<!-- invalid: data-trigger.animl -->
+```text
+<anima version="0.1" name="bad-trigger" grid="20" requires="data">
+  <model name="Score"><trigger name="pulse" default="true"/></model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+</anima>
+```
+
+<!-- diagnostics: data-trigger.animl -->
+```text
+data-trigger.animl:2:23 error data-type triggers have no stored value
+  hint: use fire with the trigger path
+data-trigger.animl: 1 error
+```
+
+<!-- invalid: data-enum.animl -->
+```text
+<anima version="0.1" name="bad-enum" grid="20" requires="data">
+  <model name="Score"><enum name="mood" values="happy happy"/></model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+</anima>
+```
+
+<!-- diagnostics: data-enum.animl -->
+```text
+data-enum.animl:2:23 error data-enum enum needs unique members or a declared system enum
+  hint: check the data model, instance and property declaration
+data-enum.animl: 1 error
+```
+
+Intentional converter differences: boolean → string is `"true"`/`"false"` (native true is
+`"1"`); interpolation starts eagerly from the load value instead of snapping on the first
+non-default change, and RGBA channel rounding is round-half-up. Decimal rounding and degrees →
+radians keep doubles; measured native differences are float32 storage precision. Enum → index's
+native dump is an observation limit. The unchanged findings and exact paths are linked in
+`anima docs convert`; they remain findings, not passing oracle comparisons.
+
+Remaining data work includes layout/text consumers, scripting and text-style properties.
+Data-backed keyframes, relative component contexts, component-valued properties, exported instance
+discovery and contextual list indices are implemented; see the examples below. The converter-options row's named integration now exists, but its inventory
+status remains pending. The four pending convert rows cover HSL/component-format markers,
+retained number-to-model-list creation, counter delivery into trigger destinations and scripted
+converters. Scalar/index-list/boolean functions do not imply those broader capabilities. System
+enums declare vocabulary only; they do not implement future layout/text consumers.
+
+With `derive`, use `$title.length` directly in bindings or computed number properties; it is a
+read-only count of UTF-16 code units and follows title-only edits. For example
+`<number name="titleChars" value="$title.length"/>` needs no separately maintained auxiliary value.

@@ -1,0 +1,49 @@
+
+> test:scope
+> node tools/test-scope.ts text-effects a11y text conformance oracle --browser=chromium
+
+Scopes: text-effects, a11y, text, conformance, oracle
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-9c7619f2
+
+
+ Test Files  34 passed | 1 skipped (35)
+      Tests  4249 passed | 8 skipped | 67 todo (4324)
+   Start at  23:50:51
+   Duration  72.01s (tests 87%, import 10%, transform 3%)

@@ -1,0 +1,83 @@
+{
+  "base": "7c0d9f6d",
+  "branch": "t3/implement-p6-13",
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exit": 0,
+    "passed": 9246,
+    "failed": 0,
+    "todo": 56,
+    "passedFiles": 302,
+    "skippedFiles": 13,
+    "seconds": 541.7,
+    "engines": ["Chromium", "Firefox"],
+    "sourceFrozen": true
+  },
+  "focused": {
+    "command": "npm run test:scope -- fonts text-effects cli conformance oracle --browser=chromium",
+    "exit": 0,
+    "passed": 4565,
+    "todo": 43,
+    "note": "before final Canvas clamp/retention and preflight narrowing; final full run above covers them"
+  },
+  "fontUnits": {
+    "command": "npx vitest run --project unit modules/fonts/test/core",
+    "exit": 0,
+    "passed": 30,
+    "failed": 0
+  },
+  "strictOracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 0,
+    "completedCases": 307,
+    "completedSamples": 522,
+    "failedSamples": 0,
+    "newCases": "pending; raw evidence, no new limits assigned"
+  },
+  "size": {
+    "command": "node tools/size.ts",
+    "exit": 0,
+    "baseline": "immutable archived HEAD with independent workspace package links",
+    "before": [21136, 53857, 98674, 118903, 14649, 128645],
+    "after": [21136, 53857, 98890, 120281, 14649, 130077]
+  },
+  "perf": {
+    "command": "node tools/perf.ts",
+    "exit": 0,
+    "controlledNonRegression": "unverified under shared load"
+  },
+  "native": {
+    "command": "node modules/fonts/test/capture-options.ts",
+    "exit": 0,
+    "temporaryFontsAndBinariesRemoved": true,
+    "assignedLimits": false
+  },
+  "priorFailures": [
+    "missing tooling dependencies restored with npm ci",
+    "discarded baseline overlapped edits; second discarded archive baseline followed workspace links to active checkout",
+    "initial focused 4561pass/4fail: canonical formatting x2 and independent compound-style recovery x2; corrected focused 4565pass",
+    "initial owned browser 2fail due CSS normalization omitting a feature value of 1; corrected 2pass",
+    "first native captures could not create missing frames directory; created directory and recaptured",
+    "two broad runs cancelled before final source refinements; final frozen run passes"
+  ],
+  "pending": [
+    "strict-manifest acceptance/limits for two new native cases",
+    "arbitrary settings unavailable on tested native Canvas contexts; documented fallback",
+    "complete font metrics/decoding introspection APIs",
+    "controlled performance comparison"
+  ],
+  "static": {
+    "npm run typecheck": 0,
+    "node tools/modules.ts --check": 0,
+    "node tools/parity.ts --check": 0,
+    "node tools/build-animl.ts --check": 0,
+    "node tools/build-web.ts --check": 0,
+    "npx eslint (all changed/new TypeScript)": 0,
+    "npx prettier --check --ignore-unknown (all changed/new files)": 0
+  },
+  "dataBinding": {
+    "exit": 0,
+    "steps": [650, 900],
+    "evidence": "data-bind.txt"
+  }
+}

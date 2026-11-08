@@ -1,0 +1,68 @@
+{
+  "anima": "0.1",
+  "name": "title-wave",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "title",
+      "type": "text",
+      "x": 1,
+      "y": 4,
+      "styles": {
+        "h": {
+          "size": 2,
+          "fill": {
+            "color": "#141413"
+          }
+        }
+      },
+      "runs": [
+        {
+          "id": "heading",
+          "text": "Search card",
+          "style": "h"
+        }
+      ],
+      "effects": [
+        {
+          "end": 2,
+          "units": "words",
+          "y": 2,
+          "opacity": 0,
+          "ranges": [
+            {
+              "start": 0,
+              "units": "glyphs",
+              "falloff": 3,
+              "combine": "intersect"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "entrance": {
+      "duration": 1.2,
+      "tracks": {
+        "title.effects.0.ranges.0.start": [
+          [0, 0],
+          [1.2, 14]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "entrance": {
+        "initial": "wave",
+        "states": {
+          "wave": {
+            "play": "entrance"
+          }
+        }
+      }
+    }
+  }
+}

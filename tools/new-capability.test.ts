@@ -149,7 +149,8 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
-}, 60000);
+  // Copies and typechecks a scratch repository: ~54 s alone under load after P6 (was well under 60 s).
+}, 120_000);
 
 it('rejects invalid requests without writes and notes unsupported oracle counterparts', async () => {
   const root = scratch();

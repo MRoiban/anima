@@ -1,0 +1,3 @@
+name: oracle-text-style-reference
+logs:
+  file: build/runtime.log

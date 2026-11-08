@@ -2,7 +2,10 @@
 
 Write `.animl`; `anima build` produces `.ani` for the runtime. Check motion from markup.
 Read `anima docs markup` for syntax and `anima docs spec` for playback rules.
-Use `anima docs --list` to find topics, then fetch one with `anima docs <topic>`.
+`anima docs` shows a table of contents. Use `anima docs --list` to find topics,
+then fetch one with `anima docs <topic>` or a guide section with
+`anima docs authoring <section-slug>`. Topic names accept camelCase or kebab-case;
+near misses suggest the closest topic (for example `textInput` resolves to `text-input`).
 
 ## The loop
 
@@ -71,7 +74,8 @@ compose motion. Enlarge `viewBox` for bleed; the layout box still uses `grid`.
 
 Use SVG-style attribute names: `cx`, `cy`, `width`, `height`, `fill`, `fill-rule`,
 `stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin`.
-`anima schema <type>` shows both the markup and JSON spellings.
+`anima schema <type>` shows both the markup and JSON spellings and marks required attributes.
+For example, `anima schema rect` marks `x0`, `y0`, `width` and `height` as required.
 Rects start at `x0`, `y0`; `x`, `y` translate any node. Arcs take `cx`, `cy`, `r`,
 `from`, `to` and stroke paint. Caps and joins default to `round`; strokes scale with nodes.
 A fill detail needs `fill`; every stroke detail needs `stroke`.
@@ -324,8 +328,13 @@ is synchronous in either order, including modules loaded later. Existing browser
 can replace their `@anima-format/web/markup` import with this one. The standalone browser file is
 `anima-markup-hooks.js`.
 
-The lean `@anima-format/web/markup` entry remains available for base-format AniML and explicit
-`markup-<name>` hook imports. Library/template expansion still uses the optional
+The lean `@anima-format/web/markup` entry remains available for static AniML and explicit
+`markup-<name>` hook imports. When using that lean entry, add
+`@anima-format/web/markup-animation` for track text, named eases, transition conditions or listener
+`set` assignments. It includes the lean compiler and works before or after it; its standalone file
+is `anima-markup-animation.js`. Missing animation syntax reports `markup-animation-unavailable`
+with a pointer and source position. Loading the entry later retries failed retained sources.
+`markup-hooks` already includes animation support, so pages using it need no extra import. Library/template expansion still uses the optional
 `@anima-format/web/markup-libraries` entry alongside the authoring import. Without a compiler,
 an icon holding AniML reports a `markup-unavailable` error. Pages that ship built `.ani` never
 need authoring imports.
@@ -991,6 +1000,75 @@ With `derive`, use `$title.length` directly in bindings or computed number prope
 read-only count of UTF-16 code units and follows title-only edits. For example
 `<number name="titleChars" value="$title.length"/>` needs no separately maintained auxiliary value.
 
+
+### Animate a bound position
+
+Use the existing `interpolate` converter for a travelling indicator; its `duration` is
+milliseconds and `ease` uses the timeline easing grammar:
+
+```xml
+<anima version="0.1" name="travelling-indicator" grid="120" requires="data bind convert">
+  <model name="Position"><number name="x"/></model>
+  <converter name="travel" type="interpolate" duration="200" ease="cubic(0.42, 0, 1, 1)"/>
+  <circle id="indicator" cx="10" cy="10" r="3" fill="#4263eb"/>
+  <bind target="indicator.x" value="$x" convert="travel"/>
+</anima>
+```
+
+Sample the initial state (`advance 0`), then `set $x 100`, `advance 0`, and
+`advance 0.1`: x is about 31.5357. Another 0.1 seconds reaches 100. In a browser,
+set the typed number/path and let the player's ordinary frame loop advance the converter.
+Retargeting begins at the current sample; no page-side interpolation is needed. The first
+binding evaluation initializes immediately. Timelines use seconds; converter duration uses ms.
+
+## Filtering a list by typed text
+
+Use `text-input` to write committed field text to a string `$query`. Derive one bool per label
+with `contains(lower($label0), lower($query))`, then derive a number `$count` by adding the
+bools (each becomes 0 or 1). Bind row visibility to those bools. The empty query shows all rows;
+matching ignores case, preserves spaces and uses Unicode default lowercase without normalization.
+Both functions require strings; wrong argument types report `bind-type` at load time.
+
+```xml
+<anima version="0.1" name="filtering-list" grid="20" requires="text textinput a11y focus data bind derive convert">
+  <model name="Search">
+    <string name="query"/>
+    <string name="label0" default="Sound"/>
+    <string name="label1" default="Motion"/>
+    <bool name="shown0" value="contains(lower($label0), lower($query))"/>
+    <bool name="shown1" value="contains(lower($label1), lower($query))"/>
+    <number name="count" value="$shown0 + $shown1"/>
+    <string name="summary" value="$count" convert="results"/>
+  </model>
+  <instance name="main" model="Search" default="true"/>
+  <converter name="results" type="template" text="{0} results"/>
+  <text-style id="body" size="1"/>
+  <text id="search" x="1" y="1" width="18" height="2" sizing="fixed">
+    <run text="" style="body"/>
+    <text-input placeholder="Filter labels" write-text="$query" label="Search labels"/>
+  </text>
+  <text id="row0" x="1" y="5">
+    <run text="$label0" style="body"/>
+  </text>
+  <text id="row1" x="1" y="8">
+    <run text="$label1" style="body"/>
+  </text>
+  <text id="total" x="1" y="12">
+    <run text="$summary" style="body"/>
+  </text>
+  <bind target="row0.visible" value="$shown0"/>
+  <bind target="row1.visible" value="$shown1"/>
+</anima>
+```
+
+Typing `SO` selects Sound and produces `1 results`; clearing the field restores both rows and
+`2 results`. A `$query` write updates the derived bools, count and visual bindings in the same
+`Player.step`, including `step(0)`. Native field commit scheduling is owned by `text-input`.
+For headless text sampling, supply a font with `--font sans-serif=fixtures/fonts/anima-test.ttf`.
+Browser hosts load `/text`, `/text-input`, `/a11y`, `/focus`, `/data`, `/bind`, `/derive` and
+`/convert` beside the base web entry. The complete example pair is
+`modules/bind/examples/filtering-list.animl` and `.ani`; `anima docs bind` includes this recipe.
+
 ## Lists
 
 Use `count="$tracks.length"` for a live dot counter. Any readable numeric data path is accepted.
@@ -1130,6 +1208,30 @@ helpers apply first; use separate steps when the order matters.
 With components imported, `icon.instance('badge').data` addresses the existing child's models.
 `<anima-icon component="badge" src="icons.ani">` selects a component as root. Set the component
 attribute before loading; change it and reload to select another component.
+Imported components keep their original key when unique: a library `switch` can be selected with
+`component="switch"`. The import alias is always accepted (`component="ui:switch"` for `as="ui"`).
+On a clash, imported keys are `ui:switch`, `other:switch`; nested imports use the full alias chain.
+Local declarations retain their exact keys. Ambiguous bare names report `ambiguous-component`;
+use a qualified name from the diagnostic hint (hints are present in verbose/tooling builds).
+CLI `--component`, core component references and `data.component(path).set(name)` use the same lookup.
+The core components entry exports `componentNames(doc, name)`, returning matching definition keys
+(one on success, several on ambiguity, none if unknown). Compiled aliases live in
+`meta.componentNames`, survive JSON/decompile round trips and preserve other metadata.
+Old generated keys still work; after rebuilding, `import-4-switch` resolves by its unique `switch`
+suffix or reports qualified alternatives if ambiguous.
+
+Components without their own `data` declaration share the document's live named instances through
+every nesting level. Theme colours therefore reach nested digits without a `global` model flag.
+An explicitly declared child model remains local unless bound to a parent instance; separate root
+icons keep separate data. Colour handles accept `#rgb`, `#rrggbb`, `#rrggbbaa` or RGBA arrays and throw
+`DataError` (`data-type`, data path and hint) for invalid values. RGBA channels must be integers
+in [0,255]. Writes commit on the next step;
+`batch` groups scheduling and notifications and does not synchronously render:
+
+```js
+icon.data.batch(() => icon.data.color('$theme:ink').set('#abcdef'));
+// The next scheduled frame updates top-level and inherited nested bindings.
+```
 
 For images, point the property at a declared image asset first, then:
 

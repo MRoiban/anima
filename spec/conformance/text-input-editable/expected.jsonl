@@ -1,0 +1,1 @@
+{"time":0,"values":{"$query":"abc"},"states":{},"events":[],"settled":true,"semantics":[{"id":"q","role":"text-field","label":"Search","states":{"readonly":true,"multiline":false,"obscured":false,"focused":true},"bounds":[2,3,10,4],"actions":["focus"],"children":[],"value":"abc"}]}

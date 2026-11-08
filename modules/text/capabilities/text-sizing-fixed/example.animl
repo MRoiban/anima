@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-sizing-fixed" grid="20" requires="text">
+  <text id="label" width="4" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

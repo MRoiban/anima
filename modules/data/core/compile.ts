@@ -40,6 +40,15 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       const at = ptr(ptr('/data/models', key) + '/properties', key2);
       if (!name.test(key2))
         error(dataCodes['property'], at, V && 'property names must be identifiers');
+      if (p.type === 'text-style' && !model.doc.requires?.includes('text'))
+        error(
+          'undeclared-feature',
+          at + '/type',
+          V && 'text-style requires text',
+          V && 'add text to requires',
+        );
+      if (p.type === 'text-style')
+        p.values = Object.keys(model.doc.textStyles ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'component')
         p.values = Object.keys(model.doc.components ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'enum') {
@@ -380,10 +389,20 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       b = dataState(child);
     if (!a || !b) return;
     for (const [key, inst] of Object.entries(b.compiled.document.instances ?? {}))
-      if (defs[inst.model]?.global && a.instances[key]) b.instances[key] = a.instances[key]!;
+      if ((child.model.inheritedData || defs[inst.model]?.global) && a.instances[key])
+        b.instances[key] = a.instances[key]!;
     if (node.raw.data) {
       const source = a.instances[String(node.raw.data).replace(/^\$/, '').replace(/:$/, '')];
       if (source) b.instances[b.compiled.defaultName] = source;
+    }
+    // Lists already walks descendants after installing its item/default context.
+    if (model.doc.requires.includes('lists')) return;
+    // Children are constructed bottom-up; refresh descendants after rebinding this child.
+    const nested = child.nested as
+      { players?: Map<string, import('../../../packages/core/src/player.ts').Player> } | undefined;
+    for (const [id, grandchild] of nested?.players ?? []) {
+      const placement = child.model.nodes.find((n) => n.id === id);
+      if (placement) child.model.bindData?.(child, grandchild, placement);
     }
   };
 }

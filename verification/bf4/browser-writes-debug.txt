@@ -1,0 +1,94 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+stdout | modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+ {
+  box: {
+    x: 8,
+    y: 8,
+    width: 800,
+    height: 200,
+    top: 8,
+    right: 808,
+    bottom: 208,
+    left: 8
+  },
+  inputs: 4,
+  pointer: [
+    {
+      x: 8,
+      y: 28.000000000000004,
+      startX: 5.000000000000001,
+      startY: 20.000000000000004,
+      button: 0,
+      over: {},
+      pressed: {},
+      drag: false,
+      moved: 8.54400374531753,
+      origins: {}
+    }
+  ],
+  values: {
+    'outer/$main:x': 0,
+    'outer/$main:y': 0,
+    'outer/$main:dx': 0,
+    'outer/$main:dy': 0,
+    'outer/$main:n': 0,
+    'outer/$main:copy': 0,
+    'outer/$main:key': '',
+    'outer/$index': 0,
+    'outer/inner/$main:x': 0,
+    'outer/inner/$main:y': 0,
+    'outer/inner/$main:dx': 0,
+    'outer/inner/$main:dy': 0,
+    'outer/inner/$main:n': 0,
+    'outer/inner/$main:copy': 0,
+    'outer/inner/$main:key': '',
+    'outer/inner/$default:x': 0,
+    'outer/inner/$default:y': 0,
+    'outer/inner/$default:dx': 0,
+    'outer/inner/$default:dy': 0,
+    'outer/inner/$default:n': 0,
+    'outer/inner/$default:copy': 0,
+    'outer/inner/$default:key': '',
+    'outer/inner/$x': 0,
+    'outer/inner/$y': 0,
+    'outer/inner/$dx': 0,
+    'outer/inner/$dy': 0,
+    'outer/inner/$n': 0,
+    'outer/inner/$copy': 0,
+    'outer/inner/$key': '',
+    'outer/inner/$index': 0
+  },
+  settled: { events: [], settled: true }
+}
+
+ ❯ |browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 20844ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 1559ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+AssertionError: expected +0 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 0
+
+ ❯ modules/input/test/web/bf4-writes.test.ts:84:73
+
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/input/test/web/bf4-writes.test.ts:84:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  18:34:56
+   Duration  23.22s (tests 91%, import 8%, transform 1%)
+

@@ -1,0 +1,52 @@
+advance 0
+focus target search
+data set $shown0 true
+data set $shown1 true
+data set $shown2 true
+data set $shown3 true
+data set $shown4 true
+advance 0
+type "o"
+advance 0
+data set $shown0 true
+data set $shown1 true
+data set $shown2 true
+data set $shown3 true
+data set $shown4 false
+advance 0
+select 0 1
+type "so"
+advance 0
+data set $shown0 false
+data set $shown1 false
+data set $shown2 true
+data set $shown3 false
+data set $shown4 false
+advance 0
+select 0 2
+type ""
+advance 0
+data set $shown0 true
+data set $shown1 true
+data set $shown2 true
+data set $shown3 true
+data set $shown4 true
+advance 0
+data set $label4 "Other options"
+advance 0
+data set $shown0 true
+data set $shown1 true
+data set $shown2 true
+data set $shown3 true
+data set $shown4 true
+advance 0
+type "OTHER"
+advance 0
+data set $shown0 false
+data set $shown1 false
+data set $shown2 false
+data set $shown3 false
+data set $shown4 true
+advance 0
+data dump
+semantics

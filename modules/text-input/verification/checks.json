@@ -1,0 +1,106 @@
+{
+  "status": "partial implementation; all final required checks exit zero; no parity rows closed",
+  "moduleScope": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- text-input --browser=<engine>",
+    "chromium": {
+      "passed": 2918,
+      "failed": 0,
+      "skipped": 557
+    },
+    "firefox": {
+      "passed": 2918,
+      "failed": 0,
+      "skipped": 557
+    }
+  },
+  "exitZero": [
+    "npm run typecheck",
+    "changed TypeScript files: npx eslint",
+    "changed files: npx prettier --check --ignore-unknown",
+    "node tools/modules.ts --check",
+    "node tools/build-animl.ts --check",
+    "node tools/parity.ts --check",
+    "node tools/build-web.ts --check",
+    "node tools/gen-schema.ts --check (regenerated schema; program has no check mode)",
+    "node tools/oracle.ts --strict",
+    "node tools/size.ts",
+    "node tools/perf.ts",
+    "CLI search-card sample",
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- changed"
+  ],
+  "orderAudit": {
+    "orders": 12,
+    "identical": true,
+    "sha256": "24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91",
+    "seconds": 31.564,
+    "timedTest": "earlier isolated 30-second deadline failed; original timed test passes in final changed run; no timeout changed"
+  },
+  "previousChanged": {
+    "passed": 8739,
+    "failed": 31,
+    "todo": 114,
+    "fixed": {
+      "decompile": 28,
+      "reverseRegistration": 1
+    },
+    "isolatedScaffolder": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "performanceGuard": "unverified under shared-host load; no <=3% claim",
+  "parity": {
+    "closed": [],
+    "planned": [
+      "a11y.role-text-field",
+      "a11y.state-multiline",
+      "a11y.state-obscured",
+      "a11y.text-proxy",
+      "host-api.clipboard-text",
+      "host-api.text-input",
+      "input.text-listener",
+      "input.write-text",
+      "text.input-clipboard",
+      "text.input-cursor",
+      "text.input-editable",
+      "text.input-focus-selection",
+      "text.input-ime",
+      "text.input-limits",
+      "text.input-multiline",
+      "text.input-obscured",
+      "text.input-placeholder",
+      "text.input-selection",
+      "text.input-selection-rounding",
+      "text.input-text"
+    ],
+    "missing": "independent native references/comparison for all rows; six standalone conformance dispositions pending"
+  },
+  "gates": {
+    "coreWeb": [21136, 21136, 24576],
+    "largestScene": [53201, 53206, 65536],
+    "appUi": [94068, 94077, 131072],
+    "runtimeSum": [113443, 113451, 163840],
+    "authoring": [15226, 15226, 16384],
+    "heavy": [119089, 123047, 256000]
+  },
+  "entries": {
+    "text-input": [null, 3789, 4096],
+    "text-input-svg": [null, 356, 512],
+    "text-input-clipboard": [null, 118, 512],
+    "text-input-canvas": [null, 92, 256],
+    "markup-text-input": [null, -46, 192],
+    "focus": [3092, 3092, 3456],
+    "a11y": [2360, 2360, 2496],
+    "markup": [8177, 8177, 8192]
+  },
+  "finalChanged": {
+    "passed": 8771,
+    "failed": 0,
+    "todo": 114,
+    "filesPassed": 275,
+    "filesSkipped": 13,
+    "seconds": 685.54,
+    "engines": ["chromium", "firefox"],
+    "exitCode": 0
+  }
+}

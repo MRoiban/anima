@@ -1,0 +1,44 @@
+{
+  "anima": "0.1",
+  "name": "text-modifier-translation",
+  "grid": 20,
+  "requires": ["text", "texteffects", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ],
+      "effects": [
+        {
+          "x": 2,
+          "y": 3
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

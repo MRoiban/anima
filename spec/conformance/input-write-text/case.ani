@@ -1,0 +1,116 @@
+{
+  "anima": "0.1",
+  "name": "input-write-text",
+  "grid": 20,
+  "requires": ["text", "textinput", "a11y", "focus", "data", "assets", "fonts", "bind", "derive"],
+  "nodes": [
+    {
+      "id": "q",
+      "type": "text",
+      "x": 2,
+      "y": 3,
+      "sizing": "fixed",
+      "width": 10,
+      "height": 4,
+      "runs": [
+        {
+          "text": "",
+          "style": "s"
+        }
+      ],
+      "textInput": {
+        "writeText": "$query",
+        "label": "Search"
+      }
+    },
+    {
+      "id": "result",
+      "type": "circle",
+      "center": [15, 5],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "filter": {
+        "initial": "empty",
+        "states": {
+          "empty": {
+            "pose": {
+              "result.r": 1
+            },
+            "on": [
+              {
+                "when": "$hasQuery == true",
+                "to": "matched"
+              }
+            ]
+          },
+          "matched": {
+            "pose": {
+              "result.r": 3
+            },
+            "on": [
+              {
+                "when": "$hasQuery == false",
+                "to": "empty"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "text",
+      "target": "q",
+      "emit": "committed"
+    }
+  ],
+  "bind": {
+    "result.opacity": "$count > 0"
+  },
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "default": ""
+          },
+          "count": {
+            "type": "number",
+            "value": "$query.length"
+          },
+          "hasQuery": {
+            "type": "bool",
+            "value": "$count > 0"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "values": {}
+      }
+    }
+  },
+  "textStyles": {
+    "s": {
+      "font": "sans-serif",
+      "size": 1
+    }
+  }
+}

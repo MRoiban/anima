@@ -1,0 +1,6 @@
+{"time":0,"values":{"$query":"","$shown0":true,"$shown1":true,"$shown2":true,"$count":3,"row0.visible":true,"row1.visible":true,"row2.visible":true},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$query":"o","$shown0":true,"$shown1":true,"$shown2":true,"$count":3,"row0.visible":true,"row1.visible":true,"row2.visible":true},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$query":"SO","$shown0":true,"$shown1":false,"$shown2":false,"$count":1,"row0.visible":true,"row1.visible":false,"row2.visible":false},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$query":"SO","$shown0":true,"$shown1":true,"$shown2":false,"$count":2,"row0.visible":true,"row1.visible":true,"row2.visible":false},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$query":"missing","$shown0":false,"$shown1":false,"$shown2":false,"$count":0,"row0.visible":false,"row1.visible":false,"row2.visible":false},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$query":"","$shown0":true,"$shown1":true,"$shown2":true,"$count":3,"row0.visible":true,"row1.visible":true,"row2.visible":true},"states":{},"events":[],"settled":true}

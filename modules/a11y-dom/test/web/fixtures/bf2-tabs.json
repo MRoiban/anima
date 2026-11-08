@@ -1,0 +1,92 @@
+{
+  "anima": "0.1",
+  "name": "bf2",
+  "grid": 24,
+  "viewBox": [
+    0,
+    0,
+    24,
+    7
+  ],
+  "requires": [
+    "a11y",
+    "input"
+  ],
+  "nodes": [
+    {
+      "id": "tabs",
+      "type": "group",
+      "a11y": {
+        "role": "tab-list",
+        "label": "View"
+      },
+      "children": [
+        {
+          "id": "tab0",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 8,
+          "h": 7,
+          "fill": {
+            "color": "#123456"
+          },
+          "a11y": {
+            "role": "tab",
+            "label": "0",
+            "selected": "pick0",
+            "activate": "pick0"
+          }
+        },
+        {
+          "id": "tab1",
+          "type": "rect",
+          "x0": 8,
+          "y0": 0,
+          "w": 8,
+          "h": 7,
+          "fill": {
+            "color": "#123456"
+          },
+          "a11y": {
+            "role": "tab",
+            "label": "1",
+            "selected": "pick1",
+            "activate": "pick1"
+          }
+        },
+        {
+          "id": "tab2",
+          "type": "rect",
+          "x0": 16,
+          "y0": 0,
+          "w": 8,
+          "h": 7,
+          "fill": {
+            "color": "#123456"
+          },
+          "a11y": {
+            "role": "tab",
+            "label": "2",
+            "selected": "pick2",
+            "activate": "pick2"
+          }
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "pick0": {
+      "type": "bool",
+      "default": false
+    },
+    "pick1": {
+      "type": "bool",
+      "default": false
+    },
+    "pick2": {
+      "type": "bool",
+      "default": false
+    }
+  }
+}

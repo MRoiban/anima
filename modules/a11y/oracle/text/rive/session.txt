@@ -1,0 +1,12 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[22:53:29.958] rive  deferred replay: inline
+[22:53:29.965] rive  built (8199 bytes, 6ms, 0 errors, 0 warnings)
+[22:53:29.965] rive  showing Inferred [1/1]
+[22:53:29.965] rive  viewport 100x60 @1x
+ok advance
+[22:53:29.966] rive  wrote frames/tree.json
+ok semantics: frames/tree.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[22:53:29.972] rive  wrote frames/0.png
+ok screenshot: frames/0.png
+ok quit

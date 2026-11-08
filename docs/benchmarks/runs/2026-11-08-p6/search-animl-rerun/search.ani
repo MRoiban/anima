@@ -1,0 +1,570 @@
+{
+  "anima": "0.1",
+  "name": "search-card",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["text", "texteffects", "textinput", "a11y", "focus", "data", "bind", "derive", "convert"],
+  "nodes": [
+    {
+      "id": "panel",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 40,
+      "h": 30,
+      "fill": {
+        "color": "#f0eee6"
+      }
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "x": 2,
+      "y": 2,
+      "runs": [
+        {
+          "text": "Find a setting",
+          "style": "heading"
+        }
+      ],
+      "effects": [
+        {
+          "start": 0,
+          "end": 1,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 3,
+          "end": 4,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 5,
+          "end": 6,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 10,
+          "end": 11,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 11,
+          "end": 12,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 12,
+          "end": 13,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        },
+        {
+          "start": 13,
+          "end": 14,
+          "units": "glyphs",
+          "y": 1,
+          "opacity": 0
+        }
+      ]
+    },
+    {
+      "id": "field-box",
+      "type": "rect",
+      "x0": 2,
+      "y0": 6,
+      "w": 36,
+      "h": 4,
+      "rx": 0.7,
+      "fill": {
+        "color": "#f0eee6"
+      },
+      "stroke": {
+        "color": "#141413",
+        "width": 0.12
+      }
+    },
+    {
+      "id": "accent",
+      "type": "rect",
+      "x0": 3,
+      "y0": 9.5,
+      "w": 34,
+      "h": 0.08,
+      "fill": {
+        "color": "#d97757"
+      }
+    },
+    {
+      "id": "search",
+      "type": "text",
+      "x": 2.7,
+      "y": 7,
+      "sizing": "fixed",
+      "wrap": false,
+      "width": 34.6,
+      "height": 2,
+      "styles": {
+        "field": {
+          "font": "sans-serif",
+          "size": 1.8,
+          "lineHeight": 1,
+          "fill": {
+            "color": "#141413"
+          }
+        }
+      },
+      "runs": [
+        {
+          "text": "",
+          "style": "field"
+        }
+      ],
+      "textInput": {
+        "placeholder": "Search",
+        "writeText": "$query",
+        "label": "Search",
+        "caretColor": "#d97757"
+      }
+    },
+    {
+      "id": "row0",
+      "type": "text",
+      "x": 2,
+      "y": 12,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label0",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label0"
+      }
+    },
+    {
+      "id": "row1",
+      "type": "text",
+      "x": 2,
+      "y": 15,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label1",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label1"
+      }
+    },
+    {
+      "id": "row2",
+      "type": "text",
+      "x": 2,
+      "y": 18,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label2",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label2"
+      }
+    },
+    {
+      "id": "row3",
+      "type": "text",
+      "x": 2,
+      "y": 21,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label3",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label3"
+      }
+    },
+    {
+      "id": "row4",
+      "type": "text",
+      "x": 2,
+      "y": 24,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label4",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label4"
+      }
+    },
+    {
+      "id": "total",
+      "type": "text",
+      "x": 2,
+      "y": 27,
+      "runs": [
+        {
+          "text": "$summary",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$summary"
+      }
+    }
+  ],
+  "timelines": {
+    "wave": {
+      "duration": 1.1,
+      "reducedMotion": "end",
+      "tracks": {
+        "title.effects.0.y": [
+          [0, 1],
+          [0.35, 0]
+        ],
+        "title.effects.0.opacity": [
+          [0, 0],
+          [0.35, 1]
+        ],
+        "title.effects.1.y": [
+          [0, 1],
+          [0.05, 1, "out"],
+          [0.4, 0]
+        ],
+        "title.effects.1.opacity": [
+          [0, 0],
+          [0.05, 0, "out"],
+          [0.4, 1]
+        ],
+        "title.effects.2.y": [
+          [0, 1],
+          [0.1, 1, "out"],
+          [0.45, 0]
+        ],
+        "title.effects.2.opacity": [
+          [0, 0],
+          [0.1, 0, "out"],
+          [0.45, 1]
+        ],
+        "title.effects.3.y": [
+          [0, 1],
+          [0.15, 1, "out"],
+          [0.5, 0]
+        ],
+        "title.effects.3.opacity": [
+          [0, 0],
+          [0.15, 0, "out"],
+          [0.5, 1]
+        ],
+        "title.effects.4.y": [
+          [0, 1],
+          [0.2, 1, "out"],
+          [0.55, 0]
+        ],
+        "title.effects.4.opacity": [
+          [0, 0],
+          [0.2, 0, "out"],
+          [0.55, 1]
+        ],
+        "title.effects.5.y": [
+          [0, 1],
+          [0.25, 1, "out"],
+          [0.6, 0]
+        ],
+        "title.effects.5.opacity": [
+          [0, 0],
+          [0.25, 0, "out"],
+          [0.6, 1]
+        ],
+        "title.effects.6.y": [
+          [0, 1],
+          [0.3, 1, "out"],
+          [0.65, 0]
+        ],
+        "title.effects.6.opacity": [
+          [0, 0],
+          [0.3, 0, "out"],
+          [0.65, 1]
+        ],
+        "title.effects.7.y": [
+          [0, 1],
+          [0.35, 1, "out"],
+          [0.7, 0]
+        ],
+        "title.effects.7.opacity": [
+          [0, 0],
+          [0.35, 0, "out"],
+          [0.7, 1]
+        ],
+        "title.effects.8.y": [
+          [0, 1],
+          [0.4, 1, "out"],
+          [0.75, 0]
+        ],
+        "title.effects.8.opacity": [
+          [0, 0],
+          [0.4, 0, "out"],
+          [0.75, 1]
+        ],
+        "title.effects.9.y": [
+          [0, 1],
+          [0.45, 1, "out"],
+          [0.8, 0]
+        ],
+        "title.effects.9.opacity": [
+          [0, 0],
+          [0.45, 0, "out"],
+          [0.8, 1]
+        ],
+        "title.effects.10.y": [
+          [0, 1],
+          [0.5, 1, "out"],
+          [0.85, 0]
+        ],
+        "title.effects.10.opacity": [
+          [0, 0],
+          [0.5, 0, "out"],
+          [0.85, 1]
+        ],
+        "title.effects.11.y": [
+          [0, 1],
+          [0.55, 1, "out"],
+          [0.9, 0]
+        ],
+        "title.effects.11.opacity": [
+          [0, 0],
+          [0.55, 0, "out"],
+          [0.9, 1]
+        ],
+        "title.effects.12.y": [
+          [0, 1],
+          [0.6, 1, "out"],
+          [0.95, 0]
+        ],
+        "title.effects.12.opacity": [
+          [0, 0],
+          [0.6, 0, "out"],
+          [0.95, 1]
+        ],
+        "title.effects.13.y": [
+          [0, 1],
+          [0.65, 1, "out"],
+          [1, 0]
+        ],
+        "title.effects.13.opacity": [
+          [0, 0],
+          [0.65, 0, "out"],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "load": {
+        "initial": "enter",
+        "states": {
+          "enter": {
+            "play": "wave"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "search.opacity": "0.5 + 0.5 * ($query != \"\")",
+    "row0.visible": "$shown0",
+    "row1.visible": "$shown1",
+    "row2.visible": "$shown2",
+    "row3.visible": "$shown3",
+    "row4.visible": "$shown4"
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "label0": {
+            "type": "string",
+            "default": "Notifications"
+          },
+          "label1": {
+            "type": "string",
+            "default": "Network and connectivity preferences"
+          },
+          "label2": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "label3": {
+            "type": "string",
+            "default": "Display brightness and colour"
+          },
+          "label4": {
+            "type": "string",
+            "default": "Privacy"
+          },
+          "shown0": {
+            "type": "bool",
+            "value": "contains(lower($label0), lower($query))"
+          },
+          "shown1": {
+            "type": "bool",
+            "value": "contains(lower($label1), lower($query))"
+          },
+          "shown2": {
+            "type": "bool",
+            "value": "contains(lower($label2), lower($query))"
+          },
+          "shown3": {
+            "type": "bool",
+            "value": "contains(lower($label3), lower($query))"
+          },
+          "shown4": {
+            "type": "bool",
+            "value": "contains(lower($label4), lower($query))"
+          },
+          "count": {
+            "type": "number",
+            "value": "$shown0 + $shown1 + $shown2 + $shown3 + $shown4"
+          },
+          "summary": {
+            "type": "string",
+            "value": "$count",
+            "convert": "results"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "exported": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "results": {
+      "type": "template",
+      "text": "{0} results"
+    }
+  },
+  "textStyles": {
+    "body": {
+      "font": "sans-serif",
+      "size": 1.8,
+      "lineHeight": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    "heading": {
+      "font": "sans-serif",
+      "size": 2.5,
+      "lineHeight": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    }
+  }
+}

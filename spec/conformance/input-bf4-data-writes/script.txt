@@ -1,0 +1,57 @@
+advance 0
+pointer move 5 5
+advance 0
+pointer move 8 7
+advance 0
+pointer down 8 7
+pointer up 8 7
+advance 0
+pointer down 8 7
+pointer up 8 7
+advance 0
+focus target pad
+key down Escape
+advance 0
+snapshot $x $y $dx $dy $n $copy $key
+pointer move 25 5
+advance 0
+pointer move 28 7
+advance 0
+pointer down 28 7
+pointer up 28 7
+advance 0
+pointer down 28 7
+pointer up 28 7
+advance 0
+focus target outer.inner.pad
+key down Escape
+advance 0
+snapshot $child.leaf.x $child.leaf.y $child.leaf.dx $child.leaf.dy $child.leaf.n $child.leaf.copy $child.leaf.key
+pointer move 45 5
+advance 0
+pointer move 48 7
+advance 0
+pointer down 48 7
+pointer up 48 7
+advance 0
+pointer down 48 7
+pointer up 48 7
+advance 0
+focus target rows.0.pad
+key down Escape
+advance 0
+snapshot $rows.0.x $rows.0.y $rows.0.dx $rows.0.dy $rows.0.n $rows.0.copy $rows.0.key
+pointer move 65 5
+advance 0
+pointer move 68 7
+advance 0
+pointer down 68 7
+pointer up 68 7
+advance 0
+pointer down 68 7
+pointer up 68 7
+advance 0
+focus target rows.1.pad
+key down Escape
+advance 0
+snapshot $rows.1.x $rows.1.y $rows.1.dx $rows.1.dy $rows.1.n $rows.1.copy $rows.1.key

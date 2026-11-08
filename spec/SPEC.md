@@ -67,6 +67,13 @@ with its code, severity and pointer, and `anima validate` gives the full text. D
 keep the last value. Keys reserved for a later version (§12) are reported as `reserved`, not as
 unknown keys, so the message can say which version brings them.
 
+For an unavailable optional feature, verbose diagnostics include the web module import,
+for example `import '@anima-format/web/machine' before loading this document`. CLI tools
+register the full feature set; an accepted CLI document still needs its declared modules in the browser.
+
+A document declaring `components` may have an empty `nodes` array: it is a library container
+whose exported components can be instantiated as host roots. Ordinary documents need a node.
+
 **Limits.** Loaders refuse documents beyond these limits with `limit-exceeded`: 1 MiB of text, nesting
 depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
 
@@ -266,7 +273,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
    no-op). Listener `emit` actions add their events now. A queued listener action evaluates its
    expression-valued sets here, when that action is reached, using one pre-action input snapshot
-   for all its sets (§bind). Later actions see earlier writes.
+   for all its sets (§bind). Later actions see earlier writes. With `derive`, recompute
+   computed inputs once after this queue, before clocks and machine guards (derive chapter).
 2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
    elapsed time reaches its duration ends (using §5 clock boundaries).
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
@@ -388,6 +396,18 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ## 10. Accessibility and motion
 
+### Web element sizing
+
+The SVG `<anima-icon>` host defaults to a width of `1em` and an automatic height
+with CSS `aspect-ratio` from the loaded model's viewBox width/height. Selecting a
+root `component` uses that component's viewBox. Author CSS width, height and
+aspect-ratio declarations take precedence over these shadow stylesheet defaults;
+setting both dimensions keeps the authored box. Reloading or changing the shown
+component refreshes the default ratio. Fit/alignment control the drawing within
+that box. Legacy square-viewBox grid offsets remain unchanged.
+
+### Semantics and motion
+
 The optional browser semantic overlay, native controls, focus synchronization and
 host tree/diff API are specified in [a11y-dom/SPEC.md](../modules/a11y-dom/SPEC.md).
 It consumes node accessibility; root document `a11y` below is unchanged.
@@ -415,6 +435,11 @@ It consumes node accessibility; root document `a11y` below is unchanged.
   request behind WCAG 2.2.2 even when the preference changes mid-animation (see
   `docs/research/rive-web-runtime.md`, recommendation 7). The web runtime follows
   `prefers-reduced-motion` unless the element sets `motion="full"` (or `motion="reduce"` to force it).
+
+The host and semantic overlay do not stop DOM event propagation. Page listeners on
+ancestors receive keyboard and pointer events that originate on an icon. Anima calls
+`preventDefault()` only when its own handling consumes the browser default; internal
+host routing guards prevent the same event from being handled twice.
 
 ## 11. Conformance
 
@@ -820,7 +845,12 @@ required geometry uses missing-key. New types without paint use undeclared-featu
 
 Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
 Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).
-The rectangle uses the cutback/quadratic construction above and renders as a path.
+The rectangle renders as a path with circular quarter arcs approximated by cubic Béziers,
+using k = 4(√2−1)/3 ≈ 0.5522847498. Each radius is independently clamped to half
+the adjacent width/height; unequal clamped axes produce quarter ellipses. At each corner,
+the two controls move k of the distance from each edge endpoint toward the corner vertex.
+Polygon/star rounding keeps the quadratic construction above. This is an independent
+standard circle approximation; no external runtime algorithm is ported.
 Corners takes precedence over rx; rx remains unchanged without corners. An absent
 corners array cannot be animated. Invalid addresses use unknown-address; invalid array
 length or negative entries use bad-value at the array or offending item.
@@ -993,9 +1023,11 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 ### Expressions and types
 
-Sources are declared number or bool input names, finite JSON number literals, hex colours
+Sources are declared scalar input names (including `$` data paths when `data` is declared),
+finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`,
+`contains(text,part)`, `lower(text)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
 No scene property reads, boolean literals, assignments or arbitrary calls are allowed. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
@@ -1012,6 +1044,18 @@ channel interpolation (including alpha, rounding and channel clamping); weights 
 (including division by zero) resolve to zero when consumed by another operation or the target,
 before property clamping. Trigger inputs cannot
 be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
+
+`contains(text, part)` requires two strings and returns bool: true exactly when `part` is a
+contiguous substring of `text` (case-sensitive ECMAScript `String.prototype.includes`, UTF-16
+code units). An empty `part` returns true, including for empty `text`.
+`lower(text)` requires one string and returns a string using Unicode default case conversion
+(ECMAScript `String.prototype.toLowerCase`, locale-independent). It does not normalize Unicode,
+trim whitespace or perform full case folding: for example, `lower("İ")` is `"i\u0307"`, and
+`lower("ẞ")` is `"ß"`, not `"ss"`. Use `contains(lower($label), lower($query))` for
+case-insensitive filtering. No number/bool/color-to-string coercion occurs. Both calls work in
+bindings, set actions, derive expressions and scalar guards through the same typed parser.
+A standalone bool call in a guard uses the existing parenthesized scalar form, e.g.
+`(contains(lower($label), lower($query)))`.
 
 ### Validation
 
@@ -1203,6 +1247,13 @@ map holds named nested documents: `grid`, optional `viewBox`, `inputs`, `nodes`,
 `requires` list. References to components resolve in the enclosing document's component map,
 including from other definitions; all definitions, even unused ones, are validated. Each placement
 owns a separate player; compiled definitions and static geometry may be shared.
+Component definition keys and literal references allow colon-separated name segments. Compiled
+library documents retain their stable lookup aliases in `meta.componentNames`, a map from qualified
+import name to definition key. Exact keys take precedence; an original name resolves when unique.
+Ambiguous original names report `ambiguous-component` at the reference, with qualified alternatives
+in the verbose hint. Legacy generated keys remain valid; a missing `import-<number>-<name>` lookup
+resolves by its original suffix when unique and reports the same ambiguity otherwise. See
+[the AniML naming scheme](ANIML.md#11-libraries-and-templates-build-time).
 
 An instance node has `{id, type: "instance", component, inputs?, speed?, paused?}` and the ordinary
 node transform, opacity and visibility properties. `component` names a definition. `inputs` maps its
@@ -2039,7 +2090,9 @@ only stop delivery with explicit consume — an intentional difference from Rive
 listener claims the event by default (measured in `tests/oracle/input-capture-phase`): Anima keeps
 the DOM's rule that observing an event in the capture phase does not take it away from the target. This policy includes nested component keys and all
 three keyboard phases; unmatched key/modifier filters never claim a key. Focus navigation and
-native Enter/Space activation retain the focus/host policies above.
+native Enter/Space activation retain the focus/host policies above. These input
+consumption rules apply only to authored Anima listeners; DOM propagation to the
+surrounding page remains intact as specified in §10.
 
 Preserve-offset alignment intentionally differs from the measured native Rive probe. Anima
 stores target origin minus grab point at pointer-down, then adds that offset to each pointer
@@ -2623,7 +2676,13 @@ JSON/AniML spellings, ordering, bounds, identity, limits and diagnostics are def
 
 <!-- capability: components.inherited-context -->
 ### Inherited data context
-A component with no `data` declaration sees its parent's context when lists is declared.
+A component with no `data` declaration shares the inherited document's live named data instances,
+recursively, including non-global models. This applies to host writes inside/outside `batch` and to
+document writes. An explicit child `data` model keeps local storage unless bound; global models
+retain their sharing contract. Each root player is independent. Descendant steps follow ancestor bindings; a shared data write
+during a descendant step keeps the ancestor unsettled so its bindings resample on the next step.
+With lists, a context-free
+component additionally sees its actual parent's default/item context.
 
 <!-- capability: data.binding-relative -->
 ### Relative bindings
@@ -2738,7 +2797,9 @@ emulation. Authentication is explicitly not applicable because Anima has no acco
 
 `anima render` selects a component with `--component name`, using the same inherited assets,
 data, converters and component declarations as the web component root selector. Scripts address
-the selected root's own inputs and nodes. Unknown names are usage errors.
+the selected root's own inputs and nodes. The selector accepts the same original, qualified and
+legacy component names as the web host. Ambiguous names are usage errors listing qualified
+alternatives; unknown names are usage errors.
 `--viewport WxH` sets positive integer output dimensions (default `--size` square).
 `--fit contain` (default) centres a uniform fit, `cover` centres and crops, `fill` stretches,
 and `none` centres the authored view box with one output pixel per view-box unit.
@@ -2814,6 +2875,14 @@ The optional browser-only `devtools` contract is specified in
 
 ## a11y
 
+Node `a11y` supports `progressbar`, `meter`, `status`, and a local semantic-node
+`controls` relation (Anima extensions without inventory rows). Progressbar/meter use
+numeric bound `value`, min/max (defaults 0/100); omit progressbar value for indeterminate
+progress. Status defaults to polite live announcements. `controls` maps to `aria-controls`.
+Dialog `modal` and button/link/group/list-item `expanded` already accept bool literals,
+inputs or data paths. `anima docs a11y` includes recipes; `anima schema a11y`
+shows the complete registry vocabulary. These are node fields, separate from root §10 a11y.
+
 Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
 diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser
 AniML forms in the `markup-a11y` web entry. The optional `a11y-dom` web entry supplies the platform overlay,
@@ -2880,3 +2949,301 @@ key phase. Missing event fields leave data unchanged. Wrong/read-only destinatio
 unknown sources report `input-write` at `/listeners/<i>/write/<source>` with a type hint.
 Both data properties and ordinary inputs of the matching type are writable. See
 [input](../modules/input/SPEC.md) and its independent conformance/oracle probes.
+
+## Tool font processing (P6-2)
+
+The CLI's optional font tooling adds no browser runtime code. Text measurements use the contract
+in `design/p6/DESIGN.md` §4: cumulative advances after each `Intl.Segmenter('und')` grapheme,
+kerning included, in grid units. Tracking is inserted between graphemes. Metrics are in grid units;
+descent is positive below the baseline. The tool uses OS/2 typographic metrics when USE_TYPO_METRICS
+is set, otherwise hhea metrics; absent cap/x heights fall back to ascent / half ascent. It never
+selects a system font for deterministic measurement. Missing registered families are `font-missing`.
+A family list selects the first registered face; style and nearest weight select among local faces.
+The weight supplies `wght` unless an explicit axis overrides it. Axis coordinates clamp to fvar bounds;
+avar maps normalized coordinates and gvar tuples vary outlines and phantom-point advances.
+
+Tool sources are local TTF/OTF/WOFF/WOFF2 or base64 data URIs. Font collections, CFF2, HVAR metric
+variations and Type2 arithmetic/seac operators are currently unsupported. CFF1 Type2 contours,
+subroutines and CID FDSelect 0/3 are supported, along with TrueType simple and composite glyphs.
+WOFF uses bounded zlib decompression; WOFF2 uses bounded Brotli and inverse glyf/loca/hmtx transforms.
+The reader maps cmap 4/12, reads hhea/hmtx, OS/2, head, maxp, name, kern and GPOS kern pair adjustments
+1/2 (including extension lookups). Pair placement and advances are supported; GPOS device/variation adjustments, mark placement and GSUB
+shaping are not. Arabic, Hebrew, Indic, combining marks and joining controls issue
+`text-shaping-approximate`; the tool does not claim shaped glyph equivalence.
+
+`anima sample`, `validate`, `render` and the conformance runner install the tool measurer when text
+is installed. `--font family=path` registers or overrides local faces. Font asset names, explicit
+family names and name-table family names are aliases. The optional text module supplies
+`setTextMeasurer(TextMeasurer)` (or `setMeasurer`) from `modules/text/core/measure.ts`.
+
+`render` converts SVG text/tspan output into glyph outline paths before the existing rasterizer.
+It preserves transforms, clipping and paints; scalar x/y/dx/dy and numeric grid-unit sizes are
+supported. SVG position lists, nonzero glyph rotation and RTL outline conversion currently give
+`font-unsupported`. `render --browser-text` explicitly selects cached Chromium for PNG shaping and
+rasterization; SVG output embeds local faces for browser display. It uses the image encoder's lazy
+browser and closes it after use. System-font fallback is browser-dependent in this explicit mode.
+
+Font assets may request `glyphs: "all" | "used" | "custom"` (AniML `glyphs`), plus `chars` for custom
+coverage; these keys are registered by the fonts module. All preserves every glyph. Used includes
+literal authored text and string `default`/`value`/`placeholder` fields, including bound defaults.
+Custom includes each Unicode scalar in `chars`. Subsetting embeds an sfnt TTF/OTF asset even without `--embed`.
+TrueType subsetting retains glyph IDs, .notdef, composite dependencies and kerning/variation tables,
+removes unused glyf payloads and replaces cmap coverage. With GSUB present it retains every outline
+conservatively. CFF1 subsetting retains glyph IDs and subroutines, replaces unused charstrings with
+empty glyphs, and relocates offset-bearing top/FD/private dictionaries and INDEXes. Unsupported
+retained Type2 glyph operators diagnose instead of discarding implicit glyph dependencies.
+
+`anima import-font <source> -o local.ttf|otf [--chars text]` normalizes a container to sfnt and emits
+font asset metadata. `--google "Family:wght@400;600"` instead explicitly fetches Google Fonts CSS
+and its font files at build time. Multiple sources use numbered output files. `--chars` requests
+custom coverage and local subsetting. Network, invalid CSS/font bytes and unsupported forms are
+errors; imports never require a network request at runtime. Downloads and font decompression are
+limited to 32 MiB; malformed offsets and bounded recursion produce structured diagnostics rather
+than uncaught CLI exceptions.
+
+`anima flatten <file> [--node id] [-o out.ani|animl]` freezes authored/default text into editable path
+groups, retaining surrounding nodes and common transforms. Remaining references to text-only
+properties are rejected instead of silently dropped. Unsupported SVG features are rejected by the
+conversion. The text module must be installed for text documents; layout semantics remain owned by
+that module. The committed `fixtures/fonts/anima-test.ttf` is original generated test data;
+`node tools/test-font.ts` reproduces it deterministically. Third-party fonts are not fixtures.
+
+Tool font diagnostics carry severity, code, JSON pointer, message and hint: `font-invalid`,
+`font-format`, `font-limit`, `font-unsupported`, `font-source`, `font-missing`, `font-option`,
+`font-glyphs`, `font-download`, `font-flatten`, `font-contract`, `text-shaping-approximate`.
+
+The independent implementation follows the [OpenType specification](https://learn.microsoft.com/en-us/typography/opentype/spec/)
+and [WOFF2 specification §5](https://www.w3.org/TR/WOFF2/#compressed-data-format), not another reader's
+source code. `docs/research/rive-format-and-graph.md` §1's bounded-reader pitfall informs the
+allocation limits; `docs/research/glyphy-compat.md` §1's grid-unit convention informs the tool boundary.
+
+## fonts
+
+<!-- capability: assets.font -->
+<!-- capability: assets.host-decode-font -->
+<!-- capability: assets.replacement-scope-font -->
+<!-- capability: data.host-font -->
+<!-- capability: host-api.data-font -->
+<!-- capability: host-api.font-fallback -->
+<!-- capability: text.font-fallback -->
+<!-- capability: text.font-assets -->
+<!-- capability: text.font-decoding -->
+<!-- capability: text.variable-axes -->
+<!-- capability: text.opentype-features -->
+<!-- capability: text.font-metrics -->
+
+Optional runtime feature `fonts` uses the assets feature's existing `type: "font"` records.
+JSON `{assets: {body: {type: "font", source: "body.woff2"}}}` is AniML
+`<asset name="body" type="font" src="body.woff2"/>`; declare `requires="assets fonts"`.
+No new asset fields or deterministic player channels are added. Core accepts font resources without
+a browser; decoding is a web concern. This keeps the optional asset boundary described in
+`docs/research/rive-web-runtime.md` without adopting its shaping engine or resource format.
+
+### Resources, decoding and readiness
+
+The `@anima-format/web/fonts` entry loads font assets before `anima:load` and the first render.
+Fonts and asset I/O preserve each other's preload hooks in either entry order.
+Sources pass through `icon.resolveAsset`, including its local/any policy and host resolver.
+URLs and resolver-returned Blobs are read as bytes, decoded using `FontFace.load`, added to
+`document.fonts`, then awaited with `document.fonts.load`. Unsupported or corrupt fonts and
+policy failures emit `anima:warning` with a diagnostic array: code `font-load`, severity `warning`,
+JSON pointer `/assets/<escaped-name>/source`, message and recovery hint. The scene continues with
+CSS fallback. A failed replacement preserves the previous face. Browser decoding does not change
+`Player.step` values, timing or events; headless tools do not decode fonts through this module.
+
+`await icon.fonts.decode(bytesOrURL, descriptors?)` returns a loaded FontFace. URLs obey the asset
+policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
+descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
+sources receive private family names, preventing cross-icon collisions. The latest replacement
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+`document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
+counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
+Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode
+font assets.
+
+### CSS, fallback and metrics
+
+`cssFont(spec)` accepts the structural FontSpec contract and returns CSS properties `font`,
+`fontFamily`, `fontSize`, `fontWeight`, `fontStyle`, `letterSpacing`, `fontVariationSettings`, and
+`fontFeatureSettings`. The `font` property is the canvas/FontFaceSet shorthand. `axes` and `features`
+become quoted OpenType tags followed by numeric values; absent maps become `normal`.
+For live asset aliases and host fallback, browser consumers MUST use
+`icon.fonts.cssFont(spec)` (or `icon.fonts.forModel(model).cssFont(spec)` for children). Apply the
+individual CSS properties to SVG text; canvas consumers apply `font` and the supported individual
+properties. The text module owns field validation, layout, animation, measurement and backend
+application. A controller does not synthesize axis or feature introspection from font bytes.
+
+`await icon.fonts.ready(spec, text?)` awaits the used CSS font selection before measuring the actual
+run text. `await icon.fonts.add(face, {weight}?)` adds a host fallback face and optional weight;
+faces sharing a family remain eligible for browser weight selection. Families are appended in
+insertion order after the authored CSS family list. Host fallback configuration survives source
+reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
+releases owned document font registrations; the next CSS/readiness use restores configured faces.
+`icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
+invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
+browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed
+metrics, coverage table, cap-height/x-height parser or outline extractor is supplied by `fonts`.
+
+### Data assignment and replacement scope
+
+With the optional data and host modules, `await icon.data.font(path).set(face)` accepts a decoded
+FontFace. It allocates a player-local font resource id and queues the typed asset-reference write
+through the existing host API. Other data properties and other icons keep their previous resources.
+String assignment retains the existing typed font-asset validation. The public handle value remains
+the selected resource id. Text styles must resolve that id through the owning controller. Named
+resource replacement changes all uses in its resource scope; data-property assignment changes only
+consumers of the assigned property. Bound text rendering and complete font-metric parity require
+the text module; the fonts module alone does not add text nodes.
+
+## text
+
+The optional `text` module adds styled, data-bound text nodes, measured layout, SVG/canvas
+drawing and named host run access. Its normative fields, defaults, validation, measurement
+contract, fit/overflow algorithms and verification limits are specified in
+[modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
+and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
+
+## text-effects
+
+<!-- capability: text.background -->
+<!-- capability: text.modifier-follow-path -->
+<!-- capability: text.modifier-opacity -->
+<!-- capability: text.modifier-origin -->
+<!-- capability: text.modifier-rotation -->
+<!-- capability: text.modifier-scale -->
+<!-- capability: text.modifier-translation -->
+<!-- capability: text.modifier-variation -->
+<!-- capability: text.range-combine -->
+<!-- capability: text.range-easing -->
+<!-- capability: text.range-falloff -->
+<!-- capability: text.range-run -->
+<!-- capability: text.range-units -->
+<!-- capability: text.script-direction -->
+
+The optional `texteffects` feature (`web/text-effects`) adds logical per-cluster translation,
+rotation, scaling, opacity, origins and font-axis effects; scoped glyph/word/line ranges with
+falloff, easing and combination; path positions/tangents; and run backgrounds. The text node's
+JSON `effects` array is AniML `text-effects` or structural `<text-effect>` children, with nested
+`<text-range>` children. `direction` maps whole runs to native SVG/canvas bidi.
+
+[modules/text-effects/SPEC.md](../modules/text-effects/SPEC.md) defines defaults, precise range
+weights and matrix composition, animation addresses, validation, backend limits and evidence.
+The registry drives schema, CLI and both syntax spellings. Thirteen raw native captures are retained; accepted
+comparisons remain unresolved and these rows remain planned. Bidi's measured addition is 150 B min+gzip (owner guard: <=150 B).
+
+<!-- capability: text.script-hit-testing -->
+<!-- capability: a11y.inferred-text -->
+### Text hit testing and inferred semantics (P6)
+
+The optional `text-hit` host adapter exposes grapheme hit positions and caret/selection boxes
+from the shared text layout. `input` listeners may write `text-index` on a text target. The
+optional `a11y-text` browser adapter supplies visible text names and layout bounds to the semantic
+tree; headless tools install this adapter with a11y. Existing JSON/AniML text, label, bounds and
+listener fields are unchanged. See [the normative text semantics contract](../modules/a11y/TEXT.md).
+
+## textinput
+
+The heavy DOM-backed field feature is specified in [text input](../modules/text-input/SPEC.md).
+Its browser entry is `text-input`; its registry feature is `textinput` (module feature names cannot contain hyphens).
+Fields extend fixed text nodes. Registry descriptors define both spellings; no base compiler branch is added.
+
+
+<!-- capability: text.input-text -->
+### Independent field text drawable
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-editable -->
+### Editable text fields
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-cursor -->
+### Styled input caret
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-selection -->
+### Styled input selection
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-selection-rounding -->
+### Rounded selection geometry
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-focus-selection -->
+### Select all on focus
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-ime -->
+### IME and dead-key text entry
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-clipboard -->
+### Text clipboard integration
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-limits -->
+### Text input limits
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-multiline -->
+### Multiline text input
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-obscured -->
+### Obscured text input
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-placeholder -->
+### Text input placeholder
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: host-api.text-input -->
+### Text and IME bridge
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: host-api.clipboard-text -->
+### Text selection for clipboard
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: input.text-listener -->
+### Text input listeners
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: input.write-text -->
+### Store text
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.role-text-field -->
+### Semantic role: textField
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.state-multiline -->
+### Semantic state: Multiline
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.state-obscured -->
+### Semantic state: Obscured
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.text-proxy -->
+### Accessible text proxy
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.

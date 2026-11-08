@@ -1,0 +1,57 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-dom text input --browser=chromium
+
+Scopes: a11y, a11y-dom, text, input
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (a11y-action-edges|a11y-actions-input-limits|a11y-actions-range|a11y-bf4-radio|a11y-bf4-roles|a11y-focus-condition|a11y-focus-policy|a11y-focus-repeat|a11y-headless-keys|a11y-inferred-text|a11y-manual-tabs|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-slider-value-text|a11y-spatial-focus|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility|data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap|host-api-coordinate-mapping|host-api-dom-listener-control|host-api-gamepad|host-api-low-level-pointer|host-api-low-level-scroll|host-api-manual-gamepad-batch|host-api-multitouch|host-api-pointer-exit|host-api-scroll-hit-policy|host-api-scroll-latching|input-align-preserve|input-align-snap|input-bf4-data-writes|input-bounded-hit-tests|input-button-middle|input-button-secondary|input-capture-phase|input-cursor-arrow|input-cursor-hidden|input-cursor-intent|input-cursor-pointer|input-cursor-resize-horizontal|input-cursor-resize-vertical|input-cursor-text|input-disable-listeners|input-focus-machine-integration|input-gamepad-axis|input-gamepad-button|input-gamepad-button-phases|input-gamepad-connected|input-gamepad-disconnected|input-gamepad-host|input-gamepad-index-mapping|input-hit-occlusion-query|input-hit-parent-chain|input-hit-shape-geometry|input-hit-test-host|input-key-down|input-key-filter|input-key-focused-component|input-key-modifiers|input-key-repeat|input-key-up|input-keyboard-bubbling|input-multi-touch|input-multi-trigger-listener|input-opaque-targets|input-pointer-cancel|input-pointer-drag|input-pointer-drag-end|input-pointer-drag-start|input-pointer-enable|input-touch-page-scroll|input-trackpad-scroll|input-wheel-scroll|input-write-key-pressed|input-write-pointer-delta-x|input-write-pointer-delta-y|input-write-pointer-x|input-write-pointer-y|transforms-collapse|transforms-solo)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-22fba684
+
+
+ Test Files  41 passed | 1 skipped (42)
+      Tests  3361 passed | 513 skipped | 1 todo (3875)
+   Start at  23:11:00
+   Duration  75.64s (tests 75%, import 24%, transform 1%)

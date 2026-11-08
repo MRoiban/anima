@@ -1,3 +1,10 @@
+import { documentFonts, installToolMeasurer } from './font/document.ts';
+import { ToolMeasurer } from './font/measure.ts';
+import { outlineSVG } from './font/svg.ts';
+import { browserTextPNG, embedFontCSS } from './font/browser.ts';
+import { importFont, googleFonts } from './font/import.ts';
+import { flattenText } from './font/flatten.ts';
+import { componentNames } from '../../../modules/components/core/names.ts';
 import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
 import { findProject, projectSource, substituteConstants } from './project.ts';
@@ -67,15 +74,18 @@ const ROOT = new URL('../../../', import.meta.url);
 const HELP = `anima — check, see and scaffold .animl and .ani animations
 
   anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
-  anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
-  anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
+  anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
+  anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
+  anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
+  anima validate <file> [--font name=path]  all diagnostics, with JSON pointers, lines and hints
+  anima inspect <file> [--font name=path]  nodes, glyph subpaths and bounds, timelines, state graph
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
                                         run a script (spec §11.2), print snapshots as JSON lines
-  anima session <file>                 persistent JSON-line script session (reload, quit)
-  anima bench <file> [-s script] [--frames N] [--format=json]  compile and frame costs
-  anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
+  anima session <file> [--font name=path]  persistent JSON-line script session (reload, quit)
+  anima bench <file> [-s script] [--frames N] [--format=json] [--font name=path]  compile and frame costs
+  anima render <file> -o out.svg|png [--font name=path] [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
-               [--background #hex]       draw a frame or a labelled contact sheet
+               [--background #hex] [--browser-text] draw a frame or a labelled contact sheet
   anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
                [--size px] [--tolerance 0..255] [-o diff.png]
                                         compare RGBA pixels (default 256px, black currentColor,
@@ -88,17 +98,18 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima schema --search <words> | <type>.<field>
                [--animatable] [--bindable] [--inherited] [--editor-only]
   anima new <directory> --sample bell|moon|progress
-  anima build [file] --out-dir <directory>  local HTML and runtime export
+  anima build [file] --out-dir <directory> [--font name=path]  local HTML and runtime export
   anima fmt <file> [--write | --check]  canonical formatting
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
-  anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
+  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]  compile AniML to canonical .ani or inline JSON
   anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
   anima library update <file.animl> [--check]  refresh vendored imports from local source paths
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
   anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
+    Default: contents only; request a section to read it. Topics accept camelCase or kebab-case.
                                         the authoring guide and the spec
 
 Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
@@ -112,6 +123,11 @@ export async function run(argv: string[], io: IO): Promise<number> {
       args: argv,
       allowPositionals: true,
       options: {
+        font: { type: 'string', multiple: true },
+        'browser-text': { type: 'boolean' },
+        google: { type: 'string' },
+        chars: { type: 'string' },
+        node: { type: 'string' },
         component: { type: 'string' },
         fit: { type: 'string' },
         viewport: { type: 'string' },
@@ -171,6 +187,55 @@ export async function run(argv: string[], io: IO): Promise<number> {
   if (!cmd || o.help) return (io.out(HELP), cmd || o.help ? 0 : 2);
   const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
   try {
+    let fonts = { measurer: new ToolMeasurer(), diagnostics: [] as Diagnostic[] };
+    const prepareFonts = async () => {
+      fonts = { measurer: new ToolMeasurer(), diagnostics: [] };
+      const f = file(rest),
+        source = projectSource(f);
+      let doc: unknown;
+      let sourceMap: Map<string, import('@anima-format/markup').Pos> | undefined;
+      if (f.endsWith('.animl'))
+        ({ doc, map: sourceMap } = compile(source, {
+          file: f,
+          validate: false,
+          resolve: (path) =>
+            substituteConstants(readFileSync(path, 'utf8'), findProject()?.constants),
+        }));
+      else {
+        try {
+          doc = JSON.parse(source);
+        } catch {
+          /* normal validation owns syntax diagnostics */
+        }
+      }
+      if (
+        doc &&
+        typeof doc === 'object' &&
+        (o.font?.length ||
+          ('requires' in doc &&
+            Array.isArray(doc.requires) &&
+            doc.requires.some((r: unknown) => r === 'text' || r === 'fonts')))
+      )
+        fonts = documentFonts(doc, f, o.font, (pointer) => sourceMap?.get(pointer)?.file ?? f);
+      if (fonts.diagnostics.some((d) => d.severity === 'error')) {
+        if (json) emit({ file: f, ok: false, diagnostics: fonts.diagnostics });
+        else report(f, fonts.diagnostics, io);
+        return false;
+      }
+      fonts.measurer.onDiagnostic = (diagnostic) => {
+        if (fonts.diagnostics.some((d) => d.code === diagnostic.code)) return;
+        fonts.diagnostics.push(diagnostic);
+        if (cmd !== 'validate') report(f, [diagnostic], io);
+      };
+      await installToolMeasurer(fonts.measurer);
+      if (cmd !== 'validate') report(f, fonts.diagnostics, io);
+      return true;
+    };
+    if (
+      ['sample', 'validate', 'render', 'flatten', 'build', 'inspect', 'bench'].includes(cmd) &&
+      !(await prepareFonts())
+    )
+      return 1;
     switch (cmd) {
       case 'doctor': {
         const result = await doctor();
@@ -237,7 +302,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         }
       }
       case 'validate':
-        return validate(file(rest), json, io);
+        return validate(file(rest), json, io, fonts.diagnostics);
       case 'inspect':
         return inspect(file(rest), json, io, !!o.summary);
       case 'sample': {
@@ -252,7 +317,14 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'session': {
         const f = file(rest);
         if (rest.length !== 1) throw new Usage('session takes one file');
-        return await session(() => check(f).model, io, scriptOptions(o));
+        return await session(
+          async () => {
+            const next = check(f).model;
+            return next && (await prepareFonts()) ? next : undefined;
+          },
+          io,
+          scriptOptions(o),
+        );
       }
       case 'bench': {
         const f = file(rest);
@@ -291,9 +363,32 @@ export async function run(argv: string[], io: IO): Promise<number> {
             { ...presets[i], ...explicit, out: output },
             json,
             io,
+            fonts.measurer,
           );
           if (result) return result;
         }
+        return 0;
+      }
+      case 'import-font': {
+        if (!o.out) throw new Usage('import-font needs -o local.ttf|otf');
+        if (o.google ? rest.length !== 0 : rest.length !== 1)
+          throw new Usage('import-font takes a font file or --google family:axes@values');
+        const assets = o.google
+          ? await googleFonts(o.google, o.out, o.chars)
+          : [importFont(file(rest), o.out, o.chars)];
+        emit({ assets });
+        return 0;
+      }
+      case 'flatten': {
+        const f = file(rest),
+          result = loaded(f, io, json);
+        if (!result.model) return 1;
+        const doc = flattenText(JSON.parse(result.text), fonts.measurer, o.node),
+          text = format(doc);
+        if (o.out) writeFileSync(o.out, o.out.endsWith('.animl') ? decompile(text) : text);
+        else if (io.write) io.write(text);
+        else io.out(text);
+        if (json && o.out) emit({ wrote: o.out });
         return 0;
       }
       case 'build': {
@@ -402,6 +497,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'new':
         return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
+        if (rest[0]) rest[0] = schemaTopic(rest[0])!;
         if (o.animatable || o.bindable || o.inherited || o['editor-only'])
           return filteredSchema(rest[0], o, json, io);
         return o.search
@@ -588,8 +684,9 @@ function report(f: string, ds: Located[], io: IO): void {
   }
 }
 
-function validate(f: string, json: boolean, io: IO): number {
+function validate(f: string, json: boolean, io: IO, extra: Diagnostic[] = []): number {
   const { model, diagnostics } = check(f);
+  diagnostics.push(...extra);
   if (json) io.out(JSON.stringify({ file: f, ok: !!model, diagnostics }));
   else {
     report(f, diagnostics, io);
@@ -822,7 +919,14 @@ async function render(
   o: Record<string, unknown>,
   json: boolean,
   io: IO,
+  measurer: ToolMeasurer,
 ): Promise<number> {
+  const drawFrame = (player: Player, look: Look, size?: number, id?: string) => {
+    const svg = frameSVG(player, look, size, id);
+    return o['browser-text'] ? embedFontCSS(svg, measurer) : outlineSVG(svg, measurer);
+  };
+  const rasterize = (svg: string) =>
+    o['browser-text'] ? browserTextPNG(svg, measurer) : Promise.resolve(toPNG(svg));
   const out = o.out as string | undefined;
   const compare = o.compare as string | undefined;
   if ((!compare && !out && !o.probe && !o.audio) || (out && !/\.(svg|png|webm)$/.test(out)))
@@ -830,17 +934,21 @@ async function render(
   let { model } = loaded(f, io, json);
   if (!model) return 1;
   if (o.component) {
-    const definition = model.doc.components?.[String(o.component)];
+    const names = componentNames(model.doc, String(o.component));
+    if (names.length > 1) throw new Usage('ambiguous-component: use ' + names.join(' or '));
+    const name = names[0];
+    const definition = name && model.doc.components?.[name];
     if (!definition) throw new Usage('unknown component ' + o.component);
     const doc = model.doc;
     const selected = load({
       anima: '0.1',
       requires: doc.requires,
       components: doc.components,
+      ...(doc.meta ? { meta: doc.meta } : {}),
       ...(doc.data ? { data: doc.data } : {}),
       ...(doc.assets ? { assets: doc.assets } : {}),
       ...(doc.converters ? { converters: doc.converters } : {}),
-      name: String(o.component),
+      name: name!.replaceAll(':', '-'),
       ...definition,
       ...(typeof definition.data === 'string'
         ? { data: { ...doc.data, model: definition.data } }
@@ -912,13 +1020,20 @@ async function render(
   if (compare) {
     if (o.sheet || (out && !out.endsWith('.png')))
       throw new Usage('--compare takes a single frame and optional -o diff.png');
-    const result = compareSVG(
-      frameSVG(player, { paint: look.paint, color: '#000' }, size),
-      readFileSync(compare, 'utf8'),
-      size,
-      tolerance,
-      !!out,
-    );
+    const result = o['browser-text']
+      ? comparePNG(
+          await rasterize(drawFrame(player, { paint: look.paint, color: '#000' }, size)),
+          toPNG(readFileSync(compare, 'utf8'), size),
+          tolerance,
+          !!out,
+        )
+      : compareSVG(
+          drawFrame(player, { paint: look.paint, color: '#000' }, size),
+          readFileSync(compare, 'utf8'),
+          size,
+          tolerance,
+          !!out,
+        );
     if (out) writeFileSync(out, result.diff!);
     const { diff, ...metrics } = result;
     void diff;
@@ -953,14 +1068,14 @@ async function render(
     for (let i = 0; i < n; i++) {
       if (i) session.execute('advance ' + 1 / fps);
       const svg = viewportSVG(
-        frameSVG(player, look, size),
+        drawFrame(player, look, size),
         width!,
         height!,
         fit,
         scale,
         look.background,
       );
-      const png = toPNG(svg);
+      const png = await rasterize(svg);
       if (out.endsWith('.webm')) images.push(png);
       else {
         const path = out.replace(/\.png$/, '-' + String(i).padStart(4, '0') + '.png');
@@ -999,13 +1114,13 @@ async function render(
       if (k) player.step(span / (n - 1));
       frames.push([
         `t=${(player.time - t0).toFixed(3)}s`,
-        frameSVG(player, look, undefined, `f${k}`),
+        drawFrame(player, look, undefined, `f${k}`),
       ]);
     }
     svg = sheetSVG(frames, look, size >= 240 ? 160 : size);
-  } else svg = frameSVG(player, look, size);
+  } else svg = drawFrame(player, look, size);
   if (!o.sheet) svg = viewportSVG(svg, width!, height!, fit, scale, look.background);
-  const png = out?.endsWith('.png') || o.probe ? toPNG(svg) : undefined;
+  const png = out?.endsWith('.png') || o.probe ? await rasterize(svg) : undefined;
   let probes;
   if (o.probe) {
     try {
@@ -1067,6 +1182,73 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
 }
 
 // ---------------------------------------------------------------- schema and docs
+
+// Resolve spelling variants against the same registry/topics used to serve the output.
+function lookupTopic(topic: string | undefined, topics: string[], command: string) {
+  if (!topic) return topic;
+  const compact = (s: string) => s.replace(/-/g, '').toLowerCase();
+  if (topics.includes(topic)) return topic;
+  const exact = [...topics]
+    .sort((a, b) => Number(b.includes('-')) - Number(a.includes('-')))
+    .find((t) => compact(t) === compact(topic));
+  if (exact) return exact;
+  const distance = (a: string, b: string) => {
+    let row = Array.from({ length: b.length + 1 }, (_, i) => i);
+    for (let i = 0; i < a.length; i++) {
+      const next = [i + 1];
+      for (let j = 0; j < b.length; j++)
+        next.push(Math.min(next[j]! + 1, row[j + 1]! + 1, row[j]! + Number(a[i] !== b[j])));
+      row = next;
+    }
+    return row[b.length]!;
+  };
+  const nearest = topics
+    .map((t) => ({ t, d: distance(compact(topic), compact(t)) }))
+    .sort((a, b) => a.d - b.d || a.t.localeCompare(b.t))[0];
+  if (nearest && nearest.d <= 2)
+    throw new Usage(
+      `no ${command} topic "${topic}"; did you mean "${nearest.t}"? Try anima ${command} ${nearest.t}`,
+    );
+  return topic;
+}
+
+function schemaTopic(topic: string | undefined) {
+  if (!topic) return topic;
+  const [head, ...tail] = topic.split('.');
+  const topics = [
+    ...new Set([
+      ...NODE_TYPES,
+      ...Object.keys(ELEMENTS),
+      ...[nodeShape('path').p, (DOC as Extract<Shape, { k: 'obj' }>).p].flatMap((fields) =>
+        Object.entries(fields)
+          .filter(([, v]) => v.k === 'obj' || (v.k === 'arr' && v.of.k === 'obj'))
+          .map(([k, v]) => markupName(v, k)),
+      ),
+      'fill',
+      'stroke',
+      'anima',
+      'meta',
+      'color',
+      'glyph',
+      'hit',
+      'timeline',
+      'track',
+      'event',
+      'layer',
+      'state',
+      'pose',
+      'ease',
+      'on',
+      'bool',
+      'number',
+      'trigger',
+      'transition',
+      'listener',
+      'input',
+    ]),
+  ];
+  return [lookupTopic(head, topics, 'schema'), ...tail].join('.');
+}
 
 function schema(topic: string | undefined, full: boolean, json: boolean, io: IO): number {
   if (full) return (io.out(JSON.stringify(jsonSchema(), null, 2)), 0);
@@ -1187,7 +1369,11 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     }));
   };
   const nodeField =
-    topic && (nodeShape('path').p[topic] ?? (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
+    topic &&
+    (Object.entries(nodeShape('path').p).find(
+      ([key, value]) => key === topic || markupName(value, key) === topic,
+    )?.[1] ??
+      (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
   const compositeField =
     nodeField &&
     (nodeField.k === 'arr' ? { ...nodeField.of, feature: nodeField.feature } : nodeField);
@@ -1264,7 +1450,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   const mapping = (rows: { markup: string; ani: string }[]) =>
     rows.map((r) => `  ${r.markup} ↔ ${r.ani}`).join('\n');
   const show = (d: ReturnType<typeof typeInfo>) =>
-    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
+    `${d.type}\n attributes (markup ↔ .ani: type)\n${d.fields.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`).join('\n')}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
       .filter((f) => f.feature)
       .map((f) => '  ' + f.ani + ' [' + f.feature + ']')
       .join('\n')}`;
@@ -1278,7 +1464,9 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .join('\n')}`;
   if (topic === 'a11y') {
     const showFields = (rows: ReturnType<typeof fields>) =>
-      rows.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}`).join('\n');
+      rows
+        .map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`)
+        .join('\n');
     io.out(
       `node.a11y (node semantics; markup ↔ .ani: type)\n${showFields(fields([], nodeShape('path').p.a11y))}\nActions: tap, increase, decrease, focus\n\ndoc.a11y (root icon semantics; markup ↔ .ani: type)\n${showFields(fields(['a11y']))}`,
     );
@@ -1301,7 +1489,8 @@ function docs(
   section?: string,
 ): number {
   const read = (p: string) => readFileSync(new URL(p, ROOT), 'utf8');
-  const guide = read('docs/AUTHORING.md');
+  const fontHelp = read('packages/cli/src/font/README.md');
+  const guide = read('docs/AUTHORING.md') + '\n\n' + fontHelp;
   const sections = [...guide.matchAll(/^## (.+)$/gm)].map((m) => ({
     title: m[1]!,
     slug: m[1]!
@@ -1328,6 +1517,18 @@ function docs(
           ] as const,
       )
       .filter(([, files]) => files.length),
+  );
+  topic = lookupTopic(
+    topic,
+    [
+      'authoring',
+      'spec',
+      'markup',
+      ...sections.map((s) => s.slug),
+      ...moduleTopics.map((m) => m[1]!),
+      ...moduleDocs.keys(),
+    ],
+    'docs',
   );
   if ((topic === 'spec' && (list || section)) || (topic === 'authoring' && section)) {
     const source = topic === 'spec' ? spec : guide;
@@ -1372,8 +1573,7 @@ function docs(
       guide.split('\n')[0] +
       '\n\nContents (anima docs authoring <section>):\n' +
       sections.map((s) => '- ' + s.slug + ': ' + s.title).join('\n') +
-      '\n\n' +
-      guide;
+      (topic === 'authoring' ? '\n\n' + guide : '');
   else if (topic === 'spec') text = spec;
   else if (topic === 'markup') text = read('spec/ANIML.md');
   else if (moduleDocs.has(topic) || moduleTopics.some((m) => m[1] === topic)) {

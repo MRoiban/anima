@@ -1,0 +1,70 @@
+{
+  "anima": "0.1",
+  "name": "settled-guard",
+  "grid": 20,
+  "requires": ["data", "bind", "derive"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "status": {
+        "initial": "none",
+        "states": {
+          "none": {
+            "pose": {
+              "dot.r": 1
+            },
+            "on": [
+              {
+                "when": "$kit:hasStatus == true",
+                "to": "on"
+              }
+            ]
+          },
+          "on": {
+            "pose": {
+              "dot.r": 3
+            },
+            "on": [
+              {
+                "when": "$kit:hasStatus == false",
+                "to": "none"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Kit": {
+        "properties": {
+          "status": {
+            "type": "number"
+          },
+          "hasStatus": {
+            "type": "bool",
+            "value": "$status > 0"
+          }
+        }
+      }
+    },
+    "instances": {
+      "kit": {
+        "model": "Kit",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

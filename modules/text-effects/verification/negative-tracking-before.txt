@@ -1,0 +1,42 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fbf935b6
+
+ ❯ |unit| modules/text-effects/test/core/effects.test.ts (34 tests | 1 failed | 33 skipped) 56ms
+   × backgrounds bound all glyph advance intervals when tracking reverses their order 52ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/text-effects/test/core/effects.test.ts > backgrounds bound all glyph advance intervals when tracking reverses their order
+AssertionError: expected [ { x: +0, y: +0, width: -17, …(3) } ] to deeply equal [ { x: -18, y: +0, width: 19, …(3) } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "color": "#ff0000",
+      "height": 1,
+      "radius": 0.2,
+-     "width": 19,
+-     "x": -18,
++     "width": -17,
++     "x": 0,
+      "y": 0,
+    },
+  ]
+
+ ❯ modules/text-effects/test/core/effects.test.ts:260:28
+    258|   };
+    259|   const { data } = drawing(doc);
+    260|   expect(data.backgrounds).toEqual([
+       |                            ^
+    261|     { x: -18, y: 0, width: 19, height: 1, color: '#ff0000', radius: 0.…
+    262|   ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 skipped (34)
+   Start at  22:24:05
+   Duration  1.25s (transform 49%, import 44%, tests 6%, worker 1%)

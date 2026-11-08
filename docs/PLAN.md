@@ -336,7 +336,57 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       guarded in events/data/machine, visual modules, converters and bind (−1 630 B). Budgets reset to
       ~10 % headroom. 18 carry-overs done (in scope 720 → 738 of 886, 83 %); `a11y.tree-bounds` → P6,
       four bindable-artboard rows → P7. Benchmark regression rerun: AniML 5/6 (item 1 owner-accepted).
-- [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
+- [x] **Downstream bug reports (2026-11-07, "Anima Controls" kit, `anima-kit` f1373fd; owner OK).**
+      Triage: fixed on `p6` in two bugfix tickets parallel to P6 (BF-1, BF-2), each confirmed first
+      with a small scene and then covered by a regression test; none blocks P6.
+      - [x] B1 (high, BF-1) data-bound values (theme colour) don't reach nested component instances.
+      - [x] B2 (high, BF-2) with `focus` loaded one ArrowRight moves two tabs (two handlers); without
+            `focus`, Enter on an overlay button that fires a trigger does nothing.
+      - [x] B3 (medium, BF-2) tab overlay elements take focus but Space/Enter don't select the tab.
+      - [x] B4 (low–medium, BF-1) `data.color(path).set("#rrggbb")` is silently ignored: accept hex
+            strings (verified already supported); reject fractional/nonfinite RGBA channels.
+      - [x] B5 (feature, BF-1) imported library components get generated names (`import-4-switch`):
+            preserve unique names, qualify clashes by alias, share core/web/CLI/host lookup; documented.
+      - [x] B6 (high, BF-2) the a11y overlay blocks pointer input (hover, press, drag) to the drawing.
+      - [x] B7 (low, BF-2) native slider thumbs on the overlay scale with the drawing (oversized).
+      - [x] B8 (medium, BF-2) the host element needs a square box: size it to the component's viewBox
+            aspect ratio (SVG default; core+web +13 B; P7 keeps fit/alignment).
+      BF-2 evidence: `modules/a11y-dom/BF2-REPORT.md`; B2 trigger-button failure and B7
+      visible paint at default opacity did not reproduce on the current branch; retained
+      regression scenes document these distinctions and the decided overlay policy.
+      Second report (2026-11-07, anima-kit.mc2.onl, built on p3c; `anima-kit` 3ee3000, read-only).
+      Duplicates closed: finding 8 square host = B8 (fixed on p6); "activate unreliable without
+      focus" = B2 (BF-4 re-runs the kit's own case); "overlay magnifies range thumbs" = B7 (BF-4
+      re-checks at the kit's scale).
+      - [x] B9 (perf, BF-3) `icon.load(doc)` recompiles the whole document per host (~55 ms per
+            100–200 KB doc; 92 hosts 5.1 s): compile once per document, choose the root per host.
+      - [x] B10 (crash, BF-3) a model compiled for root A loaded with `component="B"` throws
+            `anima: pop` from `Player.fire`: work with the root chosen at load, or a clear diagnostic.
+      - [x] B11 (BF-3) off-screen hosts show model defaults on their first visible frame after
+            data writes made off screen: apply pending data and step once before the first paint.
+      - [x] B12 (BF-3) on a settled host a data write updates a derived bool but the guarded layer
+            changes state only on the next write (one-step lag).
+      - [x] B13 (BF-3) `unknown-feature at /requires/N` doesn't name the module to import.
+      BF-3 evidence: `modules/host-edit/BF3-REPORT.md`; document/root reuse, visibility refresh,
+      pre-machine derived values and verbose import hints; changed scope 8,175 pass, exit 0.
+      - [x] B14 (BF-4) `rect corners` draws quadratic corners, not circular arcs (≠ `rx`, CSS).
+      - [x] B15 (BF-4) every radio overlay is a tab stop; a radio group must be one tab stop with
+            roving arrows (APG).
+      - [x] B16 (BF-5) host/overlay key and pointer events bubble to page listeners.
+            Shared event ownership and semantic-origin guards prevent duplicate host/input/focus
+            handling; only consumed defaults are prevented. Fresh-page overlay/input/focus variants
+            pass in Chromium and Firefox; core+web +59 B. Evidence: `modules/a11y-dom/BF5-REPORT.md`.
+      - [x] B17 (BF-4) role vocabulary lacks progressbar, meter, status and a controls relation
+            (dialog modal and expanded exist: check discoverability).
+      - [x] B18 (BF-4, docs) animating a bound value with easing: the interpolate converter
+            (`data.interpolate-number`) exists but the kit didn't find it; recipe in the authoring
+            guide and `anima docs`, verified on a geometry bind.
+      - [x] B19 (BF-4) "write into data paths is broken": no details in the report; reproduce
+            listener/`input.write-*` writes into data paths, or report not reproduced.
+      BF-4 implementation/report: `modules/a11y-dom/BF4-REPORT.md`; B14 circular corners: the
+      rect-corners oracle scene had encoded the old quadratic corner, so it was re-authored and
+      recaptured (no threshold change; decided, owner may revisit). All 19 rows closed (B16 by BF-5).
+- [x] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
       fonts (`FontFace`), bidi, OpenType features and variable axes from the browser (`measureText`,
@@ -349,7 +399,17 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       bound to data.
       **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
       which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
-- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner): hug content, padding/gaps, min/max, fixed sizes,
+      **Done (2026-11-08):** modules `text` (layout with a measurer contract, SVG/canvas drawing,
+      runs, styles, data/host access), `text-effects` (modifiers, ranges, follow-path, backgrounds,
+      bidi at 150 B), `fonts` (+ `fonts-text`, `fonts-options`: FontFace, fallback, replacement,
+      axes/features), `text-hit`, `a11y-text`, heavy `text-input` (native field over drawn text);
+      CLI: own OpenType reader (tool measurer, render, `--browser-text`, subset, flatten,
+      `import-font --google`). 66 rows done (in scope 738 → 804 of 886, 91 %), 18 moved to P7
+      (`docs/parity/P6-closure.md`). Benchmarks: settings card AniML 6/6 (item 1 met) ≥ Rive 5/6;
+      search card AniML 6/6 (after `contains`/`lower`) ≥ Rive 6/6. Gates: core+web 21,136,
+      largest scene 53,857, app-UI 98,890, runtime sum 120,281, authoring 14,717, Rive-class 130,077.
+- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner; plus
+      18 P6 text carry-overs listed in `docs/parity/P6-closure.md`): hug content, padding/gaps, min/max, fixed sizes,
       row/column stacks with alignment and distribution, nested containers, painted layout boxes,
       layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
       button whose background grows with a label of changing length and animates as it grows (no

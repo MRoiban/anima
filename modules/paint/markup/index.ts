@@ -142,7 +142,9 @@ export const structuralForms = {
       for (const [k, s] of Object.entries(form.shape.p)) {
         if (s.k === 'arr' && s.of.element) children.push(s.of.element);
         else if (s.k === 'obj' && s.element) children.push(s.element);
-        else attrs[markupName(s, k)] = k === 'color' ? 'color' : kind(s);
+        else
+          attrs[markupName(s, k)] =
+            k === 'color' || (['fill', 'stroke'].includes(k) && s.k === 'obj') ? 'color' : kind(s);
       }
       if (form.target) attrs[form.target.attribute] = 'string';
       return {
@@ -204,9 +206,13 @@ export const structuralForms = {
           compiler.put(
             o,
             k,
-            k === 'color'
-              ? compiler.read(attr, 'color', ptr(p, k))
-              : readShape(compiler, attr, s, ptr(p, k)),
+            ['fill', 'stroke'].includes(k) && s.k === 'obj'
+              ? attr.value.trim().startsWith('{')
+                ? compiler.read(attr, 'json', ptr(p, k))
+                : { color: compiler.read(attr, 'color', ptr(p, k) + '/color') }
+              : k === 'color'
+                ? compiler.read(attr, 'color', ptr(p, k))
+                : readShape(compiler, attr, s, ptr(p, k)),
             p,
             attr.valueAt,
           );

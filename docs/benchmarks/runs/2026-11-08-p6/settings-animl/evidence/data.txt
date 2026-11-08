@@ -1,0 +1,301 @@
+## data
+
+The optional `data` module generalizes typed inputs with view models, scalar and reference properties,
+named instances, `$` paths, binding direction modes, data-writing listeners and node custom properties.
+Its normative contract, step position, spellings, diagnostics and limits are in
+[modules/data/SPEC.md](../modules/data/SPEC.md). `data` bindings resolve in §7's existing binding
+position, after layers and before clamping/reporting/children. Change listeners queue for the next
+step; no callback re-enters the machine. Existing 0.1 input behavior is unchanged.
+
+Capability evidence and incomplete rows are enumerated in
+[modules/data/ROWS.json](../modules/data/ROWS.json). No phase-completion claim is made.
+
+<!-- capability: data.bind-conditions -->
+<!-- capability: data.bind-converter-options -->
+<!-- capability: data.bind-instance-values -->
+<!-- capability: data.bind-keyframes -->
+With `data motion`, a keyframe value may be a direct scalar data path. Sampling resolves needed
+endpoints against the current player before interpolation, including blends and TimelineInstances,
+without mutating shared tracks. JSON `[0.5, "$peak"]` and AniML `<key t="0.5" value="$peak"/>`
+are equivalent. Full typing, diagnostics and timing: [data](../modules/data/SPEC.md#data-keyframe-values).
+
+<!-- capability: data.bind-layout -->
+<!-- capability: data.bind-script-inputs -->
+<!-- capability: data.bind-text -->
+<!-- capability: data.binding-absolute -->
+<!-- capability: data.binding-once -->
+<!-- capability: data.binding-relative -->
+<!-- capability: data.binding-to-source -->
+<!-- capability: data.binding-two-way-prefer-source -->
+<!-- capability: data.binding-two-way-prefer-target -->
+<!-- capability: data.component-public-data -->
+<!-- capability: data.custom-property-boolean -->
+<!-- capability: data.custom-property-color -->
+<!-- capability: data.custom-property-enum -->
+<!-- capability: data.custom-property-number -->
+<!-- capability: data.custom-property-string -->
+<!-- capability: data.custom-property-trigger -->
+<!-- capability: data.default-instance -->
+<!-- capability: data.editor-preview-instance -->
+<!-- capability: data.enum-members -->
+<!-- capability: data.global-model -->
+<!-- capability: data.instance-export -->
+<!-- capability: data.list-items -->
+<!-- capability: data.model-definition -->
+<!-- capability: data.named-instances -->
+<!-- capability: data.operation-operand-view-model -->
+<!-- capability: data.property-artboard -->
+<!-- capability: data.property-asset-blob -->
+<!-- capability: data.property-asset-font -->
+<!-- capability: data.property-asset-image -->
+<!-- capability: data.property-boolean -->
+<!-- capability: data.property-color -->
+<!-- capability: data.property-enum-custom -->
+<!-- capability: data.property-enum-system -->
+<!-- capability: data.property-list -->
+<!-- capability: data.property-number -->
+<!-- capability: data.property-string -->
+<!-- capability: data.property-symbol-list-index -->
+<!-- capability: data.property-text-style -->
+<!-- capability: data.property-trigger -->
+<!-- capability: data.property-view-model -->
+<!-- capability: data.script-model-api -->
+<!-- capability: data.scripted-converter -->
+<!-- capability: data.state-action-trigger -->
+<!-- capability: data.system-enum-horizontal-text-align -->
+<!-- capability: data.system-enum-layout-alignment -->
+<!-- capability: data.system-enum-layout-direction -->
+<!-- capability: data.system-enum-layout-display -->
+<!-- capability: data.system-enum-layout-flex-direction -->
+<!-- capability: data.system-enum-layout-position -->
+<!-- capability: data.system-enum-layout-position-units -->
+<!-- capability: data.system-enum-layout-scale-type -->
+<!-- capability: data.system-enum-layout-wrap -->
+<!-- capability: data.system-enum-scroll-direction -->
+<!-- capability: data.system-enum-semantic-check-state -->
+<!-- capability: data.system-enum-text-box -->
+<!-- capability: data.system-enum-text-overflow -->
+<!-- capability: data.system-enum-text-trim-bottom -->
+<!-- capability: data.system-enum-text-trim-top -->
+<!-- capability: data.system-enum-vertical-text-align -->
+<!-- capability: data.system-enum-word-wrap -->
+<!-- capability: drawing-paint.gradient-channel-binding -->
+<!-- capability: input.data-listener -->
+<!-- capability: input.write-data-constant -->
+<!-- capability: input.write-data-copy -->
+<!-- capability: input.write-focused -->
+<!-- capability: input.write-gamepad-axis -->
+<!-- capability: input.write-gamepad-button-pressed -->
+<!-- capability: input.write-gamepad-button-value -->
+<!-- capability: input.write-gamepad-changed-value -->
+
+### Data contract (P4e-1)
+
+Authoring: [Data: view models, `$` paths and converters](../../docs/AUTHORING.md#data-view-models--paths-and-converters).
+
+This chapter implements design/p4e/DESIGN.md §2–4 and §6. It is independent code;
+no algorithm follows Rive source. The graph metadata/typed scope choice follows
+[graph research](../../docs/research/rive-format-and-graph.md) §6. Snapshot writes and
+next-step change listeners avoid the feedback described in
+[state research](../../docs/research/rive-animation-and-state.md) §C. Native host subscriptions
+remain a separate task, consistent with [web research](../../docs/research/rive-web-runtime.md) §4.
+
+Declare `data`. Existing 0.1 inputs and their queue order are unchanged. `data.models` maps model
+names to `{properties,global?}`. Each property has `type`: `number`, `string`, `bool`, `color`,
+`trigger`, `enum`, `list`, `model-ref`, `asset-ref`, `component`. Number defaults to 0 and supports finite
+`min`/`max`; subsequent writes clamp. String defaults to empty, bool to false, color to black;
+colors use existing hex syntax and straight RGBA byte values. Triggers are signals with no
+stored default. Enum requires `values` (unique keys), `enum` (a declaration in `data.enums`),
+or `system` (one of the declared names in `core/enums.ts`); its default is its first key.
+`data.enums` entries are strings or `{key,label?}`; member order defines indices.
+System enums only declare vocabulary here; future layout/text consumers are not implemented.
+
+The system vocabulary is an Anima contract (native CLI dumps expose no members):
+
+| Name | Members, in index order |
+|---|---|
+| horizontal-text-align | left, right, center, justify |
+| vertical-text-align | top, center, bottom |
+| layout-alignment | start, center, end, stretch, baseline, space-between, space-around, space-evenly |
+| layout-direction | inherit, ltr, rtl |
+| layout-display | flex, none |
+| layout-flex-direction | row, row-reverse, column, column-reverse |
+| layout-position | relative, absolute |
+| layout-position-units | points, percent, auto |
+| layout-scale-type | none, fit, fill |
+| layout-wrap | no-wrap, wrap, wrap-reverse |
+| scroll-direction | horizontal, vertical, both |
+| semantic-check-state | unchecked, checked, mixed |
+| text-box | auto-width, auto-height, fixed |
+| text-overflow | visible, hidden, ellipsis |
+| text-trim-bottom | none, baseline |
+| text-trim-top | none, cap-height |
+| word-wrap | word, character, none |
+
+`list` contains model instances; `of` optionally constrains the model. `model-ref` requires
+`model`. Values use a named instance string, `{instance: name}`, `{model,values}` or inline
+values when the model is fixed. Named references retain identity, including through lists.
+Nested defaults instantiate the referenced model; cyclic default/reference graphs are rejected.
+`asset-ref` requires `assetType: image|audio|font|blob`; its value is an asset id or empty string. Asset names resolve in the component catalog, then
+enclosing catalogs up to the root; local names shadow outer names. Invalid defaults identify the
+property `/default`, and invalid instance values identify their own `/values/<property>` pointer.
+A nonempty initial reference must name an asset with the matching type. Asset decoding and
+replacement consumers remain owned by assets and the future host API.
+
+`data.instances` maps names to `{model,values?,default?,exported?,label?}`. At most one authored
+instance is default. `data.model` selects the default model; otherwise the flagged instance,
+then the first instance, supplies the default. If none exists, an implicit `default` instance
+is constructed. `preview` retains editor metadata. Explicitly exported authored instances are listed by
+`dataState(player).exports()` as `{name,model}` records in authored order. JSON `exported: true`
+is AniML `export="true"`; legacy AniML `exported` is accepted and canonical output uses `export`.
+Omitted/false instances are absent from this discovery list but remain usable by internal data
+paths. Existing host/host-edit all-instance enumeration retains its separate contract. Expansion is bounded to 32 levels and 4096 objects.
+
+Paths are `$property`, `$nested.property`, `$list.0.property`, `$list.length`, or
+`$instance:property`. The default form and named form alias the same storage. List length is
+read-only. Scalar paths are typed inputs to existing conditions, bindings, actions, component
+initializers and event payload fields. Trigger aliases share one pending signal. Number guards support existing arithmetic. With `data`, a direct scalar path on the left
+supports `==`/`!=` against typed literals: JSON strings for string/enum (enum members must exist),
+`true`/`false` for bool, hex colors (straight RGBA component equality including alpha), and
+`asset("id")` for asset references (the id must exist with the declared asset type). Both JSON
+`when` and AniML `when` use that grammar; escape double quotes in XML attributes. Quoted
+conjunction tokens remain literal text. Type/operator mismatches emit `data-guard` at the
+transition's `/when` pointer with a type-correction hint. Typed literal compilation needs data,
+not bind; compound arithmetic still uses bind. Bare boolean guards retain the existing rule.
+Triggers remain consumable signals: `when="$levelUp"`, never a stored bool or an integer
+comparison. Rive's uint trigger comparator represents its signal counter; the corresponding
+Anima operation is a bare occurrence guard, not a new trigger-constant syntax. The optional lists module adds `$index` and upward-relative `$parent` lookup;
+without lists, local default and explicitly named paths work. Opaque lists/models can be converter sources.
+
+AniML uses `<model name="Player" global="true">`, typed child declarations (`<number>`,
+`<string>`, `<bool>`, `<color>`, `<trigger>`, `<enum>`, `<list>`, `<model-ref>`, `<asset-ref>`), and
+`<instance name="main" model="Player" default="true"><set path="score" value="12"/></instance>`.
+Property attributes follow JSON names; asset declarations use `type="image|audio|font|blob"`.
+Named model instances do not require the components markup bundle. A placed component instance
+retains its separate `id`/`component` form and requires components.
+Initial compound values use JSON in `value`; enum member lists use whitespace, or JSON entries
+for root enum display labels. Optional root `data='{"preview":"main","model":"Player"}'`
+retains metadata while child declarations populate models/instances. Node placements use
+`data="main"`; components declare `data="Player"` as their public model. Each child has local
+storage when it declares its own `data` model, unless explicitly bound to a parent instance.
+A component without a `data` declaration shares the inherited document's live named instances,
+including non-global models, recursively through context-free descendants. Host writes (batched or
+unbatched) and document actions use that same storage. Descendants are rebound after their parent,
+so initialization order cannot leave a grandchild attached to a detached copy. A descendant write
+after an ancestor has sampled keeps it unsettled; the ancestor resamples on the next step. Global-model named
+instances also share through explicit child contexts. Each root player remains independent.
+
+Bindings retain the old string form and add `{value,mode?,prefer?,convert?,options?}`.
+Modes are `to-target` (default), `to-source`, `two-way`, `once`. Reverse modes require a direct
+writable scalar path with a compatible type. Binding evaluation runs after layer resolution
+at the existing binding position, before clamping/events/child steps. All sources sample one
+post-state snapshot. Reverse writes apply after all bindings in authored order. Two-way tracks
+source changes and the target's underlying animated/rest value; simultaneous changes use
+`prefer: source` (default) or `target`. The initial step counts both as changed. Once converts
+once and retains that result. No binding iteration or same-frame reentry occurs.
+
+A binding target may also name a trigger input/data path/custom property. Only `to-target` and
+`once` are valid (`data-binding` at `/bind/<target>/mode` otherwise). Initial conversion establishes
+a baseline without firing. Each later change of the converted output (structural scalar/array
+equality) queues one fire for the next step, regardless of change magnitude or direction. Repeated
+unchanged outputs do not fire. The queue keeps the player unsettled. Triggers are not animated
+addresses, and `once` never fires after its initial baseline. Converter `trigger` truncates numeric
+inputs to integers and preserves booleans before this change detection.
+
+AniML caches composed forms per element for the duration of one compilation. A new compile
+reads the current module registry again, including hooks registered by separately loaded bundles.
+
+Converters register by name through the composed data module's `registerConverter(name, fn)`;
+`fn(value, options, ctx)` returns a value. Context is `{player,dt,direction,get,state}`; state is
+player-local, direction is forward/reverse. `$` option strings resolve from the current model.
+Converter definitions and formulas belong to the separate convert task. Bind exposes
+`registerFunction(name,arity,fn)` and `parse`; all shared input-expression consumers use the
+registered bind evaluator. See INTERFACE.md for the integration seam.
+
+Custom node `properties` infer number/bool/string from literals or accept typed
+`{type,default,values?}` declarations for number/bool/string/color/enum/trigger. AniML
+`data-label="x"` is `properties.label: "x"`; canonical output may use JSON `properties`.
+Targets/sources are `node.properties.name`; string/enum channels are discrete and hold-only.
+A custom trigger uses `fire="node.properties.name"` and a matching trigger condition.
+Gradient stop channels `fill|stroke.stops.N.red|green|blue|alpha` are byte channels in [0,255].
+They override the corresponding resolved stop color after ordinary binding resolution.
+
+Listeners retain snapshot `set` expressions and add `copy="$a -> $b"` and
+`on="change:$path"`. Change compares the step's final value to its previous final value;
+multiple writes coalesce. Matching listener actions queue for the following step (including
+step(0)), keep the player unsettled, and never recursively rerun a step. Trigger change listeners
+observe signal occurrences rather than a stored boolean. `value="focused"` replaces set values
+with target focus (requires focus). `gamepad-axis:N`, `gamepad-button-pressed:N`,
+`gamepad-button-value:N`, `gamepad-changed-value:N` read input's current controller snapshot
+(requires input), with listener `index` selecting the controller and `control` the fallback
+control index. Existing `write` field maps also accept data paths. Source/destination types must
+match. Sample `set $path` accepts typed scalar values, including quoted strings and hex colors;
+selected snapshots accept all scalar paths and print colors canonically.
+
+Data diagnostics carry codes/pointers/messages/hints: `data-model`, `data-property`, `data-type`,
+`data-enum`, `data-instance`, `data-cycle`, `data-path`, `data-readonly`, `data-asset`,
+`data-binding`, `data-converter`, `data-copy`, `data-value-source`, `data-guard`, plus existing structural,
+expression and bounded-expansion diagnostics. Deterministic vectors live in spec/conformance;
+raw native comparisons and evidenced CLI limits live under oracle/. ROWS.json distinguishes
+implementation, native verification, skips and pending work. No phase completion is claimed.
+
+##### Trigger change listeners: intentional difference
+
+A `change:$path` listener runs for every change of its path, whatever caused it: a host write, a
+binding, a listener action or a state action that fires a trigger. It runs after the step that made
+the change, so a listener can never re-enter its own step. This is an **intentional difference**
+from the measured Rive behaviour, where a trigger fired by a state action sets the property's
+changed flag but does not run its view-model change listener (Rive 0, Anima 9 in
+`tests/oracle/input-data-listener/internal-trigger-difference/`), while a host-fired trigger does
+(both match). One rule for every source is easier for authors and agents to predict. The difference
+stays recorded as a finding, never a passing comparison.
+
+`component` stores a component definition name or empty string and validates names on initial and
+subsequent writes. `<model><component name="card" default="row"/></model>` is the AniML form.
+With `nested`, `<instance component="$card"/>` consumes it and rebuilds on selection changes.
+
+##### Data keyframe values
+
+With `data motion`, a key value can be a direct scalar `$path`. JSON retains `[time, "$peak", ease?]`;
+AniML accepts `<key t="0.5" value="$peak"/>` inside a track, or a quoted path in track text.
+The path must exist and match the animated type: number, bool, color or string; int/uint channels
+use number paths and validate the live 32-bit integer range, reference channels use string paths
+and validate live node IDs. A bad path/type or invalid live channel value is `data-keyframe` at
+`/timelines/<name>/tracks/<address>/<index>/1`, with a correction hint.
+
+Each sampling operation reads its needed endpoints from the owning player's current data, before
+easing/interpolation and before that step's post-state binding pass. Values remain live at endpoints,
+in state blends and in independent TimelineInstances. A fade retains its existing source snapshot;
+its target samples current data. Work-area/loop/reduced-motion clock rules are unchanged. No value
+is stored back on the shared compiled track or authored document. Different players of one Model
+have independent scopes. Absolute value-cubic control ordinates stay authored constants; only
+endpoint ordinates sample data. Lists and component properties are not numeric key sources.
+
+Key elements use `t`, `value`, optional `ease`. A track cannot mix elements and text (`bad-keyframe`
+with a hint); missing/unknown attributes retain structural diagnostics. Canonical decompilation
+may emit quoted paths in text; both forms round-trip to the same tuples.
+
+
+##### Animate a bound position
+
+Use the existing `interpolate` converter for a travelling indicator; its `duration` is
+milliseconds and `ease` uses the timeline easing grammar:
+
+```xml
+<anima version="0.1" name="travelling-indicator" grid="120" requires="data bind convert">
+  <model name="Position"><number name="x"/></model>
+  <converter name="travel" type="interpolate" duration="200" ease="cubic(0.42, 0, 1, 1)"/>
+  <circle id="indicator" cx="10" cy="10" r="3" fill="#4263eb"/>
+  <bind target="indicator.x" value="$x" convert="travel"/>
+</anima>
+```
+
+Sample the initial state (`advance 0`), then `set $x 100`, `advance 0`, and
+`advance 0.1`: x is about 31.5357. Another 0.1 seconds reaches 100. In a browser,
+set the typed number/path and let the player's ordinary frame loop advance the converter.
+Retargeting begins at the current sample; no page-side interpolation is needed. The first
+binding evaluation initializes immediately. Timelines use seconds; converter duration uses ms.
+
+Examples (AniML sources with built .ani siblings):
+- modules/data/examples/data-extras.animl
+- modules/data/examples/scoreboard.animl

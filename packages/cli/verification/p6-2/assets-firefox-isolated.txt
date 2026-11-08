@@ -1,0 +1,43 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7cdabf87
+
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (22 tests | 3 failed | 11 skipped) 33889ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5035ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 5011ms
+     × matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize 5006ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:488:31
+    486|       }
+    487|     });
+    488|     it.each(['svg', 'canvas'])(
+       |                               ^
+    489|       'matches independently enumerated repeat/mirror/clamp texels in …
+    490|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 8 passed | 11 skipped (22)
+   Start at  17:04:55
+   Duration  36.83s (tests 94%, import 6%)

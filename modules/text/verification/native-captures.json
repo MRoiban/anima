@@ -1,0 +1,152 @@
+[
+  {
+    "name": "text-fit-baseline",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-fit-layout-measure",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-font-size",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-horizontal-alignment",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-line-spacing",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-origin",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-clipped",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-ellipsis",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-fit",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-fit-font-size",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-hidden",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-overflow-visible",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-paint",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-paragraph-spacing",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-rich-runs",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-run-list",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-sizing-auto-height",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-sizing-auto-width",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-sizing-fixed",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-style-reference",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-tracking",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-vertical-alignment",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-vertical-trim",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-word-break",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  },
+  {
+    "name": "text-wrap",
+    "exit": 0,
+    "capture": true,
+    "error": false
+  }
+]

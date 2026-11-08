@@ -1,0 +1,18 @@
+[
+  {
+    "command": "advance 0"
+  },
+  {
+    "response": {
+      "ok": false,
+      "diagnostics": [
+        {
+          "code": "script-usage",
+          "pointer": "/script/0",
+          "message": "line 1: text-measurer: register a text measurer before drawing",
+          "hint": "check the command syntax in spec §11.2"
+        }
+      ]
+    }
+  }
+]

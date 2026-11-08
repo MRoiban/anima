@@ -1,0 +1,11 @@
+{
+  "status": "skip",
+  "reason": "The permitted local headless native command route rejects text-run as an unknown command; it offers view-model data assignment, not the named-run host API or an instance-path handle. A bound-string pixel comparison is completed separately as data-bind-text and is not counted as host access. Anima generated-font conformance reads and replaces the actual named run, retains it through step and isolates nested siblings.",
+  "tests": ["modules/text/test/core/conformance.test.ts", "modules/text/test/web/text.test.ts"],
+  "captureEvidence": [
+    "tests/oracle/host-api-text-run/rive/commands.txt",
+    "tests/oracle/host-api-text-run/rive/session.txt",
+    "tests/oracle/host-api-text-run/rive/scene.rml",
+    "tests/oracle/data-bind-text/rive/session.txt"
+  ]
+}

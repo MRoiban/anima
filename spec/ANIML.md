@@ -7,6 +7,16 @@ conveniences that compile away (named eases, the keyframe text form, `and` in co
 
 `examples/bell.animl` is the reference document; it builds to `examples/bell.ani` byte for byte.
 
+The CLI's `anima schema <element>` marks required attributes in text output and exposes
+`required` booleans per field in JSON output. Topic lookups in `schema` and `docs` accept
+camelCase and kebab-case spellings; near misses suggest a known topic. `anima docs` defaults
+to contents, with guide sections available through `anima docs authoring <section-slug>`.
+
+`grid` is one number (units per side), following the grid-unit convention in
+`docs/research/glyphy-compat.md` §1. A pair such as `grid="40 30"` reports `bad-attribute`
+at `/grid` with a hint to use `viewBox="0 0 40 30"` for a rectangular scene. `grid` remains
+required with a rectangular viewBox.
+
 ## 1. File
 
 - Extension `.animl`, media type `application/vnd.anima+xml`, UTF-8.
@@ -188,8 +198,14 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `<anima-icon>` into `<script type="application/vnd.anima+json">` with the compiled document.
 - **Runtime.** The optional authoring entry `@anima-format/web/markup-hooks` teaches
   `<anima-icon>` to compile markup for the runtime modules a page loads. It includes the lean
-  `@anima-format/web/markup` compiler; that lean entry remains available for base-format AniML
-  and explicit hook imports. The compiler and hooks have separate authoring budgets and are
+  `@anima-format/web/markup` compiler; that lean entry remains available for static AniML
+  and explicit hook imports. Animation authoring (track text, named eases, transition conditions
+  and listener `set` assignments) lives in `@anima-format/web/markup-animation`, which also loads
+  the lean compiler. `markup-hooks` includes this entry; its existing import remains sufficient.
+  A page using only the lean compiler adds `markup-animation` when it needs that syntax; otherwise
+  it reports `markup-animation-unavailable` with the source position, JSON pointer and a message/hint
+  naming the entry or `anima build`. Loading it later retries retained failed sources.
+  The default tooling compiler installs it automatically. The compiler and hooks have separate authoring budgets and are
   not part of the core + web budget; a page that ships compiled `.ani` never loads them.
   Library/template support additionally requires
   `@anima-format/web/markup-libraries` (which also loads markup support). Without it,
@@ -294,7 +310,21 @@ as a standalone animation. Components require the components module; model defin
 that lexical scope. References to colours, glyphs, eases and templates use `ui:name`; nested
 imports may be addressed as `ui:other:name`. Definitions inside a library use its own local names.
 Imported colour and glyph names become collision-free generated `.ani` names; eases inline as
-usual. Libraries must not declare arbitrary document elements outside templates. Imports and
+usual. An imported component keeps its original name if that name is unique among all compiled
+components (including private dependencies and local declarations). Colliding imported components
+use `<alias>:<name>`; nested imports use the full alias chain, e.g. `ui:basic:switch`. A local
+declaration retains its key and owns that exact bare name. Import order and unrelated declarations
+do not change these component keys. Library-internal references are rewritten in their lexical
+scope; an unambiguous imported original name also works in the consumer.
+
+Compilation records qualified lookup aliases in `meta.componentNames` (preserving other metadata).
+`<anima-icon component="switch">`, qualified `component="ui:switch"`, CLI `--component`, core
+component references and host component-valued writes share this lookup scheme. Qualified names
+always select their import; an original name with several imported matches reports
+`ambiguous-component`, with qualified alternatives in verbose diagnostics. Existing generated
+`import-<number>-<name>` keys still resolve; after recompilation their suffix resolves when unique
+and receives the ambiguity diagnostic otherwise. Component keys and literal references permit
+colon-separated name segments; node IDs and input names retain their existing syntax. Libraries must not declare arbitrary document elements outside templates. Imports and
 local declarations are visible regardless of source order.
 
 `export="row Score"` on the library restricts public names; `export="row"` on an import selects
@@ -325,7 +355,7 @@ directory), and the optional browser markup-libraries module fetches URLs relati
 Additional error codes: `unknown-import` (missing resolver or unreadable file), `bad-import`
 (non-library root), `import-cycle`, `unknown-name`, `missing-parameter`, `unknown-parameter`
 (an undeclared placeholder or extra application attribute), `unused-parameter`,
-`template-recursion`, and `components-unavailable`. Existing syntax, duplicate-name and placement
+`template-recursion`, `ambiguous-component`, and `components-unavailable`. Existing syntax, duplicate-name and placement
 codes also apply. Diagnostics retain imported `file`, `line`, `column` positions; `related` is an
 array of `{file?, line, column}` use/import positions. The CLI displays both origins and related
 positions. The source map retains the imported file for loader diagnostics too.

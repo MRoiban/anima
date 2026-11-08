@@ -1,0 +1,7 @@
+<anima version="0.1" name="assets-font" grid="20" requires="text assets fonts">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="label" width="8" height="4" line-height="1">
+    <style id="s" font="body" size="1"/>
+    <run text="abcd" style="s"/>
+  </text>
+</anima>

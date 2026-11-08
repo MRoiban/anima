@@ -1,0 +1,121 @@
+{
+  "anima": "0.1",
+  "name": "bf4-radio",
+  "grid": 40,
+  "requires": ["a11y", "focus", "bind"],
+  "inputs": {
+    "pick0": {
+      "type": "bool"
+    },
+    "pick1": {
+      "type": "bool"
+    },
+    "go0": {
+      "type": "trigger"
+    },
+    "go1": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "radios",
+      "type": "group",
+      "children": [
+        {
+          "id": "r0",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 4,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "radio",
+            "label": "0",
+            "activate": "go0",
+            "checked": "pick0"
+          }
+        },
+        {
+          "id": "r1",
+          "type": "circle",
+          "center": [15, 5],
+          "r": 4,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "radio",
+            "label": "1",
+            "activate": "go1",
+            "checked": "pick1"
+          }
+        }
+      ],
+      "a11y": {
+        "role": "radio-group"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "selection": {
+        "initial": "none",
+        "states": {
+          "none": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go0",
+                "to": "s0"
+              },
+              {
+                "when": "go1",
+                "to": "s1"
+              }
+            ]
+          },
+          "s0": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go0",
+                "to": "s0"
+              },
+              {
+                "when": "go1",
+                "to": "s1"
+              }
+            ],
+            "entry": {
+              "set": {
+                "pick0": true,
+                "pick1": false
+              }
+            }
+          },
+          "s1": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go0",
+                "to": "s0"
+              },
+              {
+                "when": "go1",
+                "to": "s1"
+              }
+            ],
+            "entry": {
+              "set": {
+                "pick0": false,
+                "pick1": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

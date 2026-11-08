@@ -1,0 +1,12 @@
+<anima version="0.1" name="text-font-assets" grid="20" requires="text data bind assets fonts">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <asset name="alternate" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <model name="Main">
+    <asset-ref name="face" default="body" type="font"/>
+  </model>
+  <text id="label" sizing="auto-width" line-height="1">
+    <style id="s" font="body" size="2"/>
+    <run text="abcd" style="s"/>
+  </text>
+  <bind target="label.styles.s.font" value="$face"/>
+</anima>

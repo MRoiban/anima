@@ -1,4 +1,8 @@
-<!-- TODO: data.bind-text; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-bind-text" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="data-bind-text" grid="20" requires="text data assets fonts">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <model name="Main"><string name="label" default="abcd"/></model>
+  <text id="label" width="8" height="4" line-height="1">
+    <style id="s" font="body" size="1"/>
+    <run text="$label" style="s"/>
+  </text>
 </anima>

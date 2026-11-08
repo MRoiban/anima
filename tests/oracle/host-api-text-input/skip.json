@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The Anima host API returns an HTML input/textarea; committed input events are distinct from keyboard events and bubble. The local headless CLI offers key events but rejects text and compose delivery; it cannot supply that DOM element. Both-engine tests exercise actual keyboard entry, separate committed writes, selection and lifecycle.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/host-api-text-input/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

@@ -1,0 +1,7 @@
+<anima version="0.1" name="text-background" grid="20" requires="text texteffects">
+  <text id="label" background="{&quot;first&quot;:&quot;#ff0000&quot;}">
+    <style id="s" size="1"/>
+    <run id="first" text="ab " style="s"/>
+    <run id="last" text="cd" style="s"/>
+  </text>
+</anima>

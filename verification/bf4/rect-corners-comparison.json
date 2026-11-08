@@ -1,0 +1,30 @@
+{
+  "before": {
+    "name": "rect-corners",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 70,
+        "over": 44,
+        "overPercent": 0.0763888888888889,
+        "pass": true
+      }
+    ]
+  },
+  "after": {
+    "name": "rect-corners",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 190,
+        "over": 153,
+        "overPercent": 0.265625,
+        "pass": false
+      }
+    ]
+  }
+}

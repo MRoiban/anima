@@ -1,0 +1,43 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fad971e9
+
+ ❯ |browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 1 failed | 10 skipped) 24122ms
+   ❯ Chromium optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5067ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:20:5
+     18|     let browser: Browser;
+     19|     const bundles = new Map<string, string>();
+     20|     beforeAll(async () => {
+       |     ^
+     21|       await Promise.all(
+     22|         [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Chromium optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 10 skipped (12)
+   Start at  17:14:36
+   Duration  29.42s (tests 86%, import 12%, transform 2%)

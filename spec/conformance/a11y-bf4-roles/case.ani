@@ -1,0 +1,77 @@
+{
+  "anima": "0.1",
+  "name": "bf4-roles",
+  "grid": 40,
+  "requires": ["a11y"],
+  "inputs": {
+    "amount": {
+      "type": "number",
+      "default": 40
+    }
+  },
+  "nodes": [
+    {
+      "id": "progress",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "progressbar",
+        "label": "Loading",
+        "value": "amount",
+        "min": 0,
+        "max": 80
+      }
+    },
+    {
+      "id": "pending",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "progressbar",
+        "label": "Waiting"
+      }
+    },
+    {
+      "id": "meter",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "meter",
+        "label": "Capacity",
+        "value": "amount",
+        "min": 0,
+        "max": 80
+      }
+    },
+    {
+      "id": "status",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "status",
+        "label": "Ready"
+      }
+    },
+    {
+      "id": "opener",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "label": "Details",
+        "controls": "panel",
+        "expanded": true
+      }
+    },
+    {
+      "id": "panel",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "dialog",
+        "label": "Details",
+        "modal": false
+      }
+    }
+  ]
+}

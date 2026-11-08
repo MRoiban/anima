@@ -40,4 +40,5 @@ it('composes identical schemas, CLI schemas, loaded corpus models and AniML in 1
     }),
   );
   for (const [i, order] of orders.entries()) expect(outputs[i], order.join(',')).toBe(outputs[0]);
-}, 30_000);
+  // 12 orders × the whole conformance corpus: ~24 s alone after P6 grew the corpus to 570 cases.
+}, 90_000);

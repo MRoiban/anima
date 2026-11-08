@@ -1,0 +1,101 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-d8e5063b
+
+ ❯ |unit| packages/core/test/feature-hints.test.ts (2 tests | 2 failed) 23ms
+   × B13 an unregistered machine feature names the web import 18ms
+   × B13 an unregistered motion feature names the web import 2ms
+ ❯ |unit| modules/derive/test/core/settled-guard.test.ts (1 test | 1 failed) 73ms
+   × B12 a single write on a settled player resolves derived guards in the same step 70ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/core/test/feature-hints.test.ts > B13 an unregistered machine feature names the web import
+AssertionError: expected [ { code: 'unknown-feature', …(3) } ] to deep equally contain { code: 'unknown-feature', …(4) }
+
+- Expected:
+{
+  "code": "unknown-feature",
+  "hint": "import '@anima-format/web/machine' before loading this document",
+  "message": StringContaining "machine",
+  "pointer": "/requires/0",
+  "severity": "error",
+}
+
++ Received:
+[
+  {
+    "code": "unknown-feature",
+    "message": "this runtime does not support \"machine\"",
+    "pointer": "/requires/0",
+    "severity": "error",
+  },
+]
+
+ ❯ packages/core/test/feature-hints.test.ts:12:30
+     10|   });
+     11|   expect(result.model).toBeUndefined();
+     12|   expect(result.diagnostics).toContainEqual({
+       |                              ^
+     13|     code: 'unknown-feature',
+     14|     severity: 'error',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |unit| packages/core/test/feature-hints.test.ts > B13 an unregistered motion feature names the web import
+AssertionError: expected [ { code: 'unknown-feature', …(3) } ] to deep equally contain { code: 'unknown-feature', …(4) }
+
+- Expected:
+{
+  "code": "unknown-feature",
+  "hint": "import '@anima-format/web/motion' before loading this document",
+  "message": StringContaining "motion",
+  "pointer": "/requires/0",
+  "severity": "error",
+}
+
++ Received:
+[
+  {
+    "code": "unknown-feature",
+    "message": "this runtime does not support \"motion\"",
+    "pointer": "/requires/0",
+    "severity": "error",
+  },
+]
+
+ ❯ packages/core/test/feature-hints.test.ts:12:30
+     10|   });
+     11|   expect(result.model).toBeUndefined();
+     12|   expect(result.diagnostics).toContainEqual({
+       |                              ^
+     13|     code: 'unknown-feature',
+     14|     severity: 'error',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |unit| modules/derive/test/core/settled-guard.test.ts > B12 a single write on a settled player resolves derived guards in the same step
+AssertionError: expected { status: 'none' } to deeply equal { status: 'on' }
+
+- Expected
++ Received
+
+  {
+-   "status": "on",
++   "status": "none",
+  }
+
+ ❯ modules/derive/test/core/settled-guard.test.ts:42:22
+     40|   expect(p.step(0).settled).toBe(true);
+     41|   expect(p.get('$kit:hasStatus')).toBe(true);
+     42|   expect(p.states()).toEqual({ status: 'on' });
+       |                      ^
+     43|   expect(p.value('dot.r')).toBe(3);
+     44|   p.set('$kit:status', 0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed (3)
+   Start at  18:26:53
+   Duration  2.21s (transform 79%, import 16%, tests 4%, worker 1%)

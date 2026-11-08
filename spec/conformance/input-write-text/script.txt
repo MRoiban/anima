@@ -1,0 +1,9 @@
+focus target q
+type "data"
+snapshot --semantics $query $count $hasQuery result.opacity result.r
+select 0 4
+type ""
+snapshot --semantics $query $count $hasQuery result.opacity result.r
+set $query "host"
+advance 0
+snapshot --semantics $query $count $hasQuery result.opacity result.r

@@ -71,6 +71,13 @@ function shapeSchema(s: Shape): JSONSchema {
 /** The JSON Schema of a `.ani` document. */
 export function jsonSchema(): JSONSchema {
   const root = toSchema(DOC);
+  const properties = root.properties as JSONSchema;
+  properties.nodes = { ...(properties.nodes as JSONSchema), minItems: 0 };
+  root.if = {
+    required: ['requires'],
+    properties: { requires: { type: 'array', contains: { const: 'components' } } },
+  };
+  root.else = { properties: { nodes: { type: 'array', minItems: 1 } } };
   return {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $id: 'https://github.com/MRoiban/anima/spec/schema/ani.schema.json',

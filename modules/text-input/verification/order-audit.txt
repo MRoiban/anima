@@ -1,0 +1,13 @@
+{"order":1,"seconds":4.939,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":0,"seconds":5.152,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":2,"seconds":4.992,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":3,"seconds":4.971,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":4,"seconds":5.245,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":5,"seconds":5.147,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":6,"seconds":5.446,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":7,"seconds":5.698,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":8,"seconds":5.516,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":9,"seconds":5.559,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":10,"seconds":5.152,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"order":11,"seconds":5.036,"bytes":6332623,"sha256":"24b487c28b43f10f407a111eb9d61ac00840abdb37e5c6479a0ba4889d23aa91"}
+{"orders":12,"identical":true,"seconds":31.564,"deadlineCheck":"not performed; original 30-second Vitest test reported separately"}

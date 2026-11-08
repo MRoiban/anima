@@ -1,0 +1,80 @@
+
+> test:scope
+> node tools/test-scope.ts text-effects a11y text conformance oracle --browser=chromium
+
+Scopes: text-effects, a11y, text, conformance, oracle
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-9c7619f2
+
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1227 tests | 1 failed) 2678ms
+   ❯ authored AniML corpus (1227)
+     × spec/conformance/text-background-fit/case.animl is canonically formatted 22ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-background-fit/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-backg…' to be '<anima version="0.1" name="text-backg…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-background-fit" grid="20" requires="text texteffects">
+-   <text id="label" sizing="fixed" width="1.5" height="0.5" overflow="fit" wrap="false" line-height="1" background="{&quot;first&quot;:&quot;#ff0000&quot;}">
++   <text id="label" sizing="fixed" overflow="fit" wrap="false" background="{&quot;first&quot;:&quot;#ff0000&quot;}" width="1.5" height="0.5" line-height="1">
+      <style id="s" size="1"/>
+      <run id="first" text="abc" style="s"/>
+    </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:62:25
+     60|     const result = formatMarkup(source);
+     61|     expect(result.diagnostics).toEqual([]);
+     62|     expect(result.text).toBe(source);
+       |                         ^
+     63|   });
+     64| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 33 passed | 1 skipped (35)
+      Tests  1 failed | 4256 passed | 8 skipped | 67 todo (4332)
+   Start at  23:58:00
+   Duration  41.36s (tests 73%, import 25%, transform 2%)

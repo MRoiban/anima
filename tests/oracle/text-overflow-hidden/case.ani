@@ -1,0 +1,36 @@
+{
+  "anima": "0.1",
+  "name": "text-overflow-hidden",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "overflow": "hidden",
+      "wrap": false,
+      "width": 4,
+      "height": 1,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd\nefgh",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

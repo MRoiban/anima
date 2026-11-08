@@ -1,0 +1,91 @@
+{
+  "base": "9f8b5921",
+  "commands": {
+    "npm run typecheck": {
+      "exit": 0
+    },
+    "changed-source ESLint": {
+      "exit": 0
+    },
+    "node tools/modules.ts --check": {
+      "exit": 0,
+      "stale": 0
+    },
+    "node tools/build-web.ts": {
+      "exit": 0,
+      "entries": 56
+    },
+    "node tools/build-animl.ts --check": {
+      "exit": 0,
+      "sources": 632
+    },
+    "node tools/oracle.ts --strict": {
+      "exit": 0,
+      "completedCases": 288,
+      "samples": 501,
+      "retainedFindings": 24
+    },
+    "node tools/size.ts (before and after)": {
+      "exit": 0,
+      "allModuleAndSceneBudgets": "pass",
+      "allSixGates": "pass"
+    },
+    "node tools/perf.ts (before and after)": {
+      "exit": 0,
+      "controlledPerformanceGuard": "unverified: shared machine load"
+    },
+    "npm run test:scope -- bind conformance --browser=chromium": {
+      "exit": 0,
+      "passed": 3740,
+      "failed": 0,
+      "filteredSkips": 1,
+      "todo": 15
+    },
+    "Firefox bind browser file": {
+      "exit": 0,
+      "passed": 1,
+      "failed": 0,
+      "filteredSkips": 1
+    },
+    "node tools/build-web.ts --check": {
+      "exit": 0
+    },
+    "CLI validate/schema/sample": {
+      "exit": 0,
+      "sampleCounts": [2, 1, 2],
+      "font": "fixtures/fonts/anima-test.ttf"
+    },
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- changed": {
+      "exit": 1,
+      "passed": 9096,
+      "failed": 4,
+      "todo": 94,
+      "filesPassed": 285,
+      "filesFailed": 3,
+      "filesSkipped": 13,
+      "failures": "existing timeout limits: host-edit Firefox components x2 (5s); BF-4 Firefox input beforeEach (10s); markup compiler prefixes (5s)",
+      "bothEngines": true,
+      "allFailuresPassOnIsolatedRetries": true
+    },
+    "isolated original-limit retries": {
+      "exit": 0,
+      "hostEditComponents": {
+        "passed": 4,
+        "seconds": 5.07
+      },
+      "inputWrites": {
+        "passed": 2,
+        "seconds": 6.49
+      },
+      "markupCompiler": {
+        "passed": 51,
+        "seconds": 2.85
+      },
+      "limitsChanged": false
+    },
+    "Prettier and git diff --check": {
+      "exit": 0
+    }
+  },
+  "newExampleSceneBytes": 51090
+}

@@ -1,0 +1,185 @@
+
+> test:scope
+> node tools/test-scope.ts a11y-dom
+
+Scopes: a11y-dom
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fad971e9
+
+ ❯ |scope-browser| modules/a11y-dom/test/web/downstream.test.ts (18 tests | 7 failed | 9 skipped) 70628ms
+   ❯ [BF-2] downstream Chromium (9)
+     × B2: one ArrowRight moves one tab with input and focus loaded 2358ms
+     × B3: tabs activate manually on Enter/Space with focus=false 880ms
+     × B3: tabs activate manually on Enter/Space with focus=true 962ms
+     × B6: input=false, drawing receives hover, press and drag while overlay retains keyboard/AT actions 2178ms
+     × B6: input=true, drawing receives hover, press and drag while overlay retains keyboard/AT actions 1479ms
+     × B7: native range parts never paint, even at a large drawing scale 2253ms
+     × B8: document and shown component use viewBox aspect without overriding authored dimensions 1012ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (42 tests | 1 failed) 156465ms
+   ❯ overlay Firefox (21)
+     × attaches after separately bundled focus/actions and an already loaded model 6389ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:29:5
+     27|     let browser: Browser, page: Page;
+     28|     let scripts: string[];
+     29|     beforeAll(async () => {
+       |     ^
+     30|       scripts = await Promise.all(
+     31|         ['index', 'a11y-dom', 'input', 'focus', 'components', 'canvas'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B2: one ArrowRight moves one tab with input and focus loaded
+AssertionError: expected 'tab2' to be 'tab1' // Object.is equality
+
+Expected: "tab1"
+Received: "tab2"
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:90:30
+     88|       await target('tab0').focus();
+     89|       await page.keyboard.press('ArrowRight');
+     90|       expect(await active()).toBe('tab1');
+       |                              ^
+     91|       expect(await page.evaluate(() => document.querySelector('anima-i…
+     92|         'tab1',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B3: tabs activate manually on Enter/Space with focus=false
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:135:38
+    133|         expect(await value('pick1')).toBe(false);
+    134|         await page.keyboard.press('Enter');
+    135|         expect(await value('pick1')).toBe(true);
+       |                                      ^
+    136|         await page.keyboard.press('ArrowRight');
+    137|         expect(await active()).toBe('tab2');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B3: tabs activate manually on Enter/Space with focus=true
+AssertionError: expected 'tab2' to be 'tab1' // Object.is equality
+
+Expected: "tab1"
+Received: "tab2"
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:132:32
+    130|         await target('tab0').focus();
+    131|         await page.keyboard.press('ArrowRight');
+    132|         expect(await active()).toBe('tab1');
+       |                                ^
+    133|         expect(await value('pick1')).toBe(false);
+    134|         await page.keyboard.press('Enter');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B6: input=false, drawing receives hover, press and drag while overlay retains keyboard/AT actions
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:155:49
+    153|         const box = (await page.locator('anima-icon').boundingBox())!;
+    154|         await page.mouse.move(box.x + 30, box.y + 30);
+    155|         await expect.poll(() => value('hover')).toBe(true);
+       |                                                 ^
+    156|         await page.mouse.down();
+    157|         await expect.poll(() => value('pressed')).toBe(true);
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:155:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B6: input=true, drawing receives hover, press and drag while overlay retains keyboard/AT actions
+AssertionError: expected 'button' to be 'rect' // Object.is equality
+
+Expected: "rect"
+Received: "button"
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:169:11
+    167|             [box.x + 30, box.y + 30],
+    168|           ),
+    169|         ).toBe('rect');
+       |           ^
+    170|         await target('drawing').focus();
+    171|         await page.keyboard.press('Enter');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B7: native range parts never paint, even at a large drawing scale
+AssertionError: expected [ 17, 54, 93 ] to deeply equal [ 18, 52, 86 ]
+
+- Expected
++ Received
+
+  [
+-   18,
+-   52,
+-   86,
++   17,
++   54,
++   93,
+  ]
+
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:187:50
+    185|       const png = PNG.sync.read(await target('range').screenshot());
+    186|       let painted = 0;
+    187|       for (let i = 0; i < png.data.length; i += 4)
+       |                                                  ^
+    188|         if (png.data[i] !== 18 || png.data[i + 1] !== 52 || png.data[i…
+    189|       expect(painted).toBe(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Chromium > B8: document and shown component use viewBox aspect without overriding authored dimensions
+AssertionError: expected 1 to be close to 3.4285714285714284, received difference is 2.4285714285714284, but expected 0.05
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:197:46
+    195|       await load(scene('buttons'));
+    196|       await page.evaluate(() => document.querySelector('anima-icon')!.…
+    197|       const box = () => page.locator('anima-icon').boundingBox();
+       |                                              ^
+    198|       const initial = (await box())!;
+    199|       expect(initial.width / initial.height).toBeCloseTo(24 / 7, 1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  8 failed | 43 passed | 9 skipped (60)
+   Start at  16:52:51
+   Duration  160.38s (tests 97%, import 3%)

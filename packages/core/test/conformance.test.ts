@@ -1,3 +1,4 @@
+import { documentFonts, installToolMeasurer } from '../../cli/src/font/document.ts';
 import '@anima-format/core/all';
 // Runs spec/conformance/*/ (spec §11) and the ease golden vectors.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -44,9 +45,16 @@ describe('conformance', () => {
       it.todo(`${c} (pending: ${reason})`);
       continue;
     }
-    it(c, () => {
+    it(c, async () => {
       const read = (f: string) => readFileSync(new URL(`${c}/${f}`, DIR), 'utf8');
-      const { model, diagnostics } = load(read('case.ani'));
+      const text = read('case.ani'),
+        doc = JSON.parse(text);
+      if (doc.requires?.includes('text')) {
+        const fonts = documentFonts(doc, new URL(`${c}/case.ani`, DIR).pathname);
+        expect(fonts.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+        await installToolMeasurer(fonts.measurer);
+      }
+      const { model, diagnostics } = load(text);
       expect(diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
       const got = runScript(model!, read('script.txt')).snapshots;
       const want = read('expected.jsonl')

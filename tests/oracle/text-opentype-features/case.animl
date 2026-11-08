@@ -1,0 +1,5 @@
+<anima version="0.1" name="text-opentype-features" grid="20" requires="text assets fonts">
+<asset name="body" type="font" src="rive/feature-fixture.ttf"/>
+<text id="label0" line-height="1" x="4" y="4"><style id="s" font="body" size="1" features='{"liga":1,"tnum":0}'/><run text="fi1" style="s"/></text>
+<text id="label1" line-height="1" x="4" y="8"><style id="s" font="body" size="1" features='{"liga":0,"tnum":1}'/><run text="fi1" style="s"/></text>
+</anima>

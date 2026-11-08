@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "P6-8: fresh current-font explicit-leading capture still has a geometry difference; measurements and bounds in tests/oracle/TEXT-PROBES.md; no raster tolerance assigned"
+}

@@ -9,6 +9,8 @@ export async function compileLibrariesAsync(
   opts: Omit<CompileOptions, 'resolve'> & {
     resolve: (path: string) => string | Promise<string>;
   },
+  // seam(P6-4a): the invoking bundle supplies its prepared compiler and hook tables.
+  compiler = compile,
 ): Promise<CompileResult> {
   const cache = new Map<string, string>();
   const seen = new Set<string>([opts.file ?? '']);
@@ -30,11 +32,12 @@ export async function compileLibrariesAsync(
     }
   };
   await visit(source, opts.file);
-  return compile(source, {
+  return compiler(source, {
     ...opts,
     resolve: (path) => {
-      if (!cache.has(path)) throw Error();
-      return cache.get(path)!;
+      const value = cache.get(path);
+      if (value === undefined) throw Error();
+      return value;
     },
   });
 }

@@ -1,0 +1,12 @@
+initial false [ '#123456', '#123456', '#123456' ]
+array false [ '#ff0000', '#123456', '#123456' ]
+hex false [ 170, 187, 204, 255 ] [ '#aabbcc', '#123456', '#123456' ]
+document false [ '#00ff00', '#123456', '#123456' ]
+bad color data-type /data/$theme:ink use a declared, writable property of the requested type and an instance from this player
+initial true [ '#123456', '#123456', '#123456' ]
+array true [ '#ff0000', '#123456', '#123456' ]
+hex true [ 170, 187, 204, 255 ] [ '#aabbcc', '#123456', '#123456' ]
+document true [ '#00ff00', '#123456', '#123456' ]
+bad color data-type /data/$theme:ink use a declared, writable property of the requested type and an instance from this player
+B5 names [ 'import-2-digit', 'import-3-control' ]
+B4 clean base accepts fractional RGBA: [1.5,0,0,255] paint: #1.80000

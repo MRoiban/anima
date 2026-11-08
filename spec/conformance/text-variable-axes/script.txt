@@ -1,0 +1,8 @@
+advance 0
+snapshot label.styles.s.axes.wght
+set weight 650
+advance 0
+snapshot label.styles.s.axes.wght
+set weight 900
+advance 0
+snapshot label.styles.s.axes.wght

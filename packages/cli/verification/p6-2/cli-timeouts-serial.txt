@@ -1,0 +1,58 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7cdabf87
+
+ ❯ |scope-unit| packages/cli/test/authoring.test.ts (57 tests | 2 failed | 55 skipped) 17116ms
+   ❯ authoring guide executable examples (36)
+     × docs convert serves its chapter and data authoring link 5986ms
+     × exposes the forgotten pivot through inspect and rendered geometry 11090ms
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 2 failed | 17 skipped) 10063ms
+   × encodes jpeg, updates MIME/byte size and decodes dimensions 5037ms
+   × encodes webp, updates MIME/byte size and decodes dimensions 5001ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > docs convert serves its chapter and data authoring link
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:80:39
+     78|   );
+     79|
+     80|   it.each(['data', 'convert', 'host'])(
+       |                                       ^
+     81|     'docs %s serves its chapter and data authoring link',
+     82|     (topic) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes jpeg, updates MIME/byte size and decodes dimensions
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes webp, updates MIME/byte size and decodes dimensions
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:105:33
+    103|   expect(JSON.parse(upper.out).assets.photo.source).toBe('anima:photo'…
+    104| });
+    105| it.each(['png', 'jpeg', 'webp'])(
+       |                                 ^
+    106|   'encodes %s, updates MIME/byte size and decodes dimensions',
+    107|   async (encode) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  4 failed | 72 skipped (76)
+   Start at  17:14:11
+   Duration  39.83s (tests 75%, transform 15%, import 10%)

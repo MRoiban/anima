@@ -1,0 +1,65 @@
+{
+  "anima": "0.1",
+  "name": "host-api-text-input",
+  "grid": 20,
+  "requires": ["text", "textinput", "a11y", "focus", "data", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "q",
+      "type": "text",
+      "x": 2,
+      "y": 3,
+      "sizing": "fixed",
+      "width": 10,
+      "height": 4,
+      "runs": [
+        {
+          "text": "",
+          "style": "s"
+        }
+      ],
+      "textInput": {
+        "writeText": "$query",
+        "label": "Search"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "text",
+      "target": "q",
+      "emit": "committed"
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "values": {}
+      }
+    }
+  },
+  "textStyles": {
+    "s": {
+      "font": "sans-serif",
+      "size": 1
+    }
+  }
+}

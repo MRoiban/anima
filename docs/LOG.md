@@ -2454,3 +2454,144 @@ were valid throughout and show no regression in P3b.
 - **Decisions logged as "owner may revisit":** the authoring add-on may grow (cap 15 360 B) when
   authoring code leaves runtime bundles; `paint-sampling` and `devtools` budgets re-measured; the
   four cross-document artboard rows deferred to P7; Rive not rerun when only Anima changed.
+
+
+## BF-2 — downstream keyboard, semantic overlay and SVG sizing
+
+Three-tab regression scenes reproduced duplicate arrow movement: host input capture
+now leaves native semantic keys to the overlay, whose tab roving focuses one target.
+Tabs use native buttons for manual Enter/Space activation, with a matching headless
+conformance case and an automatic-activation authoring recipe. Semantic elements
+pass pointer hit testing through to the drawing and suppress native range parts;
+keyboard and directly dispatched assistive-technology actions remain available.
+The default SVG host uses the shown model's viewBox aspect ratio and preserves
+explicit author dimensions (core+web +13 B). Small scenes also retain the two
+unreproduced report details: trigger buttons already activate without focus, and
+normal opacity already hides range paint. See
+[BF-2 report](../modules/a11y-dom/BF2-REPORT.md) for evidence, limits and gate values.
+## BF-1 — nested data and library component lookup (2026-11-07)
+
+- B1 reproduced with a two-level library scene: inherited non-global theme instances were cloned.
+  Context-free components now share live named instances and recursively rebind descendants;
+  explicit child contexts and independent root players retain their storage contracts. The marker
+  lives on the compiled model so separately emitted components/data bundles agree; lists retains
+  ownership of its descendant context traversal.
+- B4's hex-string failure did not reproduce: `#rgb`, `#rrggbb`, `#rrggbbaa` already normalize on the
+  next step and malformed values already throw `data-type`. Fractional RGBA channels were accepted
+  and could format incorrectly; the byte-channel validator now rejects them.
+- B5 imported component keys preserve unique originals and qualify collisions with the full import
+  alias chain. Metadata retains qualified aliases; core references, host property writes, web root
+  selection and CLI rendering share the lookup, including legacy generated suffixes. Ambiguous
+  originals receive a diagnostic and verbose qualified alternatives. Local exact keys retain priority.
+- Small scenes, core and Chromium/Firefox tests, two conformance cases, AniML/SPEC/AUTHORING and the
+  regenerated schema/library scenes accompany the fix. Detailed verification, six gates and module
+  deltas are recorded in `modules/data/BF-1-REPORT.md`. Local commit only; no publication or PR.
+
+## P6-3 — optional browser fonts (2026-11-07, P6 still open)
+
+Added scoped FontFace decoding/registration, CSS FontSpec projection, readiness, host fallback and
+queued decoded-font data assignment. Original in-memory test fonts cover browser metrics and
+replacement isolation. A font-only host-edit cache bypass preserves per-icon registration when
+compiled models are reused. No core/web baseline changes, third-party font files or package
+runtime dependencies. Full text rendering, variable-font/substitution evidence, native references
+and controlled perf closure remain with P6; see modules/fonts/REPORT.md. No parity status changed.
+
+P6-3 validation: focused1,090 pass (10 Chromium/Firefox cases); pre-catalog changed8,115 pass/63TODO;
+all six size gates pass, fonts1,789/2,048 B. Assetio's +16 B loader composition preserves fonts-first
+entry order. Host fallback survives pre-load configuration and reloads; font revision invalidates
+measurement caches. Earlier concurrent failures and corrected typed-error/test-registration bugs
+are recorded in WORKLOG and the module report. Native/text row closure and controlled perf A/B stay open.
+Final catalog-preservation rerun: 8,111 pass/63TODO plus four Firefox startup/import timeouts;
+those exact four pass isolated at unchanged limits. Decoded image metadata survives font assignment.
+
+
+
+## BF-4 — downstream corners, semantics and data writes (2026-11-07, partial)
+
+Rect corner arcs now use the decided circular cubic construction; radio groups reuse roving focus.
+Progressbar/meter/status and controls are documented Anima extensions within the existing budgets.
+No-focus semantic triggers now wake queued work; interpolation gets a tested geometry recipe.
+Input configuration survives lists' Model clones, and repeated pointer/key writes reach data paths.
+B16 remains blocked on protected base-host guards; two expected-failure repros remain per engine.
+The strict rect-corners oracle now fails against its frozen reference; no measurement input or
+threshold changed. See [BF-4 report](../modules/a11y-dom/BF4-REPORT.md) for evidence and all six gates.
+
+## BF-3 — shared web compilation, root reuse and host settling
+
+The web host caches successful compilation by parsed-object identity or bounded source caches,
+retains validated exported roots through host-edit's existing component hook, and chooses the root
+when instantiating each Player. URL compilation is independent of resource resolver and policy;
+resource initialization attaches host-local catalogs to root, nested and repeated players. Reset
+reuses the compiled root. An absent root has a diagnostic naming available components.
+Component-only libraries explicitly allow an empty root drawing, with matching schema/conformance.
+
+Visibility re-entry commits queued data with a zero-time step before drawing. Computed inputs now
+resolve after queued writes and before clocks and machine guards, so one write on a settled host
+updates a derived guard and its state in the same step. This is one pre-machine snapshot per step;
+stateful converters receive dt once. Missing-feature verbose diagnostics name the web import.
+
+All five downstream bugs reproduced on the base. A generated 108,286-byte, 24-host scene goes
+from 253 later compile-hook calls to zero (local total 301.7 → 122.7 ms). Core+web is 21,077 B,
+assetio 680 B, derive 2,381 B and host-edit 3,642 B; all module budgets and six gates pass.
+The final changed scope exits 0 with 8,175 pass, 1 skip and 40 existing TODOs across both browsers;
+strict oracle is 266 cases / 475 passing samples, with 24 unchanged findings. Earlier timeouts,
+an enclosing session's exit143 after green totals, and its clean standalone retry are retained in
+[the BF-3 report](../modules/host-edit/BF3-REPORT.md). Branch-only delivery; no publication or PR.
+
+## BF-5 — host and overlay events bubble to page listeners
+
+Closed downstream B16. Host key routing excludes semantic controls; input marks its pointer events
+in a shared WeakSet before option filters, and legacy routing skips owned/semantic events, including
+leave/cancel. Input and overlay never stop DOM propagation. Focus leaves semantic keys to native
+controls. Semantic action guards prevent a child control click also activating its parent while
+retaining activation through noninteractive children. Only consumed defaults are prevented.
+
+The former expected-failure repros are ordinary tests expanded across fresh-page overlay/input/focus
+combinations. Consumed arrows, unconsumed Escape, pointer/drag single delivery, disabled listeners,
+root/native activation and nested controls pass. Final changed scope: 8,369 pass, 1 skip, 63 inherited
+TODOs across Chromium and Firefox, exit 0. Strict oracle: 266 cases / 475 samples pass; type/lint,
+wiring, generated browser artifacts, formatting and all six size gates pass. Core+web 21,077 →
+21,136 B (+59 B, within the 60 B task limit). Perf samples under shared load do not establish
+non-regression. Branch-only delivery; no push or PR. See [BF-5 report](../modules/a11y-dom/BF5-REPORT.md).
+
+## P6-1 — text implementation checkpoint (2026-11-07)
+
+Added optional text layout/rendering, registered authoring, browser measurement, data binding and
+named/nested host access. Integrated the unchanged P6-2 tool reader and original generated font:
+owned scope 3,783 pass/52 TODO, font26 pass, Chromium/Firefox text8 pass. Text 6,079/6,144 B;
+text-host367 B and markup-text529 B are separate entries; core+web byte-identical20,622 B and all six
+gates pass. Twenty-five native render probes retain unresolved raw differences; no parity row is
+closed. Broader optional-bundle byte identity, fonts consumer integration and controlled perf remain
+open. Final changed-scope evidence and deviations are in modules/text/REPORT.md.
+
+Final clean changed scope: 8,396 pass/65 TODO, both canvas engines. Fixed an orderSVG accessor
+cycle found by the full run; opposite backend import orders now have explicit regression tests.
+
+## P6 — text on the browser (2026-11-08, done)
+
+Text binds to the browser, per the owner's triage: one layout algorithm in core with a measurer
+contract; the browser measures with Canvas `measureText` and fonts load through `FontFace`; the
+CLI measures and renders with its own OpenType reader (TrueType/CFF outlines, kerning, `fvar`/`gvar`,
+WOFF/WOFF2), so `sample`, `validate` and conformance stay deterministic and browser-free;
+`--browser-text` renders complex scripts through the cached Chromium. Modules: `text` (6,144 B, full),
+`text-effects` (3,568 B, incl. bidi at 150 B), `fonts` + `fonts-text` + `fonts-options`, `text-hit`,
+`a11y-text`, and the heavy DOM-backed `text-input` (a native field over the drawn text; the browser
+handles typing, IME, clipboard and selection). Authoring split: `markup-animation` left `markup`
+(7,341 B) room for text markup. Bind expressions gained `contains` and `lower` after the search-card
+benchmark. 66 of 84 rows done; 18 move to P7 (`docs/parity/P6-closure.md`). In scope 804/886 (91 %).
+
+Downstream reports from the anima-kit app (19 bugs, B1–B19) were triaged into PLAN and fixed in five
+bugfix tickets parallel to P6, each confirmed first with a small scene; three did not reproduce on
+current code and keep their regression scenes. Decisions (owner may revisit): the overlay passes
+pointer input to the drawing, events bubble (Anima only prevents defaults it consumes), the host
+sizes to the viewBox aspect ratio, imported components keep their names, rect corners are circular
+(the rect-corners oracle scene was re-authored: it had encoded the old quadratic corner), compiled
+models are shared per document with the root chosen per host.
+
+Benchmarks (fresh agents, re-checked): settings card AniML 6/6 — item 1, labels from data, the
+owner's exit criterion, met — vs Rive 5/6; search card AniML 5/6 → 6/6 after `contains`/`lower` and
+`session --font`, vs Rive 6/6. Gates: core+web 21,136 B, largest scene 53,857, app-UI 98,890 (text,
+text-effects, fonts, fonts-text, a11y-text added), runtime sum 120,281, authoring 14,717, Rive-class
+130,077. Perf vs main (pinned, minimums): frames equal; bell compile was +5 % from a per-character
+`matchAll` in `markup-animation`, fixed to within noise (+2.9 %, −0.6 %, +2.1 %). Strict oracle 309
+cases, exit 0. The module-order test deadline rose to 90 s for the 579-case corpus.

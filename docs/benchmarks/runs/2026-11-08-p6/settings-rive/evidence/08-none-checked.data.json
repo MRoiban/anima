@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "artboard": "Settings",
+  "stateMachine": "Settings machine",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Settings",
+    "properties": [
+      {
+        "name": "volume",
+        "path": "volume",
+        "type": "number",
+        "value": 40,
+        "changed": true
+      },
+      {
+        "name": "muted",
+        "path": "muted",
+        "type": "boolean",
+        "value": true,
+        "changed": true
+      },
+      {
+        "name": "selectedTab",
+        "path": "selectedTab",
+        "type": "string",
+        "value": "General",
+        "changed": true
+      },
+      {
+        "name": "email",
+        "path": "email",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "push",
+        "path": "push",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "sms",
+        "path": "sms",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "generalTitle",
+        "path": "generalTitle",
+        "type": "string",
+        "value": "General",
+        "changed": false
+      },
+      {
+        "name": "soundTitle",
+        "path": "soundTitle",
+        "type": "string",
+        "value": "Sound",
+        "changed": false
+      },
+      {
+        "name": "notificationsLabel",
+        "path": "notificationsLabel",
+        "type": "string",
+        "value": "Notifications",
+        "changed": false
+      },
+      {
+        "name": "emailLabel",
+        "path": "emailLabel",
+        "type": "string",
+        "value": "Email",
+        "changed": false
+      },
+      {
+        "name": "pushLabel",
+        "path": "pushLabel",
+        "type": "string",
+        "value": "Push",
+        "changed": false
+      },
+      {
+        "name": "smsLabel",
+        "path": "smsLabel",
+        "type": "string",
+        "value": "SMS",
+        "changed": false
+      },
+      {
+        "name": "volumeLabel",
+        "path": "volumeLabel",
+        "type": "string",
+        "value": "Volume",
+        "changed": false
+      },
+      {
+        "name": "muteLabel",
+        "path": "muteLabel",
+        "type": "string",
+        "value": "Mute",
+        "changed": false
+      },
+      {
+        "name": "action",
+        "path": "action",
+        "type": "string",
+        "value": "",
+        "changed": true
+      },
+      {
+        "name": "volumeSpoken",
+        "path": "volumeSpoken",
+        "type": "string",
+        "value": "Volume 40 %",
+        "changed": true
+      },
+      {
+        "name": "generalSelected",
+        "path": "generalSelected",
+        "type": "boolean",
+        "value": true,
+        "changed": true
+      },
+      {
+        "name": "soundSelected",
+        "path": "soundSelected",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "generalHidden",
+        "path": "generalHidden",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "soundHidden",
+        "path": "soundHidden",
+        "type": "boolean",
+        "value": true,
+        "changed": true
+      },
+      {
+        "name": "generalOpacity",
+        "path": "generalOpacity",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "soundOpacity",
+        "path": "soundOpacity",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "parentState",
+        "path": "parentState",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "emailState",
+        "path": "emailState",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "pushState",
+        "path": "pushState",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "smsState",
+        "path": "smsState",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "parentFill",
+        "path": "parentFill",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "parentBar",
+        "path": "parentBar",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "emailFill",
+        "path": "emailFill",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "pushFill",
+        "path": "pushFill",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "smsFill",
+        "path": "smsFill",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      },
+      {
+        "name": "volumeWidth",
+        "path": "volumeWidth",
+        "type": "number",
+        "value": 144,
+        "changed": true
+      },
+      {
+        "name": "knobX",
+        "path": "knobX",
+        "type": "number",
+        "value": 39.5999985,
+        "changed": true
+      },
+      {
+        "name": "generalFill",
+        "path": "generalFill",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "soundFill",
+        "path": "soundFill",
+        "type": "number",
+        "value": 0,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
