@@ -23,5 +23,5 @@ it('R2-08: AniML guard rewriting leaves quoted string literals untouched', () =>
   };
   const c = compile(decompile(doc));
   expect(c.diagnostics).toEqual([]);
-  expect(c.doc!.machine.layers.l.states.a.on[0].when).toBe(when);
+  expect((c.doc as typeof doc).machine.layers.l.states.a.on[0]!.when).toBe(when);
 });

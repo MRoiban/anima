@@ -1,7 +1,7 @@
 // Regression tests for P4 Rottweiler review findings (design/rottweiler/P4-LEDGER.md).
 import '@anima-format/core/all';
 import { expect, it } from 'vitest';
-import { load, Player } from '@anima-format/core';
+import { load, Player, toSVG } from '@anima-format/core';
 
 const player = (paints: object[]) => {
   const r = load({
@@ -51,4 +51,41 @@ it('R2-01: hidden paints are not hit geometry', () => {
   const clockwise = [{ fill: { color: '#000', winding: 'clockwise', visible: false } }, both[1]];
   expect(hidden(['composite', 'contour'], [{ paints: clockwise }])).toEqual([false, false]);
   expect(hidden(['composite'], [{ paints: [{ fill: { color: '#000' } }] }])).toEqual([true, false]);
+});
+
+it('R5-05: rounded rect clip sources clamp each radius axis like the rendered rect', () => {
+  const r = load({
+    anima: '0.1',
+    name: 'p4',
+    grid: 20,
+    requires: ['composite'],
+    nodes: [
+      {
+        id: 'a',
+        type: 'rect',
+        x0: 0,
+        y0: 0,
+        w: 20,
+        h: 20,
+        fill: { color: '#f00' },
+        clip: { source: 'b', rule: 'nonzero' },
+      },
+      {
+        id: 'b',
+        type: 'rect',
+        x0: 0,
+        y0: 0,
+        w: 4,
+        h: 20,
+        rx: 10,
+        visible: false,
+        fill: { color: '#fff' },
+      },
+    ],
+  });
+  expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const clip = /<clipPath[^>]*>.*?<\/clipPath>/s.exec(toSVG(new Player(r.model!)))![0];
+  // Elliptical corners: the top-right arc ends at (4, 10), not (4, 2).
+  expect(clip).toMatch(/a2 10 0 0 1 2 10|[ CL]4 10[^.\d]/);
+  expect(clip).not.toMatch(/a2 2 0 0 1 2 2/);
 });

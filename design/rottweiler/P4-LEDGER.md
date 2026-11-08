@@ -39,4 +39,16 @@ P4c interaction (#15), P4e data (#16). Lead: Opus; reviewers: GPT-6.1-sol xhigh,
 | R4-03 | major | The host's `#aria()` on every state change removed focus's `role="group"` and set `aria-hidden="true"` | fixed: `modules/focus/web/index.ts` re-applies its host attributes on `anima:state`; `modules/focus/test/web/p4-review.test.ts` (Chromium + Firefox) |
 | R4-04 | minor | Reduced motion lost an instance's negative direction when the authored timeline speed is 0 | fixed: `modules/motion/core/api.ts` `reduce()` uses `speed || 1` like its caller; motion test file |
 
-Reviewer token usage: not reported (rounds 1–4).
+| R5-01 | minor | R4-04 reversed zero-effective-speed machine states (timeline speed 0, state speed −1) | fixed: `modules/motion/core/api.ts` restores the effective-speed rule; explicit instances pass their own speed as the direction; motion test file |
+| R5-02 | major | The R4-03 state listener applied focus ownership with the previous player during a reload (kept `group` over an authored `button`) | fixed: `modules/focus/web/index.ts` ignores a stale player; focus browser test |
+| R5-03 | major | Setting/removing the host `label` attribute replaced focus's `group` role (`img`, then `aria-hidden`) | fixed: a `label` attribute observer re-applies focus ownership; focus browser test (Chromium + Firefox) |
+| R5-04 | major | Data path scan treated literal `focus.label` text (`"Show $details"`) as a path | fixed: `modules/data/core/compile.ts` skips focus labels; data test file |
+| R5-05 | major | Rounded-rect clip sources clamped both radii to one circular radius | fixed: `modules/composite/core/svg.ts` clamps per axis with elliptical arcs; `modules/composite/test/core/p4-review.test.ts` |
+
+Reviewer token usage: not reported by the tool in any round (1–5).
+
+## Summary
+
+Five rounds run (limit reached; round 5 still found minor/major issues, all fixed). Fixed 31,
+pushed back 1 (R3-01), deferred 4 (R2-05, R3-03 → P5b, R4-02). Files outside P4 touched minimally:
+`modules/markup-animation/markup/index.ts` (R2-08), `modules/surface/core/svg.ts` (R3-08).

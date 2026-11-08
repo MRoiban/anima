@@ -376,12 +376,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;
-        // Event payload string fields and node custom properties stay literal.
+        // Event payload string fields, node custom properties and focus labels stay literal.
         if (
           (k === 'value' &&
             (v as { type?: string }).type === 'string' &&
             /\/payload\/[^/]+$/.test(at)) ||
-          (k === 'properties' && 'id' in v)
+          (k === 'properties' && 'id' in v) ||
+          (k === 'label' && at.endsWith('/focus'))
         )
           continue;
         scan(k, ptr(at, k));

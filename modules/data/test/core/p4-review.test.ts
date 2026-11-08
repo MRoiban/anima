@@ -78,3 +78,24 @@ it('R3-05: quoted literals in binding expressions are not data paths', () => {
   expect(errors('"x $price"')).toEqual([]);
   expect(errors('$missing').map((d) => d.code)).toContain('data-path');
 });
+
+it('R5-04: focus labels are literal strings, not data paths', () => {
+  const r = load({
+    anima: '0.1',
+    name: 'p4',
+    grid: 20,
+    requires: ['data', 'focus'],
+    nodes: [
+      {
+        id: 'c',
+        type: 'circle',
+        center: [10, 10],
+        r: 4,
+        fill: { color: '#000' },
+        focus: { label: 'Show $details' },
+      },
+    ],
+    data: { models: { M: { properties: { x: { type: 'number', default: 0 } } } } },
+  });
+  expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+});

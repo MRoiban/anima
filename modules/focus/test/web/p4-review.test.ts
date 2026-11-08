@@ -87,5 +87,39 @@ for (const [name, engine, executablePath] of [
         }, doc);
         expect(r).toEqual({ before: ['group', null], after: ['group', null] });
       });
+      it('R5-02: a reload does not apply focus ownership to the next document', async () => {
+        const r = await page.evaluate(async (d) => {
+          const i = document.querySelector('anima-icon')!;
+          const tick = () => new Promise((res) => setTimeout(res, 0));
+          i.load(d);
+          await i.ready;
+          i.load({ ...d, a11y: { role: 'button', label: 'Go' } });
+          await i.ready;
+          await tick();
+          const button = i.getAttribute('role');
+          i.load(d);
+          await i.ready;
+          i.load({ ...d, nodes: [{ id: 'r', type: 'rect', x0: 0, y0: 0, w: 10, h: 10 }] });
+          await i.ready;
+          await tick();
+          return { button, plain: [i.getAttribute('role'), i.getAttribute('aria-hidden')] };
+        }, doc);
+        expect(r).toEqual({ button: 'button', plain: [null, 'true'] });
+      });
+      it('R5-03: host label changes keep the focus group exposed', async () => {
+        const r = await page.evaluate(async (d) => {
+          const i = document.querySelector('anima-icon')!;
+          const tick = () => new Promise((res) => setTimeout(res, 0));
+          i.load(d);
+          await i.ready;
+          i.setAttribute('label', 'Volume');
+          await tick();
+          const labelled = [i.getAttribute('role'), i.getAttribute('aria-label')];
+          i.removeAttribute('label');
+          await tick();
+          return { labelled, unlabelled: [i.getAttribute('role'), i.getAttribute('aria-hidden')] };
+        }, doc);
+        expect(r).toEqual({ labelled: ['group', 'Volume'], unlabelled: ['group', null] });
+      });
     },
   );

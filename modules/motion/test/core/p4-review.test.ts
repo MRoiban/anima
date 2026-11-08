@@ -85,3 +85,35 @@ it('R4-04: reduced motion keeps an instance direction over an authored zero spee
   expect(time(1)).toEqual([0, 0]);
   expect(time(0)).toEqual([0, 0]);
 });
+
+it('R5-01: a machine state over an authored zero speed reduces forward (effective speed 0)', () => {
+  const value = (reducedMotion: string) => {
+    const r = load({
+      anima: '0.1',
+      name: 'p4',
+      grid: 20,
+      requires: ['motion'],
+      nodes: [{ id: 'n', type: 'circle', center: [0, 0], r: 1, fill: { color: '#000' } }],
+      timelines: {
+        t: {
+          duration: 1,
+          speed: 0,
+          reducedMotion,
+          tracks: {
+            'n.x': [
+              [0, 0],
+              [1, 10],
+            ],
+          },
+        },
+      },
+      machine: { layers: { l: { initial: 's', states: { s: { play: 't', speed: -1 } } } } },
+    });
+    expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    const p = new Player(r.model!, { reducedMotion: true });
+    p.step(0);
+    return p.value('n.x');
+  };
+  expect(value('end')).toBe(10);
+  expect(value('skip')).toBe(0);
+});
