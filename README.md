@@ -57,3 +57,7 @@ node tools/build-web.ts                         # packages/web/dist/anima-icon.j
 
 Anima takes ideas from Rive's open-source runtimes (MIT) — see [`docs/research/`](docs/research/) —
 but is an independent design and implementation and does not read `.riv` files.
+
+## Licence
+
+MIT — see [`LICENSE`](LICENSE). Third-party attributions are in [`NOTICE`](NOTICE).
