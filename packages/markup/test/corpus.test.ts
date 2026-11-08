@@ -47,8 +47,9 @@ describe('authored AniML corpus', () => {
     // seam(P7-4): deterministic reflow and wrapped-text samples.
     // seam(P7-8): font metric/decoding API option projections.
     // RT1: selected-component dimensions and laid-out pointer/semantic bounds.
-    // Rottweiler P3 R2-04/R3-05/R3-06: blend children and source clocks resume after reduced motion.
-    expect(cases).toHaveLength(614);
+    // Rottweiler P3 R2-04/R3-05/R3-06/R4-03: blend children, source clocks and controlled clocks
+    // resume after reduced motion.
+    expect(cases).toHaveLength(615);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

@@ -8,7 +8,7 @@ import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 import type {} from '../../../host/web/index.ts';
 
 // Rottweiler P3 web host API: R3-02 detached `info` defaults, R3-07 direct asset-name writes
-// supersede a pending URL replacement, R3-09 `invalidate()` on an empty host with composite.
+// supersede a pending URL replacement (R4-01: also through at()), R3-09 `invalidate()` on an empty host with composite.
 const svg = (n: number) =>
   `data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22${n}%22 height=%22${n}%22/%3E`;
 for (const [name, engine, cache] of [
@@ -110,10 +110,18 @@ for (const [name, engine, cache] of [
             decoded();
             await pending;
             image.player!.step(0);
-            Image.prototype.decode = decode;
             const photo = handle.value;
+            // R4-01: the same through a nested-path handle from at().
+            const later = handle.set(third);
+            (image.player!.data.at('$default:photo') as { set(value: string): void }).set('first');
+            image.player!.step(0);
+            decoded();
+            await later;
+            image.player!.step(0);
+            Image.prototype.decode = decode;
+            const atPhoto = handle.value;
             image.destroy();
-            return { invalidate, tints, photo };
+            return { invalidate, tints, photo, atPhoto };
           },
           [svg(1), svg(2), svg(3)],
         );
@@ -123,6 +131,7 @@ for (const [name, engine, cache] of [
           [17, 34, 51, 255],
         ]);
         expect(result.photo).toBe('second');
+        expect(result.atPhoto).toBe('first');
         expect(errors).toEqual([]);
       } finally {
         await browser.close();

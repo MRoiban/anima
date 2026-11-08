@@ -26,7 +26,8 @@ export class StateClocks {
   }
   resume(run: object, time: number): void {
     const c = this.#runs.get(run)!;
-    c.start = time - (run as Run).time * this.rate(c.state);
+    // A controlled clock (time expression or hold) keeps its own position; speed does not apply.
+    if (!this.controlled(c.state)) c.start = time - (run as Run).time * this.rate(c.state);
     c.limit = Infinity;
     c.armed.clear();
   }

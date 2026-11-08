@@ -53,6 +53,8 @@ interface Data {
     reduced?: boolean;
   };
   reduced?: boolean;
+  /** State time when full motion was restored, for blend children released from freezing. */
+  resumed?: number;
   pending?: { transition: TransitionM; duration: number; elapsed: number };
 }
 export class MachinePolicy implements PlaybackPolicy {
@@ -158,6 +160,7 @@ export class MachinePolicy implements PlaybackPolicy {
       this.act(states.get(from)?.exitActions);
     }
     d.reduced = this.p.reducedMotion;
+    d.resumed = undefined;
     // Interrupted transitions do not run end actions.
     d.pending = undefined;
     this.act(options?.actions);
@@ -211,6 +214,8 @@ export class MachinePolicy implements PlaybackPolicy {
     const r = run as Run,
       d = this.runs.get(r)!;
     d.eligible = eligible;
+    if (this.p.reducedMotion) d.resumed = undefined;
+    else if (d.resumed === undefined && (d.reduced || r.frozen >= 0)) d.resumed = r.time;
     d.chosen = undefined;
     d.consumed.clear();
     d.changed.clear();
@@ -241,7 +246,7 @@ export class MachinePolicy implements PlaybackPolicy {
         r.fade.from.set(
           k,
           states.get(st)?.children
-            ? this.blended(r, st, this.p.addrs[k]!, out.time, out.frozen, out.reduced)
+            ? this.blended(r, st, this.p.addrs[k]!, out.time, out.frozen, out.reduced, -1)
             : sampler(time),
         );
     } else d.outgoing = undefined;
@@ -392,6 +397,7 @@ export class MachinePolicy implements PlaybackPolicy {
     elapsed = r.time,
     frozen = r.frozen,
     reduced = this.runs.get(r)?.reduced,
+    resumed = this.runs.get(r)?.resumed ?? -1,
   ): Value {
     const info = states.get(state)!,
       children = info.children!;
@@ -408,7 +414,12 @@ export class MachinePolicy implements PlaybackPolicy {
     const values = children.map((c) => {
       const t = this.p.model.timelines[c.timeline]!,
         track = t.tracks.find((tr) => tr.addr === address);
-      const time = this.childClock(t, elapsed, state.speed, this.held(t, reduced || frozen >= 0));
+      const stopped = reduced || frozen >= 0,
+        held = this.held(t, stopped);
+      // A loop released from freezing resumes from its frozen end, excluding the frozen time.
+      const at =
+        stopped && !held && resumed >= 0 && t.reduced !== 'play' ? elapsed - resumed : elapsed;
+      const time = this.childClock(t, at, state.speed, held);
       return track ? sample(track, time) : rest;
     });
     if (info.mix!.mode !== '1d') {

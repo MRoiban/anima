@@ -1,3 +1,4 @@
 {"time": 0, "values": {"a.x": 20, "b.x": 10}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": true}
-{"time": 0.25, "values": {"a.x": 20, "b.x": 2.5}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": false}
-{"time": 0.5, "values": {"a.x": 20, "b.x": 5}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": false}
+{"time": 0.5, "values": {"a.x": 20, "b.x": 10}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": true}
+{"time": 0.75, "values": {"a.x": 20, "b.x": 2.5}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": false}
+{"time": 1, "values": {"a.x": 20, "b.x": 5}, "states": {"la": "blend", "lb": "blend"}, "events": [], "settled": false}

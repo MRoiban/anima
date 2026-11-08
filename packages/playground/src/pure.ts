@@ -157,8 +157,11 @@ export function sampleTimeline(
     const v = sampleTrack(tr, t, player);
     pose[tr.addr] = Array.isArray(v) ? formatHex(v) : v;
   }
+  // Post-state property bindings would override the sampled pose (SPEC §11: timeline over rest).
+  const doc: Record<string, unknown> = { ...model.doc };
+  delete doc.bind;
   return {
-    ...model.doc,
+    ...doc,
     machine: { layers: { scrub: { initial: 'sample', states: { sample: { pose } } } } },
     listeners: [],
   };

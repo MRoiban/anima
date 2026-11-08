@@ -692,9 +692,11 @@ $('reload').onclick = async () => {
 void openFile().catch((e) => message((e as Error).message));
 window.setInterval(async () => {
   if (document.hidden || saveInProgress) return;
+  // A save or reload that completes while this poll is in flight makes its answer stale.
+  const asked = revision;
   try {
     const d = await fetchFile();
-    if (d.revision !== revision && !saveInProgress) {
+    if (d.revision !== revision && revision === asked && !saveInProgress) {
       conflict = true;
       fileState();
     }
