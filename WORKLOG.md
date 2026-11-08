@@ -25,17 +25,18 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
-- Review follow-ups nobody owns yet (do before the review PR or list in it): asset loader on a page
-  without a base URL rejects with an `Error`, not diagnostics, so `icon.ready` never settles (found by
-  P3, P5 code); P3's round-5 fixes to the reduced-motion blend restore path had no further review;
+- Review follow-ups: DONE (2026-11-09, orchestrator) asset loader rejecting with a plain `Error` now
+  fails the load so `ready` settles (modules/assetio/test/web/reject.test.ts), and free-form JSON
+  counts toward the 96-level nesting limit with a cycle-safe walk (packages/core/test/review-followups.test.ts).
+  Still open, to list in the PR: P3's round-5 fixes to the reduced-motion blend restore path had no further review;
   P7 R4-6 external component `$parent.x` unchecked (NaN); P6 R2-5 font faces after repeated
   `fonts.set` (sent to the P6 lead — check its ledger); P5 deferrals waiting on a `markup-libraries`
   split; P4 R3-03 re-registering base paint replaces the sampling backend (P5b code), R4-02 pointer
   focus and hit order ignore composite `drawOrder` (needs a joint input/focus/composite decision),
   R2-05 gamepad polling stops after a long detach (needs a host connect signal). P1: P2/P6 share
   `packages/web/src/index.ts` ARIA edits (expect a conflict); P1 R2-03 knockouts ignore stroke trims
-  (needs bell fixture + canvas change). Decided (owner may revisit): add a loader limit on overall JSON
-  nesting depth with a diagnostic (P1 R3-04/R4-08 root cause).
+  (needs bell fixture + canvas change). Decided (owner may revisit) and done: one 96-level JSON nesting
+  limit for the whole document (P1 R3-04/R4-08 root cause).
 - After the review: P8 design (rigging).
 - Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
   authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
