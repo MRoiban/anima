@@ -1,0 +1,6 @@
+advance 0
+snapshot root.layoutBox.width ellipse.layoutBox.width
+advance 0.5
+snapshot root.layoutBox.width ellipse.layoutBox.width
+advance 0.5
+snapshot root.layoutBox.width ellipse.layoutBox.width

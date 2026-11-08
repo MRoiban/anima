@@ -1,0 +1,19 @@
+<anima version="0.1" name="layout-bound-hug" grid="20" requires="layout bind machine">
+  <number name="width" default="10"/>
+
+  <layout id="root" width="&quot;hug&quot;" height="5" padding="1">
+    <rect id="child" x0="0" y0="0" width="1" height="2" fill="#000" layout-width="&quot;fill&quot;"/>
+  </layout>
+
+  <layer name="main" initial="small">
+    <state name="small">
+      <pose/>
+      <on when="@after(0)" to="large" guard="{&quot;left&quot;:{&quot;layout&quot;:&quot;root.width&quot;},&quot;op&quot;:&quot;>=&quot;,&quot;right&quot;:14}"/>
+    </state>
+    <state name="large">
+      <pose/>
+    </state>
+  </layer>
+
+  <bind target="root.width" value="width"/>
+</anima>

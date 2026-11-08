@@ -1,0 +1,3 @@
+{"time": 0, "values": {"root.layoutBox.width": 9, "ellipse.layoutBox.width": 2}, "states": {"main": "play"}, "events": [], "settled": false}
+{"time": 0.5, "values": {"root.layoutBox.width": 11, "ellipse.layoutBox.width": 4}, "states": {"main": "play"}, "events": [], "settled": false}
+{"time": 1, "values": {"root.layoutBox.width": 13, "ellipse.layoutBox.width": 6}, "states": {"main": "play"}, "events": [], "settled": true}

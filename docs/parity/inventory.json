@@ -5346,10 +5346,10 @@
       "rive-runtime/include/rive/layout/layout_component_style.hpp:17@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl",
-      "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/data-bind-layout/example.animl",
+      "module": "layout",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout",
       "phase": "P7"
     }
   },
@@ -21306,10 +21306,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-alignment/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-alignment",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-alignment; tests/oracle/layout-alignment",
       "phase": "P7"
     }
   },
@@ -21491,10 +21491,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-containers/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-containers",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-containers; tests/oracle/layout-containers",
       "phase": "P7"
     }
   },
@@ -21585,10 +21585,10 @@
       "rive-runtime/include/rive/generated/layout/layout_participant_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fill-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-fill-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fill-sizing; tests/oracle/layout-fill-sizing",
       "phase": "P7"
     }
   },
@@ -21619,10 +21619,10 @@
       "rive-runtime/include/rive/generated/layout/layout_node_style_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-fixed-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-fixed-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-fixed-sizing; tests/oracle/layout-fixed-sizing",
       "phase": "P7"
     }
   },
@@ -21676,10 +21676,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-align-items/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-align-items",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-align-items; tests/oracle/layout-flex-align-items",
       "phase": "P7"
     }
   },
@@ -21734,10 +21734,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-direction/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-direction",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-direction; tests/oracle/layout-flex-direction",
       "phase": "P7"
     }
   },
@@ -21793,10 +21793,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-flex-justify/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-flex-justify",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-flex-justify; tests/oracle/layout-flex-justify",
       "phase": "P7"
     }
   },
@@ -21974,10 +21974,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-hug-sizing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-hug-sizing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-hug-sizing; tests/oracle/layout-hug-sizing",
       "phase": "P7"
     }
   },
@@ -22002,10 +22002,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-intrinsic/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-intrinsic",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-intrinsic; tests/oracle/layout-intrinsic",
       "phase": "P7"
     }
   },
@@ -22127,10 +22127,10 @@
       "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-paint/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-paint",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-paint; tests/oracle/layout-paint",
       "phase": "P7"
     }
   },
@@ -22159,10 +22159,10 @@
       "rive-runtime/include/rive/generated/layout/layout_node_style_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-participants/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-participants",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-participants; tests/oracle/layout-participants",
       "phase": "P7"
     }
   },
@@ -22505,11 +22505,12 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-self-alignment/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-self-alignment",
-      "phase": "P7"
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-self-alignment; tests/oracle/layout-self-alignment",
+      "phase": "P7",
+      "reason": "Intentional native difference: Anima honors per-child CSS-style alignment; the local native CLI accepts alignSelfValue but leaves the captured child unchanged. Independent Anima vectors and the retained native scene/frame/session are linked by tests/oracle/layout-self-alignment/skip.json and modules/layout/SPEC.md."
     }
   },
   {
@@ -22536,10 +22537,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-size-bounds/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-size-bounds",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-size-bounds; tests/oracle/layout-size-bounds",
       "phase": "P7"
     }
   },
@@ -22622,10 +22623,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-spacing/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-spacing",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-spacing; tests/oracle/layout-spacing",
       "phase": "P7"
     }
   },
@@ -22712,10 +22713,10 @@
       "rive-runtime/include/rive/generated/layout/layout_component_style_base.hpp:49@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-visibility/example.animl",
       "module": "layout",
-      "status": "planned",
-      "test": "oracle/layout-visibility",
+      "status": "done",
+      "test": "modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-visibility; tests/oracle/layout-visibility",
       "phase": "P7"
     }
   },

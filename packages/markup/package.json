@@ -29,6 +29,7 @@
     "./data-artboard": "./src/data-artboard.ts",
     "./mix": "./src/mix.ts",
     "./text": "./src/text.ts",
+    "./layout": "./src/markup-layout.ts",
     "./text-effects": "./src/text-effects.ts",
     "./text-input": "./src/text-input.ts"
   },

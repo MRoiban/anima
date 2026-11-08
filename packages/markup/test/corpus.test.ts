@@ -42,7 +42,8 @@ describe('authored AniML corpus', () => {
     // seam(P6-9b): two standalone field drawings and four DOM bridge state projections.
     // seam(P6-13): authored axes/features conformance probes.
     // seam(P7-5): four bindable-artboard swap probes.
-    expect(cases).toHaveLength(583);
+    // seam(P7-2): twenty-one independently specified layout probes.
+    expect(cases).toHaveLength(604);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

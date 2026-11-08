@@ -1,0 +1,116 @@
+{
+  "base": "049f5d66",
+  "branch": "t3/p7-2-implement-ticket",
+  "commands": {
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- changed": {
+      "exit": 0,
+      "passed": 9507,
+      "failed": 0,
+      "inherited_todo": 51,
+      "files_passed": 306,
+      "files_skipped": 12,
+      "engines": ["chromium", "firefox"],
+      "duration_seconds": 652.36
+    },
+    "npm run test:scope -- layout --browser=chromium": {
+      "exit": 0,
+      "passed": 3219,
+      "filtered_or_skipped": 588,
+      "files_passed": 8
+    },
+    "npm run test:scope -- layout --browser=firefox": {
+      "exit": 0,
+      "passed": 3219,
+      "filtered_or_skipped": 588,
+      "files_passed": 8
+    },
+    "npm run test:scope -- layout --no-browser": {
+      "exit": 0,
+      "passed": 3217,
+      "filtered_or_skipped": 586,
+      "files_passed": 7
+    },
+    "npm run test:scope -- changed --no-browser (earlier complete run)": {
+      "exit": 0,
+      "passed": 6421,
+      "inherited_todo": 51,
+      "files_passed": 257,
+      "files_skipped": 12
+    },
+    "node tools/oracle.ts --strict": {
+      "exit": 0,
+      "cases": 324,
+      "samples": 540,
+      "new_cases": 15,
+      "new_samples": 16,
+      "legacy_manifest_entries_unchanged": 309,
+      "legacy_findings_retained": true
+    },
+    "npm run typecheck": {
+      "exit": 0
+    },
+    "changed-file eslint": {
+      "exit": 0
+    },
+    "npm run gen": {
+      "exit": 0
+    },
+    "node tools/modules.ts --check": {
+      "exit": 0
+    },
+    "node tools/parity.ts --check": {
+      "exit": 0
+    },
+    "node tools/build-animl.ts --check": {
+      "exit": 0,
+      "checked": 654
+    },
+    "node tools/build-web.ts --check": {
+      "exit": 0,
+      "entries": 59
+    },
+    "node tools/size.ts": {
+      "exit": 0,
+      "all_budgets_pass": true,
+      "stricter_authoring_cap": 15360
+    },
+    "node tools/perf.ts": {
+      "exit": 0,
+      "controlled_3_percent_guard": "unverified under shared load"
+    },
+    "changed-file prettier --check --ignore-unknown": {
+      "exit": 0,
+      "files_selected": 405,
+      "note": "Initial checks.json formatting warning corrected before final check."
+    }
+  },
+  "earlier_failures": [
+    {
+      "command": "npm run test:scope -- changed",
+      "passed": 9453,
+      "failed": 32,
+      "todo": 52,
+      "fixed_shared_reader_failures": 20,
+      "shared_reader_isolated_passed": 1851,
+      "firefox_timeouts": 12,
+      "firefox_retry_files": 8,
+      "firefox_retry_passed": 105,
+      "retry_exit": 0
+    },
+    {
+      "command": "npm run test:scope -- changed --no-browser",
+      "passed": 6412,
+      "failed": 3,
+      "todo": 52,
+      "failures": "scaffolder nested command / timeout and raster timeout",
+      "isolated_retries_passed": [4, 2],
+      "retry_exit": 0
+    }
+  ],
+  "notes": [
+    "No test timeout or oracle threshold was raised.",
+    "The first mixed run was red; the final bounded run passes with both engines.",
+    "The authoring baseline is measured 14742, correcting stale DESIGN/Now value 14717.",
+    "P7-1 measureText hook integration and P7 aggregate performance/size guards remain orchestrator verification."
+  ]
+}

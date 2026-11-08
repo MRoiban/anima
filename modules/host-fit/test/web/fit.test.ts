@@ -288,7 +288,13 @@ for (const [engineName, engine, executablePath] of [
           const p = i.player! as typeof i.player & HostLayoutPlayer;
           const snapshots: unknown[] = [];
           const step = p.step;
-          p.layoutBox = () => ({ width: p.layoutSize?.[0] ?? 24, height: p.layoutSize?.[1] ?? 12 });
+          // seam(P7-2): stub with the layout module's Box shape until fit="layout" is wired.
+          p.layoutBox = () => ({
+            x: 0,
+            y: 0,
+            width: p.layoutSize?.[0] ?? 24,
+            height: p.layoutSize?.[1] ?? 12,
+          });
           p.step = function (dt) {
             snapshots.push(p.layoutBox!('root'));
             return step.call(this, dt);
@@ -302,8 +308,8 @@ for (const [engineName, engine, executablePath] of [
           dynamic: [240, 100],
           restored: [24, 12],
           snapshots: [
-            { width: 240, height: 100 },
-            { width: 24, height: 12 },
+            { x: 0, y: 0, width: 240, height: 100 },
+            { x: 0, y: 0, width: 24, height: 12 },
           ],
         });
       });

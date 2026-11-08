@@ -27,6 +27,9 @@ if (VERBOSE) Object.assign(convertCompiler, converterCompiler);
 import { textMarkup } from '../../../modules/text/markup/index.ts';
 export const textCompiler: Partial<typeof textMarkup> = {};
 if (VERBOSE) Object.assign(textCompiler, textMarkup);
+import { layoutMarkup } from '../../../modules/layout/markup/index.ts';
+export const layoutCompiler: Partial<typeof layoutMarkup> = {};
+if (VERBOSE) Object.assign(layoutCompiler, layoutMarkup);
 export function prepareModuleMarkup(hooks: Record<string, object>): void {
   Object.assign(componentCompiler, hooks['components']);
   Object.assign(bindCompiler, hooks['bind']);
@@ -37,4 +40,5 @@ export function prepareModuleMarkup(hooks: Record<string, object>): void {
   Object.assign(dataCompiler, hooks['data']);
   Object.assign(convertCompiler, hooks['convert']);
   Object.assign(textCompiler, hooks['text']);
+  Object.assign(layoutCompiler, hooks['layout']);
 }

@@ -57,6 +57,7 @@ const APP_UI = [
   'text-effects',
   'a11y-text',
   'host-fit',
+  'layout',
 ];
 
 import { moduleBudgets as MODULES, webOwners } from './modules.generated.ts';

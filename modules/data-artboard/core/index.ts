@@ -155,8 +155,10 @@ export const dataArtboard: Module = {
         const factory = model.nesting;
         if (!factory || !model.doc.requires?.includes('dataartboard')) return;
         model.nesting = (p) => {
-          const base = factory(p),
-            step = base.step.bind(base);
+          const base = factory(p);
+          // seam(P7-2): the nesting factory may decline (no nested scene for this player).
+          if (!base) return base;
+          const step = base.step.bind(base);
           base.step = (dt) => {
             const values = assignments.get(p);
             if (!values?.size) return step(dt);

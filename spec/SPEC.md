@@ -295,6 +295,9 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 4. **Bindings, then clamp.** Evaluate declared `bind` expressions against the current inputs,
    overriding the state-machine values (see the bind chapter). Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
    `rx`, `stroke.width` ≥ 0).
+   **Layout stage (optional).** After bindings and clamping, resolve participating boxes using
+   the layout contract, including nested-player/post-step updates, before drawing. Guards read
+   the previous step's boxes; layout never reruns transitions in the current step.
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
    it has been pending for longer than `buffer` seconds of step time, or is consumed.
@@ -2426,7 +2429,7 @@ endpoints against the current player before interpolation, including blends and 
 without mutating shared tracks. JSON `[0.5, "$peak"]` and AniML `<key t="0.5" value="$peak"/>`
 are equivalent. Full typing, diagnostics and timing: [data](../modules/data/SPEC.md#data-keyframe-values).
 
-<!-- capability: data.bind-layout -->
+<!-- seam(P7-2): data.bind-layout is specified with layout below. -->
 <!-- capability: data.bind-script-inputs -->
 <!-- capability: data.bind-text -->
 <!-- capability: data.binding-absolute -->
@@ -3327,3 +3330,42 @@ child clock, and the same selection retains it. The four deterministic probes ar
 `data-host-artboard`, `host-api-bindable-artboards`, `host-api-data-artboard`, and
 `components-host-artboard-reference`. Host comparison limits are evidenced in
 [the native comparison note](../modules/data-artboard/NATIVE.md).
+
+## layout
+
+`requires: ["layout"]` adds single-line row/column containers, child sizing and a deterministic
+layout stage. [The normative layout contract](../modules/layout/SPEC.md) defines both spellings,
+the CSS-based algorithm, units, caching, geometry, guard timing, diagnostics and intentional native
+differences. Animated reflow belongs to the separate `layout-reflow` entry.
+
+<!-- capability: layout.containers -->
+
+<!-- capability: layout.flex-direction -->
+
+<!-- capability: layout.flex-justify -->
+
+<!-- capability: layout.flex-align-items -->
+
+<!-- capability: layout.self-alignment -->
+
+<!-- capability: layout.alignment -->
+
+<!-- capability: layout.spacing -->
+
+<!-- capability: layout.fixed-sizing -->
+
+<!-- capability: layout.hug-sizing -->
+
+<!-- capability: layout.fill-sizing -->
+
+<!-- capability: layout.size-bounds -->
+
+<!-- capability: layout.visibility -->
+
+<!-- capability: layout.participants -->
+
+<!-- capability: layout.intrinsic -->
+
+<!-- capability: layout.paint -->
+
+<!-- capability: data.bind-layout -->

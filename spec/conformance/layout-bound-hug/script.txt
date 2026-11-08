@@ -1,0 +1,7 @@
+advance 0
+snapshot root.layoutBox.width child.layoutBox.width
+set width 14
+advance 0
+snapshot root.layoutBox.width child.layoutBox.width
+advance 0
+snapshot root.layoutBox.width child.layoutBox.width

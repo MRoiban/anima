@@ -60,6 +60,16 @@ describe('one registry, two spellings', () => {
       'scaleY',
       'opacity',
       'visible',
+      // seam(P7-2): registry-derived layout participant attributes.
+      'layout-width',
+      'layout-height',
+      'min-width',
+      'max-width',
+      'min-height',
+      'max-height',
+      'align-self',
+      'margin',
+      'display',
     ]);
   });
 
@@ -94,7 +104,7 @@ describe('one registry, two spellings', () => {
         const k = a.path.at(-1)!;
         const anim =
           a.path.length === 2
-            ? k in PAINT[a.path[0] as 'fill' | 'stroke']
+            ? k in (PAINT[a.path[0] as 'fill' | 'stroke'] ?? {})
             : k in COMMON || k in OWN[t];
         expect(a.animatable, `${t}.${a.attr}`).toBe(anim);
       }
@@ -113,6 +123,7 @@ describe('one registry, two spellings', () => {
       'a11y',
       'slice',
       'mix',
+      'layout',
     ]);
   });
 });

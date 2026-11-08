@@ -86,7 +86,8 @@ Icon.viewBox = (icon, svg) => {
   const target: [number, number] | undefined = fit === 'layout' ? [width, height] : sizes.get(icon);
   if (String(target) !== String(player.layoutSize)) {
     player.layoutSize = target;
-    if (player.layoutBox) {
+    // seam(P7-2): re-step only when the layout module is registered.
+    if ((player as { layoutBox?: unknown }).layoutBox) {
       player.step(0);
       icon.invalidate();
     }

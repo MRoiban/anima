@@ -222,7 +222,10 @@ export interface Model {
   /** Optional bind-module expressions controlling motion state clocks. */
   timeBindings?: Map<StateM, (scope: ReadonlyMap<string, Value>) => number>;
   playback?: (player: import('./player.ts').Player) => PlaybackPolicy;
-  nesting?: (player: import('./player.ts').Player) => import('./player.ts').PlayerExtension;
+  // seam(P7-2): a module initializer may initialize state without adding nested players.
+  nesting?: (
+    player: import('./player.ts').Player,
+  ) => import('./player.ts').PlayerExtension | undefined;
   /** Optional post-state bindings; evaluators receive the current named inputs. */
   bindings?: Map<string, (scope: ReadonlyMap<string, Value>) => Value>;
   /** Built after successful validation; stable for the document lifetime. */

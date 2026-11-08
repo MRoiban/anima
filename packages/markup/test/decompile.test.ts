@@ -68,7 +68,7 @@ function recover(root: Element): Obj {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
       o[k === 'export' && e.name === 'instance' ? 'exported' : k] =
-        (['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')) ||
+        (['entry', 'exit', 'actions', 'guard'].includes(k) && v.startsWith('{')) ||
         (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
           ? JSON.parse(v)
           : [
@@ -126,7 +126,11 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : ['pivot', 'subpaths', 'corners', 'geometryOrigin', 'size'].includes(key)
+            : // seam(P7-2): layout spacing is a vector; its uniform corners are scalar.
+              ['pivot', 'subpaths', 'geometryOrigin', 'size', 'gap', 'padding', 'margin'].includes(
+                  key,
+                ) ||
+                (key === 'corners' && e.name === 'rect')
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)
@@ -254,7 +258,8 @@ function recover(root: Element): Obj {
       for (const [key, v] of Object.entries(attrs(e)))
         if (!known.has(key)) ((o.inputs ??= {}) as Obj)[key] = scalar(v);
     }
-    if (e.name === 'group')
+    // seam(P7-2): recover registered layout containers independently of the compiler.
+    if (e.name === 'group' || e.name === 'layout')
       o.children = elements(e)
         .filter((c) => NODE_ELEMENTS.includes(c.name))
         .map(node);

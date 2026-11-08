@@ -1,0 +1,3 @@
+name: oracle-layout-hug-sizing
+logs:
+  file: build/runtime.log

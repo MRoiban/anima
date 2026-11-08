@@ -1,0 +1,2 @@
+advance 0
+snapshot b.layoutBox.width b.layoutBox.height c.layoutBox.x

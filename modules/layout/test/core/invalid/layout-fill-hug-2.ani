@@ -1,0 +1,31 @@
+{
+  "anima": "0.1",
+  "name": "invalid-layout",
+  "grid": 20,
+  "requires": [
+    "layout"
+  ],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 1,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          },
+          "layout": {
+            "width": "fill"
+          }
+        }
+      ],
+      "width": "hug"
+    }
+  ]
+}

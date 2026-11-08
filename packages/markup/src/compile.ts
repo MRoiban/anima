@@ -4,6 +4,7 @@
 // Node/CLI keep VERBOSE=true and the full authoring diagnostics (SPEC §2).
 import {
   NAME,
+  PAINT,
   ELEMENTS,
   NODE_TYPES,
   nodeShape,
@@ -153,16 +154,16 @@ export class Compiler {
   types = new Map<string, NodeType>();
   // Registry descriptors are stable during one compile. Reuse them for nodes and addresses,
   // but start fresh next time so modules registered between compiles are always visible.
-  private readonly fieldCache = new Map<string, ReturnType<typeof elementFields>>();
+  // seam(P7-2): node and structural elements take disjoint branches; share their field cache.
+  private readonly fieldIndex = new Map<string, unknown[]>();
   private fields(name: string) {
-    let fields = this.fieldCache.get(name);
-    if (!fields) this.fieldCache.set(name, (fields = elementFields(name)));
+    let fields = this.fieldIndex.get(name) as ReturnType<typeof elementFields> | undefined;
+    if (!fields) this.fieldIndex.set(name, (fields = elementFields(name)));
     return fields;
   }
-  private readonly attributes = new Map<NodeType, NodeField[]>();
   nodeAttrs = (type: NodeType): NodeField[] => {
-    let attrs = this.attributes.get(type);
-    if (!attrs) this.attributes.set(type, (attrs = nodeFields(type)));
+    let attrs = this.fieldIndex.get(type) as NodeField[] | undefined;
+    if (!attrs) this.fieldIndex.set(type, (attrs = nodeFields(type)));
     return attrs;
   };
   eases = new Map<string, Attr>();
@@ -238,7 +239,8 @@ export class Compiler {
   }
   private formFor(el: Element): Form {
     if (NODES.includes(el.name)) {
-      const attrs: Record<string, Kind> = { id: 'name' };
+      const ns = nodeShape(el.name as NodeType),
+        attrs: Record<string, Kind> = { id: 'name' };
       const required = ['id'];
       for (const a of this.nodeAttrs(el.name as NodeType)) {
         attrs[a.attr] = a.index === undefined ? this.kind(a.shape) : 'number';
@@ -253,9 +255,9 @@ export class Compiler {
         attrs,
         required,
         children: [
-          ...(el.name === 'group' ? NODES : []),
+          ...(ns.p.children ? NODES : []),
           ...(moduleCompiler.nodes?.(this) ?? []).filter((key) =>
-            Object.hasOwn(nodeShape(el.name as NodeType).p, this.elements[key]!.target!.default),
+            Object.hasOwn(ns.p, this.elements[key]!.target!.default),
           ),
         ],
       };
@@ -560,12 +562,13 @@ export class Compiler {
       componentCompiler.node?.(this, el, a, o, p);
       motionCompiler.node?.(this, el, children, o, p);
       dataCompiler.node?.(el, o);
-      if (el.name === 'group') {
-        this.put(o, 'children', [], p, el.at);
-        for (const c of children.filter((c) => NODES.includes(c.name))) {
-          const list = o.children as unknown[];
-          list.push(this.build(c, ptr(p + '/children', list.length)));
-        }
+      // seam(P7-2): registered containers share child compilation; mark the empty list first
+      // so container origins never overwrite the children's more specific source locations.
+      if (nodeShape(el.name as NodeType).p.children) {
+        const list: unknown[] = [];
+        this.put(o, 'children', list, p, el.at);
+        for (const c of children)
+          if (NODES.includes(c.name)) list.push(this.build(c, ptr(p + '/children', list.length)));
       }
     } else if (el.name === 'bind') {
       return dataCompiler.binding?.(a) ?? bindCompiler.build?.(a);
@@ -734,9 +737,10 @@ export class Compiler {
     for (const a of this.nodeAttrs(el.name as NodeType)) {
       const attr = attrs.get(a.attr);
       if (!attr) continue;
-      const paint = a.path.length === 2 ? a.path[0] : undefined;
+      const paint = a.path[1] && a.path[0];
       if (
         paint &&
+        paint in PAINT &&
         a.path[1] !== 'color' &&
         !attrs.has(paint) &&
         !moduleCompiler.hasPaint?.(this, el, paint)
@@ -750,11 +754,7 @@ export class Compiler {
         );
       const v = this.read(
         attr,
-        a.index !== undefined
-          ? 'number'
-          : paint && a.path[1] === 'color'
-            ? 'color'
-            : this.kind(a.shape),
+        a.index !== undefined ? 'number' : a.path[1] === 'color' ? 'color' : this.kind(a.shape),
         a.path.reduce(ptr, p),
       );
       if (v === undefined) continue;
@@ -762,15 +762,14 @@ export class Compiler {
         if (!Object.hasOwn(o, a.path[0]!)) this.put(o, a.path[0]!, [], p, attr.valueAt);
         (o[a.path[0]!] as unknown[])[a.index] = v;
         this.map.set(ptr(ptr(p, a.path[0]!), a.index), attr.valueAt);
-      } else if (paint)
+      } else
         this.put(
-          this.container(o, paint, p, attr.valueAt),
-          a.path[1]!,
+          paint ? this.container(o, paint, p, attr.valueAt) : o,
+          a.path.at(-1)!,
           v,
-          ptr(p, paint),
+          paint ? ptr(p, paint) : p,
           attr.valueAt,
         );
-      else this.put(o, a.path[0]!, v, p, attr.valueAt);
     }
   }
 
@@ -790,7 +789,7 @@ export class Compiler {
           this.unavailable('animation', 'markup-animation', p, c.at);
   }
   run(source: string): CompileResult {
-    this.attributes.clear();
+    this.fieldIndex.clear();
     const { doc: xml, errors } = parseXml(source);
     this.xml = xml;
     for (const e of errors) this.error('markup-syntax', '', e.at, VERBOSE ? e.message : '');
