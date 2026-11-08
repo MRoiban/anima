@@ -195,6 +195,8 @@ export function layoutText(
       if (!at) continue; // normal preserves an unbreakable word, even beyond the box.
       emit(pending.slice(0, at));
       pending = pending.slice(at);
+      // A soft line start has no left neighbour: drop kerning measured against the previous line.
+      pending[0]!.advance = measure(pending[0]!.font, pending[0]!.text).advances[0] ?? 0;
       width = pending.reduce(
         (n, g, i) => n + g.advance + (i ? pending[i - 1]!.font.tracking : 0),
         0,

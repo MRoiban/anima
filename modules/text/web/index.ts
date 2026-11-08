@@ -15,12 +15,15 @@ registerTextMeasurer(browserMeasurer());
 let previous = Icon.orderSVG;
 // Text roots cache layouts, SVG viewports cache paint ids, hosts mark font subscriptions.
 const signatures = new WeakMap<Element, object | string | boolean>();
+const paints = new WeakMap<Element, string>();
 const order: NonNullable<typeof Icon.orderSVG> = (frame, elements) => {
   previous?.(frame, elements);
   for (const [el, dom] of elements) {
     if (el.role !== 'module:text') continue;
     const data = (frame.nodes[el.node] as TextDrawNode).text;
-    if (!data || signatures.get(dom) === data.layout) continue;
+    // Paints are resolved per frame; animated colors must rebuild even when layout is retained.
+    const paint = data && JSON.stringify(data.paints);
+    if (!data || (signatures.get(dom) === data.layout && paints.get(dom) === paint)) continue;
     const svg = dom.closest('svg');
     if (!svg) continue;
     const id = (signatures.get(svg) as string | undefined) ?? 'text-' + serial++;
@@ -36,6 +39,7 @@ const order: NonNullable<typeof Icon.orderSVG> = (frame, elements) => {
     };
     dom.replaceChildren(...textElements(frame, el.node).map(make));
     signatures.set(dom, data.layout);
+    paints.set(dom, paint!);
   }
 };
 Object.defineProperty(Icon, 'orderSVG', {

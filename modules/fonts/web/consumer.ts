@@ -19,6 +19,56 @@ if (!fonts.prepareText) {
       eachPlayer(child, visit);
   };
   fonts.refreshText = (player) => eachPlayer(player, (p) => p.drawVersions.fill(++p.drawRevision));
+  // Host cleanup (disconnect) releases named faces; the same player's next text use restores them.
+  type Scope = {
+    icon: AnimaIcon;
+    families: Map<string, string>;
+    faces: Set<FontFace>;
+    children: Map<object, Scope>;
+    retain(face: FontFace): void;
+  };
+  const parked = new WeakMap<object, () => void>();
+  const snapshot = (s: Scope): (() => void) => {
+    const families = new Map(s.families),
+      faces = [...s.faces],
+      children = [...s.children].map(([m, c]) => [m, c, snapshot(c)] as const);
+    return () => {
+      for (const face of faces) s.retain(face);
+      s.families = new Map([...families, ...s.families]);
+      for (const [m, c, restore] of children) {
+        s.children.set(m, c);
+        restore();
+      }
+    };
+  };
+  // Patch the live controller class: separately bundled entries carry their own copies.
+  const proto = Object.getPrototypeOf(Reflect.get(Icon.prototype, 'fonts', {})) as Record<
+    string,
+    Function
+  >;
+  for (const name of ['forModel', 'cssFont']) {
+    const method = proto[name]!;
+    proto[name] = function (this: Scope, arg: unknown) {
+      const root = this.icon.fonts as unknown as Scope;
+      parked.get(root)?.();
+      parked.delete(root);
+      return method.call(this, arg);
+    };
+  }
+  const clear = proto.clear!;
+  proto.clear = function (this: Scope, keep?: boolean) {
+    const player = this.icon.player,
+      restore = snapshot(this),
+      previous = parked.get(this);
+    if (!keep) parked.delete(this);
+    // Repeated cleanups before a use stack their snapshots; newer families win.
+    else if (this.faces.size || this.families.size || !previous)
+      parked.set(this, () => {
+        if (player && this.icon.player === player) restore();
+        previous?.();
+      });
+    return clear.call(this, keep);
+  };
   const hosts = new Set<WeakRef<AnimaIcon>>();
   const seen = new WeakSet<AnimaIcon>();
   const previousHook = Icon.eventHook;

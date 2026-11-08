@@ -320,32 +320,44 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
         const boxes: Box[] = [];
         if (p.focused === p.model.nodes[i]!.id) {
           const layout = text.textLayout(p, i);
+          const k = layout.scale,
+            full = drawing?.runs.map((r) => r.text).join('') ?? f.value;
+          let pos = 0;
           for (const line of layout.lines) {
             const gs = line.clusters;
+            // A line's logical range; a caret at its end stays here before a paragraph separator.
+            const from = gs[0]?.index ?? pos,
+              to = gs.at(-1) ? gs.at(-1)!.index + gs.at(-1)!.text.length : from,
+              sep = /^(\r\n|\n|\r)/.exec(full.slice(to))?.[0];
+            pos = to + (sep?.length ?? 0);
             const chosen = gs.filter((g) => g.index < f.end && g.index + g.text.length > f.start);
             const first = chosen[0],
               last = chosen.at(-1);
             if (first && last)
               boxes.push({
                 x: first.x,
-                y: line.baseline - line.ascent,
+                y: line.baseline - line.ascent * k,
                 width: last.x + last.advance - first.x,
-                height: line.ascent + line.descent,
+                height: (line.ascent + line.descent) * k,
                 color: c.selectionColor ?? '#b3d4fc',
                 radius: c.selectionRadius ?? 0,
               });
             if (f.start === f.end) {
               const g = gs.find((g) => g.index >= f.start);
-              if (g || line === layout.lines.at(-1))
+              if (
+                f.start >= from &&
+                (f.start < to || (f.start === to && (sep || line === layout.lines.at(-1))))
+              ) {
                 boxes.push({
                   x: g?.x ?? (gs.at(-1) ? gs.at(-1)!.x + gs.at(-1)!.advance : 0),
-                  y: line.baseline - line.ascent,
+                  y: line.baseline - line.ascent * k,
                   width: 0.06,
-                  height: line.ascent + line.descent,
+                  height: (line.ascent + line.descent) * k,
                   color: c.caretColor ?? '#000',
                   radius: 0,
                 });
-              if (g) break;
+                break;
+              }
             }
           }
         }

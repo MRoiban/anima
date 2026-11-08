@@ -3086,6 +3086,8 @@ faces sharing a family remain eligible for browser weight selection. Families ar
 insertion order after the authored CSS family list. Host fallback configuration survives source
 reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
 releases owned document font registrations; the next CSS/readiness use restores configured faces.
+With the `fonts-text` consumer, a disconnect likewise parks named asset faces and aliases (including
+child scopes); the same player's next `forModel`/CSS use restores them, a reload discards them.
 `icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
 invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
 browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed

@@ -1,0 +1,61 @@
+// Rottweiler P6 regressions (design/rottweiler/P6-LEDGER.md).
+import '@anima-format/core/all';
+import { expect, it } from 'vitest';
+import { drawFrame, load, Player } from '@anima-format/core';
+import { select, type FieldNode } from '../../core/index.ts';
+import { registerTextMeasurer } from '../../../text/core/measure.ts';
+import { fixedMeasurer } from '../../../text/test/core/measurer.ts';
+const field = (text: string, extra: Record<string, unknown> = {}, textInput = {}) => {
+  registerTextMeasurer(fixedMeasurer);
+  const { model, diagnostics } = load({
+    anima: '0.1',
+    name: 'field',
+    grid: 20,
+    requires: ['text', 'textinput', 'a11y', 'focus'],
+    nodes: [
+      {
+        id: 'q',
+        type: 'text',
+        sizing: 'fixed',
+        width: 12,
+        height: 4,
+        styles: { s: { size: 1 } },
+        runs: [{ text, style: 's' }],
+        textInput,
+        ...extra,
+      },
+    ],
+  });
+  expect(diagnostics).toEqual([]);
+  const p = new Player(model!);
+  p.step(0);
+  p.focusTarget('q');
+  return p;
+};
+const caret = (p: Player, at: number) => {
+  select(p, 'q', at);
+  const n = drawFrame(p).nodes[0] as FieldNode;
+  const lines = n.text!.layout.lines;
+  const boxes = n.fieldBoxes!.filter((b) => b.width === 0.06);
+  expect(boxes).toHaveLength(1);
+  return [boxes[0]!.x, lines.findIndex((l) => l.baseline - l.ascent === boxes[0]!.y)];
+};
+it('R1-05: a caret before a paragraph separator stays at the end of its line', () => {
+  const p = field('AB\n\nCD', {}, { multiline: true });
+  expect(caret(p, 2)).toEqual([2, 0]); // after B, not before C
+  expect(caret(p, 3)).toEqual([0, 1]); // the empty paragraph
+  expect(caret(p, 4)).toEqual([0, 2]);
+  expect(caret(p, 6)).toEqual([2, 2]);
+});
+it('R1-05: a caret at a soft wrap still starts the next line', () => {
+  const p = field('ab cd', { width: 3 }, { multiline: true });
+  expect(caret(p, 3)).toEqual([0, 1]);
+});
+it('R1-06: selection and caret boxes follow uniform fit scaling', () => {
+  const p = field('AB', { width: 1, overflow: 'fit' });
+  select(p, 'q', 0, 2);
+  const n = drawFrame(p).nodes[0] as FieldNode;
+  const line = n.text!.layout.lines[0]!;
+  expect(n.text!.layout.scale).toBe(0.5);
+  expect(n.fieldBoxes![0]).toMatchObject({ y: line.baseline - 0.4, height: 0.5, width: 1 });
+});

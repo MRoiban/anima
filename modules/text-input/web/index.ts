@@ -69,8 +69,7 @@ if (!Icon.prototype.textInput) {
         : svg?.getScreenCTM();
       if (!screen) return;
       for (const [id, el] of map) {
-        const i = p.model.ids.get(id)!,
-          raw = p.model.nodes[i]!.raw;
+        const i = p.model.ids.get(id)!;
         const m = new DOMMatrix([
           screen.a,
           screen.b,
@@ -80,8 +79,9 @@ if (!Icon.prototype.textInput) {
           screen.f - r.y,
         ]).multiply(new DOMMatrix(p.world(i)));
         el.style.transform = m.toString();
-        el.style.width = raw.width + 'px';
-        el.style.height = raw.height + 'px';
+        // Animated or bound dimensions resize the native surface with the drawn field.
+        el.style.width = p.prop(i, 'width') + 'px';
+        el.style.height = p.prop(i, 'height') + 'px';
         const c = config(p, i)!;
         const eligible = p.focusItems().some((n) => n.id === id);
         el.hidden = !eligible;
