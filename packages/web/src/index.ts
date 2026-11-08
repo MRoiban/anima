@@ -722,6 +722,16 @@ export class AnimaIcon extends HTMLElement {
       sw ? 'aria-checked' : 'aria-pressed',
       a?.pressed ? String(!!this.player!.get(a.pressed)) : null,
     );
+    this.#pressed();
+  }
+
+  /** The pressed/checked state follows its input after every step, machine or not. */
+  #pressed(): void {
+    const a = this.player?.model.doc.a11y;
+    if (!a?.pressed) return;
+    const k = a.role === 'switch' ? 'aria-checked' : 'aria-pressed';
+    const v = String(!!this.player!.get(a.pressed));
+    if (this.getAttribute(k) !== v) this.setAttribute(k, v);
   }
 
   // ------------------------------------------------------------ time
@@ -740,6 +750,7 @@ export class AnimaIcon extends HTMLElement {
       // A listener replaced or destroyed the player: its later events and states are stale.
       if (this.player !== p) return;
     }
+    this.#pressed();
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {
       this.#states = states;

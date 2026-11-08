@@ -1141,6 +1141,26 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(false);
     });
 
+    it('updates aria-checked when Enter toggles a switch bool without a machine', async () => {
+      await mount(
+        JSON.stringify({
+          anima: '0.1',
+          name: 'plain-switch',
+          grid: 20,
+          inputs: { on: { type: 'bool' } },
+          a11y: { role: 'switch', label: 'Plain', activate: 'on', pressed: 'on' },
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 4 }],
+        }),
+      );
+      await page.locator('anima-icon').focus();
+      expect(await page.evaluate(() => window.icon.getAttribute('aria-checked'))).toBe('false');
+      await page.keyboard.press('Enter');
+      await page.waitForFunction(() => window.icon.player!.get('on') === true);
+      await expect
+        .poll(() => page.evaluate(() => window.icon.getAttribute('aria-checked')))
+        .toBe('true');
+    });
+
     it('toggles a focused switch bool on Enter down and Space up, ignoring repeats', async () => {
       const source = readFileSync(
         new URL('../../../docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl', import.meta.url),

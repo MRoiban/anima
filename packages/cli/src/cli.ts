@@ -56,7 +56,16 @@ import { ImageEncoder } from './encode.ts';
 import { importSVG } from './import-svg.ts';
 import { importLottie } from './import-lottie.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
-import { DARK, LIGHT, type Look, compareSVG, frameSVG, sheetSVG, toPNG } from './render.ts';
+import {
+  DARK,
+  LIGHT,
+  type Look,
+  compareSVG,
+  comparisonSVG,
+  frameSVG,
+  sheetSVG,
+  toPNG,
+} from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
 
 export interface IO {
@@ -1021,12 +1030,21 @@ async function render(
   if (o.at) session.execute('advance ' + Number(o.at));
   const player = session.player;
   if (compare) {
-    if (o.sheet || (out && !out.endsWith('.png')))
+    if (
+      o.sheet ||
+      o.frames !== undefined ||
+      o.probe ||
+      o.audio ||
+      o.viewport ||
+      o.scale ||
+      o.fit ||
+      (out && !out.endsWith('.png'))
+    )
       throw new Usage('--compare takes a single frame and optional -o diff.png');
     const result = o['browser-text']
       ? comparePNG(
           await rasterize(drawFrame(player, { paint: look.paint, color: '#000' }, size)),
-          toPNG(readFileSync(compare, 'utf8'), size),
+          toPNG(comparisonSVG(readFileSync(compare, 'utf8'), size), size),
           tolerance,
           !!out,
         )
