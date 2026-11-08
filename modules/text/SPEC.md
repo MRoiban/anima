@@ -68,6 +68,18 @@ content, `width`/`height` the chosen layout box, `fittedSize` the first run's re
 the rendering scale. Layout object identity is cached until runs, styles, dimensions or font revision
 change; transform-only changes preserve it. `invalidateText(player)` refreshes after font replacement.
 
+### Layout measurement hook (P7-1)
+
+`measureText(player, nodeId, maxWidth?)`, exported by `@anima-format/core/text`, returns
+`{width, height, baseline}` in text-local grid units, using the registered text module's existing
+layout and measurer (including live runs, styles and font readiness). `nodeId` is a local node id
+or index; unknown and non-text nodes return undefined. `baseline` is the first visible line's
+aligned baseline, or zero without a visible line. Without `maxWidth`, dimensions are the existing
+layout box; with a nonnegative width constraint, auto-width becomes auto-height, other sizing is
+preserved, and the authored width (when active) is capped by the constraint. The constrained box
+retains fixed height, overflow, trim and origin rules. A constrained probe does not replace the
+cached drawing layout or mutate the document. This is a consumer hook, not another font measurer.
+
 ## Overflow
 
 Non-visible overflow requires fixed sizing. `visible` keeps all content. `hidden` keeps only complete
@@ -82,6 +94,22 @@ reports `scale: 0`. `fitFromBaseline` excludes the first baseline distance from 
 `fitFontSizeResizesBox` reports the reduced content dimensions in place of the original fixed box.
 
 ## Rendering and host access
+
+The base `@anima-format/web/text` entry supplies SVG drawing, browser measurement and ordinary
+layout. Hosts using `hidden`, `ellipsis`, `fit` or `fit-font-size` import
+`@anima-format/web/text-overflow` before loading their document; it includes the text entry and
+installs the original overflow policies on the active module, including across separately emitted
+bundles. Omitting it when requesting those layouts throws `text-overflow` at `/requires` (verbose
+tooling includes the import hint). `visible` and `clipped` need no overflow entry. Tooling and
+`core/all` retain all policies automatically; JSON/AniML and CLI commands are unchanged.
+
+Canvas text drawing lives in `@anima-format/web/text-canvas`, loaded automatically by
+`@anima-format/web/canvas`; canvas hosts keep their existing imports. A host that directly consumes
+`canvasShapes` without that renderer imports `text-canvas` explicitly. This entry does not register
+text or a measurer and can arrive before or after text. SVG-only pages pay neither its drawer nor
+the overflow policies they do not use. Renderer separation follows the optional-renderer rationale
+in [the web-runtime research notes](../../docs/research/rive-web-runtime.md), §1; only Anima's
+existing code was moved.
 
 SVG uses `<text>` per line and `<tspan>` per run fragment, with escaped text content; solid/slot,
 linear and radial paints are resolved through paint's gradient helpers. Angular SVG paint retains

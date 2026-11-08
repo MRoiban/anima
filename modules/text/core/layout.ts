@@ -1,4 +1,13 @@
-import { graphemes, words, measure, type FontSpec, type Measured } from './measure.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { overflowText, type TextOverflow } from './overflow.ts';
+import {
+  graphemes,
+  words,
+  measure,
+  missingTextDependency,
+  type FontSpec,
+  type Measured,
+} from './measure.ts';
 export interface TextStyle {
   font?: string;
   size?: number;
@@ -84,11 +93,17 @@ interface Glyph extends Cluster {
   lineHeight: number;
   breakAfter: boolean;
 }
-export const textSizing = (input: Pick<LayoutInput, 'sizing' | 'width' | 'height'>) =>
-  input.sizing ??
-  (input.width !== undefined && input.height !== undefined ? 'fixed' : 'auto-width');
+export const textSizing = ({
+  sizing,
+  width,
+  height,
+}: Pick<LayoutInput, 'sizing' | 'width' | 'height'>) =>
+  sizing ?? (width !== undefined && height !== undefined ? 'fixed' : 'auto-width');
 /** One pure algorithm shared by browser and tooling. No system font assumptions. */
-export function layoutText(input: LayoutInput): TextLayout {
+export function layoutText(
+  input: LayoutInput,
+  overflow: TextOverflow | null = V ? overflowText : null,
+): TextLayout {
   const sizing = textSizing(input);
   const limit = sizing === 'auto-width' ? Infinity : (input.width ?? Infinity);
   const boxHeight = sizing === 'fixed' ? (input.height ?? Infinity) : Infinity;
@@ -212,67 +227,14 @@ export function layoutText(input: LayoutInput): TextLayout {
     };
   };
   let out = build(1);
-  const fitting = input.overflow === 'fit-font-size';
-  const fitHeight = (l: TextLayout & { topTrim: number }) =>
-    input.fitFromBaseline ? l.contentHeight - l.lines[0]!.baseline + l.topTrim : l.contentHeight;
-  const ratio = (box: number, content: number) => (content > 0 ? box / content : 1);
-  const zero = !limit || !boxHeight;
-  if (fitting && zero) {
-    out.lines = [];
-    out.contentWidth = out.contentHeight = out.fittedSize = 0;
-  } else if (fitting && (out.contentWidth > limit || fitHeight(out) > boxHeight)) {
-    let lo = 0,
-      hi = 1;
-    for (let i = 0; i < 20; i++) {
-      const mid = (lo + hi) / 2,
-        test = build(mid);
-      if (test.contentWidth <= limit && fitHeight(test) <= boxHeight) lo = mid;
-      else hi = mid;
-    }
-    out = build(lo);
-  }
-  if (input.overflow === 'fit') {
-    out.scale = zero
-      ? 0
-      : Math.min(1, ratio(limit, out.contentWidth), ratio(boxHeight, fitHeight(out)));
-    if (!out.scale) out.lines = [];
-  }
-  if (fitting && input.fitFontSizeResizesBox) {
-    out.width = out.contentWidth;
-    out.height = out.contentHeight;
-  }
-  if (input.overflow === 'hidden' || input.overflow === 'ellipsis') {
-    const all = out.lines;
-    out.lines = all.filter((l) => l.baseline + l.descent <= boxHeight);
-    if (input.overflow === 'ellipsis') {
-      const line = out.lines.at(-1);
-      if (line && (out.lines.length < all.length || line.width > limit)) {
-        const last = line.clusters.at(-1);
-        if (last) {
-          const advance = measure(last.font, '…').advances[0] ?? 0;
-          while (
-            line.clusters.length &&
-            line.clusters.at(-1)!.x +
-              line.clusters.at(-1)!.advance +
-              line.clusters.at(-1)!.font.tracking +
-              advance >
-              limit
-          )
-            line.clusters.pop();
-          const tail = line.clusters.at(-1),
-            x = tail ? tail.x + tail.advance + tail.font.tracking : 0;
-          if (advance <= limit)
-            line.clusters.push({
-              ...last,
-              text: '…',
-              index: tail ? tail.index + tail.text.length : last.index,
-              x,
-              advance,
-            });
-          line.width = advance <= limit ? x + advance : 0;
-        }
-      }
-    }
+  if (input.overflow && input.overflow !== 'visible' && input.overflow !== 'clipped') {
+    if (!overflow)
+      missingTextDependency(
+        'text-overflow',
+        V && 'anima: text-overflow: register overflow policies before measuring overflow text',
+        V && "import '@anima-format/web/text-overflow' before measuring overflow text",
+      );
+    out = overflow(input, out, build, limit, boxHeight, measure);
   }
   const origin = input.origin ?? 'top-left';
   const ox = Array.isArray(origin) ? -origin[0] * out.width : 0;

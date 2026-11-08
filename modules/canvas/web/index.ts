@@ -1,3 +1,5 @@
+// seam(P7-1): canvas text drawing is optional for SVG-only text hosts.
+import '../../text/web/canvas.ts';
 import '../../../packages/web/src/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 import { CanvasRenderer } from './renderer.ts';

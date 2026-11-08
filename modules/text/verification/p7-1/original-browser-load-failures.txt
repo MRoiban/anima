@@ -1,0 +1,28 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e650c713
+
+ ❯ |browser| modules/text/test/web/text.test.ts (8 tests | 2 failed) 112877ms
+   × Firefox text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30066ms
+   × Firefox text text→index: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30002ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text/test/web/text.test.ts > Firefox text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+ FAIL  |browser| modules/text/test/web/text.test.ts > Firefox text text→index: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/text.test.ts:37:43
+     35|     ['index', 'text', 'componentpaint', 'lists', 'data', 'components',…
+     36|   ])
+     37|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     38|       `${name} text ${order.join('→')}: prefix metrics, escaped retain…
+     39|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 passed (8)
+   Start at  10:01:52
+   Duration  114.37s (tests 99%, import 1%)
