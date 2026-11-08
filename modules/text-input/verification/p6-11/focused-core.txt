@@ -1,0 +1,44 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+ ❯ |unit| modules/text/test/core/live-runs.test.ts (6 tests | 4 failed) 52ms
+   × rejects invalid typed style value 42 without changing data 10ms
+   × rejects invalid typed style value false without changing data 2ms
+   × rejects invalid typed style value {} without changing data 2ms
+   × rejects invalid typed style value "missing" without changing data 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/text/test/core/live-runs.test.ts > rejects invalid typed style value 42 without changing data
+ FAIL  |unit| modules/text/test/core/live-runs.test.ts > rejects invalid typed style value false without changing data
+ FAIL  |unit| modules/text/test/core/live-runs.test.ts > rejects invalid typed style value {} without changing data
+ FAIL  |unit| modules/text/test/core/live-runs.test.ts > rejects invalid typed style value "missing" without changing data
+AssertionError: expected error to match asymmetric matcher
+
+- Expected
++ Received
+
+- ObjectContaining {
+-   "code": "data-type",
+-   "hint": Any<String>,
+-   "message": Any<String>,
+-   "pointer": "/data/$style",
++ TypeError {
++   "message": "p.data.set is not a function",
+  }
+
+ ❯ modules/text/test/core/live-runs.test.ts:50:47
+     48|   (value) => {
+     49|     const p = player();
+     50|     expect(() => p.data.set('$style', value)).toThrow(
+       |                                               ^
+     51|       expect.objectContaining({
+     52|         code: 'data-type',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  4 failed | 10 passed (14)
+   Start at  00:56:24
+   Duration  1.79s (transform 80%, import 16%, tests 3%)

@@ -8,6 +8,23 @@ Icon.registerModule(textinput);
 // Use the active registry: separate bundles may contain another copy of the module.
 const { field, edit, select } = Icon.modules.get('textinput') as typeof textinput;
 if (!Icon.prototype.textInput) {
+  let previousOrder = Icon.orderSVG;
+  const order: NonNullable<typeof Icon.orderSVG> = (frame, elements) => {
+    previousOrder?.(frame, elements);
+    for (const [el, dom] of elements)
+      if (el.role === 'module:text')
+        dom.setAttribute(
+          'opacity',
+          String((frame.nodes[el.node] as import('../core/index.ts').FieldNode).text?.opacity ?? 1),
+        );
+  };
+  Object.defineProperty(Icon, 'orderSVG', {
+    configurable: true,
+    get: () => order,
+    set: (next: typeof order) => {
+      if (next !== order) previousOrder = next;
+    },
+  });
   const attached = new WeakMap<AnimaIcon, () => void>();
   const updates = new WeakMap<AnimaIcon, () => void>();
   const event = Icon.eventHook;

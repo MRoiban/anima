@@ -23,3 +23,24 @@ for (const name of ['text-input-cursor', 'text-input-selection-rounding'])
         else expect(value, key).toBe(expected[i][key]);
       }
   });
+it('original-font placeholder conformance restores authored paint after clearing', () => {
+  const base = 'spec/conformance/text-input-placeholder/';
+  const doc = JSON.parse(readFileSync(base + 'case.ani', 'utf8'));
+  registerTextMeasurer(documentFonts(doc, base + 'case.ani').measurer);
+  const result = load(doc);
+  expect(result.diagnostics).toEqual([]);
+  const { player: p } = runScript(result.model!, readFileSync(base + 'script.txt', 'utf8'));
+  const expected = JSON.parse(readFileSync(base + 'drawing.expected.json', 'utf8'));
+  const text = () => (drawFrame(p).nodes[0] as FieldNode).text!;
+  expect(text().runs[0]!.text).toBe(expected.placeholder);
+  expect(text().paints).toEqual(expected.paints);
+  expect(text().layout.lines[0]!.baseline).toBeCloseTo(expected.baseline, 10);
+  p.set('$query', 'AB');
+  p.step(0);
+  expect(text().runs[0]!.text).toBe('AB');
+  expect(text().paints[0]![0]!.color).toBe('#000');
+  p.set('$query', '');
+  p.step(0);
+  expect(text().runs[0]!.text).toBe(expected.placeholder);
+  expect(text().paints).toEqual(expected.paints);
+});

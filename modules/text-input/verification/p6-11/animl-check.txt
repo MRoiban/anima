@@ -1,0 +1,10 @@
+Pending spec/conformance/data-bind-layout/case.animl: Layout consumers are P7; no layout dimensions/style target exists on this branch.
+Pending spec/conformance/data-bind-script-inputs/case.animl: Script inputs require the P9 VM and typed script interface.
+Pending spec/conformance/data-editor-preview-instance/case.animl: Preview naming metadata round-trips; the editor does not yet consume it.
+Pending spec/conformance/data-script-model-api/case.animl: The requested scripting API requires P9 and is outside the defined data runtime contract.
+Pending spec/conformance/data-scripted-converter/case.animl: Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design.
+Pending spec/conformance/text-font-decoding/case.animl: P6-8: browser FontFace load is covered; derived-font axes/features API and independent native comparison remain incomplete.
+Pending spec/conformance/text-font-metrics/case.animl: P6-8: original tool reader metrics/coverage/options are tested; complete integrated introspection and independent native evidence remain incomplete.
+Pending spec/conformance/text-opentype-features/case.animl: P6-8: CSS helper maps tags, but authored text style registry does not accept features; actual feature drawing and independent native evidence remain incomplete.
+Pending spec/conformance/text-variable-axes/case.animl: P6-8: CSS helper maps axes, but authored text style registry does not accept axes; actual axis drawing/animation and independent native evidence remain incomplete.
+Checked 633 AniML files

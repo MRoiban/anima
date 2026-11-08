@@ -1,0 +1,64 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+ ❯ |browser| modules/text-input/test/web/placeholder.browser.test.ts (2 tests | 2 failed) 5694ms
+   × Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels 1486ms
+   × Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels 4204ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text-input/test/web/placeholder.browser.test.ts > Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels
+AssertionError: expected { renderer: 'canvas', …(3) } to deeply equal { renderer: 'canvas', …(3) }
+
+- Expected
++ Received
+
+  {
+    "color": null,
+-   "count": 0,
+-   "maxDiff": 0,
++   "count": 24,
++   "maxDiff": 1,
+    "renderer": "canvas",
+  }
+
+ ❯ modules/text-input/test/web/placeholder.browser.test.ts:143:57
+    141|               if (d) count++;
+    142|             }
+    143|             expect({ renderer, color, maxDiff, count }).toEqual({
+       |                                                         ^
+    144|               renderer,
+    145|               color,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |browser| modules/text-input/test/web/placeholder.browser.test.ts > Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels
+AssertionError: expected { renderer: 'canvas', …(3) } to deeply equal { renderer: 'canvas', …(3) }
+
+- Expected
++ Received
+
+  {
+    "color": null,
+-   "count": 0,
+-   "maxDiff": 0,
++   "count": 96,
++   "maxDiff": 1,
+    "renderer": "canvas",
+  }
+
+ ❯ modules/text-input/test/web/placeholder.browser.test.ts:143:57
+    141|               if (d) count++;
+    142|             }
+    143|             expect({ renderer, color, maxDiff, count }).toEqual({
+       |                                                         ^
+    144|               renderer,
+    145|               color,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  01:14:27
+   Duration  20.20s (import 71%, tests 29%, transform 1%)

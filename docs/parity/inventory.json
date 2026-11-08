@@ -9114,9 +9114,9 @@
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style)",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P6",
-      "reason": "P6-9b: Native typed style property and styleId binding authored. Native dump labels the property artboard and rejects both id/name writes as no property at this path; a native mutation comparison remains missing."
+      "reason": "P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
     }
   },
   {
@@ -29922,9 +29922,9 @@
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
       "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending)",
+      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending); modules/text-input/test/core/text-input-placeholder.test.ts; modules/text-input/test/web/placeholder.browser.test.ts; modules/text-input/test/core/drawing-conformance.test.ts",
       "phase": "P6",
-      "reason": "P6-9b: Placeholder text is implemented; distinct configurable placeholder color and a faithful native placeholder comparison remain missing."
+      "reason": "P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
     }
   },
   {
@@ -30773,9 +30773,9 @@
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-run-list/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list)",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
       "phase": "P6",
-      "reason": "P6-9b: Native actual list with textContent/textStyle symbols is authored; items[0]/label mutations appear in the data dump but the captured text stays blank. DataBindPath/runtime mapping remains unresolved; literal control preserved separately."
+      "reason": "P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
     }
   },
   {

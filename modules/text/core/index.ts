@@ -33,6 +33,7 @@ const cache = new WeakMap<
   Map<number, { signature: string; layout: TextLayout; input: LayoutInput }>
 >();
 export interface TextDrawing {
+  opacity?: number;
   layout: TextLayout;
   styles: Record<string, TextStyle>;
   runs: TextRun[];
@@ -198,6 +199,25 @@ export const text: TextModule = {
   value(a, v) {
     if (a.prop.type === 'string' && typeof v === 'string') return v;
   },
+  ...(V
+    ? {
+        load(
+          model: Model,
+          _raw: Model['doc'],
+          d: import('../../../packages/core/src/diag.ts').Diags,
+        ) {
+          for (const diagnostic of d.list) {
+            if (diagnostic.code !== 'unknown-address') continue;
+            const address = diagnostic.pointer.split('/').at(-1)!;
+            const m = /^([^.]+)\.styles\.[^.]+\.(fill|stroke)(?:\.|$)/.exec(address);
+            if (m && String(model.nodes[model.ids.get(m[1]!) ?? -1]?.type) === 'text')
+              diagnostic.hint =
+                `local style paints are static; move ${m[2]} to the text node, omit it from the style, and bind ${m[1]}.${m[2]}.color; ` +
+                `or bind ${m[1]}.runs.0.style to a text-style property naming a shared style`;
+          }
+        },
+      }
+    : {}),
   resolve(model, d) {
     const indices = nodes(model);
     if (!indices.length) return;

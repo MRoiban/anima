@@ -8,5 +8,6 @@ const Icon = customElements.get('anima-icon') as CanvasSourceHost;
     ctx.roundRect(b.x, b.y, b.width, b.height, b.radius);
     ctx.fill();
   }
+  ctx.globalAlpha *= (n as import('../core/index.ts').FieldNode).text?.opacity ?? 1;
   return false;
 });

@@ -1,0 +1,40 @@
+
+> test:scope
+> node tools/test-scope.ts text text-input --browser=chromium
+
+Scopes: text, text-input
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  cases: ^conformance > (data-bind-text|data-property-text-style|host-api-nested-text-run|host-api-text-run|text-fit-baseline|text-fit-layout-measure|text-font-size|text-horizontal-alignment|text-line-spacing|text-origin|text-overflow-clipped|text-overflow-ellipsis|text-overflow-fit|text-overflow-fit-font-size|text-overflow-hidden|text-overflow-visible|text-paint|text-paragraph-spacing|text-rich-runs|text-run-list|text-script-hit-testing|text-sizing-auto-height|text-sizing-auto-width|text-sizing-fixed|text-style-reference|text-tracking|text-vertical-alignment|text-vertical-trim|text-word-break|text-wrap|a11y-role-text-field|a11y-state-multiline|a11y-state-obscured|a11y-text-proxy|host-api-clipboard-text|host-api-text-input|input-text-listener|input-write-text|text-input-clipboard|text-input-cursor|text-input-editable|text-input-focus-selection|text-input-ime|text-input-limits|text-input-multiline|text-input-obscured|text-input-placeholder|text-input-selection|text-input-selection-rounding|text-input-text)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-49ec2e07
+
+
+ Test Files  25 passed (25)
+      Tests  3259 passed | 549 skipped (3808)
+   Start at  01:06:28
+   Duration  22.26s (tests 60%, import 30%, transform 10%)

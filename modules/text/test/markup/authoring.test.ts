@@ -391,3 +391,48 @@ it('renders zero-area fitted boxes without zero-size font requests or invalid co
       expect(textLayout(p, 0).lines).toEqual([]);
     }
 });
+
+it.each(['json', 'animl'])(
+  'static local style paint binding has an actionable fallback (%s)',
+  (syntax) => {
+    registerTextMeasurer(fixedMeasurer);
+    const raw = {
+      anima: '0.1',
+      name: 'style-paint-binding',
+      grid: 20,
+      requires: ['text', 'data'],
+      data: { models: { Main: { properties: { ink: { type: 'color', default: '#f00' } } } } },
+      nodes: [
+        {
+          id: 'label',
+          type: 'text',
+          styles: { s: { fill: { color: '#000' } } },
+          runs: [{ text: 'AB', style: 's' }],
+        },
+      ],
+      bind: { 'label.styles.s.fill.color': '$ink' },
+    };
+    const diagnostics =
+      syntax === 'animl' ? compile(decompile(raw)).diagnostics : load(raw).diagnostics;
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-address',
+        pointer: '/bind/label.styles.s.fill.color',
+        hint: expect.stringContaining('bind label.fill.color'),
+      }),
+    );
+    const repaired = {
+      ...raw,
+      nodes: [{ ...raw.nodes[0]!, fill: { color: '#000' }, styles: { s: {} } }],
+      bind: { 'label.fill.color': '$ink' },
+    };
+    const result = load(syntax === 'animl' ? compile(decompile(repaired)).doc! : repaired);
+    expect(result.diagnostics).toEqual([]);
+    const p = new Player(result.model!);
+    p.step(0);
+    expect(toSVG(p)).toContain('fill="#ff0000"');
+    p.set('$ink', '#00f');
+    p.step(0);
+    expect(toSVG(p)).toContain('fill="#0000ff"');
+  },
+);

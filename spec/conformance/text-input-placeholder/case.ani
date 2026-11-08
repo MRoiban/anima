@@ -20,6 +20,7 @@
       ],
       "textInput": {
         "placeholder": "Find",
+        "placeholderColor": "#336699",
         "writeText": "$query",
         "label": "Search"
       }
