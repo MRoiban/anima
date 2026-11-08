@@ -17,6 +17,7 @@ export const webEntries = [
   'canvas',
   'devtools',
   'focus',
+  'host-fit',
   'input',
   'markup-hooks',
   'markup-animation',
@@ -70,6 +71,7 @@ export const webOwners: Record<string, string> = {
   assets: 'assets',
   devtools: 'devtools',
   focus: 'focus',
+  'host-fit': 'host-fit',
   input: 'input',
   markup: 'markup',
   'markup-hooks': 'markup',
@@ -173,6 +175,7 @@ export const moduleBudgets: {
   { name: 'canvas', budget: 5888, heavy: true },
   { name: 'devtools', budget: 448, authoring: true },
   { name: 'focus', budget: 3456 },
+  { name: 'host-fit', budget: 768 },
   { name: 'input', budget: 7104 },
   { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
   { name: 'markup-animation', over: 'markup', budget: 1536, authoring: true },
@@ -329,6 +332,10 @@ export const moduleScopes = {
       'input-listen-blur',
       'input-listen-focus',
     ],
+  },
+  'host-fit': {
+    tests: ['modules/host-fit/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
+    conformance: [],
   },
   input: {
     tests: [

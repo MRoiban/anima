@@ -155,6 +155,8 @@ export class AnimaIcon extends HTMLElement {
     model: Model,
   ) => Promise<undefined | ((player: Player) => boolean)>;
   declare static eventHook?: (icon: AnimaIcon, kind: string, detail: unknown) => void;
+  // seam(P7-3): optional host viewport, shared with canvas and input adapters.
+  declare static viewBox?: (icon: AnimaIcon, svg?: SVGSVGElement) => number[] | undefined;
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   #prepare?: (player: Player) => boolean;
@@ -164,6 +166,7 @@ export class AnimaIcon extends HTMLElement {
     'label',
     'speed',
     'paused',
+    'alignment',
     'fit',
     'align',
     'renderer',
@@ -261,6 +264,7 @@ export class AnimaIcon extends HTMLElement {
     });
     this.#observe();
     this.#renderer?.connect();
+    this.#layout(); // seam(P7-3): reconnect the optional resize observer.
     if (this.player?.busy) this.#wake();
   }
 
@@ -315,7 +319,7 @@ export class AnimaIcon extends HTMLElement {
         if (this.player.busy) this.#wake();
       }
     } else if (name === 'renderer' && this.player) this.#build(this.player.model);
-    else if (name === 'fit' || name === 'align') this.#layout();
+    else if (name === 'fit' || name === 'align' || name === 'alignment') this.#layout();
     else if (name === 'speed') {
       if (this.speed === 0) schedule(this, false);
       else if (this.player?.busy) this.#wake();
@@ -559,7 +563,7 @@ export class AnimaIcon extends HTMLElement {
       const factory = AnimaIcon.renderers[renderer];
       if (factory) {
         this.#renderer = factory(this);
-        this.#renderer.draw(drawFrame(this.player!), true);
+        this.#draw(true); // seam(P7-3): publish renderer rebuilds to the semantic overlay.
       } else
         this.dispatchEvent(
           new CustomEvent('anima:error', {
@@ -604,25 +608,17 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #layout(): void {
-    this.#renderer?.layout();
     const svg = this.#svg;
+    if (svg && AnimaIcon.viewBox?.(this, svg)) return; // seam(P7-3)
+    this.#renderer?.layout();
     const m = this.player?.model;
     if (!svg || !m) return;
     const fit = this.getAttribute('fit');
-    const align = this.getAttribute('align') ?? 'center';
-    const valid = [
-      'center',
-      'top-left',
-      'top',
-      'top-right',
-      'left',
-      'right',
-      'bottom-left',
-      'bottom',
-      'bottom-right',
-    ].includes(align);
+    let align = this.getAttribute('align') ?? 'center';
+    // seam(P7-3): equivalent legacy fit math offsets the hook's byte cost.
+    if (!/^(center|(?:top|bottom)(?:-left|-right)?|left|right)$/.test(align)) align = 'center';
     const position = (min: string, max: string) =>
-      valid && align.includes(min) ? 'Min' : valid && align.includes(max) ? 'Max' : 'Mid';
+      align.includes(min) ? 'Min' : align.includes(max) ? 'Max' : 'Mid';
     const x = position('left', 'right');
     const y = position('top', 'bottom');
     svg.setAttribute(
@@ -630,10 +626,10 @@ export class AnimaIcon extends HTMLElement {
       fit === 'fill' ? 'none' : `x${x}Y${y} ${fit === 'cover' ? 'slice' : 'meet'}`,
     );
     if (fit === 'none') {
-      const offset = (part: string, size: number) =>
-        part === 'Min'
-          ? '0px'
-          : `calc(${part === 'Mid' ? 50 : 100}% - ${size * (part === 'Mid' ? 0.5 : 1)}px)`;
+      const offset = (part: string, size: number) => {
+        const fraction = part === 'Min' ? 0 : part === 'Mid' ? 0.5 : 1;
+        return `calc(${100 * fraction}% - ${size * fraction}px)`;
+      };
       svg.style.width = m.viewBox[2] + 'px';
       svg.style.height = m.viewBox[3] + 'px';
       svg.style.left = offset(x, m.viewBox[2]);

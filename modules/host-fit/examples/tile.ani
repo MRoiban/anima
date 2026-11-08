@@ -1,0 +1,19 @@
+{
+  "anima": "0.1",
+  "name": "host-fit-tile",
+  "grid": 24,
+  "viewBox": [0, 0, 24, 10],
+  "nodes": [
+    {
+      "id": "tile",
+      "type": "rect",
+      "x0": 3,
+      "y0": 2,
+      "w": 4,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ]
+}

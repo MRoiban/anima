@@ -1,0 +1,18 @@
+fit contain
+screenshot frames/contain.png
+fit cover
+screenshot frames/cover.png
+fit fill
+screenshot frames/fill.png
+fit fit-width
+screenshot frames/fit-width.png
+fit fit-height
+screenshot frames/fit-height.png
+fit none
+screenshot frames/none.png
+fit scale-down
+screenshot frames/scale-down.png
+fit layout
+screenshot frames/layout.png
+alignment top-left
+artboard-size 48 24

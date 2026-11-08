@@ -93,24 +93,33 @@ export class CanvasRenderer implements IconRenderer {
   layout(): void {
     const m = this.#icon.player?.model;
     if (!m) return;
-    const [x, y, w, h] = m.viewBox,
+    // seam(P7-3): use the host-fit virtual viewBox for drawing and backend hit mapping.
+    const fitted = (this.#icon.constructor as typeof AnimaIcon).viewBox?.(this.#icon);
+    const [x, y, w, h] = (fitted ?? m.viewBox) as [number, number, number, number],
       g = m.grid;
     const css = getComputedStyle(this.#icon);
     const host = { width: parseFloat(css.width), height: parseFloat(css.height) };
-    const fit = this.#icon.getAttribute('fit');
+    const fit = fitted ? 'fill' : this.#icon.getAttribute('fit');
     const align = this.#icon.getAttribute('align') ?? 'center';
     const factor = (lo: string, hi: string) =>
       align.includes(lo) ? 0 : align.includes(hi) ? 1 : 0.5;
-    const cw = fit === 'none' ? w : (host.width * w) / g;
-    const ch = fit === 'none' ? h : (host.height * h) / g;
+    const cw = fitted ? host.width : fit === 'none' ? w : (host.width * w) / g;
+    const ch = fitted ? host.height : fit === 'none' ? h : (host.height * h) / g;
     Object.assign(this.canvas.style, {
       width: cw + 'px',
       height: ch + 'px',
       left:
-        (fit === 'none' ? (host.width - w) * factor('left', 'right') : (host.width * x) / g) + 'px',
+        (fitted
+          ? 0
+          : fit === 'none'
+            ? (host.width - w) * factor('left', 'right')
+            : (host.width * x) / g) + 'px',
       top:
-        (fit === 'none' ? (host.height - h) * factor('top', 'bottom') : (host.height * y) / g) +
-        'px',
+        (fitted
+          ? 0
+          : fit === 'none'
+            ? (host.height - h) * factor('top', 'bottom')
+            : (host.height * y) / g) + 'px',
     });
     const width = Math.max(1, Math.round(cw * this.pixelRatio));
     const height = Math.max(1, Math.round(ch * this.pixelRatio));

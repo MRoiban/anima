@@ -1,0 +1,1995 @@
+
+> test:scope
+> node tools/test-scope.ts changed
+
+Scopes: core, markup, web, cli, playground, tools, a11y-dom, a11y, assetio, bind, canvas, components, convert, data, derive, events, focus, fonts, host-edit, host, input, markup-animation, markup-hooks, markup-libraries, motion, nested, paint, text-effects, text-input, text, assets, a11y-text, fonts-options, fonts-text, markup-text, markup-text-effects, markup-text-input, text-hit, text-host, text-input-canvas, text-input-clipboard, text-input-svg, conformance, oracle, host-fit
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/bind/test/core/strings.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/invalid-source.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/composite/test/core/paint-composite.test.ts
+  unit: modules/contour/test/core/contour.test.ts
+  unit: modules/contour/test/core/effects.test.ts
+  unit: modules/contour/test/core/path-evidence.test.ts
+  unit: modules/contour/test/core/raster-evidence.test.ts
+  unit: modules/contour/test/core/winding.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/color-pattern.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/data-converter-color-formatting.test.ts
+  unit: modules/convert/test/core/data-converter-trigger.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/core/p5b-oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/derive/test/core/settled-guard.test.ts
+  unit: modules/devtools/test/core/policy.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/machine/test/core/diagnostics.test.ts
+  unit: modules/machine/test/core/p5b-oracle.test.ts
+  unit: modules/machine/test/core/runtime.test.ts
+  unit: modules/machine/test/core/state-machine-any-state.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-input.test.ts
+  unit: modules/machine/test/core/state-machine-blend-additive.test.ts
+  unit: modules/machine/test/core/state-machine-blend-direct.test.ts
+  unit: modules/machine/test/core/state-machine-blend-exit-clock.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-constant.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-input.test.ts
+  unit: modules/machine/test/core/state-machine-condition-artboard.test.ts
+  unit: modules/machine/test/core/state-machine-condition-component.test.ts
+  unit: modules/machine/test/core/state-machine-condition-data.test.ts
+  unit: modules/machine/test/core/state-machine-condition-focus.test.ts
+  unit: modules/machine/test/core/state-machine-continue-on-exit.test.ts
+  unit: modules/machine/test/core/state-machine-entry-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-time-relative.test.ts
+  unit: modules/machine/test/core/state-machine-literal-asset.test.ts
+  unit: modules/machine/test/core/state-machine-literal-boolean.test.ts
+  unit: modules/machine/test/core/state-machine-literal-color.test.ts
+  unit: modules/machine/test/core/state-machine-literal-enum.test.ts
+  unit: modules/machine/test/core/state-machine-literal-string.test.ts
+  unit: modules/machine/test/core/state-machine-literal-trigger.test.ts
+  unit: modules/machine/test/core/state-machine-state-entry-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-exit-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-random.test.ts
+  unit: modules/machine/test/core/state-machine-state-reset.test.ts
+  unit: modules/machine/test/core/state-machine-transition-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-disabled.test.ts
+  unit: modules/machine/test/core/state-machine-transition-duration-relative.test.ts
+  unit: modules/machine/test/core/state-machine-transition-end-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-random-weight.test.ts
+  unit: modules/markup-animation/test/markup/positions.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/mix/test/core/mix.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/motion/test/core/animation-cubic-value.test.ts
+  unit: modules/motion/test/core/animation-elastic-in-out.test.ts
+  unit: modules/motion/test/core/animation-elastic-in.test.ts
+  unit: modules/motion/test/core/animation-host-loop-override.test.ts
+  unit: modules/motion/test/core/animation-host-play-pause-stop.test.ts
+  unit: modules/motion/test/core/animation-keys-reference.test.ts
+  unit: modules/motion/test/core/animation-keys-signed-integer.test.ts
+  unit: modules/motion/test/core/animation-keys-string.test.ts
+  unit: modules/motion/test/core/animation-keys-unsigned-integer.test.ts
+  unit: modules/motion/test/core/animation-mix-discrete.test.ts
+  unit: modules/motion/test/core/animation-mix-numeric.test.ts
+  unit: modules/motion/test/core/animation-quantized-playback.test.ts
+  unit: modules/motion/test/core/animation-reverse.test.ts
+  unit: modules/motion/test/core/animation-seek.test.ts
+  unit: modules/motion/test/core/animation-work-area.test.ts
+  unit: modules/motion/test/core/boundaries.test.ts
+  unit: modules/motion/test/core/control.test.ts
+  unit: modules/motion/test/core/data-bind-keyframes.test.ts
+  unit: modules/motion/test/core/data-keys-oracle.test.ts
+  unit: modules/motion/test/core/diagnostics.test.ts
+  unit: modules/motion/test/core/host-api-animation-metadata.test.ts
+  unit: modules/motion/test/core/host-api-low-level-animation.test.ts
+  unit: modules/motion/test/core/host-api-low-level-scene-query.test.ts
+  unit: modules/motion/test/core/host-api-multi-state-machine.test.ts
+  unit: modules/motion/test/core/host-api-scrub.test.ts
+  unit: modules/motion/test/core/reduced-live.test.ts
+  unit: modules/motion/test/core/runtime.test.ts
+  unit: modules/motion/test/core/state-machine-exit-time-seconds.test.ts
+  unit: modules/motion/test/core/transforms-origin-animation.test.ts
+  unit: modules/motion/test/core/typed-oracle.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/core/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/cli/placeholder.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/p6-12.test.ts
+  unit: packages/cli/test/p6-9b.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/core/test/bell-parity.test.ts
+  unit: packages/core/test/draw.test.ts
+  unit: packages/core/test/examples.test.ts
+  unit: packages/core/test/feature-hints.test.ts
+  unit: packages/core/test/inspect.test.ts
+  unit: packages/core/test/invalid.test.ts
+  unit: packages/core/test/module-order.test.ts
+  unit: packages/core/test/modules.test.ts
+  unit: packages/core/test/path.test.ts
+  unit: packages/core/test/player.test.ts
+  unit: packages/core/test/smoke.test.ts
+  unit: packages/core/test/svg-compat.test.ts
+  unit: packages/core/test/time.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: packages/playground/test/pure.test.ts
+  unit: packages/playground/test/server.test.ts
+  unit: tools/browser-cache.test.ts
+  unit: tools/modules.test.ts
+  unit: tools/new-capability.test.ts
+  unit: tools/oracle.test.ts
+  unit: tools/parity.test.ts
+  unit: tools/test-scope.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup-animation/test/web/animation.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/playground/test/browser.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-2bf2dec9
+
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (22 tests | 6 failed) 71741ms
+   ❯ Chromium asset pipeline (11)
+     × Canvas bilinear clamp matches an independent shader at every pixel for box 8.1 628ms
+   ❯ Firefox asset pipeline (11)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5016ms
+     × enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver 5002ms
+     × host-decodes original WAV bytes without consuming the cached buffer 5004ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 5008ms
+     × matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize 5005ms
+ ❯ |scope-browser| packages/web/test/browser.test.ts (80 tests | 40 skipped) 149526ms
+ ❯ |scope-browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 6 failed) 56993ms
+   ❯ Firefox optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5009ms
+     × isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components 5009ms
+     × rebuilds a dynamic source tree without advancing playback when switching renderers 5008ms
+     × reports source backend limits at each consuming paint pointer 5002ms
+     × compiles live AniML sources through the separately bundled markup registry 6329ms
+     × preserves base empty-fill validation when the paint module has not been loaded 5034ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 4 failed) 184810ms
+   ❯ overlay Firefox (22)
+     × attaches after separately bundled focus/actions and an already loaded model 7517ms
+     × supports overlay opt-out and restore while retaining host APIs 12672ms
+     × unifies focus proxies and synchronizes DOM and logical focus 23267ms
+     × retains native Tab entry and exit with focus loaded 10009ms
+ ❯ |scope-browser| modules/text-input/test/web/field.browser.test.ts (6 tests | 2 failed) 88526ms
+   × Firefox fields reverse: native editing, semantics, selection, clipboard and lifecycle 30044ms
+   × Firefox multiline, password privacy, limits and select-on-focus 30017ms
+ ❯ |scope-browser| modules/data-host/test/web/browser.test.ts (8 tests | 8 skipped) 20013ms
+ ❯ |scope-browser| modules/input/test/web/browser.test.ts (62 tests | 3 failed) 196195ms
+   ❯ input browser Firefox (31)
+     × keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit none 22849ms
+     × tears down and reloads without retaining the previous contact state 10011ms
+     × leaves legacy documents on the original pointer and keyboard path 10001ms
+ ❯ |scope-browser| modules/composite/test/web/paint-composite.test.ts (56 tests | 3 failed) 206749ms
+   ❯ Firefox composite paint (28)
+     × all blend modes match native CSS pixels 30070ms
+     × retains DOM and animates mask dependencies 15002ms
+     × retains DOM and animates clip dependencies 15005ms
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (10 tests | 5 failed | 5 skipped) 43485ms
+   ❯ Firefox nested components (5)
+     × swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested 5011ms
+     × swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components 5002ms
+     × fits child drawing and pointer hit coordinates and exposes live outputs 5003ms
+     × compiles component properties, remapped clocks and output elements in a lean browser 5018ms
+     × keeps the authored blue foreground after dynamic slot reuse in SVG and canvas 5001ms
+ ❯ |scope-browser| packages/web/test/markup-hooks.test.ts (18 tests | 3 failed) 243277ms
+   ❯ Firefox optional markup hooks (9)
+     × delayed-surface: connected inline sources recover when optional entries arrive 30043ms
+     × explicit-load: connected inline sources recover when optional entries arrive 30002ms
+     × detached: connected inline sources recover when optional entries arrive 30007ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/bf4.test.ts (50 tests | 8 failed) 250699ms
+   ❯ [BF-4] downstream Firefox (25)
+     × B16: Escape reaches an ancestor bubble listener; overlay=false input=false focus=false 10035ms
+     × B16: host pointer events bubble and route once; overlay=false input=true focus=true 15604ms
+     × B16: Escape reaches an ancestor bubble listener; overlay=true input=false focus=false 9755ms
+     × B16: host pointer events bubble and route once; overlay=true input=false focus=false 10487ms
+     × B16: Escape reaches an ancestor bubble listener; overlay=true input=false focus=true 10017ms
+     × B16: host pointer events bubble and route once; overlay=true input=false focus=true 10011ms
+     × B16: Escape reaches an ancestor bubble listener; overlay=true input=true focus=false 15405ms
+     × B16: host pointer events bubble and route once; overlay=true input=true focus=false 9091ms
+ ❯ |scope-browser| modules/host-edit/test/web/browser.test.ts (4 tests | 3 failed) 118253ms
+   ❯ Chromium host-edit (2)
+     × separate bundles in both load orders: edit first=true 30024ms
+     × separate bundles in both load orders: edit first=false 30003ms
+   ❯ Firefox host-edit (2)
+     × separate bundles in both load orders: edit first=true 30123ms
+ ❯ |scope-browser| modules/fonts/test/web/text-integration.test.ts (4 tests | 1 failed) 84022ms
+   × Chromium fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs 30025ms
+ ❯ |scope-browser| modules/fonts/test/web/nested-text.test.ts (2 tests | 1 failed) 35082ms
+   × Firefox bound font data and nested font catalogs refresh independently 30007ms
+ ❯ |scope-browser| modules/host-edit/test/web/seams.test.ts (2 tests | 1 failed) 38599ms
+   ❯ Firefox host seams (1)
+     × retains repeat animation through icon.data, and shares source parsing/decode with isolated images 30011ms
+ ❯ |scope-browser| modules/host/test/web/browser.test.ts (4 tests | 2 failed) 67233ms
+   ❯ Firefox host (2)
+     × separate bundles; host first=true 30007ms
+     × separate bundles; host first=false 30006ms
+ ❯ |scope-browser| modules/text-effects/test/web/effects.test.ts (4 tests | 2 failed) 66758ms
+   × Firefox effects text→text-effects→canvas: SVG/canvas transforms, opacity, auto direction and retained animation 30005ms
+   × Firefox effects text-effects→canvas→text: SVG/canvas transforms, opacity, auto direction and retained animation 30005ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/downstream.test.ts (18 tests | 4 failed) 112171ms
+   ❯ [BF-2] downstream Firefox (9)
+     × B2: one ArrowRight moves one tab with input and focus loaded 10187ms
+     × B6: input=true, drawing receives hover, press and drag while overlay retains keyboard/AT actions 10006ms
+     × B7: native range parts never paint, even at a large drawing scale 10008ms
+     × B8: document and shown component use viewBox aspect without overriding authored dimensions 10007ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 4 failed) 133976ms
+   ❯ motion host in Firefox (10)
+     × exposes metadata, time, mix, typed nodes and independent animation advance/apply 10006ms
+     × compiles declarative clocks in the browser and applies held/scrubbed frames 10005ms
+     × keeps stale handles detached after a new load 10011ms
+     × recovers a connected document when motion registers late 10009ms
+ ❯ |scope-browser| packages/playground/test/browser.test.ts (16 tests | 3 failed | 8 skipped) 161373ms
+   ❯ playground in Firefox (8)
+     × renders the real icon, reports exact typo position, keeps last stage and recovers on edit 10256ms
+     × opens the built-in example without write access 45841ms
+     × formats, exposes compiled JSON, changes theme and fits phone/tablet layouts 10008ms
+ ❯ |scope-browser| modules/host-fit/test/web/fit.test.ts (58 tests | 9 failed) 246605ms
+   ❯ host fit Firefox (29)
+     × svg: contain shares drawing, pointer and semantic matrices 10330ms
+     × svg: fill shares drawing, pointer and semantic matrices 25583ms
+     × svg: fit-width shares drawing, pointer and semantic matrices 10013ms
+     × svg: fit-height shares drawing, pointer and semantic matrices 10006ms
+     × svg: none shares drawing, pointer and semantic matrices 10001ms
+     × canvas: layout root seam resizes/reflows with a stub and restores authored size 20016ms
+     × canvas: settles through host resize, zero dimensions, disconnect/reconnect and renderer changes 10008ms
+     × accepts a size before load and clears an override without leaving layout state behind 10002ms
+     × preserves the unrequested SVG grid/bleed default, including after fit removal 10014ms
+ ❯ |scope-browser| modules/input/test/web/integration.test.ts (16 tests | 2 failed | 4 skipped) 134967ms
+   ❯ interaction integration Firefox components→focus→input→machine (4)
+     × dispatches one key route, traverses arrows/Tab once and preserves native activation 10122ms
+   ❯ interaction integration Chromium machine→input→focus→components (4)
+     × routes keys to a focused component descendant and validates unknown dotted events 17358ms
+ ❯ |scope-browser| modules/text-input/test/web/placeholder.browser.test.ts (2 tests | 2 failed) 60288ms
+   × Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels 30049ms
+   × Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels 30214ms
+ ❯ |scope-browser| modules/assets/test/web/assets.test.ts (2 tests | 1 failed) 63636ms
+   ❯ Firefox images (1)
+     × paints every fit, embedded sources make no requests, resolver replaces assets and failures emit errors 35570ms
+ ❯ |scope-browser| modules/surface/test/web/surface.test.ts (2 tests | 2 failed) 69775ms
+   × Chromium surface pixels: image, modulation, slices and independent feather 30012ms
+   × Firefox surface pixels: image, modulation, slices and independent feather 39757ms
+ ❯ |scope-browser| modules/data/test/web/browser.test.ts (4 tests | 1 failed) 61844ms
+   ❯ Firefox data (2)
+     × loads separate runtime/markup bundles, data first=false 30008ms
+ ❯ |scope-browser| modules/machine/test/web/browser.test.ts (4 tests | 2 failed) 111809ms
+   ❯ Chromium machine (2)
+     × separate bundles and generic AniML fields; markup first=false 30012ms
+   ❯ Firefox machine (2)
+     × separate bundles and generic AniML fields; markup first=true 31626ms
+ ❯ |scope-browser| modules/fonts/test/web/options.test.ts (4 tests | 3 failed) 124321ms
+   × Chromium authored font options text-effects→fonts-options: rendered axes, features, binding and Canvas fallback 30013ms
+   × Chromium authored font options fonts-options→text-effects→text: rendered axes, features, binding and Canvas fallback 30003ms
+   × Firefox authored font options fonts-options→text-effects→text: rendered axes, features, binding and Canvas fallback 37003ms
+ ❯ |scope-browser| modules/lists/test/web/lists.test.ts (4 tests | 2 failed) 94287ms
+   ❯ Firefox lists (2)
+     × retains state, DOM and contexts across reorder; lists first=true 32546ms
+     × retains state, DOM and contexts across reorder; lists first=false 33452ms
+ ❯ |scope-browser| modules/markup/test/web/authoring.test.ts (8 tests | 8 skipped) 32601ms
+ ❯ |scope-browser| modules/host-edit/test/web/components.test.ts (4 tests | 4 skipped) 27791ms
+ ❯ |scope-browser| modules/markup-animation/test/web/animation.test.ts (8 tests | 1 failed) 121238ms
+   ❯ Firefox optional animation authoring (4)
+     × complete-then-lean preserves canonical output and recovers retained sources 30332ms
+ ❯ |scope-browser| modules/focus/test/web/focus.test.ts (10 tests | 1 failed | 5 skipped) 62979ms
+   ❯ focus Chromium (5)
+     × focuses component internals through dotted paths 9022ms
+ ❯ |scope-browser| modules/bind/test/web/bind.test.ts (2 tests | 2 failed) 60083ms
+   ❯ Chromium bind (1)
+     × a separate module wakes a settled ring and applies input on exactly the next frame 30033ms
+   ❯ Firefox bind (1)
+     × a separate module wakes a settled ring and applies input on exactly the next frame 30027ms
+ ❯ |scope-browser| modules/text/test/web/text.test.ts (8 tests | 4 failed) 159026ms
+   × Firefox text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30548ms
+   × Firefox text text→index: prefix metrics, escaped retained SVG, host replacement and canvas pixels 34890ms
+   × Firefox text index→paint→components→data→lists→componentpaint→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30001ms
+   × Firefox text index→text→componentpaint→lists→data→components→paint: prefix metrics, escaped retained SVG, host replacement and canvas pixels 30001ms
+ ❯ |scope-browser| modules/text/test/web/shorthand.test.ts (2 tests | 2 failed) 60072ms
+   × Chromium semantic reads before/after shorthand writes preserve SVG and canvas drawing 30036ms
+   × Firefox semantic reads before/after shorthand writes preserve SVG and canvas drawing 30005ms
+ ❯ |scope-browser| modules/text/test/web/live-runs.test.ts (2 tests | 2 failed) 60074ms
+   × Chromium live list and typed styles match literal SVG/canvas controls after mutation 30031ms
+   × Firefox live list and typed styles match literal SVG/canvas controls after mutation 30007ms
+ ❯ |scope-browser| modules/components/test/web/components.test.ts (2 tests | 2 failed) 55945ms
+   ❯ Chromium components (1)
+     × renders scoped instances and routes a pointer event that changes the parent 25914ms
+   ❯ Firefox components (1)
+     × renders scoped instances and routes a pointer event that changes the parent 30021ms
+ ❯ |scope-browser| modules/paint/test/web/paint-geometry.test.ts (2 tests | 1 failed) 53976ms
+   ❯ Firefox paint geometry (1)
+     × renders every shape and morph with the shared scene attributes, using absolute browser dashes 30007ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts (4 tests | 4 failed) 122268ms
+   × Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host 31505ms
+   × Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index 30006ms
+   × Firefox text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host 30007ms
+   × Firefox text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index 30668ms
+ ❯ |scope-unit| packages/markup/test/compile.test.ts (51 tests | 1 failed) 8786ms
+   ❯ AniML compiler (51)
+     × never throws on every prefix of bell.animl 8195ms
+ ❯ |scope-browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 2 failed) 69997ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 8782ms
+   ❯ [BF-4 writes] downstream Firefox (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 10010ms
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 3 failed) 22442ms
+   × encodes jpeg, updates MIME/byte size and decodes dimensions 6037ms
+   × encodes webp, updates MIME/byte size and decodes dimensions 5010ms
+   × uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error 5006ms
+ ❯ |scope-browser| modules/convert/test/web/convert.test.ts (4 tests | 3 failed) 116699ms
+   ❯ Chromium convert (2)
+     × loads separate runtime/markup bundles, data first=true 32831ms
+   ❯ Firefox convert (2)
+     × loads separate runtime/markup bundles, data first=true 30011ms
+     × loads separate runtime/markup bundles, data first=false 30001ms
+ ❯ |scope-browser| modules/derive/test/web/browser.test.ts (4 tests | 2 failed) 85752ms
+   ❯ Firefox derive (2)
+     × separate bundles; derive first=true 30006ms
+     × separate bundles; derive first=false 30013ms
+ ❯ |scope-unit| packages/cli/test/cli.test.ts (71 tests | 1 failed) 27434ms
+   ❯ anima render (12)
+     × writes SVG, PNG and contact sheets 5958ms
+ ❯ |scope-unit| packages/cli/test/markup.test.ts (27 tests | 1 failed) 13026ms
+   ❯ build and decompile (7)
+     × builds bell byte-for-byte to stdout or a file 5461ms
+ ❯ |scope-browser| modules/canvas/test/web/native-paint.test.ts (6 tests | 1 failed) 97026ms
+   × firefox native Canvas oracle: drawing-paint-blend-additive 30110ms
+ ❯ |scope-unit| packages/core/test/examples.test.ts (17 tests | 1 failed) 8385ms
+   ❯ truncation (2)
+     × every prefix of bell.ani parses or returns diagnostics, never throws 5963ms
+ ❯ |scope-unit| modules/contour/test/core/raster-evidence.test.ts (2 tests | 1 failed) 7226ms
+   × confines all native path raster findings to the stroke fringe and checks recorded evidence 6564ms
+ ❯ |scope-unit| modules/text/test/cli/text.test.ts (4 tests | 1 failed) 16541ms
+   × CLI text inspect 5182ms
+ ❯ |scope-unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 90035ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 90030ms
+ ❯ |scope-unit| packages/cli/test/authoring.test.ts (59 tests | 9 failed) 193855ms
+   ❯ authoring guide executable examples (38)
+     × xml block 0 compiles with validate 5198ms
+     × xml block 1 compiles with validate 8638ms
+     × xml block 4 compiles with validate 6608ms
+     × xml block 6 compiles with validate 5302ms
+     × xml block 12 compiles with validate 5775ms
+     × xml block 17 compiles with validate 6335ms
+     × xml block 20 compiles with validate 6119ms
+     × paint.animl produces the pasted diagnostics verbatim 6133ms
+     × exposes the forgotten pivot through inspect and rendered geometry 7853ms
+ ❯ |scope-unit| tools/new-capability.test.ts (4 tests | 2 failed) 210072ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 197557ms
+   × rejects invalid requests without writes and notes unsupported oracle counterparts 10267ms
+ ❯ |scope-browser| modules/canvas/test/web/canvas.test.ts (2408 tests | 10 failed) 1073352ms
+   ❯ Chromium canvas (1204)
+     × spec/conformance/paint-shape-fixed/case.ani#2 17563ms
+     × spec/conformance/paint-shape-ellipse/case.ani#0 15007ms
+     × spec/conformance/paint-shape-ellipse/case.ani#1 15009ms
+     × spec/conformance/paint-shape-ellipse/case.ani#2 15011ms
+     × spec/conformance/machine-event-lifecycle/case.ani#1 15003ms
+     × spec/conformance/machine-event-lifecycle/case.ani#2 15002ms
+     × spec/conformance/machine-event-lifecycle/case.ani#3 15002ms
+     × spec/conformance/machine-event-lifecycle/case.ani#4 14749ms
+     × spec/conformance/input-bf4-data-writes/case.ani#0 15062ms
+     × spec/conformance/input-bf4-data-writes/case.ani#1 14027ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 18 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Chromium
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ packages/playground/test/browser.test.ts:49:5
+     47|       file: string,
+     48|       html: string;
+     49|     beforeAll(async () => {
+       |     ^
+     50|       html = await buildPlayground();
+     51|       browser = await type.launch({ executablePath, headless: true });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/169]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ packages/playground/test/browser.test.ts:53:5
+     51|       browser = await type.launch({ executablePath, headless: true });
+     52|     }, 30000);
+     53|     afterAll(async () => {
+       |     ^
+     54|       await browser?.close();
+     55|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/169]⎯
+
+ FAIL  |scope-browser| packages/web/test/browser.test.ts > <anima-icon> in Firefox
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ packages/web/test/browser.test.ts:100:5
+     98|     let paintJs: string;
+     99|     let devtoolsJs: string;
+    100|     beforeAll(async () => {
+       |     ^
+    101|       [js, markupJs, paintJs, leanMarkupJs, devtoolsJs] = await Promis…
+    102|         bundle(resolve('packages/web/src/index.ts')),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:42:5
+     40|       });
+     41|     }, 30000);
+     42|     afterAll(async () => {
+       |     ^
+     43|       await browser?.close();
+     44|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:42:5
+     40|       });
+     41|     }, 30000);
+     42|     afterAll(async () => {
+       |     ^
+     43|       await browser?.close();
+     44|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:89:5
+     87|       });
+     88|     }, 30000);
+     89|     afterAll(async () => {
+       |     ^
+     90|       await browser?.close();
+     91|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:43:5
+     41|       browser = await engine.launch({ executablePath, headless: true }…
+     42|     });
+     43|     afterAll(async () => {
+       |     ^
+     44|       await browser?.close();
+     45|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/169]⎯
+
+ FAIL  |scope-browser| modules/data-host/test/web/browser.test.ts > Chromium data-host
+ FAIL  |scope-browser| modules/data-host/test/web/browser.test.ts > Firefox data-host
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/data-host/test/web/browser.test.ts:36:5
+     34|     ];
+     35|     const bundles = new Map<string, string>();
+     36|     beforeAll(async () => {
+       |     ^
+     37|       await Promise.all(
+     38|         entries.map(async (e) =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/169]⎯
+
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Firefox
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/focus/test/web/focus.test.ts:54:5
+     52|   describe.skipIf(!existsSync(executablePath))(`focus ${name}`, () => {
+     53|     let browser: Browser, page: Page, base: string, focus: string;
+     54|     beforeAll(async () => {
+       |     ^
+     55|       [base, focus] = await Promise.all(
+     56|         ['index', 'focus'].map((n) => bundle(new URL(`packages/web/src…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/169]⎯
+
+ FAIL  |scope-browser| modules/host-edit/test/web/components.test.ts > Chromium component values and data keyframes
+ FAIL  |scope-browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/host-edit/test/web/components.test.ts:31:5
+     29|     ];
+     30|     const bundles = new Map<string, string>();
+     31|     beforeAll(async () => {
+       |     ^
+     32|       await Promise.all(
+     33|         entries.map(async (entry) =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:72:5
+     70|       });
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+       |     ^
+     73|     beforeEach(async () => {
+     74|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Chromium machine→input→focus→components
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:96:9
+     94|           });
+     95|         }, 30000);
+     96|         afterAll(async () => browser?.close());
+       |         ^
+     97|         beforeEach(async () => {
+     98|           page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Firefox machine→input→focus→components
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:84:9
+     82|       () => {
+     83|         let browser: Browser, page: Page, codes: string[];
+     84|         beforeAll(async () => {
+       |         ^
+     85|           codes = await Promise.all(
+     86|             ['index', ...order].map((n) =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/169]⎯
+
+ FAIL  |scope-browser| modules/markup/test/web/authoring.test.ts [ modules/markup/test/web/authoring.test.ts ]
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/markup/test/web/authoring.test.ts:44:1
+     42| </anima>`;
+     43|
+     44| beforeAll(async () => {
+       | ^
+     45|   await Promise.all(
+     46|     entries.map(async (entry) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/169]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:69:5
+     67|       });
+     68|     }, 30000);
+     69|     afterAll(async () => {
+       |     ^
+     70|       await browser?.close();
+     71|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/169]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Chromium nested components
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:20:5
+     18|     let browser: Browser;
+     19|     const bundles = new Map<string, string>();
+     20|     beforeAll(async () => {
+       |     ^
+     21|       await Promise.all(
+     22|         ['index', 'components', 'data', 'bind', 'nested', 'canvas', 'm…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/169]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 143 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Test timed out in 120000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:38:1
+     36| }
+     37|
+     38| it('plans without writing, is idempotent, and generates a registered, …
+       | ^
+     39|   const root = scratch();
+     40|   // A row that stays planned until P8 (it was tooling.seed until P3b …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/169]⎯
+
+ FAIL  |scope-unit| tools/new-capability.test.ts > rejects invalid requests without writes and notes unsupported oracle counterparts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:155:1
+    153| }, 120_000);
+    154|
+    155| it('rejects invalid requests without writes and notes unsupported orac…
+       | ^
+    156|   const root = scratch();
+    157|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/169]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 0 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 1 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 4 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 6 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 12 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 17 compiles with validate
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 20 compiles with validate
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:50:60
+     48|   });
+     49|
+     50|   it.each(xml.map((block, index) => ({ ...block, index })))(
+       |                                                            ^
+     51|     'xml block $index compiles with validate',
+     52|     ({ source, marker, index }) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/169]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > paint.animl produces the pasted diagnostics verbatim
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:68:97
+     66|   );
+     67|
+     68|   it.each(invalid.map((block) => ({ ...block, file: block.marker!.slic…
+       |                                                                                                 ^
+     69|     '$file produces the pasted diagnostics verbatim',
+     70|     ({ source, file }) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/169]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/169]⎯
+
+ FAIL  |scope-unit| packages/cli/test/cli.test.ts > anima render > writes SVG, PNG and contact sheets
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/cli.test.ts:123:3
+    121|
+    122| describe('anima render', () => {
+    123|   it('writes SVG, PNG and contact sheets', async () => {
+       |   ^
+    124|     for (const [out, extra] of [
+    125|       ['f.svg', []],
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/169]⎯
+
+ FAIL  |scope-unit| packages/cli/test/markup.test.ts > build and decompile > builds bell byte-for-byte to stdout or a file
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/markup.test.ts:142:3
+    140|
+    141| describe('build and decompile', () => {
+    142|   it('builds bell byte-for-byte to stdout or a file', async () => {
+       |   ^
+    143|     expect((await cli('build', bell)).out).toBe(ani);
+    144|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/169]⎯
+
+ FAIL  |scope-unit| packages/core/test/examples.test.ts > truncation > every prefix of bell.ani parses or returns diagnostics, never throws
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/core/test/examples.test.ts:36:3
+     34|
+     35| describe('truncation', () => {
+     36|   it('every prefix of bell.ani parses or returns diagnostics, never th…
+       |   ^
+     37|     const text = readFileSync(new URL('bell.ani', EX), 'utf8');
+     38|     for (let i = 0; i < text.length; i++) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/169]⎯
+
+ FAIL  |scope-unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+Error: Test timed out in 90000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/core/test/module-order.test.ts:11:1
+      9|     ? xs.flatMap((x, i) => permutations(xs.filter((_, j) => i !== j)).…
+     10|     : [[]];
+     11| it('composes identical schemas, CLI schemas, loaded corpus models and …
+       | ^
+     12|   // Every permutation of components/paint/assets, before and after th…
+     13|   // This includes surface-before-paint, wildcard-before-node, and com…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/169]⎯
+
+ FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > never throws on every prefix of bell.animl
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/markup/test/compile.test.ts:688:3
+    686|   });
+    687|
+    688|   it('never throws on every prefix of bell.animl', () => {
+       |   ^
+    689|     for (let i = 0; i <= bell.length; i++) {
+    690|       const result = compile(bell.slice(0, i));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/169]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes jpeg, updates MIME/byte size and decodes dimensions
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes webp, updates MIME/byte size and decodes dimensions
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:105:33
+    103|   expect(JSON.parse(upper.out).assets.photo.source).toBe('anima:photo'…
+    104| });
+    105| it.each(['png', 'jpeg', 'webp'])(
+       |                                 ^
+    106|   'encodes %s, updates MIME/byte size and decodes dimensions',
+    107|   async (encode) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/169]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:340:1
+    338| });
+    339|
+    340| it('uses one lazy browser across multiple HTML scripts, closes it and …
+       | ^
+    341|   const launch = vi.spyOn(ImageEncoder.prototype, 'browser');
+    342|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/169]⎯
+
+ FAIL  |scope-unit| modules/contour/test/core/raster-evidence.test.ts > confines all native path raster findings to the stroke fringe and checks recorded evidence
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/contour/test/core/raster-evidence.test.ts:5:1
+      3| import { measureRaster } from '../../../paint/probes/raster.ts';
+      4| import { measureAngular } from '../../../paint/probes/angular.ts';
+      5| it('confines all native path raster findings to the stroke fringe and …
+       | ^
+      6|   const results = measureRaster();
+      7|   expect(results).toEqual(JSON.parse(readFileSync('modules/paint/probe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/169]⎯
+
+ FAIL  |scope-unit| modules/text/test/cli/text.test.ts > CLI text inspect
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/cli/text.test.ts:14:3
+     12|   ],
+     13| ])
+     14|   it('CLI text ' + args[0], () => {
+       |   ^
+     15|     const result = spawnSync(process.execPath, ['packages/cli/src/main…
+     16|       encoding: 'utf8',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/169]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > renders the real icon, reports exact typo position, keeps last stage and recovers on edit
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > formats, exposes compiled JSON, changes theme and fits phone/tablet layouts
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ packages/playground/test/browser.test.ts:56:5
+     54|       await browser?.close();
+     55|     });
+     56|     beforeEach(async () => {
+       |     ^
+     57|       dir = await mkdtemp(join(tmpdir(), 'anima-playground-'));
+     58|       file = join(dir, 'bell.animl');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/169]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > opens the built-in example without write access
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/playground/test/browser.test.ts:214:5
+    212|       );
+    213|     });
+    214|     it('opens the built-in example without write access', async () => {
+       |     ^
+    215|       await host.close();
+    216|       host = await startPlayground({ port: 0, html });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/169]⎯
+
+ FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Firefox > opens the built-in example without write access
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ packages/playground/test/browser.test.ts:71:5
+     69|       await page.waitForFunction(() => !!document.querySelector<AnimaI…
+     70|     });
+     71|     afterEach(async () => {
+       |     ^
+     72|       await page?.close();
+     73|       await host?.close();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/169]⎯
+
+ FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > delayed-surface: connected inline sources recover when optional entries arrive
+ FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > explicit-load: connected inline sources recover when optional entries arrive
+ FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > detached: connected inline sources recover when optional entries arrive
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/web/test/markup-hooks.test.ts:248:7
+    246|       'explicit-load',
+    247|       'detached',
+    248|     ])(
+       |       ^
+    249|       '%s: connected inline sources recover when optional entries arri…
+    250|       async (order) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: Escape reaches an ancestor bubble listener; overlay=false input=false focus=false
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: Escape reaches an ancestor bubble listener; overlay=true input=false focus=false
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:265:11
+    263|         for (const useFocus of [false, true]) {
+    264|           const variant = `overlay=${overlay} input=${useInput} focus=…
+    265|           it(`B16: Escape reaches an ancestor bubble listener; ${varia…
+       |           ^
+    266|             await bubblingScene(overlay, useInput, useFocus);
+    267|             await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: host pointer events bubble and route once; overlay=false input=true focus=true
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:283:11
+    281|             expect(await page.locator('body').getAttribute('data-preve…
+    282|           });
+    283|           it(`B16: host pointer events bubble and route once; ${varian…
+       |           ^
+    284|             await bubblingScene(overlay, useInput, useFocus);
+    285|             await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: host pointer events bubble and route once; overlay=true input=false focus=false
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: Escape reaches an ancestor bubble listener; overlay=true input=false focus=true
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: host pointer events bubble and route once; overlay=true input=false focus=true
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: Escape reaches an ancestor bubble listener; overlay=true input=true focus=false
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:45:5
+     43|       await browser?.close();
+     44|     });
+     45|     beforeEach(async () => {
+       |     ^
+     46|       page = await browser.newPage();
+     47|       await page.setContent('<anima-icon fit="fill" style="width:240px…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: host pointer events bubble and route once; overlay=true input=true focus=false
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:296:44
+    294|             await page.mouse.move(box.x + 30, box.y + 30);
+    295|             await page.mouse.down();
+    296|             expect(await value('pressed')).toBe(true);
+       |                                            ^
+    297|             await page.mouse.move(box.x + 100, box.y + 30);
+    298|             if (useInput) expect(await value('dragged')).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B2: one ArrowRight moves one tab with input and focus loaded
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B6: input=true, drawing receives hover, press and drag while overlay retains keyboard/AT actions
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B7: native range parts never paint, even at a large drawing scale
+ FAIL  |scope-browser| modules/a11y-dom/test/web/downstream.test.ts > [BF-2] downstream Firefox > B8: document and shown component use viewBox aspect without overriding authored dimensions
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/downstream.test.ts:45:5
+     43|       await browser?.close();
+     44|     });
+     45|     beforeEach(async () => {
+       |     ^
+     46|       page = await browser.newPage();
+     47|       await page.setContent('<anima-icon fit="fill" style="width:240px…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > supports overlay opt-out and restore while retaining host APIs
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > unifies focus proxies and synchronizes DOM and logical focus
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:113:5
+    111|       expect(diagnostics).toEqual([]);
+    112|     });
+    113|     afterEach(async () => {
+       |     ^
+    114|       await page.close();
+    115|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > unifies focus proxies and synchronizes DOM and logical focus
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:662:5
+    660|       await expect.poll(() => target('toggle').getAttribute('aria-pres…
+    661|     });
+    662|     it('unifies focus proxies and synchronizes DOM and logical focus',…
+       |     ^
+    663|       await withFocus();
+    664|       expect(await page.locator('[data-focus="mute"]').count()).toBe(1…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > retains native Tab entry and exit with focus loaded
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:92:5
+     90|       await browser?.close();
+     91|     });
+     92|     beforeEach(async () => {
+       |     ^
+     93|       page = await browser.newPage();
+     94|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/169]⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Firefox text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host
+ FAIL  |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts > Firefox text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/text-hit.test.ts:26:43
+     24|     ['text-hit', 'a11y-text', 'input', 'a11y-dom', 'text-host', 'text'…
+     25|   ])
+     26|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     27|       `${name} text hit and semantics ${order.join('→')}`,
+     28|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/assets.test.ts > Firefox images > paints every fit, embedded sources make no requests, resolver replaces assets and failures emit errors
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/assets.test.ts:37:5
+     35| for (const [name, type, executablePath] of browsers) {
+     36|   describe.skipIf(!executablePath)(name + ' images', () => {
+     37|     it('paints every fit, embedded sources make no requests, resolver …
+       |     ^
+     38|       const browser = await type.launch({ executablePath, headless: tr…
+     39|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > Canvas bilinear clamp matches an independent shader at every pixel for box 8.1
+Error: page.evaluate: Array(1)
+ ❯ modules/assets/test/web/pipeline.test.ts:376:22
+    374|               content: await bundle(resolve('packages/web/src/' + entr…
+    375|             });
+    376|           await page.evaluate(
+       |                      ^
+    377|             async ({ uri, boxSize }) => {
+    378|               const icon = document.querySelector('anima-icon') as Ani…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:71:5
+     69|       await shared?.close();
+     70|     });
+     71|     it('preloads component-only images relative to src and shares thei…
+       |     ^
+     72|       const context = await shared.newContext();
+     73|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:154:5
+    152|       }
+    153|     });
+    154|     it('enforces local policy; provides detached metadata and lazy cac…
+       |     ^
+    155|       const browser = await shared.newContext();
+    156|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes original WAV bytes without consuming the cached buffer
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:250:5
+    248|       }
+    249|     });
+    250|     it('host-decodes original WAV bytes without consuming the cached b…
+       |     ^
+    251|       const source =
+    252|         'data:audio/wav;base64,' +
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/169]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:488:31
+    486|       }
+    487|     });
+    488|     it.each(['svg', 'canvas'])(
+       |                               ^
+    489|       'matches independently enumerated repeat/mirror/clamp texels in …
+    490|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/169]⎯
+
+ FAIL  |scope-browser| modules/bind/test/web/bind.test.ts > Chromium bind > a separate module wakes a settled ring and applies input on exactly the next frame
+ FAIL  |scope-browser| modules/bind/test/web/bind.test.ts > Firefox bind > a separate module wakes a settled ring and applies input on exactly the next frame
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/bind/test/web/bind.test.ts:33:5
+     31| ] as const)
+     32|   describe(name + ' bind', () => {
+     33|     it('a separate module wakes a settled ring and applies input on ex…
+       |     ^
+     34|       const executablePath = paths.find((p) => p && existsSync(p));
+     35|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/169]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/paint-shape-fixed/case.ani#2
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/paint-shape-ellipse/case.ani#0
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/paint-shape-ellipse/case.ani#1
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/paint-shape-ellipse/case.ani#2
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/machine-event-lifecycle/case.ani#1
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/machine-event-lifecycle/case.ani#2
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/machine-event-lifecycle/case.ani#3
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/input-bf4-data-writes/case.ani#0
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/canvas/test/web/canvas.test.ts:311:7
+    309|     });
+    310|     for (const c of cases)
+    311|       it(
+       |       ^
+    312|         c.name,
+    313|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/169]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/machine-event-lifecycle/case.ani#4
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/input-bf4-data-writes/case.ani#1
+Error: locator.screenshot: Element is not attached to the DOM
+Call log:
+[2m  - taking element screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+[2m  - attempting scroll into view action[22m
+[2m    - waiting for element to be stable[22m
+
+ ❯ modules/canvas/test/web/canvas.test.ts:405:20
+    403|                   .locator(backend === 'svg' ? 'svg' : 'canvas')
+    404|                   .first()
+    405|                   .screenshot(),
+       |                    ^
+    406|               ),
+    407|             );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/169]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/native-paint.test.ts > firefox native Canvas oracle: drawing-paint-blend-additive
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/canvas/test/web/native-paint.test.ts:15:5
+     13| for (const engine of [chromium.name(), firefox.name()] as ('chromium' …
+     14|   for (const c of cases)
+     15|     it(`${engine} native Canvas oracle: ${c.name}`, async () => {
+       |     ^
+     16|       const dir = mkdtempSync(join(tmpdir(), 'anima-native-canvas-'));
+     17|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > rebuilds a dynamic source tree without advancing playback when switching renderers
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:120:5
+    118|         },
+    119|       );
+    120|     it('rebuilds a dynamic source tree without advancing playback when…
+       |     ^
+    121|       const page = await browser.newPage();
+    122|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[56/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > reports source backend limits at each consuming paint pointer
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:207:5
+    205|       }
+    206|     });
+    207|     it('reports source backend limits at each consuming paint pointer'…
+       |     ^
+    208|       const page = await browser.newPage();
+    209|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[57/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > compiles live AniML sources through the separately bundled markup registry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:286:5
+    284|       }
+    285|     });
+    286|     it('compiles live AniML sources through the separately bundled mar…
+       |     ^
+    287|       const page = await browser.newPage();
+    288|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[58/169]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > preserves base empty-fill validation when the paint module has not been loaded
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:325:5
+    323|       }
+    324|     });
+    325|     it('preserves base empty-fill validation when the paint module has…
+       |     ^
+    326|       const page = await browser.newPage();
+    327|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[59/169]⎯
+
+ FAIL  |scope-browser| modules/components/test/web/components.test.ts > Chromium components > renders scoped instances and routes a pointer event that changes the parent
+AssertionError: expected { …(2) } to match object { …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "states": {
+      "badge/badge": "cleared",
+-     "toolbar": "read",
++     "toolbar": "ready",
+    },
+-   "unread": 0,
++   "unread": 3,
+  }
+
+ ❯ modules/components/test/web/components.test.ts:76:12
+     74|             }),
+     75|           )
+     76|           .toMatchObject({ states: { toolbar: 'read', 'badge/badge': '…
+       |            ^
+     77|         const result = await page.evaluate(() => {
+     78|           const icon = document.querySelector('anima-icon') as AnimaIc…
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/components/test/web/components.test.ts:69:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[60/169]⎯
+
+ FAIL  |scope-browser| modules/components/test/web/components.test.ts > Firefox components > renders scoped instances and routes a pointer event that changes the parent
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/components/test/web/components.test.ts:33:5
+     31| ] as const)
+     32|   describe(name + ' components', () => {
+     33|     it('renders scoped instances and routes a pointer event that chang…
+       |     ^
+     34|       const executablePath = paths.find((p) => p && existsSync(p));
+     35|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[61/169]⎯
+
+ FAIL  |scope-browser| modules/composite/test/web/paint-composite.test.ts > Firefox composite paint > all blend modes match native CSS pixels
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/composite/test/web/paint-composite.test.ts:290:5
+    288|     );
+    289|
+    290|     it('all blend modes match native CSS pixels', async () => {
+       |     ^
+    291|       const page = await browser.newPage();
+    292|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[62/169]⎯
+
+ FAIL  |scope-browser| modules/composite/test/web/paint-composite.test.ts > Firefox composite paint > retains DOM and animates mask dependencies
+ FAIL  |scope-browser| modules/composite/test/web/paint-composite.test.ts > Firefox composite paint > retains DOM and animates clip dependencies
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/composite/test/web/paint-composite.test.ts:342:39
+    340|       }
+    341|     }, 30000);
+    342|     it.each(['mask', 'clip', 'order'])(
+       |                                       ^
+    343|       'retains DOM and animates %s dependencies',
+    344|       async (kind) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[63/169]⎯
+
+ FAIL  |scope-browser| modules/convert/test/web/convert.test.ts > Chromium convert > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/convert/test/web/convert.test.ts > Firefox convert > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/convert/test/web/convert.test.ts > Firefox convert > loads separate runtime/markup bundles, data first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/convert/test/web/convert.test.ts:33:7
+     31|   describe(name + ' convert', () => {
+     32|     for (const first of [true, false])
+     33|       it(
+       |       ^
+     34|         'loads separate runtime/markup bundles, data first=' + first,
+     35|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[64/169]⎯
+
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Firefox data > loads separate runtime/markup bundles, data first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/data/test/web/browser.test.ts:35:7
+     33|   describe(name + ' data', () => {
+     34|     for (const first of [true, false])
+     35|       it(
+       |       ^
+     36|         'loads separate runtime/markup bundles, data first=' + first,
+     37|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[65/169]⎯
+
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Firefox derive > separate bundles; derive first=true
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Firefox derive > separate bundles; derive first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/derive/test/web/browser.test.ts:36:7
+     34|   describe(name + ' derive', () => {
+     35|     for (const first of [true, false])
+     36|       it(
+       |       ^
+     37|         'separate bundles; derive first=' + first,
+     38|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[66/169]⎯
+
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Chromium > focuses component internals through dotted paths
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/focus/test/web/focus.test.ts:122:5
+    120|       expect(await active()).toBe('b');
+    121|     });
+    122|     it('focuses component internals through dotted paths', async () =>…
+       |     ^
+    123|       const code = await bundle(new URL('packages/web/src/components.t…
+    124|       await page.addScriptTag({ type: 'module', content: code });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[67/169]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/nested-text.test.ts > Firefox bound font data and nested font catalogs refresh independently
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/nested-text.test.ts:21:41
+     19|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     20| ] as const)
+     21|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     22|     `${name} bound font data and nested font catalogs refresh independ…
+     23|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[68/169]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/options.test.ts > Chromium authored font options text-effects→fonts-options: rendered axes, features, binding and Canvas fallback
+ FAIL  |scope-browser| modules/fonts/test/web/options.test.ts > Chromium authored font options fonts-options→text-effects→text: rendered axes, features, binding and Canvas fallback
+ FAIL  |scope-browser| modules/fonts/test/web/options.test.ts > Firefox authored font options fonts-options→text-effects→text: rendered axes, features, binding and Canvas fallback
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/options.test.ts:27:43
+     25|     ['fonts-options', 'text-effects', 'text'],
+     26|   ])
+     27|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     28|       `${name} authored font options ${order.join('→')}: rendered axes…
+     29|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[69/169]⎯
+
+ FAIL  |scope-browser| modules/fonts/test/web/text-integration.test.ts > Chromium fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/fonts/test/web/text-integration.test.ts:43:43
+     41|     ['fonts-text', 'text', 'assets'],
+     42|   ])
+     43|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     44|       `${name} fonts/text ${order.join('→')}: readiness, layout, repla…
+     45|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[70/169]⎯
+
+ FAIL  |scope-browser| modules/host/test/web/browser.test.ts > Firefox host > separate bundles; host first=true
+ FAIL  |scope-browser| modules/host/test/web/browser.test.ts > Firefox host > separate bundles; host first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host/test/web/browser.test.ts:34:7
+     32|   describe(name + ' host', () => {
+     33|     for (const first of [true, false])
+     34|       it(
+       |       ^
+     35|         'separate bundles; host first=' + first,
+     36|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[71/169]⎯
+
+ FAIL  |scope-browser| modules/host-edit/test/web/browser.test.ts > Chromium host-edit > separate bundles in both load orders: edit first=true
+ FAIL  |scope-browser| modules/host-edit/test/web/browser.test.ts > Chromium host-edit > separate bundles in both load orders: edit first=false
+ FAIL  |scope-browser| modules/host-edit/test/web/browser.test.ts > Firefox host-edit > separate bundles in both load orders: edit first=true
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-edit/test/web/browser.test.ts:26:7
+     24|   describe(name + ' host-edit', () => {
+     25|     for (const first of [true, false])
+     26|       it(
+       |       ^
+     27|         'separate bundles in both load orders: edit first=' + first,
+     28|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[72/169]⎯
+
+ FAIL  |scope-browser| modules/host-edit/test/web/seams.test.ts > Firefox host seams > retains repeat animation through icon.data, and shares source parsing/decode with isolated images
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-edit/test/web/seams.test.ts:24:5
+     22| ] as const)
+     23|   describe(name + ' host seams', () => {
+     24|     it('retains repeat animation through icon.data, and shares source …
+       |     ^
+     25|       if (!existsSync(executablePath)) throw Error('browser absent');
+     26|       const browser = await engine.launch({ executablePath, headless: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[73/169]⎯
+
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: contain shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: fit-width shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: fit-height shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: none shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > canvas: layout root seam resizes/reflows with a stub and restores authored size
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > canvas: settles through host resize, zero dimensions, disconnect/reconnect and renderer changes
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > accepts a size before load and clears an override without leaving layout state behind
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > preserves the unrequested SVG grid/bleed default, including after fit removal
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/host-fit/test/web/fit.test.ts:75:5
+     73|       await browser?.close();
+     74|     });
+     75|     beforeEach(async () => {
+       |     ^
+     76|       page = await browser.newPage();
+     77|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[74/169]⎯
+
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: fill shares drawing, pointer and semantic matrices
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-fit/test/web/fit.test.ts:91:21
+     89|     });
+     90|     for (const renderer of ['svg', 'canvas']) {
+     91|       it.each(cases)(
+       |                     ^
+     92|         `${renderer}: %s shares drawing, pointer and semantic matrices…
+     93|         async (fit, sx, sy, tx, ty) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[75/169]⎯
+
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: fill shares drawing, pointer and semantic matrices
+ FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > canvas: layout root seam resizes/reflows with a stub and restores authored size
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/host-fit/test/web/fit.test.ts:87:5
+     85|       await page.evaluate(() => new Promise(requestAnimationFrame));
+     86|     });
+     87|     afterEach(async () => {
+       |     ^
+     88|       await page?.close();
+     89|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[76/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/input/test/web/bf4-writes.test.ts:69:5
+     67|     };
+     68|
+     69|     it('B19: real pointer and key writes reach plain, nested and repea…
+       |     ^
+     70|       await load(doc);
+     71|       const icon = page.locator('anima-icon');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[77/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Firefox > B19: real pointer and key writes reach plain, nested and repeated data
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/bf4-writes.test.ts:44:5
+     42|       await browser?.close();
+     43|     });
+     44|     beforeEach(async () => {
+       |     ^
+     45|       page = await browser.newPage();
+     46|       page.on('pageerror', (e) => console.error(e.message));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[78/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Firefox > B19: real pointer and key writes reach plain, nested and repeated data
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/bf4-writes.test.ts:61:18
+     59|     });
+     60|     afterEach(async () => {
+     61|       await page.close();
+       |                  ^
+     62|     });
+     63|     const load = async (doc: object) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[79/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit none
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > tears down and reloads without retaining the previous contact state
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > leaves legacy documents on the original pointer and keyboard path
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:73:5
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+     73|     beforeEach(async () => {
+       |     ^
+     74|       page = await browser.newPage();
+     75|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[80/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > keeps canvas input mapping aligned with SVG for a bleeding viewBox and fit none
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:84:5
+     82|       await page.evaluate((d) => document.querySelector('anima-icon')!…
+     83|     });
+     84|     afterEach(async () => page.close());
+       |     ^
+     85|     it('maps client positions through the actual SVG viewport matrix',…
+     86|       const r = await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[81/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Firefox components→focus→input→machine > dispatches one key route, traverses arrows/Tab once and preserves native activation
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:97:9
+     95|         }, 30000);
+     96|         afterAll(async () => browser?.close());
+     97|         beforeEach(async () => {
+       |         ^
+     98|           page = await browser.newPage();
+     99|           await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[82/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Chromium machine→input→focus→components > routes keys to a focused component descendant and validates unknown dotted events
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/input/test/web/integration.test.ts:203:9
+    201|             .toBe(0);
+    202|         });
+    203|         it('routes keys to a focused component descendant and validate…
+       |         ^
+    204|           await page.evaluate((d) => {
+    205|             const i = document.querySelector('anima-icon')!;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[83/169]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Chromium machine→input→focus→components > routes keys to a focused component descendant and validates unknown dotted events
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:112:9
+    110|           }, doc);
+    111|         });
+    112|         afterEach(async () => page.close());
+       |         ^
+    113|         const focused = () =>
+    114|           page.evaluate(() => document.querySelector('anima-icon')!.pl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[84/169]⎯
+
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=true
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/lists/test/web/lists.test.ts:34:7
+     32|   describe(name + ' lists', () => {
+     33|     for (const first of [true, false])
+     34|       it(
+       |       ^
+     35|         'retains state, DOM and contexts across reorder; lists first='…
+     36|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[85/169]⎯
+
+ FAIL  |scope-browser| modules/machine/test/web/browser.test.ts > Chromium machine > separate bundles and generic AniML fields; markup first=false
+ FAIL  |scope-browser| modules/machine/test/web/browser.test.ts > Firefox machine > separate bundles and generic AniML fields; markup first=true
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/machine/test/web/browser.test.ts:45:7
+     43|   describe(name + ' machine', () => {
+     44|     for (const markupFirst of [false, true])
+     45|       it(
+       |       ^
+     46|         'separate bundles and generic AniML fields; markup first=' + m…
+     47|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[86/169]⎯
+
+ FAIL  |scope-browser| modules/markup-animation/test/web/animation.test.ts > Firefox optional animation authoring > complete-then-lean preserves canonical output and recovers retained sources
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/markup-animation/test/web/animation.test.ts:59:87
+     57| ] as const)
+     58|   describe(name + ' optional animation authoring', () => {
+     59|     it.each(['lean-first', 'animation-first', 'complete-hooks', 'compl…
+       |                                                                                       ^
+     60|       '%s preserves canonical output and recovers retained sources',
+     61|       async (order) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[87/169]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > exposes metadata, time, mix, typed nodes and independent animation advance/apply
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > compiles declarative clocks in the browser and applies held/scrubbed frames
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > keeps stale handles detached after a new load
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > recovers a connected document when motion registers late
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:72:5
+     70|       await browser?.close();
+     71|     });
+     72|     beforeEach(async () => {
+       |     ^
+     73|       page = await browser.newPage();
+     74|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[88/169]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > exposes metadata, time, mix, typed nodes and independent animation advance/apply
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/motion/test/web/browser.test.ts:90:18
+     88|     });
+     89|     afterEach(async () => {
+     90|       await page.close();
+       |                  ^
+     91|     });
+     92|     it('exposes metadata, time, mix, typed nodes and independent anima…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[89/169]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:42:7
+     40|       ['index', 'nested', 'data', 'bind', 'components'],
+     41|     ])
+     42|       it('swaps live SVG/canvas instances with separate bundles: ' + o…
+       |       ^
+     43|         const page = await browser.newPage();
+     44|         try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[90/169]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > fits child drawing and pointer hit coordinates and exposes live outputs
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:130:5
+    128|         }
+    129|       });
+    130|     it('fits child drawing and pointer hit coordinates and exposes liv…
+       |     ^
+    131|       const page = await browser.newPage();
+    132|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[91/169]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > compiles component properties, remapped clocks and output elements in a lean browser
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:180:5
+    178|     });
+    179|
+    180|     it('compiles component properties, remapped clocks and output elem…
+       |     ^
+    181|       const page = await browser.newPage();
+    182|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[92/169]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > keeps the authored blue foreground after dynamic slot reuse in SVG and canvas
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:223:5
+    221|       }
+    222|     });
+    223|     it('keeps the authored blue foreground after dynamic slot reuse in…
+       |     ^
+    224|       const page = await browser.newPage();
+    225|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[93/169]⎯
+
+ FAIL  |scope-browser| modules/paint/test/web/paint-geometry.test.ts > Firefox paint geometry > renders every shape and morph with the shared scene attributes, using absolute browser dashes
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/paint/test/web/paint-geometry.test.ts:37:5
+     35| for (const [name, type, executablePath] of browsers) {
+     36|   describe.skipIf(!executablePath)(name + ' paint geometry', () => {
+     37|     it('renders every shape and morph with the shared scene attributes…
+       |     ^
+     38|       const browser = await type.launch({ executablePath, headless: tr…
+     39|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[94/169]⎯
+
+ FAIL  |scope-browser| modules/surface/test/web/surface.test.ts > Chromium surface pixels: image, modulation, slices and independent feather
+ FAIL  |scope-browser| modules/surface/test/web/surface.test.ts > Firefox surface pixels: image, modulation, slices and independent feather
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/surface/test/web/surface.test.ts:23:3
+     21|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     22| ] as const) {
+     23|   it(
+       |   ^
+     24|     name + ' surface pixels: image, modulation, slices and independent…
+     25|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[95/169]⎯
+
+ FAIL  |scope-browser| modules/text/test/web/live-runs.test.ts > Chromium live list and typed styles match literal SVG/canvas controls after mutation
+ FAIL  |scope-browser| modules/text/test/web/live-runs.test.ts > Firefox live list and typed styles match literal SVG/canvas controls after mutation
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/live-runs.test.ts:26:41
+     24|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     25| ] as const)
+     26|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     27|     `${name} live list and typed styles match literal SVG/canvas contr…
+     28|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[96/169]⎯
+
+ FAIL  |scope-browser| modules/text/test/web/shorthand.test.ts > Chromium semantic reads before/after shorthand writes preserve SVG and canvas drawing
+ FAIL  |scope-browser| modules/text/test/web/shorthand.test.ts > Firefox semantic reads before/after shorthand writes preserve SVG and canvas drawing
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/shorthand.test.ts:25:41
+     23|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     24| ] as const)
+     25|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     26|     `${name} semantic reads before/after shorthand writes preserve SVG…
+     27|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[97/169]⎯
+
+ FAIL  |scope-browser| modules/text/test/web/text.test.ts > Firefox text index→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+ FAIL  |scope-browser| modules/text/test/web/text.test.ts > Firefox text text→index: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+ FAIL  |scope-browser| modules/text/test/web/text.test.ts > Firefox text index→paint→components→data→lists→componentpaint→text: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+ FAIL  |scope-browser| modules/text/test/web/text.test.ts > Firefox text index→text→componentpaint→lists→data→components→paint: prefix metrics, escaped retained SVG, host replacement and canvas pixels
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text/test/web/text.test.ts:37:43
+     35|     ['index', 'text', 'componentpaint', 'lists', 'data', 'components',…
+     36|   ])
+     37|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     38|       `${name} text ${order.join('→')}: prefix metrics, escaped retain…
+     39|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[98/169]⎯
+
+ FAIL  |scope-browser| modules/text-effects/test/web/effects.test.ts > Firefox effects text→text-effects→canvas: SVG/canvas transforms, opacity, auto direction and retained animation
+ FAIL  |scope-browser| modules/text-effects/test/web/effects.test.ts > Firefox effects text-effects→canvas→text: SVG/canvas transforms, opacity, auto direction and retained animation
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text-effects/test/web/effects.test.ts:28:43
+     26|     ['text-effects', 'canvas', 'text'],
+     27|   ])
+     28|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     29|       `${name} effects ${order.join('→')}: SVG/canvas transforms, opac…
+     30|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[99/169]⎯
+
+ FAIL  |scope-browser| modules/text-input/test/web/field.browser.test.ts > Firefox fields reverse: native editing, semantics, selection, clipboard and lifecycle
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text-input/test/web/field.browser.test.ts:54:43
+     52| ] as const) {
+     53|   for (const reversed of [false, true])
+     54|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     55|       `${name} fields ${reversed ? 'reverse' : 'forward'}: native edit…
+     56|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[100/169]⎯
+
+ FAIL  |scope-browser| modules/text-input/test/web/field.browser.test.ts > Firefox multiline, password privacy, limits and select-on-focus
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text-input/test/web/field.browser.test.ts:248:41
+    246|       30000,
+    247|     );
+    248|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+    249|     `${name} multiline, password privacy, limits and select-on-focus`,
+    250|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[101/169]⎯
+
+ FAIL  |scope-browser| modules/text-input/test/web/placeholder.browser.test.ts > Chromium placeholder paint, default opacity and native editing recover SVG/canvas pixels
+ FAIL  |scope-browser| modules/text-input/test/web/placeholder.browser.test.ts > Firefox placeholder paint, default opacity and native editing recover SVG/canvas pixels
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/text-input/test/web/placeholder.browser.test.ts:35:41
+     33|   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefo…
+     34| ] as const)
+     35|   it.skipIf(!existsSync(executablePath))(
+       |                                         ^
+     36|     `${name} placeholder paint, default opacity and native editing rec…
+     37|     async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[102/169]⎯
+
+
+ Test Files  55 failed | 249 passed | 13 skipped (317)
+      Tests  143 failed | 9095 passed | 82 skipped | 54 todo (9374)
+   Start at  09:53:41
+   Duration  1102.35s (tests 90%, import 9%, transform 1%)

@@ -255,6 +255,7 @@ function attach(icon: AnimaIcon) {
       icon.shadowRoot!.append(style, box);
       update();
     }
+    if (Icon.viewBox) layout(); // seam(P7-3): only host-fit needs draw-time matrix refresh.
   });
   const step = p.step;
   p.step = function (...args) {
@@ -266,7 +267,8 @@ function attach(icon: AnimaIcon) {
   const observer = new MutationObserver(update);
   observer.observe(icon, {
     attributes: true,
-    attributeFilter: ['a11y', 'aria-hidden', 'fit', 'align'],
+    // seam(P7-3): the canonical alignment attribute also moves semantic bounds.
+    attributeFilter: ['a11y', 'aria-hidden', 'fit', 'align', 'alignment'],
   });
   const resize = new ResizeObserver(layout);
   resize.observe(icon);

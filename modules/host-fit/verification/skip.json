@@ -1,0 +1,22 @@
+{
+  "status": "skip",
+  "rows": [
+    "host-api.align-top-left",
+    "host-api.align-top-center",
+    "host-api.align-top-right",
+    "host-api.align-center-left",
+    "host-api.align-center",
+    "host-api.align-center-right",
+    "host-api.align-bottom-left",
+    "host-api.align-bottom-center",
+    "host-api.align-bottom-right",
+    "host-api.artboard-size"
+  ],
+  "reason": "The installed local headless CLI exposes fit modes and a viewport, but rejects alignment and artboard-size commands. It cannot express the web host's alignment or read/set/reset size API. The capture retains both rejected commands; all nine alignments and independent size/reset/isolation vectors are tested in SVG and canvas on Chromium and Firefox. Responsive root layout remains pending integration, rather than being excused by this skip.",
+  "captureEvidence": [
+    "modules/host-fit/verification/native/scene.rml",
+    "modules/host-fit/verification/native/commands.txt",
+    "modules/host-fit/verification/native/session.txt"
+  ],
+  "tests": ["modules/host-fit/test/web/fit.test.ts"]
+}

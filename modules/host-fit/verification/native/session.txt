@@ -1,0 +1,40 @@
+ok fit: contain
+ok screenshot: frames/contain.png
+ok fit: cover
+ok screenshot: frames/cover.png
+ok fit: fill
+ok screenshot: frames/fill.png
+ok fit: fit-width
+ok screenshot: frames/fit-width.png
+ok fit: fit-height
+ok screenshot: frames/fit-height.png
+ok fit: none
+ok screenshot: frames/none.png
+ok fit: scale-down
+ok screenshot: frames/scale-down.png
+ok fit: layout
+ok screenshot: frames/layout.png
+err alignment: unknown command 'alignment', type ? for the list
+err artboard-size: unknown command 'artboard-size', type ? for the list
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:38:38.583] rive  deferred replay: inline
+[09:38:38.592] rive  built (87 bytes, 9ms, 0 errors, 0 warnings)
+[09:38:38.593] rive  showing HostFit [1/1]
+[09:38:38.593] rive  viewport 240x120 @1x
+[09:38:38.593] rive  viewport 240x120 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[09:38:38.623] rive  wrote frames/contain.png
+[09:38:38.624] rive  viewport 240x120 @1x
+[09:38:38.636] rive  wrote frames/cover.png
+[09:38:38.637] rive  viewport 240x120 @1x
+[09:38:38.654] rive  wrote frames/fill.png
+[09:38:38.658] rive  viewport 240x120 @1x
+[09:38:38.670] rive  wrote frames/fit-width.png
+[09:38:38.675] rive  viewport 240x120 @1x
+[09:38:38.686] rive  wrote frames/fit-height.png
+[09:38:38.691] rive  viewport 240x120 @1x
+[09:38:38.697] rive  wrote frames/none.png
+[09:38:38.698] rive  viewport 240x120 @1x
+[09:38:38.703] rive  wrote frames/scale-down.png
+[09:38:38.704] rive  viewport 240x120 @1x
+[09:38:38.709] rive  wrote frames/layout.png
