@@ -336,7 +336,7 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       guarded in events/data/machine, visual modules, converters and bind (−1 630 B). Budgets reset to
       ~10 % headroom. 18 carry-overs done (in scope 720 → 738 of 886, 83 %); `a11y.tree-bounds` → P6,
       four bindable-artboard rows → P7. Benchmark regression rerun: AniML 5/6 (item 1 owner-accepted).
-- [ ] **Downstream bug reports (2026-11-07, "Anima Controls" kit, `anima-kit` f1373fd; owner OK).**
+- [x] **Downstream bug reports (2026-11-07, "Anima Controls" kit, `anima-kit` f1373fd; owner OK).**
       Triage: fixed on `p6` in two bugfix tickets parallel to P6 (BF-1, BF-2), each confirmed first
       with a small scene and then covered by a regression test; none blocks P6.
       - [x] B1 (high, BF-1) data-bound values (theme colour) don't reach nested component instances.
@@ -383,9 +383,10 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
             guide and `anima docs`, verified on a geometry bind.
       - [x] B19 (BF-4) "write into data paths is broken": no details in the report; reproduce
             listener/`input.write-*` writes into data paths, or report not reproduced.
-      BF-4 implementation/report: `modules/a11y-dom/BF4-REPORT.md`; B14 follows circular-corner
-      decision but strict oracle rect-corners fails against its frozen reference (owner resolution needed).
-- [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
+      BF-4 implementation/report: `modules/a11y-dom/BF4-REPORT.md`; B14 circular corners: the
+      rect-corners oracle scene had encoded the old quadratic corner, so it was re-authored and
+      recaptured (no threshold change; decided, owner may revisit). All 19 rows closed (B16 by BF-5).
+- [x] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
       fonts (`FontFace`), bidi, OpenType features and variable axes from the browser (`measureText`,
@@ -398,7 +399,17 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       bound to data.
       **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
       which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
-- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner): hug content, padding/gaps, min/max, fixed sizes,
+      **Done (2026-11-08):** modules `text` (layout with a measurer contract, SVG/canvas drawing,
+      runs, styles, data/host access), `text-effects` (modifiers, ranges, follow-path, backgrounds,
+      bidi at 150 B), `fonts` (+ `fonts-text`, `fonts-options`: FontFace, fallback, replacement,
+      axes/features), `text-hit`, `a11y-text`, heavy `text-input` (native field over drawn text);
+      CLI: own OpenType reader (tool measurer, render, `--browser-text`, subset, flatten,
+      `import-font --google`). 66 rows done (in scope 738 → 804 of 886, 91 %), 18 moved to P7
+      (`docs/parity/P6-closure.md`). Benchmarks: settings card AniML 6/6 (item 1 met) ≥ Rive 5/6;
+      search card AniML 6/6 (after `contains`/`lower`) ≥ Rive 6/6. Gates: core+web 21,136,
+      largest scene 53,857, app-UI 98,890, runtime sum 120,281, authoring 14,717, Rive-class 130,077.
+- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner; plus
+      18 P6 text carry-overs listed in `docs/parity/P6-closure.md`): hug content, padding/gaps, min/max, fixed sizes,
       row/column stacks with alignment and distribution, nested containers, painted layout boxes,
       layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
       button whose background grows with a label of changing length and animates as it grows (no

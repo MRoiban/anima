@@ -612,8 +612,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
-  "phase": "P6",
-  "reason": "P6-9a: measured text layout boxes are independently tested with both measurers, clipping, transforms and cache invalidation. Exact painted path/stroke extents remain unimplemented (outside the owned text consumer); native/tool automatic line-gap difference is retained. This broader row stays planned without a widened tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: measured text layout boxes are independently tested with both measurers, clipping, transforms and cache invalidation. Exact painted path/stroke extents remain unimplemented (outside the owned text consumer); native/tool automatic line-gap difference is retained. This broader row stays planned without a widened tolerance."
  },
  {
   "id": "a11y.tree-visibility",
@@ -3230,8 +3230,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
-  "phase": "P6",
-  "reason": "P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima core/storage and bound host textStyle setters accept declared shared names/clearing and reject wrong values; both-engine drawing regressions pass. P6-9b setter rejection is native-side (dump reports artboard); native mutation comparison remains missing. Local style paint objects are static; diagnostics explain node-paint or typed-style binding instead."
  },
  {
   "id": "data.property-trigger",
@@ -10736,8 +10736,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
-  "phase": "P6",
-  "reason": "P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
  },
  {
   "id": "text.fit-layout-measure",
@@ -10747,8 +10747,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
-  "phase": "P6",
-  "reason": "P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
  },
  {
   "id": "text.flatten",
@@ -10758,8 +10758,8 @@
   "module": "text",
   "status": "planned",
   "test": "oracle/text-flatten",
-  "phase": "P6",
-  "reason": "P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
  },
  {
   "id": "text.font-assets",
@@ -10780,8 +10780,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-  "phase": "P6",
-  "reason": "P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
  },
  {
   "id": "text.font-fallback",
@@ -10802,8 +10802,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-  "phase": "P6",
-  "reason": "P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
  },
  {
   "id": "text.font-size",
@@ -10846,8 +10846,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-cursor; tests/oracle/text-input-cursor (native comparison pending)",
-  "phase": "P6",
-  "reason": "P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
  },
  {
   "id": "text.input-editable",
@@ -10868,8 +10868,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-focus-selection; tests/oracle/text-input-focus-selection (native comparison pending)",
-  "phase": "P6",
-  "reason": "P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
  },
  {
   "id": "text.input-ime",
@@ -10890,8 +10890,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-limits; tests/oracle/text-input-limits (native comparison pending)",
-  "phase": "P6",
-  "reason": "P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
  },
  {
   "id": "text.input-multiline",
@@ -10923,8 +10923,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending); modules/text-input/test/core/text-input-placeholder.test.ts; modules/text-input/test/web/placeholder.browser.test.ts; modules/text-input/test/core/drawing-conformance.test.ts",
-  "phase": "P6",
-  "reason": "P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: placeholderColor/placeholder-color authors solid placeholder paint; default normal ink at 50% opacity, independent caret/selection, restores on type/clear. Original-font conformance and tool/browser SVG/canvas tests cover both syntaxes/engines. Faithful native placeholder comparison remains missing; schema search finds no placeholder type/property in local CLI."
  },
  {
   "id": "text.input-selection",
@@ -10934,8 +10934,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection; tests/oracle/text-input-selection (native comparison pending)",
-  "phase": "P6",
-  "reason": "P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
  },
  {
   "id": "text.input-selection-rounding",
@@ -10945,8 +10945,8 @@
   "module": "text-input",
   "status": "planned",
   "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection-rounding; tests/oracle/text-input-selection-rounding (native comparison pending)",
-  "phase": "P6",
-  "reason": "P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
  },
  {
   "id": "text.input-text",
@@ -11044,8 +11044,8 @@
   "module": "text-effects",
   "status": "planned",
   "test": "modules/text-effects/test/core/effects.test.ts; modules/text-effects/test/web/effects.test.ts; spec/conformance/text-modifier-variation; tests/oracle/text-modifier-variation; tests/oracle/TEXT-EFFECTS-PROBES.md; tests/oracle/check-effects-contours.mjs",
-  "phase": "P6",
-  "reason": "P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9a: generated-font wght native comparison now accepted (max32, eight corner pixels over16). Arbitrary-axis Canvas drawing remains unimplemented; SVG font-variation-settings and tool outlines support axes. The full row stays planned; no generic-axis parity is claimed. P6-13 adds feature-detected native Canvas settings and wght fallback shared with style drawing; actual arbitrary-axis rendering remains unavailable on the tested hosts and this row is not promoted."
  },
  {
   "id": "text.opentype-features",
@@ -11088,8 +11088,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
-  "phase": "P6",
-  "reason": "P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
  },
  {
   "id": "text.overflow-fit",
@@ -11110,8 +11110,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
-  "phase": "P6",
-  "reason": "P6-9b: Retained native fitted font size differs; no passing tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native fitted font size differs; no passing tolerance."
  },
  {
   "id": "text.overflow-hidden",
@@ -11231,8 +11231,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list); P6-11 regressions in modules/text/test/{core,cli,web}/live-runs.test.ts",
-  "phase": "P6",
-  "reason": "P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-11: Anima list text/style writes draw correctly in tool outlines, --browser-text, and retained SVG/canvas in both engines; regression tests cover configured fields and literal controls. P6-9b blank drawing is in the native DataBindPath/list probe; a faithful native live-list comparison remains missing."
  },
  {
   "id": "text.script-direction",
@@ -11363,8 +11363,8 @@
   "module": "text",
   "status": "planned",
   "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
-  "phase": "P6",
-  "reason": "P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
+  "phase": "P7",
+  "reason": "Moved from P6 (orchestrator, 2026-11-08; decided, owner may revisit): P6 carry-over. P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
  },
  {
   "id": "text.word-break",

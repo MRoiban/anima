@@ -2566,3 +2566,32 @@ open. Final changed-scope evidence and deviations are in modules/text/REPORT.md.
 
 Final clean changed scope: 8,396 pass/65 TODO, both canvas engines. Fixed an orderSVG accessor
 cycle found by the full run; opposite backend import orders now have explicit regression tests.
+
+## P6 — text on the browser (2026-11-08, done)
+
+Text binds to the browser, per the owner's triage: one layout algorithm in core with a measurer
+contract; the browser measures with Canvas `measureText` and fonts load through `FontFace`; the
+CLI measures and renders with its own OpenType reader (TrueType/CFF outlines, kerning, `fvar`/`gvar`,
+WOFF/WOFF2), so `sample`, `validate` and conformance stay deterministic and browser-free;
+`--browser-text` renders complex scripts through the cached Chromium. Modules: `text` (6,144 B, full),
+`text-effects` (3,568 B, incl. bidi at 150 B), `fonts` + `fonts-text` + `fonts-options`, `text-hit`,
+`a11y-text`, and the heavy DOM-backed `text-input` (a native field over the drawn text; the browser
+handles typing, IME, clipboard and selection). Authoring split: `markup-animation` left `markup`
+(7,341 B) room for text markup. Bind expressions gained `contains` and `lower` after the search-card
+benchmark. 66 of 84 rows done; 18 move to P7 (`docs/parity/P6-closure.md`). In scope 804/886 (91 %).
+
+Downstream reports from the anima-kit app (19 bugs, B1–B19) were triaged into PLAN and fixed in five
+bugfix tickets parallel to P6, each confirmed first with a small scene; three did not reproduce on
+current code and keep their regression scenes. Decisions (owner may revisit): the overlay passes
+pointer input to the drawing, events bubble (Anima only prevents defaults it consumes), the host
+sizes to the viewBox aspect ratio, imported components keep their names, rect corners are circular
+(the rect-corners oracle scene was re-authored: it had encoded the old quadratic corner), compiled
+models are shared per document with the root chosen per host.
+
+Benchmarks (fresh agents, re-checked): settings card AniML 6/6 — item 1, labels from data, the
+owner's exit criterion, met — vs Rive 5/6; search card AniML 5/6 → 6/6 after `contains`/`lower` and
+`session --font`, vs Rive 6/6. Gates: core+web 21,136 B, largest scene 53,857, app-UI 98,890 (text,
+text-effects, fonts, fonts-text, a11y-text added), runtime sum 120,281, authoring 14,717, Rive-class
+130,077. Perf vs main (pinned, minimums): frames equal; bell compile was +5 % from a per-character
+`matchAll` in `markup-animation`, fixed to within noise (+2.9 %, −0.6 %, +2.1 %). Strict oracle 309
+cases, exit 0. The module-order test deadline rose to 90 s for the 579-case corpus.

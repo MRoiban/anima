@@ -84,8 +84,14 @@ export const PHASES: [string, string][] = [
     'Done: lists, assets, host editing, typed data guards, live keyframes and component controls',
   ],
   ['Pc', 'Done: the canvas backend (minimal), brought forward from P10'],
-  ['P6', 'Text, on the browser (shaping, FontFace, DOM-backed input)'],
-  ['P7', 'Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit'],
+  [
+    'P6',
+    'Done: text on the browser — layout, fonts (FontFace), effects, bidi, DOM-backed input, CLI text',
+  ],
+  [
+    'P7',
+    'Minimal layout (hug, padding, min/max, fixed, row/column stacks), host fit, P6 text carry-overs',
+  ],
   ['P8', 'Rigging'],
   ['P9', "Scripting — won't do (owner triage, 2026-11-07)"],
   ['P10', 'GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07)'],
@@ -106,8 +112,12 @@ export const FINISHED = [
   'P4e',
   'P5',
   'P5b',
+  'P6',
   'Pc',
 ];
+
+/** The phase being worked on: its rows may be done before the phase is finished. */
+export const IN_PROGRESS = ['P7'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 
@@ -135,12 +145,14 @@ export function lint(rows: Row[]): string[] {
     if (!phases.has(r.anima.phase)) out.push(`${r.id}: unknown phase ${r.anima.phase}`);
     if ((r.anima.status === 'maybe-later') !== (r.anima.phase === 'later'))
       out.push(`${r.id}: maybe-later rows (only) go in phase "later"`);
-    // seam(P6-8): wave tickets close individual P6 rows before phase/benchmark completion.
+    // Tickets close individual rows of the phase in progress before the phase itself finishes.
     if (
       (r.anima.status === 'done') !== FINISHED.includes(r.anima.phase) &&
-      !(r.anima.phase === 'P6' && r.anima.status === 'done')
+      !(IN_PROGRESS.includes(r.anima.phase) && r.anima.status === 'done')
     )
-      out.push(`${r.id}: finished phases require done; incremental done rows are allowed in P6`);
+      out.push(
+        `${r.id}: finished phases require done; done rows elsewhere only in ${IN_PROGRESS.join(', ')}`,
+      );
   }
   return out;
 }

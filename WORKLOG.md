@@ -1,10 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P6 text → P7 minimal layout (+ bindable artboards) → P8 rigging.
-State: branch p6 (777c0a5): wave 1 merged (P6-1 text core, P6-2 font tooling, P6-3 fonts runtime); downstream B1–B19 all closed. Gates: core+web 21,136; scene 53,201; app-UI 94,068 (text+fonts in); sum 113,443; authoring 15,226; Rive 119,089. Tight: text 6,053/6,144, markup 8,177/8,192, a11y 2,388/2,496.
-Running (briefs in design/p6/tickets/): P6-4a markup split, P6-4 integration + wave-1 closure, P6-5 text-effects + bidi, P6-6 text-input.
-Next: merge each; then P6-7 (hit testing, inferred-text, tree-bounds) after P6-4; then benchmarks (settings-card rerun item 1 must pass; search card), parity closure, LOG/PLAN, PR with six gates.
+Goal: smaller, agent-native Rive for animated web UI. Order: P6 text (done, PR pending) → P7 minimal layout (+ bindable artboards, + 18 P6 carry-overs) → P8 rigging.
+State: p6 complete: 66/84 P6 rows done, 18 → P7; in scope 804/886 (91 %); benchmarks met (settings AniML 6/6 vs Rive 5/6; search 6/6 vs 6/6); gates core+web 21,136, scene 53,857, app-UI 98,890, sum 120,281, authoring 14,717, Rive 130,077; perf within noise after the matchAll fix; strict oracle 309 exit 0.
+Next: open the P6 PR (six gates), wait for CI green, merge; then P7 design.
 Don't: push to main; edit oracle findings or benchmark records; raise ceilings; third-party font files; leave merged worktrees; --no-verify; modify anima-kit.
 
 ## Gotchas
@@ -332,3 +331,4 @@ Don't: push to main; edit oracle findings or benchmark records; raise ceilings; 
 - 2026-11-08 09:10 [orch]: merged P6-13 (a8c920c) into p6 → text-style axes/features authorable (JSON-valued attributes), bindable/animatable axis values, SVG applies all settings, canvas feature-detects (tested hosts: wght/kern only), tool reader measures at axis values with bounded GSUB; optional fonts-options entry; text 6,144/6,144 (no headroom), text-effects 3,568; rows stay planned (new native captures max 32, 9/11 px over 16, acceptance not assigned); scope fonts/text/text-effects/markup/conformance 3972 pass (Chromium); corpus 579
 - 2026-11-08 09:40 [orch]: accepted P6-13 native probes: text-variable-axes (wght 400/650/900) and text-opentype-features with AA-only budgets maxDiff 36 / 0.024306 % (14 px; measured 32 / 9 and 11 px), same rule as the other text cases; committed the deterministic generated feature font (tests/oracle/text-opentype-features/rive/feature-fixture.ttf, our own, byte-identical on regeneration) and stopped the capture script deleting it; strict oracle exit 0; text.variable-axes + text.opentype-features done
 - 2026-11-08 10:10 [orch]: perf guard: bell compile was +4–7 % vs main (frames equal); bisect + cpu profile → P6-4a's markup-animation `text()` built source offsets with a per-character `matchAll` (3.3 % self time); replaced by an equivalent index loop → bell compile vs main (min, 3 runs, taskset -c 5, load ~4) +2.9 %, −0.6 %, +2.1 %; frames equal (31.4/32.1, 31.4/31.3, 31.9/32.9 µs); toolbar compile equal; AniML outputs byte-identical (build-animl --check, 633 files)
+- 2026-11-08 10:50 [orch]: P6 closure: 18 planned rows → P7 (reason prefixed "P6 carry-over"; decided, owner may revisit), P6 in FINISHED, IN_PROGRESS=[P7] replaces the P6-8 seam in the parity lint (test updated), docs/parity/P6-closure.md, PLAN P6 [x] + downstream block [x] + stale BF-4 line fixed, LOG P6 entry (evidence: node tools/parity.ts --check; test:scope tools 501 pass)
