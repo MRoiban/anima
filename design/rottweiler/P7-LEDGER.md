@@ -42,3 +42,13 @@ Round 4 (P7 lead; reviewer GPT-6.1-sol xhigh; token usage: not reported). Scope:
 | R4-4 | major | `anima flatten` replaces a layout participant text with a group: intrinsic size 0, siblings move | fixed: `font-flatten` for text directly inside a `layout` container; text SPEC updated (modules/text/test/core/rt4.test.ts) |
 | R4-5 | major | a second layout-reflow bundle during a flight replaces reflow with a fresh state map; players stay busy/unsettled | fixed: `??=` keeps the installed reflow (modules/layout/test/web/rt4.test.ts, Chromium+Firefox) |
 | R4-6 | major | external selection with independent data and `$parent.x` refs is not checked against the destination parent → `dot.r: NaN` | deferred: real P7 data-artboard defect and not caused by R3-1 (a root-placed leaf reproduces it with the pre-R3-1 code); R3-1 only exposes more definitions. The fix (check `$parent` refs in `compatible`) needs ~80–100 B in `data-artboard-values`, which is full (1,523/1,536); an entry split is a refactor beyond this review. For the orchestrator |
+
+Round 5 (P7 lead; reviewer GPT-6.1-sol xhigh; token usage: not exposed). Scope: round-4 fix diff (a2c3e8b) plus any remaining P7 defect. R4-1, R4-2, R4-4 (nested groups, laid-out component roots, `--node`) and R4-5 held.
+
+| id | sev | finding | outcome |
+|---|---|---|---|
+| R5-1 | major | R4-3 wrote the caller's `doc.data`: a frozen document throws `Cannot assign to read only property 'data'` | fixed: data-artboard no longer touches the document. Data's `prepare` deep-copies `doc.data` and now calls an optional `normalize(document, model)` hook on that private copy; data-artboard rewrites artboard→component there. This replaces both the original clone swap and the R4-3 mutation, keeping identity for lists' `$parent` context (R4-3 test still passes). Test: modules/data-artboard/test/core/rt5.test.ts. data 6531→6540 B; data-artboard-values 1523→1449 B |
+| R5-2 | major | font readiness redraws text without re-resolving layout: a static hug container keeps 0×0 text boxes | fixed: layout exposes `refresh(p)`; the fonts text consumer's `refreshText` re-resolves layout before bumping draw revisions (no step, no input queue); layout SPEC updated (modules/layout/test/web/rt5.test.ts, Chromium+Firefox). layout 4056→4069 B, fonts-text 541→552 B |
+| R5-3 | minor | artboard normalization crashes on `$comment: null` in models or properties | fixed by the R5-1 rewrite: null-safe traversal (modules/data-artboard/test/core/rt5.test.ts) |
+
+R4-6 re-checked after R5-1 freed 87 B in `data-artboard-values`: still deferred. Lists adds every outer property as a `$parent.*` ref, so a correct check must find the refs the child actually uses (bindings/expressions). That is more than a smallest fix.

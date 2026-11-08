@@ -115,35 +115,16 @@ export const dataArtboard: Module & {
         }
       };
     };
-    const prepare = data.prepare!;
-    data.prepare = function (model, diag) {
-      // Keep the document identity: context hooks (lists' $parent) are keyed by it.
-      const original = model.doc,
-        raw = original.data;
-      if (
-        original.requires?.includes('dataartboard') &&
-        original.data &&
-        typeof original.data !== 'string'
-      ) {
-        const document = { ...original.data, models: { ...original.data.models } };
-        for (const [name, def] of Object.entries(document.models) as [
-          string,
-          { properties?: Record<string, { type: string }> },
-        ][]) {
-          if (!def.properties) continue;
-          const properties = { ...def.properties };
-          document.models[name] = { ...def, properties };
-          for (const [key, p] of Object.entries(properties))
-            if (p.type === 'artboard') properties[key] = { ...p, type: 'component' };
-        }
-        original.data = document;
-      }
-      try {
-        prepare.call(this, model, diag);
-      } finally {
-        // Restore only a swapped document: never add an absent key or write an untouched one.
-        if (original.data !== raw) original.data = raw;
-      }
+    // Artboard properties compile as component properties, in data's private document copy:
+    // the caller's (possibly frozen) document and its identity stay untouched.
+    data.normalize = (document, model) => {
+      if (model.doc.requires?.includes('dataartboard'))
+        // `$comment` entries (any value) have no properties.
+        for (const def of Object.values(document.models ?? {}) as ({
+          properties?: Record<string, { type: string } | null>;
+        } | null)[])
+          for (const p of Object.values(def?.properties ?? {}))
+            if (p?.type === 'artboard') p.type = 'component';
     };
     host.Data.prototype.artboard = function (path) {
       const handle = this.component(path);

@@ -27,6 +27,8 @@ const states = new WeakMap<
 >();
 let text: TextModule | undefined;
 export interface LayoutModule extends Module {
+  // seam(P7-2): font readiness re-resolves layout without stepping (fonts-text consumer).
+  refresh?: (p: Player) => void;
   reflow?: typeof reflow;
   validateReflow?: typeof validateReflow;
 }
@@ -259,6 +261,7 @@ export const layout: LayoutModule = {
   name: 'layout',
   after,
   entries,
+  refresh: (p) => states.has(p) && resolveLayout(p),
   init(registry, shared) {
     geometryModules = registry;
     if (V) {

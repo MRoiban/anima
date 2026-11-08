@@ -86,7 +86,8 @@ Each container keeps its previous resolved-input signature as its dirty flag. Un
 reuse the allocated boxes. A changed box advances that node's draw revision; it does not consume
 the renderer's dirty-slot reads. Constrained text measurements receive an explicit child width or maximum width when authored. Text is measured directly through `measureText(player, nodeId, maxWidth?)` from the text module;
 there is no fallback adapter. After top-down width allocation, text is remeasured within its actual
-width (including fill widths). Repeat measurement/allocation until the text sizes stop changing,
+width (including fill widths). When a browser font becomes ready, the fonts text consumer re-resolves
+layout for the affected players without stepping or consuming queued inputs. Repeat measurement/allocation until the text sizes stop changing,
 bounded by node count plus one passes so nested hug heights propagate to ancestors. The generated
 font's 100-unit line gap is included: size 2 yields 2.2 per line. Drawing uses the same constraint
 and font preparation without changing the text module's standalone measurement cache.
