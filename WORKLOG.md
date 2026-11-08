@@ -10,16 +10,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 - Goal: a smaller, agent-native Rive for animated web UI. Order: P7 (minimal layout, host fit,
   bindable artboards, 18 P6 text carry-overs) → P8 rigging (heavy).
-- Branch `p7` from main 8ffd714 (P6 merged in PR #21, MIT licence in PR #22). Design
-  `design/p7/DESIGN.md`; ticket briefs `design/p7/tickets/`.
-- Merged on p7: P7-1 text split (text 5,578 B + text-overflow, text-canvas; `measureText` hook),
-  P7-3 host fit (17 rows ready, `fit="layout"` waits for layout), P7-5 bindable artboards (partial).
-- Running: P7-2 layout core, P7-6 text carry-overs, P7-7 finish bindable artboards.
-- Next: merge P7-2 → wire `fit="layout"`, launch P7-4 animated reflow; then the reflow-card
-  benchmark (design §9), parity closure, `test:scope -- changed --no-browser` once, PR.
-- Gates now: core+web 21,165; largest scene 53,982; app-UI 99,988; runtime sum 122,300;
-  authoring 14,808; Rive-class 132,306 (ceilings 24,576 / 65,536 / 131,072 / 163,840 / 16,384 /
-  256,000). In scope 804/886 (91 %) before P7 closures.
+- Branch `p7` from main 8ffd714. Design `design/p7/DESIGN.md`; briefs `design/p7/tickets/`.
+- Merged on p7: P7-1 text split (+ `measureText`), P7-3 host fit (17 rows ready; `fit="layout"`
+  stubbed), P7-5 bindable artboards (partial), P7-2 layout core (16 rows done).
+- Running: P7-4 animated reflow + `measureText` and `fit="layout"` wiring, P7-6 text carry-overs,
+  P7-7 finish bindable artboards.
+- Next: merge them; reflow-card benchmark (design §9); parity closure (P7 rows: 16 done, 41 planned
+  before these tickets); `test:scope -- changed --no-browser` once; PR.
+- Gates now: core+web 21,165; largest scene 53,982; app-UI 103,294; runtime sum 125,716;
+  authoring 14,899; Rive-class 135,671. In scope 820/886.
 
 ## Owner
 
