@@ -2595,3 +2595,24 @@ text-effects, fonts, fonts-text, a11y-text added), runtime sum 120,281, authorin
 130,077. Perf vs main (pinned, minimums): frames equal; bell compile was +5 % from a per-character
 `matchAll` in `markup-animation`, fixed to within noise (+2.9 %, −0.6 %, +2.1 %). Strict oracle 309
 cases, exit 0. The module-order test deadline rose to 90 s for the 579-case corpus.
+
+## P7 — minimal layout, host fit, bindable artboards (2026-11-08, done)
+
+Layout is our own single-line flexbox subset in core (written from the CSS Flexbox spec, no Rive
+engine port), run each step after bindings and before drawing; conditions read the previous step's
+boxes. Modules: `layout` (4,084 B), `layout-reflow` (animated reflow; a retarget continues from the
+drawn box like a CSS transition), `host-fit` (eight fits, nine alignments, scene size and
+`fit="layout"`, which reflows the scene to the host), `data-artboard` (+ values; bindable artboards
+including components from other documents, with their images and fonts adopted per instance). The
+`text` entry was split first (text-overflow, text-canvas) to make room for `measureText`, which lets
+text participate in layout. The 18 P6 text carry-overs were closed by fixes, documented differences
+or evidenced skips, adding a heavy `fonts-info` (font metrics, coverage, glyph paths) and
+`a11y-bounds`. 56 of 57 rows done; `a11y.tree-bounds` → P8. In scope 860/886 (97 %).
+
+Benchmark (fresh agents, re-checked): reflow card AniML 6/6 with a 37-line scene, Rive 6/6 with 151
+lines plus a 59-line Luau controller (native interpolation restarts on interruption). The AniML run
+found `data set` throwing `Cannot redefine property: busy` when reflow and the host data API were both
+loaded; fixed with a regression test before the PR. Gates: core+web 21,165 B, largest scene 55,444,
+app-UI 104,592 (layout, layout-reflow, host-fit, text-overflow added), runtime sum 130,133,
+authoring 14,899, Rive-class 148,870. The memory file changed shape this phase: `WORKLOG.md` is the
+orchestrator's short memory; ticket agents keep notes in their own report files.

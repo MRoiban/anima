@@ -612,8 +612,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
-  "phase": "P7",
-  "reason": "P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned."
+  "phase": "P8",
+  "reason": "Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned."
  },
  {
   "id": "a11y.tree-visibility",

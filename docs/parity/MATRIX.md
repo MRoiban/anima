@@ -55,8 +55,8 @@ scope by the owner's triage of 2026-11-07).
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
 | [P6](#p6) — Done: text on the browser — layout, fonts (FontFace), effects, bidi, DOM-backed input, CLI text | 66 |
-| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks), host fit, P6 text carry-overs | 57 |
-| [P8](#p8) — Rigging | 25 |
+| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks), host fit, P6 text carry-overs | 56 |
+| [P8](#p8) — Rigging (heavy), plus the a11y tree-bounds carry-over | 26 |
 | [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
 | [P10](#p10) — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) | 0 |
 | [Maybe / later](#maybe-later) | 188 |
@@ -1276,12 +1276,6 @@ scope by the owner's triage of 2026-11-07).
 | `layout.spacing` | Gaps margins and padding | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-spacing/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-spacing; tests/oracle/layout-spacing |  |
 | `layout.visibility` | Layout display participation | modules/layout/core/registry.ts; modules/layout/SPEC.md; modules/layout/capabilities/layout-visibility/example.animl | layout | done | modules/layout/test/core/layout.test.ts; modules/layout/test/web/layout.test.ts; spec/conformance/layout-visibility; tests/oracle/layout-visibility |  |
 
-### Accessibility
-
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md | P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned. |
-
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
@@ -1307,7 +1301,7 @@ scope by the owner's triage of 2026-11-07).
 | `host-api.fit-none` | Fit: Unscaled | modules/host-fit/web/index.ts: <anima-icon fit="none"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
 | `host-api.fit-scale-down` | Fit: Scale down | modules/host-fit/web/index.ts: <anima-icon fit="scale-down"> (icon.fit); docs/WEB.md | layout | done | modules/host-fit/test/web/fit.test.ts; modules/host-fit/verification/native (native fits, 240x120, SVG and canvas, both engines); modules/host-fit/P7-3-REPORT.md |  |
 
-## P8 — Rigging <a id="p8"></a>
+## P8 — Rigging (heavy), plus the a11y tree-bounds carry-over <a id="p8"></a>
 
 ### Animation
 
@@ -1343,6 +1337,12 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.transform` | Transform constraint | new: transform constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-transform |
 | `rigging.translation` | Translation constraint | new: translation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-translation |
 | `rigging.weights` | Vertex bone weights | new: vertex bone weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-weights |
+
+### Accessibility
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md | Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned. |
 
 ## P9 — Scripting — won't do (owner triage, 2026-11-07) <a id="p9"></a>
 

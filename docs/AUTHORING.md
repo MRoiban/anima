@@ -682,7 +682,9 @@ same evaluator as property bindings. Spaces around subtraction avoid hyphenated 
 
 Sets within one action read one pre-action snapshot; separate actions see prior writes. Numbers
 clamp to their input bounds. Machine state `entry`/`exit` and transition `actions` JSON attributes
-accept the same actions. Emit `shared` on pulse entry and define its fields with
+accept the same actions, with the listener action keys as JSON:
+`<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`. Emit `shared` on pulse entry and define its fields with
 `<event-def name="shared" payload='{"count":{"type":"number","value":"{count}"},"channel":{"type":"string","value":"button"}}'/>`.
 Fields resolve at the end of the step. Run `anima schema listener`, `anima schema state` or `anima schema transition` to inspect
 the forms. See `modules/events/examples/share.animl` and its sample scripts for a complete share
