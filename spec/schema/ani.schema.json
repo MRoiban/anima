@@ -3632,6 +3632,37 @@
               }
             },
             "additionalProperties": false
+          },
+          "axes": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+            },
+            "additionalProperties": {
+              "type": "number"
+            },
+            "feature": "fonts"
+          },
+          "features": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "feature": "fonts"
           }
         },
         "additionalProperties": false
@@ -24541,6 +24572,37 @@
                       }
                     },
                     "additionalProperties": false
+                  },
+                  "axes": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "number"
+                    },
+                    "feature": "fonts"
+                  },
+                  "features": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      }
+                    },
+                    "propertyNames": {
+                      "pattern": "^\\$comment$|^[a-zA-Z0-9 ]{4}$"
+                    },
+                    "additionalProperties": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "feature": "fonts"
                   }
                 },
                 "additionalProperties": false

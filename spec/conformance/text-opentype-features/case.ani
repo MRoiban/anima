@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "text-opentype-features",
+  "grid": 20,
+  "requires": ["text", "fonts", "assets"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "lineHeight": 1,
+      "runs": [
+        {
+          "text": "AV",
+          "style": "off"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "textStyles": {
+    "off": {
+      "font": "body",
+      "size": 2,
+      "features": {
+        "kern": 0
+      }
+    }
+  }
+}

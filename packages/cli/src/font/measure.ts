@@ -1,6 +1,7 @@
 import type { Diagnostic } from '@anima-format/core';
 import { fault } from './binary.ts';
 import { Font } from './reader.ts';
+import { featureTags, substitute } from './features.ts';
 
 // DESIGN §4. Kept local so CLI can be developed before the optional text module lands.
 export type FontSpec = {
@@ -71,6 +72,23 @@ export class ToolMeasurer implements TextMeasurer {
     });
   }
   axes(spec: FontSpec, font = this.resolve(spec)): Record<string, number> {
+    for (const [tag, value] of Object.entries(spec.axes ?? {})) {
+      if (!font.axes.some((a) => a.tag === tag))
+        fault('unknown variation axis ' + tag, 'font-axis');
+      if (!Number.isFinite(value)) fault('variation coordinate must be finite', 'font-axis');
+    }
+    for (const [tag, value] of Object.entries(spec.features ?? {})) {
+      if (!Number.isInteger(value) || value < 0)
+        fault('feature value must be a nonnegative integer', 'font-feature');
+      if (!featureTags(font).has(tag))
+        this.onDiagnostic?.({
+          code: 'font-feature',
+          severity: 'warning',
+          pointer: '/features/' + tag,
+          message: 'font has no feature ' + tag,
+          hint: 'choose a feature advertised by the font; absent features have no effect',
+        });
+    }
     return {
       ...(font.axes.some((a) => a.tag === 'wght') ? { wght: spec.weight } : {}),
       ...spec.axes,
@@ -85,16 +103,22 @@ export class ToolMeasurer implements TextMeasurer {
       clusters = graphemes(text),
       advances = new Float64Array(clusters.length),
       axes = this.axes(spec, font);
+    const shaped = substitute(font, text, spec.features);
     let pen = 0,
-      previous: number | undefined;
+      previous: number | undefined,
+      offset = 0,
+      gi = 0;
     clusters.forEach((cluster, i) => {
       if (i) pen += spec.tracking;
-      for (const char of cluster) {
-        const g = font.glyph(char.codePointAt(0)!);
+      offset += cluster.length;
+      while (gi < shaped.length && shaped[gi]!.start < offset) {
+        const g = shaped[gi++]!.glyph;
         if (previous !== undefined) pen += font.kerning(previous, g, spec.features) * scale;
         pen += font.advance(g, axes) * scale;
         previous = g;
       }
+      // A ligature's full advance belongs to its first grapheme; subsequent graphemes
+      // have zero advance. The tool does not invent font ligature-caret coordinates.
       advances[i] = pen;
     });
     return {
@@ -118,30 +142,32 @@ export class ToolMeasurer implements TextMeasurer {
       advanceY: number;
       tracking: number;
     }[] = [];
-    graphemes(text).forEach((cluster, i) => {
-      let first = true;
-      for (const char of cluster) {
-        const glyph = font.glyph(char.codePointAt(0)!),
-          current = {
-            glyph,
-            x: 0,
-            y: 0,
-            advanceX: font.advance(glyph, axes),
-            advanceY: 0,
-            tracking: i && first ? spec.tracking : 0,
-          },
-          previous = glyphs.at(-1);
-        if (previous) {
-          const pair = font.positionPair(previous.glyph, glyph, spec.features);
-          for (const key of ['x', 'y', 'advanceX', 'advanceY'] as const) {
-            previous[key] += pair.first[key];
-            current[key] += pair.second[key];
-          }
+    const clusters = [...new Intl.Segmenter('und', { granularity: 'grapheme' }).segment(text)];
+    let previousCluster = -1;
+    for (const shaped of substitute(font, text, spec.features)) {
+      const glyph = shaped.glyph;
+      const cluster = clusters.findIndex(
+        (c) => shaped.start >= c.index && shaped.start < c.index + c.segment.length,
+      );
+      const current = {
+          glyph,
+          x: 0,
+          y: 0,
+          advanceX: font.advance(glyph, axes),
+          advanceY: 0,
+          tracking: previousCluster >= 0 && cluster !== previousCluster ? spec.tracking : 0,
+        },
+        previous = glyphs.at(-1);
+      if (previous) {
+        const pair = font.positionPair(previous.glyph, glyph, spec.features);
+        for (const key of ['x', 'y', 'advanceX', 'advanceY'] as const) {
+          previous[key] += pair.first[key];
+          current[key] += pair.second[key];
         }
-        glyphs.push(current);
-        first = false;
       }
-    });
+      glyphs.push(current);
+      previousCluster = cluster;
+    }
     let pen = x,
       y = baseline;
     return glyphs

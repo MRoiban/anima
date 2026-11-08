@@ -64,7 +64,7 @@ export class FontController {
     return new FontFace(
       'anima-font-' + ++serial,
       typeof source === 'string' ? `url(${JSON.stringify(source)})` : source,
-      descriptors,
+      { weight: '1 1000', ...descriptors },
     ).load();
   }
   async add(face: FontFace, options: { weight?: number | string } = {}) {

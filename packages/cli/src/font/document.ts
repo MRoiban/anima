@@ -6,6 +6,7 @@ import { diagnostic, fault } from './binary.ts';
 import { Font } from './reader.ts';
 import { ToolMeasurer, shapingDiagnostic } from './measure.ts';
 import { subsetFont } from './subset.ts';
+import { featureTags } from './features.ts';
 
 export interface FontAsset {
   type: string;
@@ -98,6 +99,52 @@ export function documentFonts(
   }
   const walk = (v: unknown, pointer = '') => {
     if (!v || typeof v !== 'object') return;
+    const style = v as {
+      font?: string;
+      axes?: Record<string, number>;
+      features?: Record<string, number>;
+    };
+    if (
+      (style.axes || style.features) &&
+      measurer.fonts.size &&
+      /\/(?:styles|textStyles)\/[^/]+$/.test(pointer)
+    ) {
+      const spec = {
+        family: style.font ?? 'sans-serif',
+        size: 1,
+        weight: 400,
+        style: 'normal' as const,
+        tracking: 0,
+        axes: style.axes,
+        features: style.features,
+      };
+      let font: Font | undefined;
+      try {
+        font = measurer.resolve(spec);
+      } catch {
+        /* Missing font preflight owns this error. */
+      }
+      if (font) {
+        for (const tag of Object.keys(style.axes ?? {}))
+          if (!font.axes.some((a) => a.tag === tag))
+            diagnostics.push({
+              code: 'font-axis',
+              severity: 'error',
+              pointer: pointer + '/axes/' + escape(tag),
+              message: 'font has no variation axis ' + tag,
+              hint: 'use an axis listed by anima inspect-font',
+            });
+        for (const tag of Object.keys(style.features ?? {}))
+          if (!featureTags(font).has(tag))
+            diagnostics.push({
+              code: 'font-feature',
+              severity: 'warning',
+              pointer: pointer + '/features/' + escape(tag),
+              message: 'font has no feature ' + tag,
+              hint: 'choose a feature advertised by the font; absent features have no effect',
+            });
+      }
+    }
     for (const [k, child] of Object.entries(v)) {
       const p = pointer + '/' + escape(k);
       if (k === 'text' && typeof child === 'string')

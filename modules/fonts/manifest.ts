@@ -7,6 +7,7 @@ export default {
     web: [
       { name: 'fonts', budget: 2048 },
       { name: 'fonts-text', budget: 768, over: 'fonts' },
+      { name: 'fonts-options', budget: 4096, over: 'text' },
     ],
     adapters: {
       'packages/core/src/modules/fonts/index.ts': 'core/index.ts',
@@ -14,12 +15,14 @@ export default {
       'packages/markup/src/fonts.ts': 'markup/index.ts',
       'packages/web/src/fonts.ts': 'web/index.ts',
       'packages/web/src/fonts-text.ts': 'web/consumer.ts',
+      'packages/web/src/fonts-options.ts': 'web/options.ts',
     },
     exports: {
       'core:./fonts': 'packages/core/src/modules/fonts/index.ts',
       'markup:./fonts': 'packages/markup/src/fonts.ts',
       'web:./fonts': 'packages/web/src/fonts.ts',
       'web:./fonts-text': 'packages/web/src/fonts-text.ts',
+      'web:./fonts-options': 'packages/web/src/fonts-options.ts',
     },
     tests: [
       'modules/fonts/test/**/*.test.ts',
@@ -40,7 +43,7 @@ export default {
       'text-opentype-features',
       'text-font-metrics',
     ],
-    docs: ['spec/SPEC.md'],
+    docs: ['spec/SPEC.md', 'modules/fonts/SPEC.md'],
   },
   after,
 };

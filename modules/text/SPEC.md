@@ -158,3 +158,11 @@ keep top alignment and metric trimming independent of whether a line is first, a
 Anima's specified deterministic tool layout (see docs/research/rive-web-runtime.md). Browser
 automatic leading still omits lineGap because Canvas does not expose it; use explicit leading
 for matching browser/tool layout. No raster tolerance absorbs a baseline displacement.
+
+### Authored variable axes and OpenType features (P6-13)
+
+With `fonts` registered and declared, local and shared styles additionally accept `axes` and
+`features` maps. The font module extends the same style registry used by JSON validation,
+AniML and the schema. Settings, numeric axis addresses, tool shaping limits and browser/Canvas
+fallbacks are normative in [the fonts option contract](../fonts/SPEC.md). Compound AniML
+attributes use JSON, e.g. `axes='{"wght":650}'`; compact CSS tag-list strings are not accepted.

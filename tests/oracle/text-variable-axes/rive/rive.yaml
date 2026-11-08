@@ -1,0 +1,3 @@
+name: oracle-text-variable-axes
+logs:
+  file: build/runtime.log
