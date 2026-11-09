@@ -1,0 +1,83 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/p8-9b
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2630 tests | 3 failed | 2614 skipped) 25994ms
+   ❯ Chromium canvas (1315)
+     × spec/conformance/a11y-tree-bounds-feather/case.ani#0 239ms
+   ❯ Firefox canvas (1315)
+     × spec/conformance/a11y-tree-bounds-feather/case.ani#0 179ms
+     × spec/conformance/a11y-tree-bounds-clip/case.ani#0 198ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/a11y-tree-bounds-feather/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-feather/case.ani#0","max":247,"over":691,"percent":1.1996527777777777,"tolerance":{"max":128,"percent":0.5,"feature":"feather"},"diagnostics":[{"code":"unsupported-render","severity":"error","pointer":"/nodes/0/fill","message":"Canvas2D cannot render nonuniform local feather","hint":"use the SVG renderer or remove this feature"}]}: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unsupported-render",
++     "hint": "use the SVG renderer or remove this feature",
++     "message": "Canvas2D cannot render nonuniform local feather",
++     "pointer": "/nodes/0/fill",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/canvas/test/web/canvas.test.ts:439:55
+    437|               writeFileSync(prefix + '-' + suffix + '.png', PNG.sync.w…
+    438|           }
+    439|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+       |                                                       ^
+    440|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+    441|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/a11y-tree-bounds-feather/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-feather/case.ani#0","max":243,"over":677,"percent":1.1753472222222223,"tolerance":{"max":128,"percent":0.5,"feature":"feather"},"diagnostics":[{"code":"unsupported-render","severity":"error","pointer":"/nodes/0/fill","message":"Canvas2D cannot render nonuniform local feather","hint":"use the SVG renderer or remove this feature"}]}: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unsupported-render",
++     "hint": "use the SVG renderer or remove this feature",
++     "message": "Canvas2D cannot render nonuniform local feather",
++     "pointer": "/nodes/0/fill",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/canvas/test/web/canvas.test.ts:439:55
+    437|               writeFileSync(prefix + '-' + suffix + '.png', PNG.sync.w…
+    438|           }
+    439|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+       |                                                       ^
+    440|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+    441|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/a11y-tree-bounds-clip/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-clip/case.ani#0","max":64,"over":52,"percent":0.09027777777777778,"tolerance":{"max":2,"percent":0,"feature":"flat/gradient interiors"},"diagnostics":[]}: expected 64 to be less than or equal to 2
+ ❯ modules/canvas/test/web/canvas.test.ts:440:47
+    438|           }
+    439|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+    440|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+       |                                               ^
+    441|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+    442|         },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 13 passed | 2614 skipped (2630)
+   Start at  19:09:15
+   Duration  31.99s (tests 82%, import 12%, transform 7%)

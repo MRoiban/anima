@@ -1,1 +1,1 @@
-{"time":0,"values":{},"states":{},"events":[],"settled":true,"semantics":[{"id":"clipped","role":"group","states":{},"bounds":[7,2,6,8],"actions":[],"children":[{"id":"target","role":"img","states":{},"bounds":[7,2,6,8],"actions":[],"children":[]}]}]}
+{"time":0,"values":{},"states":{},"events":[],"settled":true,"semantics":[{"id":"clipped","role":"group","states":{},"bounds":[10,5,5,5],"actions":[],"children":[{"id":"target","role":"img","states":{},"bounds":[10,5,5,5],"actions":[],"children":[]}]}]}
