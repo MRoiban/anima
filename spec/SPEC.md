@@ -248,6 +248,38 @@ Slots are not animatable in 0.1. A paint colour that any track or pose writes mu
 literal as its document value, and every keyframe and pose value for it must be a hex literal
 (`color-slot-animated`).
 
+### Optional slot mixing (`colormix`)
+
+With `requires: ["colormix"]`, a node fill or stroke can replace `color` with
+`"mix": { "a": "off", "b": "on", "t": 0.3 }`. The endpoints are hex literals or declared
+slots with hex defaults; they remain static references. `currentColor` defaults are rejected
+(`colormix-color`) because static renderers cannot resolve page inheritance. Page overrides may
+still use `currentColor`. Slots themselves remain non-animatable.
+
+The number address `<id>.<fill|stroke>.mix.t` is animatable and bindable through the ordinary
+numeric channels. Its rest value must be in 0..1 (`colormix-range`); sampled, blended and bound
+values clamp to that interval after resolution. Ordinary numeric key/pose validation applies.
+AniML uses a child `<colorMix a="off" b="on" t="0.3"/>` (default fill), or
+`<colorMix paint="stroke" .../>`; install `@anima-format/web/markup-colormix` for browser
+compilation. Stroke width/cap/join keep their usual spelling. This module adds no syntax to the
+base AniML colour parser. JSON Schema and CLI schema describe `fill.mix` and `stroke.mix`.
+
+SVG renders `color-mix(in srgb, var(--anima-off, <default>), var(--anima-on, <default>) 30%)`.
+The second colour has weight t and the first 1−t. Literal-only and static SVG renders resolve the
+colours first; static renders use defaults or supplied slot overrides. Canvas resolves page slots
+from its owning host, including offscreen effects surfaces. All interpolate **premultiplied** sRGB
+channels and alpha, then unpremultiply (zero alpha gives zero RGB), round channels to the nearest
+8-bit value with ties upward, and clamp to 0..255. This matches CSS `color-mix(in srgb)`; it does
+not change §5's existing non-premultiplied colour-track interpolation.
+
+`mix` cannot accompany `color`, gradient `type`, or component `paint`, and is currently a node
+fill/stroke source, not an ordered `paints` entry (`colormix-source`). Invalid endpoint names or
+non-hex defaults are `colormix-color` at `/nodes/…/<paint>/mix/a` or `/b`, with a hex/default hint.
+An out-of-range rest weight is `colormix-range` at `…/mix/t`, with a 0..1 hint. Malformed objects,
+missing arguments, incorrect argument types and unknown fields retain registry diagnostics
+(`type`, `missing-key`, `unknown-key`) at the object/argument. Absent declarations use
+`undeclared-feature` at `…/mix`. A paint still needs exactly one colour/gradient/source.
+
 ## 7. Playback, blending and the step function *(normative)*
 
 A **player** holds: input values, pending triggers, and per layer: the current state, its **state
@@ -846,6 +878,10 @@ Invalid geometry uses registry bad-value diagnostics at the parameter/item; miss
 required geometry uses missing-key. New types without paint use undeclared-feature at type.
 
 ### Rectangle corner radii
+
+The small optional `corners` module also accepts this geometry without importing `paint`.
+Declare either `paint` or `corners` (registry feature `paint|corners`); existing paint scenes
+keep the same geometry and addresses. The browser entry is `@anima-format/web/corners`.
 
 Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
 Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).

@@ -1,0 +1,5 @@
+Original HEAD eb89d464f6c8cb8c7b5b2219b36d89bbdd0e2c72. Browser bundle gzip level 9.
+index 22564 base 22564
+paint 26619 base 22564
+paint-sampling 27725 base 22564
+markup-paint 22946 base 22564

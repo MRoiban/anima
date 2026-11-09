@@ -1,4 +1,6 @@
 // Independent geometry constructions; SVG path grammar, no Rive source.
+import { cornerPath, cornerEntries, cornerModel } from '../../corners/core/index.ts';
+import { outline, type Point } from '../../corners/core/outline.ts';
 import type { Module, ModuleEntry } from '../../../packages/core/src/modules.ts';
 import type { Shape, Prop } from '../../../packages/core/src/registry.ts';
 import { flatten, parsePath } from '../../../packages/core/src/path.ts';
@@ -40,10 +42,7 @@ const entries: ModuleEntry[] = [
     { cornerRadius: 0 },
   ),
   shape('triangle', ['x0', 'y0', 'width', 'height'], ['width', 'height']),
-  {
-    target: 'rect',
-    shapes: { corners: { k: 'tup', of: [num(0), num(0), num(0), num(0)], min: 4 } },
-  },
+  ...cornerEntries,
   {
     target: 'stroke',
     shapes: { scale: { k: 'str', of: ['normal', 'fixed'], markup: 'stroke-scale' } },
@@ -55,39 +54,6 @@ for (const e of entries) {
     e.shapes[k] = { k: 'num', min: k === 'sides' ? 3 : 2, max: 1024, int: true };
     Object.assign(e.props![k]!, { min: k === 'sides' ? 3 : 2, max: 1024 });
   }
-}
-
-type Point = [number, number];
-const pt = (p: Point) => p.map(fmt).join(' ');
-/** Half-edge cutbacks; rects use quarter-ellipse cubics, other polygons use quadratics. */
-function outline(points: Point[], radii: number[], circular = false): string {
-  const parts = points.map((v, i) => {
-    const prev = points[(i + points.length - 1) % points.length]!;
-    const next = points[(i + 1) % points.length]!;
-    const cut = (q: Point): Point => {
-      const len = Math.hypot(q[0] - v[0], q[1] - v[1]);
-      const t = len ? Math.min(0.5, radii[i % radii.length]! / len) : 0;
-      return [v[0] + (q[0] - v[0]) * t, v[1] + (q[1] - v[1]) * t];
-    };
-    return { v, a: cut(prev), b: cut(next) };
-  });
-  return (
-    parts
-      .map(
-        (q, i) =>
-          (i ? 'L' : 'M') +
-          pt(q.a) +
-          (circular
-            ? 'C' +
-              pt(q.a.map((v, j) => v + (q.v[j]! - v) * 0.5522847498307936) as Point) +
-              ' ' +
-              pt(q.b.map((v, j) => v + (q.v[j]! - v) * 0.5522847498307936) as Point)
-            : 'Q' + pt(q.v)) +
-          ' ' +
-          pt(q.b),
-      )
-      .join('') + 'Z'
-  );
 }
 
 // Expand implicit command repetitions. Arc flags are individual digits, including packed flags.
@@ -134,9 +100,7 @@ export const geometry: Module = {
   model(n, key) {
     if (key === 'd' && n.type === 'path' && n.d !== undefined)
       return { prop: { type: 'path', feature: 'paint' }, rest: n.d! };
-    const m = /^corners\.([0-3])$/.exec(key);
-    if (n.type === 'rect' && m && n.raw.corners)
-      return { prop: { type: 'number', min: 0, feature: 'paint' }, rest: n.raw.corners[+m[1]!] };
+    return cornerModel(n, key);
   },
   value(addr, value, pointer, diag) {
     if (typeof value !== 'string')
@@ -199,7 +163,7 @@ export const geometry: Module = {
       !(n.type === 'path' && p.addrs.includes(n.id + '.d'))
     )
       return;
-    return flatten(parsePath(sampledPath(p, i)!));
+    return flatten(parsePath(cornerPath(p, i) ?? sampledPath(p, i)!));
   },
   draw: {
     tree(model, tree) {
@@ -209,30 +173,26 @@ export const geometry: Module = {
       });
     },
     frame(p, i, data) {
-      const d = sampledPath(p, i);
+      const d = cornerPath(p, i) ?? sampledPath(p, i);
       if (d !== undefined) data.geometry = { kind: 'path', d };
-      if (p.model.nodes[i]!.raw.stroke?.scale === 'fixed')
-        for (const paint of data.paints) if (paint.kind === 'stroke') paint.scale = 'fixed';
     },
   },
 };
 function sampledPath(p: Player, i: number): string | undefined {
-  const a: { d?: string } = {};
-  const n = p.model.nodes[i]!,
-    r = n.raw;
+  const n = p.model.nodes[i]!;
   const v = (k: string, def = 0) => p.num(i, k, def);
   const type: string = n.type;
-  if (type === 'path') a.d = (p.value(n.id + '.d') as string) ?? n.d!;
+  if (type === 'path') return (p.value(n.id + '.d') as string) ?? n.d!;
   else if (type === 'ellipse') {
     const cx = v('cx'),
       cy = v('cy'),
       rx = v('rx'),
       ry = v('ry');
-    a.d = `M${fmt(cx - rx)} ${fmt(cy)}a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(2 * rx)} 0a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(-2 * rx)} 0Z`;
+    return `M${fmt(cx - rx)} ${fmt(cy)}a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(2 * rx)} 0a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(-2 * rx)} 0Z`;
   } else if (type === 'polygon' || type === 'star') {
     const star = type === 'star',
       count = Math.round(v(star ? 'points' : 'sides')) * (star ? 2 : 1);
-    a.d = outline(
+    return outline(
       Array.from({ length: count }, (_, j): Point => {
         const angle =
           ((star ? -90 : v('rotation') - 90) * Math.PI) / 180 + (j * Math.PI * 2) / count;
@@ -246,26 +206,7 @@ function sampledPath(p: Player, i: number): string | undefined {
       y = v('y0'),
       w = v('width'),
       h = v('height');
-    a.d = `M${fmt(x + w / 2)} ${fmt(y)}L${fmt(x + w)} ${fmt(y + h)}L${fmt(x)} ${fmt(y + h)}Z`;
-  } else if (type === 'rect' && r.corners) {
-    // A layout participant draws in its allocated box, normalized to the origin.
-    const box = (
-        p as Player & { drawnLayoutBox?(id: string): Record<string, number> | undefined }
-      ).drawnLayoutBox?.(n.id),
-      x = box ? 0 : r.x0,
-      y = box ? 0 : r.y0,
-      w = box ? box.width! : v('w'),
-      h = box ? box.height! : v('h');
-    a.d = outline(
-      [
-        [x, y],
-        [x + w, y],
-        [x + w, y + h],
-        [x, y + h],
-      ],
-      [0, 1, 2, 3].map((j) => v('corners.' + j)),
-      true,
-    );
+    return `M${fmt(x + w / 2)} ${fmt(y)}L${fmt(x + w)} ${fmt(y + h)}L${fmt(x)} ${fmt(y + h)}Z`;
   }
-  return a.d;
+  return undefined;
 }
