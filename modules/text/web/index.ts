@@ -15,12 +15,15 @@ registerTextMeasurer(browserMeasurer());
 let previous = Icon.orderSVG;
 // Text roots cache layouts, SVG viewports cache paint ids, hosts mark font subscriptions.
 const signatures = new WeakMap<Element, object | string | boolean>();
+const paints = new WeakMap<Element, string>();
 const order: NonNullable<typeof Icon.orderSVG> = (frame, elements) => {
   previous?.(frame, elements);
   for (const [el, dom] of elements) {
     if (el.role !== 'module:text') continue;
     const data = (frame.nodes[el.node] as TextDrawNode).text;
-    if (!data || signatures.get(dom) === data.layout) continue;
+    // Paints are resolved per frame; animated colors must rebuild even when layout is retained.
+    const paint = data && JSON.stringify(data.paints);
+    if (!data || (signatures.get(dom) === data.layout && paints.get(dom) === paint)) continue;
     const svg = dom.closest('svg');
     if (!svg) continue;
     const id = (signatures.get(svg) as string | undefined) ?? 'text-' + serial++;
@@ -36,6 +39,7 @@ const order: NonNullable<typeof Icon.orderSVG> = (frame, elements) => {
     };
     dom.replaceChildren(...textElements(frame, el.node).map(make));
     signatures.set(dom, data.layout);
+    paints.set(dom, paint!);
   }
 };
 Object.defineProperty(Icon, 'orderSVG', {
@@ -55,13 +59,18 @@ Icon.eventHook = (icon, kind, info) => {
   }
 };
 const active = new Set<WeakRef<AnimaIcon>>();
-document.fonts?.addEventListener('loadingdone', () => {
-  for (const ref of active) {
-    const icon = ref.deref();
-    if (!icon) active.delete(ref);
-    else if (icon.player) {
-      text.invalidateText(icon.player);
-      icon.attributeChangedCallback('renderer', null, icon.getAttribute('renderer'));
+document.fonts?.addEventListener('loadingdone', () =>
+  // Next task: every listener (including measurer cache clears) has run and the face is usable.
+  setTimeout(() => {
+    // Bump the font revision (keeping an options-aware measurer) so nested and list players relayout.
+    registerTextMeasurer();
+    for (const ref of active) {
+      const icon = ref.deref();
+      if (!icon) active.delete(ref);
+      else if (icon.player) {
+        text.invalidateText(icon.player);
+        icon.attributeChangedCallback('renderer', null, icon.getAttribute('renderer'));
+      }
     }
-  }
-});
+  }),
+);

@@ -96,8 +96,12 @@ export function unpack(input: Uint8Array): { tables: Map<string, Buffer>; flavor
     fault('expected TTF, OTF, WOFF or WOFF2', 'font-format');
   const n = b.u16(4);
   if (!n || n > 256) fault('invalid sfnt table count');
+  // Overlapping table records would otherwise multiply the normalized output past the limit.
+  let total = 0;
   for (let i = 0; i < n; i++) {
     const p = 12 + i * 16;
+    if ((total += b.u32(p + 12)) > MAX_FONT)
+      fault('font tables exceed the 32 MiB tool limit', 'font-limit');
     put(b.tag(p), b.slice(b.u32(p + 8), b.u32(p + 12)));
   }
   return { tables, flavor };

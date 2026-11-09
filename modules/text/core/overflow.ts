@@ -44,7 +44,7 @@ export const overflowText: TextOverflow = (input, out, build, limit, boxHeight, 
   }
   if (input.overflow === 'hidden' || input.overflow === 'ellipsis') {
     const all = out.lines;
-    out.lines = all.filter((l) => l.baseline + l.descent <= boxHeight);
+    out.lines = all.filter((l) => l.baseline - out.topTrim + l.descent <= boxHeight);
     if (input.overflow === 'ellipsis') {
       const line = out.lines.at(-1);
       if (line && (out.lines.length < all.length || line.width > limit)) {

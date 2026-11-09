@@ -3066,7 +3066,8 @@ CSS fallback. A failed replacement preserves the previous face. Browser decoding
 policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
 descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
 sources receive private family names, preventing cross-icon collisions. The latest replacement
-wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup, except that a
+completed replacement releases the superseded face once no name in that scope uses its family. Faces already in
 `document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
 counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
 Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode
@@ -3090,6 +3091,8 @@ faces sharing a family remain eligible for browser weight selection. Families ar
 insertion order after the authored CSS family list. Host fallback configuration survives source
 reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
 releases owned document font registrations; the next CSS/readiness use restores configured faces.
+With the `fonts-text` consumer, a disconnect likewise parks named asset faces and aliases (including
+child scopes); the same player's next `forModel`/CSS use restores them, a reload discards them.
 `icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
 invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
 browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed

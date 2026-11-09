@@ -47,6 +47,29 @@ export type FieldNode = TextDrawNode & { fieldBoxes?: Box[] };
 let text: TextModule;
 let semanticsRuntime: typeof a11y.runtime | undefined;
 let previousUpdate: typeof a11y.runtime.update;
+// Field boxes (animated or bound dimensions, as drawn) are set before the semantic signature,
+// so size changes refresh cached semantics.
+const refine: NonNullable<typeof a11y.runtime.refine> = (entries) => {
+  for (const e of entries) {
+    if (!config(e.p, e.i)) continue;
+    const w = e.p.prop(e.i, 'width') as number,
+      h = e.p.prop(e.i, 'height') as number;
+    const points = [
+      [0, 0],
+      [w, 0],
+      [0, h],
+      [w, h],
+    ].map(([x, y]) => apply(e.matrix, x!, y!));
+    const xs = points.map((p) => p[0]),
+      ys = points.map((p) => p[1]);
+    e.bounds = [
+      Math.min(...xs),
+      Math.min(...ys),
+      Math.max(...xs) - Math.min(...xs),
+      Math.max(...ys) - Math.min(...ys),
+    ];
+  }
+};
 const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
   const live = new Map(semanticsRuntime!.flat(cache.tree).map((n) => [n.id, n]));
   for (const e of cache.entries) {
@@ -60,20 +83,6 @@ const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
     if (!container || container.some((n) => n.states.modal)) continue;
     const raw = e.p.model.nodes[e.i]!.raw;
     const f = field(e.p, raw.id)!;
-    const points = [
-      [0, 0],
-      [raw.width, 0],
-      [0, raw.height],
-      [raw.width, raw.height],
-    ].map(([x, y]) => apply(e.matrix, x!, y!));
-    const xs = points.map((p) => p[0]),
-      ys = points.map((p) => p[1]);
-    e.bounds = [
-      Math.min(...xs),
-      Math.min(...ys),
-      Math.max(...xs) - Math.min(...xs),
-      Math.max(...ys) - Math.min(...ys),
-    ];
     container.push({
       id: e.id,
       role: 'text-field',
@@ -85,7 +94,7 @@ const update: NonNullable<typeof a11y.runtime.update> = (p, cache, old) => {
         obscured: !!c.obscured,
         focused: p.focused === e.id,
       } as SemanticNode['states'],
-      bounds: e.bounds,
+      bounds: e.bounds!, // set by `refine`
       actions: [],
       children: [],
     });
@@ -205,6 +214,7 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
       if (semanticsRuntime) {
         if (semanticsRuntime.update !== update) previousUpdate = semanticsRuntime.update;
         semanticsRuntime.update = update;
+        semanticsRuntime.refine = refine;
       }
       return {
         ...textinput,
@@ -320,32 +330,46 @@ export const textinput: Module & { field: typeof field; edit: typeof edit; selec
         const boxes: Box[] = [];
         if (p.focused === p.model.nodes[i]!.id) {
           const layout = text.textLayout(p, i);
+          const k = layout.scale,
+            full = drawing?.runs.map((r) => r.text).join('') ?? f.value;
+          let pos = 0;
           for (const line of layout.lines) {
             const gs = line.clusters;
+            // A line's logical range; a caret at its end stays here before a paragraph separator.
+            const from = gs[0]?.index ?? pos,
+              to = gs.at(-1) ? gs.at(-1)!.index + gs.at(-1)!.text.length : from,
+              sep = /^(\r\n|\n|\r)/.exec(full.slice(to))?.[0];
+            pos = to + (sep?.length ?? 0);
             const chosen = gs.filter((g) => g.index < f.end && g.index + g.text.length > f.start);
-            const first = chosen[0],
-              last = chosen.at(-1);
-            if (first && last)
+            // The union of selected advances; negative tracking or kerning can make them run left.
+            const edges = chosen.flatMap((g) => [g.x, g.x + g.advance]),
+              left = Math.min(...edges),
+              right = Math.max(...edges);
+            if (chosen.length)
               boxes.push({
-                x: first.x,
-                y: line.baseline - line.ascent,
-                width: last.x + last.advance - first.x,
-                height: line.ascent + line.descent,
+                x: left,
+                y: line.baseline - line.ascent * k,
+                width: right - left,
+                height: (line.ascent + line.descent) * k,
                 color: c.selectionColor ?? '#b3d4fc',
                 radius: c.selectionRadius ?? 0,
               });
             if (f.start === f.end) {
               const g = gs.find((g) => g.index >= f.start);
-              if (g || line === layout.lines.at(-1))
+              if (
+                f.start >= from &&
+                (f.start < to || (f.start === to && (sep || line === layout.lines.at(-1))))
+              ) {
                 boxes.push({
-                  x: g?.x ?? (gs.at(-1) ? gs.at(-1)!.x + gs.at(-1)!.advance : 0),
-                  y: line.baseline - line.ascent,
+                  x: g?.x ?? (gs.at(-1) ? gs.at(-1)!.x + gs.at(-1)!.advance : (line.x ?? 0)),
+                  y: line.baseline - line.ascent * k,
                   width: 0.06,
-                  height: line.ascent + line.descent,
+                  height: (line.ascent + line.descent) * k,
                   color: c.caretColor ?? '#000',
                   radius: 0,
                 });
-              if (g) break;
+                break;
+              }
             }
           }
         }

@@ -31,6 +31,8 @@ export const runtime: {
   bounds?: typeof import('./bounds.ts').paintedBounds;
   version?: number;
   enrich?: (entries: Entry[], track: <T>(read: () => T) => T) => void;
+  /** Runs after `enrich`, before the signature; owned by text-input so `enrich` can be replaced. */
+  refine?: (entries: Entry[]) => void;
   update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
 } = { caches, flat };
 function box(points: [number, number][]): SemanticNode['bounds'] {
@@ -53,6 +55,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
     };
     track(() => runtime.version);
     track(() => runtime.enrich);
+    track(() => runtime.refine);
     track(() => runtime.bounds);
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
@@ -154,6 +157,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
     };
     collect(this);
     runtime.enrich?.(entries, track);
+    runtime.refine?.(entries);
     const owners = new Map(entries.map((e) => [e.id, e]));
     for (const e of [...entries].reverse()) {
       if (e.bounds) continue;

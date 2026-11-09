@@ -26,7 +26,8 @@ export function installTextSemantics(
       if (e.config?.bounds) continue;
       const points = layout.lines.flatMap((l): [number, number][] => {
         const xs = l.clusters.flatMap((c) => [c.x, c.x + c.advance]);
-        const x = xs.length ? Math.min(...xs) : 0;
+        // A cluster-less line starts at its aligned, origin-shifted x.
+        const x = xs.length ? Math.min(...xs) : (l.x ?? 0);
         const y = l.baseline - l.ascent * layout.scale;
         let left = x,
           top = y,

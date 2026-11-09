@@ -46,6 +46,8 @@ export function documentCharacters(doc: unknown): string {
     else if (Array.isArray(value)) value.forEach((v) => visit(v, key));
     else if (value && typeof value === 'object') {
       if ('overflow' in value && value.overflow === 'ellipsis') chars.push('…');
+      // Obscured text input fields draw U+2022 in place of every character.
+      if ('obscured' in value && value.obscured === true) chars.push('•');
       for (const [k, v] of Object.entries(value)) visit(v, k);
     }
   };
