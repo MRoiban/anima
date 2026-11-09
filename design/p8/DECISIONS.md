@@ -45,3 +45,4 @@ RWR = `docs/research/rive-web-runtime.md`, GC = `docs/research/glyphy-compat.md`
 - D30 accepted: the 15,872 B authoring cap is the orchestrator's own and stays under the owner ceiling (16,384 B).
 - D14 accepted: the owner's ground rules allow following an MIT solver when the spec says so and NOTICE carries the attribution; the P8-2 coder may read Rive's MIT IK source for the algorithm only and writes Anima's code independently, with no text copied.
 - Unconfirmed Rive behaviours (list spacing, path wrap, copy constraints without a target): the spec's choice stands until the oracle runs; a mismatch is fixed or recorded as an intentional difference, never a widened budget.
+- D36 (orchestrator, 2026-11-09, asked by P8-6): the pose-pad node type is `posepad` in JSON and `<posepad>` in AniML. Every node type is one lowercase word and the AniML element equals the type; a kebab node name would need a node-name alias seam in `markup`, which must not grow.
