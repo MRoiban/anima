@@ -1,0 +1,91 @@
+{
+  "anima": "0.1",
+  "name": "switch",
+  "title": "Switch",
+  "grid": 24,
+  "viewBox": [0, 0, 24, 14],
+  "colors": {
+    "track": "#c9c7bd",
+    "accent": "#d97757",
+    "knob": "#ffffff"
+  },
+  "a11y": {
+    "role": "switch",
+    "label": "Notifications",
+    "activate": "on",
+    "pressed": "on"
+  },
+  "inputs": {
+    "on": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "bg",
+      "type": "path",
+      "d": "M7 1H17A6 6 0 0 1 17 13H7A6 6 0 0 1 7 1Z",
+      "fill": {
+        "color": "track"
+      }
+    },
+    {
+      "id": "lit",
+      "type": "path",
+      "d": "M7 1H17A6 6 0 0 1 17 13H7A6 6 0 0 1 7 1Z",
+      "opacity": 0,
+      "fill": {
+        "color": "accent"
+      }
+    },
+    {
+      "id": "thumb",
+      "type": "circle",
+      "center": [7, 7],
+      "r": 5,
+      "fill": {
+        "color": "knob"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "switch": {
+        "initial": "off",
+        "states": {
+          "off": {
+            "pose": {},
+            "on": [
+              {
+                "when": "on",
+                "to": "on",
+                "blend": 0.2,
+                "ease": "out"
+              }
+            ]
+          },
+          "on": {
+            "pose": {
+              "thumb.x": 10,
+              "lit.opacity": 1
+            },
+            "on": [
+              {
+                "when": "!on",
+                "to": "off",
+                "blend": 0.2,
+                "ease": "out"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "toggle": "on"
+    }
+  ]
+}
