@@ -2,6 +2,13 @@ import '@anima-format/core/all';
 import { expect, it } from 'vitest';
 import { load } from '@anima-format/core';
 
+type TestSkinNode = {
+  skin: {
+    bones: string[];
+    weights?: { point?: Record<string, number> }[];
+  };
+};
+
 const baseDoc = () => ({
   anima: '0.1',
   name: 'skin-diags',
@@ -37,7 +44,7 @@ it('limits explicit point weights to four influences', () => {
     { id: 'b3', type: 'bone', length: 10 } as never,
     { id: 'b4', type: 'bone', length: 10 } as never,
   );
-  const path = doc.nodes.at(-1)! as any;
+  const path = doc.nodes.at(-1)! as TestSkinNode;
   path.skin = {
     bones: ['arm', 'other', 'b2', 'b3', 'b4'],
     weights: [
@@ -52,7 +59,7 @@ it('limits explicit point weights to four influences', () => {
 
 it('warns and normalizes a non-unit sum', () => {
   const doc = baseDoc();
-  (doc.nodes[2] as any).skin.weights = [{ point: { arm: 0.25 } }, { point: { arm: 1 } }];
+  (doc.nodes[2] as TestSkinNode).skin.weights = [{ point: { arm: 0.25 } }, { point: { arm: 1 } }];
   const d = diagnostic(doc, 'rig-weight-sum');
   expect(d.pointer).toBe('/nodes/2/skin/weights/0/point');
   expect(d.severity).toBe('warning');
@@ -61,7 +68,7 @@ it('warns and normalizes a non-unit sum', () => {
 
 it('rejects influences outside skin.bones', () => {
   const doc = baseDoc();
-  (doc.nodes[2] as any).skin.weights = [{ point: { other: 1 } }, { point: { arm: 1 } }];
+  (doc.nodes[2] as TestSkinNode).skin.weights = [{ point: { other: 1 } }, { point: { arm: 1 } }];
   const d = diagnostic(doc, 'rig-weight-bone');
   expect(d.pointer).toBe('/nodes/2/skin/weights/0/point/other');
   expect(d.severity).toBe('error');
@@ -69,7 +76,7 @@ it('rejects influences outside skin.bones', () => {
 
 it('accepts @rest alongside declared bones', () => {
   const doc = baseDoc();
-  (doc.nodes[2] as any).skin.weights = [
+  (doc.nodes[2] as TestSkinNode).skin.weights = [
     { point: { arm: 0.5, '@rest': 0.5 } },
     { point: { '@rest': 1 } },
   ];

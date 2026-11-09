@@ -2,6 +2,13 @@ import '@anima-format/core/all';
 import { expect, it } from 'vitest';
 import { compile, decompile } from '@anima-format/markup';
 
+type SkinNode = {
+  skin?: {
+    bones: string[];
+    weights: { point: Record<string, number> }[];
+  };
+};
+
 it('authors skin with the child AniML spelling and round-trips it canonically', () => {
   const source = `<anima version="0.1" name="skin-markup" grid="20" requires="paint rig skin">
   <bone id="arm" length="10"/>
@@ -11,7 +18,7 @@ it('authors skin with the child AniML spelling and round-trips it canonically', 
 </anima>`;
   const result = compile(source);
   expect(result.diagnostics).toEqual([]);
-  expect((result.doc!.nodes as any[])[1]!.skin).toEqual({
+  expect((result.doc!.nodes as SkinNode[])[1]!.skin).toEqual({
     bones: ['arm'],
     weights: [{ point: { arm: 1 } }, { point: { arm: 1 } }],
   });

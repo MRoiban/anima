@@ -9,35 +9,38 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 ## Now
 
 - Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
-  (25 `rig` rows: bones, constraints, IK, skinning, meshes, weights, joystick, follow-path; heavy
-  modules on the canvas backend; path measurement internal), plus carry-overs: `a11y.tree-bounds`
-  and P4 R4-02 (hit and pointer-focus order follow composite `drawOrder`), and pre-player `toggle()`
-  queued like `set`/`fire`.
-- Main is c2b870ae: PR #37 (per-phase Rottweiler, ~190 fixes, `docs/changelog/2026-11-09-rottweiler.md`)
-  and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
-- P8 design merged (`design/p8/`: DESIGN, BENCHMARK, tickets P8-1…9, DECISIONS D1–D35 + my answers
-  and D36 `posepad` one word, D37 optional `posepad-handle` entry if `posepad` > 768 B, D38 bone
-  parents: root, component root, group, bone), D39 zero rest scale is `bad-value`, D40 core point
-  tuples (+16 B core+web), D41 budget resets (mesh 1,472, posepad 896, components 3,840), D42 no
-  mesh oracle budgets before a diff analysis, D43 mesh budgets 70/0.40 and 100/0.45 (seams and edge
-  only), D44 rig probes use rect art; unrotated 16/2/0, rotated 65/0.12; D45 IK 65/0.25; D46
-  follow-path 65/0.12 (re-authored curved probe; list spacing matched Rive per-child follow-path).
-  **18/26 rows done**: tree-bounds, 3 posepad, 2 mesh, 8 rig, 2 IK, 2 path follow. Open: rig
-  bone-chains, root-bones, transform (P8-1b on Terra, scheduled resume 23:35, worktree t3-8efe4597);
-  skin x3 (P8-4 running on GPT-5.6 Sol Web); scroll (P8-7); posepad handle (P8-6 thread, worktree
-  t3-480918c8). Then wave 3. Fixed on the branch: mesh probe lint, rig browser test filters to
-  `requires: rig`. Size exits 0; Rive-class 166,755. Disk 2.9 GB (95 %).
+  (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
+  carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
+- Main is 97b509f3 (PR #41 docs refresh, already merged into `p8-rigging`). No open issues or PRs.
+- **21/26 rows done** (2026-11-10). Open: `rigging.skin`, `rigging.weights`, `rigging.cubic-weights`
+  (P8-4 merged, oracle cases added at 16/65/0.25; its thread is cutting `skin` 2,754 → ≤ 1,536 B and
+  fixing lint/typecheck, so `p8-rigging` fails size, lint and typecheck until it lands);
+  `rigging.scroll` (P8-7 running); `rigging.transform` (copyTransform origin: AniML tuple animation,
+  binding, group-subtree bounds; `rig` has 19 B left, so an optional entry; resume the P8-1 thread,
+  worktree t3-8efe4597).
+- Queued: issues #39 (trim dasharray repeats at the endpoint) and #40 (5-decimal matrix rounding
+  zeroes tiny scales); brief `design/issues/BRIEF-39-40.md`; a Codex Web coder on branch
+  `issues-39-40` from main, running as the third agent; separate PR to main.
+- Owner (2026-11-10): when P8 is done, run /rottweiler on the whole phase (3 rounds, one Sol
+  reviewer on Codex Web, minimal fixes, ledger `design/rottweiler/P8-LEDGER.md`, push back with
+  reasons), then push: PR `p8-rigging` → main, merge on green CI.
+- Then wave 3: benchmark (`design/p8/BENCHMARK.md`, fresh agents on Codex Web), parity closure
+  (`docs/parity/P8-closure.md`), PLAN, LOG, perf A/B, full check, PR.
+- Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
+  follow-path 65/0.12, IK and skin 65/0.25, mesh 70/0.40 and 100/0.45, posepad 16/2/0. Rig probes
+  use rect art (circles differ from Rive by construction). Rig adds nothing to core checks (D47);
+  core grew only by point tuples (D40).
+- Gates (`p8-rigging`, before the skin fix): core+web 22,803; largest scene 59,373; app-UI 108,121;
+  runtime sum 137,408; authoring 15,358; Rive-class 168,769 (of 256,000).
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
   seam), `fill="mix(...)"` attribute spelling (needs a compiler colour-reader seam).
-- Gates (main): core+web 22,782; largest scene 57,781; app-UI 107,899; runtime sum 135,579;
-  authoring 15,017; Rive-class 155,805 (of 256,000).
 
 ## Owner
 
 - Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
-  medium), **one at a time** (owner, 2026-11-09). No Terra or other `codex` models.
+  medium), **at most 3 at a time** (owner, 2026-11-10; was 2). No Terra or other `codex` models.
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
   changes. Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
@@ -90,17 +93,23 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Parity lint: `IN_PROGRESS` in `tools/parity.ts` names the phase being worked on (now P8); add a
   finished phase to `FINISHED`.
 - An interrupted ticket resumes by messaging its thread (`t3_thread_send`); its worktree survives.
-  A Codex usage limit fails every running coder (2026-11-09, all five of wave 1): save each
+  A Codex usage limit fails every running coder (2026-11-09, all five of wave 1; Codex Web has its own
+  quota): save each
   worktree's uncommitted work first (`git add -A -N . && git diff HEAD > …/anima-worktree-backups/<branch>.patch && git reset -q`),
   then resume. Don't switch providers without asking the owner.
-- Terra at medium effort stops early (P8-2 committed only the scaffold and reported "partial"; P8-1b
-  stopped after the first analysis step). Briefs must list the steps in order and say that a
+- Oracle probes: draw rectangles, not circles; Anima's circle and Rive's ellipse differ by construction
+  (the `ellipse` case needs 90/0.4) and hide position errors. Classify over-16 pixels as edge or
+  interior before choosing a budget; an interior pixel is a real error.
+- After a coder reports, run its step-8 checks yourself on the merged tree: P8-4 skipped them and
+  left size, lint and typecheck failing; P8-5 left mesh probe lint errors.
+- Medium-effort coders stop early (Terra P8-2 committed only the scaffold; P8-1b stopped after its
+  first analysis step; Codex Web P8-4 skipped its final verification). Briefs must list the steps in order and say that a
   scaffold or a first checkpoint is not a final state; resume with the remaining steps spelled out.
-- Disk: `/` was 93 % (3.7 GB free) with five P8 worktrees; check `df -h /` before each wave and
+- Disk: `/` is 94 % (3.0 GB free, 2026-11-10); check `df -h /` before each wave and
   remove merged worktrees promptly.
-- Budget headroom (2026-11-09): markup-libraries 2,174/2,176, components 3,453/3,456, a11y-dom
-  2,154/2,176, markup-hooks 4,523/4,544, canvas 5,864/5,888, fonts 2,016/2,048, layout 4,057/4,096,
-  fonts-info 8,100/8,192 — growth there needs a split first (P8 draws on canvas: plan for it).
+- Budget headroom (2026-11-10): rig 3,069/3,072, markup-libraries 2,173/2,176, a11y-dom 2,147/2,176,
+  markup-hooks 4,523/4,544, canvas 5,862/5,888, fonts 2,013/2,048, layout 4,056/4,096, focus
+  3,408/3,456, fonts-info 8,103/8,192 — growth there needs a split first (an optional entry).
 - Disk fills during review waves: every reviewer gets a ~245 MB worktree and agents leave
   `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove only worktrees on an explicit list
   of finished branches — never by "clean + idle + name matches": a lead waiting on its reviewer is
@@ -116,5 +125,3 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
   only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
-- Ignored canvas test artifacts (`modules/canvas/test/web/artifacts/*-metrics.json`) fail
-  `npm run format:check` locally; delete them before checking.
