@@ -1,11 +1,10 @@
-// TODO: review dependencies and measured budget before implementation.
-export const after: string[] = [];
+export const after = ['rig', 'input', 'layout'];
 export default {
   ...{
     name: 'scroll',
     after: [],
     core: { entry: 'core/index.ts', export: 'scroll', svg: 'core/svg.ts', svgExport: 'scrollSVG' },
-    web: [{ name: 'scroll', budget: 5120 }],
+    web: [{ name: 'scroll', budget: 1024, heavy: true, over: 'rig' }],
     adapters: {
       'packages/core/src/modules/scroll/index.ts': 'core/index.ts',
       'packages/core/src/modules/scroll/svg.ts': 'core/svg.ts',
@@ -21,6 +20,7 @@ export default {
       'modules/scroll/test/**/*.test.ts',
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
     ],
     conformance: ['rigging-scroll'],
     docs: ['spec/SPEC.md'],

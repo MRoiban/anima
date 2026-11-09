@@ -1,3 +1,3 @@
 import type { SVGBackend } from '../../../packages/core/src/svg.ts';
-// TODO: SVG backend only; keep drawing data renderer-neutral.
+// Rig publishes the solved locals consumed by both renderers.
 export const scrollSVG: SVGBackend = {};
