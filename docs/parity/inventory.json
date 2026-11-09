@@ -2053,8 +2053,8 @@
     "anima": {
       "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
       "module": "posepad",
-      "status": "planned",
-      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle (pending orchestrator budgets)",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle",
       "phase": "P8"
     },
     "aliases": [

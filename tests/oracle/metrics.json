@@ -12981,5 +12981,131 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-skin",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 100,
+        "overPercent": 0.1736111111111111,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-weights",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 61,
+        "overPercent": 0.10590277777777778,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 22,
+        "over": 71,
+        "overPercent": 0.1232638888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-cubic-weights",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 52,
+        "over": 17,
+        "overPercent": 0.029513888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-handle",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]
