@@ -171,6 +171,32 @@ function checkObj(
     const kp = ptr(p, key);
     if (key === '$comment') {
       if (typeof x !== 'string') d.err('type', kp, V && `expected string, got ${kind(x)}`);
+      // seam(P8-1): report a bone under a structurally forbidden parent at the bone itself.
+    } else if (
+      typeof o.type === 'string' &&
+      NODE_TYPES.includes(o.type as NodeType) &&
+      NODE_TYPES.includes('bone' as NodeType) &&
+      key === 'children' &&
+      !Object.hasOwn(s.p, key) &&
+      Array.isArray(x) &&
+      x.some((child) => child?.type === 'bone')
+    ) {
+      if (x.some((child) => child?.type !== 'bone'))
+        d.err(
+          'unknown-key',
+          kp,
+          V && `unknown key "children"`,
+          V && suggest(key, Object.keys(s.p)),
+        );
+      x.forEach((child, i) => {
+        if (child?.type === 'bone')
+          d.err(
+            'rig-bone-parent',
+            kp + '/' + i,
+            V && 'bone parent cannot contain a chain',
+            V && 'wrap the bones in a <group>',
+          );
+      });
     } else if (Object.hasOwn(s.p, key)) check(x, s.p[key]!, kp, d, depth + 1);
     else if (s.reserved && Object.hasOwn(s.reserved, key))
       d.err('reserved', kp, V && `"${key}" is reserved: ${s.reserved[key]}`);
