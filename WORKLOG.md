@@ -64,7 +64,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
     host-fit (and layout, layout-reflow when they land); data-artboard, text-hit, text-canvas stay
     optional.
   - P7: layout is our own single-line flexbox subset (no wrap, no Rive engine port); conditions read
-    the previous step's boxes; a retargeted reflow continues from the drawn box (CSS-transition
+    the previous step's boxes; module budgets fonts-text 768 → 896 and text-input 4,096 → 4,544 by the
+    P3c reset rule after the combined review fixes (2026-11-09); a retargeted reflow continues from the drawn box (CSS-transition
     style) — closed as an intentional difference from Rive (start/middle/end match natively);
     P7-6 closed 11 text rows as documented differences (continuous fitting, typographic ellipsis,
     effective trim, native-field semantics).
@@ -104,5 +105,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   by absolute path.)
 - Before a phase PR also run `npm run lint` and `npm run format:check` on the merged tree: leads'
   scoped checks missed a lint error (P1's XML control-character regex) and CI caught it on PR #37.
+- Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
+  only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
