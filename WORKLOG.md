@@ -102,5 +102,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   resolve `@anima-format/*` to the main checkout's packages, so tests run main's code (P6 lead saw 54
   false failures); run `npm ci` in the worktree. (Symlinks are fine for the perf A/B, which imports
   by absolute path.)
+- Before a phase PR also run `npm run lint` and `npm run format:check` on the merged tree: leads'
+  scoped checks missed a lint error (P1's XML control-character regex) and CI caught it on PR #37.
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
