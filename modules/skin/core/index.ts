@@ -14,7 +14,7 @@ import {
   type Subpath,
 } from '../../../packages/core/src/path.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
-import type { DrawFrame, DrawNode } from '../../../packages/core/src/draw.ts';
+import { drawFrame, type DrawFrame, type DrawNode } from '../../../packages/core/src/draw.ts';
 import { nodePointer } from '../../components/core/node-pointer.ts';
 import { compileVertices, type Vertex } from '../../contour/core/index.ts';
 import type { RigModule } from '../../rig/core/index.ts';
@@ -358,6 +358,7 @@ export const skin: Module = {
     const previous = model.nesting;
     model.nesting = (p) => {
       const nested = previous?.(p);
+      p.hitFrame ??= () => drawFrame(p);
       p.skinPoints = (node, xy) => {
         const s = data.get(p.model.nodes[node]!.raw);
         if (!s) return;
