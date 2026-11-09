@@ -1,51 +1,82 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
-import type { Model, NodeM } from '../../../packages/core/src/load.ts';
-import { apply, IDENTITY, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
+import type { NodeM } from '../../../packages/core/src/load.ts';
+import { apply, IDENTITY, invert, mul } from '../../../packages/core/src/geom.ts';
 import {
   C,
   L,
   M,
   Z,
-  flatten,
   formatSegs,
   parsePath,
   type Subpath,
 } from '../../../packages/core/src/path.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
-import {
-  drawFrame,
-  geometryLength,
-  type DrawFrame,
-  type DrawNode,
-} from '../../../packages/core/src/draw.ts';
-import { nodePointer } from '../../components/core/node-pointer.ts';
-import { compileVertices, type Vertex } from '../../contour/core/index.ts';
+import { drawFrame, drawWorld, type DrawNode } from '../../../packages/core/src/draw.ts';
 import type { RigModule } from '../../rig/core/index.ts';
 import { after } from '../manifest.ts';
 import { entries, skinElement } from '../capabilities/rigging-skin/registry.ts';
 
-type Influence = [number, number][];
+export type Influence = [number, number][];
 type Weight = { point: Influence; in?: Influence; out?: Influence };
-type SkinData = { bones: number[]; weights?: Weight[]; rest: [number, number][] };
+export type SkinData = {
+  bones: number[];
+  weights?: Weight[];
+  rest: [number, number][];
+  at: string;
+};
 type RawInfluence = Record<string, number>;
 type RawWeight = { point: RawInfluence; in?: RawInfluence; out?: RawInfluence };
+export type Auto = (
+  p: Player,
+  node: number,
+  key: string,
+  point: [number, number],
+  s: SkinData,
+  rig: RigModule | undefined,
+) => Influence;
+export type MeshRest = (node: NodeM) => [number, number][];
+export type MeshDeform = (
+  p: Player,
+  node: number,
+  xy: number[],
+  s: SkinData,
+  movePoint: (
+    p: Player,
+    node: number,
+    k: number,
+    part: 'point' | 'in' | 'out',
+    point: [number, number],
+    s: SkinData,
+  ) => [number, number],
+) => void;
+type ContourVertex = { point: [number, number]; kind: string };
+type ContourModule = Module & { pathfollowPath(p: Player, node: number): string | undefined };
 
 const data = new WeakMap<object, SkinData>();
-const auto = new WeakMap<Player, Map<string, Influence>>();
 let rig: RigModule | undefined;
+let contour: ContourModule | undefined;
+type Extensions = [Auto?, MeshRest?, MeshDeform?, boolean?];
+const extensions: Extensions = [];
+
+export { data };
+export const rigContext = (p: Player) => rig?.context(p);
+
+export type SkinModule = Module & {
+  x?: Extensions;
+};
 
 const pathRest = (n: NodeM): [number, number][] => {
   const out: [number, number][] = [];
   for (const sp of n.geom ?? [])
     for (let i = 0; i < sp.segs.length;) {
       const op = sp.segs[i++]!;
-      if (op === M || op === L) {
-        out.push([sp.segs[i]!, sp.segs[i + 1]!]);
-        i += 2;
-      } else if (op === C) {
+      if (op === C) {
         out.push([sp.segs[i + 4]!, sp.segs[i + 5]!]);
         i += 6;
+      } else if (op !== Z) {
+        out.push([sp.segs[i]!, sp.segs[i + 1]!]);
+        i += 2;
       }
     }
   return out;
@@ -53,20 +84,7 @@ const pathRest = (n: NodeM): [number, number][] => {
 
 const contourRest = (n: NodeM): [number, number][] => {
   const o = n.raw.geometryOrigin ?? [0, 0];
-  return (n.raw.vertices as Vertex[]).map((v) => [v.point[0] - o[0], v.point[1] - o[1]]);
-};
-
-const meshRest = (n: NodeM): [number, number][] => {
-  const r = n.raw,
-    m = r.mesh;
-  if (!m) return [];
-  if (m.vertices) return m.vertices.map((v: number[]) => [v[0], v[1]]);
-  const [cols, rows] = m.grid,
-    out: [number, number][] = [];
-  for (let y = 0; y <= rows; y++)
-    for (let x = 0; x <= cols; x++)
-      out.push([r.x0 + (r.width * x) / cols, r.y0 + (r.height * y) / rows]);
-  return out;
+  return (n.raw.vertices as ContourVertex[]).map((v) => [v.point[0] - o[0], v.point[1] - o[1]]);
 };
 
 function normalize(
@@ -83,7 +101,9 @@ function normalize(
       V && `weight has ${pairs.length} influences`,
       V && 'use at most four bones including @rest',
     );
-  for (const [name] of pairs)
+  let sum = 0;
+  for (const [name, weight] of pairs) {
+    sum += weight;
     if (name !== '@rest' && !allowed.has(name))
       d.err(
         'rig-weight-bone',
@@ -91,7 +111,7 @@ function normalize(
         V && `weight references bone ${name} outside skin.bones`,
         V && 'add the bone to skin.bones or remove the influence',
       );
-  const sum = pairs.reduce((s, [, w]) => s + w, 0);
+  }
   if (Math.abs(sum - 1) > 1e-6)
     d.err(
       'rig-weight-sum',
@@ -104,44 +124,6 @@ function normalize(
   return pairs.map(([name, w]) => [name === '@rest' ? -1 : (allowed.get(name) ?? -2), w / sum]);
 }
 
-const distance = (p: [number, number], a: [number, number], b: [number, number]): number => {
-  const dx = b[0] - a[0],
-    dy = b[1] - a[1],
-    q = dx * dx + dy * dy,
-    t = q ? Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / q)) : 0;
-  return Math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy);
-};
-
-function automatic(
-  p: Player,
-  node: number,
-  key: string,
-  point: [number, number],
-  s: SkinData,
-): Influence {
-  let cache = auto.get(p);
-  if (!cache) auto.set(p, (cache = new Map()));
-  const hit = cache.get(key);
-  if (hit) return hit;
-  const ctx = rig?.context(p),
-    w0 = ctx?.rest(node) ?? p.world(node),
-    world = apply(w0, point[0], point[1]),
-    nearest = s.bones
-      .map((bone) => {
-        const b = ctx?.rest(bone) ?? IDENTITY,
-          a = apply(b, 0, 0),
-          z = apply(b, p.model.nodes[bone]!.raw.length ?? 0, 0);
-        return [bone, distance(world, a, z)] as [number, number];
-      })
-      .sort((a, b) => a[1] - b[1])
-      .slice(0, 2),
-    values = nearest.map(([bone, d]) => [bone, 1 / (d + 0.001) ** 2] as [number, number]),
-    sum = values.reduce((n, [, w]) => n + w, 0),
-    result = values.map(([bone, w]) => [bone, w / sum] as [number, number]);
-  cache.set(key, result);
-  return result;
-}
-
 function influence(
   p: Player,
   node: number,
@@ -151,7 +133,9 @@ function influence(
   s: SkinData,
 ): Influence {
   const w = s.weights?.[k];
-  return w ? (w[part] ?? w.point) : automatic(p, node, `${node}:${k}:${part}`, point, s);
+  return w
+    ? (w[part] ?? w.point)
+    : (extensions[0]?.(p, node, `${node}:${k}:${part}`, point, s, rig) ?? [[-1, 1]]);
 }
 
 function deform(p: Player, node: number, point: [number, number], w: Influence): [number, number] {
@@ -174,7 +158,7 @@ function deform(p: Player, node: number, point: [number, number], w: Influence):
   return apply(iw0, x, y);
 }
 
-function move(
+export function move(
   p: Player,
   node: number,
   k: number,
@@ -214,54 +198,43 @@ function skinPath(p: Player, node: number, s: SkinData): string {
   return formatSegs(out);
 }
 
-function handles(v: Vertex): { incoming: [number, number]; outgoing: [number, number] } {
-  if (v.kind === 'mirrored') {
-    const o = v.handle ?? [0, 0];
-    return { incoming: [-o[0], -o[1]], outgoing: o };
-  }
-  if (v.kind === 'asymmetric') {
-    const o = v.outgoing ?? [0, 0],
-      a = Math.hypot(...o),
-      b = Math.hypot(...(v.incoming ?? [0, 0]));
-    return { incoming: a ? [(-o[0] * b) / a, (-o[1] * b) / a] : [0, 0], outgoing: o };
-  }
-  return {
-    incoming: v.kind === 'detached' ? (v.incoming ?? [0, 0]) : [0, 0],
-    outgoing: v.kind === 'detached' ? (v.outgoing ?? [0, 0]) : [0, 0],
-  };
-}
-
 function skinContour(p: Player, node: number, s: SkinData): string {
   const raw = p.model.nodes[node]!.raw,
-    o = raw.geometryOrigin ?? [0, 0],
-    vertices = (raw.vertices as Vertex[]).map((v, k): Vertex => {
-      const point: [number, number] = [v.point[0] - o[0], v.point[1] - o[1]],
-        q = move(p, node, k, 'point', point, s);
-      if (v.kind === 'straight' || v.kind === 'rounded') return { ...v, point: q };
-      const h = handles(v),
-        incoming = move(p, node, k, 'in', [point[0] + h.incoming[0], point[1] + h.incoming[1]], s),
-        outgoing = move(p, node, k, 'out', [point[0] + h.outgoing[0], point[1] + h.outgoing[1]], s);
-      return {
-        point: q,
-        kind: 'detached',
-        incoming: [incoming[0] - q[0], incoming[1] - q[1]],
-        outgoing: [outgoing[0] - q[0], outgoing[1] - q[1]],
-      };
-    });
-  return compileVertices(vertices, raw.closed, [0, 0]);
-}
-
-function parentWorld(frame: DrawFrame, model: Model, node: number): Mat {
-  let m = IDENTITY;
-  for (let i = node; i >= 0; i = model.nodes[i]!.parent) m = mul(frame.nodes[i]!.transform, m);
-  return m;
+    vertices = raw.vertices as ContourVertex[],
+    source = contour?.pathfollowPath(p, node),
+    sp = source && parsePath(source)[0];
+  if (!sp || !vertices.length) return source ?? '';
+  const g = [...sp.segs];
+  let pos = 0;
+  const transform = (k: number, part: 'point' | 'in' | 'out') => {
+    const q = move(p, node, k, part, [g[pos]!, g[pos + 1]!], s);
+    g[pos++] = q[0];
+    g[pos++] = q[1];
+  };
+  pos++;
+  transform(0, 'point');
+  const segment = (from: number, to: number, rounded = false) => {
+    const op = g[pos++]!;
+    if (op === C) {
+      transform(rounded ? to : from, rounded ? 'point' : 'out');
+      transform(to, rounded ? 'point' : 'in');
+    }
+    transform(to, 'point');
+  };
+  for (let i = 0; i < vertices.length; i++) {
+    if (vertices[i]!.kind === 'rounded' && (raw.closed || (i > 0 && i + 1 < vertices.length)))
+      segment(i, i, true);
+    if (i + 1 < vertices.length) segment(i, i + 1);
+    else if (raw.closed) segment(i, 0);
+  }
+  return formatSegs([{ ...sp, segs: g }]);
 }
 
 function geometry(p: Player, node: number): string | undefined {
   const n = p.model.nodes[node]!,
     s = data.get(n.raw);
   if (!s) return;
-  const type = String(n.type);
+  const type = n.type as string;
   return type === 'path'
     ? skinPath(p, node, s)
     : type === 'contour'
@@ -269,44 +242,28 @@ function geometry(p: Player, node: number): string | undefined {
       : undefined;
 }
 
-export const skin: Module = {
+export const skin: SkinModule = {
   name: 'skin',
   after,
   entries,
-  init(registry, shared) {
+  init(registry, _shared) {
     if (V) skin.entries[0]!.elements = { skin: skinElement };
     rig = registry.get('rig') as RigModule | undefined;
-    const values = shared.Player.prototype.values;
-    if (!(shared.Player.prototype as unknown as { skinValues?: boolean }).skinValues) {
-      (shared.Player.prototype as unknown as { skinValues?: boolean }).skinValues = true;
-      shared.Player.prototype.values = function () {
-        const out = values.call(this);
-        for (const [i, n] of this.model.nodes.entries()) {
-          const s = data.get(n.raw);
-          if (!s) continue;
-          s.rest.forEach((rest, k) => {
-            const base =
-                String(n.type) === 'image'
-                  ? ((this.prop(i, 'mesh.vertex.' + k) as [number, number]) ?? rest)
-                  : rest,
-              local = move(this, i, k, 'point', base, s),
-              worldMatrix = rig?.context(this)?.rest(i) ?? this.world(i),
-              world = apply(worldMatrix, local[0], local[1]);
-            out[n.id + '.skin.point.' + k] = world;
-          });
-        }
-        return out;
-      };
-    }
-    return { ...this, init: undefined };
+    contour = registry.get('contour') as ContourModule | undefined;
+    return { ...this, init: undefined, x: extensions };
   },
   prepare(model, d) {
-    if (!model.doc.requires?.includes('skin')) return;
+    const paths: string[] = [],
+      counts = new Map<number, number>();
     for (const [i, n] of model.nodes.entries()) {
+      const index = counts.get(n.parent) ?? 0;
+      counts.set(n.parent, index + 1);
+      const path = (paths[i] =
+        (n.parent < 0 ? '/nodes' : paths[n.parent] + '/children') + '/' + index);
       const raw = n.raw.skin as { bones: string[]; weights?: RawWeight[] } | undefined;
       if (!raw) continue;
-      const at = nodePointer(model, i) + '/skin',
-        type = String(n.type),
+      const at = path + '/skin',
+        type = n.type as string,
         host = type === 'path' || type === 'contour' || (type === 'image' && !!n.raw.mesh);
       if (!host)
         d.err(
@@ -315,31 +272,37 @@ export const skin: Module = {
           V && 'skin requires a path, contour, or meshed image',
           V && 'move skin to supported geometry',
         );
-      const dAddress = n.id + '.d';
-      const timelineMorph = Object.values(
-        (model.doc.timelines ?? {}) as Record<string, { tracks?: Record<string, unknown> }>,
-      ).some((timeline) => Object.prototype.hasOwnProperty.call(timeline.tracks ?? {}, dAddress));
-      const poseMorph = Object.values(
-        (model.doc.machine?.layers ?? {}) as Record<
-          string,
-          { states?: Record<string, { pose?: Record<string, unknown> }> }
-        >,
-      ).some((layer) =>
-        Object.values(layer.states ?? {}).some((state) =>
-          Object.prototype.hasOwnProperty.call(state.pose ?? {}, dAddress),
-        ),
-      );
-      if (type === 'path' && (model.addrs.has(dAddress) || timelineMorph || poseMorph))
+      if (!raw.weights && !extensions[0])
         d.err(
-          'rig-skin-morph',
+          'rig-skin-feature',
+          at + '/weights',
+          V && 'automatic skin weights need the skin-auto entry',
+          V && "import '@anima-format/web/skin-auto' before loading this document",
+        );
+      if (type === 'image' && n.raw.mesh && !extensions[1])
+        d.err(
+          'rig-skin-feature',
           at,
-          V && 'a skinned path cannot animate d',
-          V && 'animate bones or remove skin',
+          V && 'skinned images need the skin-mesh entry',
+          V && "import '@anima-format/web/skin-mesh' before loading this document",
+        );
+      const percentageDash = [
+        n.raw.stroke,
+        ...(n.raw.paints ?? []).map((p: { stroke?: unknown }) => p.stroke),
+      ].some((stroke: { dash?: unknown[] } | undefined) =>
+        stroke?.dash?.some((v) => typeof v === 'string' && v.endsWith('%')),
+      );
+      if (percentageDash && !extensions[3])
+        d.err(
+          'rig-skin-feature',
+          at,
+          V && 'skinned percentage dashes need the skin-dash entry',
+          V && "import '@anima-format/web/skin-dash' before loading this document",
         );
       const allowed = new Map<string, number>();
       raw.bones.forEach((id, k) => {
         const bone = model.ids.get(id);
-        if (bone === undefined || String(model.nodes[bone]!.type) !== 'bone')
+        if (bone === undefined || (model.nodes[bone]!.type as string) !== 'bone')
           d.err(
             'rig-weight-bone',
             `${at}/bones/${k}`,
@@ -349,7 +312,11 @@ export const skin: Module = {
         else allowed.set(id, bone);
       });
       const rest =
-        type === 'path' ? pathRest(n) : type === 'contour' ? contourRest(n) : meshRest(n);
+        type === 'path'
+          ? pathRest(n)
+          : type === 'contour'
+            ? contourRest(n)
+            : (extensions[1]?.(n) ?? []);
       if (raw.weights && raw.weights.length !== rest.length)
         d.err(
           'bad-value',
@@ -362,31 +329,31 @@ export const skin: Module = {
         ...(w.in ? { in: normalize(w.in, allowed, `${at}/weights/${k}/in`, d) } : {}),
         ...(w.out ? { out: normalize(w.out, allowed, `${at}/weights/${k}/out`, d) } : {}),
       }));
-      data.set(n.raw, { bones: [...allowed.values()], weights, rest });
+      data.set(n.raw, { bones: [...allowed.values()], weights, rest, at });
     }
   },
-  load(model) {
-    if (!model.doc.requires?.includes('skin')) return;
+  load(model, _raw, d) {
+    for (const n of model.nodes) {
+      const s = data.get(n.raw);
+      if (s && n.type === 'path' && model.addrs.has(n.id + '.d'))
+        d.err(
+          'rig-skin-morph',
+          s.at,
+          V && 'a skinned path cannot animate d',
+          V && 'animate bones or remove skin',
+        );
+    }
     const previous = model.nesting;
     model.nesting = (p) => {
       const nested = previous?.(p);
       p.hitFrame ??= () => drawFrame(p);
-      p.skinPoints = (node, xy) => {
-        const s = data.get(p.model.nodes[node]!.raw);
-        if (!s) return;
-        for (let k = 0; k * 2 < xy.length; k++) {
-          const base: [number, number] = [xy[k * 2]!, xy[k * 2 + 1]!],
-            q = move(p, node, k, 'point', s.rest[k] ?? base, s);
-          xy[k * 2] = q[0];
-          xy[k * 2 + 1] = q[1];
-        }
-      };
+      if (extensions[2])
+        p.skinPoints = (node, xy) => {
+          const s = data.get(p.model.nodes[node]!.raw);
+          if (s) extensions[2]!(p, node, xy, s, move);
+        };
       return nested;
     };
-  },
-  outline(p, i) {
-    const d = geometry(p, i);
-    if (d !== undefined) return flatten(parsePath(d));
   },
   draw: {
     frame(p, i, node: DrawNode, _entry, frame) {
@@ -395,17 +362,11 @@ export const skin: Module = {
       const d = geometry(p, i);
       if (d !== undefined) {
         node.geometry = { kind: 'path', d };
-        const length = geometryLength(node.geometry, frame.tree.nodes[i]);
-        for (const paint of node.paints)
-          if (paint.dashNormalized) {
-            paint.dash = paint.dashNormalized.map((v) => v * length);
-            paint.dashOffset = (paint.dashOffsetNormalized ?? 0) * length;
-          }
       }
       const rest = rig?.context(p)?.rest(i);
       if (!rest) return;
       const parent = p.model.nodes[i]!.parent,
-        base = parent < 0 ? IDENTITY : parentWorld(frame, p.model, parent),
+        base = parent < 0 ? IDENTITY : drawWorld(p, parent, frame),
         inverse = invert(base);
       if (inverse) node.transform = mul(inverse, rest);
     },
