@@ -15,10 +15,13 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   queued like `set`/`fire`.
 - Main is c2b870ae: PR #37 (per-phase Rottweiler, ~190 fixes, `docs/changelog/2026-11-09-rottweiler.md`)
   and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
-- P8 design merged (`design/p8/`: DESIGN, DECISIONS D1–D35 + my answers, BENCHMARK, tickets
-  P8-1…9). Wave 1 running (2026-11-09): P8-1 rig core, P8-5 mesh, P8-6 pose pads, P8-8 R4-02 +
-  toggle, P8-9 tree bounds. Wave 2 after P8-1 merges: P8-2 IK, P8-3 path follow, P8-4 skin,
-  P8-7 scroll; tell P8-6 to rebase for its distance-gated handle. Wave 3: benchmark, closure, PR.
+- P8 design merged (`design/p8/`: DESIGN, BENCHMARK, tickets P8-1…9, DECISIONS D1–D35 + my answers
+  and D36 `posepad` one word, D37 optional `posepad-handle` entry if `posepad` > 768 B, D38 bone
+  parents: root, component root, group, bone). Wave 1 (P8-1 rig core, P8-5 mesh, P8-6 pose pads,
+  P8-8 R4-02 + toggle, P8-9 tree bounds) stopped on the Codex usage limit and was resumed in the same
+  threads (2026-11-09); only P8-1 has a commit (c7f8bc0c, the constraint API). Wave 2 after P8-1
+  merges: P8-2 IK, P8-3 path follow, P8-4 skin, P8-7 scroll; tell P8-6 to rebase for its
+  distance-gated handle. Wave 3: benchmark, closure, perf, PR.
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
@@ -67,7 +70,6 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   `node tools/build-animl.ts --check`, `node tools/parity.ts --check`, `node tools/build-web.ts`);
   the corpus count in `packages/markup/test/corpus.test.ts` is `ls spec/conformance/*/case.ani | wc -l`;
   oracle `cases.json`/`metrics.json` conflicts union by name; appended SPEC/LOG sections keep both.
-  Agents briefed before this change still append to WORKLOG: on conflict keep ours.
 - Remove each agent worktree after merging (`git worktree remove --force`, delete the branch): kept
   worktrees once filled the root disk (88 worktrees, 12 GB).
 - Agents' failure counts are mostly load timeouts: rerun the failing files alone before acting.
@@ -81,6 +83,11 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Parity lint: `IN_PROGRESS` in `tools/parity.ts` names the phase being worked on (now P8); add a
   finished phase to `FINISHED`.
 - An interrupted ticket resumes by messaging its thread (`t3_thread_send`); its worktree survives.
+  A Codex usage limit fails every running coder (2026-11-09, all five of wave 1): save each
+  worktree's uncommitted work first (`git add -A -N . && git diff HEAD > …/anima-worktree-backups/<branch>.patch && git reset -q`),
+  then resume. Don't switch providers without asking the owner.
+- Disk: `/` was 93 % (3.7 GB free) with five P8 worktrees; check `df -h /` before each wave and
+  remove merged worktrees promptly.
 - Budget headroom (2026-11-09): markup-libraries 2,174/2,176, components 3,453/3,456, a11y-dom
   2,154/2,176, markup-hooks 4,523/4,544, canvas 5,864/5,888, fonts 2,016/2,048, layout 4,057/4,096,
   fonts-info 8,100/8,192 — growth there needs a split first (P8 draws on canvas: plan for it).
