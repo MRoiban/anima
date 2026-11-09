@@ -8825,7 +8825,7 @@
   "capability": "Bone chains",
   "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
-  "status": "planned",
+  "status": "done",
   "test": "modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains",
   "phase": "P8",
   "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
@@ -8973,7 +8973,7 @@
   "capability": "Root bones",
   "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
-  "status": "planned",
+  "status": "done",
   "test": "modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones",
   "phase": "P8",
   "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."

@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 | 15 |  | 7 |  | 1 |  |
+| Rigging | 23 | 17 |  | 5 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **878** | **0** | **8** | **0** | **188** | **164** |
+| **Total** | **1238** | **880** | **0** | **6** | **0** | **188** | **164** |
 
-**Progress:** 878 of 886 in-scope capabilities done (99 %); 878 of 1238 in the full matrix (71 %).
+**Progress:** 880 of 886 in-scope capabilities done (99 %); 880 of 1238 in the full matrix (71 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1315,7 +1315,7 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `rigging.bone-chains` | Bone chains | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
+| `rigging.bone-chains` | Bone chains | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
 | `rigging.constraint-order` | Ordered constraint composition | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.constraint-strength` | Constraint influence | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.cubic-weights` | Independent handle weights | TODO: modules/skin/capabilities/rigging-cubic-weights/registry.ts; spec/SPEC.md (Independent handle weights); modules/skin/capabilities/rigging-cubic-weights/example.animl | rig | planned | TODO: modules/skin/test/core/rigging-cubic-weights.test.ts; spec/conformance/rigging-cubic-weights; tests/oracle/rigging-cubic-weights |  |
@@ -1329,7 +1329,7 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.list-follow-path` | List follow-path constraint | modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl | pathfollow | done | modules/pathfollow/test/core; spec/conformance/rigging-list-follow-path; tests/oracle/rigging-list-follow-path/skip.json | Direct children and live repeat items are implemented and conformant. Native ListFollowPathConstraint RML was accepted but rendered all children overlapped at the origin, so the retained capture documents the ticket-authorized no-faithful-counterpart skip. |
 | `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh; modules/mesh/ORACLE-ANALYSIS.md |  |
 | `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation; modules/mesh/ORACLE-ANALYSIS.md |  |
-| `rigging.root-bones` | Root bones | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
+| `rigging.root-bones` | Root bones | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
 | `rigging.rotation` | Rotation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.scroll` | Scroll rig constraint | new: scroll rig constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-scroll |  |
