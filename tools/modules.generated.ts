@@ -20,7 +20,6 @@ export const webEntries = [
   'focus',
   'host-fit',
   'host-fit-size',
-  'ik',
   'input',
   'markup-hooks',
   'markup-animation',
@@ -75,6 +74,7 @@ export const webEntries = [
   'rig',
   'rig-distance',
   'markup-rig',
+  'ik',
   'text-effects',
   'markup-text-effects',
   'text-input',
@@ -97,7 +97,6 @@ export const webOwners: Record<string, string> = {
   focus: 'focus',
   'host-fit': 'host-fit',
   'host-fit-size': 'host-fit',
-  ik: 'ik',
   input: 'input',
   markup: 'markup',
   'markup-hooks': 'markup',
@@ -159,6 +158,7 @@ export const webOwners: Record<string, string> = {
   rig: 'rig',
   'rig-distance': 'rig',
   'markup-rig': 'rig',
+  ik: 'ik',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
   'text-input': 'text-input',
@@ -224,7 +224,6 @@ export const moduleBudgets: {
   { name: 'focus', budget: 3456 },
   { name: 'host-fit', budget: 768, over: 'host-fit-size' },
   { name: 'host-fit-size', budget: 512 },
-  { name: 'ik', budget: 5120 },
   { name: 'input', budget: 7104 },
   { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
   { name: 'markup-animation', over: 'markup', budget: 1536, authoring: true },
@@ -279,6 +278,7 @@ export const moduleBudgets: {
   { name: 'rig', budget: 3072, heavy: true },
   { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
+  { name: 'ik', budget: 896, heavy: true, over: 'rig' },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
   { name: 'text-input', budget: 4544, heavy: true },
@@ -415,14 +415,6 @@ export const moduleScopes = {
   'host-fit': {
     tests: ['modules/host-fit/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
     conformance: [],
-  },
-  ik: {
-    tests: [
-      'modules/ik/test/**/*.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: ['rigging-ik', 'rigging-ik-bend'],
   },
   input: {
     tests: [
@@ -1100,6 +1092,14 @@ export const moduleScopes = {
       'rigging-distance-further',
       'rigging-distance-exact',
     ],
+  },
+  ik: {
+    tests: [
+      'modules/ik/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['rigging-ik', 'rigging-ik-bend'],
   },
   'text-effects': {
     tests: [

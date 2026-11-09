@@ -1,11 +1,11 @@
 // TODO: review dependencies and measured budget before implementation.
-export const after: string[] = [];
+export const after: string[] = ['rig'];
 export default {
   ...{
     name: 'ik',
     after: [],
     core: { entry: 'core/index.ts', export: 'ik', svg: 'core/svg.ts', svgExport: 'ikSVG' },
-    web: [{ name: 'ik', budget: 5120 }],
+    web: [{ name: 'ik', budget: 896, heavy: true, over: 'rig' }],
     adapters: {
       'packages/core/src/modules/ik/index.ts': 'core/index.ts',
       'packages/core/src/modules/ik/svg.ts': 'core/svg.ts',

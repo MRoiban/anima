@@ -12,7 +12,6 @@
     "./components": "./src/components.ts",
     "./bind": "./src/bind.ts",
     "./focus": "./src/focus.ts",
-    "./ik": "./src/ik.ts",
     "./input": "./src/input.ts",
     "./libraries": "./src/libraries.ts",
     "./library-hooks": "./src/library-hooks.ts",
@@ -33,6 +32,7 @@
     "./text": "./src/text.ts",
     "./layout": "./src/markup-layout.ts",
     "./rig": "./src/rig.ts",
+    "./ik": "./src/ik.ts",
     "./text-effects": "./src/text-effects.ts",
     "./text-input": "./src/text-input.ts"
   },
