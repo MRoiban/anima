@@ -362,6 +362,8 @@ describe('AniML compiler', () => {
         '<anima><layout reflow="0.25 out" direction="row" justify="space-between" align="stretch" gap="1" padding="1" min-width="0" max-width="20" min-height="0" max-height="20" corners="1"><rect layout-width="fill" layout-height="fill" align-self="end" margin="1" display="none"/></layout></anima>',
       ).doc.root!,
     );
+    // seam(P8-1): bone fields use the same registry-derived node path.
+    collectPaint(parseXml('<anima><bone length="5" root="true"/></anima>').doc.root!);
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

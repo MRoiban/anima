@@ -1,0 +1,144 @@
+{
+  "anima": "0.1",
+  "name": "rigging-scale",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "sourceParent",
+      "type": "group",
+      "scale": 2,
+      "children": [
+        {
+          "id": "target",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "scaleX": 2,
+          "scaleY": 3,
+          "children": [
+            {
+              "id": "targetArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hostParent",
+      "type": "group",
+      "scale": 3,
+      "children": [
+        {
+          "id": "local",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "scaleY": 2,
+          "children": [
+            {
+              "id": "localArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyScale",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local",
+              "factorX": -1,
+              "copyY": false,
+              "minX": -4,
+              "maxX": -1
+            }
+          ]
+        },
+        {
+          "id": "world",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "worldArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyScale",
+              "from": "target",
+              "factorY": -1,
+              "minY": -5
+            }
+          ]
+        },
+        {
+          "id": "limited",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "limitedArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyScale",
+              "from": "target",
+              "limitSpace": "local",
+              "maxX": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.scaleX": [
+          [0, 2],
+          [1, 3]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

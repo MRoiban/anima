@@ -45,6 +45,8 @@ import './motion.ts';
 import './nested.ts';
 import './paint.ts';
 import './paint-sampling.ts';
+import './rig.ts';
+import './rig-distance.ts';
 import './surface.ts';
 import './text.ts';
 import './text-canvas.ts';

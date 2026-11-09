@@ -1,0 +1,132 @@
+{
+  "anima": "0.1",
+  "name": "rigging-transform",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "sourceParent",
+      "type": "group",
+      "x": 3,
+      "y": 4,
+      "children": [
+        {
+          "id": "target",
+          "type": "rect",
+          "x0": 1,
+          "y0": 2,
+          "w": 4,
+          "h": 2,
+          "x": 2,
+          "y": 1,
+          "fill": {
+            "color": "#888"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hostParent",
+      "type": "group",
+      "x": 8,
+      "y": 3,
+      "children": [
+        {
+          "id": "world",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "worldArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target"
+            }
+          ]
+        },
+        {
+          "id": "local",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "localArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local"
+            }
+          ]
+        },
+        {
+          "id": "origin",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "originArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target",
+              "origin": [1, 1]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 2],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

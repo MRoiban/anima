@@ -1,0 +1,9 @@
+set mix 0
+advance 0
+snapshot animated.world.x animated.world.y bound.world.x bound.world.y
+set mix 0.5
+advance 0.5
+snapshot animated.world.x animated.world.y bound.world.x bound.world.y
+set mix 1
+advance 0.5
+snapshot animated.world.x animated.world.y bound.world.x bound.world.y

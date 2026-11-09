@@ -1,0 +1,22 @@
+<anima version="0.1" name="rigging-root-bones" grid="20" requires="rig">
+  <bone id="outer" length="4" x="2" y="4">
+    <bone id="root" root="true" length="2" x="8" y="4">
+      <circle id="art" cx="10" cy="4" r="0.5" fill="#000"/>
+    </bone>
+  </bone>
+
+  <timeline name="go" duration="1">
+    <track target="outer.rotate">
+      0  0
+      1  90
+    </track>
+    <track target="root.rotate">
+      0  0
+      1  30
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

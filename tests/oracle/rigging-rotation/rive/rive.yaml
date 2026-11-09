@@ -1,0 +1,4 @@
+name: oracle-rigging-rotation
+logs:
+  file: build/rive.log
+  problems: build/problems.log

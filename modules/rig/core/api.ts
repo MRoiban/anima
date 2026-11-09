@@ -29,6 +29,7 @@ export interface ConstraintKind {
   /** Additional node indices written by this solver, excluding its host. */
   writes?(raw: Constraint, node: number, model: Model): number[];
   /** Return the host's desired world frame, or mutate frames with ctx.setWorld(). */
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- multi-write solvers may omit a host replacement.
   solve(ctx: RigContext, node: number, raw: Constraint, k: number): Mat | void;
 }
 export const constraintKinds = new Map<string, ConstraintKind>();

@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "rigging-root-bones",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "outer",
+      "type": "bone",
+      "x": 4,
+      "y": 12,
+      "children": [
+        {
+          "id": "inner",
+          "type": "bone",
+          "x": 10,
+          "y": 12,
+          "children": [
+            {
+              "id": "hand",
+              "type": "circle",
+              "center": [12, 12],
+              "r": 0.5,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "root": true,
+          "length": 2
+        }
+      ],
+      "length": 5
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "outer.rotate": [
+          [0, 0],
+          [1, -60]
+        ],
+        "inner.rotate": [
+          [0, 0],
+          [1, 30]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

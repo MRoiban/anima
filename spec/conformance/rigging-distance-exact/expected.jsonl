@@ -1,0 +1,3 @@
+{"time": 0, "values": {"inside.world.x": 7, "inside.world.y": 5, "outside.world.x": 7, "outside.world.y": 5, "ring.world.x": 7, "ring.world.y": 5, "coincident.world.x": 7, "coincident.world.y": 5}, "states": {"main": "go"}, "events": [], "settled": false}
+{"time": 0.5, "values": {"inside.world.x": 8.0, "inside.world.y": 5, "outside.world.x": 8.0, "outside.world.y": 5, "ring.world.x": 8.0, "ring.world.y": 5, "coincident.world.x": 8.0, "coincident.world.y": 5}, "states": {"main": "go"}, "events": [], "settled": false}
+{"time": 1, "values": {"inside.world.x": 9, "inside.world.y": 5, "outside.world.x": 9, "outside.world.y": 5, "ring.world.x": 9, "ring.world.y": 5, "coincident.world.x": 9, "coincident.world.y": 5}, "states": {"main": "go"}, "events": [], "settled": true}

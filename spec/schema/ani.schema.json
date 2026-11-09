@@ -4467,6 +4467,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -6560,6 +6877,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -8656,6 +9290,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -10779,6 +11730,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -12885,6 +14153,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -13692,6 +15277,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -14478,6 +16380,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             }
           },
           "required": [
@@ -16442,6 +18661,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             },
             "focus": {
               "type": "object",
@@ -18552,6 +21088,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             },
             "focus": {
               "type": "object",
@@ -20664,6 +23517,323 @@
               "additionalProperties": false,
               "feature": "layout"
             },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
+            },
             "focus": {
               "type": "object",
               "properties": {
@@ -22765,6 +25935,323 @@
               "additionalProperties": false,
               "feature": "layout"
             },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
+            },
             "focus": {
               "type": "object",
               "properties": {
@@ -24159,6 +27646,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             },
             "focus": {
               "type": "object",
@@ -25597,6 +29401,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             },
             "focus": {
               "type": "object",
@@ -27597,6 +31718,323 @@
               },
               "additionalProperties": false,
               "feature": "layout"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
             },
             "effects": {
               "type": "array",
@@ -30062,6 +34500,323 @@
               "additionalProperties": false,
               "feature": "layout"
             },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
+            },
             "focus": {
               "type": "object",
               "properties": {
@@ -31311,6 +36066,1037 @@
               ],
               "additionalProperties": false,
               "feature": "mix"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "bone"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "length": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "rig"
+            },
+            "root": {
+              "type": "boolean",
+              "feature": "rig"
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/node"
+              },
+              "feature": "rig"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyPosition"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyRotation"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factor": {
+                        "type": "number"
+                      },
+                      "min": {
+                        "type": "number"
+                      },
+                      "max": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyScale"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      },
+                      "factorX": {
+                        "type": "number"
+                      },
+                      "factorY": {
+                        "type": "number"
+                      },
+                      "copyX": {
+                        "type": "boolean"
+                      },
+                      "copyY": {
+                        "type": "boolean"
+                      },
+                      "minX": {
+                        "type": "number"
+                      },
+                      "maxX": {
+                        "type": "number"
+                      },
+                      "minY": {
+                        "type": "number"
+                      },
+                      "maxY": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "copyTransform"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "fromSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "toSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "limitSpace": {
+                        "type": "string",
+                        "enum": [
+                          "world",
+                          "local"
+                        ]
+                      },
+                      "origin": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "from"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "keepDistance"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "within",
+                          "beyond",
+                          "exact"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "to",
+                      "distance"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "feature": "rig"
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
+            },
+            "blend": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+              ],
+              "feature": "composite"
+            },
+            "mask": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "alpha",
+                    "luminance",
+                    "inverted-alpha",
+                    "inverted-luminance"
+                  ]
+                },
+                "sourceDraws": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source",
+                "mode",
+                "sourceDraws"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "clip": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ],
+                  "default": "nonzero"
+                }
+              },
+              "required": [
+                "source"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "drawOrder": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "before",
+                    "after"
+                  ]
+                },
+                "active": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "target",
+                "position"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
+            "a11y": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "button",
+                    "checkbox",
+                    "switch",
+                    "radio",
+                    "radio-group",
+                    "slider",
+                    "tab",
+                    "tab-list",
+                    "toolbar",
+                    "grid",
+                    "row",
+                    "gridcell",
+                    "link",
+                    "list",
+                    "list-item",
+                    "group",
+                    "dialog",
+                    "alert-dialog",
+                    "heading",
+                    "text",
+                    "img",
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "hint": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "valueText": {
+                  "type": "string"
+                },
+                "level": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "href": {
+                  "type": "string"
+                },
+                "controls": {
+                  "type": "string"
+                },
+                "activate": {
+                  "type": "string"
+                },
+                "checked": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "pressed": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "selected": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "expanded": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "disabled": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "hidden": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "required": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "readonly": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "modal": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "checkedMixed": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "live": {
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "polite",
+                    "assertive"
+                  ]
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                },
+                "step": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "required": [
+                "role"
+              ],
+              "additionalProperties": false,
+              "feature": "a11y"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
+            },
+            "layout": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "width": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "height": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "minWidth": {
+                  "type": "number"
+                },
+                "maxWidth": {
+                  "type": "number"
+                },
+                "minHeight": {
+                  "type": "number"
+                },
+                "maxHeight": {
+                  "type": "number"
+                },
+                "alignSelf": {
+                  "type": "string",
+                  "enum": [
+                    "start",
+                    "center",
+                    "end",
+                    "stretch",
+                    "baseline"
+                  ]
+                },
+                "margin": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "display": {
+                  "type": "string",
+                  "enum": [
+                    "flex",
+                    "none"
+                  ]
+                },
+                "reflow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "feature": "layout"
             }
           },
           "required": [

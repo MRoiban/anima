@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "rigging-transform",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "x": 10,
+      "y": 10,
+      "children": []
+    },
+    {
+      "id": "host",
+      "type": "group",
+      "x": 2,
+      "y": 4,
+      "children": [
+        {
+          "id": "hostArt",
+          "type": "rect",
+          "x0": 1,
+          "y0": 0,
+          "w": 2,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyTransform",
+          "from": "target"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.rotate": [
+          [0, 0],
+          [1, 90]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

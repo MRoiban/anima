@@ -126,6 +126,8 @@ describe('one registry, two spellings', () => {
       'slice',
       'mix',
       'layout',
+      // seam(P8-1): ordered rig constraint field.
+      'constraints',
     ]);
   });
 });

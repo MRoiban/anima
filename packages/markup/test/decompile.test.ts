@@ -152,6 +152,21 @@ function recover(root: Element): Obj {
       return effect;
     };
     for (const child of elements(e)) {
+      // seam(P8-1): independent verb/discriminator and field recovery for rig children.
+      const rigKinds: Record<string, string> = {
+        'copy-position': 'copyPosition',
+        'copy-rotation': 'copyRotation',
+        'copy-scale': 'copyScale',
+        'copy-transform': 'copyTransform',
+        'keep-distance': 'keepDistance',
+      };
+      if (rigKinds[child.name]) {
+        const constraint: Obj = { kind: rigKinds[child.name] };
+        for (const [k, v] of Object.entries(attrs(child)))
+          constraint[k.replace(/-([a-z])/g, (_m, c: string) => c.toUpperCase())] =
+            k === 'origin' ? vector(v) : scalar(v);
+        ((o.constraints ??= []) as Obj[]).push(constraint);
+      }
       if (child.name === 'text-effect') ((o.effects ??= []) as Obj[]).push(recoverEffect(child));
       if (child.name === 'style')
         ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
@@ -259,7 +274,7 @@ function recover(root: Element): Obj {
         if (!known.has(key)) ((o.inputs ??= {}) as Obj)[key] = scalar(v);
     }
     // seam(P7-2): recover registered layout containers independently of the compiler.
-    if (e.name === 'group' || e.name === 'layout')
+    if (e.name === 'group' || e.name === 'layout' || e.name === 'bone')
       o.children = elements(e)
         .filter((c) => NODE_ELEMENTS.includes(c.name))
         .map(node);
@@ -609,6 +624,12 @@ function check(source: string | object) {
       'text-input',
       // seam(P7-5): typed component data property.
       'artboard',
+      // seam(P8-1): canonical constraint child spellings.
+      'copy-position',
+      'copy-rotation',
+      'copy-scale',
+      'copy-transform',
+      'keep-distance',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {
