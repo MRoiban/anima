@@ -131,7 +131,7 @@ it('spreads reconciled repeat items at 1, 3 and 5 positions', () => {
     const frame = drawFrame(p);
     return frame.tree.nodes
       .map((node, index) => [node.id, frame.nodes[index]?.world?.[4]] as const)
-      .filter(([id]) => /^rows\/\d+$/.test(id))
+      .filter(([id]) => typeof id === 'string' && /^rows\/\d+$/.test(id))
       .map(([, x]) => x);
   };
   expect(positions()).toEqual([0]);

@@ -169,6 +169,17 @@ export function pathMeasure(
   } else if ((n.type as string) === 'contour') {
     key += ':' + player.drawVersions[node];
     for (const module of outlineModules) {
+      const exact = (
+        module as Module & {
+          pathfollowPath?: (player: Player, node: number) => string | undefined;
+        }
+      ).pathfollowPath?.(player, node);
+      if (exact) {
+        key += ':' + exact;
+        const paths = parsePath(exact);
+        measured = table(paths, paths.length === 1 && paths[0]!.segs.at(-1) === Z);
+        break;
+      }
       const polys = module.outline?.(player, node);
       if ((measured = polys && fromPolys(polys))) break;
     }

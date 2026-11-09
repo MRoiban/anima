@@ -43,7 +43,6 @@
     "./a11y-actions": "./src/modules/a11y-actions/index.ts",
     "./nested": "./src/modules/nested/index.ts",
     "./data-artboard": "./src/modules/data-artboard/index.ts",
-    "./pathfollow": "./src/modules/pathfollow/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
     "./colormix": "./src/modules/colormix/index.ts",
@@ -56,6 +55,7 @@
     "./posepad": "./src/modules/posepad/index.ts",
     "./rig": "./src/modules/rig/index.ts",
     "./ik": "./src/modules/ik/index.ts",
+    "./pathfollow": "./src/modules/pathfollow/index.ts",
     "./text-effects": "./src/modules/text-effects/index.ts",
     "./text-input": "./src/modules/text-input/index.ts"
   },

@@ -13,7 +13,6 @@ import {
 } from '../../rig/core/api.ts';
 import { entries as followEntries } from '../capabilities/rigging-follow-path/registry.ts';
 import { entries as listEntries } from '../capabilities/rigging-list-follow-path/registry.ts';
-import { lists as listModule } from '../../lists/core/index.ts';
 import { after } from '../manifest.ts';
 import { pathMeasure } from './measure.ts';
 
@@ -91,15 +90,16 @@ type Lists = {
   listState(
     player: Player,
   ): { runs: { spec: { node: number }; items: { index: number; player: Player }[] }[] } | undefined;
-  beforeDraw?: (player: Player) => void;
 };
-const hooked = new WeakSet<object>();
+let activeLists: Lists | undefined;
 
-function placeRepeats(player: Player, lists: Lists): void {
+function placeRepeats(
+  player: Player,
+  frame: import('../../../packages/core/src/draw.ts').DrawFrame,
+): void {
   if (!player.model.doc.requires?.includes('pathfollow')) return;
   const ctx = activeRig?.context(player),
-    frame = player.drawData,
-    state = lists.listState(player);
+    state = activeLists?.listState(player);
   if (!ctx || !frame || !state) return;
   for (const run of state.runs) {
     const host = run.spec.node,
@@ -193,16 +193,13 @@ export const pathfollow: Module = {
         (model.nodes[node]?.type as string) === 'repeat' ? [] : (model.nodes[node]?.children ?? []),
       solve: spread,
     });
-    const lists = registry.get('lists') as unknown as Lists | undefined;
-    if (lists && !hooked.has(listModule)) {
-      const previous = listModule.beforeDraw;
-      listModule.beforeDraw = (player) => {
-        previous?.(player);
-        placeRepeats(player, lists);
-      };
-      hooked.add(listModule);
-    }
+    activeLists = registry.get('lists') as unknown as Lists | undefined;
     return pathfollow;
+  },
+  draw: {
+    end(player, frame) {
+      placeRepeats(player, frame);
+    },
   },
   load(model, _raw, d) {
     if (!model.doc.requires?.includes('pathfollow')) return;

@@ -55,7 +55,6 @@ export const webEntries = [
   'data-artboard',
   'data-artboard-values',
   'markup-data-artboard',
-  'pathfollow',
   'colormix',
   'markup-colormix',
   'mix',
@@ -76,6 +75,7 @@ export const webEntries = [
   'rig-distance',
   'markup-rig',
   'ik',
+  'pathfollow',
   'text-effects',
   'markup-text-effects',
   'text-input',
@@ -138,7 +138,6 @@ export const webOwners: Record<string, string> = {
   'data-artboard': 'data-artboard',
   'data-artboard-values': 'data-artboard',
   'markup-data-artboard': 'data-artboard',
-  pathfollow: 'pathfollow',
   surface: 'surface',
   'markup-surface': 'surface',
   colormix: 'colormix',
@@ -161,6 +160,7 @@ export const webOwners: Record<string, string> = {
   'rig-distance': 'rig',
   'markup-rig': 'rig',
   ik: 'ik',
+  pathfollow: 'pathfollow',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
   'text-input': 'text-input',
@@ -261,7 +261,6 @@ export const moduleBudgets: {
   { name: 'data-artboard', budget: 1024, over: 'data-artboard-values' },
   { name: 'data-artboard-values', budget: 1536, over: 'nested' },
   { name: 'markup-data-artboard', budget: 256, authoring: true, over: 'markup-hooks' },
-  { name: 'pathfollow', budget: 5120 },
   { name: 'colormix', budget: 3072 },
   { name: 'markup-colormix', budget: 512, over: 'index', authoring: true },
   { name: 'mix', budget: 1856 },
@@ -282,6 +281,7 @@ export const moduleBudgets: {
   { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
   { name: 'ik', budget: 896, heavy: true, over: 'rig' },
+  { name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
   { name: 'text-input', budget: 4544, heavy: true },
@@ -937,14 +937,6 @@ export const moduleScopes = {
       'components-host-artboard-reference',
     ],
   },
-  pathfollow: {
-    tests: [
-      'modules/pathfollow/test/**/*.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: ['rigging-follow-path', 'rigging-list-follow-path'],
-  },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',
@@ -1111,6 +1103,15 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['rigging-ik', 'rigging-ik-bend'],
+  },
+  pathfollow: {
+    tests: [
+      'modules/pathfollow/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: ['rigging-follow-path', 'rigging-list-follow-path'],
   },
   'text-effects': {
     tests: [

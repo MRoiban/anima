@@ -25,6 +25,7 @@ export default {
       'modules/pathfollow/test/**/*.test.ts',
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
     ],
     conformance: ['rigging-follow-path', 'rigging-list-follow-path'],
     docs: ['spec/SPEC.md'],
