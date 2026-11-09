@@ -64,6 +64,7 @@
     "./dataartboard": "./src/dataartboard.ts",
     "./data-artboard-values": "./src/data-artboard-values.ts",
     "./markup-data-artboard": "./src/markup-data-artboard.ts",
+    "./skin": "./src/skin.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
     "./colormix": "./src/colormix.ts",

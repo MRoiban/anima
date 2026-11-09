@@ -1,0 +1,147 @@
+{
+  "anima": "0.1",
+  "name": "rigging-weights",
+  "grid": 40,
+  "requires": ["paint", "rig", "skin"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "bone",
+      "children": [],
+      "length": 10
+    },
+    {
+      "id": "b",
+      "type": "bone",
+      "y": 10,
+      "children": [],
+      "length": 10
+    },
+    {
+      "id": "c",
+      "type": "bone",
+      "y": 20,
+      "children": [],
+      "length": 10
+    },
+    {
+      "id": "one",
+      "type": "path",
+      "d": "M5 0L6 0",
+      "stroke": {
+        "color": "#000"
+      },
+      "skin": {
+        "bones": ["a"],
+        "weights": [
+          {
+            "point": {
+              "a": 1
+            }
+          },
+          {
+            "point": {
+              "a": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "two",
+      "type": "path",
+      "d": "M5 2L6 2",
+      "stroke": {
+        "color": "#000"
+      },
+      "skin": {
+        "bones": ["a"],
+        "weights": [
+          {
+            "point": {
+              "a": 0.5,
+              "@rest": 0.5
+            }
+          },
+          {
+            "point": {
+              "a": 0.5,
+              "@rest": 0.5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "four",
+      "type": "path",
+      "d": "M5 4L6 4",
+      "stroke": {
+        "color": "#000"
+      },
+      "skin": {
+        "bones": ["a", "b", "c"],
+        "weights": [
+          {
+            "point": {
+              "a": 0.25,
+              "b": 0.25,
+              "c": 0.25,
+              "@rest": 0.25
+            }
+          },
+          {
+            "point": {
+              "a": 0.25,
+              "b": 0.25,
+              "c": 0.25,
+              "@rest": 0.25
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "auto",
+      "type": "path",
+      "d": "M5 8L6 8",
+      "stroke": {
+        "color": "#000"
+      },
+      "skin": {
+        "bones": ["a", "b"]
+      }
+    }
+  ],
+  "timelines": {
+    "bend": {
+      "duration": 1,
+      "tracks": {
+        "a.rotate": [
+          [0, 0],
+          [1, 90]
+        ],
+        "b.rotate": [
+          [0, 0],
+          [1, -90]
+        ],
+        "c.rotate": [
+          [0, 0],
+          [1, 180]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "bend",
+        "states": {
+          "bend": {
+            "play": "bend"
+          }
+        }
+      }
+    }
+  }
+}

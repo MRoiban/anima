@@ -1,0 +1,2 @@
+{"time":0,"values":{"one.skin.point.0":[5,0],"two.skin.point.0":[5,2],"four.skin.point.0":[5,4],"auto.skin.point.0":[5,8]},"states":{"main":"bend"},"events":[],"settled":false}
+{"time":1,"values":{"one.skin.point.0":[3.061616997868383e-16,5],"two.skin.point.0":[1.5,3.5],"four.skin.point.0":[-2.4999999999999996,12.5],"auto.skin.point.0":[-2.3531903159897,5.000000000000002]},"states":{"main":"bend"},"events":[],"settled":true}

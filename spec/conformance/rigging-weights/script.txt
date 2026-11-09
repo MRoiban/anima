@@ -1,0 +1,4 @@
+advance 0
+snapshot one.skin.point.0 two.skin.point.0 four.skin.point.0 auto.skin.point.0
+advance 1
+snapshot one.skin.point.0 two.skin.point.0 four.skin.point.0 auto.skin.point.0

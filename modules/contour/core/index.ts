@@ -173,6 +173,8 @@ export const contour: Module &
     return compiled.get(p.model.nodes[i]!.raw);
   },
   outline(p, i) {
+    // seam(P8-4): skin owns the deformed contour outline for hit testing.
+    if (p.model.nodes[i]!.raw.skin) return;
     const d = compiled.get(p.model.nodes[i]!.raw);
     if (d !== undefined) return flatten(parsePath(d));
   },

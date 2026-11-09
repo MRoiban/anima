@@ -1,3 +1,4 @@
+// seam(P8-4): account for the generic skin field used to diagnose unsupported hosts.
 // seam(P8-5): account for the new mesh registry field and two conformance sources.
 import '@anima-format/core/all';
 import { describe, expect, it } from 'vitest';
@@ -131,6 +132,8 @@ describe('one registry, two spellings', () => {
       'layout',
       // seam(P8-1): ordered rig constraint field.
       'constraints',
+      // seam(P8-4): all nodes accept skin structurally so unsupported hosts get rig-skin-host.
+      'skin',
     ]);
   });
 });
