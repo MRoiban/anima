@@ -1,7 +1,8 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
+import type { Model } from '../../../packages/core/src/load.ts';
 import { drawFrame, type Geometry } from '../../../packages/core/src/draw.ts';
-import { apply, clamp, IDENTITY, mul, type Mat } from '../../../packages/core/src/geom.ts';
+import { apply, clamp, IDENTITY, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import { flatten, parsePath } from '../../../packages/core/src/path.ts';
 import {
   compose,
@@ -14,7 +15,32 @@ import { after } from '../manifest.ts';
 
 type Box = [number, number, number, number];
 type State = { x: number; y: number; maxX: number; maxY: number };
+type ScrollSpec = { node: number; k: number; raw: Constraint; viewport: number };
+type ThumbSpec = { node: number; raw: Constraint; scroll: ScrollSpec; track: number };
+type Specs = { scrolls: ScrollSpec[]; thumbs: ThumbSpec[] };
+type InputController = {
+  pointer(
+    kind: 'move' | 'down' | 'up' | 'leave' | 'cancel',
+    x?: number,
+    y?: number,
+    options?: { id?: number; button?: number },
+  ): boolean;
+  scroll(
+    x: number,
+    y: number,
+    dx: number,
+    dy: number,
+    options?: { phase?: 'start' | 'move' | 'end' | 'cancel'; time?: number },
+  ): boolean;
+};
 const states = new WeakMap<Player, Map<string, State>>();
+const models = new WeakMap<Model, Specs>();
+const queued = new WeakMap<Player, Map<string, [number, number]>>();
+const drags = new WeakMap<
+  Player,
+  Map<number, { scroll: ScrollSpec; thumb?: ThumbSpec; x: number; y: number }>
+>();
+const decorated = new WeakSet<object>();
 const number = { k: 'num' as const };
 const key = (node: number, k: number) => node + ':' + k;
 
@@ -95,15 +121,154 @@ function current(ctx: RigContext, node: number, raw: Constraint, k: number): Sta
   return next;
 }
 
+function contains(p: Player, node: number, x: number, y: number): boolean {
+  const n = p.model.nodes[node]!,
+    box = bounds(p, node);
+  if (!box) return false;
+  const parent = n.parent,
+    matrix =
+      (n.type as string) === 'layout' ? (parent < 0 ? IDENTITY : p.world(parent)) : p.world(node),
+    inv = invert(matrix);
+  if (!inv) return false;
+  const point = apply(inv, x, y);
+  return (
+    point[0] >= box[0] &&
+    point[1] >= box[1] &&
+    point[0] <= box[0] + box[2] &&
+    point[1] <= box[1] + box[3]
+  );
+}
+
+function move(p: Player, spec: ScrollSpec, dx: number, dy: number): boolean {
+  if (spec.raw.interactive === false) return false;
+  const state = states.get(p)?.get(key(spec.node, spec.k));
+  if (!state) return false;
+  let q = queued.get(p);
+  if (!q) queued.set(p, (q = new Map()));
+  const old = q.get(key(spec.node, spec.k)) ?? [state.x, state.y],
+    axis = spec.raw.axis ?? 'both',
+    id = p.model.nodes[spec.node]!.id,
+    drivenX = p.model.addrs.has(id + `.constraints.${spec.k}.offsetX`),
+    drivenY = p.model.addrs.has(id + `.constraints.${spec.k}.offsetY`),
+    x = axis === 'y' ? 0 : drivenX ? old[0] : clamp(old[0] + dx, 0, state.maxX),
+    y = axis === 'x' ? 0 : drivenY ? old[1] : clamp(old[1] + dy, 0, state.maxY);
+  if (x === old[0] && y === old[1]) return false;
+  q.set(key(spec.node, spec.k), [x, y]);
+  return true;
+}
+
+function moveThumb(
+  p: Player,
+  thumb: ThumbSpec,
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+): boolean {
+  const spec = thumb.scroll,
+    state = states.get(p)?.get(key(spec.node, spec.k)),
+    axis = thumb.raw.axis === 'x' ? 0 : 1,
+    trackBox = bounds(p, thumb.track),
+    thumbBox = bounds(p, thumb.node),
+    viewBox = bounds(p, spec.viewport),
+    contentBox = bounds(p, spec.node);
+  if (!state || !trackBox || !thumbBox || !viewBox || !contentBox) return false;
+  const track = trackBox[axis + 2],
+    authored = thumbBox[axis + 2],
+    viewport = viewBox[axis + 2],
+    content = contentBox[axis + 2],
+    length = thumb.raw.resize
+      ? Math.min(track, Math.max(authored, content ? (track * viewport) / content : track))
+      : authored,
+    travel = track - length,
+    max = axis ? state.maxY : state.maxX,
+    inv = invert(p.world(thumb.track));
+  if (!travel || !max || !inv) return false;
+  const a = apply(inv, x0, y0),
+    b = apply(inv, x1, y1),
+    delta = ((b[axis] - a[axis]) / travel) * max;
+  return move(p, spec, axis ? 0 : delta, axis ? delta : 0);
+}
+
+function applyQueued(p: Player): void {
+  const q = queued.get(p);
+  if (!q?.size) return;
+  const map = states.get(p);
+  for (const [id, [x, y]] of q) {
+    const state = map?.get(id);
+    if (state) {
+      state.x = x;
+      state.y = y;
+    }
+  }
+  q.clear();
+  activeRig?.context(p)?.invalidate();
+}
+
+function installInput(player: Player, controller: InputController): InputController {
+  if (decorated.has(controller)) return controller;
+  decorated.add(controller);
+  const pointer = controller.pointer.bind(controller),
+    scroll = controller.scroll.bind(controller);
+  controller.pointer = (kind, x = 0, y = 0, options = {}) => {
+    const id = options.id ?? 0,
+      specs = models.get(player.model),
+      active = drags.get(player) ?? new Map(),
+      previous = active.get(id);
+    let moved = false;
+    if (kind === 'down' && (options.button ?? 0) === 0 && specs) {
+      const thumb = [...specs.thumbs].reverse().find((s) => contains(player, s.node, x, y)),
+        spec =
+          thumb?.scroll ??
+          [...specs.scrolls].reverse().find((s) => contains(player, s.viewport, x, y));
+      if (spec && spec.raw.interactive !== false) {
+        active.set(id, { scroll: spec, thumb, x, y });
+        drags.set(player, active);
+      }
+    } else if (kind === 'move' && previous) {
+      moved = previous.thumb
+        ? moveThumb(player, previous.thumb, previous.x, previous.y, x, y)
+        : move(player, previous.scroll, x - previous.x, y - previous.y);
+      previous.x = x;
+      previous.y = y;
+    } else if (kind !== 'move') active.delete(id);
+    return pointer(kind, x, y, options) || moved;
+  };
+  controller.scroll = (x, y, dx, dy, options = {}) => {
+    const specs = models.get(player.model),
+      spec = specs && [...specs.scrolls].reverse().find((s) => contains(player, s.viewport, x, y)),
+      moved = !!spec && move(player, spec, dx, dy);
+    return scroll(x, y, dx, dy, options) || moved;
+  };
+  return controller;
+}
+
 export function scrollState(player: Player, node: number, k: number): State | undefined {
   return states.get(player)?.get(key(node, k));
 }
+
+let activeRig: { context(player: Player): RigContext | undefined } | undefined;
 
 export const scroll: Module = {
   name: 'scroll',
   after,
   entries: [],
-  init(_registry, shared) {
+  init(registry, shared) {
+    activeRig = registry.get('rig') as typeof activeRig;
+    const proto = shared.Player.prototype as typeof shared.Player.prototype & {
+      scrollInput?: boolean;
+      input(): InputController;
+    };
+    if (!proto.scrollInput) {
+      proto.scrollInput = true;
+      const input = proto.input;
+      Object.defineProperty(proto, 'input', {
+        configurable: true,
+        value: function (this: Player) {
+          return installInput(this, input.call(this));
+        },
+      });
+    }
     registerConstraint({
       kind: 'scroll',
       shape: {
@@ -193,5 +358,30 @@ export const scroll: Module = {
       return out;
     };
     return scroll;
+  },
+  load(model) {
+    if (!model.doc.requires?.includes('scroll')) return;
+    const scrolls: ScrollSpec[] = [];
+    for (const [node, n] of model.nodes.entries())
+      for (const [k, raw] of (n.raw.constraints ?? []).entries())
+        if (raw.kind === 'scroll') {
+          const viewport = model.ids.get(raw.viewport);
+          if (viewport !== undefined) scrolls.push({ node, k, raw, viewport });
+        }
+    const thumbs: ThumbSpec[] = [];
+    for (const [node, n] of model.nodes.entries())
+      for (const raw of n.raw.constraints ?? [])
+        if (raw.kind === 'scrollThumb') {
+          const content = model.ids.get(raw.scroll),
+            track = model.ids.get(raw.track),
+            source = scrolls.find((s) => s.node === content);
+          if (source && track !== undefined) thumbs.push({ node, raw, scroll: source, track });
+        }
+    models.set(model, { scrolls, thumbs });
+    const previous = model.prepareInputs;
+    model.prepareInputs = (player, scope, dt) => {
+      previous?.(player, scope, dt);
+      applyQueued(player);
+    };
   },
 };

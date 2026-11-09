@@ -71,6 +71,10 @@ export function install(model: Model, order: number[]): void {
       },
       num: (i, k, key, def) => p.num(i, `constraints.${k}.${key}`, def),
       blend: (a, b, t, i) => blend(a, b, t, i === undefined ? undefined : pivot(model, i)),
+      // seam(P8-7): external per-player constraint state can invalidate the value-only signature.
+      invalidate() {
+        signature = '';
+      },
     };
     contexts.set(p, ctx);
     p.local = (i) => locals[i] ?? local(i);

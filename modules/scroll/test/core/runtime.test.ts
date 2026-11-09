@@ -78,3 +78,54 @@ it('links and resizes a vertical thumb from the scroll percentage', () => {
   const m = p.world(result.model!.ids.get('thumb')!);
   expect(Math.hypot(m[2], m[3])).toBeCloseTo(2, 8);
 });
+
+it('queues viewport drag and wheel offsets until step 1 and clamps them', () => {
+  const p = make();
+  const input = p.input();
+  input.pointer('down', 5, 1, { id: 7 });
+  input.pointer('move', 5, 5, { id: 7 });
+  expect(p.values()['content.world.y']).toBe(0);
+  p.step(0);
+  expect(p.values()['content.world.y']).toBe(-4);
+  expect(input.scroll(5, 5, 0, 50)).toBe(true);
+  p.step(0);
+  expect(p.values()['content.world.y']).toBe(-20);
+  expect(input.scroll(5, 5, 0, 1)).toBe(false);
+});
+
+it('thumb drag sets the linked scroll offset and remains settled', () => {
+  const result = load({
+    anima: '0.1',
+    name: 'thumb-drag',
+    grid: 40,
+    requires: ['rig', 'input', 'scroll'],
+    nodes: [
+      { id: 'viewport', type: 'rect', x0: 0, y0: 0, w: 10, h: 10 },
+      {
+        id: 'content',
+        type: 'group',
+        constraints: [{ kind: 'scroll', viewport: 'viewport', axis: 'y' }],
+        children: [{ id: 'body', type: 'rect', x0: 0, y0: 0, w: 10, h: 30 }],
+      },
+      { id: 'track', type: 'rect', x0: 12, y0: 0, w: 2, h: 12 },
+      {
+        id: 'thumb',
+        type: 'rect',
+        x0: 12,
+        y0: 0,
+        w: 2,
+        h: 2,
+        constraints: [
+          { kind: 'scrollThumb', scroll: 'content', track: 'track', axis: 'y', resize: true },
+        ],
+      },
+    ],
+  });
+  const p = new Player(result.model!),
+    input = p.input();
+  input.pointer('down', 13, 1, { id: 2 });
+  input.pointer('move', 13, 5, { id: 2 });
+  const step = p.step(0);
+  expect(p.values()['content.constraints.0.percentY']).toBeCloseTo(0.5, 8);
+  expect(step.settled).toBe(true);
+});
