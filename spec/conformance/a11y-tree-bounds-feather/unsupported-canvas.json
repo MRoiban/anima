@@ -1,0 +1,7 @@
+{
+  "code": "unsupported-render",
+  "severity": "error",
+  "pointer": "/nodes/0/fill",
+  "message": "Canvas2D cannot render nonuniform local feather",
+  "hint": "use the SVG renderer or remove this feature"
+}

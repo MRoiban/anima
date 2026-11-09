@@ -6,5 +6,5 @@
       <a11y role="img"/>
     </rect>
   </group>
-  <rect id="edge" x0="0" y0="2" width="6" height="20" x="7" visible="false" stroke="#000" stroke-width="10"/>
+  <rect id="edge" x0="0" y0="5" width="5" height="20" x="10" visible="false" stroke="#000" stroke-width="10"/>
 </anima>
