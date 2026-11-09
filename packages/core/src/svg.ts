@@ -110,7 +110,7 @@ export function sceneOrder(p: Player, nodes: number[]): number[] {
   return drawOrder(drawFrame(p), nodes);
 }
 
-const matrix = (m: Mat): string => `matrix(${m.map(fmt).join(' ')})`;
+const matrix = (m: Mat): string => `matrix(${m.map((v) => Number(v.toPrecision(6))).join(' ')})`;
 
 export interface Paint {
   /** How a colour slot renders: as a CSS variable (web) or resolved to a value (static). */
