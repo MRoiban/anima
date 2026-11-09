@@ -1479,6 +1479,22 @@ caches. Omit the seed to reproduce the established deterministic defaults exactl
 0x6d2b79f5 for machines, 1 for converters). See spec §11.2 for all commands.
 
 
+Toolbar and grid roving use `@anima-format/web/a11y-navigation`, which includes
+`a11y-dom`. Author a `toolbar` with direct controls, or a `grid` with `row` groups
+of `gridcell` nodes. Gridcells gain implicit logical focus with the focus module.
+Toolbar arrows work on both axes; Home/End select endpoints. Grid arrows move by
+cell/column, Home/End stay in the row, and Ctrl+Home/End reach the whole grid's
+endpoints. Row `<focus enabled="false" scope="true" edge="closed-loop"/>` wraps
+horizontally without making the row a focus target or hiding its children.
+Page Up/Down are left unprevented for your page's calendar/month handling.
+See [the example pair](../modules/a11y-dom/examples/navigation.animl) and
+[the exact navigation contract](../modules/a11y-dom/SPEC.md).
+
+Keyboard/assistive-technology semantic actions dispatch state-entry events and
+state changes synchronously, including events from component instances. No dummy
+timeline is needed. Disabling a focus scope only removes that scope's own focus
+eligibility; use semantic `hidden` when you intend to hide a subtree.
+
 ## Project tooling recipes
 
 Use `anima docs authoring <section-slug>` to read one contents entry, or `anima docs spec --list`

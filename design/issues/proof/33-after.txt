@@ -1,0 +1,5 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts --maxWorkers=1 --reporter=verbose
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #33 disabled focus scope keeps its role, accessible subtree and enabled roving tabs 904ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #33 disabled focus scope keeps its role, accessible subtree and enabled roving tabs 7243ms
+
+Result: 22 passed across Chromium and Firefox; exit 0.

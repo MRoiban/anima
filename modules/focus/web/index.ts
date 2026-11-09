@@ -92,14 +92,15 @@ function attach(icon: AnimaIcon) {
       for (const [id, el] of targets) {
         const hidden = !eligible.has(id),
           tab = !hidden && (inner || p.focused === id) ? 0 : -1;
-        if (el.hidden !== hidden) el.hidden = hidden;
-        if (!(inner && el.dataset.semantic) && el.tabIndex !== tab) el.tabIndex = tab;
+        if (!el.dataset.semantic && el.hidden !== hidden) el.hidden = hidden;
+        if ((hidden || !(inner && el.dataset.semantic)) && el.tabIndex !== tab) el.tabIndex = tab;
       }
     };
     p.onFocusRefresh();
     p.onFocusChange = (id) => {
       saved?.(id);
-      for (const [name, el] of targets) el.tabIndex = inner || name === id ? 0 : -1;
+      for (const [name, el] of targets)
+        if (!(inner && el.dataset.semantic)) el.tabIndex = inner || name === id ? 0 : -1;
       if (id) {
         if (inner) icon.removeAttribute('tabindex');
         else icon.tabIndex = -1;

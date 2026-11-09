@@ -1787,6 +1787,10 @@ stops. Traversal returns whether the target changed. Invalid direction names thr
 Focusable component internals are exposed as dotted instance paths (`save.label`),
 with each component player's local traversal and scope rules. Root targets precede
 component targets; instances and their descendants follow authored instance order.
+Disabling a scope's own focus target does not hide its semantic subtree or disable
+eligible descendants. Semantic elements remain in the accessibility tree; only
+nonsemantic focus proxies are hidden when ineligible.
+
 An instance is an implicit scope: after local traversal stops, its node's focus.edge
 must be parent-scope to traverse outside it. Nested transforms compose for spatial
 centers and pointer mapping. Focus changes route to the owning player's local
@@ -2895,6 +2899,28 @@ semantic focus targets use world geometry-box centers; directional candidates ex
 of the current target. Unchanged semantic reads reuse retained dependencies before collecting the
 scene. Geometry/visibility, binding and owner dependencies govern recollection; paint-only changes and
 unchanged list steps preserve it. See the module contracts and `spec/conformance/a11y-spatial-focus`. Root §10 is unchanged.
+
+### Native composite roles and synchronous actions
+
+Node roles include `toolbar`, `grid`, `row` and `gridcell`. With a11y-actions and
+focus, gridcells are implicit focus targets; the three structural roles are not.
+The optional `@anima-format/web/a11y-navigation` entry includes the DOM overlay and
+adds one tab stop per toolbar/grid. Toolbar arrows on both axes and Home/End use
+the tab-list roving policy. A grid contains semantic rows of cells: Left/Right stay
+within a row; Up/Down select the same authored column in the adjacent row (missing
+or unavailable cells retain focus). Home/End select row endpoints; Ctrl+Home/End
+select grid endpoints. Row `focus.edge` controls horizontal boundaries: stop,
+closed-loop within the row, or parent-scope using existing focus traversal.
+Vertical boundaries stop. Page Up/Down bubble unprevented for the page to handle.
+See [the native navigation contract](../modules/a11y-dom/SPEC.md) for availability,
+modifier and ordering rules. Module-owned conformance assertions are in
+`modules/a11y/test/core/issues.test.ts`, with the paired `navigation` example.
+
+Accepted host semantic actions synchronously step(0) through the scheduled-step
+path: all resulting events (including nested component events) and state changes
+are dispatched as `anima:event` and `anima:state`, just as for `icon.fire()`.
+A focus-disabled scope retains its semantic role and subtree; enabled descendants
+remain eligible for native focus and roving.
 
 <!-- capability: a11y.tree-bounds -->
 ### Semantic bounds

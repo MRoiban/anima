@@ -3,6 +3,7 @@ import './a11y.ts';
 import './a11y-actions.ts';
 import './a11y-bounds.ts';
 import './a11y-dom.ts';
+import './a11y-navigation.ts';
 import './a11y-text.ts';
 import './assetio.ts';
 import './assets.ts';

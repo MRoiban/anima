@@ -20,6 +20,7 @@ entry, neither the semantic DOM nor its observers and step wrapper are installed
 | progressbar, meter | div with matching role and aria-valuemin/max/now/text; missing progressbar value omits aria-valuenow |
 | status | div role status; aria-live polite by default |
 | heading | h1–h6 according to level (default 1) |
+| toolbar, grid, row, gridcell | div with matching role; gridcells are focusable |
 | tab-list, list, list-item | div role tablist, list, listitem |
 | group, dialog, alert-dialog, text, img | div role group, dialog, alertdialog, text, img |
 
@@ -99,7 +100,8 @@ refresh its target map through the internal anima:overlay event.
 
 - `icon.semantics`: read-only getter returning a detached SemanticNode forest.
 - `icon.semanticAction(id, action)`: returns the core action result; accepted actions
-  step(0) and repaint. Unless explicitly paused, an accepted action also wakes the host
+  step(0) and repaint through the same host path as scheduled steps, dispatching all
+  resulting `anima:event` (including dotted component events) and `anima:state` notifications. Unless explicitly paused, an accepted action also wakes the host
   so queued machine entry actions and ongoing animation can finish without the focus module. Unknown ids/unavailable actions return false.
 - `anima:semantics`: CustomEvent whose detail is the actual SemanticDiff, emitted
   after a changed tree is applied, including while the overlay is disabled.
@@ -130,3 +132,34 @@ CLI documentation text was copied.
 With the optional `a11y-text` entry, the same overlay consumes inferred text labels and measured
 layout bounds as specified in [a11y/TEXT.md](../a11y/TEXT.md). Renderer rebuilds restore the layer
 without advancing the player.
+
+## Optional toolbar and grid navigation
+
+Import `@anima-format/web/a11y-navigation` (includes `a11y-dom`) for native roving
+on these roles. This separate entry keeps the base overlay within its fixed budget.
+A toolbar contains direct semantic controls; a grid contains direct semantic rows,
+each containing direct gridcells. Hidden descendants are absent; disabled or
+focus-ineligible controls/cells are skipped. Structural containers are not tab stops.
+Each toolbar/grid has one tab stop: the currently focused enabled item, or the first
+enabled item. Tab/Shift+Tab leave the composite using browser navigation.
+
+Toolbar item order follows the focus module's ordering when installed, otherwise
+semantic child order. Toolbar Left/Right and Up/Down move in item order and wrap, matching the tab-list
+policy in both orientations. Home/End choose the first/last enabled item. Focus
+does not activate a control. Grid Left/Right move among enabled cells in the current
+row. Up/Down keep the authored column index in the immediately adjacent semantic
+row; if that row or an enabled cell at that column is missing, focus stays put.
+Home/End choose the first/last enabled cell in the row; Ctrl+Home/End choose the
+first/last enabled cell of the whole grid. Gridcells are implicit focus targets
+with the focus module, and remain native tab targets without it.
+
+Horizontal row edges use the row's existing `focus.edge`: `stop` (default) retains
+focus, `closed-loop` wraps within that row, and `parent-scope` delegates to the
+focus module's existing spatial traversal in the enclosing scope. Vertical grid
+edges retain focus. Handled navigation keys prevent the browser scrolling default.
+Page Up/Down always bubble unprevented for page-owned calendar/month navigation.
+Other modified shortcuts also pass through (except grid Ctrl+Home/End).
+
+Focus availability is independent of semantic visibility. A disabled focus scope
+keeps its role and semantic subtree in the accessibility tree; eligible descendants
+still focus and rove. Only semantic hidden/invisible state removes the subtree.

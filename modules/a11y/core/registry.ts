@@ -3,7 +3,7 @@ import type { ModuleEntry } from '../../../packages/core/src/modules.ts';
 export const states =
   'checked pressed selected expanded disabled hidden required readonly modal'.split(' ');
 export const roles =
-  'button checkbox switch radio radio-group slider tab tab-list link list list-item group dialog alert-dialog heading text img none progressbar meter status'.split(
+  'button checkbox switch radio radio-group slider tab tab-list toolbar grid row gridcell link list list-item group dialog alert-dialog heading text img none progressbar meter status'.split(
     ' ',
   );
 const str: Shape = { k: 'str' };

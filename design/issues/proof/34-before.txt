@@ -1,0 +1,111 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts -t Chromium
+Baseline: eb89d464
+modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 toolbar uses one tab stop, both arrow axes and Home/End
+AssertionError: expected [ { code: 'bad-value', …(3) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/a11y/role",
++     "severity": "error",
++   },
++ ]
+
+ ❯ load modules/a11y-dom/test/web/issues.test.ts:99:9
+     97|       expect(
+     98|         await page.evaluate((d) => document.querySelector('anima-icon'…
+     99|       ).toEqual([]);
+       |         ^
+    100|     const observe = () =>
+    101|       page.evaluate(() => {
+ ❯ modules/a11y-dom/test/web/issues.test.ts:163:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=stop, page keys pass through
+ FAIL  |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=closed-loop, page keys pass through
+ FAIL  |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=parent-scope, page keys pass through
+AssertionError: expected [ { code: 'bad-value', …(3) }, …(8) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/0/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/0/children/0/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/0/children/1/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/0/children/2/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/1/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/1/children/0/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/1/children/1/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "bad-value",
++     "pointer": "/nodes/0/children/1/children/2/a11y/role",
++     "severity": "error",
++   },
++ ]
+
+ ❯ load modules/a11y-dom/test/web/issues.test.ts:99:9
+     97|       expect(
+     98|         await page.evaluate((d) => document.querySelector('anima-icon'…
+     99|       ).toEqual([]);
+       |         ^
+    100|     const observe = () =>
+    101|       page.evaluate(() => {
+ ❯ modules/a11y-dom/test/web/issues.test.ts:210:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 7 skipped (14)
+   Start at  09:18:11
+   Duration  54.57s (tests 90%, import 10%)

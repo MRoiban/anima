@@ -1,0 +1,47 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts -t Chromium
+Baseline: eb89d464
+FAIL  |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 Enter dispatches state-entry events and states, nested=false
+AssertionError: expected [] to deeply equal [ ObjectContaining {"name": "sent"} ]
+
+- Expected
++ Received
+
+- [
+-   ObjectContaining {
+-     "name": "sent",
+-   },
+- ]
++ []
+
+ ❯ modules/a11y-dom/test/web/issues.test.ts:136:24
+    134|         expect(state[nested ? 'child/l' : 'l']).toBe('done');
+    135|         const events = JSON.parse((await page.locator('body').getAttri…
+    136|         expect(events).toEqual([expect.objectContaining({ name: nested…
+       |                        ^
+    137|         expect(JSON.parse((await page.locator('body').getAttribute('da…
+    138|           state,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 Enter dispatches state-entry events and states, nested=true
+AssertionError: expected [] to deeply equal [ ObjectContaining{…} ]
+
+- Expected
++ Received
+
+- [
+-   ObjectContaining {
+-     "name": "child.sent",
+-   },
+- ]
++ []
+
+ ❯ modules/a11y-dom/test/web/issues.test.ts:136:24
+    134|         expect(state[nested ? 'child/l' : 'l']).toBe('done');
+    135|         const events = JSON.parse((await page.locator('body').getAttri…
+    136|         expect(events).toEqual([expect.objectContaining({ name: nested…
+       |                        ^
+    137|         expect(JSON.parse((await page.locator('body').getAttribute('da…
+    138|           state,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯

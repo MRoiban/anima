@@ -1,0 +1,15 @@
+Command: node tools/size.ts
+core+web: 22575 B min+gzip (ceiling 24576 B)
+focus: 3365 B min+gzip incremental (budget 3456 B)
+a11y: 2357 B min+gzip incremental (budget 2496 B)
+a11y-actions: 1099 B min+gzip over web+a11y (budget 1216 B)
+a11y-dom: 2158 B min+gzip over web+a11y-actions (budget 2176 B)
+a11y-navigation: 659 B min+gzip over web+a11y-dom (budget 1536 B)
+gate                     value (B)   ceiling (B)
+core+web                     22575         24576
+largest scene (30)           57545         65536
+app-UI scene                107665        131072
+runtime sum                 134250        163840
+authoring add-on             15006         16384
+Rive-class (heavy)          153312        256000
+Exit: 0; no entry or aggregate ceiling exceeded.

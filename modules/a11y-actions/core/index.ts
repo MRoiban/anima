@@ -152,7 +152,7 @@ export const a11yActions: Module = {
     for (const n of model.nodes)
       if (
         n.raw.a11y &&
-        'button checkbox switch radio slider tab link list-item'
+        'button checkbox switch radio slider tab gridcell link list-item'
           .split(' ')
           .includes(n.raw.a11y.role) &&
         !n.raw.focus
