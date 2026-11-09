@@ -3537,3 +3537,63 @@ A host whose computed content size is not a resolved pixel length (for example `
 percentage size) is not measured; its layout size and viewport are kept until it has a layout box.
 Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
 This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.
+
+## posepad
+
+<!-- capability: rigging.joystick -->
+<!-- capability: animation.joystick-two-axis -->
+<!-- capability: animation.joystick-invert -->
+<!-- capability: animation.joystick-handle -->
+
+`requires: ["posepad"]` enables `type: "posepad"`, AniML `<posepad>`. It draws nothing
+and has no hit area. The identical lowercase node name follows the existing node registry;
+no node-name alias or markup compiler extension is needed (P8 orchestrator decision).
+
+| JSON | AniML | Meaning |
+|---|---|---|
+| `timelineX`, `timelineY` | `timeline-x`, `timeline-y` | Optional declared timeline names |
+| `valueX`, `valueY` | `value-x`, `value-y` | Numbers, default 0, clamped to −1..1; animatable/bindable |
+| `invertX`, `invertY` | `invert-x`, `invert-y` | Static booleans, default false |
+| `handle` | `handle` | Optional node id; declares the optional handle entry requirement |
+| `box` | `box` | `[x0, y0, width, height]` in pad coordinates, positive width/height |
+
+After layout, pads run in authored node order, X before Y. Clamp control v to −1..1,
+negate when its axis is inverted, then sample at `(v + 1) / 2 * timeline.duration`.
+Sampling uses the active registry's track sampler (§5), including typed tracks, custom
+eases and per-player data key values. Loop/work-area/playback controls do not change this
+whole-duration mapping. Pad sampling never plays clocks or emits timeline events.
+
+Sampled tracks form a per-player overlay above layers and bindings. Clamp numeric results
+to each target property's registry range; later axes/pads win collisions. `prop`, `num`,
+`value`, `values()` and snapshots expose the overlay. It does not mutate model rest values,
+tracks or another player's state. Layout sees the previous step's overlay; guards never
+read same-step posed output. Drawing revisions are invalidated for sampled target nodes.
+A pad introduces no ongoing clock and does not prevent settling.
+
+A handle requires the optional heavy `@anima-format/web/posepad-handle` entry in addition
+to `@anima-format/web/posepad`. Declaring `handle` without that entry reports `posepad-handle`
+at the handle field, with an import hint (verbose builds); it never silently poses freely.
+Tooling includes handle support. A handle also requires `box`. Read the handle's current
+world pivot (including motion's animated pivot), map it through the inverse pad world matrix,
+then derive `valueX = clamp(2*(hx-x0)/width-1, -1, 1)` and similarly for Y. These outputs
+are uninverted; inversion affects sampling only. A singular pad matrix yields centered outputs.
+Both outputs are included in snapshots even when no track references them. Animate or bind
+the handle, not these outputs. Pointer drags use the input/bind modules' existing queued writes.
+
+With `rig`, chain `model.rigPose` between its solve passes, returning true when the pad wrote;
+rig solves again exactly once. Without rig, chain a standalone `afterStep` stage after layout
+and read `p.world`. The distance-gated handle conformance probe remains pending until rig lands.
+
+Diagnostics: `posepad-timeline` at `/nodes/…/timelineX|timelineY` names an unknown timeline;
+`posepad-handle` at `/nodes/…/handle` means an unknown handle or missing handle entry;
+`posepad-box` at `/nodes/…/box` means the required box is absent. Structural box errors use
+`bad-type` or `bad-value` at the offending field/coordinate. `posepad-output` points
+at a bind, track or state-pose write to a handle-driven value. `posepad-cycle` at the pad's
+axis timeline rejects a write to its handle, any handle ancestor, any transitive constraint
+target (and its ancestors), or its own coordinate frame/ancestors. These restrictions keep
+the bounded solve/pose/solve order independent of a dirt-restart loop.
+
+Design rationale: [animation/state research](../docs/research/rive-animation-and-state.md) §2.3
+and [format/graph research](../docs/research/rive-format-and-graph.md) §3.2–3.4 describe update
+restarts; this explicit stage retains deterministic step order. No Rive source or binary format
+is used. Native oracle captures await orchestrator-owned budgets and remain pending evidence.

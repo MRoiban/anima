@@ -1,0 +1,18 @@
+<anima version="0.1" name="animation-joystick-invert" grid="20" requires="posepad bind">
+  <circle id="eyeX" cx="10" cy="10" r="1" fill="#141413"/>
+  <posepad id="padX" timeline-x="xX" timeline-y="yX" invert-x="true" value-x="0.25" value-y="-0.5"/>
+  <timeline name="xX" duration="2">
+    <track target="eyeX.x">0 -4; 2 4</track>
+  </timeline>
+  <timeline name="yX" duration="4">
+    <track target="eyeX.y">0 -8; 4 8</track>
+  </timeline>
+  <circle id="eyeY" cx="10" cy="10" r="1" fill="#141413"/>
+  <posepad id="padY" timeline-x="xY" timeline-y="yY" invert-y="true" value-x="0.25" value-y="-0.5"/>
+  <timeline name="xY" duration="2">
+    <track target="eyeY.x">0 -4; 2 4</track>
+  </timeline>
+  <timeline name="yY" duration="4">
+    <track target="eyeY.y">0 -8; 4 8</track>
+  </timeline>
+</anima>

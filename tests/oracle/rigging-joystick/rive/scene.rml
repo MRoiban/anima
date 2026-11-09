@@ -1,0 +1,9 @@
+<Rive version="1" kind="fragment"><Artboard name="Oracle" id="0:1" width="240" height="240" styleId="0:2" defaultStateMachineId="0:101">
+<LayoutComponentStyle id="0:2"/><Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+<Shape id="0:3"><Rectangle x="120" y="120" width="24" height="24"/><Fill><SolidColor colorValue="FF141413"/></Fill></Shape>
+<Node id="0:4" x="72" y="168"/>
+<Joystick id="0:5" name="Control" x="-1" y="1" xId="0:10" yId="0:11"/>
+<LinearAnimation name="horizontal" id="0:10" fps="60" duration="120"><KeyedObject objectId="0:3"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="-48" interpolationType="linear"/><KeyFrameDouble frame="120" value="48"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="vertical" id="0:11" fps="60" duration="240"><KeyedObject objectId="0:3"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="-48" interpolationType="linear"/><KeyFrameDouble frame="240" value="48"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="drive" id="0:100" fps="60" duration="60"><KeyedObject objectId="0:5"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="-1" interpolationType="linear"/><KeyFrameDouble frame="60" value="1"/></KeyedProperty><KeyedProperty property="y"><KeyFrameDouble frame="0" value="1" interpolationType="linear"/><KeyFrameDouble frame="60" value="-1"/></KeyedProperty></KeyedObject></LinearAnimation>
+<StateMachine name="s" id="0:101"><StateMachineLayer name="l"><EntryState><StateTransition stateToId="0:102"/></EntryState><AnimationState id="0:102" animationId="0:100"/></StateMachineLayer></StateMachine></Artboard></Rive>
