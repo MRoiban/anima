@@ -1,0 +1,51 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  59 passed (59)
+   Start at  13:27:47
+   Duration  55.85s (tests 100%)
+
+{"file":"packages/cli/test/authoring.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  13:28:44
+   Duration  3.77s (tests 65%, import 20%, transform 15%)
+
+{"file":"modules/assets/test/cli/pipeline.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed | 2587 skipped (2594)
+   Start at  13:28:48
+   Duration  18.14s (tests 75%, import 24%, transform 2%)
+
+{"file":"modules/canvas/test/web/canvas.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  13:29:07
+   Duration  9.30s (tests 91%, import 9%)
+
+{"file":"modules/componentpaint/test/web/sources.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:29:17
+   Duration  6.06s (tests 90%, import 9%)
+
+{"file":"modules/host-edit/test/web/components.test.ts","exit":0}
+{"files":5,"failed":0}

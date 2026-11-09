@@ -1,0 +1,17 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  13:31:02
+   Duration  830ms (transform 54%, import 38%, tests 7%, worker 1%)
+
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 624 skipped (626)
+   Start at  13:31:04
+   Duration  776ms (import 52%, transform 39%, tests 8%, worker 1%)

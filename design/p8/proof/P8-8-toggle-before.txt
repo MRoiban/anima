@@ -1,0 +1,59 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |browser| packages/web/test/browser.test.ts (108 tests | 1 failed | 107 skipped) 6528ms
+   ❯ WEB issues in Chromium (7)
+     × P8-8: pre-player toggle shares the set/fire FIFO before the first step and applies once 4388ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Chromium > P8-8: pre-player toggle shares the set/fire FIFO before the first step and applies once
+AssertionError: expected { on: false, …(2) } to deeply equal { on: false, …(2) }
+
+- Expected
++ Received
+
+@@ -1,27 +1,15 @@
+  {
+    "calls": [
+      [
+-       "toggle",
+-       "on",
+-     ],
+-     [
+        "set",
+        "on",
+        false,
+      ],
+      [
+        "fire",
+        "go",
+-     ],
+-     [
+-       "toggle",
+-       "on",
+-     ],
+-     [
+-       "toggle",
+-       "on",
+      ],
+      [
+        "step",
+      ],
+    ],
+
+ ❯ packages/web/test/issues.ts:433:26
+    431|     }, scene);
+    432|     expect(result.stale).toBe(true);
+    433|     expect(result.first).toEqual({
+       |                          ^
+    434|       on: false,
+    435|       states: { main: 'entering' },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 107 skipped (108)
+   Start at  12:31:26
+   Duration  8.78s (tests 77%, import 14%, transform 10%)
