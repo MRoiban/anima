@@ -1,0 +1,219 @@
+# Changelog — per-phase Rottweiler review (PR #37, merged 2026-11-09)
+Fixes found by GPT-6.1-sol reviewers and applied by one Opus lead per phase (up to five rounds each), plus orchestrator follow-ups. Every fix has a regression test that fails before and passes after; full findings, test paths, pushbacks and deferrals are in `design/rottweiler/<PHASE>-LEDGER.md`. Severity: **M** major, m minor.
+
+## P1 — foundation (loader, player, CLI, web element) and AniML — 48 fixes
+- **P2 R1-2** (m) web (deferred by the P2 lead): `#aria()` set `aria-checked`/`aria-pressed` only when the document has `a11y.pressed`, so loading a document without it (or switching role switch ↔ button) left the previous document's attribute on the host
+- **P2 R1-7** (m) web (deferred by the P2 lead): `held` followed the last key event, so releasing Enter while Space was still down set `held` false (SPEC §a11y: true while either key is held)
+- **R1-01** (M) player: timeline event enumeration capped at 10,000 periods per step (10,001 events for 20 s of a 1 ms loop), and after `step(1e20)` the next `step(0)` looped forever because the period index satisfied `k + 1 === k`
+- **R1-02** (M) player: an event recognised within ε before the clock (§5) was reported again when reduced motion then froze the timeline at its end (the freeze filter compared with raw `>`/`<`)
+- **R1-03** (m) player: `step(Infinity)` passed the `dt ≥ 0` check and left `time` at Infinity for good
+- **R1-05** (M) load: SPEC §2 allows `$comment` on any object, but the `inputs` map threw a TypeError, `colors` reported `bad-color` and `timelines` created a timeline named `$comment`
+- **R1-06** (M) load: addresses such as `dot.constructor` or `dot.fill.toString` resolved through `Object.prototype`, loaded without diagnostics and put functions in `values()`
+- **R1-07** (M) ease/path: textual numbers overflowing to Infinity (`cubic(0,1e999,1,0)`, `elastic(1,1e999)`, `M1e999 0`) loaded and produced Infinity/NaN, although SPEC requires finite arguments
+- **R1-08** (m) path: a number token longer than 40 characters was cut by `slice(i, i + 40)` and rejected
+- **R1-09** (m) AniML: `"requires": []` decompiled to `requires=""`, which the compiler rejected (`bad-attribute`), breaking the ANIML §8 round trip
+- **R1-10** (M) AniML: a `$comment` containing `-->` was written into an XML comment verbatim, so the rest became markup (an injected `<number>` input on rebuild)
+- **R1-11** (m) XML: `&#0;`, `&#xD800;` and literal C0 controls were accepted, although ANIML §1 is a subset of XML 1.0
+- **R1-12** (m) XML: a lone CR did not start a new line, so diagnostics after it had line 1 positions
+- **R1-13** (M) hit test: open subpaths were dropped from fill containment, so a filled open triangle had no interior hits (SVG fills close them implicitly)
+- **R1-14** (M) hit test: a rect with `rx` hit as a square, e.g. (1,1) on a 20×20 rect with `rx` 10
+- **R1-15** (M) hit test: a stroke trimmed to nothing, or partly trimmed, still hit along its whole outline (§9: the painted area)
+- **R1-16** (m) hit test: fixed 6° circle chords and 12-step cubics strayed more than the 0.05-unit tolerance on large curves (a radius-100 circle missed a point 0.1 inside)
+- **R2-01** (M) hit test (after R1-16): the tolerance-driven cubic step count was unbounded, so a valid huge cubic (`C0 1e100 …`) allocated until the heap ran out on the first pointer event
+- **R2-02** (M) web: an `anima:event`/`anima:state` listener that queued input (e.g. `fire`) during a frame was unscheduled afterwards by the stale `settled` result, so the input waited until the next wake
+- **R2-04** (M) CLI `inspect`: a `$comment` in the glyph map was inspected as a glyph and crashed
+- **R2-05** (m) hit test (R1-16 residual): the 0.05 tolerance was in local units, so a scaled-up node (r 1, scale 100) missed a point 0.1 inside
+- **R2-06** (m) hit test (after R1-14): rounded corners went through SVG arc-to-cubic conversion, whose radial error (≈2.7·10⁻⁴·r) exceeded the tolerance for large radii
+- **R2-07** (m) hit test (after R1-13): fill padding measured the distance to the open outline, missing points near an open subpath's implicit closing edge
+- **R2-08** (m) hit test: an arc animated to `to < from` hit along a negative sweep that draws nothing
+- **R2-10** (m) ease (after R1-07): the finiteness check summed arguments, rejecting finite ones whose sum overflows (`cubic(0,1e308,1,1e308)`)
+- **R2-11** (M) CLI `render`: failed script expectations and unfinished scripts (unclosed `group`) were ignored, writing the artifact and exiting 0
+- **R2-12** (m) CLI `new`: a digit-leading document name (`1up`) was used as the glyph name, which must start with a letter (`bad-name`)
+- **R3-01** (M) path flattening: a segment after `Z` without a new `M` continued the closed polygon from its last point instead of a new contour at the subpath start, so `M0 0L10 0L10 10ZL0 10` hit at (2,8)
+- **R3-02** (M) hit test: padding was divided by √det, wrong under a nonuniform scale (a `scaleX` 10 rect with `hitPadding` 1 hit 2 units right and missed 0.5 above)
+- **R3-03** (M) web: an `anima:event` listener that replaced the document let the old step continue, dispatching the old player's state after the new one and overwriting `#states`
+- **R3-04** (M) CLI `validate`: the duplicate-key scanner recursed, so deeply nested metadata (accepted by `load`) overflowed the stack, the exception was swallowed, and duplicate keys went unreported (exit 0)
+- **R3-05** (m) web: destroying the icon from an `anima:event` listener during `play()` threw (`this.player.busy` of undefined)
+- **R3-07** (m) AniML (lean compiler): any `<import`, `<template` or `<apply` in the source text, even in a comment, required the libraries compiler (`markup-libraries-unavailable`)
+- **R3-08** (m) AniML decompile: a metadata `$comment` moved into a trimmed XML comment, so `" a "` became `"a"` and `"\u0000"` produced markup that does not build (ANIML §8 round trip)
+- **R3-09** (m) CLI `build` (HTML): a script `type` spelled with character references (`&#43;`, `&plus;`) was not recognised, leaving the AniML for runtime compilation without a diagnostic
+- **R3-10** (m) script: `expect-error` could not catch a tokenizer error (unterminated string), which threw instead
+- **R3-11** (m) load: the 1 MiB limit counted UTF-16 units, so 1.2 MB of UTF-8 (`é` × 600,000) loaded (SPEC §2: 1 MiB of text)
+- **R3-12** (m) web: the `tabindex="0"` and pointer cursor the host adds for buttons stayed after a reload to a non-button document or `destroy()`, leaving an `aria-hidden` tab stop
+- **R4-02** (M) web: an entry-event listener that loaded another document (or destroyed the icon) during `load()`'s first step let the old completion resolve and dispatch `anima:load` again (with the new document's info, or `null`)
+- **R4-03** (m) CLI `build` (after R3-09): named references were decoded without their semicolon (`&plusxml`), which browsers leave literal
+- **R4-04** (m) svg: a knockout node with neither fill nor stroke still cut its outline grown by the knockout width (SPEC §4: it draws nothing, and the cut is its painted area grown)
+- **R4-05** (m) player: the constructor resolved values without clamping, so a new player exposed `opacity` 2 and `r` −2 until the first step (SPEC §7: resolved as by steps 3–4)
+- **R4-07** (m) *(partial)* AniML decompile (R3-08 residual): a `$comment` written as an XML comment lost surrounding whitespace, and characters XML forbids (`\u0000`) produced markup that does not build
+- **R5-01** (M) hit test (R3-01 × R1-15): `trimPolys` normalised each contour separately, but SVG dashes with the whole outline's length as the period, restarting at each contour; after R3-01 split post-`Z` segments into their own contour, visible stroke parts of `M5 5L25…
+- **R5-02** (m) `anima fmt`: track text was split on LF and `;` only, so CR-separated keyframes (which the compiler accepts) were merged into one row and the result no longer built
+- **R5-03** (m) `anima fmt`: a comment inside a key row (`0 <!-- why -->5;1 6`) or inside the metadata JSON was reflowed on both sides separately, splitting the value
+- **R5-04** (m) hit test: `hitPadding` on a node with neither fill nor stroke hit around its outline (SPEC §9: the painted area, grown)
+- **R5-05** (m) AniML decompile (R4-07 residual): any JSON string (e.g. `title`) with a character XML forbids was written literally, so the markup did not build
+
+## P2 — Glyphy export and CLI render/compare — 15 fixes
+- **R1-1** (M) `aria-checked`/`aria-pressed` refreshed only on machine state change: a switch whose bool `activate`/`pressed` input has no machine stays `aria-checked="false"` after Enter
+- **R1-3** (M) `render --compare --browser-text` skipped the reference's viewport/ink normalization (`color="red"` → FAIL, 40×20 → dimension error)
+- **R1-4** (M) `render --compare` returned before validating/running `--frames`/`--fps`, `--probe`, `--audio` (and ignored `--viewport`/`--scale`/`--fit`): exit 0 with the extra mode silently skipped
+- **R1-5** (m) root `style` with `"` (single-quoted) or a newline broke comparison normalization (XML parse error / duplicate `style`)
+- **R1-6** (m) cubic extremum lost to cancellation in the quadratic root formula (`M0 0C10000 0 0 0 -29999.999999999993 0` → maxX 0, true 3750)
+- **R2-1** (M) R1-1 regression: per-step `#aria()` rewrote host role/visibility, so a focus-module host without root a11y lost `role="group"` and became `aria-hidden` after any step
+- **R2-2** (m) `inspect` crashed on `"glyphs": {"$comment": …}` (validate accepts it)
+- **R2-3** (m) compare root normalization broke on `>` inside a root attribute value and on a self-closing `<svg …/>`
+- **R3-1** (m) compare normalization rewrote an `<svg` inside a leading comment/doctype instead of the real root (wrong verdict or malformed XML)
+- **R3-2** (m) namespace-prefixed root (`<s:svg …>`) not normalized → raster dimension error
+- **R3-3** (m) attribute-like text inside another attribute's value (`data-note=' style="opacity:0"'`) became the root style
+- **R4-1** (m) a root without `viewBox` (`width="20" height="20"`) had its size replaced without scaling: false FAIL at any `--size` but 20 (also `--browser-text`); present since P2
+- **R4-2** (m) quadratic attribute scan on trailing root whitespace (100,000 spaces: ~15 s)
+- **R5-1** (m) the derived viewBox rejected valid SVG numbers (`2e1`, `+20`, `20.`) → false FAIL
+- **R5-2** (m) discovery lowercased names: an ignored `viewbox` suppressed the derivation (and `WIDTH` fed it)
+
+## P3 — playground, accessibility, size round — 27 fixes
+- **R1-01** (M) focus web: a renderer rebuild (lists' repeat-growth refresh, `renderer` attribute) replaced the shadow content, removing the focus proxies; topology changes never rebuilt them, so new repeat rows had no DOM focus target and logical focus did not move DOM focus
+- **R1-02** (M) focus web: only `load()` installed the bridge, so `loadModel()` on a fresh host left `aria-hidden`, no proxies and no tab stop
+- **R1-03** (M) input web: with assets, `loadModel()` returns before the player exists, so `attach()` saw no input requirement and never retried; browser keyboard/pointer listeners stayed off
+- **R1-04** (M) core random: an unrelated explicitly seeded root stepped re-entrantly during another seeded root's step drew from the other root's `RandomSource.current` (SPEC: an explicitly seeded root shares its source with nested stepping only)
+- **R1-05** (M) a11y-actions: focus items excluded semantic-hidden nodes only when the item had its own `a11y`, so a focus-only child of a hidden group stayed focusable (modules/a11y/SPEC.md: eligible items exclude semantic hidden nodes; hidden subtrees are excluded)
+- **R1-06** (M) playground: scrubbing a timeline with data-bound keyframes threw (`sampleTrack` without a player)
+- **R2-01** (M) focus web (after R1-01): a host whose focus document starts with no items (repeat count 0) returned before installing `onFocusRefresh`, so growing the repeat never created proxies and `focusNext()` moved no DOM focus
+- **R2-02** (M) core random (after R1-04): a root seeded by the script `seed` command (constructor `seed` unset) still borrowed another seeded root's source when stepped re-entrantly
+- **R2-03** (M) script: semantic commands (`semantic <id> tap`, semantic key routing, text commands) mutated the live player without journaling, so breakpoint probes never saw their pending writes (`data break` was bypassed and the write committed)
+- **R2-04** (M) machine: entering a blend under reduced motion captured `reduced` in the run data; turning reduced motion off resumed the core clock but blend children stayed frozen
+- **R2-05** (M) CLI `render --frames N` (PNG/WebM sequences) returned before the `--audio` export, exiting 0 without writing the WAV
+- **R3-01** (M) web host: `reset()` reloaded `player.model`, which after repeat growth is a runtime fork whose draw tree names repeat entries the new player lacks; drawing threw (`reading 'transform'`)
+- **R3-02** (M) web host: `info.inputs[].default` returned the model's color array, so editing the "detached summary" changed the live player and other hosts sharing the model
+- **R3-03** (M) a11y-dom (with R2-01): after a renderer rebuild the draw hook updated the overlay while its box was detached, so the `anima:overlay` focus rebuild could not resolve semantic elements and reattaching dispatched nothing; repeats grown from zero had no focus…
+- **R3-04** (M) script (after R2-03): a semantic command that threw after mutating (e.g. `instance-time` during its step) was not journaled, so later breakpoint probes missed its write
+- **R3-05** (M) machine (after R2-04): clearing the run's reduced flag rewound a completed `once` child (20 → 12.5) under a looping primary, while a frozen `once` primary kept looping children frozen
+- **R3-06** (M) nested source clocks: restoring full motion computed the resumed origin from the already advanced source, so the first delta after restoring was lost (0 instead of 2.5)
+- **R3-07** (M) host-edit: a pending URL/Blob image replacement overwrote a later direct asset-name write once it decoded
+- **R3-09** (m) web host: `invalidate()` on an empty/destroyed host called `#order()`, which threw with composite loaded (`drawFrame(undefined)`)
+- **R4-01** (M) host (after R3-07): `data.at(path)` built a raw image handle, bypassing host-edit's image setter, so an asset-name write through `at()` did not cancel a pending URL replacement
+- **R4-02** (M) machine (after R3-05): a looping blend child released after reduced motion sampled the whole state age, including time spent frozen (b.x 7.5 instead of 2.5 under a frozen `once` primary)
+- **R4-03** (M) motion: restoring full motion rebased a time-expression/hold-controlled clock with autonomous arithmetic (`time - elapsed × rate`), so the sample depended on state speed and stayed wrong until the expression changed (SPEC: speed does not affect a…
+- **R4-04** (m) playground: the scrub document kept root `bind`, so a bound address showed the binding instead of the sampled timeline (SPEC §11 scrubbing samples the timeline over the rest pose)
+- **R4-05** (m) playground: a file poll answered after a save completed reported the old revision as an external change (Save disabled, Reload shown)
+- **R5-01** (M) machine (after R4-02): a blend entered at full motion did not record reduced motion turned on later, so after restoring a finished `once` child rewound (20 → 12.5), a looping child included frozen time, and fully frozen blends reported `settled: false`
+- **R5-02** (M) machine (after R4-02): transitions out of a restored blend sampled it without the resume offset — the exit capture used the entering state's reset flags and continued fades passed `-1` (2.5 jumped to 7.5)
+- **R5-03** (M) machine (after R4-02): a released ping-pong child restarted from 0 instead of its frozen `end` endpoint (2.5 instead of 17.5; SPEC §10 resumes from the frozen position)
+
+## P4 — paint, motion, events, interaction, data, canvas — 30 fixes
+- **R1-01** (M) Blend children sampled data-bound keyframes without the player → constructor throws
+- **R1-02** (M) Blend states interpolated discrete channels (int → 1.5, string → path parser crash)
+- **R1-03** (M) Zero exit threshold at zero speed carried `0/0` → target clock NaN
+- **R1-04** (M) Machine action groups rejected string/colour data destinations (`input-type`)
+- **R1-05** (M) Pointer-disabled descendants supplied their group's hit area
+- **R1-06** (M) Nodes using ordered `paints` were never hit
+- **R1-07** (M) Data custom string tracks went through paint's path interpolator → crash
+- **R1-08** (m) Data path scan treated string event-payload literals spelling `$x` as paths
+- **R1-09** (M) Input's listener extension dropped focus's `of` names (focus+input without events/components)
+- **R2-01** (M) Hidden paints (`fill.visible`/`paints.N.*.visible` false) still hit; contour's clockwise `fillContains` too
+- **R2-02** (M) Data path scan rejected literal custom properties (`"$price"`) and embedded run text (`"Price $total"`)
+- **R2-03** (M) Asynchronous (asset) loads never attached input DOM handlers
+- **R2-04** (M) Disconnect left pressed contacts alive (stale `held`, later stale click)
+- **R2-06** (M) SVG backend hooks ran in load order; `paint,mix,contour` lost a stroke-blend trim
+- **R2-07** (M) Canvas clamped oversized `rx` uniformly; SVG clamps per axis
+- **R2-08** (M) AniML guard rewriting corrupted quoted literals (`"A&&B"` → `"AandB"`; compile re-spaced `<=`, split `and`)
+- **R3-02** (m) The once `anima:load` listener accumulated on failed/superseded loads and survived destroy
+- **R3-04** (M) Bind `==`/`!=` compared colour RGBA arrays by identity (`#fff == #ffffff` false)
+- **R3-05** (M) Data path scan read `$x` inside quoted expression literals (outside guards) as paths
+- **R3-06** (M) `calculate` `random: always` never marked the player active, so it froze
+- **R3-07** (M) Pointer focus inside a component picked the back-most overlapping child
+- **R3-08** (M) Surface's paint split dropped contour's per-paint paths (clockwise winding + feather rendered nothing)
+- **R4-01** (M) A random state's weighted pick included any-state edges, defeating their priority
+- **R4-03** (M) The host's `#aria()` on every state change removed focus's `role="group"` and set `aria-hidden="true"`
+- **R4-04** (m) Reduced motion lost an instance's negative direction when the authored timeline speed is 0
+- **R5-01** (m) R4-04 reversed zero-effective-speed machine states (timeline speed 0, state speed −1)
+- **R5-02** (M) The R4-03 state listener applied focus ownership with the previous player during a reload (kept `group` over an authored `button`)
+- **R5-03** (M) Setting/removing the host `label` attribute replaced focus's `group` role (`img`, then `aria-hidden`)
+- **R5-04** (M) Data path scan treated literal `focus.label` text (`"Show $details"`) as a path
+- **R5-05** (M) Rounded-rect clip sources clamped both radii to one circular radius
+
+## P5 — components, lists, assets, host editing — 21 fixes
+- **R1-01** (M) lists: recycled repeat slots without a child order table took recycled destination indices as sibling ranks, reversing paint order (red/blue swap after count 2→0→1); `spec/MODULES.md` draw-tree rank rule
+- **R1-02** (M) lists: a repeated child writing inherited shared data left the parent `settled: true` with stale bindings (SPEC "Inherited data context")
+- **R1-03** (M) media: `icon.asset()` cache keyed by compiled model, so hosts sharing a model got the first host's resolver bytes
+- **R1-04** (M) surface: image paints ignored player-local catalogs, so a static image paint kept the old image after `data.image().set()` (host-edit SPEC legacy per-player replacement)
+- **R2-01** (M) round-1 R1-05 fix: a row bound to `{n:0}` whose model defaults `n` to 256 threw `limit-exceeded` at construction
+- **R2-02** (M) round-1 R1-05 fix: an independent root built re-entrantly during another tree's step shared that tree's global budget
+- **R2-03** (M) CLI importers emitted SVG/Lottie ellipses as `center:[x,y]`, which fails validation (`unknown-key center`, missing `cx`/`cy`)
+- **R2-04** (M) componentpaint: paint sources were loaded without the enclosing asset catalog, so a source image naming a root asset failed with `unknown-asset` (SPEC assets scope)
+- **R2-06** (M) CLI `render` embedded and decoded only the root asset catalog; component-local images rendered blank
+- **R2-07** (M) motion: a component keyframe `[0,'$parent.peak']` threw `data-keyframe` from the constructor because the parent context binds after construction
+- **R3-01** (M) componentpaint: paint-source players render authored image URLs; the browser asset loader never visited source models, so a resolver replacement (red→blue) was ignored in SVG and Canvas
+- **R3-03** (M) motion: the R2-07 fallback also masked bound `$parent.` paths whose live value became undefined (list item removed), skipping the `data-keyframe` error (data SPEC "Data keyframe values")
+- **R3-04** (M) host-edit: list `insert`/`add` treated any map with `name` and `model` keys as an instance record (rejecting valid property maps, accepting forged/foreign records by name); `remove` resolved unowned records by name
+- **R3-05** (M) tooling: the browser bundle cache fingerprint omitted `modules/*/capabilities/**`, which runtime entries import, so a registry edit left tests on a stale bundle
+- **R4-02** (M) componentpaint (after R3-01): paint-source players read the mutable model-level catalog, so a second host loading the same document with another resolver changed the first host's source image on its next step
+- **R4-03** (M) composite SVG: an ordered `paint` entry first received aggregate attributes of all paints, so a fill entry kept an earlier entry's stroke and redrew it on top (SPEC ordered paints)
+- **R4-04** (M) surface SVG: loading `surface` before `composite` split an ordered-paint shape into fill/stroke leaves first, so composite duplicated that group and every entry drew the first fill (red instead of blue)
+- **R4-05** (m) CLI build: the image-kind check used the declared data-URI MIME, so `data:image/svg+xml` with WAV bytes or plain text built as an image
+- **R5-01** (M) surface + composite SVG: with surface's backend before composite's, an ordered image paint referenced `url(#…m0-s0-pattern…)` (composite's per-entry id prefix) while surface defines `…s0-pattern…`, so the image vanished (pre-existing; surfaced by R4-04's…
+- **R5-02** (M) componentpaint: model forks (`{...model, draw}` by componentpaint/lists/nested) lost the paint-source plan, so `icon.loadModel(icon.player.model)` with a new resolver kept the old source image
+- **R5-03** (M) assets SVG: the image conversion visited only `tree.root`, so images that composite/surface had already copied into definitions (mask sources, slices) kept no `href` when assets registered last
+
+## P6 — text, fonts, text input — 30 fixes
+- **R1-01** (M) SVG retained text skipped rebuilds when only resolved paint changed (animated `fill.color` left the `<tspan>` red)
+- **R1-02** (M) Soft-wrapped line start kept the kerning measured against the previous line's last glyph (`AV` → line 2 width 10, drawn 12)
+- **R1-03** (M) `fit-font-size` with no fitting factor called `build(0)`, a zero-size font (tool measurer throws `font-invalid`); spec forbids it
+- **R1-04** (m) `hidden`/`ellipsis` tested line fit before the top trim
+- **R1-05** (m) Collapsed caret just before a paragraph separator drew on the next line
+- **R1-06** (m) Caret/selection boxes ignored `layout.scale` for ascent/descent under uniform fit
+- **R1-07** (M) Native editing surface used authored `raw.width/height`, not animated/bound values
+- **R1-08** (M) Creating an animation slot for an omitted range `end` made its rest value 0 instead of unbounded
+- **R1-09** (M) Host disconnect released named font faces/aliases; reconnect never restored them
+- **R1-10** (m) `glyphs:"used"` subsetting omitted the U+2022 mask of obscured fields
+- **R2-01** (M) R1-02 fix was incomplete and broke a ligature at a soft line start (`afi` → line 2 `fi` reported 6, drawn 9; `fi` → `f` kept 9)
+- **R2-02** (M) Extended DOM input never attached after an asset-backed (async) load: `attach()` ran before the player existed
+- **R2-03** (M) SFNT unpack had no aggregate bound: overlapping table records normalized 1 MiB of input to 40 MiB (past the 32 MiB limit; GB possible)
+- **R2-05** (m) `inputOptions.listeners=false` no longer blocked host Enter/Space activation after P6 removed `stopImmediatePropagation` (pointer was still blocked)
+- **R2-06** (m) R1-09 reconnect snapshot omitted child scopes' host fallback (`forModel(child).add(face)` lost after reconnect)
+- **R2-07** (m) Caret on an empty line always at x=0, ignoring `align` and normalized origin
+- **P7 R2-5** (M) (from the P7 lead) repeated `fonts.set(name, …)` kept every superseded FontFace registered until `clear()`
+- **R3-03** (M) `loadingdone` invalidated only root players: nested/list text kept fallback-font layouts
+- **R3-05** (m) Public `textStops`/`textCaret` put empty-line carets at x=0 regardless of align/origin
+- **R3-06** (m) Negative tracking produced negative selection widths
+- **R3-07** (m) Field semantic bounds and implicit focus bounds kept authored dimensions under animation
+- **R3-08** (m) Core selection changes (e.g. `select()` API) never reached the native field unless the value changed
+- **R4-01** (M) R3-03 regression: re-registering the base browser measurer on `loadingdone` replaced the `fonts-options` measurer (`kern:0` → kerned, 24 → 22)
+- **R4-02** (M) R3-08 regression: pushing a just-synced native range back with `setSelectionRange` reset backward selections (Shift+Left: `[3,4]` → `[3,3]`)
+- **R4-03** (M) Font introspection rescanned the name table per fvar instance with a fresh read budget (1.3 MB font → 4.3 billion record visits) and overlapping long name records amplified decoding
+- **R4-04** (m) R3-07's semantic field bounds ran after the semantic signature compare, so a cached tree kept the old width
+- **R4-05** (m) Text semantic bounds put cluster-less lines at x=0 (ignores R3-05 `line.x`)
+- **R4-06** (m) R3-06 union still assumed nonnegative advances (negative kerning → `width:-6`)
+- **R5-01** (M) With `fonts-options`, the `loadingdone` relayout ran in the same dispatch as (and before usable font metrics / the options measurer's cache clear), so the root cached fallback metrics under the new revision (root/child `[10,11]`)
+- **R5-02** (m) R4-04 put field boxes in a chained `runtime.enrich`, which `a11y-text` (installs `enrich` at import) overwrites when imported later
+
+## P7 — layout, reflow, host fit, bindable artboards — 23 fixes
+- **R1-1** (M) layout nesting factory may return undefined; nested module calls .step → Player throws (layout+components+nested)
+- **R1-2** (M) hit testing ignores layout placement/scaling
+- **R1-3** (M) dynamic instances (component="$x") measured as 0×0; switching doesn't remeasure
+- **R1-4** (M) a11y semantic cache ignores layout changes (layoutSize, reflow)
+- **R1-5** (M) painted a11y bounds ignore layout's draw transform
+- **R1-6** (M) data-artboard retains replaced external models/catalogs; shared schema grows
+- **R1-7** (m) host-fit uses border box instead of content box for layout size
+- **R2-1** (M) hit test throws after clearing a dynamic instance (R1-6 deletes the child; nested.hits returns undefined → circle outline on an instance)
+- **R2-2** (M) per-corner rect (`corners`) layout participant keeps its authored path: draws, hits, bounds at [10,10,2,2]
+- **R2-3** (M) cmap expansion uncharged; repeated format-12 subtables → 16.7 M mappings (2.5 s) for a 400 KB font, 4.3 G for 2.7 MB
+- **R2-4** (M) GPOS LookupFlag ignored (IgnoreBaseGlyphs lookup still kerns bases)
+- **R2-6** (m) fit-font-size with no fitting bisection candidate calls build(0) → `font-invalid`
+- **R2-7** (m) zero-length round-capped subpath bounds lose half the dot
+- **R2-8** (m) display:none host with % size measured as px (layoutSize [36,36])
+- **R3-1** (M) root component catalog omits definitions placed only inside another component → `component(doc, 'leaf')` is `unknown-component`
+- **R4-1** (M) a second host-fit/host-fit-size bundle throws `Cannot redefine property: size`; with host-fit-size first the fit adapter never installs
+- **R4-2** (M) a second data-artboard bundle replaces `resources.adopt` (and re-wraps component/loadAssets/eventHook) with empty maps: acquired values lose their source-resolved resources
+- **R4-3** (M) requiring `dataartboard` swaps `model.doc` for a clone during data prepare, hiding the identity lists keys `$parent` context by → `data-path`
+- **R4-4** (M) `anima flatten` replaces a layout participant text with a group: intrinsic size 0, siblings move
+- **R4-5** (M) a second layout-reflow bundle during a flight replaces reflow with a fresh state map; players stay busy/unsettled
+- **R5-1** (M) R4-3 wrote the caller's `doc.data`: a frozen document throws `Cannot assign to read only property 'data'`
+- **R5-2** (M) font readiness redraws text without re-resolving layout: a static hug container keeps 0×0 text boxes
+- **R5-3** (m) artboard normalization crashes on `$comment: null` in models or properties
+
+## Orchestrator follow-ups
+- (M) An asset loader rejecting with a plain `Error` (e.g. relative sources on a page without a base URL) threw inside the host's failure path, so `icon.ready` never settled; it now fails the load with an `asset-load` diagnostic (`modules/assetio/test/web/reject.test.ts`).
+- (M) Free-form JSON (`meta`, payloads) escaped the 96-level nesting limit and could overflow recursive walkers/formatters; one limit now covers the whole document with a cycle-safe walk (SPEC §2; `packages/core/test/review-followups.test.ts`).
+- (M) Merge regression: P3 and P4 each fixed async attach in input; the merge kept both, so failing loads piled up `anima:load` listeners. Input, a11y-dom and text-input now keep one persistent listener per icon.
+- Combined overlapping fixes: hit testing (P1 trims, open fills, world-unit padding + P4 per-paint visibility); web host ARIA (P1 stale-attribute cleanup + P2 per-step refresh); fonts (P7 relayout on font load + P6 face release on cleanup); text fit (P7 zero-box case kept).
+
+## Not fixed (see PR #37 and the ledgers)
+Owner decisions: non-square viewBox drawing offset in the SVG host (P6 R2-04); hit/focus order vs `drawOrder` (P4 R4-02); `a11y.tree-bounds` maybe-later. Deferred: entry splits for `markup-libraries`/`fonts` (P5 R2-05, R4-01; P6 R3-04), construction context for components/lists (P5 R1-05, R3-02), gamepad connect signal (P4 R2-05), knockouts with stroke trims (P1 R2-03), external `$parent` checks (P7 R4-6), `fonts.assign` names, sliced fixed-width strokes (P5 R5-04).
