@@ -1,6 +1,6 @@
 import '@anima-format/core/all';
 import { expect, it } from 'vitest';
-import { load } from '@anima-format/core';
+import { drawFrame, load, Player } from '@anima-format/core';
 
 const baseDoc = () => ({
   anima: '0.1',
@@ -50,4 +50,30 @@ it('applies complete diagnostics to handle weights too', () => {
   const sum = diagnostic(doc, 'rig-weight-sum');
   expect(sum.pointer).toBe('/nodes/2/skin/weights/0/out');
   expect(sum.severity).toBe('warning');
+});
+
+it('deforms cubic handles independently from their @rest anchors', () => {
+  const doc = baseDoc() as ReturnType<typeof baseDoc> & { timelines: object; machine: object };
+  (doc.nodes[2] as any).d = 'M0 0C2 0 8 0 10 0';
+  (doc.nodes[2] as any).skin.weights = [
+    { point: { '@rest': 1 }, out: { arm: 1 } },
+    { point: { '@rest': 1 }, in: { arm: 1 } },
+  ];
+  doc.timelines = {
+    bend: {
+      duration: 1,
+      tracks: {
+        'arm.rotate': [
+          [0, 0],
+          [1, 90],
+        ],
+      },
+    },
+  };
+  doc.machine = { layers: { main: { initial: 'bend', states: { bend: { play: 'bend' } } } } };
+  const loaded = load(doc);
+  expect(loaded.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const player = new Player(loaded.model!);
+  player.step(1);
+  expect(drawFrame(player).nodes[2]!.geometry!.d).toBe('M0 0C0 2 0 8 10 0');
 });
