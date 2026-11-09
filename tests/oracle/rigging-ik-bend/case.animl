@@ -1,4 +1,41 @@
-<!-- TODO: rigging.ik-bend; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-ik-bend" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-ik-bend" grid="20" requires="rig ik">
+  <group id="targetCw" x="10" y="3"/>
+  <group id="targetCcw" x="10" y="13"/>
+  <bone id="upperCw" x="4" y="5" length="4">
+    <rect id="art1" x0="4" y0="4.75" width="4" height="0.5" fill="#4263eb"/>
+    <bone id="foreCw" length="3.5">
+      <ik target="targetCw" bones="2" bend="cw"/>
+      <rect id="art2" x0="8" y0="4.75" width="3.5" height="0.5" fill="#4263eb"/>
+    </bone>
+  </bone>
+  <bone id="upperCcw" x="4" y="15" length="4">
+    <rect id="art3" x0="4" y0="14.75" width="4" height="0.5" fill="#d97757"/>
+    <bone id="foreCcw" length="3.5">
+      <ik target="targetCcw" bones="2" bend="ccw"/>
+      <rect id="art4" x0="8" y0="14.75" width="3.5" height="0.5" fill="#d97757"/>
+    </bone>
+  </bone>
+  <timeline name="go" duration="1">
+    <track target="targetCw.x">
+      0 10
+      0.5 4
+      1 2
+    </track>
+    <track target="targetCw.y">
+      0 3
+      0.5 10
+      1 3
+    </track>
+    <track target="targetCcw.x">
+      0 10
+      0.5 4
+      1 2
+    </track>
+    <track target="targetCcw.y">
+      0 13
+      0.5 20
+      1 13
+    </track>
+  </timeline>
+  <layer name="main" initial="go"><state name="go" play="go"/></layer>
 </anima>
