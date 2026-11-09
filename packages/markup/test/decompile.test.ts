@@ -175,6 +175,12 @@ function recover(root: Element): Obj {
             k === 'origin' ? vector(v) : scalar(v);
         ((o.constraints ??= []) as Obj[]).push(constraint);
       }
+      // seam(P8-4): independent skin recovery (space-separated bones, JSON weights).
+      if (child.name === 'skin') {
+        const a = attrs(child);
+        o.skin = { bones: a.bones!.trim().split(/\s+/) } as Obj;
+        if (a.weights !== undefined) (o.skin as Obj).weights = JSON.parse(a.weights);
+      }
       if (child.name === 'text-effect') ((o.effects ??= []) as Obj[]).push(recoverEffect(child));
       if (child.name === 'style')
         ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
@@ -659,6 +665,8 @@ function check(source: string | object) {
       // seam(P8-3): canonical path-follow constraint child spellings.
       'along-path',
       'spread-along-path',
+      // seam(P8-4): structural skin child.
+      'skin',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {
