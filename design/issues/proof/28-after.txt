@@ -1,0 +1,66 @@
+Issue #28 — after verification
+
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0d7d229c
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  09:27:46
+   Duration  26.69s (tests 85%, import 9%, transform 6%)
+
+The same two-dist browser check passes; combined ESM registers paint and bind,
+renders a linear gradient, and resolves bound circle radius to 7.
+
+Bundle sizes (CLI gzip level 6):
+base: 59230 B min; 22586 B gzip; modules=
+paint: 71093 B min; 26645 B gzip; modules=paint
+bind: 64390 B min; 24456 B gzip; modules=bind
+paint+bind: 76314 B min; 28567 B gzip; modules=bind,paint
+base verbose: 65760 B min; 25394 B gzip; modules=
+
+Lint: exit 0. Formatting: exit 0. CLI typecheck: exit 0.
+All 70 dist JS contents unchanged; only ignored build.json fingerprint needed refresh.
+Size: exit 0.
+
+gate                     value (B)   ceiling (B)
+core+web                     22564         24576
+largest scene (30)           57505         65536
+app-UI scene                107630        131072
+runtime sum                 133491        163840
+authoring add-on             15006         16384
+Rive-class (heavy)          152563        256000
+
+Initial broad changed-scope run stopped after setup timeouts.
+Two-worker rerun stopped after Firefox overlay timeouts. Sampled isolated rerun:
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0d7d229c
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 43 skipped (44)
+   Start at  09:23:18
+   Duration  18.02s (tests 83%, import 12%, transform 5%)
+
+CLI scope stopped after existing timeout failures:
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0d7d229c
+
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 3 failed) 16842ms
+   × encodes jpeg, updates MIME/byte size and decodes dimensions 5028ms
+   × encodes webp, updates MIME/byte size and decodes dimensions 5019ms
+   × uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error 5001ms
+ ❯ |scope-unit| packages/cli/test/commands.test.ts (20 tests | 1 failed) 28756ms
+   ❯ P3b CLI commands (12)
+     × mixes audio through Chromium into PCM WAV 20023ms
+ ❯ |scope-unit| packages/cli/test/p3c-tooling.test.ts (11 tests | 1 failed) 34651ms
+   × renders sequential preset queues with numbered PNG sequences and WebM 30005ms
+Terminated
+
+Those five failures rerun in isolation:
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0d7d229c
+
+
+ Test Files  3 passed (3)
+      Tests  5 passed | 45 skipped (50)
+   Start at  09:25:52
+   Duration  21.88s (tests 68%, import 20%, transform 11%)
+
+Full changed/CLI scopes did not complete. No performance claim under shared load.

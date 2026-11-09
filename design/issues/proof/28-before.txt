@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0d7d229c
+
+ ❯ |unit| packages/cli/test/bundle.test.ts (7 tests | 5 failed) 963ms
+   × bundles base and single entries byte-identically to dist and reports sizes 8ms
+   × diagnoses unknown module paimt with a suggestion 1ms
+   × diagnoses unknown module paint,,bind with a suggestion 1ms
+   × diagnoses unknown module ../paint with a suggestion 1ms
+   × loads one chosen-module ESM and renders a scene requiring paint and bind 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/bundle.test.ts > bundles base and single entries byte-identically to dist and reports sizes
+AssertionError: unknown command "bundle"
+
+
+Standalone command: node packages/cli/src/main.ts bundle
+unknown command "bundle" (exit 2)
+
+Two-dist browser check PASSED at starting HEAD: both modules registered; bound radius 7 and gradient rendered.
+Reported dist collision is already supported by commits ca2ee801 (paint) and fdcc4cc2 (bind).
+No faithful earlier two-dist reproduction exists: bind registered through the active class from its introduction.
+ Test Files  1 failed (1)
+      Tests  5 failed | 2 passed (7)
+   Start at  09:15:09
+   Duration  1.88s (tests 54%, import 31%, transform 15%)
