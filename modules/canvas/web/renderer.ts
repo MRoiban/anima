@@ -859,9 +859,10 @@ export class CanvasRenderer implements IconRenderer {
           this.#unsupported('fixed stroke trim', i, p.key);
           return;
         }
-        const len = geometryLength(this.#frame!.nodes[i]!.geometry!, this.#frame!.tree.nodes[i]);
-        ctx.setLineDash([fraction * len, (1 - fraction) * len]);
-        ctx.lineDashOffset = -((((t.start + t.offset) % 1) + 1) % 1) * len;
+        const len = geometryLength(this.#frame!.nodes[i]!.geometry!, this.#frame!.tree.nodes[i]),
+          start = (((t.start + t.offset) % 1) + 1) % 1;
+        ctx.setLineDash([fraction * len, (start + fraction > 1 ? 1 - fraction : 2) * len]);
+        ctx.lineDashOffset = -start * len;
       }
     }
     if (p.position && p.position !== 'center') {

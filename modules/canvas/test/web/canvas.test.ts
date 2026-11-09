@@ -662,6 +662,42 @@ for (const [name, engine, paths] of [
         ]),
       ).toEqual([0, 0, 0, 0]);
     });
+    it('does not repeat a non-wrapping trimmed round stroke at the far endpoint', async () => {
+      const doc = {
+        anima: '0.1',
+        name: 'f9',
+        grid: 14,
+        viewBox: [0, 0, 14, 14],
+        nodes: [
+          {
+            id: 'check',
+            type: 'path',
+            d: 'M2 7L5.5 10.5L12 3.5',
+            fill: { color: '#00000000' },
+            stroke: {
+              color: 'currentColor',
+              width: 1.7,
+              cap: 'round',
+              trimEnd: 0.6334486808633097,
+            },
+          },
+          {
+            id: 'slash',
+            type: 'path',
+            d: 'M1.5 1.5L10.5 10.5',
+            fill: { color: '#00000000' },
+            stroke: { color: 'currentColor', width: 1, cap: 'round', trimEnd: 0.4 },
+          },
+        ],
+      };
+      await page.evaluate((doc) => window.canvasTest.mount(doc, 'canvas'), doc);
+      expect(await page.evaluate(() => window.canvasTest.errors)).toEqual([]);
+      expect(
+        await page.evaluate(() => [
+          ...window.canvasTest.renderer.canvas.getContext('2d')!.getImageData(180, 180, 1, 1).data,
+        ]),
+      ).toEqual([0, 0, 0, 0]);
+    });
     it('resolves currentColor and CSS slots on explicit invalidation', async () => {
       const doc = {
         anima: '0.1',

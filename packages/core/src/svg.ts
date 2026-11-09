@@ -144,16 +144,18 @@ export function paintAttrs(
   a['fill-rule'] = fill?.rule === 'evenodd' ? 'evenodd' : null;
   if (s) {
     const t = s.trim;
-    const len = Math.min(1, (t?.end ?? 1) - (t?.start ?? 0));
+    const len = Math.min(1, (t?.end ?? 1) - (t?.start ?? 0)),
+      start = t ? (((t.start + t.offset) % 1) + 1) % 1 : 0,
+      wraps = start + len > 1;
     Object.assign(a, {
       stroke: len > 0 ? paintColor(s.color, paint) : 'none',
       'stroke-width': fmt(s.width!),
       'stroke-linecap': s.cap!,
       'stroke-linejoin': s.join!,
       pathLength: null,
-      'stroke-dasharray': t && len < 1 ? `${fmt(len * length)} ${fmt((1 - len) * length)}` : null,
-      'stroke-dashoffset':
-        t && len < 1 ? fmt(-((((t.start + t.offset) % 1) + 1) % 1) * length) : null,
+      'stroke-dasharray':
+        t && len < 1 ? `${fmt(len * length)} ${fmt((wraps ? 1 - len : 2) * length)}` : null,
+      'stroke-dashoffset': t && len < 1 ? fmt(-start * length) : null,
     });
   }
 }

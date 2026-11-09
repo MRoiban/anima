@@ -37,3 +37,24 @@ it('does not repeat a non-wrapping trimmed round stroke at the far endpoint', ()
     '5.09117 25.45584',
   ]);
 });
+
+it('keeps a one-path trim period when an offset wraps the visible stroke', () => {
+  const { model, diagnostics } = load({
+    anima: '0.1',
+    name: 'wrap',
+    grid: 10,
+    nodes: [
+      {
+        id: 'line',
+        type: 'path',
+        d: 'M0 5L10 5',
+        stroke: { color: '#000', trimEnd: 0.4, trimOffset: 0.8 },
+      },
+    ],
+  });
+  expect(diagnostics).toEqual([]);
+
+  const svg = toSVG(new Player(model!));
+  expect(svg).toContain('stroke-dasharray="4 6"');
+  expect(svg).toContain('stroke-dashoffset="-8"');
+});
