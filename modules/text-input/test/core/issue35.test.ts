@@ -24,7 +24,7 @@ const doc = (textInput = {}, multiline = false) => ({
     },
   ],
 });
-function player(d = doc()) {
+function player(d: object = doc()) {
   registerTextMeasurer(fixedMeasurer);
   const r = load(d);
   expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);

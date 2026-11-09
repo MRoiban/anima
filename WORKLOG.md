@@ -12,15 +12,17 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   constraints, IK, skinning, meshes, vertex weights; heavy modules on the canvas backend; path
   measurement internal) plus the `a11y.tree-bounds` carry-over.
 - Per-phase Rottweiler review (P1–P7, ~190 fixes) merged in PR #37 (2ce1ef3). Ledgers in
-  `design/rottweiler/`. Branch `p8-rigging` from main.
-- Waiting on the owner (raised in PR #37): P6 R2-04 non-square viewBox draws offset in the SVG
-  host (mapping decision for SVG + canvas; recommended: a non-square viewBox fills the host); P4
-  R4-02 hit/focus order vs `drawOrder`; `a11y.tree-bounds` maybe-later.
+  `design/rottweiler/`; changelog `docs/changelog/2026-11-09-rottweiler.md`.
+- Open issues #23–#35 (Golem, anima-kit) fixed on `issues-23-35` (brief, ticket reports and
+  before/after proof in `design/issues/`), one PR to main. P6 R2-04 (non-square viewBox) is
+  settled by #23. Still waiting on the owner: P4 R4-02 hit/focus order vs `drawOrder`;
+  `a11y.tree-bounds` maybe-later.
 - Deferred review items are listed in PR #37 (entry splits for markup-libraries/fonts, construction
   context, gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names).
 - Next: P8 design (`design/p8/DESIGN.md`) and briefs.
-- Gates now: core+web 22,564; largest scene 57,505; app-UI 107,630; runtime sum 133,491;
-  authoring 15,006; Rive-class 152,563.
+- Gates now (issues branch): core+web 22,782; largest scene 57,781; app-UI 107,899; runtime sum
+  135,579; authoring 15,017; Rive-class 155,805. Tight entries: markup-libraries 2,174/2,176,
+  components 3,454/3,456, canvas 5,865/5,888, markup-hooks 4,523/4,544, fonts-info 8,100/8,192.
 
 ## Owner
 
@@ -43,6 +45,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
     style) — closed as an intentional difference from Rive (start/middle/end match natively);
     P7-6 closed 11 text rows as documented differences (continuous fitting, typographic ellipsis,
     effective trim, native-field semantics).
+  - Issues #23–#35 (2026-11-09): non-square viewBox → uniform scale, the host's long axis spans
+    `grid` (square unchanged); pre-player `set`/`fire` queued FIFO; `icon.settle()` (bounded 60 s,
+    events discarded); `part="svg"`/`part="canvas"`; keyboard semantic actions dispatch through the
+    scheduled step (`icon.flush()` seam); disabled focus scopes stay semantic (no warning: focus
+    budget); toolbar/grid roving in optional `a11y-navigation`; `corners` module split from paint
+    (`paint|corners`); `colormix` module with `<colorMix>` child syntax and hex-only defaults;
+    text-input blink/scroll in optional `text-input-extra`, `selectionTextColor` aliasing
+    `selectedTextColor`, fields clip their drawing; `anima bundle --modules`; #31 was already fixed
+    by bb989f1e.
   - Test deadlines raised for the larger corpus: module-order 90 s, scaffolder 120 s.
 
 ## Gotchas
