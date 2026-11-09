@@ -10,7 +10,12 @@ import { compiled, type DataDocument, type Property, type Compiled } from './typ
 import { systemEnums } from './enums.ts';
 import { accepts, normalize, inputFor, createScope, dataState } from './storage.ts';
 export const paths = /\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*/g;
-export function prepare(model: Model, d: Diags, context?: DataModule['prepareContext']): void {
+export function prepare(
+  model: Model,
+  d: Diags,
+  context?: DataModule['prepareContext'],
+  rewrite?: DataModule['normalize'],
+): void {
   if (
     !model.doc.requires?.includes('data') ||
     !model.doc.data ||
@@ -18,6 +23,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   )
     return;
   const document = clone(model.doc.data) as DataDocument;
+  rewrite?.(document, model);
   const error = (
     code: string,
     p: string,
@@ -353,8 +359,10 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   // Validate all authored path uses with their own JSON pointers, including writes and event fields.
   const scan = (v: unknown, at: string) => {
     if (typeof v === 'string') {
-      // Guard string literals are values, not references to the paths they may spell.
-      const source = at.endsWith('/when') ? v.replace(/"(?:[^"\\]|\\.)*"/g, '') : v;
+      // Run text is a data source only as a whole `$path` (text module); otherwise literal.
+      if (/\/runs\/\d+\/text$/.test(at) && v[0] !== '$') return;
+      // Quoted string literals (guards and expressions) are values, not references to paths.
+      const source = v.replace(/"(?:[^"\\]|\\.)*"/g, '');
       for (const path of source.match(paths) ?? []) {
         if (!c.refs.has(path)) {
           // Whole lists/model references are legitimate converter sources, never scalar inputs.
@@ -374,6 +382,15 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;
+        // Event payload string fields, node custom properties and focus labels stay literal.
+        if (
+          (k === 'value' &&
+            (v as { type?: string }).type === 'string' &&
+            /\/payload\/[^/]+$/.test(at)) ||
+          (k === 'properties' && 'id' in v) ||
+          (k === 'label' && at.endsWith('/focus'))
+        )
+          continue;
         scan(k, ptr(at, k));
         scan(x, ptr(at, k));
       }

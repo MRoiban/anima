@@ -1,0 +1,16 @@
+<anima version="0.1" name="source-clock-restore" grid="20" requires="components nested">
+  <component name="row" grid="10">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <timeline name="go" duration="1" loop="loop">
+      <track target="dot.x">
+        0  0
+        1  10
+      </track>
+    </timeline>
+    <layer name="main" initial="go">
+      <state name="go" play="go"/>
+    </layer>
+  </component>
+
+  <instance id="badge" component="row" fps="60"/>
+</anima>

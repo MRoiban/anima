@@ -183,7 +183,8 @@ function render(p: Player, frame: import('../../../packages/core/src/draw.ts').D
         clip: source.clip ? { ...source.clip, source: shift(source.clip.source) } : undefined,
       };
       frame.changed.push(shift(i));
-      if (child.order) (frame.order ??= [])[shift(i)] = child.order[i]!;
+      // Absent child ranks are child document indices, never recycled destination slots.
+      (frame.order ??= [])[shift(i)] = child.order?.[i] ?? i;
     });
     for (const r of child.tree.resources)
       tree.resources.push({
@@ -491,6 +492,12 @@ function extend(
         depth++;
       }
       try {
+        // Descendant writes to shared data need another parent binding sample (SPEC inherited data context).
+        const scope = initializing
+          ? []
+          : [...p.model.inputs.keys()]
+              .filter((n) => n[0] === '$')
+              .map((n) => [n, JSON.stringify(p.get(n))]);
         const result = (initializing ? undefined : base?.step(dt)) ?? { events: [], settled: true };
         let total = 0;
         for (const run of state.runs) {
@@ -562,6 +569,7 @@ function extend(
           });
           p.drawVersions[run.spec.node] = ++p.drawRevision;
         }
+        for (const [n, v] of scope) if (v !== JSON.stringify(p.get(n!))) result.settled = false;
         return result;
       } finally {
         if (!initializing) depth--;

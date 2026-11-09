@@ -22,7 +22,8 @@ export interface TextMeasurer {
 }
 let current: TextMeasurer | undefined;
 export let fontRevision = 0;
-export function registerTextMeasurer(measurer: TextMeasurer): void {
+/** Without an argument, keeps the active measurer and only bumps the font revision. */
+export function registerTextMeasurer(measurer: TextMeasurer = current!): void {
   current = measurer;
   fontRevision++;
 }

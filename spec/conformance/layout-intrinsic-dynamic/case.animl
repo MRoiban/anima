@@ -1,0 +1,16 @@
+<anima version="0.1" name="layout-intrinsic-dynamic" grid="100" requires="layout components nested data">
+  <component name="a" grid="20" viewBox="0 0 7 8">
+    <rect id="tile" x0="0" y0="0" width="2" height="2" fill="#000"/>
+  </component>
+  <component name="b" grid="30">
+    <rect id="tile" x0="0" y0="0" width="2" height="2" fill="#000"/>
+  </component>
+
+  <layout id="root">
+    <instance id="slot" component="$content"/>
+  </layout>
+
+  <model name="Main">
+    <component name="content" default="&quot;a&quot;"/>
+  </model>
+</anima>

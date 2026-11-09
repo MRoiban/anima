@@ -30,17 +30,21 @@ function resolveEase(c: Compiler, name: string): string {
   return result;
 }
 function condition(s: string): string {
+  // Rewrite only between quoted literals (odd split parts), which are values.
   // Replace the word only between terms: an input itself may legally be named "and".
   return s
-    .split(/\s+and\s+|\s*&&\s*/)
-    .map((t) =>
-      t
-        .trim()
-        .replace(/\s*(==|!=|<=|>=|<|>)\s*/g, ' $1 ')
-        .replace(/^!\s+/, '!')
-        .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
+    .split(/("(?:[^"\\]|\\.)*")/)
+    .map((t, i) =>
+      i % 2
+        ? t
+        : t
+            .replace(/\s+and\s+|\s*&&\s*/g, ' && ')
+            .replace(/\s*(==|!=|<=|>=|<|>)\s*/g, ' $1 ')
+            .replace(/!\s+/g, '!')
+            .replace(/@after\(\s*([^)]*?)\s*\)/g, '@after($1)'),
     )
-    .join(' && ');
+    .join('')
+    .trim();
 }
 // Retain source spans without decoding entities a second time.
 function text(el: Element): { value: string; offsets: number[] } {

@@ -70,16 +70,37 @@ export function pixels(svg: string, width: number): Uint8Array {
 }
 
 /** Normalize viewport and ink before rasterizing both documents with the PNG renderer. */
-function comparisonSVG(svg: string, size: number): string {
-  return svg.replace(/<svg\b([^>]*)>/i, (_, attrs: string) => {
-    let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
-    let style = '';
-    root = root.replace(/\sstyle\s*=\s*(["'])(.*?)\1/gi, (_, _quote: string, value: string) => {
-      style = value;
-      return '';
-    });
-    return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important">`;
-  });
+export function comparisonSVG(svg: string, size: number): string {
+  // The root element follows the prolog (declaration, comments, PIs, doctype); it may be prefixed.
+  const prolog = /^(?:\s+|<\?[\s\S]*?\?>|<!--[\s\S]*?-->|<!DOCTYPE(?:[^[>]|\[[\s\S]*?\])*>)*/i.exec(
+    svg,
+  )![0];
+  const root = svg
+    .slice(prolog.length)
+    .replace(
+      /^<((?:[\w.-]+:)?svg)\b((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/i,
+      (_, name: string, attrs: string, end: string) => {
+        let style = '';
+        const own: Record<string, string> = {};
+        // Whole attributes only, so attribute-like text inside a value stays text.
+        const kept = (attrs.trimEnd().match(/\s+[^\s=]+\s*=\s*(?:"[^"]*"|'[^']*')/g) ?? []).filter(
+          (a) => {
+            const [, key, value] = /^\s+([^\s=]+)\s*=\s*["']([\s\S]*)["']$/.exec(a)!;
+            own[key!] = value!;
+            if (/^style$/i.test(key!)) style = value!.replaceAll('"', '&quot;');
+            return !/^(?:width|height|color|style)$/i.test(key!);
+          },
+        );
+        // Without a viewBox the intrinsic size is the user space; keep it so the content scales.
+        const [w, h] = [own.width, own.height].map((v) => {
+          const n = /^\s*([+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?)(?:px)?\s*$/i.exec(v ?? '');
+          return n && Number(n[1]) > 0 && Number.isFinite(Number(n[1])) ? Number(n[1]) : 0;
+        });
+        if (!('viewBox' in own) && w && h) kept.push(` viewBox="0 0 ${w} ${h}"`);
+        return `<${name}${kept.join('')} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important"${end}>`;
+      },
+    );
+  return prolog + root;
 }
 
 /** Absolute RGBA differences; a diff image shows the largest channel delta as grayscale. */

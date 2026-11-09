@@ -1141,6 +1141,26 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(false);
     });
 
+    it('updates aria-checked when Enter toggles a switch bool without a machine', async () => {
+      await mount(
+        JSON.stringify({
+          anima: '0.1',
+          name: 'plain-switch',
+          grid: 20,
+          inputs: { on: { type: 'bool' } },
+          a11y: { role: 'switch', label: 'Plain', activate: 'on', pressed: 'on' },
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 4 }],
+        }),
+      );
+      await page.locator('anima-icon').focus();
+      expect(await page.evaluate(() => window.icon.getAttribute('aria-checked'))).toBe('false');
+      await page.keyboard.press('Enter');
+      await page.waitForFunction(() => window.icon.player!.get('on') === true);
+      await expect
+        .poll(() => page.evaluate(() => window.icon.getAttribute('aria-checked')))
+        .toBe('true');
+    });
+
     it('toggles a focused switch bool on Enter down and Space up, ignoring repeats', async () => {
       const source = readFileSync(
         new URL('../../../docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl', import.meta.url),
@@ -1191,6 +1211,194 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       await page.waitForFunction(() => window.icon.getAttribute('aria-checked') === 'true');
       await icon.click();
       await page.waitForFunction(() => window.icon.getAttribute('aria-checked') === 'false');
+    });
+
+    it('Rottweiler P1 (P2 R1-2): a new document drops aria-checked/aria-pressed it no longer owns', async () => {
+      await mount(switchAni);
+      const result = await page.evaluate((bell) => {
+        const icon = window.icon;
+        const before = icon.getAttribute('aria-checked');
+        const doc = JSON.parse(bell);
+        doc.a11y.pressed = 'down';
+        icon.load(doc);
+        const button = [icon.getAttribute('aria-checked'), icon.getAttribute('aria-pressed')];
+        icon.load(bell);
+        return {
+          before,
+          button,
+          none: [icon.hasAttribute('aria-checked'), icon.hasAttribute('aria-pressed')],
+        };
+      }, bell);
+      expect(result).toEqual({ before: 'false', button: [null, 'false'], none: [false, false] });
+    });
+
+    it('Rottweiler P1 (P2 R1-7): held stays true while Space is down after Enter is released', async () => {
+      await mount();
+      await page.locator('anima-icon').focus();
+      const down = (value: boolean) =>
+        page.waitForFunction((v) => window.icon.player!.get('down') === v, value, { polling: 10 });
+      await page.keyboard.down('Enter');
+      await page.keyboard.down('Space');
+      await down(true);
+      await page.keyboard.up('Enter');
+      // Let a queued release of `down` commit before asserting it did not happen.
+      for (let i = 0; i < 3; i++)
+        await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => done())));
+      expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(true);
+      await page.keyboard.up('Space');
+      await down(false);
+    });
+
+    it('Rottweiler P1 (R2-02): input queued by an anima:event listener is applied', async () => {
+      const doc = {
+        anima: '0.1',
+        name: 'probe',
+        grid: 20,
+        nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+        inputs: { ring: { type: 'trigger' }, done: { type: 'trigger' } },
+        machine: {
+          layers: {
+            main: {
+              initial: 'idle',
+              states: {
+                idle: { pose: {}, on: [{ when: 'ring', to: 'ring' }] },
+                ring: { pose: { 'dot.x': 10 }, emit: 'rang', on: [{ when: 'done', to: 'done' }] },
+                done: { pose: { 'dot.x': 20 } },
+              },
+            },
+          },
+        },
+      };
+      await mount(JSON.stringify(doc));
+      await page.evaluate(() => {
+        window.icon.addEventListener('anima:event', () => window.icon.fire('done'), { once: true });
+        window.icon.fire('ring');
+      });
+      await waitState('main', 'done');
+      await settled();
+      expect(await page.evaluate(() => window.icon.player!.busy)).toBe(false);
+    });
+
+    it('Rottweiler P1 (R3-03, R3-05): a listener that replaces or destroys the player stops the old step', async () => {
+      await mount();
+      const errors: string[] = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      const result = await page.evaluate(() => {
+        const doc = (layer: string, state: string, emit?: string) => ({
+          anima: '0.1',
+          name: 'probe',
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+          machine: {
+            layers: {
+              [layer]: {
+                initial: state,
+                states: { [state]: { pose: {}, ...(emit ? { emit } : {}) } },
+              },
+            },
+          },
+        });
+        const a = document.createElement('anima-icon');
+        a.pause();
+        document.body.append(a);
+        a.load(doc('oldLayer', 'oldState', 'replace'));
+        const states: unknown[] = [];
+        a.addEventListener('anima:state', (e) => states.push((e as CustomEvent).detail));
+        a.addEventListener('anima:event', () => a.load(doc('newLayer', 'newState')), {
+          once: true,
+        });
+        a.play();
+        const b = document.createElement('anima-icon');
+        b.pause();
+        document.body.append(b);
+        b.load(doc('l', 'a', 'bye'));
+        b.addEventListener('anima:event', () => b.destroy(), { once: true });
+        b.play();
+        const out = { states, current: a.player!.states(), destroyed: !b.player };
+        a.destroy();
+        a.remove();
+        b.remove();
+        return out;
+      });
+      expect(result).toEqual({
+        states: [{ newLayer: 'newState' }],
+        current: { newLayer: 'newState' },
+        destroyed: true,
+      });
+      expect(errors).toEqual([]);
+    });
+
+    it('Rottweiler P1 (R4-02): a load replaced or destroyed by an entry-event listener does not report its own load', async () => {
+      await mount();
+      const result = await page.evaluate(() => {
+        const doc = (name: string, emit?: string) => ({
+          anima: '0.1',
+          name,
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+          machine: {
+            layers: { l: { initial: 's', states: { s: { pose: {}, ...(emit ? { emit } : {}) } } } },
+          },
+        });
+        const loads: unknown[] = [];
+        const a = document.createElement('anima-icon');
+        document.body.append(a);
+        a.addEventListener('anima:load', (e) =>
+          loads.push((e as CustomEvent).detail?.name ?? null),
+        );
+        a.addEventListener('anima:event', () => a.load(doc('fresh')), { once: true });
+        a.load(doc('first', 'go'));
+        const b = document.createElement('anima-icon');
+        document.body.append(b);
+        const destroyed: unknown[] = [];
+        b.addEventListener('anima:load', (e) => destroyed.push((e as CustomEvent).detail));
+        b.addEventListener('anima:event', () => b.destroy(), { once: true });
+        b.load(doc('gone', 'go'));
+        a.destroy();
+        a.remove();
+        b.remove();
+        return { loads, destroyed };
+      });
+      expect(result).toEqual({ loads: ['fresh'], destroyed: [] });
+    });
+
+    it('Rottweiler P1 (R3-12): button tabindex and cursor added by the host go with button semantics', async () => {
+      await mount();
+      const result = await page.evaluate(() => {
+        const base = {
+          anima: '0.1',
+          name: 'probe',
+          grid: 20,
+          nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 5, fill: { color: '#000' } }],
+        };
+        const button = { ...base, a11y: { role: 'button', label: 'Click' } };
+        const state = (el: HTMLElement) => [el.getAttribute('tabindex'), el.style.cursor];
+        const el = document.createElement('anima-icon');
+        document.body.append(el);
+        el.load(button);
+        const before = state(el);
+        el.load(base);
+        const reloaded = state(el);
+        el.load(button);
+        el.destroy();
+        const destroyed = state(el);
+        const author = document.createElement('anima-icon');
+        author.tabIndex = 0;
+        author.style.cursor = 'help';
+        document.body.append(author);
+        author.load(button);
+        author.load(base);
+        const kept = state(author);
+        el.remove();
+        author.remove();
+        return { before, reloaded, destroyed, kept };
+      });
+      expect(result).toEqual({
+        before: ['0', 'pointer'],
+        reloaded: [null, ''],
+        destroyed: [null, ''],
+        kept: ['0', 'help'],
+      });
     });
 
     it('reduces a click to at most two frames, reports timeline events, and honors motion=full', async () => {

@@ -1,0 +1,69 @@
+<anima version="0.1" name="machine-blend-reduced-midstate" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="a" cx="10" cy="4" r="1" fill="#4263eb"/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#4263eb"/>
+  <circle id="c" cx="10" cy="16" r="1" fill="#4263eb"/>
+
+  <timeline name="oa" duration="2" loop="once" reducedMotion="end">
+    <track target="a.x">
+      0  0
+      2  20
+    </track>
+  </timeline>
+  <timeline name="pa" duration="1" loop="loop" reducedMotion="end">
+    <track target="a.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+  <timeline name="lb" duration="2" loop="loop" reducedMotion="end">
+    <track target="b.x">
+      0  0
+      2  20
+    </track>
+  </timeline>
+  <timeline name="pb" duration="1" loop="loop" reducedMotion="end">
+    <track target="b.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+  <timeline name="qc" duration="2" loop="pingpong" reducedMotion="end">
+    <track target="c.x">
+      0  0
+      2  20
+    </track>
+  </timeline>
+  <timeline name="pc" duration="1" loop="loop" reducedMotion="end">
+    <track target="c.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+
+  <layer name="la" initial="idle">
+    <state name="blend" play="pa"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;oa&quot;,&quot;at&quot;:0,&quot;weight&quot;:1},{&quot;play&quot;:&quot;pa&quot;,&quot;at&quot;:1,&quot;weight&quot;:0}]}"/>
+    <state name="idle">
+      <pose a.x="0"/>
+      <on when="go" to="blend"/>
+    </state>
+  </layer>
+  <layer name="lb" initial="idle">
+    <state name="blend" play="pb"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;lb&quot;,&quot;at&quot;:0,&quot;weight&quot;:1},{&quot;play&quot;:&quot;pb&quot;,&quot;at&quot;:1,&quot;weight&quot;:0}]}"/>
+    <state name="idle">
+      <pose b.x="0"/>
+      <on when="go" to="blend"/>
+    </state>
+  </layer>
+  <layer name="lc" initial="idle">
+    <state name="blend" play="pc"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;qc&quot;,&quot;at&quot;:0,&quot;weight&quot;:1},{&quot;play&quot;:&quot;pc&quot;,&quot;at&quot;:1,&quot;weight&quot;:0}]}"/>
+    <state name="idle">
+      <pose c.x="0"/>
+      <on when="go" to="blend"/>
+    </state>
+  </layer>
+</anima>

@@ -37,9 +37,7 @@ export function extendListener(listener: ObjShape): ObjShape {
       ...listener.p,
       on: {
         k: 'str',
-        re: new RegExp(
-          `(?:${old.re?.source ?? '^(?:enter|leave|down|up|click|move)$'})|(?:${pattern})`,
-        ),
+        re: new RegExp(`(?:${old.re?.source ?? `^(?:${old.of!.join('|')})$`})|(?:${pattern})`),
       },
       ...Object.fromEntries(
         Object.entries(listenerFields).map(([k, v]) => [k, { ...v, feature: 'input' }]),

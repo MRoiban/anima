@@ -75,7 +75,8 @@ A document declaring `components` may have an empty `nodes` array: it is a libra
 whose exported components can be instantiated as host roots. Ordinary documents need a node.
 
 **Limits.** Loaders refuse documents beyond these limits with `limit-exceeded`: 1 MiB of text, nesting
-depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
+depth 32 nodes, 96 levels of JSON nesting anywhere (free-form values such as `meta` included),
+2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
 
 **Units** *(normative)*: lengths in grid units, y down; time in **seconds**; angles in **degrees**,
 positive clockwise (y down), 0° along +x; opacity, scale and blend weights are plain numbers
@@ -267,7 +268,7 @@ blends back to what is below it — for a single layer, its rest value. `lerp` i
 per channel with rounding for colours (§5), and for booleans `a || b` while the crossfade runs and
 `b` once it ends. Later layers win where two layers write the same property.
 
-`step(dt)` with `dt ≥ 0` seconds does, in order:
+`step(dt)` with finite `dt ≥ 0` seconds does, in order:
 
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
@@ -2970,7 +2971,10 @@ variations and Type2 arithmetic/seac operators are currently unsupported. CFF1 T
 subroutines and CID FDSelect 0/3 are supported, along with TrueType simple and composite glyphs.
 WOFF uses bounded zlib decompression; WOFF2 uses bounded Brotli and inverse glyf/loca/hmtx transforms.
 The reader maps cmap 4/12, reads hhea/hmtx, OS/2, head, maxp, name, kern and GPOS kern pair adjustments
-1/2 (including extension lookups). Pair placement and advances are supported; GPOS device/variation adjustments, mark placement and GSUB
+1/2 (including extension lookups). Pair placement and advances are supported; a lookup whose
+IgnoreBaseGlyphs/IgnoreLigatures/IgnoreMarks flag matches either glyph's GDEF class does not
+adjust that pair. Every cmap mapping, across all subtables, counts toward the table operation limit
+(`font-limit`). GPOS device/variation adjustments, mark placement and GSUB
 shaping are not. Arabic, Hebrew, Indic, combining marks and joining controls issue
 `text-shaping-approximate`; the tool does not claim shaped glyph equivalence.
 
@@ -3062,7 +3066,8 @@ CSS fallback. A failed replacement preserves the previous face. Browser decoding
 policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
 descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
 sources receive private family names, preventing cross-icon collisions. The latest replacement
-wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup, except that a
+completed replacement releases the superseded face once no name in that scope uses its family. Faces already in
 `document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
 counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
 Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode
@@ -3086,6 +3091,8 @@ faces sharing a family remain eligible for browser weight selection. Families ar
 insertion order after the authored CSS family list. Host fallback configuration survives source
 reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
 releases owned document font registrations; the next CSS/readiness use restores configured faces.
+With the `fonts-text` consumer, a disconnect likewise parks named asset faces and aliases (including
+child scopes); the same player's next `forModel`/CSS use restores them, a reload discards them.
 `icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
 invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
 browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed
@@ -3403,5 +3410,7 @@ Native timing and retarget mapping remain pending; raw captures are retained wit
 dimensions, at one CSS pixel per grid unit (DPR affects backing pixels only). Root layout reflows;
 it is not merely scaled. `player.layoutSize` is the per-player grid-unit override; clearing it
 restores authored sizing. The host adapter applies normal explicit-size/reset precedence as above.
+A host whose computed content size is not a resolved pixel length (for example `display:none` with a
+percentage size) is not measured; its layout size and viewport are kept until it has a layout box.
 Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
 This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.

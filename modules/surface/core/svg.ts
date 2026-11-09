@@ -53,8 +53,10 @@ export const surfaceSVG: SVGBackend = {
       for (let j = 0; j < list.length; j++) {
         const e = list[j]!;
         process(e.kids);
+        // Ordered paints are expanded per entry by composite, in either module load order.
         if (
           e.role === 'shape' &&
+          !draw.nodes[e.node]!.paints &&
           draw.resources.some((r) => r.node === e.node && r.kind === 'surface')
         ) {
           // Resolve fill and stroke independently so feathering never blurs the other paint.
@@ -62,7 +64,15 @@ export const surfaceSVG: SVGBackend = {
             'g',
             e.node,
             'leaves',
-            ['fill', 'stroke'].map((k) => el(e.tag, e.node, 'leaf:' + k)),
+            // Keep contour's per-paint path (if it already split the shape) inside its leaf.
+            ['fill', 'stroke'].map((k) =>
+              el(
+                e.tag,
+                e.node,
+                'leaf:' + k,
+                e.kids.filter((c) => c.key === k),
+              ),
+            ),
           );
         }
         const s = draw.nodes[e.node]!.slice;
@@ -114,9 +124,11 @@ export const surfaceSVG: SVGBackend = {
           : 'none';
     }
     if (e.role === 'shape') {
+      // Composite renders an ordered entry with an `m<index>-` id; surface definitions have none.
+      const base = id.replace(/m\d+-$/, '');
       for (const p of node.paints)
         if (p.image && a[p.kind] !== 'none')
-          a[p.kind] = `url(#${id}s${e.node}-pattern-${token(p.key ?? p.kind)})`;
+          a[p.kind] = `url(#${base}s${e.node}-pattern-${token(p.key ?? p.kind)})`;
     }
     if (e.role !== 'module:surface') return;
     const [kind, ...rest] = e.key!.split(':'),

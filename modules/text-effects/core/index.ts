@@ -39,7 +39,15 @@ export const textEffects: Module = {
     if (!e || shape?.k !== 'num') return;
     return {
       prop: { type: 'number', min: shape.min, max: shape.max, feature: 'texteffects' },
-      rest: e[field] ?? (['scaleX', 'scaleY', 'opacity', 'amount'].includes(field) ? 1 : 0),
+      // An omitted range end stays unbounded at rest (spec: omitted fields keep their defaults);
+      // a finite bound keeps crossfades from rest NaN-free.
+      rest:
+        e[field] ??
+        (field === 'end'
+          ? Number.MAX_SAFE_INTEGER
+          : ['scaleX', 'scaleY', 'opacity', 'amount'].includes(field)
+            ? 1
+            : 0),
     };
   },
   resolve(model, d) {

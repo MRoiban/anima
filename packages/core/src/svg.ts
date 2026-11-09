@@ -17,6 +17,7 @@ export { fmt } from './draw.ts';
 import type { Mat } from './geom.ts';
 import type { Model } from './load.ts';
 import type { Player } from './player.ts';
+import { modules } from './modules.ts';
 
 export interface El {
   tag: string;
@@ -50,6 +51,12 @@ export interface SVGBackend {
 export const svgBackends = new Map<string, SVGBackend>();
 export function registerSVGBackend(name: string, backend: SVGBackend): void {
   svgBackends.set(name, backend);
+  // Hooks run in module dependency order (e.g. contour before mix), whatever the load order.
+  const order = [...modules.keys()],
+    rank = (n: string) => order.indexOf(n.replace('-', '')) >>> 0;
+  const sorted = [...svgBackends].sort((a, b) => rank(a[0]) - rank(b[0]));
+  svgBackends.clear();
+  for (const [n, b] of sorted) svgBackends.set(n, b);
 }
 /**
  * Build the element tree, plus mask definitions, for a model.
@@ -187,7 +194,8 @@ function coreAttrs(f: DrawFrame, el: El, paint: Paint, id: string): Attrs {
     return Object.assign(a, {
       fill: fill ? '#000' : 'none',
       'fill-rule': fill?.rule === 'evenodd' ? 'evenodd' : null,
-      stroke: width > 0 ? '#000' : 'none',
+      // A node with neither paint draws nothing, so it cuts nothing (spec §4).
+      stroke: width > 0 && (fill || stroke) ? '#000' : 'none',
       'stroke-width': fmt(width),
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',

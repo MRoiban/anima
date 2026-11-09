@@ -382,7 +382,15 @@ export class HostData {
         );
       value = names[0] ?? value;
     }
-    if (!['list', 'model-ref'].includes(p.type) && !accepts(p, value))
+    if (
+      !['list', 'model-ref'].includes(p.type) &&
+      !accepts(p, value) &&
+      !(
+        p.type === 'component' &&
+        typeof value === 'string' &&
+        this.scope.componentValues?.has(value)
+      )
+    )
       fail('type', path, 'value does not match property type');
     if (
       p.type === 'asset-ref' &&
@@ -426,7 +434,10 @@ export class HostData {
     path = path.startsWith('$') ? path : '$' + path;
     const p = this.#address(path).property;
     const type = p.type === 'bool' ? 'boolean' : p.type === 'asset-ref' ? p.assetType! : p.type;
-    return Object.assign(this.#handle(path, type), { type }) as PropertyHandle;
+    // Image handles go through image(), so optional image setters (host-edit) apply here too.
+    return Object.assign(type === 'image' ? this.image(path) : this.#handle(path, type), {
+      type,
+    }) as PropertyHandle;
   }
   exportedInstances(): DataInstance[] {
     return this.instances().filter(
@@ -540,6 +551,10 @@ export class HostData {
       }
     }
     this.wake();
+  }
+  /** Whether this player issued the instance handle (list editors reject foreign/forged records). */
+  owns(instance: unknown): boolean {
+    return this.#owned.has(instance as DataInstance);
   }
   record(name: string): RecordInstance | undefined {
     return this.#records.get(name);

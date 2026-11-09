@@ -20,11 +20,25 @@ const plans = new WeakMap<Model, Map<number, Model>>();
 const children = new WeakMap<Player, Map<number, Player>>();
 const stack = new Set<object>();
 const name = /^component:([a-z][a-zA-Z0-9-]*)$/;
-export const componentpaint: Module = {
+export const componentpaint: Module & { sources: typeof plans } = {
   name: 'componentpaint',
   after,
   entries,
+  // seam: asset loaders resolve paint-source catalogs like component placements.
+  sources: plans,
   init(_registry, shared) {
+    // Forked player models (componentpaint, lists, nested clones) keep their paint-source plan,
+    // so reloading a player's model still lets asset loaders find its sources.
+    const fork = _registry.get('components') as
+      import('../../components/core/index.ts').ComponentModule | undefined;
+    if (fork) {
+      const previous = fork.forkModel;
+      fork.forkModel = (source, target) => {
+        previous(source, target);
+        const plan = plans.get(source);
+        if (plan) plans.set(target, plan);
+      };
+    }
     return {
       ...componentpaint,
       resolve(model, d) {
@@ -123,6 +137,10 @@ export const componentpaint: Module = {
               name: match[1],
               requires: model.doc.requires,
               components: Object.fromEntries([...used].map((name) => [name, definitions[name]])),
+              // Asset names resolve locally, then in the enclosing catalog (SPEC assets scope).
+              ...(model.doc.assets && {
+                assets: { ...model.doc.assets, ...(definition as { assets?: object }).assets },
+              }),
             });
             for (const diag of result.diagnostics)
               if (diag.severity === 'error')
@@ -195,8 +213,10 @@ export const componentpaint: Module = {
                 ]),
               ),
             );
-          const extension: PlayerExtension = {
+          const extension: PlayerExtension & { sources: Map<number, Player> } = {
             ...base,
+            // seam: hosts give source players their own resource catalogs, like nested players.
+            sources: players,
             input: (...args) => base?.input(...args) ?? false,
             get: (key) => base?.get(key),
             pointer: (...args) => base?.pointer(...args),

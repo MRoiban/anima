@@ -1,0 +1,5 @@
+advance 0.4999999995
+snapshot
+motion reduce
+advance 0
+snapshot

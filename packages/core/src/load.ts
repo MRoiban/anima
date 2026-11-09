@@ -293,8 +293,15 @@ const entries = <T = Raw>(o: Record<string, T> | undefined): [string, T][] =>
 export function load(input: string | object): LoadResult {
   const d = new Diags();
   if (typeof input !== 'string') return loadDocument(input, d);
-  if (input.length > LIMITS.text) {
-    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
+  // UTF-8 bytes (SPEC §2: 1 MiB of text): at least one and at most three per UTF-16 unit.
+  let bytes = input.length > LIMITS.text ? input.length : 0;
+  if (!bytes && input.length * 3 > LIMITS.text)
+    for (const ch of input) {
+      const c = ch.codePointAt(0)!;
+      bytes += c < 0x80 ? 1 : c < 0x800 ? 2 : c < 0x10000 ? 3 : 4;
+    }
+  if (bytes > LIMITS.text) {
+    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} bytes`);
     return { diagnostics: d.list };
   }
   let doc: unknown;
@@ -362,7 +369,7 @@ function resolve(doc: Raw, d: Diags): Model {
     );
 
   // Colours
-  const colors: Record<string, string> = doc.colors ?? {};
+  const colors: Record<string, string> = Object.fromEntries(entries<string>(doc.colors));
   for (const [k, c] of Object.entries(colors))
     if (c !== 'currentColor' && !parseHex(c))
       d.err(
@@ -422,7 +429,7 @@ function resolve(doc: Raw, d: Diags): Model {
 
   // Inputs
   const inputs = new Map<string, InputM>();
-  for (const [name, r] of Object.entries<Raw>(doc.inputs ?? {})) {
+  for (const [name, r] of entries(doc.inputs)) {
     const p = ptr('/inputs', name);
     const t = r.type;
     const wrong = (k: string) =>
@@ -563,7 +570,7 @@ function resolve(doc: Raw, d: Diags): Model {
   // Timelines
   const timelines: TimelineM[] = [];
   const tlIndex = new Map<string, number>();
-  for (const [name, r] of Object.entries<Raw>(doc.timelines ?? {})) {
+  for (const [name, r] of entries(doc.timelines)) {
     const p = ptr('/timelines', name);
     const tl: TimelineM = {
       name,
@@ -1003,7 +1010,7 @@ export function resolveAddress(
     const field = m[2]!;
     if (!PAINTED.includes(n.type) || !n.raw[paint])
       return ['unknown-address', V && `"${id}" has no ${paint}`, false];
-    const prop = PAINT[paint][field];
+    const prop = Object.hasOwn(PAINT[paint], field) ? PAINT[paint][field] : undefined;
     if (!prop) {
       if (Object.hasOwn((nodeShape(n.type).p[paint] as ObjShape).p, field))
         return ['not-animatable', V && `${paint}.${field} cannot be animated`, false];
@@ -1020,10 +1027,10 @@ export function resolveAddress(
     return { node: ni, key, prop, rest };
   }
   const props = { ...COMMON, ...OWN[n.type] };
-  const prop = props[key];
+  const prop = Object.hasOwn(props, key) ? props[key] : undefined;
   if (!prop) {
     if (
-      key in STATIC[n.type] ||
+      Object.hasOwn(STATIC[n.type], key) ||
       ['pivot', 'id', 'type', 'fill', 'stroke', 'knockout'].includes(key)
     )
       return [

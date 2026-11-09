@@ -8,18 +8,45 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Now
 
-- Goal: a smaller, agent-native Rive for animated web UI. Order: P7 (minimal layout, host fit,
-  bindable artboards, 18 P6 text carry-overs) → P8 rigging (heavy).
-- Branch `p7` from main 8ffd714. Design `design/p7/DESIGN.md`; briefs `design/p7/tickets/`.
-- P7 closed on p7: 56/57 done (`a11y.tree-bounds` → P8, maybe-later candidate), in scope 860/886;
-  `docs/parity/P7-closure.md`, PLAN, LOG written; reflow-card benchmark AniML 6/6 = Rive 6/6.
-- Pre-PR checks: `test:scope -- changed --no-browser` 6,605 pass / 0 fail; perf vs main 8ffd714
-  (pinned, minimums, load 3–5): frames equal; bell compile +2.9 % average (+1.7…+4.0), spread over
-  the registry-driven compile (more element types), no single hot spot — at the ≤ 3 % guard.
-- Next: P7 PR, CI green, merge; then P8 design (rigging, heavy, canvas backend).
-- Gates now: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
-  authoring 14,899; Rive-class 148,870. Full: layout 4,084/4,096, markup-libraries 2,176/2,176,
-  fonts-info 7,952/8,192 (heavy).
+- Goal: a smaller, agent-native Rive for animated web UI. Next phase: P8 rigging (bones,
+  constraints, IK, skinning, meshes, vertex weights; heavy modules on the canvas backend; path
+  measurement internal) plus the `a11y.tree-bounds` carry-over.
+- P7 merged (PR #36, c3b79b4). Branch `p8` from main. In scope 860/886 (97 %).
+- Now (owner, 2026-11-08): per-phase Rottweiler review before P8 — one Opus 5.5 lead per phase
+  (P1 = PRs #1–#7, P2 #8, P3 #9/#19/#20, P4 #10/#12–#16, P5 #11/#17, P6 #21, P7 #36), each running 5
+  rounds with one GPT-6.1-sol reviewer at a time and fixing on its own branch from p8; brief
+  `design/rottweiler/LEAD.md`, ledgers `design/rottweiler/<PHASE>-LEDGER.md`. Batches of 3 leads
+  (machine load). Done: P5 (20 fixed, 6 deferred; 2c09c86), P7 (R1 7 + R2–R5 15 fixed, 2 deferred: R2-5 fonts
+  faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Done also: P3 (25 fixed, 2
+  pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
+  deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
+  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1), P6 (merged 7561bb7; its R2-5 fix for P7).
+  All seven merged into p8; review PR #37 open (unit 6,812/0, oracle 0, perf within guard); P7 round-1 fix coder (7 findings, ledger in my
+  scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
+  instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
+  then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
+- Review follow-ups: DONE (2026-11-09, orchestrator) asset loader rejecting with a plain `Error` now
+  fails the load so `ready` settles (modules/assetio/test/web/reject.test.ts), and free-form JSON
+  counts toward the 96-level nesting limit with a cycle-safe walk (packages/core/test/review-followups.test.ts).
+  Still open, to list in the PR: P3's round-5 fixes to the reduced-motion blend restore path had no further review;
+  P7 R4-6 external component `$parent.x` unchecked (NaN); P6 R2-5 font faces after repeated
+  `fonts.set` (sent to the P6 lead — check its ledger); P5 deferrals waiting on a `markup-libraries`
+  split; P4 R3-03 re-registering base paint replaces the sampling backend (P5b code), R4-02 pointer
+  focus and hit order ignore composite `drawOrder` (needs a joint input/focus/composite decision),
+  R2-05 gamepad polling stops after a long detach (needs a host connect signal). P1: P2/P6 share
+  `packages/web/src/index.ts` ARIA edits (expect a conflict); P1 R2-03 knockouts ignore stroke trims
+  (needs bell fixture + canvas change). Decided (owner may revisit) and done: one 96-level JSON nesting
+  limit for the whole document (P1 R3-04/R4-08 root cause).
+- Owner decisions raised in PR #37: P6 R2-04 non-square viewBox drawing offset (needs a mapping
+  decision for SVG + canvas), P4 R4-02 hit/focus order vs drawOrder, a11y.tree-bounds maybe-later.
+- After the review PR merges: P8 design (rigging).
+- Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
+  authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
+  markup-libraries 2,176/2,176, fonts-info 7,952/8,192 (heavy).
+- Open: `modules/text/test/web/live-runs.test.ts` failed on CI twice (Chromium live vs control
+  screenshots) then passed; diagnostics are in the test — if it fails again, read the CI log detail.
+  Bell compile is at the ≤ 3 % guard (+2.9 % vs main before P7): consider speeding the registry
+  compile path.
 
 ## Owner
 
@@ -37,7 +64,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
     host-fit (and layout, layout-reflow when they land); data-artboard, text-hit, text-canvas stay
     optional.
   - P7: layout is our own single-line flexbox subset (no wrap, no Rive engine port); conditions read
-    the previous step's boxes; a retargeted reflow continues from the drawn box (CSS-transition
+    the previous step's boxes; module budgets fonts-text 768 → 896 and text-input 4,096 → 4,544 by the
+    P3c reset rule after the combined review fixes (2026-11-09); a retargeted reflow continues from the drawn box (CSS-transition
     style) — closed as an intentional difference from Rive (start/middle/end match natively);
     P7-6 closed 11 text rows as documented differences (continuous fitting, typographic ellipsis,
     effective trim, native-field semantics).
@@ -65,5 +93,19 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - An interrupted ticket resumes by messaging its thread (`t3_thread_send`); its worktree survives.
 - Budget headroom: markup-libraries 2,176/2,176 (full), markup-hooks ~4,534/4,544, data-artboard
   1,013/1,024, host-fit 733/768 — growth there needs a split first.
+- Disk fills during review waves: every reviewer gets a ~245 MB worktree and agents leave
+  `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove only worktrees on an explicit list
+  of finished branches — never by "clean + idle + name matches": a lead waiting on its reviewer is
+  clean and idle (2026-11-09 I removed the P2 and P6 leads' worktrees that way and recreated them from
+  their tips b5214b08 / 342e586e at the same paths); and delete `/tmp/anima-*` older than 3 h — on 2026-11-08 `/tmp` hit 100 %
+  and `/` 97 %. Abandoned P4-era worktree diffs were saved to `/data/t3/projects/anima-worktree-backups/`.
+- Never symlink the main checkout's `node_modules` into a worktree for tests: its workspace links
+  resolve `@anima-format/*` to the main checkout's packages, so tests run main's code (P6 lead saw 54
+  false failures); run `npm ci` in the worktree. (Symlinks are fine for the perf A/B, which imports
+  by absolute path.)
+- Before a phase PR also run `npm run lint` and `npm run format:check` on the merged tree: leads'
+  scoped checks missed a lint error (P1's XML control-character regex) and CI caught it on PR #37.
+- Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
+  only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)

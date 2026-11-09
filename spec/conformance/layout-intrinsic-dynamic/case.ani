@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "layout-intrinsic-dynamic",
+  "grid": 100,
+  "requires": ["layout", "components", "nested", "data"],
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "slot",
+          "type": "instance",
+          "component": "$content"
+        }
+      ]
+    }
+  ],
+  "components": {
+    "a": {
+      "grid": 20,
+      "viewBox": [0, 0, 7, 8],
+      "nodes": [
+        {
+          "id": "tile",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    },
+    "b": {
+      "grid": 30,
+      "nodes": [
+        {
+          "id": "tile",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "models": {
+      "Main": {
+        "properties": {
+          "content": {
+            "type": "component",
+            "default": "a"
+          }
+        }
+      }
+    }
+  }
+}

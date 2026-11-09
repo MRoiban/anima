@@ -103,32 +103,42 @@ export class Font<T extends Uint8Array = Uint8Array> {
     if (!b) fault('missing font table ' + tag);
     return new Bytes(b);
   }
+  // Name records are indexed once (best record per id) and decoded on demand, with a bounded
+  // total: overlapping records cannot amplify per-instance lookups.
+  #names?: Map<number, string | [number, number, number]>;
+  #decoded = 0;
   name(id: number): string {
     if (!this.tables.has('name')) return '';
-    const b = this.table('name'),
-      n = b.u16(2),
-      base = b.u16(4);
-    let result = '',
-      score = -1;
-    for (let i = 0; i < n; i++) {
-      const p = 6 + i * 12;
-      if (b.u16(p + 6) !== id) continue;
-      const platform = b.u16(p),
-        language = b.u16(p + 4),
-        raw = b.slice(base + b.u16(p + 10), b.u16(p + 8));
-      const s =
-        platform === 3 || platform === 0
-          ? [...Array(Math.floor(raw.length / 2))]
-              .map((_, j) => String.fromCharCode(raw[j * 2]! * 256 + raw[j * 2 + 1]!))
-              .join('')
-          : Array.from(raw, (v) => String.fromCharCode(v)).join('');
-      const rank = (platform === 3 ? 2 : platform === 0 ? 1 : 0) + (language === 0x409 ? 2 : 0);
-      if (rank > score) {
-        result = s;
-        score = rank;
+    const b = this.table('name');
+    if (!this.#names) {
+      const n = b.u16(2),
+        base = b.u16(4),
+        ranks = new Map<number, number>();
+      this.#names = new Map();
+      for (let i = 0; i < n; i++) {
+        const p = 6 + i * 12,
+          key = b.u16(p + 6),
+          platform = b.u16(p),
+          rank = (platform === 3 ? 2 : platform === 0 ? 1 : 0) + (b.u16(p + 4) === 0x409 ? 2 : 0);
+        if (rank > (ranks.get(key) ?? -1)) {
+          ranks.set(key, rank);
+          this.#names.set(key, [platform, base + b.u16(p + 10), b.u16(p + 8)]);
+        }
       }
     }
-    return result;
+    const entry = this.#names.get(id);
+    if (entry === undefined || typeof entry === 'string') return entry ?? '';
+    const [platform, offset, length] = entry,
+      raw = b.slice(offset, length);
+    if ((this.#decoded += length) > 1 << 20) fault(V ? 'font name limit' : '', 'font-limit');
+    const s =
+      platform === 3 || platform === 0
+        ? [...Array(Math.floor(raw.length / 2))]
+            .map((_, j) => String.fromCharCode(raw[j * 2]! * 256 + raw[j * 2 + 1]!))
+            .join('')
+        : Array.from(raw, (v) => String.fromCharCode(v)).join('');
+    this.#names.set(id, s);
+    return s;
   }
   #cmap(): void {
     const b = this.table('cmap'),
@@ -140,6 +150,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
       .sort((a, c) => b.u16(a) - b.u16(c));
     if (!supported.length) fault(V ? 'font needs cmap format 4 or 12' : '', 'font-unsupported');
     const put = (cp: number, g: number) => {
+      b.check(0, 0); // charge every mapping: repeated subtables cannot bypass the operation limit
       if (cp > 0x10ffff || g >= this.glyphCount) fault(V ? 'invalid cmap mapping' : '');
       if (g) this.coverage.set(cp, g);
     };
@@ -241,7 +252,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
   kerning(left: number, right: number, features: Record<string, number> = {}): number {
     if (features.kern === 0) return 0;
     if (this.tables.has('GPOS')) {
-      const k = pairAdjustment(this.table('GPOS'), left, right);
+      const k = pairAdjustment(this, left, right);
       if (k !== undefined) return k.first.advanceX + k.second.advanceX;
     }
     if (!this.tables.has('kern')) return 0;
@@ -273,7 +284,7 @@ export class Font<T extends Uint8Array = Uint8Array> {
   positionPair(left: number, right: number, features: Record<string, number> = {}): PairAdjustment {
     if (features.kern === 0) return { first: zeroAdjustment(), second: zeroAdjustment() };
     if (this.tables.has('GPOS')) {
-      const pair = pairAdjustment(this.table('GPOS'), left, right);
+      const pair = pairAdjustment(this, left, right);
       if (pair) return pair;
     }
     return {
@@ -519,8 +530,11 @@ function glyphClass(b: Bytes, p: number, g: number): number {
   }
   return fault(V ? 'unsupported GPOS class' : '', 'font-unsupported');
 }
-function pairAdjustment(b: Bytes, left: number, right: number): PairAdjustment | undefined {
-  const features = b.u16(6),
+function pairAdjustment(font: Font, left: number, right: number): PairAdjustment | undefined {
+  const b = font.table('GPOS'),
+    gdef = font.tables.has('GDEF') ? font.table('GDEF') : undefined,
+    classes = gdef?.u16(4),
+    features = b.u16(6),
     list = b.u16(8),
     lookups = new Set<number>();
   // Only kern feature lookups. Other positioning features need script/language shaping.
@@ -534,7 +548,11 @@ function pairAdjustment(b: Bytes, left: number, right: number): PairAdjustment |
   for (const index of lookups) {
     if (index >= b.u16(list)) fault(V ? 'invalid GPOS lookup index' : '');
     const lookup = list + b.u16(list + 2 + index * 2),
-      type = b.u16(lookup);
+      type = b.u16(lookup),
+      flag = b.u16(lookup + 2);
+    // IgnoreBaseGlyphs/Ligatures/Marks: the lookup does not pair a glyph of an ignored GDEF class.
+    if (classes && [left, right].some((g) => flag & 14 & (1 << glyphClass(gdef!, classes, g))))
+      continue;
     for (let j = 0; j < b.u16(lookup + 4); j++) {
       let p = lookup + b.u16(lookup + 6 + j * 2),
         t = type;

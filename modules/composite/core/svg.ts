@@ -190,8 +190,10 @@ export const compositeSVG: SVGBackend = {
           y = +geom.y!,
           w = +geom.width!,
           h = +geom.height!,
-          r = Math.min(+(geom.rx ?? 0), w / 2, h / 2);
-        d = `M${x + r} ${y}h${w - 2 * r}a${r} ${r} 0 0 1 ${r} ${r}v${h - 2 * r}a${r} ${r} 0 0 1 ${-r} ${r}h${-w + 2 * r}a${r} ${r} 0 0 1 ${-r} ${-r}v${-h + 2 * r}a${r} ${r} 0 0 1 ${r} ${-r}Z`;
+          // Clamp each axis independently, as the SVG rect source does.
+          r = Math.min(+(geom.rx ?? 0), w / 2),
+          q = Math.min(+(geom.rx ?? 0), h / 2);
+        d = `M${x + r} ${y}h${w - 2 * r}a${r} ${q} 0 0 1 ${r} ${q}v${h - 2 * q}a${r} ${q} 0 0 1 ${-r} ${q}h${-w + 2 * r}a${r} ${q} 0 0 1 ${-r} ${-q}v${-h + 2 * q}a${r} ${q} 0 0 1 ${r} ${-q}Z`;
       }
       const transform = inv ? mul(inv, p.nodes[i]!.world!) : IDENTITY;
       a.d = inv
@@ -252,6 +254,13 @@ export const compositeSVG: SVGBackend = {
       Object.assign(a, box, { fill: '#fff' });
       return;
     }
+    if (key === 'paint') {
+      // Only the selected paint: aggregate attributes would leak another entry's stroke.
+      const selected = r.paints[el.index!]!;
+      Object.assign(a, shapeAttrs(render, p, el, paint, `${id}m${el.index}-`, [selected]));
+      a.display = selected.visible ? 'inline' : 'none';
+      return;
+    }
     Object.assign(a, shapeAttrs(render, p, el, paint, id));
     if (['outline', 'black'].includes(key)) {
       a.fill = key === 'black' ? '#000' : '#fff';
@@ -270,11 +279,6 @@ export const compositeSVG: SVGBackend = {
       a.fill = 'none';
       a['stroke-width'] = fmt(2 * r.paints.find((p) => p.kind === 'stroke')!.width!);
       return;
-    }
-    if (key === 'paint') {
-      const selected = r.paints[el.index!]!;
-      Object.assign(a, shapeAttrs(render, p, el, paint, `${id}m${el.index}-`, [selected]));
-      a.display = selected.visible ? 'inline' : 'none';
     }
   },
 };

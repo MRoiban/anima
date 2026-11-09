@@ -11,7 +11,8 @@ export default {
       svgExport: 'textinputSVG',
     },
     web: [
-      { name: 'text-input', budget: 4096, heavy: true },
+      // Reset by the P3c rule (measured × 1.10, 64 B steps) after the review fixes, 2026-11-09.
+      { name: 'text-input', budget: 4544, heavy: true },
       { name: 'text-input-svg', budget: 512, over: 'text-input', heavy: true },
       { name: 'text-input-clipboard', budget: 512, over: 'text-input', heavy: true },
       { name: 'text-input-canvas', budget: 256, over: 'text-input', heavy: true },

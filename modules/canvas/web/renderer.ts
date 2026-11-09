@@ -1,3 +1,4 @@
+import { contentBox } from '../../../packages/web/src/content-box.ts';
 // Canvas2D consumes only the resolved draw frame. No second player or SVG rasterization.
 import type { CanvasSourceHost } from './sources.ts';
 import type { AnimaIcon, IconRenderer } from '../../../packages/web/src/index.ts';
@@ -11,8 +12,13 @@ function path(g?: Geometry): Path2D {
   const p = new Path2D(g?.d);
   if (!g || g.d) return p;
   if (g.kind === 'circle') p.arc(g.cx!, g.cy!, g.r!, 0, Math.PI * 2);
-  else if (g.kind === 'rect' || g.kind === 'image')
-    p.roundRect(g.x!, g.y!, g.width!, g.height!, g.rx ?? 0);
+  else if (g.kind === 'rect' || g.kind === 'image') {
+    // SVG clamps each radius axis independently: rx to half the width, ry to half the height.
+    const r = g.rx ?? 0;
+    p.roundRect(g.x!, g.y!, g.width!, g.height!, [
+      { x: Math.min(r, g.width! / 2), y: Math.min(r, g.height! / 2) },
+    ]);
+  }
   return p;
 }
 export class CanvasRenderer implements IconRenderer {
@@ -97,8 +103,7 @@ export class CanvasRenderer implements IconRenderer {
     const fitted = (this.#icon.constructor as typeof AnimaIcon).viewBox?.(this.#icon);
     const [x, y, w, h] = (fitted ?? m.viewBox) as [number, number, number, number],
       g = m.grid;
-    const css = getComputedStyle(this.#icon);
-    const host = { width: parseFloat(css.width), height: parseFloat(css.height) };
+    const host = contentBox(this.#icon);
     const fit = fitted ? 'fill' : this.#icon.getAttribute('fit');
     const align = this.#icon.getAttribute('align') ?? 'center';
     const factor = (lo: string, hi: string) =>
@@ -110,13 +115,13 @@ export class CanvasRenderer implements IconRenderer {
       height: ch + 'px',
       left:
         (fitted
-          ? 0
+          ? host.left
           : fit === 'none'
             ? (host.width - w) * factor('left', 'right')
             : (host.width * x) / g) + 'px',
       top:
         (fitted
-          ? 0
+          ? host.top
           : fit === 'none'
             ? (host.height - h) * factor('top', 'bottom')
             : (host.height * y) / g) + 'px',

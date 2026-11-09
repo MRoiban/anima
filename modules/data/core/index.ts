@@ -4,6 +4,7 @@ import { clone } from './types.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
 import { parseHex } from '../../../packages/core/src/color.ts';
+import { reached } from '../../../packages/core/src/time.ts';
 import { after } from '../manifest.ts';
 import { prepare } from './compile.ts';
 import { custom } from './custom.ts';
@@ -22,6 +23,11 @@ let resolve = resolveAddress;
 let parse: typeof import('../../bind/core/expression.ts').expression | undefined;
 const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(?:\.[\w-]+)*)$/;
 export type DataModule = Module & {
+  // seam(P7-5): rewrites data's private document copy before compilation (data-artboard).
+  normalize?: (
+    document: import('./types.ts').DataDocument,
+    model: import('../../../packages/core/src/load.ts').Model,
+  ) => void;
   prepareContext?: (
     model: import('../../../packages/core/src/load.ts').Model,
     diag: import('../../../packages/core/src/diag.ts').Diags,
@@ -42,7 +48,7 @@ export const data: DataModule = {
   registerConverter,
   prepare(model, d) {
     custom(model, d);
-    prepare(model, d, (this as DataModule).prepareContext);
+    prepare(model, d, (this as DataModule).prepareContext, (this as DataModule).normalize);
   },
   init(registry, shared) {
     listenerValue = (
@@ -164,6 +170,16 @@ export const data: DataModule = {
       V && 'custom property value has the wrong type',
       V && 'use the declared custom property type',
     );
+  },
+  track(track, addr) {
+    // Custom string/enum properties are hold-only; never route them through path morphing.
+    if (addr.prop.feature === 'data' && addr.prop.type === 'string' && !track.sample)
+      track.sample = (time, player) => {
+        let i = 0;
+        while (i < track.times.length - 1 && reached(time, track.times[i + 1]!)) i++;
+        const value = track.values[i]!;
+        return typeof value === 'function' ? value(player!) : value;
+      };
   },
   load(model, raw, d) {
     if (!raw.requires?.includes('data')) return;

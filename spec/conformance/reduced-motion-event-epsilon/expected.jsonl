@@ -1,0 +1,2 @@
+{"time": 0.4999999995, "values": {"a.x": 4.999999995}, "states": {"l": "s"}, "events": [{"name": "mid", "layer": "l", "time": 0.5}], "settled": false}
+{"time": 0.4999999995, "values": {"a.x": 10}, "states": {"l": "s"}, "events": [], "settled": true}

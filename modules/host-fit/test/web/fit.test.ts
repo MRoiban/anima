@@ -88,6 +88,140 @@ for (const [engineName, engine, executablePath] of [
       await page?.close();
     });
     for (const renderer of ['svg', 'canvas']) {
+      it(`${renderer}: R1-2/R1-4/R1-5 layout drawing, hits and semantic overlay stay aligned`, async () => {
+        await page.evaluate((renderer) => {
+          const i = document.querySelector('anima-icon')!;
+          i.setAttribute('renderer', renderer);
+          i.fit = 'layout';
+          const errors = i.load({
+            anima: '0.1',
+            name: 'layout-semantic',
+            grid: 100,
+            requires: ['layout', 'input', 'a11y'],
+            inputs: { down: { type: 'bool' } },
+            nodes: [
+              {
+                id: 'root',
+                type: 'layout',
+                width: 100,
+                height: 100,
+                children: [
+                  {
+                    id: 'dot',
+                    type: 'circle',
+                    center: [50, 50],
+                    r: 5,
+                    fill: { color: '#000' },
+                    a11y: { role: 'button', label: 'Dot' },
+                  },
+                  {
+                    id: 'tile',
+                    type: 'rect',
+                    x0: 10,
+                    y0: 10,
+                    w: 2,
+                    h: 2,
+                    layout: { width: 'fill', height: 'fill' },
+                    fill: { color: '#f00' },
+                    a11y: { role: 'button', label: 'Tile' },
+                  },
+                ],
+              },
+            ],
+            listeners: [{ on: 'down', target: 'tile', set: { down: true } }],
+          });
+          if (errors.some((d) => d.severity === 'error')) throw Error(JSON.stringify(errors));
+        }, renderer);
+        const check = async (width: number) => {
+          await expect
+            .poll(() =>
+              page.evaluate(() => {
+                const i = document.querySelector('anima-icon')!,
+                  r = i.getBoundingClientRect();
+                const b = i
+                  .shadowRoot!.querySelector('[data-semantic="tile"]')
+                  ?.getBoundingClientRect();
+                return (
+                  b &&
+                  [b.x - r.x, b.y - r.y, b.width, b.height].map((n) => Math.round(n * 100) / 100)
+                );
+              }),
+            )
+            .toEqual([10, 0, width - 10, 100]);
+          expect(
+            await page.evaluate(
+              () => document.querySelector('anima-icon')!.player!.semantics()[0]!.bounds,
+            ),
+          ).toEqual([0, 0, 10, 10]);
+        };
+        await check(240);
+        await page.evaluate(() => {
+          const i = document.querySelector('anima-icon')!,
+            r = i.getBoundingClientRect();
+          i.dispatchEvent(
+            new PointerEvent('pointerdown', {
+              clientX: r.x + 25,
+              clientY: r.y + 10,
+              button: 0,
+              pointerId: 1,
+              bubbles: true,
+            }),
+          );
+          i.player!.step(0);
+        });
+        expect(await page.evaluate(() => document.querySelector('anima-icon')!.get('down'))).toBe(
+          true,
+        );
+        await page.evaluate(() => {
+          document.querySelector('anima-icon')!.style.width = '180px';
+        });
+        await check(180);
+      }, 30_000);
+
+      it(`${renderer}: R1-7 fits and lays out the content box for either box sizing`, async () => {
+        for (const sizing of ['border-box', 'content-box']) {
+          const result = await page.evaluate(
+            ({ renderer, sizing }) => {
+              const i = document.querySelector('anima-icon')!;
+              i.setAttribute('renderer', renderer);
+              i.style.cssText = `display:block;box-sizing:${sizing};width:200px;height:100px;border:10px solid;padding:5px`;
+              i.fit = 'layout';
+              const layoutSize = i.player!.layoutSize;
+              i.fit = 'contain';
+              const box = (i.constructor as typeof AnimaIcon).viewBox!(i);
+              return { layoutSize, box };
+            },
+            { renderer, sizing },
+          );
+          const w = sizing === 'border-box' ? 170 : 200;
+          const h = sizing === 'border-box' ? 70 : 100;
+          expect(result.layoutSize).toEqual([w, h]);
+          expect(result.box![2]).toBeCloseTo(w / Math.min(w / 24, h / 12), 5);
+          expect(result.box![3]).toBeCloseTo(h / Math.min(w / 24, h / 12), 5);
+        }
+      }, 30_000);
+
+      it(`${renderer}: R2-8 does not measure a hidden host's unresolved percentage size`, async () => {
+        const result = await page.evaluate((renderer) => {
+          const i = document.querySelector('anima-icon')!;
+          i.setAttribute('renderer', renderer);
+          i.style.cssText =
+            'display:none;box-sizing:border-box;width:50%;height:50%;border:2px solid;padding:5px';
+          i.fit = 'layout';
+          const hidden = i.player!.layoutSize;
+          i.style.display = 'block';
+          (i.constructor as typeof AnimaIcon).viewBox!(i);
+          const css = getComputedStyle(i);
+          return {
+            hidden,
+            shown: i.player!.layoutSize,
+            expected: [parseFloat(css.width) - 14, parseFloat(css.height) - 14],
+          };
+        }, renderer);
+        expect(result.hidden).toBeUndefined();
+        expect(result.shown).toEqual(result.expected);
+      }, 30_000);
+
       it.each(cases)(
         `${renderer}: %s shares drawing, pointer and semantic matrices`,
         async (fit, sx, sy, tx, ty) => {

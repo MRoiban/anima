@@ -78,6 +78,7 @@ let ids = 0;
 export class AnimaIcon extends HTMLElement {
   /** Instantiate a compiled model without reparsing or recompiling it. */
   loadModel(model: Model): void {
+    this.#model = model;
     const selected = AnimaIcon.selectModel?.(this, model);
     if (selected && !selected.model) {
       this.#fail(selected.diagnostics);
@@ -92,7 +93,7 @@ export class AnimaIcon extends HTMLElement {
     schedule(this, false);
     this.#last = -1;
     this.#states = '';
-    this.#held = false;
+    this.#held = 0;
     AnimaIcon.eventHook?.(this, 'cleanup', null);
     this.player = undefined;
     const generation = this.#generation;
@@ -111,13 +112,21 @@ export class AnimaIcon extends HTMLElement {
       if (!this.hasAttribute('paused')) {
         AnimaIcon.eventHook?.(this, 'play', null);
         this.#step(0);
+        // An entry-event listener loaded another document or destroyed the icon.
+        if (generation !== this.#generation) return;
       }
       this.#resolve();
       this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
     };
     if (model.doc.assets && AnimaIcon.loadAssets) {
-      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
-        if (generation === this.#generation) this.#fail(d);
+      AnimaIcon.loadAssets(this, model).then(finish, (d: unknown) => {
+        // A loader may reject with a plain Error (e.g. no base URL): report it, so `ready` settles.
+        if (generation === this.#generation)
+          this.#fail(
+            Array.isArray(d)
+              ? d
+              : [{ code: 'asset-load', severity: 'error', pointer: '/assets', message: String(d) }],
+          );
       });
     } else finish();
   }
@@ -160,6 +169,7 @@ export class AnimaIcon extends HTMLElement {
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   #prepare?: (player: Player) => boolean;
+  #model?: Model;
   static observedAttributes = [
     'src',
     'motion',
@@ -204,7 +214,10 @@ export class AnimaIcon extends HTMLElement {
   #last = -1;
   #onScreen = true;
   #states = '';
-  #held = false;
+  /** Host-added tabindex (1) and cursor (2). */
+  #owned = 0;
+  /** Held Enter (1) and Space (2) keys. */
+  #held = 0;
   #listeners?: AbortController;
   #observing = false;
   #destroyed = false;
@@ -234,7 +247,7 @@ export class AnimaIcon extends HTMLElement {
       ['pointercancel', (e: PointerEvent) => this.#ptr('leave', e)],
       ['keydown', (e: KeyboardEvent) => this.#key(e, true)],
       ['keyup', (e: KeyboardEvent) => this.#key(e, false)],
-      ['blur', () => this.#hold(false)],
+      ['blur', () => this.#hold(0)],
     ] as const)
       this.addEventListener(type, fn as EventListener, { signal: this.#listeners.signal });
   }
@@ -316,7 +329,7 @@ export class AnimaIcon extends HTMLElement {
       if (value !== null) schedule(this, false);
       else if (this.player) {
         this.#step(0);
-        if (this.player.busy) this.#wake();
+        if (this.player?.busy) this.#wake();
       }
     } else if (name === 'renderer' && this.player) this.#build(this.player.model);
     else if (name === 'fit' || name === 'align' || name === 'alignment') this.#layout();
@@ -466,7 +479,7 @@ export class AnimaIcon extends HTMLElement {
       inputs: [...m.inputs.values()].map((i) => ({
         name: i.name,
         type: i.type,
-        default: i.def,
+        default: Array.isArray(i.def) ? [...i.def] : i.def,
         ...(i.type === 'number' && Number.isFinite(i.min) ? { min: i.min } : {}),
         ...(i.type === 'number' && Number.isFinite(i.max) ? { max: i.max } : {}),
       })),
@@ -480,7 +493,8 @@ export class AnimaIcon extends HTMLElement {
   }
 
   reset(): void {
-    if (this.player) this.loadModel(this.player.model);
+    // The compiled model as loaded: the player's model may be a runtime fork (repeat expansion).
+    if (this.player) this.loadModel(this.#model!);
   }
 
   destroy(): void {
@@ -497,7 +511,7 @@ export class AnimaIcon extends HTMLElement {
     this.#svg = undefined;
     this.#els = [];
     this.#root.replaceChildren();
-    this.#held = false;
+    this.#held = 0;
     this.#aria();
   }
 
@@ -506,7 +520,7 @@ export class AnimaIcon extends HTMLElement {
     if (this.player) {
       for (const rec of this.#els) rec[2] = {};
       this.#draw(true);
-    } else this.#order();
+    }
   }
 
   /** Set a bool or number input. */
@@ -644,11 +658,14 @@ export class AnimaIcon extends HTMLElement {
   #resources(p: Player): boolean {
     if (!this.#prepare) return false;
     let changed = this.#prepare(p);
-    const nested = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
+    const nested = p.nested as
+      { players?: Map<string, Player>; sources?: Map<number, Player> } | undefined;
     const lists = AnimaIcon.modules.get('lists') as
       typeof import('../../../modules/lists/core/index.ts').lists | undefined;
     for (const child of [
-      ...(nested?.values() ?? []),
+      ...(nested?.players?.values() ?? []),
+      // Component paint source players (componentpaint) resolve per host too.
+      ...(nested?.sources?.values() ?? []),
       ...(lists?.listState(p)?.runs.flatMap((r) => r.items.map((i) => i.player)) ?? []),
     ])
       changed = this.#resources(child) || changed;
@@ -689,13 +706,38 @@ export class AnimaIcon extends HTMLElement {
     set('role', button ? a.role : label ? 'img' : null);
     set('aria-label', label ?? null);
     set('aria-hidden', label || button ? null : 'true');
-    if (button && !this.hasAttribute('tabindex')) this.tabIndex = 0;
-    if (button) this.style.cursor ||= 'pointer';
-    if (a?.pressed)
-      set(
-        a.role === 'switch' ? 'aria-checked' : 'aria-pressed',
-        String(!!this.player!.get(a.pressed)),
-      );
+    // Button affordances the host added go away with button semantics; author values stay.
+    if (button) {
+      if (!this.hasAttribute('tabindex')) {
+        this.tabIndex = 0;
+        this.#owned |= 1;
+      }
+      if (!this.style.cursor) {
+        this.style.cursor = 'pointer';
+        this.#owned |= 2;
+      }
+    } else {
+      if (this.#owned & 1 && this.getAttribute('tabindex') === '0')
+        this.removeAttribute('tabindex');
+      if (this.#owned & 2 && this.style.cursor === 'pointer') this.style.cursor = '';
+      this.#owned = 0;
+    }
+    const sw = a?.role === 'switch';
+    set(sw ? 'aria-pressed' : 'aria-checked', null);
+    set(
+      sw ? 'aria-checked' : 'aria-pressed',
+      a?.pressed ? String(!!this.player!.get(a.pressed)) : null,
+    );
+    this.#pressed();
+  }
+
+  /** The pressed/checked state follows its input after every step, machine or not. */
+  #pressed(): void {
+    const a = this.player?.model.doc.a11y;
+    if (!a?.pressed) return;
+    const k = a.role === 'switch' ? 'aria-checked' : 'aria-pressed';
+    const v = String(!!this.player!.get(a.pressed));
+    if (this.getAttribute(k) !== v) this.setAttribute(k, v);
   }
 
   // ------------------------------------------------------------ time
@@ -711,7 +753,10 @@ export class AnimaIcon extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent('anima:event', { detail: e, bubbles: true, composed: true }),
       );
+      // A listener replaced or destroyed the player: its later events and states are stale.
+      if (this.player !== p) return;
     }
+    this.#pressed();
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {
       this.#states = states;
@@ -721,7 +766,8 @@ export class AnimaIcon extends HTMLElement {
         new CustomEvent('anima:state', { detail: p.states(), bubbles: true, composed: true }),
       );
     }
-    if (settled) schedule(this, false);
+    // Event and state listeners may have queued input (still busy) or replaced the player.
+    if (this.player === p && !p.busy) schedule(this, false);
   }
 
   /** Called by the shared loop. */
@@ -794,7 +840,11 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #key(e: KeyboardEvent, down: boolean): void {
-    if ((e.composedPath()[0] as Element).hasAttribute('data-semantic')) return;
+    if (
+      AnimaIcon.inputEvents.has(e) ||
+      (e.composedPath()[0] as Element).hasAttribute('data-semantic')
+    )
+      return;
     const a = this.player?.model.doc.a11y;
     if (!a || (a.role !== 'button' && a.role !== 'switch') || (e.key !== 'Enter' && e.key !== ' '))
       return;
@@ -805,15 +855,15 @@ export class AnimaIcon extends HTMLElement {
       if (this.player!.model.inputs.get(a.activate)!.type === 'bool') this.toggle(a.activate);
       else this.fire(a.activate);
     }
-    this.#hold(down);
+    const bit = e.key === 'Enter' ? 1 : 2;
+    this.#hold(down ? this.#held | bit : this.#held & ~bit);
   }
 
-  #hold(on: boolean): void {
+  #hold(keys: number): void {
     const a = this.player?.model.doc.a11y;
-    if (a?.held && this.#held !== on) {
-      this.#held = on;
-      this.set(a.held, on);
-    }
+    const was = this.#held;
+    this.#held = keys;
+    if (a?.held && !was !== !keys) this.set(a.held, !!keys);
   }
 }
 

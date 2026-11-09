@@ -1,0 +1,147 @@
+{
+  "anima": "0.1",
+  "name": "machine-blend-reduced-mixed",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 5],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 15],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "ta": {
+      "duration": 2,
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [2, 20]
+        ]
+      }
+    },
+    "la": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    },
+    "tb": {
+      "duration": 2,
+      "reducedMotion": "end",
+      "tracks": {
+        "b.x": [
+          [0, 0],
+          [2, 20]
+        ]
+      }
+    },
+    "lb": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "end",
+      "tracks": {
+        "b.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "la": {
+        "initial": "idle",
+        "states": {
+          "blend": {
+            "play": "la",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "ta",
+                  "at": 0,
+                  "weight": 1
+                },
+                {
+                  "play": "la",
+                  "at": 1,
+                  "weight": 0
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "blend"
+              }
+            ]
+          }
+        }
+      },
+      "lb": {
+        "initial": "idle",
+        "states": {
+          "blend": {
+            "play": "tb",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "tb",
+                  "at": 0,
+                  "weight": 0
+                },
+                {
+                  "play": "lb",
+                  "at": 1,
+                  "weight": 1
+                }
+              ]
+            }
+          },
+          "idle": {
+            "pose": {
+              "b.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "blend"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

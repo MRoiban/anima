@@ -251,12 +251,12 @@ function attach(icon: AnimaIcon) {
       icon.dispatchEvent(new CustomEvent('anima:semantics', { detail: diff }));
   };
   roots.set(icon, () => {
-    // seam(P7-8): optional painted bounds can change a settled tree without a step.
-    if (p.semantics() !== tree) update();
-    if (!box.isConnected) {
-      icon.shadowRoot!.append(style, box);
-      update();
-    }
+    // A renderer rebuild detaches the box: reattach before updating, so overlay listeners
+    // (focus) resolve the semantic elements. seam(P7-8): optional painted bounds can change a
+    // settled tree without a step.
+    const detached = !box.isConnected;
+    if (detached) icon.shadowRoot!.append(style, box);
+    if (detached || p.semantics() !== tree) update();
     if (Icon.viewBox) layout(); // seam(P7-3): only host-fit needs draw-time matrix refresh.
   });
   const step = p.step;
@@ -286,11 +286,16 @@ function attach(icon: AnimaIcon) {
     attached.delete(icon);
   });
 }
+const hooked = new WeakSet<AnimaIcon>();
 const loadModel = Icon.prototype.loadModel,
   destroy = Icon.prototype.destroy;
 Icon.prototype.loadModel = function (model) {
   attached.get(this)?.();
-  this.addEventListener('anima:load', () => attach(this), { once: true });
+  // One persistent listener per icon: a failing load never fires `anima:load` (P4 R3-02 class).
+  if (!hooked.has(this)) {
+    hooked.add(this);
+    this.addEventListener('anima:load', () => attach(this));
+  }
   loadModel.call(this, model);
 };
 Icon.prototype.destroy = function () {

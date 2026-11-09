@@ -33,6 +33,7 @@ const defaults: InputOptions = {
 const options = new WeakMap<AnimaIcon, InputOptions>();
 const attached = new WeakMap<AnimaIcon, AbortController>();
 const polling = new Set<AnimaIcon>();
+const hooked = new WeakSet<AnimaIcon>();
 let frame = 0;
 const config = (i: AnimaIcon) => options.get(i) ?? defaults;
 const active = (i: AnimaIcon) => i.player?.model.doc.requires?.includes('input');
@@ -133,6 +134,8 @@ function attach(i: AnimaIcon): void {
       // Semantic controls own their native keys before the drawn-input capture route.
       if (!active(i) || (e.composedPath()[0] as HTMLElement)?.hasAttribute('data-semantic')) return;
       if (!config(i).listeners) {
+        // Disabled automatic input also keeps the host's Enter/Space route from handling it.
+        Icon.inputEvents.add(e);
         return;
       }
       const k = e as KeyboardEvent;
@@ -206,14 +209,24 @@ const load = Icon.prototype.load,
 Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
   attached.get(this)?.abort();
   attached.delete(this);
+  later(this);
   loadModel.apply(this, args);
   attach(this);
+};
+// Asset-backed loads create the player asynchronously; attach once it exists. One persistent
+// listener per icon (P4 R3-02): failing loads never fire `anima:load`, so per-load listeners pile up.
+const later = (i: AnimaIcon) => {
+  if (!hooked.has(i)) {
+    hooked.add(i);
+    i.addEventListener('anima:load', () => attach(i));
+  }
 };
 Icon.prototype.load = function (...args: Parameters<AnimaIcon['load']>) {
   attached.get(this)?.abort();
   attached.delete(this);
   const result = load.apply(this, args);
   attach(this);
+  later(this);
   return result;
 };
 Icon.prototype.destroy = function () {
@@ -226,6 +239,12 @@ Icon.prototype.destroy = function () {
     frame = 0;
   }
   destroy.call(this);
+};
+// Disconnecting loses pointer capture and later releases; cancel live contacts and scroll latch.
+const previous = Icon.eventHook;
+Icon.eventHook = (icon, kind, detail) => {
+  if (kind === 'cleanup' && active(icon)) icon.input().cancel();
+  previous?.(icon, kind, detail);
 };
 for (const [host, method] of [
   ['inputPointer', 'pointer'],

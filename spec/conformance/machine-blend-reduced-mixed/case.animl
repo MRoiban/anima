@@ -1,0 +1,48 @@
+<anima version="0.1" name="machine-blend-reduced-mixed" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="a" cx="10" cy="5" r="1" fill="#4263eb"/>
+  <circle id="b" cx="10" cy="15" r="1" fill="#4263eb"/>
+
+  <timeline name="ta" duration="2" reducedMotion="end">
+    <track target="a.x">
+      0  0
+      2  20
+    </track>
+  </timeline>
+  <timeline name="la" duration="1" loop="loop" reducedMotion="end">
+    <track target="a.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+  <timeline name="tb" duration="2" reducedMotion="end">
+    <track target="b.x">
+      0  0
+      2  20
+    </track>
+  </timeline>
+  <timeline name="lb" duration="1" loop="loop" reducedMotion="end">
+    <track target="b.x">
+      0  0
+      1  10
+    </track>
+  </timeline>
+
+  <layer name="la" initial="idle">
+    <state name="blend" play="la"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;ta&quot;,&quot;at&quot;:0,&quot;weight&quot;:1},{&quot;play&quot;:&quot;la&quot;,&quot;at&quot;:1,&quot;weight&quot;:0}]}"/>
+    <state name="idle">
+      <pose a.x="0"/>
+      <on when="go" to="blend"/>
+    </state>
+  </layer>
+  <layer name="lb" initial="idle">
+    <state name="blend" play="tb"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;tb&quot;,&quot;at&quot;:0,&quot;weight&quot;:0},{&quot;play&quot;:&quot;lb&quot;,&quot;at&quot;:1,&quot;weight&quot;:1}]}"/>
+    <state name="idle">
+      <pose b.x="0"/>
+      <on when="go" to="blend"/>
+    </state>
+  </layer>
+</anima>

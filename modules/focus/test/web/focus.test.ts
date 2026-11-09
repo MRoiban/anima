@@ -115,6 +115,25 @@ for (const [name, engine, executablePath] of [
       await page.keyboard.press('Shift+Tab');
       expect(await active()).toBe('a');
     });
+    it('keeps the group role without root a11y across host steps', async () => {
+      const { a11y, ...plain } = doc;
+      void a11y;
+      const attrs = () =>
+        page.evaluate(() => [
+          window.focusIcon.getAttribute('role'),
+          window.focusIcon.getAttribute('aria-hidden'),
+        ]);
+      await page.evaluate((d) => window.focusIcon.load(d), plain);
+      expect(await attrs()).toEqual(['group', null]);
+      // Any host step (here an input write) must leave the module-owned semantics alone.
+      await page.evaluate(() => {
+        window.focusIcon.trace = [];
+        window.focusIcon.set('on', true);
+      });
+      await page.waitForFunction(() => window.focusIcon.trace?.some((t) => t[0] === 'step'));
+      await page.evaluate(() => new Promise((done) => requestAnimationFrame(done)));
+      expect(await attrs()).toEqual(['group', null]);
+    });
     it('pointer focus is real DOM focus', async () => {
       await page.locator('anima-icon').click({ position: { x: 40, y: 10 } });
       expect(await active()).toBe('b');

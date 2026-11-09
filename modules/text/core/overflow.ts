@@ -15,19 +15,22 @@ export const overflowText: TextOverflow = (input, out, build, limit, boxHeight, 
     input.fitFromBaseline ? l.contentHeight - l.lines[0]!.baseline + l.topTrim : l.contentHeight;
   const ratio = (box: number, content: number) => (content > 0 ? box / content : 1);
   const zero = !limit || !boxHeight;
-  if (fitting && zero) {
-    out.lines = [];
-    out.contentWidth = out.contentHeight = out.fittedSize = 0;
-  } else if (fitting && (out.contentWidth > limit || fitHeight(out) > boxHeight)) {
-    let lo = 0,
-      hi = 1;
+  let lo = +!zero;
+  if (fitting && lo && (out.contentWidth > limit || fitHeight(out) > boxHeight)) {
+    let hi = 1;
+    lo = 0;
     for (let i = 0; i < 20; i++) {
       const mid = (lo + hi) / 2,
         test = build(mid);
       if (test.contentWidth <= limit && fitHeight(test) <= boxHeight) lo = mid;
       else hi = mid;
     }
-    out = build(lo);
+    // No candidate fits: report the empty result rather than measuring size zero.
+    if (lo) out = build(lo);
+  }
+  if (fitting && !lo) {
+    out.lines = [];
+    out.contentWidth = out.contentHeight = out.fittedSize = 0;
   }
   if (input.overflow === 'fit') {
     out.scale = zero
@@ -41,7 +44,7 @@ export const overflowText: TextOverflow = (input, out, build, limit, boxHeight, 
   }
   if (input.overflow === 'hidden' || input.overflow === 'ellipsis') {
     const all = out.lines;
-    out.lines = all.filter((l) => l.baseline + l.descent <= boxHeight);
+    out.lines = all.filter((l) => l.baseline - out.topTrim + l.descent <= boxHeight);
     if (input.overflow === 'ellipsis') {
       const line = out.lines.at(-1);
       if (line && (out.lines.length < all.length || line.width > limit)) {

@@ -6,7 +6,7 @@ import type { Player } from '../../../packages/core/src/player.ts';
 import { hostValues } from '../../host-values/core/index.ts';
 import { HostData, install, observe } from './api.ts';
 export * from './api.ts';
-export const host: Module & { Data: typeof HostData } = {
+export const host: Module & { Data: typeof HostData; children?: (p: Player) => Player[] } = {
   // seam(P7-5): optional typed handles extend the active runtime API.
   Data: HostData,
   name: 'host',
@@ -19,12 +19,12 @@ export const host: Module & { Data: typeof HostData } = {
       shared,
       (player) => data?.dataState(player),
       values.Values,
-      (p) => [
+      (host.children = (p) => [
         ...((p.nested as { players?: Map<string, Player> } | undefined)?.players?.values() ?? []),
         ...((registry.get('lists') as typeof lists | undefined)
           ?.listState(p)
           ?.runs.flatMap((r) => r.items.map((i) => i.player)) ?? []),
-      ],
+      ]),
     );
     return host;
   },

@@ -1,0 +1,68 @@
+{
+  "anima": "0.1",
+  "name": "layout-intrinsic-hit",
+  "grid": 100,
+  "requires": ["layout", "a11y", "bind"],
+  "inputs": {
+    "down": {
+      "type": "bool"
+    },
+    "w": {
+      "type": "number",
+      "default": 60
+    }
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "type": "layout",
+      "children": [
+        {
+          "id": "tile",
+          "type": "rect",
+          "x0": 10,
+          "y0": 10,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#000"
+          },
+          "layout": {
+            "width": "fill",
+            "height": "fill"
+          },
+          "a11y": {
+            "role": "button"
+          }
+        },
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [50, 50],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "button"
+          }
+        }
+      ],
+      "width": 60,
+      "height": 20,
+      "reflow": 1
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "tile",
+      "set": {
+        "down": true
+      }
+    }
+  ],
+  "bind": {
+    "root.width": "w"
+  }
+}

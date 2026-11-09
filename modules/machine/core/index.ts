@@ -11,6 +11,7 @@ import { entries } from './registry.ts';
 import { MachinePolicy, install } from './runtime.ts';
 import {
   states,
+  anyEdges,
   compiledActions,
   transitions,
   type Source,
@@ -59,7 +60,7 @@ export const machine: Module = {
         const pointer = ptr(p + '/set', name);
         if (typeof val === 'string') {
           const i = model.inputs.get(name);
-          input(name, i?.type === 'bool' ? 'bool' : 'number', pointer);
+          input(name, i && i.type !== 'trigger' ? i.type : 'number', pointer);
           if (i && i.type !== 'trigger') {
             const evaluate = compileValue(model, val, i.type, pointer, d, (n) => used.add(n));
             if (evaluate) set.push([name, evaluate]);
@@ -333,6 +334,7 @@ export const machine: Module = {
         }
       }
       // Any transitions have priority, but cannot re-enter their own target indefinitely.
+      for (const s of any) for (const t of s.on) anyEdges.add(t);
       for (const state of layer.states)
         if (states.get(state)?.kind !== 'any' && states.get(state)?.kind !== 'exit')
           state.on = [

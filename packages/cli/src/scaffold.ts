@@ -96,6 +96,8 @@ export function newDoc(name: string, g: GlyphSource): Record<string, unknown> {
     sha256: sha256(g.d),
     d: g.d,
   };
+  // Glyph names start with a letter (NAME); document names may start with a digit.
+  const key = /^[a-z]/.test(name) ? name : 'glyph-' + name;
   return {
     anima: '0.1',
     name,
@@ -103,8 +105,8 @@ export function newDoc(name: string, g: GlyphSource): Record<string, unknown> {
     grid: g.grid,
     ...(Object.keys(g.meta).length ? { meta: g.meta } : {}),
     colors: { ink: 'currentColor' },
-    glyphs: { [name]: glyph },
-    nodes: [{ id: 'glyph', type: 'path', glyph: name, fill: { color: 'ink', rule: 'evenodd' } }],
+    glyphs: { [key]: glyph },
+    nodes: [{ id: 'glyph', type: 'path', glyph: key, fill: { color: 'ink', rule: 'evenodd' } }],
   };
 }
 

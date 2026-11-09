@@ -11,7 +11,7 @@ import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/regis
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
-import { drawFrame, drawTree, type DrawNode } from '../../../packages/core/src/draw.ts';
+import { drawFrame, drawTree, drawWorld, type DrawNode } from '../../../packages/core/src/draw.ts';
 
 declare module '../../../packages/core/src/load.ts' {
   interface Model {
@@ -64,6 +64,8 @@ interface Context {
   requires: string[];
   data?: Model['doc'];
   used: Set<string>;
+  // seam(P7-5): the root document's catalog, including transitively placed definitions.
+  root: Map<string, Model>;
 }
 let context: Context | undefined;
 let active: ComponentModule | undefined;
@@ -168,6 +170,9 @@ function create(
         return;
       }
       const outer = context;
+      // seam(P7-5): retain both placed and validated unused components.
+      const models = new Map<string, Model>();
+      catalog.set(model, models);
       const ctx = (context ??= {
         definitions: model.doc.components ?? {},
         cache: new Map(),
@@ -175,10 +180,12 @@ function create(
         requires: model.doc.requires,
         data: model.doc.data,
         used: new Set(),
+        root: models,
       });
-      // seam(P7-5): retain both placed and validated unused components.
-      const models = new Map<string, Model>();
-      catalog.set(model, models);
+      const keep = (name: string, child: Model) => {
+        models.set(name, child);
+        if (!ctx.root.has(name)) ctx.root.set(name, child);
+      };
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
       const err = (code: string, pointer: string, message: string) =>
@@ -211,7 +218,7 @@ function create(
         ctx.used.add(name);
         if (ctx.cache.has(key)) {
           const child = ctx.cache.get(key);
-          if (child) models.set(name, child);
+          if (child) keep(name, child);
           return child;
         }
         if (!Object.hasOwn(ctx.definitions, name) || name === '$comment') {
@@ -274,7 +281,7 @@ function create(
               : ptr('/components', name) + d.pointer,
           });
         ctx.cache.set(key, result.model);
-        if (result.model) models.set(name, result.model);
+        if (result.model) keep(name, result.model);
         return result.model;
       };
       try {
@@ -562,12 +569,13 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       return p?.get(key);
     },
     hits(node, x, y) {
-      const p = players.get(parent.model.nodes[node]!.id);
-      if (!p) return;
-      const n = parent.model.nodes[node]!;
+      const n = parent.model.nodes[node]!,
+        p = players.get(n.id);
+      // A cleared instance has no child player and no outline.
+      if (!p) return (n.type as string) === 'instance' ? false : undefined;
       if (active?.selected?.(parent, n) === false) return false;
       const inv = invert(
-        mul(parent.world(node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
+        mul(drawWorld(parent, node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
       );
       if (!inv) return false;
       const [lx, ly] = apply(inv, x, y),
@@ -596,9 +604,10 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
     pointer(kind, x, y) {
       for (const i of data.instances) {
         const n = parent.model.nodes[i.node]!,
-          child = players.get(n.id)!;
+          child = players.get(n.id);
+        if (!child) continue;
         const inv = invert(
-          mul(parent.world(i.node), active?.matrix?.(parent, child, n) ?? [1, 0, 0, 1, 0, 0]),
+          mul(drawWorld(parent, i.node), active?.matrix?.(parent, child, n) ?? [1, 0, 0, 1, 0, 0]),
         );
         const [lx, ly] = inv ? apply(inv, x, y) : [0, 0];
         players

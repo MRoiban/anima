@@ -51,3 +51,10 @@ it('rejects changed output bytes and missing entries/manifests', () => {
   rmSync(join(root, 'packages/web/dist/build.json'));
   expect(readCachedBundle(entry, root)).toBeUndefined();
 });
+// Rottweiler P5 R3-05: runtime entries import modules/*/capabilities registries.
+it('invalidates a changed capability registry', () => {
+  const { root, entry } = fixture();
+  mkdirSync(join(root, 'modules/probe/capabilities/a'), { recursive: true });
+  writeFileSync(join(root, 'modules/probe/capabilities/a/registry.ts'), 'export const a = 1;');
+  expect(readCachedBundle(entry, root)).toBeUndefined();
+});

@@ -1,0 +1,13 @@
+<!-- Node hits follow the painted area (§9): an open filled path closes implicitly, rounded corners
+     and the trimmed-away part of a stroke do not hit, and large curves are flattened within 0.05. -->
+<anima version="0.1" name="case" grid="20">
+  <path id="tri" d="M0 0L8 0L0 8" fill="#000"/>
+  <rect id="rr" x0="10" y0="0" width="8" height="8" rx="4" fill="#000"/>
+  <circle id="ring" cx="4" cy="14" r="4" stroke="#000" stroke-width="1" trimEnd="0.25"/>
+  <circle id="big" cx="150" cy="150" r="100" fill="#000"/>
+
+  <listener on="down" target="tri" emit="tri"/>
+  <listener on="down" target="rr" emit="rr"/>
+  <listener on="down" target="ring" emit="ring"/>
+  <listener on="down" target="big" emit="big"/>
+</anima>

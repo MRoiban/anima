@@ -162,12 +162,14 @@ export class TimelineInstance {
     if (!this.#active || !this.#playing) return events;
     if (this.#entered && this.#owner.player.reducedMotion && this.animation.reduced !== 'play') {
       const end = this.animation.reduced === 'end';
+      // An explicit instance speed replaces the authored one, including an authored zero.
       this.#clock = this.#owner.reduce(
         this.animation,
-        this.#speed / (timing.get(this.animation)?.speed || 1),
+        this.#speed,
         end,
         this.name,
         events,
+        this.#speed,
       );
       this.#frozen = true;
       this.#entered = false;
@@ -357,9 +359,16 @@ export class MotionRuntime implements PlaybackPolicy {
   duration = (t: TimelineM, speed: number, run: object) => this.clocks.duration(t, speed, run);
   finished = (t: TimelineM, elapsed: number, run: object) => this.clocks.finished(t, elapsed, run);
   resume = (run: object, time: number) => this.clocks.resume(run, time);
-  reduce(t: TimelineM, speed: number, end: boolean, layer: string, events: AnimaEvent[]): number {
+  reduce(
+    t: TimelineM,
+    speed: number,
+    end: boolean,
+    layer: string,
+    events: AnimaEvent[],
+    effective = speed * (timing.get(t)?.speed ?? 1),
+  ): number {
     const [a, b] = bounds(t),
-      reverse = speed * (timing.get(t)?.speed ?? 1) < 0;
+      reverse = effective < 0;
     const start = reverse ? b : a,
       finish = reverse ? a : b;
     if (end) crossings(t, start, finish, true, layer, events, 'once');
@@ -417,8 +426,11 @@ export class MotionRuntime implements PlaybackPolicy {
       : Math.max(
           0,
           elapsed -
-            threshold /
-              Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)),
+            (threshold &&
+              threshold /
+                Math.abs(
+                  st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1),
+                )),
         );
   }
   pivot(p: Player, node: number): [number, number] {

@@ -56,7 +56,16 @@ import { ImageEncoder } from './encode.ts';
 import { importSVG } from './import-svg.ts';
 import { importLottie } from './import-lottie.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
-import { DARK, LIGHT, type Look, compareSVG, frameSVG, sheetSVG, toPNG } from './render.ts';
+import {
+  DARK,
+  LIGHT,
+  type Look,
+  compareSVG,
+  comparisonSVG,
+  frameSVG,
+  sheetSVG,
+  toPNG,
+} from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
 
 export interface IO {
@@ -809,10 +818,9 @@ function inspect(f: string, json: boolean, io: IO, summaryOnly = false): number 
     grid: m.grid,
     viewBox: m.viewBox,
     glyphs: Object.fromEntries(
-      Object.entries(doc.glyphs ?? {}).map(([name, g]) => [
-        name,
-        { subpaths: inspectGlyph((g as { d: string }).d) },
-      ]),
+      Object.entries(doc.glyphs ?? {})
+        .filter(([name]) => name !== '$comment')
+        .map(([name, g]) => [name, { subpaths: inspectGlyph((g as { d: string }).d) }]),
     ),
     nodes: m.nodes.flatMap((n, i) => (n.parent < 0 ? [node(i)] : [])),
     inputs: Object.fromEntries(slots),
@@ -1013,17 +1021,30 @@ async function render(
     ...scriptOptions(o),
     onEvents: (events) => audioEvents.push(...events),
   });
-  session.execute(script);
+  // Failed script assertions or an unfinished script fail the render, as in `sample`.
+  const ran = session.execute(script);
+  session.finish();
+  for (const d of ran.diagnostics) io.err(JSON.stringify(d));
+  if (ran.diagnostics.length) return 1;
   session.execute('advance 0'); // apply queued inputs before the first rendered frame
   if (o.at) session.execute('advance ' + Number(o.at));
   const player = session.player;
   if (compare) {
-    if (o.sheet || (out && !out.endsWith('.png')))
+    if (
+      o.sheet ||
+      o.frames !== undefined ||
+      o.probe ||
+      o.audio ||
+      o.viewport ||
+      o.scale ||
+      o.fit ||
+      (out && !out.endsWith('.png'))
+    )
       throw new Usage('--compare takes a single frame and optional -o diff.png');
     const result = o['browser-text']
       ? comparePNG(
           await rasterize(drawFrame(player, { paint: look.paint, color: '#000' }, size)),
-          toPNG(readFileSync(compare, 'utf8'), size),
+          toPNG(comparisonSVG(readFileSync(compare, 'utf8'), size), size),
           tolerance,
           !!out,
         )
@@ -1087,6 +1108,10 @@ async function render(
       const { encodeVideo } = await import('./video.ts');
       writeFileSync(out, await encodeVideo(images, fps));
       wrote.push(out);
+    }
+    if (o.audio) {
+      writeFileSync(String(o.audio), await mixAudio(model, audioEvents, player.time, f));
+      wrote.push(String(o.audio));
     }
     io.out(json ? JSON.stringify({ wrote, frames: n, fps }) : 'wrote ' + wrote.join(', '));
     return 0;

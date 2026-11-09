@@ -154,8 +154,11 @@ function extend(api: HostData, state: DataState): void {
       if (
         typeof value === 'string' &&
         (value === '' || player.model.doc.assets?.[value] || api.resourceType?.(value) === 'image')
-      )
+      ) {
+        // A later direct assignment supersedes a pending URL/Blob replacement.
+        hostEdit.assigned?.(api, path);
         return set(value);
+      }
       if (!hostEdit.replaceImage)
         fail('asset', path, 'image replacement requires the web host-edit entry');
       return hostEdit.replaceImage(api, path, value);
@@ -211,13 +214,14 @@ function extend(api: HostData, state: DataState): void {
       // Bounds follow queued edits without exposing their pending values.
       check(i, next.length + 1);
       let instance: DataInstance;
-      if ('name' in values && 'model' in values) {
+      // Only handles this player issued are instances; other maps are property values.
+      if (api.owns(values)) {
         instance = api.instance(String(values.name));
         if (instance.model !== values.model)
           fail('instance', path, 'instance model does not match');
       } else {
         if (!a.property.of) fail('model', path, 'mixed lists require an explicit instance');
-        instance = api.create(a.property.of, values);
+        instance = api.create(a.property.of, values as Record<string, unknown>);
       }
       if (a.property.of && instance.model !== a.property.of)
         fail('type', path, 'list item model does not match');
@@ -247,7 +251,12 @@ function extend(api: HostData, state: DataState): void {
           const index =
             typeof item === 'number'
               ? item
-              : values.indexOf(items.get(item) ?? state.instances[(item as DataInstance).name]!);
+              : values.indexOf(
+                  items.get(item) ??
+                    (api.owns(item)
+                      ? state.instances[(item as DataInstance).name]!
+                      : fail('instance', path, 'unknown or foreign instance record')),
+                );
           check(index, values.length);
           values.splice(index, 1);
           commit(values);
@@ -284,6 +293,7 @@ export const hostEdit: Module & {
   roots: typeof roots;
   resourceType?: (player: Player, name: string) => string | undefined;
   replaceImage?: ImageReplacement;
+  assigned?: (api: HostData, path: string) => void;
   compile?: ModuleRegistry['load'];
 } = {
   roots,

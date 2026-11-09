@@ -247,6 +247,50 @@ for (const [name, type, executablePath] of browsers)
         await browser.close();
       }
     });
+    // Rottweiler P5 R1-03: hosts sharing one compiled model keep their own resolvers' bytes.
+    it('caches media bytes per host when hosts share a compiled model', async () => {
+      const browser = await shared.newContext();
+      try {
+        const page = await browser.newPage();
+        await page.setContent('<p></p>');
+        await page.addScriptTag({
+          type: 'module',
+          content: await bundle(resolve('packages/web/src/media.ts')),
+        });
+        const result = await page.evaluate(async () => {
+          const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+          const compiled = Icon.compile({
+            anima: '0.1',
+            name: 'shared',
+            grid: 8,
+            requires: ['assets'],
+            assets: {
+              sound: { type: 'audio', source: 'data:application/octet-stream;base64,AA==' },
+            },
+            nodes: [{ id: 'probe', type: 'circle', center: [4, 4], r: 1 }],
+          });
+          const icons = [11, 22].map((byte) => {
+            const icon = document.createElement('anima-icon') as AnimaIcon;
+            icon.setAttribute('paused', '');
+            icon.assets = () => new Blob([new Uint8Array([byte])]);
+            icon.loadModel(compiled.model!);
+            return icon;
+          });
+          await Promise.all(icons.map((icon) => icon.ready));
+          return {
+            shared: icons[0]!.player!.model === icons[1]!.player!.model,
+            bytes: await Promise.all(
+              icons.map(async (icon) => [
+                ...new Uint8Array((await icon.asset('sound')) as ArrayBuffer),
+              ]),
+            ),
+          };
+        });
+        expect(result).toEqual({ shared: true, bytes: [[11], [22]] });
+      } finally {
+        await browser.close();
+      }
+    });
     it('host-decodes original WAV bytes without consuming the cached buffer', async () => {
       const source =
         'data:audio/wav;base64,' +

@@ -248,10 +248,14 @@ function sampledPath(p: Player, i: number): string | undefined {
       h = v('height');
     a.d = `M${fmt(x + w / 2)} ${fmt(y)}L${fmt(x + w)} ${fmt(y + h)}L${fmt(x)} ${fmt(y + h)}Z`;
   } else if (type === 'rect' && r.corners) {
-    const x = r.x0,
-      y = r.y0,
-      w = v('w'),
-      h = v('h');
+    // A layout participant draws in its allocated box, normalized to the origin.
+    const box = (
+        p as Player & { drawnLayoutBox?(id: string): Record<string, number> | undefined }
+      ).drawnLayoutBox?.(n.id),
+      x = box ? 0 : r.x0,
+      y = box ? 0 : r.y0,
+      w = box ? box.width! : v('w'),
+      h = box ? box.height! : v('h');
     a.d = outline(
       [
         [x, y],

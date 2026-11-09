@@ -62,7 +62,8 @@ multiplier; zero/absence uses font ascent+descent+lineGap. Extra leading is spli
 `verticalTrimTop` removes ascent above cap or x-height (`none|cap|x-height`); `verticalTrimBottom`
 removes the descent and final leading at `baseline` (`none|baseline`).
 
-Lines expose baseline, width, ascent, descent, height and logical clusters. Each cluster has text,
+Lines expose baseline, width, ascent, descent, height and logical clusters; a line without clusters
+also exposes `x`, its aligned, origin-shifted start (where its caret is drawn). Each cluster has text,
 UTF-16 index, run index, x/y, advance and FontSpec. `contentWidth`/`contentHeight` report measured
 content, `width`/`height` the chosen layout box, `fittedSize` the first run's resolved size, and `scale`
 the rendering scale. Layout object identity is cached until runs, styles, dimensions or font revision
@@ -89,7 +90,8 @@ line's trailing clusters with U+2026 on horizontal or vertical truncation; a box
 shows none. An empty-height box has no visible line. `fit` scales the laid-out block uniformly down
 without reflow. `fit-font-size` performs 20 bisection iterations over (0,1], remeasuring and rewrapping;
 it never enlarges. A zero-width or zero-height fit box renders no lines; font-size fitting reports
-`fittedSize: 0` and zero content dimensions without requesting a zero-size font. Uniform fit
+`fittedSize: 0` and zero content dimensions without requesting a zero-size font. The same empty
+result applies when no bisection candidate fits. Uniform fit
 reports `scale: 0`. `fitFromBaseline` excludes the first baseline distance from the top from the height fitting criterion.
 `fitFontSizeResizesBox` reports the reduced content dimensions in place of the original fixed box.
 
@@ -244,7 +246,9 @@ rather than losing geometry. Path/clip ids avoid every existing document/definit
 
 Text-only animation/binding addresses are retained for validation and cause `font-flatten` rather
 than being silently removed. Group-compatible animation addresses remain live. Editable fields
-are rejected; remove `textInput` explicitly before freezing. Diagnostics use code `font-flatten`,
+are rejected; remove `textInput` explicitly before freezing. Text that is a direct child of a
+`layout` container is rejected too: the replacing group has no intrinsic size, so the measured
+footprint and baseline would be lost. Diagnostics use code `font-flatten`,
 empty pointer for the command-level conversion, a message identifying the unsupported operation
 and a repair hint. This is a CLI operation, with no additional JSON/AniML field or runtime entry.
 The generated-font path and raster regressions cover both output spellings. Native outline conversion has no permitted headless counterpart; the P7-8 acceptance and

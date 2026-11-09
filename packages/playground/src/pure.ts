@@ -2,6 +2,7 @@ import {
   formatHex,
   sampleTrack,
   type Model,
+  type Player,
   type LayerM,
   type TimelineM,
 } from '@anima-format/core';
@@ -138,22 +139,29 @@ export function layoutGraph(layer: LayerM) {
   };
 }
 
-/** Timeline over the document's rest pose, independent of live state, trigger queues and history. */
+/**
+ * Timeline over the document's rest pose, independent of trigger queues and history. Data-bound
+ * keyframes read the given player's data.
+ */
 export function sampleTimeline(
   model: Model,
   timeline: TimelineM,
   time: number,
+  player?: Player,
 ): Record<string, unknown> {
   const t = Math.max(0, Math.min(timeline.duration, time));
   const pose: Record<string, unknown> = {};
   for (const [name, a] of model.addrs)
     pose[name] = Array.isArray(a.rest) ? formatHex(a.rest) : a.rest;
   for (const tr of timeline.tracks) {
-    const v = sampleTrack(tr, t);
+    const v = sampleTrack(tr, t, player);
     pose[tr.addr] = Array.isArray(v) ? formatHex(v) : v;
   }
+  // Post-state property bindings would override the sampled pose (SPEC §11: timeline over rest).
+  const doc: Record<string, unknown> = { ...model.doc };
+  delete doc.bind;
   return {
-    ...model.doc,
+    ...doc,
     machine: { layers: { scrub: { initial: 'sample', states: { sample: { pose } } } } },
     listeners: [],
   };
