@@ -248,3 +248,12 @@ it('point binding syntax reports its pointer, message and hint', () => {
     }),
   );
 });
+it('preserves point values in posepad overlays after the P8 merge', () => {
+  const doc = fixture('rigging-mesh-animation');
+  doc.requires.push('posepad');
+  doc.nodes.push({ id: 'pad', type: 'posepad', timelineX: 'wave', valueX: 0 });
+  const p = player(doc);
+  p.step(0);
+  expect(p.value('flag.mesh.vertex.2')).toEqual([9.5, 3.25]);
+  expect(drawFrame(p).nodes[0]!.mesh!.points.slice(4, 6)).toEqual([9.5, 3.25]);
+});
