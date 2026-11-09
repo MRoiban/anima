@@ -27,7 +27,7 @@ export const ik: Module = {
         k: 'obj',
         p: {
           target: { k: 'str', feature: 'ik' },
-          bones: { k: 'num', min: 1 },
+          bones: { k: 'num', min: 1, int: true },
           bend: { k: 'str', of: ['cw', 'ccw'] },
         },
         req: ['target'],

@@ -3856,16 +3856,59 @@ is used. Native oracle captures await orchestrator-owned budgets and remain pend
 <!-- capability: rigging.ik -->
 ### Inverse kinematics
 
-TODO: Aim a bone chain at a target and choose the number of parent bones to solve.
+The optional `ik` module registers the `ik` constraint kind with `rig`. In JSON an IK constraint is
+an item in a bone's `constraints` array:
 
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+```json
+{"kind":"ik","target":"aim","bones":2,"bend":"cw","strength":1}
+```
+
+AniML writes the same object as a child element:
+
+```xml
+<ik target="aim" bones="2" bend="cw" strength="1"/>
+```
+
+`target` is a required node id and the target point is that node's world pivot. `bones` is a static
+integer of at least 1, defaults to 1, and counts the entire solved chain including the bone carrying
+the constraint. Thus `bones=1` aims only the host bone and `bones=2` solves the host plus its parent.
+This intentionally differs from Rive's parent-count field. `strength` is the common rig constraint
+strength: it is animatable and bindable at `<bone>.constraints.<k>.strength`, defaults to 1, and is
+clamped to 0..1. `target`, `bones`, and `bend` are structural fields.
+
+The solve uses scaled world-space bone lengths and never changes a length. For one bone, the bone's
+direction aims from its start toward the target. For two bones, an analytic law-of-cosines solve
+places the joint on the selected bend side. When the target is farther away than the sum of the
+chain lengths, every bone straightens toward the target. A target coincident with the chain start
+leaves the current pose unchanged.
+
+For chains longer than two bones, Anima independently reimplements the multi-link strategy in
+Rive's MIT runtime `src/constraints/ik_constraint.cpp`: in FK order, each of the first `n-1` links
+performs one analytic two-link solve against the final tip, with the downstream subchain rotated as
+a rigid remainder. The iteration count is therefore fixed by the chain length (`n-1`) and has no
+convergence test or early exit. No Rive source text or binary format is used. This choice fixes the
+otherwise non-unique multi-link solution while keeping results deterministic across runtimes.
+
+The IK kind declares every solved ancestor bone through `writes()`, so rig dependency ordering runs
+the target first and the chain's descendants after the rewritten bones. The solver executes in the
+normal rig stage described in `## rig`. Strength blends each solved bone's old and desired world
+transform with rig's componentwise position / shortest-arc rotation / scale / skew rule; a zero
+strength performs no IK work.
+
+Validation adds two IK-specific errors in addition to rig's shared `rig-target` for an unknown
+target. `rig-ik-host` points at `/nodes/.../constraints/<k>` when `ik` is attached to a non-bone and
+hints to move it to the chain tip. `rig-ik-chain` points at the constraint's `/bones` field when the
+requested count is longer than the available parent-bone chain and hints to reduce the count or add
+parent bones. Using an IK constraint without declaring `ik` in `requires` is `undeclared-feature`.
+`anima schema ik` exposes `target`, `bones`, `bend`, and `strength` through the registered AniML
+element descriptor.
 
 
 <!-- capability: rigging.ik-bend -->
 ### IK bend direction
 
-TODO: Choose the opposite bend solution for an IK chain.
-
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+`bend` is `cw` (the default) or `ccw`. For an unmirrored chain, `cw` places the two-link joint on
+the screen-clockwise side of the directed line from the chain start to the target; `ccw` selects the
+opposite analytic solution. A negative-determinant ancestor mirrors that side so authored bend
+direction follows the mirrored chain. The same side choice is used for each deterministic pair solve
+in a chain longer than two bones.

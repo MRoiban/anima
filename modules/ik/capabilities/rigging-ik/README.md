@@ -1,12 +1,8 @@
 # Inverse kinematics
 
-Pending scaffold for rigging.ik; no implementation or parity completion is claimed.
+Implemented by the `ik` module through rig's `registerConstraint` seam. The normative contract is
+`spec/SPEC.md` `## ik`; diagnostics are covered in `modules/ik/test/core/rigging-ik.test.ts`, and the
+deterministic reach/straighten evidence is `spec/conformance/rigging-ik/`.
 
-- TODO: spec/SPEC.md subsection, registry.ts entries and both spellings; compose entries into core.
-- TODO: diagnostics and invalid documents, deterministic conformance expectations.
-- TODO: replace example.animl and rebuild example.ani through the compiler.
-- TODO: CLI validate/schema/inspect/sample coverage, generated schema and measured manifest size budget.
-- TODO: independent oracle scene/frames; add to tests/oracle/cases.json only when complete.
-
-Remove todo.json only after completing the probe and its independently checked expected output.
-Follow spec/MODULES.md §5 and docs/research/rive-web-runtime.md comparison cautions.
+The richer interactive example is `modules/ik/examples/reach.animl`. Native oracle evidence remains
+orchestrator-owned until the measured raw comparisons are promoted into `tests/oracle/cases.json`.

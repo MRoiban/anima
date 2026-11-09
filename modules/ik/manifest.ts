@@ -1,4 +1,3 @@
-// TODO: review dependencies and measured budget before implementation.
 export const after: string[] = ['rig'];
 export default {
   ...{

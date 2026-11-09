@@ -1,2 +1,2 @@
-// TODO: prefer registry descriptors; add a manifest markupHook only if needed.
+// Rig derives <ik> from the registered constraint descriptor, so IK needs no markup hook.
 export {};

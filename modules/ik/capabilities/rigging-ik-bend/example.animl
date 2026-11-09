@@ -1,4 +1,11 @@
-<!-- TODO: rigging.ik-bend; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-ik-bend" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-ik-bend-example" grid="24" requires="rig ik">
+  <group id="target" x="18" y="8"/>
+  <bone id="upper" x="4" y="15" length="7">
+    <rect x0="4" y0="14.6" width="7" height="0.8" fill="#d97757"/>
+    <bone id="fore" length="6">
+      <ik target="target" bones="2" bend="ccw"/>
+      <rect x0="11" y0="14.6" width="6" height="0.8" fill="#d97757"/>
+    </bone>
+  </bone>
+  <rect x0="17.6" y0="7.6" width="0.8" height="0.8" fill="#4263eb"/>
 </anima>

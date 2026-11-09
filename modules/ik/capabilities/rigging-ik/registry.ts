@@ -1,5 +1,3 @@
 import type { ModuleEntry } from '../../../../packages/core/src/modules.ts';
-// TODO: fill and compose these into modules/ik/core/index.ts. No placeholder key is registered.
-// { target: 'TODO', shapes: { jsonName: { k: 'num', markup: 'svg-name' } } }
-// TODO: JSON name and markup name (SVG spelling where one exists), feature: 'ik'.
+// Constraints are registered through rig's registerConstraint API rather than ModuleEntry shapes.
 export const entries: ModuleEntry[] = [];

@@ -43,6 +43,19 @@ describe('ik diagnostics', () => {
     );
   });
 
+  it('rejects a fractional bone count', () => {
+    const r = load(
+      document([
+        { id: 'arm', type: 'bone', length: 4, constraints: [{ ...ik(), bones: 1.5 }] },
+        target,
+      ]),
+    );
+    expect(r.model).toBeUndefined();
+    expect(r.diagnostics).toContainEqual(
+      expect.objectContaining({ pointer: '/nodes/0/constraints/0/bones', severity: 'error' }),
+    );
+  });
+
   it('requires the ik feature when an ik constraint is authored', () => {
     const raw = document([{ id: 'arm', type: 'bone', length: 4, constraints: [ik()] }, target]);
     raw.requires = ['rig'];
