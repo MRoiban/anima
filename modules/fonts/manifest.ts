@@ -6,7 +6,8 @@ export default {
     core: { entry: 'core/index.ts', export: 'fonts', svg: 'core/svg.ts', svgExport: 'fontsSVG' },
     web: [
       { name: 'fonts', budget: 2048 },
-      { name: 'fonts-text', budget: 768, over: 'fonts' },
+      // Reset by the P3c rule (measured × 1.10, 64 B steps) after the review fixes, 2026-11-09.
+      { name: 'fonts-text', budget: 896, over: 'fonts' },
       { name: 'fonts-options', budget: 4096, over: 'text' },
       // Heavy: ships a font-file reader to the page for metrics, coverage and glyph paths (niche).
       { name: 'fonts-info', budget: 8192, over: 'fonts', heavy: true },
