@@ -1,6 +1,8 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Mat } from '../../../packages/core/src/geom.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { nodePointer } from '../../components/core/node-pointer.ts';
 import { registerConstraint, type Constraint } from '../../rig/core/api.ts';
 import { after } from '../manifest.ts';
 
@@ -24,7 +26,7 @@ export const ik: Module = {
       shape: {
         k: 'obj',
         p: {
-          target: { k: 'str' },
+          target: { k: 'str', feature: 'ik' },
           bones: { k: 'num', min: 1 },
           bend: { k: 'str', of: ['cw', 'ccw'] },
         },
@@ -117,5 +119,27 @@ export const ik: Module = {
       },
     });
     return ik;
+  },
+  load(model, _raw, d) {
+    if (!model.doc.requires?.includes('ik')) return;
+    for (const [i, n] of model.nodes.entries())
+      for (const [k, r] of (n.raw.constraints ?? []).entries()) {
+        if (r?.kind !== 'ik') continue;
+        const at = nodePointer(model, i) + '/constraints/' + k;
+        if ((n.type as string) !== 'bone')
+          d.err(
+            'rig-ik-host',
+            at,
+            V && 'ik constraints must be hosted by a bone',
+            V && 'move the ik constraint onto the chain tip bone',
+          );
+        else if (chain(model, i, r.bones ?? 1).length < (r.bones ?? 1))
+          d.err(
+            'rig-ik-chain',
+            at + '/bones',
+            V && 'ik bones exceeds the available bone chain',
+            V && 'reduce bones or add parent bones to the chain',
+          );
+      }
   },
 };
