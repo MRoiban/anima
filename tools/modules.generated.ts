@@ -435,6 +435,8 @@ export const moduleScopes = {
       'input-gamepad-disconnected',
       'input-gamepad-host',
       'input-gamepad-index-mapping',
+      'input-hit-draw-order',
+      'input-focus-pointer-draw-order',
       'input-hit-occlusion-query',
       'input-hit-parent-chain',
       'input-hit-shape-geometry',
@@ -653,7 +655,14 @@ export const moduleScopes = {
       'packages/markup/test/invalid.test.ts',
       'packages/markup/test/names.test.ts',
     ],
-    conformance: ['paint-blend', 'paint-clip', 'paint-draw-order', 'paint-mask-'],
+    conformance: [
+      'paint-blend',
+      'paint-clip',
+      'paint-draw-order',
+      'paint-mask-',
+      'input-hit-draw-order',
+      'input-focus-pointer-draw-order',
+    ],
   },
   contour: {
     tests: [

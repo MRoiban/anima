@@ -118,7 +118,11 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
           ...item,
           id: name + '.' + item.id,
           node,
-          rank: [node, seq, ...(item.rank ?? [item.node])],
+          rank: [
+            this.paintRank?.(node) ?? node,
+            seq,
+            ...(item.rank ?? [child.paintRank?.(item.node) ?? item.node]),
+          ],
           matrix: mul(matrix, item.matrix ?? IDENTITY),
           owner: item.owner ?? child,
           local: item.local ?? item.id,
@@ -273,8 +277,8 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
       )
       .sort((a, b) => {
         // Frontmost first, including paint order inside a component or list item.
-        const r = a.rank ?? [a.node],
-          q = b.rank ?? [b.node];
+        const r = a.rank ?? [this.paintRank?.(a.node) ?? a.node],
+          q = b.rank ?? [this.paintRank?.(b.node) ?? b.node];
         for (let i = 0; i < r.length || i < q.length; i++)
           if ((q[i] ?? -1) !== (r[i] ?? -1)) return (q[i] ?? -1) - (r[i] ?? -1);
         return 0;

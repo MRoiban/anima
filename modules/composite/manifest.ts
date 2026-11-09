@@ -36,6 +36,13 @@ export default {
     'packages/markup/test/invalid.test.ts',
     'packages/markup/test/names.test.ts',
   ],
-  conformance: ['paint-blend', 'paint-clip', 'paint-draw-order', 'paint-mask-'],
+  conformance: [
+    'paint-blend',
+    'paint-clip',
+    'paint-draw-order',
+    'paint-mask-',
+    'input-hit-draw-order',
+    'input-focus-pointer-draw-order',
+  ],
   docs: ['spec/SPEC.md', 'spec/ANIML.md'],
 };

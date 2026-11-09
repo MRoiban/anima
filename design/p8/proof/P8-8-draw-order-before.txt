@@ -1,0 +1,196 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |unit| modules/input/test/core/p8-draw-order.test.ts (6 tests | 6 failed) 39ms
+   × R4-02: hit order swaps with resolved drawOrder.active before any draw 22ms
+   × R4-02: opaque reordered subtrees retain their ancestor chain and choose the front blocker 2ms
+   × R4-02: pointer focus follows subtree paint order, with and without input 4ms
+   × R4-02: nested focus ranks use the host paint rank then the child paint rank 4ms
+   × R4-02: reordered opaque nodes block nested input and pointer focus 3ms
+   × R4-02: paintRank is per player, cached by revision, and absent without drawOrder 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: hit order swaps with resolved drawOrder.active before any draw
+AssertionError: expected [ 'b', 'a' ] to deeply equal [ 'a', 'b' ]
+
+- Expected
++ Received
+
+  [
+-   "a",
+    "b",
++   "a",
+  ]
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:45:35
+     43|   );
+     44|   p.step(0);
+     45|   expect(p.input().hitTest(5, 5)).toEqual(['a', 'b']);
+       |                                   ^
+     46|   expect([...p.input().targets(5, 5)]).toEqual([0, 1]);
+     47|   expect(click(p)).toEqual(['a']);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: opaque reordered subtrees retain their ancestor chain and choose the front blocker
+AssertionError: expected [ 'b' ] to deeply equal [ 'cover', 'a' ]
+
+- Expected
++ Received
+
+  [
+-   "cover",
+-   "a",
++   "b",
+  ]
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:69:35
+     67|   );
+     68|   p.step(0);
+     69|   expect(p.input().hitTest(5, 5)).toEqual(['cover', 'a']);
+       |                                   ^
+     70|   expect(click(p)).toEqual(['cover', 'a']);
+     71|   expect(p.input().cursor).toBe('pointer');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: pointer focus follows subtree paint order, with and without input
+AssertionError: expected 'b' to be 'inside' // Object.is equality
+
+Expected: "inside"
+Received: "b"
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:97:23
+     95|     p.step(0);
+     96|     p.pointer('down', 5, 5);
+     97|     expect(p.focused).toBe('inside');
+       |                       ^
+     98|     p.set('raised', false);
+     99|     p.step(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: nested focus ranks use the host paint rank then the child paint rank
+AssertionError: expected 'b' to be 'a.first' // Object.is equality
+
+Expected: "a.first"
+Received: "b"
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:131:21
+    129|   p.step(0);
+    130|   p.pointer('down', 5, 5);
+    131|   expect(p.focused).toBe('a.first');
+       |                     ^
+    132|   p.set('raised', false);
+    133|   p.step(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: reordered opaque nodes block nested input and pointer focus
+AssertionError: expected [ 'b.hit' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "b.hit",
++ ]
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:156:20
+    154|   );
+    155|   p.step(0);
+    156|   expect(click(p)).toEqual([]);
+       |                    ^
+    157|   expect(p.focused).toBeNull();
+    158|   p.set('raised', false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  |unit| modules/input/test/core/p8-draw-order.test.ts > R4-02: paintRank is per player, cached by revision, and absent without drawOrder
+AssertionError: expected [ undefined, undefined, undefined ] to deeply equal [ 1, 2, +0 ]
+
+- Expected
++ Received
+
+  [
+-   1,
+-   2,
+-   0,
++   undefined,
++   undefined,
++   undefined,
+  ]
+
+ ❯ modules/input/test/core/p8-draw-order.test.ts:181:57
+    179|   other.set('raised', false);
+    180|   other.step(0);
+    181|   expect(p.model.nodes.map((_, i) => p.paintRank?.(i))).toEqual([1, 2,…
+       |                                                         ^
+    182|   expect(other.model.nodes.map((_, i) => other.paintRank?.(i))).toEqua…
+    183|   const frame = drawFrame(p);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  12:34:09
+   Duration  578ms (transform 47%, import 43%, tests 9%, worker 1%)
+
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |unit| packages/core/test/conformance.test.ts (626 tests | 2 failed | 624 skipped) 35ms
+   ❯ conformance (626)
+     × input-focus-pointer-draw-order 29ms
+     × input-hit-draw-order 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/core/test/conformance.test.ts > conformance > input-focus-pointer-draw-order
+AssertionError: snapshot 1: expected '.events[0].name: "b-focus" ≠ "a-focus"' to be null
+
+- Expected:
+null
+
++ Received:
+".events[0].name: \"b-focus\" ≠ \"a-focus\""
+
+ ❯ packages/core/test/conformance.test.ts:65:75
+     63|         .map((l) => JSON.parse(l));
+     64|       expect(got.length).toBe(want.length);
+     65|       want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1…
+       |                                                                           ^
+     66|     });
+     67|   }
+ ❯ packages/core/test/conformance.test.ts:65:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| packages/core/test/conformance.test.ts > conformance > input-hit-draw-order
+AssertionError: snapshot 1: expected '.events[0].name: "b" ≠ "a"' to be null
+
+- Expected:
+null
+
++ Received:
+".events[0].name: \"b\" ≠ \"a\""
+
+ ❯ packages/core/test/conformance.test.ts:65:75
+     63|         .map((l) => JSON.parse(l));
+     64|       expect(got.length).toBe(want.length);
+     65|       want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1…
+       |                                                                           ^
+     66|     });
+     67|   }
+ ❯ packages/core/test/conformance.test.ts:65:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 624 skipped (626)
+   Start at  12:34:10
+   Duration  785ms (transform 56%, import 38%, tests 5%, worker 1%)

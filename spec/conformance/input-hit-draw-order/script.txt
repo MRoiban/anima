@@ -1,0 +1,14 @@
+advance 0
+pointer down 5 5
+pointer up 5 5
+snapshot raised a.drawOrder.active
+set raised false
+advance 0
+pointer down 5 5
+pointer up 5 5
+snapshot raised a.drawOrder.active
+set raised true
+advance 0
+pointer down 5 5
+pointer up 5 5
+snapshot raised a.drawOrder.active

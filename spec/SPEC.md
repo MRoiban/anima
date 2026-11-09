@@ -456,7 +456,7 @@ so page `::part()` rules continue to apply.
 
 ### Host input queue
 
-Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+Web-host `set(name,value)`, `fire(name)` and `toggle(name)` calls made without a player are queued
 in call order. They are applied once to the next player created by that host,
 before its first step, including when asset preparation deferred creation.
 Superseded load completions do not consume the queue. Names and values are validated
@@ -1058,6 +1058,12 @@ have deterministic precedence. Cyclic target chains and nonsibling targets are r
 Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
 Static SVG serializes the current order; web reorders existing DOM siblings without replacing
 nodes or detaching their masks. The module's draw hook resolves sibling ranks before rendering.
+For models using `drawOrder`, composite supplies `Player.paintRank(node)`: the node's index
+in a pre-order tree walk whose child lists use those resolved sibling ranks, cached per player
+until `drawRevision` changes. Without `drawOrder` the hook is absent and node indices give the
+same authored pre-order walk. Input hit ordering, opaque blocking and pointer focus use this
+same key: **foremost** means latest painted. A nested player retains its local paint order
+inside its host instance's rank.
 Its registry factory binds to the active runtime's shared registry (MODULES §3.1).
 Cross-node draw changes conservatively invalidate dependent draw entries, keeping animated
 source references correct across node and ancestor boundaries.
@@ -1866,9 +1872,13 @@ centers and pointer mapping. Focus changes route to the owning player's local
 listeners; the parent hook reports the dotted path. Component-local state machines
 read their local `focused` ids. Instance visibility excludes its focus descendants.
 
-`focusPointer(x,y)` focuses the last eligible painted target under the point using
+`focusPointer(x,y)` focuses the foremost eligible target (latest painted) under the point using
 §9 hit testing, excluding targets with pointer false. Primary pointer down calls it
 before ordinary pointer listener actions; up, move and leave do not change focus.
+Ranking uses composite's `Player.paintRank` when present (the pre-order walk with resolved
+`drawOrder` sibling lists), otherwise the authored node index. Nested players rank locally
+inside their host instance's paint rank. Opaque blockers use the same key and retain their
+ancestor chain.
 Component forwarding does not independently focus other overlapped instances.
 
 Listeners add `on: "focus"` and `on: "blur"` (requires focus); `target` is a local node
