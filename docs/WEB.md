@@ -4,6 +4,8 @@ Import `@anima-format/web` (or the built `anima-icon.js` module) to register `<a
 The browser package has no runtime dependencies. Load `.ani` through `src`, an inline
 `<script type="application/vnd.anima+json">`, or `load()`. For `.animl` and inline
 `application/vnd.anima+xml`, import the optional `@anima-format/web/markup` module first.
+Scenes that declare optional features in `requires` need those modules loaded too; see
+[FEATURES.md](FEATURES.md).
 
 ```html
 <anima-icon id="bell" src="bell.ani" paused speed="0.5" label="Notifications"></anima-icon>

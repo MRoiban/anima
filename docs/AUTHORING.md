@@ -6,6 +6,8 @@ Read `anima docs markup` for syntax and `anima docs spec` for playback rules.
 then fetch one with `anima docs <topic>` or a guide section with
 `anima docs authoring <section-slug>`. Topic names accept camelCase or kebab-case;
 near misses suggest the closest topic (for example `textInput` resolves to `text-input`).
+New to Anima? [GETTING-STARTED.md](GETTING-STARTED.md) builds a complete control step by step;
+[FEATURES.md](FEATURES.md) lists every optional feature with its import and size.
 
 ## The loop
 
