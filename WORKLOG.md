@@ -34,7 +34,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Owner
 
-- Coders: GPT-6.1-sol at **medium** effort, not xhigh, and **at most 2 concurrent subagents**
+- Coders: **GPT-6.1 Terra** (`gpt-6.1-terra`) at **medium** effort, and **at most 2 concurrent subagents**
   (owner, 2026-11-09).
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
   changes. Licence is MIT (owner, 2026-11-08).
