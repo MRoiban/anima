@@ -3511,5 +3511,19 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-mesh",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 70,
+    "maxOverPercent": 0.4
+  },
+  {
+    "name": "rigging-mesh-animation",
+    "times": [0, 0.25, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 100,
+    "maxOverPercent": 0.45
   }
 ]

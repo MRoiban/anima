@@ -12540,5 +12540,54 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-mesh",
+    "threshold": 16,
+    "maxOverPercent": 0.4,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 53,
+        "over": 192,
+        "overPercent": 0.3333333333333333,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-mesh-animation",
+    "threshold": 16,
+    "maxOverPercent": 0.45,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 73,
+        "over": 156,
+        "overPercent": 0.2708333333333333,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 81,
+        "over": 230,
+        "overPercent": 0.3993055555555556,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 82,
+        "over": 225,
+        "overPercent": 0.390625,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 73,
+        "over": 156,
+        "overPercent": 0.2708333333333333,
+        "pass": true
+      }
+    ]
   }
 ]

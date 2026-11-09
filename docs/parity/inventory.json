@@ -24760,8 +24760,8 @@
     "anima": {
       "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
       "module": "mesh",
-      "status": "planned",
-      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh",
+      "status": "done",
+      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh; modules/mesh/ORACLE-ANALYSIS.md",
       "phase": "P8"
     }
   },
@@ -24789,8 +24789,8 @@
     "anima": {
       "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
       "module": "mesh",
-      "status": "planned",
-      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation",
+      "status": "done",
+      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation; modules/mesh/ORACLE-ANALYSIS.md",
       "phase": "P8"
     }
   },

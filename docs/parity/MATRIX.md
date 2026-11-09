@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 | 1 |  | 21 |  | 1 |  |
+| Rigging | 23 | 3 |  | 19 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **864** | **0** | **22** | **0** | **188** | **164** |
+| **Total** | **1238** | **866** | **0** | **20** | **0** | **188** | **164** |
 
-**Progress:** 864 of 886 in-scope capabilities done (98 %); 864 of 1238 in the full matrix (70 %).
+**Progress:** 866 of 886 in-scope capabilities done (98 %); 866 of 1238 in the full matrix (70 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1327,8 +1327,8 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.ik-bend` | IK bend direction | new: ik bend direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik-bend |  |
 | `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick |  |
 | `rigging.list-follow-path` | List follow-path constraint | new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-list-follow-path |  |
-| `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | planned | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh |  |
-| `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | planned | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation |  |
+| `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh; modules/mesh/ORACLE-ANALYSIS.md |  |
+| `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation; modules/mesh/ORACLE-ANALYSIS.md |  |
 | `rigging.root-bones` | Root bones | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
 | `rigging.rotation` | Rotation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
