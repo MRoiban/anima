@@ -2,15 +2,15 @@
   <group id="target" x="5" y="10"/>
   <group id="inside" x="6" y="10">
     <keep-distance to="target" distance="2" mode="beyond"/>
-    <circle id="insideArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+    <rect id="insideArt" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/>
   </group>
   <group id="ring" x="8" y="10">
     <keep-distance to="target" distance="2" mode="beyond"/>
-    <circle id="ringArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+    <rect id="ringArt" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/>
   </group>
   <group id="outside" x="11" y="10">
     <keep-distance to="target" distance="2" mode="beyond"/>
-    <circle id="outsideArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+    <rect id="outsideArt" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/>
   </group>
   <timeline name="go" duration="1">
     <track target="inside.constraints.0.distance">
