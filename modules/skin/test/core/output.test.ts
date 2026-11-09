@@ -7,7 +7,7 @@ const doc = () => ({
   anima: '0.1',
   name: 'skin-output',
   grid: 20,
-  requires: ['contour', 'rig', 'skin'],
+  requires: ['a11y', 'contour', 'paint', 'rig', 'skin'],
   nodes: [
     { id: 'arm', type: 'bone', length: 10 },
     {
@@ -15,6 +15,7 @@ const doc = () => ({
       type: 'path',
       d: 'M0 0L10 0L10 2L0 2Z',
       fill: { color: '#000' },
+      a11y: { role: 'img', label: 'skinned path' },
       skin: { bones: ['arm'], weights: [full, full, full, full] },
     },
     {
@@ -75,5 +76,51 @@ describe('skinned drawing and hits', () => {
     p.step(1);
     expect(p.hits(p.model.listeners[0]!, -1, 5)).toBe(true);
     expect(p.hits(p.model.listeners[0]!, 5, 1)).toBe(false);
+  });
+
+  it('publishes deformed accessibility bounds', () => {
+    const p = player();
+    p.step(1);
+    expect(p.semantics().find((n) => n.id === 'path')!.bounds).toEqual([-2, 0, 2, 10]);
+  });
+
+  it('resolves percentage dashes against the deformed outline length', () => {
+    const result = load({
+      anima: '0.1',
+      name: 'skin-relative-dash',
+      grid: 20,
+      requires: ['paint', 'rig', 'skin'],
+      nodes: [
+        { id: 'arm', type: 'bone', length: 10 },
+        {
+          id: 'line',
+          type: 'path',
+          d: 'M0 0L10 0',
+          stroke: { color: '#000', dash: ['10%'] },
+          skin: {
+            bones: ['arm'],
+            weights: [{ point: { '@rest': 1 } }, { point: { '@rest': 0.5, arm: 0.5 } }],
+          },
+        },
+      ],
+      timelines: {
+        bend: {
+          duration: 1,
+          tracks: {
+            'arm.rotate': [
+              [0, 0],
+              [1, 90],
+            ],
+          },
+        },
+      },
+      machine: { layers: { main: { initial: 'bend', states: { bend: { play: 'bend' } } } } },
+    });
+    expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    const p = new Player(result.model!);
+    p.step(1);
+    const frame = drawFrame(p);
+    expect(frame.nodes[1]!.geometry!.d).toBe('M0 0L5 5');
+    expect(frame.nodes[1]!.paints[0]!.dash![0]).toBeCloseTo(Math.SQRT1_2);
   });
 });

@@ -13,7 +13,12 @@ import {
   type Subpath,
 } from '../../../packages/core/src/path.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
-import { drawFrame, type DrawFrame, type DrawNode } from '../../../packages/core/src/draw.ts';
+import {
+  drawFrame,
+  geometryLength,
+  type DrawFrame,
+  type DrawNode,
+} from '../../../packages/core/src/draw.ts';
 import { nodePointer } from '../../components/core/node-pointer.ts';
 import { compileVertices, type Vertex } from '../../contour/core/index.ts';
 import type { RigModule } from '../../rig/core/index.ts';
@@ -383,7 +388,15 @@ export const skin: Module = {
       const s = data.get(p.model.nodes[i]!.raw);
       if (!s) return;
       const d = geometry(p, i);
-      if (d !== undefined) node.geometry = { kind: 'path', d };
+      if (d !== undefined) {
+        node.geometry = { kind: 'path', d };
+        const length = geometryLength(node.geometry, frame.tree.nodes[i]);
+        for (const paint of node.paints)
+          if (paint.dashNormalized) {
+            paint.dash = paint.dashNormalized.map((v) => v * length);
+            paint.dashOffset = (paint.dashOffsetNormalized ?? 0) * length;
+          }
+      }
       const rest = rig?.context(p)?.rest(i);
       if (!rest) return;
       const parent = p.model.nodes[i]!.parent,
