@@ -37,7 +37,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 ## Owner
 
 - Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
-  medium), **one at a time** (owner, 2026-11-09). No Terra or other `codex` models.
+  medium), **at most 2 at a time** (owner, 2026-11-10). No Terra or other `codex` models.
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
   changes. Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
