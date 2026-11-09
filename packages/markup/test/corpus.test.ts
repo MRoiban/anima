@@ -51,7 +51,7 @@ describe('authored AniML corpus', () => {
     // Rottweiler P3 R2-04/R3-05/R3-06/R4-03: blend children, source clocks and controlled clocks
     // resume after reduced motion. R5-01/R5-03: reduced motion entered mid-state; ping-pong children.
     // seam(P8-9, P8-6, P8-8, P8-5, P8-1): P8 conformance cases.
-    expect(cases).toHaveLength(645);
+    expect(cases).toHaveLength(647);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

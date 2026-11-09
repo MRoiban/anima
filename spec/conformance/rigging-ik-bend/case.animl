@@ -1,4 +1,49 @@
-<!-- TODO: rigging.ik-bend; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-ik-bend" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-ik-bend" grid="20" requires="rig ik">
+  <bone id="cwA" length="5">
+    <bone id="cwB" length="4">
+      <ik target="target" bones="2" bend="cw"/>
+    </bone>
+  </bone>
+  <bone id="ccwA" length="5">
+    <bone id="ccwB" length="4">
+      <ik target="target" bones="2" bend="ccw"/>
+    </bone>
+  </bone>
+  <group id="target" x="6" y="2"/>
+
+  <group id="mirror" x="20" scaleX="-1">
+    <bone id="mirrorA" length="5">
+      <bone id="mirrorB" length="4">
+        <ik target="mirrorTarget" bones="2" bend="cw"/>
+      </bone>
+    </bone>
+  </group>
+  <group id="mirrorTarget" x="14" y="2"/>
+
+  <timeline name="move" duration="1">
+    <track target="target.x">
+      0    6
+      0.5  0
+      1    -6
+    </track>
+    <track target="target.y">
+      0    2
+      0.5  6
+      1    2
+    </track>
+    <track target="mirrorTarget.x">
+      0    14
+      0.5  20
+      1    26
+    </track>
+    <track target="mirrorTarget.y">
+      0    2
+      0.5  6
+      1    2
+    </track>
+  </timeline>
+
+  <layer name="main" initial="move">
+    <state name="move" play="move"/>
+  </layer>
 </anima>

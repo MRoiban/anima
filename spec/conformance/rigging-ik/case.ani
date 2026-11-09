@@ -1,0 +1,289 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik",
+  "grid": 20,
+  "requires": ["rig", "ik"],
+  "nodes": [
+    {
+      "id": "one",
+      "type": "bone",
+      "children": [],
+      "length": 4,
+      "constraints": [
+        {
+          "kind": "ik",
+          "target": "targetOne"
+        }
+      ]
+    },
+    {
+      "id": "targetOne",
+      "type": "group",
+      "x": 4,
+      "y": 0,
+      "children": []
+    },
+    {
+      "id": "twoA",
+      "type": "bone",
+      "y": 10,
+      "children": [
+        {
+          "id": "twoB",
+          "type": "bone",
+          "children": [],
+          "length": 4,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "targetTwo",
+              "bones": 2
+            }
+          ]
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "targetTwo",
+      "type": "group",
+      "x": 6,
+      "y": 13,
+      "children": []
+    },
+    {
+      "id": "threeA",
+      "type": "bone",
+      "y": 20,
+      "children": [
+        {
+          "id": "threeB",
+          "type": "bone",
+          "children": [
+            {
+              "id": "threeC",
+              "type": "bone",
+              "children": [],
+              "length": 2,
+              "constraints": [
+                {
+                  "kind": "ik",
+                  "target": "targetThree",
+                  "bones": 3
+                }
+              ]
+            }
+          ],
+          "length": 3
+        }
+      ],
+      "length": 4
+    },
+    {
+      "id": "targetThree",
+      "type": "group",
+      "x": 5,
+      "y": 24,
+      "children": []
+    },
+    {
+      "id": "oneFar",
+      "type": "bone",
+      "x": 20,
+      "children": [],
+      "length": 3,
+      "constraints": [
+        {
+          "kind": "ik",
+          "target": "targetOneFar"
+        }
+      ]
+    },
+    {
+      "id": "targetOneFar",
+      "type": "group",
+      "x": 28,
+      "y": 6,
+      "children": []
+    },
+    {
+      "id": "twoFarA",
+      "type": "bone",
+      "x": 20,
+      "y": 10,
+      "children": [
+        {
+          "id": "twoFarB",
+          "type": "bone",
+          "children": [],
+          "length": 3,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "targetTwoFar",
+              "bones": 2
+            }
+          ]
+        }
+      ],
+      "length": 4
+    },
+    {
+      "id": "targetTwoFar",
+      "type": "group",
+      "x": 32,
+      "y": 16,
+      "children": []
+    },
+    {
+      "id": "threeFarA",
+      "type": "bone",
+      "x": 20,
+      "y": 20,
+      "children": [
+        {
+          "id": "threeFarB",
+          "type": "bone",
+          "children": [
+            {
+              "id": "threeFarC",
+              "type": "bone",
+              "children": [],
+              "length": 2,
+              "constraints": [
+                {
+                  "kind": "ik",
+                  "target": "targetThreeFar",
+                  "bones": 3
+                }
+              ]
+            }
+          ],
+          "length": 3
+        }
+      ],
+      "length": 3
+    },
+    {
+      "id": "targetThreeFar",
+      "type": "group",
+      "x": 34,
+      "y": 28,
+      "children": []
+    },
+    {
+      "id": "halfA",
+      "type": "bone",
+      "x": 40,
+      "y": 10,
+      "children": [
+        {
+          "id": "halfB",
+          "type": "bone",
+          "children": [],
+          "length": 4,
+          "constraints": [
+            {
+              "kind": "ik",
+              "strength": 0.5,
+              "target": "targetHalf",
+              "bones": 2
+            }
+          ]
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "targetHalf",
+      "type": "group",
+      "x": 46,
+      "y": 13,
+      "children": []
+    },
+    {
+      "id": "animatedA",
+      "type": "bone",
+      "x": 40,
+      "y": 20,
+      "children": [
+        {
+          "id": "animatedB",
+          "type": "bone",
+          "children": [],
+          "length": 4,
+          "constraints": [
+            {
+              "kind": "ik",
+              "strength": 0,
+              "target": "targetAnimated",
+              "bones": 2
+            }
+          ]
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "targetAnimated",
+      "type": "group",
+      "x": 46,
+      "y": 23,
+      "children": []
+    }
+  ],
+  "timelines": {
+    "move": {
+      "duration": 1,
+      "tracks": {
+        "targetOne.x": [
+          [0, 4],
+          [0.5, 0],
+          [1, -4]
+        ],
+        "targetOne.y": [
+          [0, 0],
+          [0.5, 4],
+          [1, 0]
+        ],
+        "targetTwo.x": [
+          [0, 6],
+          [0.5, 0],
+          [1, -6]
+        ],
+        "targetTwo.y": [
+          [0, 13],
+          [0.5, 16],
+          [1, 13]
+        ],
+        "targetThree.x": [
+          [0, 5],
+          [0.5, 0],
+          [1, -5]
+        ],
+        "targetThree.y": [
+          [0, 24],
+          [0.5, 27],
+          [1, 24]
+        ],
+        "animatedB.constraints.0.strength": [
+          [0, 0],
+          [0.5, 0.5],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "move",
+        "states": {
+          "move": {
+            "play": "move"
+          }
+        }
+      }
+    }
+  }
+}
