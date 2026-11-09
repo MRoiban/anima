@@ -1,0 +1,27 @@
+{
+  "anima": "0.1",
+  "name": "bounds-fixed",
+  "grid": 100,
+  "requires": ["a11y", "paint"],
+  "nodes": [
+    {
+      "id": "fixed",
+      "type": "path",
+      "d": "M0 0H4",
+      "x": 10,
+      "y": 10,
+      "rotate": 90,
+      "scaleX": 3,
+      "scaleY": 2,
+      "stroke": {
+        "color": "#000",
+        "width": 2,
+        "cap": "square",
+        "scale": "fixed"
+      },
+      "a11y": {
+        "role": "img"
+      }
+    }
+  ]
+}

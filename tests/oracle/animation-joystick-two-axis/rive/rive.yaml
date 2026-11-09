@@ -1,0 +1,4 @@
+name: oracle-animation-joystick-two-axis
+logs:
+  file: build/rive.log
+  problems: build/problems.log

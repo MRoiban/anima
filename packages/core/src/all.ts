@@ -54,6 +54,7 @@ import { text } from '../../../modules/text/core/index.ts';
 import { textSVG } from '../../../modules/text/core/svg.ts';
 import { layout } from '../../../modules/layout/core/index.ts';
 import { layoutSVG } from '../../../modules/layout/core/svg.ts';
+import { posepad } from '../../../modules/posepad/core/index.ts';
 import { rig } from '../../../modules/rig/core/index.ts';
 import { rigSVG } from '../../../modules/rig/core/svg.ts';
 import { textEffects } from '../../../modules/text-effects/core/index.ts';
@@ -113,6 +114,7 @@ if (VERBOSE) {
   registerSVGBackend('text', textSVG);
   registerModule(layout);
   registerSVGBackend('layout', layoutSVG);
+  registerModule(posepad);
   registerModule(rig);
   registerSVGBackend('rig', rigSVG);
   registerModule(textEffects);

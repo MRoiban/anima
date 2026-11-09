@@ -1,0 +1,325 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  13:04:50
+   Duration  26.89s (tests 72%, import 17%, transform 11%)
+
+{"file":"modules/data-host/test/web/browser.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:05:18
+   Duration  60.39s (tests 98%, transform 1%, import 1%)
+
+{"file":"tools/new-capability.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |unit| packages/cli/test/authoring.test.ts (59 tests | 2 failed) 135644ms
+   ❯ authoring guide executable examples (38)
+     × docs host serves its chapter and data authoring link 5246ms
+     × exposes the forgotten pivot through inspect and rendered geometry 11044ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > docs host serves its chapter and data authoring link
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:80:39
+     78|   );
+     79|
+     80|   it.each(['data', 'convert', 'host'])(
+       |                                       ^
+     81|     'docs %s serves its chapter and data authoring link',
+     82|     (topic) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 57 passed (59)
+   Start at  13:06:20
+   Duration  136.22s (tests 100%)
+
+{"file":"packages/cli/test/authoring.test.ts","exit":1}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  13:08:37
+   Duration  10.59s (tests 52%, transform 33%, import 15%)
+
+{"file":"packages/cli/test/markup.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  13:08:49
+   Duration  10.07s (import 57%, tests 31%, transform 12%)
+
+{"file":"packages/core/test/examples.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  13:09:00
+   Duration  59.38s (tests 100%)
+
+{"file":"packages/core/test/module-order.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  51 passed (51)
+   Start at  13:10:02
+   Duration  10.70s (tests 45%, transform 37%, import 18%)
+
+{"file":"packages/markup/test/compile.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 2 failed) 14336ms
+   × encodes jpeg, updates MIME/byte size and decodes dimensions 5012ms
+   × uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error 5007ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/assets/test/cli/pipeline.test.ts > encodes jpeg, updates MIME/byte size and decodes dimensions
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:105:33
+    103|   expect(JSON.parse(upper.out).assets.photo.source).toBe('anima:photo'…
+    104| });
+    105| it.each(['png', 'jpeg', 'webp'])(
+       |                                 ^
+    106|   'encodes %s, updates MIME/byte size and decodes dimensions',
+    107|   async (encode) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| modules/assets/test/cli/pipeline.test.ts > uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:340:1
+    338| });
+    339|
+    340| it('uses one lazy browser across multiple HTML scripts, closes it and …
+       | ^
+    341|   const launch = vi.spyOn(ImageEncoder.prototype, 'browser');
+    342|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 17 passed (19)
+   Start at  13:10:15
+   Duration  21.98s (tests 67%, transform 21%, import 12%)
+
+{"file":"modules/assets/test/cli/pipeline.test.ts","exit":1}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  13:10:39
+   Duration  13.06s (import 37%, tests 34%, transform 29%)
+
+{"file":"modules/contour/test/core/raster-evidence.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  13:10:54
+   Duration  26.09s (tests 85%, import 10%, transform 5%)
+
+{"file":"packages/cli/test/bundle.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  44 passed (44)
+   Start at  13:11:22
+   Duration  39.31s (tests 94%, import 3%, transform 3%)
+
+{"file":"modules/a11y-dom/test/web/overlay.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  13:12:02
+   Duration  26.17s (tests 96%, import 4%)
+
+{"file":"modules/assets/test/web/pipeline.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2594 tests | 1297 skipped) 510853ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas
+Error: Hook timed out in 60000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/canvas/test/web/canvas.test.ts:272:5
+    270|     let browser: Browser, page: Page;
+    271|     const metrics: object[] = [];
+    272|     beforeAll(async () => {
+       |     ^
+    273|       const executablePath = paths.find((p) => p && existsSync(p));
+    274|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1297 passed | 1297 skipped (2594)
+   Start at  13:12:29
+   Duration  516.95s (tests 99%, import 1%)
+
+{"file":"modules/canvas/test/web/canvas.test.ts","exit":1}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  13:21:10
+   Duration  37.88s (tests 91%, import 8%, transform 1%)
+
+{"file":"modules/componentpaint/test/web/rottweiler-p5.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 2 failed) 35927ms
+   ❯ Firefox optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5019ms
+     × isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components 5006ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 10 passed (12)
+   Start at  13:21:52
+   Duration  38.51s (tests 95%, import 5%, transform 1%)
+
+{"file":"modules/componentpaint/test/web/sources.test.ts","exit":1}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  13:22:33
+   Duration  22.09s (tests 89%, import 10%, transform 1%)
+
+{"file":"modules/focus/test/web/p4-review.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |browser| modules/host-edit/test/web/components.test.ts (4 tests | 2 failed) 23425ms
+   ❯ Firefox component values and data keyframes (2)
+     × keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup 5006ms
+     × keeps typed host changes and keyframes local across separately loaded bundles: index,markup,host-edit,host,motion,data,nested,components 5006ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup
+ FAIL  |browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,markup,host-edit,host,motion,data,nested,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host-edit/test/web/components.test.ts:50:7
+     48|     });
+     49|     for (const order of [entries, ['index', ...entries.slice(1).revers…
+     50|       it(
+       |       ^
+     51|         'keeps typed host changes and keyframes local across separatel…
+     52|           order.join(','),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  13:22:58
+   Duration  27.13s (tests 89%, import 8%, transform 2%)
+
+{"file":"modules/host-edit/test/web/components.test.ts","exit":1}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  78 passed (78)
+   Start at  13:23:28
+   Duration  173.80s (tests 98%, import 1%)
+
+{"file":"modules/host-fit/test/web/fit.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  13:26:23
+   Duration  8.37s (tests 89%, import 10%, transform 1%)
+
+{"file":"modules/input/test/web/bf4-writes.test.ts","exit":0}
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  13:26:33
+   Duration  14.28s (tests 91%, import 8%, transform 1%)
+
+{"file":"modules/nested/test/web/nested.test.ts","exit":0}
+{"files":20,"failed":5}

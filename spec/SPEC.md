@@ -459,7 +459,7 @@ so page `::part()` rules continue to apply.
 
 ### Host input queue
 
-Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+Web-host `set(name,value)`, `fire(name)` and `toggle(name)` calls made without a player are queued
 in call order. They are applied once to the next player created by that host,
 before its first step, including when asset preparation deferred creation.
 Superseded load completions do not consume the queue. Names and values are validated
@@ -1061,6 +1061,12 @@ have deterministic precedence. Cyclic target chains and nonsibling targets are r
 Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
 Static SVG serializes the current order; web reorders existing DOM siblings without replacing
 nodes or detaching their masks. The module's draw hook resolves sibling ranks before rendering.
+For models using `drawOrder`, composite supplies `Player.paintRank(node)`: the node's index
+in a pre-order tree walk whose child lists use those resolved sibling ranks, cached per player
+until `drawRevision` changes. Without `drawOrder` the hook is absent and node indices give the
+same authored pre-order walk. Input hit ordering, opaque blocking and pointer focus use this
+same key: **foremost** means latest painted. A nested player retains its local paint order
+inside its host instance's rank.
 Its registry factory binds to the active runtime's shared registry (MODULES §3.1).
 Cross-node draw changes conservatively invalidate dependent draw entries, keeping animated
 source references correct across node and ancestor boundaries.
@@ -1869,9 +1875,13 @@ centers and pointer mapping. Focus changes route to the owning player's local
 listeners; the parent hook reports the dotted path. Component-local state machines
 read their local `focused` ids. Instance visibility excludes its focus descendants.
 
-`focusPointer(x,y)` focuses the last eligible painted target under the point using
+`focusPointer(x,y)` focuses the foremost eligible target (latest painted) under the point using
 §9 hit testing, excluding targets with pointer false. Primary pointer down calls it
 before ordinary pointer listener actions; up, move and leave do not change focus.
+Ranking uses composite's `Player.paintRank` when present (the pre-order walk with resolved
+`drawOrder` sibling lists), otherwise the authored node index. Nested players rank locally
+inside their host instance's paint rank. Opaque blockers use the same key and retain their
+ancestor chain.
 Component forwarding does not independently focus other overlapped instances.
 
 Listeners add `on: "focus"` and `on: "blur"` (requires focus); `target` is a local node
@@ -3000,8 +3010,15 @@ remain eligible for native focus and roving.
 `nodes[].a11y.bounds` (AniML `bounds`) is a local `[x,y,w,h]` box with nonnegative width and height,
 transformed to world-grid coordinates. Without it, visible child boxes are unioned
 for unpainted groups; an empty node reports its transformed origin as a point.
-The bounded implementation and explicit path/stroke limitations are specified in
-[modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.
+The optional painted calculator shared by tooling and the browser overlay bounds trimmed pieces
+with their caps, viewport-sized non-scaling strokes and feather falloff; it intersects clips with
+source geometry boxes and masks with source painted boxes. Explicit boxes win. Dash bounds
+intentionally use the undashed stroke (conservative), and text uses measured logical line boxes
+rather than ink, matching DOM text rectangles and screen-reader highlights. The full contract,
+including inverted-mask complements and finite three-sigma feather support, is specified in
+[modules/a11y/SPEC.md](../modules/a11y/SPEC.md#painted-geometric-bounds-p7-8).
+Native semantic rectangles omit stroke; the existing P7-8 capture records this intentional native
+difference in `tests/oracle/p7-8-semantic-bounds/`.
 
 
 <!-- capability: a11y.property-heading-level -->
@@ -3697,3 +3714,63 @@ Oracle capture/integration: `tests/oracle/rigging-distance-further/`; a pending 
 <!-- capability: rigging.distance-exact -->
 Independent numeric evidence: `spec/conformance/rigging-distance-exact/` (0, 0.5, 1 s).
 Oracle capture/integration: `tests/oracle/rigging-distance-exact/`; a pending marker is not a parity pass.
+
+## posepad
+
+<!-- capability: rigging.joystick -->
+<!-- capability: animation.joystick-two-axis -->
+<!-- capability: animation.joystick-invert -->
+<!-- capability: animation.joystick-handle -->
+
+`requires: ["posepad"]` enables `type: "posepad"`, AniML `<posepad>`. It draws nothing
+and has no hit area. The identical lowercase node name follows the existing node registry;
+no node-name alias or markup compiler extension is needed (P8 orchestrator decision).
+
+| JSON | AniML | Meaning |
+|---|---|---|
+| `timelineX`, `timelineY` | `timeline-x`, `timeline-y` | Optional declared timeline names |
+| `valueX`, `valueY` | `value-x`, `value-y` | Numbers, default 0, clamped to −1..1; animatable/bindable |
+| `invertX`, `invertY` | `invert-x`, `invert-y` | Static booleans, default false |
+| `handle` | `handle` | Optional node id; declares the optional handle entry requirement |
+| `box` | `box` | `[x0, y0, width, height]` in pad coordinates, positive width/height |
+
+After layout, pads run in authored node order, X before Y. Clamp control v to −1..1,
+negate when its axis is inverted, then sample at `(v + 1) / 2 * timeline.duration`.
+Sampling uses the active registry's track sampler (§5), including typed tracks, custom
+eases and per-player data key values. Loop/work-area/playback controls do not change this
+whole-duration mapping. Pad sampling never plays clocks or emits timeline events.
+
+Sampled tracks form a per-player overlay above layers and bindings. Clamp numeric results
+to each target property's registry range; later axes/pads win collisions. `prop`, `num`,
+`value`, `values()` and snapshots expose the overlay. It does not mutate model rest values,
+tracks or another player's state. Layout sees the previous step's overlay; guards never
+read same-step posed output. Drawing revisions are invalidated for sampled target nodes.
+A pad introduces no ongoing clock and does not prevent settling.
+
+A handle requires the optional heavy `@anima-format/web/posepad-handle` entry in addition
+to `@anima-format/web/posepad`. Declaring `handle` without that entry reports `posepad-handle`
+at the handle field, with an import hint (verbose builds); it never silently poses freely.
+Tooling includes handle support. A handle also requires `box`. Read the handle's current
+world pivot (including motion's animated pivot), map it through the inverse pad world matrix,
+then derive `valueX = clamp(2*(hx-x0)/width-1, -1, 1)` and similarly for Y. These outputs
+are uninverted; inversion affects sampling only. A singular pad matrix yields centered outputs.
+Both outputs are included in snapshots even when no track references them. Animate or bind
+the handle, not these outputs. Pointer drags use the input/bind modules' existing queued writes.
+
+With `rig`, chain `model.rigPose` between its solve passes, returning true when the pad wrote;
+rig solves again exactly once. Without rig, chain a standalone `afterStep` stage after layout
+and read `p.world`. The distance-gated handle conformance probe remains pending until rig lands.
+
+Diagnostics: `posepad-timeline` at `/nodes/…/timelineX|timelineY` names an unknown timeline;
+`posepad-handle` at `/nodes/…/handle` means an unknown handle or missing handle entry;
+`posepad-box` at `/nodes/…/box` means the required box is absent. Structural box errors use
+`bad-type` or `bad-value` at the offending field/coordinate. `posepad-output` points
+at a bind, track or state-pose write to a handle-driven value. `posepad-cycle` at the pad's
+axis timeline rejects a write to its handle, any handle ancestor, any transitive constraint
+target (and its ancestors), or its own coordinate frame/ancestors. These restrictions keep
+the bounded solve/pose/solve order independent of a dirt-restart loop.
+
+Design rationale: [animation/state research](../docs/research/rive-animation-and-state.md) §2.3
+and [format/graph research](../docs/research/rive-format-and-graph.md) §3.2–3.4 describe update
+restarts; this explicit stage retains deterministic step order. No Rive source or binary format
+is used. Native oracle captures await orchestrator-owned budgets and remain pending evidence.

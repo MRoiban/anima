@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "input-hit-draw-order",
+  "grid": 20,
+  "requires": ["input", "composite", "bind"],
+  "inputs": {
+    "raised": {
+      "type": "bool",
+      "default": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": {
+        "color": "#f00"
+      },
+      "opaque": true,
+      "drawOrder": {
+        "target": "b",
+        "position": "after"
+      }
+    },
+    {
+      "id": "b",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": {
+        "color": "#00f"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "target": "b",
+      "emit": "b",
+      "consume": true
+    },
+    {
+      "on": "click",
+      "target": "a",
+      "emit": "a",
+      "consume": true
+    }
+  ],
+  "bind": {
+    "a.drawOrder.active": "raised"
+  }
+}

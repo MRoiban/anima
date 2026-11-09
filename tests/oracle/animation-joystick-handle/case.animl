@@ -1,0 +1,8 @@
+<anima version="0.1" name="animation-joystick-handle" grid="20" requires="posepad">
+<rect id="eye" x0="9" y0="9" width="2" height="2" fill="#141413"/>
+<group id="handle"/><posepad id="pad" timeline-x="horizontal" timeline-y="vertical" handle="handle" box="6 6 8 8"/>
+<timeline name="horizontal" duration="2"><track target="eye.x">0 -4; 2 4</track></timeline>
+<timeline name="vertical" duration="4"><track target="eye.y">0 -4; 4 4</track></timeline>
+<timeline name="drive" duration="1"><track target="handle.x">0 6; 1 14</track><track target="handle.y">0 14; 1 6</track></timeline>
+<layer name="l" initial="s"><state name="s" play="drive"/></layer>
+</anima>

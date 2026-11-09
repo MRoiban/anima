@@ -1,0 +1,62 @@
+<anima version="0.1" name="painted-extents" grid="100" requires="a11y composite contour paint surface">
+  <group id="clip-example" x="0" y="0">
+    <group id="clip-clipped" x="5">
+      <clip source="clip-edge"/>
+      <a11y role="group"/>
+      <rect id="clip-target" x0="0" y0="0" width="20" height="10" fill="#000">
+        <a11y role="img"/>
+      </rect>
+    </group>
+    <rect id="clip-edge" x0="0" y0="2" width="6" height="20" x="7" visible="false" stroke="#000" stroke-width="10"/>
+  </group>
+  <group id="mask-example" x="40" y="0">
+    <rect id="mask-target" x0="0" y0="0" width="20" height="10" x="5" fill="#000">
+      <mask source="mask-source" mode="alpha" source-draws="false"/>
+      <a11y role="img"/>
+    </rect>
+    <group id="mask-source" x="7">
+      <rect id="mask-edge" x0="0" y0="2" width="6" height="4" stroke="#000" stroke-width="2"/>
+    </group>
+  </group>
+  <group id="trim-example" x="0" y="22">
+    <path id="trim-sequential" d="M0 5H10M20 5H30" stroke="#000" stroke-width="2" stroke-linecap="square" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;mode&quot;:&quot;sequential&quot;}">
+      <a11y role="img"/>
+    </path>
+    <path id="trim-synchronized" d="M0 10H10M20 10H30" stroke="#000" stroke-width="2" stroke-linecap="round" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;mode&quot;:&quot;synchronized&quot;}">
+      <a11y role="img"/>
+    </path>
+    <path id="trim-wrapped" d="M0 15H10M20 15H30" stroke="#000" stroke-width="2" stroke-linecap="butt" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;offset&quot;:0.5}">
+      <a11y role="img"/>
+    </path>
+  </group>
+  <group id="trim-wrap-example" x="40" y="22">
+    <path id="trim-wrap-wrapped" d="M0 5H20" stroke="#000" stroke-width="2" stroke-linecap="square" trimStart="0.25" trimEnd="0.75" trimOffset="0.5">
+      <a11y role="img"/>
+    </path>
+    <path id="trim-wrap-empty" d="M0 10H20" stroke="#000" stroke-width="2" trimStart="0.5" trimEnd="0.5">
+      <a11y role="img"/>
+    </path>
+  </group>
+  <group id="fixed-example" x="0" y="44">
+    <path id="fixed-fixed" d="M0 0H4" x="10" y="10" rotate="90" scaleX="3" scaleY="2" stroke="#000" stroke-width="2" stroke-linecap="square" stroke-scale="fixed">
+      <a11y role="img"/>
+    </path>
+  </group>
+  <group id="feather-example" x="40" y="44">
+    <rect id="feather-feathered" x0="0" y0="0" width="4" height="6" x="10" y="10" scaleX="2" fill="#000">
+      <a11y role="img"/>
+      <feather inner="7" outer="3" offset="2 -1"/>
+    </rect>
+  </group>
+  <group id="dash-example" x="0" y="66">
+    <path id="dash-dashed" d="M2 5H18" stroke="#000" stroke-width="2" stroke-linecap="butt" stroke-dasharray="0.25 0.75">
+      <a11y role="img"/>
+    </path>
+    <path id="dash-before" d="M0 15H20" stroke="#000" stroke-width="2" stroke-linecap="butt" effects="[{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.25,&quot;end&quot;:0.75},{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,8]}]">
+      <a11y role="img"/>
+    </path>
+    <path id="dash-after" d="M0 20H20" stroke="#000" stroke-width="2" stroke-linecap="butt" effects="[{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,8]},{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.5,&quot;end&quot;:1}]">
+      <a11y role="img"/>
+    </path>
+  </group>
+</anima>

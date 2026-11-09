@@ -49,8 +49,8 @@ describe('authored AniML corpus', () => {
     // RT1: selected-component dimensions and laid-out pointer/semantic bounds.
     // Rottweiler P3 R2-04/R3-05/R3-06/R4-03: blend children, source clocks and controlled clocks
     // resume after reduced motion. R5-01/R5-03: reduced motion entered mid-state; ping-pong children.
-    // seam(P8-1): eleven rig solve probes.
-    expect(cases).toHaveLength(630);
+    // P8-1, P8-6, P8-8 and P8-9 conformance sources.
+    expect(cases).toHaveLength(643);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

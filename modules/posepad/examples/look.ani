@@ -1,0 +1,124 @@
+{
+  "anima": "0.1",
+  "name": "look",
+  "grid": 20,
+  "requires": ["posepad", "bind", "input"],
+  "inputs": {
+    "knobX": {
+      "type": "number",
+      "default": 10
+    },
+    "knobY": {
+      "type": "number",
+      "default": 15
+    }
+  },
+  "nodes": [
+    {
+      "id": "leftEye",
+      "type": "circle",
+      "center": [6, 6],
+      "r": 3,
+      "fill": {
+        "color": "#eee"
+      }
+    },
+    {
+      "id": "rightEye",
+      "type": "circle",
+      "center": [14, 6],
+      "r": 3,
+      "fill": {
+        "color": "#eee"
+      }
+    },
+    {
+      "id": "pupils",
+      "type": "group",
+      "children": [
+        {
+          "id": "leftPupil",
+          "type": "circle",
+          "center": [6, 6],
+          "r": 1,
+          "fill": {
+            "color": "#141413"
+          }
+        },
+        {
+          "id": "rightPupil",
+          "type": "circle",
+          "center": [14, 6],
+          "r": 1,
+          "fill": {
+            "color": "#141413"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail",
+      "type": "rect",
+      "x0": 6,
+      "y0": 11,
+      "w": 8,
+      "h": 8,
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "knob",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#d97757"
+      }
+    },
+    {
+      "id": "look",
+      "type": "posepad",
+      "timelineX": "across",
+      "timelineY": "vertical",
+      "handle": "knob",
+      "box": [6, 11, 8, 8]
+    }
+  ],
+  "timelines": {
+    "across": {
+      "duration": 2,
+      "tracks": {
+        "pupils.x": [
+          [0, -1.5],
+          [2, 1.5]
+        ]
+      }
+    },
+    "vertical": {
+      "duration": 4,
+      "tracks": {
+        "pupils.y": [
+          [0, -1.5],
+          [4, 1.5]
+        ]
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "drag-start|drag|drag-end",
+      "target": "knob",
+      "set": {},
+      "write": {
+        "x": "knobX",
+        "y": "knobY"
+      },
+      "align": "preserve"
+    }
+  ],
+  "bind": {
+    "knob.x": "knobX",
+    "knob.y": "knobY"
+  }
+}

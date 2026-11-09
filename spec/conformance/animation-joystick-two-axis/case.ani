@@ -1,0 +1,55 @@
+{
+  "anima": "0.1",
+  "name": "animation-joystick-two-axis",
+  "grid": 20,
+  "requires": ["posepad", "bind"],
+  "inputs": {
+    "px": {
+      "type": "number"
+    },
+    "py": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "eye",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "pad",
+      "type": "posepad",
+      "timelineX": "across",
+      "timelineY": "vertical"
+    }
+  ],
+  "timelines": {
+    "across": {
+      "duration": 2,
+      "tracks": {
+        "eye.x": [
+          [0, -4],
+          [2, 4]
+        ]
+      }
+    },
+    "vertical": {
+      "duration": 4,
+      "tracks": {
+        "eye.y": [
+          [0, -8],
+          [4, 8]
+        ]
+      }
+    }
+  },
+  "bind": {
+    "pad.valueX": "px",
+    "pad.valueY": "py"
+  }
+}

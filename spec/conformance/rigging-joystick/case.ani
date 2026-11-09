@@ -1,0 +1,73 @@
+{
+  "anima": "0.1",
+  "name": "rigging-joystick",
+  "grid": 20,
+  "requires": ["posepad", "bind"],
+  "inputs": {
+    "px": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "nodes": [
+    {
+      "id": "eye",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "pad",
+      "type": "posepad",
+      "timelineX": "across",
+      "timelineY": "vertical"
+    }
+  ],
+  "timelines": {
+    "across": {
+      "duration": 2,
+      "tracks": {
+        "eye.x": [
+          [0, -4],
+          [2, 4]
+        ]
+      }
+    },
+    "vertical": {
+      "duration": 4,
+      "tracks": {
+        "eye.y": [
+          [0, -8],
+          [4, 8]
+        ]
+      }
+    },
+    "drive": {
+      "duration": 2,
+      "tracks": {
+        "pad.valueY": [
+          [0, -1],
+          [2, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "drive"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "pad.valueX": "px"
+  }
+}

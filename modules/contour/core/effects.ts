@@ -175,7 +175,25 @@ export function geometryPath(g: Geometry): string {
     ? `M${x + r} ${y}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h - r}Q${x + w} ${y + h} ${x + w - r} ${y + h}H${x + r}Q${x} ${y + h} ${x} ${y + h - r}V${y + r}Q${x} ${y} ${x + r} ${y}Z`
     : `M${x} ${y}h${w}v${h}h${-w}Z`;
 }
-export const effects: Module = {
+// seam(P8-9): bounds read the contour entering the first dash (later effects only remove paint).
+export const effects: Module & {
+  undashed(
+    g: Geometry,
+    raw: { effects?: (Effect | string)[] } | undefined,
+    shared: unknown,
+  ): Geometry | undefined;
+} = {
+  undashed(g, raw, shared) {
+    if (!g || !raw?.effects) return;
+    const stack = raw.effects.flatMap((e) =>
+      typeof e === 'string' ? (shared as Record<string, Effect[]>)[e]! : [e],
+    );
+    const firstDash = stack.findIndex((e) => e.type === 'dash');
+    if (firstDash < 0) return;
+    return firstDash
+      ? { kind: 'path', d: applyEffects(geometryPath(g), stack.slice(0, firstDash)) }
+      : g;
+  },
   name: 'contour',
   entries: [
     {

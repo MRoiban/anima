@@ -1642,10 +1642,10 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Semantic bounds",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md",
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md; modules/a11y/SPEC.md; modules/a11y/P8-9-REPORT.md; modules/a11y/test/core/painted-extents.test.ts; modules/a11y/test/web/painted-extents.test.ts; modules/a11y/examples/painted-extents.animl; spec/conformance/a11y-tree-bounds-clip; spec/conformance/a11y-tree-bounds-mask; spec/conformance/a11y-tree-bounds-trim; spec/conformance/a11y-tree-bounds-trim-wrap; spec/conformance/a11y-tree-bounds-fixed; spec/conformance/a11y-tree-bounds-feather; spec/conformance/a11y-tree-bounds-dash; spec/conformance/a11y-tree-bounds-text; modules/a11y/oracle/P8-9.md; tests/oracle/a11y-tree-bounds/skip.json; tests/oracle/p7-8-semantic-bounds/README.md",
       "phase": "P8",
-      "reason": "Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned."
+      "reason": "P8-9: the shared optional a11y-bounds calculator intersects clip geometry and mask painted bounds, bounds trimmed pieces/caps (including wrap and both contour modes), converts non-scaling strokes through current host fit, and grows feather falloff. Dash intentionally uses conservative undashed stroke bounds (the incoming contour at the first effect-stack dash); text intentionally uses logical line boxes, matching DOM text rectangles and screen-reader highlights rather than ink. Explicit semantic boxes still win. Native semantic rectangles omit stroke; the existing P7-8 linear-control capture records that native difference. Eight independent semantic conformance probes, two host-size expected.jsonl snapshots and both-engine overlays/resize/import-order tests close the row; no widened oracle budget."
     }
   },
   {
@@ -2051,10 +2051,10 @@
       "rive schema Joystick --all --json (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: joystick.handle and grid-unit bounds",
-      "module": "rig",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
       "status": "planned",
-      "test": "conformance/joystick-handle",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle (pending orchestrator budgets)",
       "phase": "P8"
     },
     "aliases": [
@@ -2082,10 +2082,10 @@
       "rive-runtime/include/rive/generated/joystick_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: joystick.invertX/invertY",
-      "module": "rig",
-      "status": "planned",
-      "test": "conformance/joystick-invert",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert",
       "phase": "P8"
     }
   },
@@ -2113,10 +2113,10 @@
       "rive-runtime/include/rive/generated/joystick_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: joystick with x/y timeline references",
-      "module": "rig",
-      "status": "planned",
-      "test": "conformance/joystick-two-axis",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis",
       "phase": "P8"
     }
   },
@@ -24687,10 +24687,10 @@
       "rive docs easing (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: two-axis animation control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "rig",
-      "status": "planned",
-      "test": "oracle/rigging-joystick",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick",
       "phase": "P8"
     }
   },

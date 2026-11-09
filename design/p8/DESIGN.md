@@ -35,7 +35,7 @@ Module names have no hyphens (`node tools/new-capability.ts` rejects them). Ever
 | `skin` / `skin` | runtime, heavy | `skin` field on `path`/`contour`/meshed `image`, rest-pose binding, explicit and automatic weights, independent handle weights, deformed draw geometry and hit outlines | 1,536 B |
 | `mesh` / `mesh` | runtime, heavy | `mesh` field on `image` (explicit or `grid`), vertex addresses, draw data, SVG fallback with `unsupported-render` | 1,024 B |
 | `mesh` / `canvas-mesh` | runtime, heavy, over `canvas` | Canvas2D textured-triangle drawing through `canvasShapes` | 768 B |
-| `posepad` / `posepad` | runtime, heavy | `posePad` nodes: two-axis timeline posing, invert, handle reading | 768 B |
+| `posepad` / `posepad` | runtime, heavy | `posepad` nodes: two-axis timeline posing, invert, handle reading | 768 B |
 | `scroll` / `scroll` | runtime, heavy | `scroll` and `scrollThumb` constraints (clamped offsets, drag/wheel, bindable, linked thumb) | 1,024 B |
 | **sum (runtime, heavy)** | | | **10,368 B** |
 | carry-overs | runtime | R4-02 in `input` (≤ 96 B), `focus` (≤ 64 B, needs a split if over), `composite` (≤ 160 B); a11y extents in `a11y-bounds` (1,416/4,096, ≤ 1,536 B growth); toggle queue in web | as stated |
@@ -63,7 +63,7 @@ compound fields, the contour precedent) or stop and report.
     <copy-position from="aim"/>
     <keep-distance to="eye" distance="1" mode="within"/>        <!-- runs second: the gate -->
   </circle>
-  <pose-pad id="look" timeline-x="lookAcross" timeline-y="lookUpDown" handle="pupil"
+  <posepad id="look" timeline-x="lookAcross" timeline-y="lookUpDown" handle="pupil"
             box="31 5 2 2" invert-y="true"/>
 </anima>
 ```
@@ -127,7 +127,7 @@ pointer `/nodes/…/mesh`, hint `use renderer="canvas"`) once per node; static `
 `meshTriangles: true` (the CLI's `render`, tooling only) emits one clipped affine `<image>` per
 triangle, which is what the oracle compares.
 
-**Pose pads.** `type: "posePad"` (AniML `<pose-pad>`), draws nothing: `timelineX`/`timelineY`
+**Pose pads.** `type: "posepad"` (AniML `<posepad>`; one lowercase word like every node type, D36), draws nothing: `timelineX`/`timelineY`
 (timeline names, either optional), `valueX`/`valueY` (−1..1, clamped, animatable and bindable),
 `invertX`/`invertY`, `handle` (node id) and `box` `[x0, y0, w, h]` in the pad's grid coordinates.
 Value v maps to timeline time `(v' + 1)/2 · duration` with `v' = invert ? −v : v`; the pad writes

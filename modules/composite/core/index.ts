@@ -1,3 +1,12 @@
+import type { Player } from '../../../packages/core/src/player.ts';
+
+// seam(P8-8): optional painted-order key shared by input and pointer focus.
+declare module '../../../packages/core/src/player.ts' {
+  interface Player {
+    paintRank?: (node: number) => number;
+  }
+}
+
 import { after } from '../manifest.ts';
 // Independent SVG compositing; no Rive algorithms or source.
 import { type Module, type ModuleRegistry } from '../../../packages/core/src/modules.ts';
@@ -43,6 +52,21 @@ export const composite: Module = {
   },
   entries: [],
   load(m, _raw, d) {
+    if (m.nodes.some((n) => n.raw.drawOrder)) {
+      const previous = m.nesting;
+      m.nesting = (p) => {
+        let revision = -1,
+          ranks: number[];
+        p.paintRank = (i) => {
+          if (revision !== p.drawRevision) {
+            ranks = ordered(p);
+            revision = p.drawRevision;
+          }
+          return ranks[i] ?? i;
+        };
+        return previous?.(p);
+      };
+    }
     const paths: string[] = [],
       counts = new Map<number, number>();
     const reaches = (from: number, target: number, seen = new Set<number>()): boolean => {
@@ -313,17 +337,24 @@ function compositeEntries(): Module['entries'] {
   ];
 }
 
-function ordered(p: import('../../../packages/core/src/player.ts').Player): number[] {
-  const out = p.model.nodes.map((_n, i) => i);
-  for (let i = 0; i < p.model.nodes.length; i++) {
-    const r = p.model.nodes[i]!.raw.drawOrder;
-    if (!r || p.prop(i, 'drawOrder.active') === false) continue;
-    const target = p.model.ids.get(r.target)!;
-    out.splice(out.indexOf(i), 1);
-    out.splice(out.indexOf(target) + (r.position === 'after' ? 1 : 0), 0, i);
-  }
+function ordered(p: Player): number[] {
   const ranks: number[] = [];
-  out.forEach((n, i) => (ranks[n] = i));
+  let rank = 0;
+  const visit = (children: number[]) => {
+    const out = [...children];
+    for (const i of children) {
+      const r = p.model.nodes[i]!.raw.drawOrder;
+      if (!r || p.prop(i, 'drawOrder.active') === false) continue;
+      const target = p.model.ids.get(r.target)!;
+      out.splice(out.indexOf(i), 1);
+      out.splice(out.indexOf(target) + (r.position === 'after' ? 1 : 0), 0, i);
+    }
+    for (const i of out) {
+      ranks[i] = rank++;
+      visit(p.model.nodes[i]!.children);
+    }
+  };
+  visit(p.model.draw!.roots);
   return ranks;
 }
 

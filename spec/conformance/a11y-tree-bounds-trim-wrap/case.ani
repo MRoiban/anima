@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "bounds-trim-wrap",
+  "grid": 100,
+  "requires": ["a11y"],
+  "nodes": [
+    {
+      "id": "wrapped",
+      "type": "path",
+      "d": "M0 5H20",
+      "stroke": {
+        "color": "#000",
+        "width": 2,
+        "cap": "square",
+        "trimStart": 0.25,
+        "trimEnd": 0.75,
+        "trimOffset": 0.5
+      },
+      "a11y": {
+        "role": "img"
+      }
+    },
+    {
+      "id": "empty",
+      "type": "path",
+      "d": "M0 10H20",
+      "stroke": {
+        "color": "#000",
+        "width": 2,
+        "trimStart": 0.5,
+        "trimEnd": 0.5
+      },
+      "a11y": {
+        "role": "img"
+      }
+    }
+  ]
+}
