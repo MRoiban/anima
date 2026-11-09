@@ -54,6 +54,7 @@
     "./layout": "./src/modules/layout/index.ts",
     "./posepad": "./src/modules/posepad/index.ts",
     "./rig": "./src/modules/rig/index.ts",
+    "./ik": "./src/modules/ik/index.ts",
     "./text-effects": "./src/modules/text-effects/index.ts",
     "./text-input": "./src/modules/text-input/index.ts"
   },

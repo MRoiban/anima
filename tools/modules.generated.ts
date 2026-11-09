@@ -74,6 +74,7 @@ export const webEntries = [
   'rig',
   'rig-distance',
   'markup-rig',
+  'ik',
   'text-effects',
   'markup-text-effects',
   'text-input',
@@ -157,6 +158,7 @@ export const webOwners: Record<string, string> = {
   rig: 'rig',
   'rig-distance': 'rig',
   'markup-rig': 'rig',
+  ik: 'ik',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
   'text-input': 'text-input',
@@ -276,6 +278,7 @@ export const moduleBudgets: {
   { name: 'rig', budget: 3072, heavy: true },
   { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
+  { name: 'ik', budget: 896, heavy: true, over: 'rig' },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
   { name: 'text-input', budget: 4544, heavy: true },
@@ -1089,6 +1092,14 @@ export const moduleScopes = {
       'rigging-distance-further',
       'rigging-distance-exact',
     ],
+  },
+  ik: {
+    tests: [
+      'modules/ik/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['rigging-ik', 'rigging-ik-bend'],
   },
   'text-effects': {
     tests: [

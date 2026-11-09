@@ -34,6 +34,7 @@ import './host-edit.ts';
 import './host-fit.ts';
 import './host-fit-size.ts';
 import './host-values.ts';
+import './ik.ts';
 import './input.ts';
 import './layout.ts';
 import './layout-reflow.ts';

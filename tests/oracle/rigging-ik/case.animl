@@ -1,0 +1,26 @@
+<anima version="0.1" name="rigging-ik" grid="20" requires="rig ik">
+  <group id="target" x="13" y="7"/>
+  <bone id="upper" x="4" y="12" length="4">
+    <rect id="art1" x0="4" y0="11.75" width="4" height="0.5" fill="#d97757"/>
+    <bone id="mid" length="4">
+      <rect id="art2" x0="8" y0="11.75" width="4" height="0.5" fill="#d97757"/>
+      <bone id="fore" length="3.5">
+        <ik target="target" bones="3" bend="cw"/>
+        <rect id="art3" x0="12" y0="11.75" width="3.5" height="0.5" fill="#d97757"/>
+      </bone>
+    </bone>
+  </bone>
+  <timeline name="go" duration="1">
+    <track target="target.x">
+      0 13
+      0.5 10
+      1 6
+    </track>
+    <track target="target.y">
+      0 7
+      0.5 17
+      1 7
+    </track>
+  </timeline>
+  <layer name="main" initial="go"><state name="go" play="go"/></layer>
+</anima>

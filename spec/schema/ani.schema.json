@@ -4856,6 +4856,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -7340,6 +7379,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -9829,6 +9907,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -12347,6 +12464,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -14846,6 +15002,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -16046,6 +16241,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -17223,6 +17457,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -19504,6 +19777,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -22007,6 +22319,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -24513,6 +24864,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -27007,6 +27397,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -28793,6 +29222,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -30624,6 +31092,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -33017,6 +33524,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }
@@ -35876,6 +36422,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -37630,6 +38215,45 @@
                       "distance"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -38735,6 +39359,45 @@
                       "kind",
                       "to",
                       "distance"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "ik"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "target": {
+                        "type": "string",
+                        "feature": "ik"
+                      },
+                      "bones": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "bend": {
+                        "type": "string",
+                        "enum": [
+                          "cw",
+                          "ccw"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "target"
                     ],
                     "additionalProperties": false
                   }

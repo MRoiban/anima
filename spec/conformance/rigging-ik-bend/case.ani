@@ -1,0 +1,132 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik-bend",
+  "grid": 20,
+  "requires": ["rig", "ik"],
+  "nodes": [
+    {
+      "id": "cwA",
+      "type": "bone",
+      "children": [
+        {
+          "id": "cwB",
+          "type": "bone",
+          "children": [],
+          "length": 4,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "target",
+              "bones": 2,
+              "bend": "cw"
+            }
+          ]
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "ccwA",
+      "type": "bone",
+      "children": [
+        {
+          "id": "ccwB",
+          "type": "bone",
+          "children": [],
+          "length": 4,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "target",
+              "bones": 2,
+              "bend": "ccw"
+            }
+          ]
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "target",
+      "type": "group",
+      "x": 6,
+      "y": 2,
+      "children": []
+    },
+    {
+      "id": "mirror",
+      "type": "group",
+      "x": 20,
+      "scaleX": -1,
+      "children": [
+        {
+          "id": "mirrorA",
+          "type": "bone",
+          "children": [
+            {
+              "id": "mirrorB",
+              "type": "bone",
+              "children": [],
+              "length": 4,
+              "constraints": [
+                {
+                  "kind": "ik",
+                  "target": "mirrorTarget",
+                  "bones": 2,
+                  "bend": "cw"
+                }
+              ]
+            }
+          ],
+          "length": 5
+        }
+      ]
+    },
+    {
+      "id": "mirrorTarget",
+      "type": "group",
+      "x": 14,
+      "y": 2,
+      "children": []
+    }
+  ],
+  "timelines": {
+    "move": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 6],
+          [0.5, 0],
+          [1, -6]
+        ],
+        "target.y": [
+          [0, 2],
+          [0.5, 6],
+          [1, 2]
+        ],
+        "mirrorTarget.x": [
+          [0, 14],
+          [0.5, 20],
+          [1, 26]
+        ],
+        "mirrorTarget.y": [
+          [0, 2],
+          [0.5, 6],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "move",
+        "states": {
+          "move": {
+            "play": "move"
+          }
+        }
+      }
+    }
+  }
+}

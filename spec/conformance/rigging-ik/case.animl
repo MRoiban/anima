@@ -1,0 +1,99 @@
+<anima version="0.1" name="rigging-ik" grid="20" requires="rig ik">
+  <bone id="one" length="4">
+    <ik target="targetOne"/>
+  </bone>
+  <group id="targetOne" x="4" y="0"/>
+
+  <bone id="twoA" length="5" y="10">
+    <bone id="twoB" length="4">
+      <ik target="targetTwo" bones="2"/>
+    </bone>
+  </bone>
+  <group id="targetTwo" x="6" y="13"/>
+
+  <bone id="threeA" length="4" y="20">
+    <bone id="threeB" length="3">
+      <bone id="threeC" length="2">
+        <ik target="targetThree" bones="3"/>
+      </bone>
+    </bone>
+  </bone>
+  <group id="targetThree" x="5" y="24"/>
+
+  <bone id="oneFar" length="3" x="20">
+    <ik target="targetOneFar"/>
+  </bone>
+  <group id="targetOneFar" x="28" y="6"/>
+
+  <bone id="twoFarA" length="4" x="20" y="10">
+    <bone id="twoFarB" length="3">
+      <ik target="targetTwoFar" bones="2"/>
+    </bone>
+  </bone>
+  <group id="targetTwoFar" x="32" y="16"/>
+
+  <bone id="threeFarA" length="3" x="20" y="20">
+    <bone id="threeFarB" length="3">
+      <bone id="threeFarC" length="2">
+        <ik target="targetThreeFar" bones="3"/>
+      </bone>
+    </bone>
+  </bone>
+  <group id="targetThreeFar" x="34" y="28"/>
+
+  <bone id="halfA" length="5" x="40" y="10">
+    <bone id="halfB" length="4">
+      <ik strength="0.5" target="targetHalf" bones="2"/>
+    </bone>
+  </bone>
+  <group id="targetHalf" x="46" y="13"/>
+
+  <bone id="animatedA" length="5" x="40" y="20">
+    <bone id="animatedB" length="4">
+      <ik strength="0" target="targetAnimated" bones="2"/>
+    </bone>
+  </bone>
+  <group id="targetAnimated" x="46" y="23"/>
+
+  <timeline name="move" duration="1">
+    <track target="targetOne.x">
+      0    4
+      0.5  0
+      1    -4
+    </track>
+    <track target="targetOne.y">
+      0    0
+      0.5  4
+      1    0
+    </track>
+    <track target="targetTwo.x">
+      0    6
+      0.5  0
+      1    -6
+    </track>
+    <track target="targetTwo.y">
+      0    13
+      0.5  16
+      1    13
+    </track>
+    <track target="targetThree.x">
+      0    5
+      0.5  0
+      1    -5
+    </track>
+    <track target="targetThree.y">
+      0    24
+      0.5  27
+      1    24
+    </track>
+    <track target="animatedB.constraints.0.strength">
+      0    0
+      0.5  0.5
+      1    1
+    </track>
+  </timeline>
+
+  <layer name="main" initial="move">
+    <state name="move" play="move"/>
+  </layer>
+</anima>

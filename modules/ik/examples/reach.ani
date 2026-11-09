@@ -1,0 +1,100 @@
+{
+  "anima": "0.1",
+  "name": "ik-reach",
+  "grid": 40,
+  "requires": ["rig", "ik", "input", "bind"],
+  "inputs": {
+    "aimX": {
+      "type": "number",
+      "default": 30
+    },
+    "aimY": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "nodes": [
+    {
+      "id": "upper",
+      "type": "bone",
+      "x": 8,
+      "y": 20,
+      "children": [
+        {
+          "id": "upperArt",
+          "type": "rect",
+          "x0": 8,
+          "y0": 19.5,
+          "w": 9,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "fore",
+          "type": "bone",
+          "children": [
+            {
+              "id": "foreArt",
+              "type": "rect",
+              "x0": 17,
+              "y0": 19.5,
+              "w": 8,
+              "h": 1,
+              "fill": {
+                "color": "#d97757"
+              }
+            },
+            {
+              "id": "hand",
+              "type": "circle",
+              "center": [25, 20],
+              "r": 1.2,
+              "fill": {
+                "color": "#141413"
+              }
+            }
+          ],
+          "length": 8,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "aim",
+              "bones": 2,
+              "bend": "cw"
+            }
+          ]
+        }
+      ],
+      "length": 9
+    },
+    {
+      "id": "aim",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1.1,
+      "pivot": [0, 0],
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "drag-start|drag|drag-end",
+      "target": "aim",
+      "set": {},
+      "write": {
+        "x": "aimX",
+        "y": "aimY"
+      },
+      "align": "preserve"
+    }
+  ],
+  "bind": {
+    "aim.x": "aimX",
+    "aim.y": "aimY"
+  }
+}
