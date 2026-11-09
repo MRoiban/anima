@@ -2084,8 +2084,8 @@
     "anima": {
       "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
       "module": "posepad",
-      "status": "planned",
-      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert (pending orchestrator budgets)",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert",
       "phase": "P8"
     }
   },
@@ -2115,8 +2115,8 @@
     "anima": {
       "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
       "module": "posepad",
-      "status": "planned",
-      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis (pending orchestrator budgets)",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis",
       "phase": "P8"
     }
   },
@@ -24683,8 +24683,8 @@
     "anima": {
       "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
       "module": "posepad",
-      "status": "planned",
-      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick (pending orchestrator budgets)",
+      "status": "done",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick",
       "phase": "P8"
     }
   },

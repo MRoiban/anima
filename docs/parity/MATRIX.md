@@ -17,7 +17,7 @@ scope by the owner's triage of 2026-11-07).
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Drawing and paint | 125 | 110 |  |  |  | 1 | 14 |
 | Transforms and draw order | 17 | 16 |  |  |  |  | 1 |
-| Animation | 40 | 33 |  | 3 |  |  | 4 |
+| Animation | 40 | 35 |  | 1 |  |  | 4 |
 | State machines | 61 | 60 |  |  |  |  | 1 |
 | Listeners and input | 93 | 90 |  |  |  |  | 3 |
 | Data: view models, binding, converters | 169 | 165 |  |  |  |  | 4 |
@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 |  |  | 22 |  | 1 |  |
+| Rigging | 23 | 1 |  | 21 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **861** | **0** | **25** | **0** | **188** | **164** |
+| **Total** | **1238** | **864** | **0** | **22** | **0** | **188** | **164** |
 
-**Progress:** 861 of 886 in-scope capabilities done (97 %); 861 of 1238 in the full matrix (70 %).
+**Progress:** 864 of 886 in-scope capabilities done (98 %); 864 of 1238 in the full matrix (70 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1308,8 +1308,8 @@ scope by the owner's triage of 2026-11-07).
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `animation.joystick-handle` | Handle-driven posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | planned | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle (pending orchestrator budgets) |
-| `animation.joystick-invert` | Invert pose axes | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | planned | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert (pending orchestrator budgets) |
-| `animation.joystick-two-axis` | Two-axis timeline posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | planned | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis (pending orchestrator budgets) |
+| `animation.joystick-invert` | Invert pose axes | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert |
+| `animation.joystick-two-axis` | Two-axis timeline posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis |
 
 ### Rigging
 
@@ -1325,7 +1325,7 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.follow-path` | Follow path constraint | new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-follow-path |
 | `rigging.ik` | Inverse kinematics | new: inverse kinematics with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik |
 | `rigging.ik-bend` | IK bend direction | new: ik bend direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik-bend |
-| `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | planned | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick (pending orchestrator budgets) |
+| `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick |
 | `rigging.list-follow-path` | List follow-path constraint | new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-list-follow-path |
 | `rigging.mesh` | Textured triangle meshes | new: textured triangle meshes with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-mesh |
 | `rigging.mesh-animation` | Mesh vertex deformation | new: mesh vertex deformation with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-mesh-animation |
