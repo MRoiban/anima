@@ -1,0 +1,10 @@
+<anima version="0.1" name="bounds-clip" grid="100" requires="a11y composite">
+  <group id="clipped" x="5">
+    <clip source="edge"/>
+    <a11y role="group"/>
+    <rect id="target" x0="0" y0="0" width="20" height="10" fill="#000">
+      <a11y role="img"/>
+    </rect>
+  </group>
+  <rect id="edge" x0="0" y0="2" width="6" height="20" x="7" visible="false" stroke="#000" stroke-width="10"/>
+</anima>

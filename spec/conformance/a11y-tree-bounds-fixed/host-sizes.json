@@ -1,0 +1,12 @@
+[
+  {
+    "size": 100,
+    "bounds": [9, 9, 2, 14],
+    "expected": "expected.jsonl"
+  },
+  {
+    "size": 200,
+    "bounds": [9.5, 9.5, 1, 13],
+    "expected": "host-large/expected.jsonl"
+  }
+]
