@@ -762,7 +762,10 @@ function resolve(doc: Raw, d: Diags): Model {
             'bad-condition',
             wp,
             V && `"${tr.when}": ${terms}`,
-            V && 'terms: name, !name, name OP number, @end, @after(s), joined with &&',
+            V &&
+              (/(^|\s)(not|or)\s/.test(String(tr.when))
+                ? '"not" and "or" are bind-expression syntax: write !name, and one transition per "or" branch'
+                : 'terms: name, !name, name OP number, @end, @after(s), joined with &&'),
           );
         else {
           t.terms = terms;

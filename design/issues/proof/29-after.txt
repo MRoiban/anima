@@ -1,0 +1,12 @@
+# Issue #29 after the fix
+$ anima validate i29.animl
+i29.animl:5:33 error bad-condition "not on": cannot read "not on"
+  hint: "not" and "or" are bind-expression syntax: write !name, and one transition per "or" branch
+i29.animl:6:33 error bad-condition "on or hover": cannot read "on or hover"
+  hint: "not" and "or" are bind-expression syntax: write !name, and one transition per "or" branch
+i29.animl:2:3 warning unused-input nothing reads or writes "on"
+i29.animl: 2 errors, 1 warning
+
+$ npx vitest run packages/core/test/issue-29.test.ts
+ Test Files  1 passed (1)
+      Tests  2 passed (2)

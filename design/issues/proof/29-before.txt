@@ -1,0 +1,17 @@
+# Issue #29 before the fix (load.ts at eb89d464)
+$ anima validate i29.animl
+i29.animl:5:33 error bad-condition "not on": cannot read "not on"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+i29.animl:6:33 error bad-condition "on or hover": cannot read "on or hover"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+i29.animl:2:3 warning unused-input nothing reads or writes "on"
+i29.animl: 2 errors, 1 warning
+
+$ npx vitest run packages/core/test/issue-29.test.ts
+   × points not/or guards at the guard grammar 41ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  |unit| packages/core/test/issue-29.test.ts > points not/or guards at the guard grammar
+AssertionError: expected 'terms: name, !name, name OP number, @…' to match /"not" and "or" are bind-expression sy…/
+- Expected:
++ Received:
+      Tests  1 failed | 1 passed (2)

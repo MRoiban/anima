@@ -148,6 +148,9 @@ inspect reports overlaps. Empty poses return to values below that layer.
 
 Conditions accept `hover`, `!down`, `level > 0.5`, `@after(0.3)` and `@end`, joined with
 `and`. For “or”, write separate transitions. `@end` needs a `once` timeline.
+Guards are not bind expressions: negate with `!name`, not `not name`, and there is no `or` or
+parentheses. `not`, `or` and parentheses belong to bind and derive expressions (below), and a guard
+that uses them fails with `bad-condition`.
 Use `fire` for triggers, `set="a=true b=false"` for declared bools or numbers,
 and `toggle` for bools. A listener's optional `target` names a node; otherwise it hits
 `<hit>` or the viewBox. For example, `<hit circle="10 10 10.8"/>` sets a hit disc.
