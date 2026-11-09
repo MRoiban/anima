@@ -70,6 +70,7 @@ const ENTITY = /&(?:(amp|lt|gt|quot|apos)|#([0-9]{1,7})|#x([0-9a-fA-F]{1,6}));/y
 const NAMED: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
 /** Characters XML 1.0 forbids, literally or as a reference (lone surrogates included). */
 export const NOT_CHAR =
+  // eslint-disable-next-line no-control-regex -- matching XML 1.0's forbidden control characters is the point
   /[\0-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
 
 /**
