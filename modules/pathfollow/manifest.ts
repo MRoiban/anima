@@ -1,5 +1,4 @@
-// TODO: review dependencies and measured budget before implementation.
-export const after: string[] = [];
+export const after = ['rig', 'lists', 'contour'];
 export default {
   ...{
     name: 'pathfollow',
@@ -10,7 +9,7 @@ export default {
       svg: 'core/svg.ts',
       svgExport: 'pathfollowSVG',
     },
-    web: [{ name: 'pathfollow', budget: 5120 }],
+    web: [{ name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' }],
     adapters: {
       'packages/core/src/modules/pathfollow/index.ts': 'core/index.ts',
       'packages/core/src/modules/pathfollow/svg.ts': 'core/svg.ts',
