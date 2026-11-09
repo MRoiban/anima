@@ -39,3 +39,9 @@ RWR = `docs/research/rive-web-runtime.md`, GC = `docs/research/glyphy-compat.md`
 - **D33 Pre-player `toggle()` shares the `set`/`fire` FIFO:** one queue, one order rule — SPEC "Host input queue", issue #24 decision.
 - **D34 The benchmark is a reaching arm (IK + skin + distance gate + eased release); only the P4c volume brief is rerun (AniML), because R4-02 touches input and focus:** exercises the phase's main rows in one brief, regression check limited to touched modules — `docs/benchmarks/agent-native.md`.
 - **D35 The mesh oracle compares Rive against `anima render` with CLI triangle output; browser canvas meshes are compared against that render in a browser test:** the oracle tooling renders through the CLI (resvg), which has no canvas — `tests/oracle/README.md`.
+
+## Orchestrator answers (2026-11-09)
+
+- D30 accepted: the 15,872 B authoring cap is the orchestrator's own and stays under the owner ceiling (16,384 B).
+- D14 accepted: the owner's ground rules allow following an MIT solver when the spec says so and NOTICE carries the attribution; the P8-2 coder may read Rive's MIT IK source for the algorithm only and writes Anima's code independently, with no text copied.
+- Unconfirmed Rive behaviours (list spacing, path wrap, copy constraints without a target): the spec's choice stands until the oracle runs; a mismatch is fixed or recorded as an intentional difference, never a widened budget.
