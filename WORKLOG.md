@@ -20,12 +20,13 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   parents: root, component root, group, bone), D39 zero rest scale is `bad-value`, D40 core point
   tuples (+16 B core+web), D41 budget resets (mesh 1,472, posepad 896, components 3,840), D42 no
   mesh oracle budgets before a diff analysis, D43 mesh budgets 70/0.40 and 100/0.45 (seams and edge
-  only), D44 rig probes use rect art; unrotated 16/2/0, rotated 65/0.12. **14/26 rows done**
-  (tree-bounds, 3 posepad, 2 mesh, 8 rig). Open: rig bone-chains, root-bones (`rig-bone-parent`
-  order) and transform (origin gaps) in P8-1b; IK (P8-2, only a scaffold committed, 5f7ba667);
-  path follow, skin, scroll; posepad handle. Codex limit until 23:30: patches `p8-1b-1`, `p8-2-1`;
-  a scheduled task resumes both at 23:35. Size exits 0: core+web 22,803, Rive-class 163,987.
-  Disk 3.5 GB free.
+  only), D44 rig probes use rect art; unrotated 16/2/0, rotated 65/0.12; D45 IK 65/0.25; D46
+  follow-path 65/0.12 (re-authored curved probe; list spacing matched Rive per-child follow-path).
+  **18/26 rows done**: tree-bounds, 3 posepad, 2 mesh, 8 rig, 2 IK, 2 path follow. Open: rig
+  bone-chains, root-bones, transform (P8-1b on Terra, scheduled resume 23:35, worktree t3-8efe4597);
+  skin x3 (P8-4 running on GPT-5.6 Sol Web); scroll (P8-7); posepad handle (P8-6 thread, worktree
+  t3-480918c8). Then wave 3. Fixed on the branch: mesh probe lint, rig browser test filters to
+  `requires: rig`. Size exits 0; Rive-class 166,755. Disk 2.9 GB (95 %).
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
