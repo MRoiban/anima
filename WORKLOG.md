@@ -17,11 +17,14 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
 - P8 design merged (`design/p8/`: DESIGN, BENCHMARK, tickets P8-1…9, DECISIONS D1–D35 + my answers
   and D36 `posepad` one word, D37 optional `posepad-handle` entry if `posepad` > 768 B, D38 bone
-  parents: root, component root, group, bone). Wave 1 (P8-1 rig core, P8-5 mesh, P8-6 pose pads,
-  P8-8 R4-02 + toggle, P8-9 tree bounds) stopped on the Codex usage limit and was resumed in the same
-  threads (2026-11-09); only P8-1 has a commit (c7f8bc0c, the constraint API). Wave 2 after P8-1
-  merges: P8-2 IK, P8-3 path follow, P8-4 skin, P8-7 scroll; tell P8-6 to rebase for its
-  distance-gated handle. Wave 3: benchmark, closure, perf, PR.
+  parents: root, component root, group, bone). Merged into `p8-rigging`: P8-9 (tree bounds done),
+  P8-6 (three posepad rows done; oracle cases added by me at 16/2/0 from measured max 1;
+  `animation.joystick-handle` waits for P8-1, its worktree t3-480918c8 kept), P8-8 (R4-02 + toggle
+  queue). 4/26 rows done. Perf vs main after these merges: within noise (bell +2.3/−5.2 %,
+  composite/toolbar ±1 %). P8-1 (only c7f8bc0c committed) and P8-5 stopped on the Codex limit again
+  (until 18:28); patches `p8-1-2.patch`, `p8-5-2.patch`; a scheduled task resumes both at 18:35.
+  Wave 2 after P8-1 merges: P8-2 IK, P8-3 path follow, P8-4 skin, P8-7 scroll; then P8-6 rebases for
+  the handle row. Wave 3: benchmark, closure, perf, PR.
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
