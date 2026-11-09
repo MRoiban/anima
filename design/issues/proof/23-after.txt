@@ -1,0 +1,649 @@
+Final source 16247484.
+Command: ANIMA_ISSUE_PROOF=after VITEST_MAX_WORKERS=2 npm run test:scope -- web canvas components oracle
+Result: PASS in Chromium and Firefox; all 12 new WEB regressions passed.
+Chromium: {
+  "aspectHost": [
+    {
+      "renderer": "svg",
+      "label": "golem",
+      "host": [
+        31.5,
+        17.5
+      ],
+      "drawing": [
+        0,
+        0,
+        31,
+        17.21875
+      ],
+      "semantic": [
+        0.003124237060546875,
+        0,
+        30.993751525878906,
+        17.21875
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "wide",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "tall",
+      "host": [
+        120,
+        180
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "offset",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        -3,
+        -2,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "square-bleed",
+      "host": [
+        24,
+        24
+      ],
+      "drawing": [
+        -2.390625,
+        -2.390625,
+        28.796875,
+        28.796875
+      ],
+      "semantic": [
+        0.009115219116210938,
+        0.009115219116210938,
+        28.796876907348633,
+        28.796876907348633
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "golem",
+      "host": [
+        31.5,
+        17.5
+      ],
+      "drawing": [
+        0,
+        0,
+        31,
+        17.21875
+      ],
+      "semantic": [
+        0,
+        0,
+        31,
+        17.21875
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "wide",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "tall",
+      "host": [
+        120,
+        180
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "offset",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        -3,
+        -2,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "square-bleed",
+      "host": [
+        24,
+        24
+      ],
+      "drawing": [
+        -2.390625,
+        -2.390625,
+        28.796875,
+        28.796875
+      ],
+      "semantic": [
+        0.009115219116210938,
+        0.009115219116210938,
+        28.796876907348633,
+        28.796876907348633
+      ],
+      "hit": true
+    }
+  ],
+  "explicitSquareHost": [
+    {
+      "renderer": "svg",
+      "wide": true,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": true,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -19.999998092651367,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": false,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": false,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": true,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": true,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": false,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": false,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        240,
+        720
+      ],
+      "hit": true
+    }
+  ]
+}
+Firefox: {
+  "aspectHost": [
+    {
+      "renderer": "svg",
+      "label": "golem",
+      "host": [
+        31.5,
+        17.5
+      ],
+      "drawing": [
+        0,
+        0,
+        31,
+        17.216659545898438
+      ],
+      "semantic": [
+        0,
+        0,
+        30.98333740234375,
+        17.216659545898438
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "wide",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "tall",
+      "host": [
+        120,
+        180
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "offset",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        -3,
+        -2,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "label": "square-bleed",
+      "host": [
+        24,
+        24
+      ],
+      "drawing": [
+        -2.399993896484375,
+        -2.399993896484375,
+        28.79998779296875,
+        28.79998779296875
+      ],
+      "semantic": [
+        0,
+        0,
+        28.800003051757812,
+        28.800003051757812
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "golem",
+      "host": [
+        31.5,
+        17.5
+      ],
+      "drawing": [
+        0,
+        0,
+        31,
+        17.23333740234375
+      ],
+      "semantic": [
+        0,
+        0,
+        31,
+        17.23333740234375
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "wide",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "tall",
+      "host": [
+        120,
+        180
+      ],
+      "drawing": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        180
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "offset",
+      "host": [
+        120,
+        28
+      ],
+      "drawing": [
+        -3,
+        -2,
+        120,
+        28
+      ],
+      "semantic": [
+        0,
+        0,
+        120,
+        28
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "label": "square-bleed",
+      "host": [
+        24,
+        24
+      ],
+      "drawing": [
+        -2.399993896484375,
+        -2.399993896484375,
+        28.79998779296875,
+        28.79998779296875
+      ],
+      "semantic": [
+        0,
+        0,
+        28.800003051757812,
+        28.800003051757812
+      ],
+      "hit": true
+    }
+  ],
+  "explicitSquareHost": [
+    {
+      "renderer": "svg",
+      "wide": true,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": true,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": false,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "svg",
+      "wide": false,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": true,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": true,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        720,
+        240
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": false,
+      "x": 0,
+      "y": 0,
+      "rect": [
+        0,
+        0,
+        240,
+        720
+      ],
+      "hit": true
+    },
+    {
+      "renderer": "canvas",
+      "wide": false,
+      "x": -3,
+      "y": -2,
+      "rect": [
+        -30,
+        -20,
+        240,
+        720
+      ],
+      "hit": true
+    }
+  ]
+}
+
+Trimmed Vitest summary:
+Test Files  89 passed (89)
+      Tests  7231 passed | 599 skipped | 18 todo (7848)
+   Start at  10:06:54
+   Duration  628.01s (tests 96%, import 4%)

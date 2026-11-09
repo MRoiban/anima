@@ -1,0 +1,91 @@
+Baseline eb89d464; regression test issue #27 on the unmodified runtime.
+Command: ANIMA_ISSUE_PROOF=before npx vitest run --project browser packages/web/test/browser.test.ts -t "WEB issues"
+Result: FAIL in Chromium and Firefox (8 expected assertion failures across the four issues).
+Chromium: {
+  "initial": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "text": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "reload": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "canvas": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "svg": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  }
+}
+Firefox: {
+  "initial": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "text": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "reload": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "canvas": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "svg": {
+    "part": null,
+    "background": "rgba(0, 0, 0, 0)"
+  }
+}
+
+Trimmed Vitest assertion output:
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Chromium > issue #27: page ::part styles survive textRun, reload and renderer switches
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #27: page ::part styles survive textRun, reload and renderer switches
+AssertionError: expected { part: null, …(1) } to deeply equal { part: 'svg', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "background": "rgb(240, 210, 120)",
+-   "part": "svg",
++   "background": "rgba(0, 0, 0, 0)",
++   "part": null,
+  }
+
+ ❯ packages/web/test/issues.ts:404:27
+    402|     await proof(27, result, true);
+    403|     for (const key of ['initial', 'text', 'reload', 'svg'] as const)
+    404|       expect(result[key]).toEqual({ part: 'svg', background: 'rgb(240,…
+       |                           ^
+    405|     expect(result.canvas).toEqual({ part: 'canvas', background: 'rgb(1…
+    406|   }, 30000);
+
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #27: page ::part styles survive textRun, reload and renderer switches
+AssertionError: expected { part: null, …(1) } to deeply equal { part: 'svg', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "background": "rgb(240, 210, 120)",
+-   "part": "svg",
++   "background": "rgba(0, 0, 0, 0)",
++   "part": null,
+  }
+
+ ❯ packages/web/test/issues.ts:404:27
+    402|     await proof(27, result, true);
+    403|     for (const key of ['initial', 'text', 'reload', 'svg'] as const)
+    404|       expect(result[key]).toEqual({ part: 'svg', background: 'rgb(240,…
+       |                           ^
+    405|     expect(result.canvas).toEqual({ part: 'canvas', background: 'rgb(1…
+    406|   }, 30000);

@@ -1,0 +1,31 @@
+WEB final verification; runtime source 16247484
+
+Initial required changed scope (under shared load, before explicit-host correction), exit 1:
+Test Files  5 failed | 385 passed | 12 skipped (402)
+      Tests  17 failed | 7614 passed | 2582 skipped | 34 todo (10247)
+   Start at  09:36:53
+   Duration  1349.22s (tests 91%, import 8%, transform 1%)
+
+Component failure reproduced in isolation before correction, exit 1:
+Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  10:01:14
+   Duration  7.02s (tests 90%, import 9%, transform 1%)
+
+Final web/canvas/components/oracle scope, exit 0:
+Test Files  89 passed (89)
+      Tests  7231 passed | 599 skipped | 18 todo (7848)
+   Start at  10:06:54
+   Duration  628.01s (tests 96%, import 4%)
+
+Final full size check, exit 0:
+gate                     value (B)   ceiling (B)
+core+web                     22770         24576
+largest scene (30)           57739         65536
+app-UI scene                107877        131072
+runtime sum                 133760        163840
+authoring add-on             15017         16384
+Rive-class (heavy)          152874        256000
+
+Other final checks: lint, format, web source/test TypeScript, gen, build-animl --check (674), parity --check (1238) and browser build: PASS.
+No thresholds, timeouts of existing suites, or size budgets changed.
