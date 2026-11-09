@@ -1,0 +1,36 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/{issues,overlay,bf4,text-hit}.test.ts modules/focus/test/web/{focus,rottweiler-p3,p4-review}.test.ts --maxWorkers=1
+Exit: 1
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-15c08c3c
+
+ ❯ |browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed) 129220ms
+   ❯ overlay Firefox (22)
+     × attaches after separately bundled focus/actions and an already loaded model 6728ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:427:5
+    425|       expect(await page.locator('[data-focus="volume"]').count()).toBe…
+    426|     });
+    427|     it('attaches after separately bundled focus/actions and an already…
+       |     ^
+    428|       await page.close();
+    429|       page = await browser.newPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  1 failed | 145 passed (146)
+   Start at  09:44:53
+   Duration  403.81s (tests 96%, import 3%, transform 1%)
+
+Targeted remaining-test retry:
+Command: npx vitest run --project browser modules/a11y-dom/test/web/overlay.test.ts -t "overlay Firefox.*attaches after separately" --maxWorkers=1 --reporter=verbose
+ ✓ |browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > attaches after separately bundled focus/actions and an already loaded model 3403ms
+ Test Files  1 passed (1)
+      Tests  1 passed | 43 skipped (44)
+   Duration  6.67s (tests 84%, import 15%)
+Exit: 0.

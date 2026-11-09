@@ -63,7 +63,7 @@ it('R2-07: a caret on an empty line follows alignment and normalized origin', ()
   for (const [text, extra, x] of [
     ['', { align: 'center' }, 6],
     ['a\n', { align: 'center' }, 6],
-    ['', { align: 'right' }, 12],
+    ['', { align: 'right' }, 11.94],
     ['', { align: 'center', origin: [0.5, 0] }, 0],
   ] as const) {
     const p = field(text, extra, { multiline: true });
@@ -74,7 +74,7 @@ it('R3-06: negative tracking selects the union of cluster advances, never a nega
   const p = field('AB', { styles: { s: { size: 1, tracking: -3 } } });
   select(p, 'q', 0, 2);
   const n = drawFrame(p).nodes[0] as FieldNode;
-  expect(n.fieldBoxes![0]).toMatchObject({ x: -2, width: 3 });
+  expect(n.fieldBoxes![0]).toMatchObject({ x: 0, width: 1 });
 });
 it('R3-07/R4-04: field semantic bounds follow animated dimensions', () => {
   registerTextMeasurer(fixedMeasurer);

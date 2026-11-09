@@ -17,6 +17,8 @@ export const entries: ModuleEntry[] = [
           editable: bool,
           multiline: bool,
           obscured: bool,
+          caretBlink: { ...bool, markup: 'caret-blink' },
+          selectionTextColor: { ...color, markup: 'selection-text-color' },
           placeholder: str,
           placeholderColor: { ...color, markup: 'placeholder-color' },
           selectOnFocus: { ...bool, markup: 'select-on-focus' },

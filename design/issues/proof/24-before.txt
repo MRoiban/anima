@@ -1,0 +1,81 @@
+Baseline eb89d464; regression test issue #24 on the unmodified runtime.
+Command: ANIMA_ISSUE_PROOF=before npx vitest run --project browser packages/web/test/browser.test.ts -t "WEB issues"
+Result: FAIL in Chromium and Firefox (8 expected assertion failures across the four issues).
+Chromium: {
+  "stale": true,
+  "before": false,
+  "after": false,
+  "states": {
+    "main": "off"
+  },
+  "next": false,
+  "unknown": "",
+  "order": []
+}
+Firefox: {
+  "stale": true,
+  "before": false,
+  "after": false,
+  "states": {
+    "main": "off"
+  },
+  "next": false,
+  "unknown": "",
+  "order": []
+}
+
+Trimmed Vitest assertion output:
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Chromium > issue #24: pre-player writes retain call order through deferred and superseded loads
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #24: pre-player writes retain call order through deferred and superseded loads
+AssertionError: expected { stale: true, before: false, …(5) } to match object { stale: true, before: false, …(3) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "after": true,
++   "after": false,
+    "before": false,
+    "next": false,
+    "stale": true,
+    "states": {
+-     "main": "entering",
++     "main": "off",
+    },
+  }
+
+ ❯ packages/web/test/issues.ts:278:20
+    276|     }, scene);
+    277|     await proof(24, result);
+    278|     expect(result).toMatchObject({
+       |                    ^
+    279|       stale: true,
+    280|       before: false,
+
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #24: pre-player writes retain call order through deferred and superseded loads
+AssertionError: expected { stale: true, before: false, …(5) } to match object { stale: true, before: false, …(3) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "after": true,
++   "after": false,
+    "before": false,
+    "next": false,
+    "stale": true,
+    "states": {
+-     "main": "entering",
++     "main": "off",
+    },
+  }
+
+ ❯ packages/web/test/issues.ts:278:20
+    276|     }, scene);
+    277|     await proof(24, result);
+    278|     expect(result).toMatchObject({
+       |                    ^
+    279|       stale: true,
+    280|       before: false,

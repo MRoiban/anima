@@ -1,0 +1,20 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts -t Chromium
+Baseline: eb89d464
+modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #33 disabled focus scope keeps its role, accessible subtree and enabled roving tabs
+AssertionError: expected '' to be null
+
+- Expected:
+null
+
++ Received:
+""
+
+ ❯ modules/a11y-dom/test/web/issues.test.ts:153:59
+    151|         ]),
+    152|       );
+    153|       expect(await target('tabs').getAttribute('hidden')).toBeNull();
+       |                                                           ^
+    154|       expect(await page.locator('anima-icon').ariaSnapshot()).toContai…
+    155|       await target('a').focus();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯

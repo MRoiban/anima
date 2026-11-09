@@ -53,6 +53,7 @@ export class CanvasRenderer implements IconRenderer {
     style.textContent =
       ':host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}canvas{position:absolute;pointer-events:none}';
     this.canvas.setAttribute('aria-hidden', 'true');
+    this.canvas.setAttribute('part', 'canvas');
     icon.shadowRoot!.replaceChildren(style, this.canvas);
     this.connect();
   }
@@ -108,8 +109,10 @@ export class CanvasRenderer implements IconRenderer {
     const align = this.#icon.getAttribute('align') ?? 'center';
     const factor = (lo: string, hi: string) =>
       align.includes(lo) ? 0 : align.includes(hi) ? 1 : 0.5;
-    const cw = fitted ? host.width : fit === 'none' ? w : (host.width * w) / g;
-    const ch = fitted ? host.height : fit === 'none' ? h : (host.height * h) / g;
+    const scale = (w >= h ? host.width : host.height) / g;
+    const px = (v: number, side: number) => (w === h ? (side * v) / g : v * scale);
+    const cw = fitted ? host.width : fit === 'none' ? w : px(w, host.width);
+    const ch = fitted ? host.height : fit === 'none' ? h : px(h, host.height);
     Object.assign(this.canvas.style, {
       width: cw + 'px',
       height: ch + 'px',
@@ -118,13 +121,13 @@ export class CanvasRenderer implements IconRenderer {
           ? host.left
           : fit === 'none'
             ? (host.width - w) * factor('left', 'right')
-            : (host.width * x) / g) + 'px',
+            : px(x, host.width)) + 'px',
       top:
         (fitted
           ? host.top
           : fit === 'none'
             ? (host.height - h) * factor('top', 'bottom')
-            : (host.height * y) / g) + 'px',
+            : px(y, host.height)) + 'px',
     });
     const width = Math.max(1, Math.round(cw * this.pixelRatio));
     const height = Math.max(1, Math.round(ch * this.pixelRatio));

@@ -13,6 +13,7 @@ export default {
     web: [
       // Reset by the P3c rule (measured × 1.10, 64 B steps) after the review fixes, 2026-11-09.
       { name: 'text-input', budget: 4544, heavy: true },
+      { name: 'text-input-extra', budget: 2048, over: 'text-input', heavy: true },
       { name: 'text-input-svg', budget: 512, over: 'text-input', heavy: true },
       { name: 'text-input-clipboard', budget: 512, over: 'text-input', heavy: true },
       { name: 'text-input-canvas', budget: 256, over: 'text-input', heavy: true },
@@ -23,6 +24,7 @@ export default {
       'packages/core/src/modules/text-input/svg.ts': 'core/svg.ts',
       'packages/markup/src/text-input.ts': 'markup/index.ts',
       'packages/web/src/text-input.ts': 'web/index.ts',
+      'packages/web/src/text-input-extra.ts': 'web/extra.ts',
       'packages/web/src/text-input-svg.ts': 'web/svg.ts',
       'packages/web/src/text-input-clipboard.ts': 'web/clipboard.ts',
       'packages/web/src/text-input-canvas.ts': 'web/canvas.ts',
@@ -32,6 +34,7 @@ export default {
       'core:./text-input': 'packages/core/src/modules/text-input/index.ts',
       'markup:./text-input': 'packages/markup/src/text-input.ts',
       'web:./text-input': 'packages/web/src/text-input.ts',
+      'web:./text-input-extra': 'packages/web/src/text-input-extra.ts',
       'web:./text-input-svg': 'packages/web/src/text-input-svg.ts',
       'web:./text-input-clipboard': 'packages/web/src/text-input-clipboard.ts',
       'web:./text-input-canvas': 'packages/web/src/text-input-canvas.ts',

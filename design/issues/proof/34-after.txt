@@ -1,0 +1,15 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts --maxWorkers=1 --reporter=verbose
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 toolbar uses one tab stop, both arrow axes and Home/End 1742ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 roves without logical focus and skips disabled cells without changing column indices 1193ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 toolbar respects focus order and a grid row can traverse its parent scope 1149ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=stop, page keys pass through 3607ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=closed-loop, page keys pass through 2092ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #34 grid uses 2-D row/column roving, edge=parent-scope, page keys pass through 1672ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 toolbar uses one tab stop, both arrow axes and Home/End 5252ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 roves without logical focus and skips disabled cells without changing column indices 3504ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 toolbar respects focus order and a grid row can traverse its parent scope 2860ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 grid uses 2-D row/column roving, edge=stop, page keys pass through 5348ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 grid uses 2-D row/column roving, edge=closed-loop, page keys pass through 9700ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #34 grid uses 2-D row/column roving, edge=parent-scope, page keys pass through 4888ms
+
+Result: 22 passed across Chromium and Firefox; exit 0.

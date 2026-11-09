@@ -1,0 +1,25 @@
+{
+  "start": 8,
+  "end": 8,
+  "type": "text",
+  "hidden": false,
+  "clip": true,
+  "field": {
+    "x": 32,
+    "y": 32,
+    "width": 60,
+    "height": 24,
+    "top": 32,
+    "right": 92,
+    "bottom": 56,
+    "left": 32
+  },
+  "tspans": [
+    {
+      "text": "ABCDEFGH",
+      "fill": "rgb(0, 0, 255)",
+      "x": "-4.66046",
+      "y": "1.6"
+    }
+  ]
+}

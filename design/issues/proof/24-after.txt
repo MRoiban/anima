@@ -1,0 +1,81 @@
+Final source 16247484.
+Command: ANIMA_ISSUE_PROOF=after VITEST_MAX_WORKERS=2 npm run test:scope -- web canvas components oracle
+Result: PASS in Chromium and Firefox; all 12 new WEB regressions passed.
+Chromium: {
+  "stale": true,
+  "before": false,
+  "after": true,
+  "states": {
+    "main": "entering"
+  },
+  "next": false,
+  "unknown": "Error: anima: absent",
+  "order": [
+    [
+      "set",
+      "on",
+      false
+    ],
+    [
+      "fire",
+      "go"
+    ],
+    [
+      "set",
+      "on",
+      true
+    ],
+    [
+      "set",
+      "on",
+      false
+    ],
+    [
+      "set",
+      "on",
+      true
+    ]
+  ]
+}
+Firefox: {
+  "stale": true,
+  "before": false,
+  "after": true,
+  "states": {
+    "main": "entering"
+  },
+  "next": false,
+  "unknown": "Error: anima: absent",
+  "order": [
+    [
+      "set",
+      "on",
+      false
+    ],
+    [
+      "fire",
+      "go"
+    ],
+    [
+      "set",
+      "on",
+      true
+    ],
+    [
+      "set",
+      "on",
+      false
+    ],
+    [
+      "set",
+      "on",
+      true
+    ]
+  ]
+}
+
+Trimmed Vitest summary:
+Test Files  89 passed (89)
+      Tests  7231 passed | 599 skipped | 18 todo (7848)
+   Start at  10:06:54
+   Duration  628.01s (tests 96%, import 4%)

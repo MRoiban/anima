@@ -11,42 +11,18 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Goal: a smaller, agent-native Rive for animated web UI. Next phase: P8 rigging (bones,
   constraints, IK, skinning, meshes, vertex weights; heavy modules on the canvas backend; path
   measurement internal) plus the `a11y.tree-bounds` carry-over.
-- P7 merged (PR #36, c3b79b4). Branch `p8` from main. In scope 860/886 (97 %).
-- Now (owner, 2026-11-08): per-phase Rottweiler review before P8 — one Opus 5.5 lead per phase
-  (P1 = PRs #1–#7, P2 #8, P3 #9/#19/#20, P4 #10/#12–#16, P5 #11/#17, P6 #21, P7 #36), each running 5
-  rounds with one GPT-6.1-sol reviewer at a time and fixing on its own branch from p8; brief
-  `design/rottweiler/LEAD.md`, ledgers `design/rottweiler/<PHASE>-LEDGER.md`. Batches of 3 leads
-  (machine load). Done: P5 (20 fixed, 6 deferred; 2c09c86), P7 (R1 7 + R2–R5 15 fixed, 2 deferred: R2-5 fonts
-  faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Done also: P3 (25 fixed, 2
-  pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
-  deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
-  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1), P6 (merged 7561bb7; its R2-5 fix for P7).
-  All seven merged into p8; review PR #37 open (unit 6,812/0, oracle 0, perf within guard); P7 round-1 fix coder (7 findings, ledger in my
-  scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
-  instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
-  then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
-- Review follow-ups: DONE (2026-11-09, orchestrator) asset loader rejecting with a plain `Error` now
-  fails the load so `ready` settles (modules/assetio/test/web/reject.test.ts), and free-form JSON
-  counts toward the 96-level nesting limit with a cycle-safe walk (packages/core/test/review-followups.test.ts).
-  Still open, to list in the PR: P3's round-5 fixes to the reduced-motion blend restore path had no further review;
-  P7 R4-6 external component `$parent.x` unchecked (NaN); P6 R2-5 font faces after repeated
-  `fonts.set` (sent to the P6 lead — check its ledger); P5 deferrals waiting on a `markup-libraries`
-  split; P4 R3-03 re-registering base paint replaces the sampling backend (P5b code), R4-02 pointer
-  focus and hit order ignore composite `drawOrder` (needs a joint input/focus/composite decision),
-  R2-05 gamepad polling stops after a long detach (needs a host connect signal). P1: P2/P6 share
-  `packages/web/src/index.ts` ARIA edits (expect a conflict); P1 R2-03 knockouts ignore stroke trims
-  (needs bell fixture + canvas change). Decided (owner may revisit) and done: one 96-level JSON nesting
-  limit for the whole document (P1 R3-04/R4-08 root cause).
-- Owner decisions raised in PR #37: P6 R2-04 non-square viewBox drawing offset (needs a mapping
-  decision for SVG + canvas), P4 R4-02 hit/focus order vs drawOrder, a11y.tree-bounds maybe-later.
-- After the review PR merges: P8 design (rigging).
-- Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
-  authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
-  markup-libraries 2,176/2,176, fonts-info 7,952/8,192 (heavy).
-- Open: `modules/text/test/web/live-runs.test.ts` failed on CI twice (Chromium live vs control
-  screenshots) then passed; diagnostics are in the test — if it fails again, read the CI log detail.
-  Bell compile is at the ≤ 3 % guard (+2.9 % vs main before P7): consider speeding the registry
-  compile path.
+- Per-phase Rottweiler review (P1–P7, ~190 fixes) merged in PR #37 (2ce1ef3). Ledgers in
+  `design/rottweiler/`; changelog `docs/changelog/2026-11-09-rottweiler.md`.
+- Open issues #23–#35 (Golem, anima-kit) fixed on `issues-23-35` (brief, ticket reports and
+  before/after proof in `design/issues/`), one PR to main. P6 R2-04 (non-square viewBox) is
+  settled by #23. Still waiting on the owner: P4 R4-02 hit/focus order vs `drawOrder`;
+  `a11y.tree-bounds` maybe-later.
+- Deferred review items are listed in PR #37 (entry splits for markup-libraries/fonts, construction
+  context, gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names).
+- Next: P8 design (`design/p8/DESIGN.md`) and briefs.
+- Gates now (issues branch): core+web 22,782; largest scene 57,781; app-UI 107,899; runtime sum
+  135,579; authoring 15,017; Rive-class 155,805. Tight entries: markup-libraries 2,174/2,176,
+  components 3,454/3,456, canvas 5,865/5,888, markup-hooks 4,523/4,544, fonts-info 8,100/8,192.
 
 ## Owner
 
@@ -69,6 +45,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
     style) — closed as an intentional difference from Rive (start/middle/end match natively);
     P7-6 closed 11 text rows as documented differences (continuous fitting, typographic ellipsis,
     effective trim, native-field semantics).
+  - Issues #23–#35 (2026-11-09): non-square viewBox → uniform scale, the host's long axis spans
+    `grid` (square unchanged); pre-player `set`/`fire` queued FIFO; `icon.settle()` (bounded 60 s,
+    events discarded); `part="svg"`/`part="canvas"`; keyboard semantic actions dispatch through the
+    scheduled step (`icon.flush()` seam); disabled focus scopes stay semantic (no warning: focus
+    budget); toolbar/grid roving in optional `a11y-navigation`; `corners` module split from paint
+    (`paint|corners`); `colormix` module with `<colorMix>` child syntax and hex-only defaults;
+    text-input blink/scroll in optional `text-input-extra`, `selectionTextColor` aliasing
+    `selectedTextColor`, fields clip their drawing; `anima bundle --modules`; #31 was already fixed
+    by bb989f1e.
   - Test deadlines raised for the larger corpus: module-order 90 s, scaffolder 120 s.
 
 ## Gotchas

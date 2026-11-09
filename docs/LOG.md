@@ -2616,3 +2616,22 @@ loaded; fixed with a regression test before the PR. Gates: core+web 21,165 B, la
 app-UI 104,592 (layout, layout-reflow, host-fit, text-overflow added), runtime sum 130,133,
 authoring 14,899, Rive-class 148,870. The memory file changed shape this phase: `WORKLOG.md` is the
 orchestrator's short memory; ticket agents keep notes in their own report files.
+
+## Downstream issues #23–#35 (2026-11-09, done)
+
+Thirteen issues from Golem and anima-kit, each reproduced by a failing test before the fix, with
+before/after proof in `design/issues/proof/` and ticket reports in `design/issues/`. Host: a
+non-square viewBox keeps one uniform scale (the host's long axis spans `grid`; square viewBoxes are
+unchanged), in SVG, canvas, pointer mapping and the overlay (#23); pre-player `set`/`fire` queue in
+order (#24); `icon.settle()` brings a scene to rest at its inputs without events (#25);
+`part="svg"`/`part="canvas"` survive rebuilds (#27). A11y: keyboard activation dispatches its events
+(#32); a disabled focus scope stays in the semantic tree (#33); toolbar and grid roving in optional
+`a11y-navigation` (#34). Paint: rect corners in a 437 B `corners` module (#30); `colormix` mixes two
+slots by an animatable weight (#26). Text: #31 was already fixed by bb989f1e (proven at its parent);
+text input gets a bindable `obscured`, caret blink, selected-text colour and scroll to caret, the
+last two plus blink in optional `text-input-extra` (#35). CLI: `anima bundle --modules` (#28). Guards:
+`not`/`or` get a pointed hint and an AUTHORING note (#29).
+
+Gates: core+web 22,782 B, largest scene 57,781, app-UI 107,899, runtime sum 135,579, authoring
+15,017, Rive-class 155,805. Perf vs main (pinned, minimums): bell frame +0.3 %, composite −1.4 %,
+toolbar −1.5 %, toolbar compile +2.5 %, bell compile −2 %.

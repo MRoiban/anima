@@ -3,7 +3,7 @@
 // gzipped than esbuild alone). Property names are not mangled: it saved under 200 bytes and breaks
 // string-keyed tables.
 
-import { type Plugin, build } from 'esbuild';
+import { type BuildOptions, type Plugin, build } from 'esbuild';
 import { minify } from 'terser';
 
 const terse: Plugin = {
@@ -17,16 +17,19 @@ const terse: Plugin = {
 };
 
 /** Build the minified browser bundle for an entry point. */
-export async function bundle(entry: string): Promise<string> {
+export async function bundle(
+  entry: string | NonNullable<BuildOptions['stdin']>,
+  verbose = false,
+): Promise<string> {
   const r = await build({
-    entryPoints: [entry],
+    ...(typeof entry === 'string' ? { entryPoints: [entry] } : { stdin: entry }),
     bundle: true,
     minify: true,
     format: 'esm',
     target: 'es2022',
     legalComments: 'none',
     write: false,
-    plugins: [terse],
+    plugins: verbose ? [] : [terse],
   });
   const out = await minify(r.outputFiles[0]!.text, {
     module: true,

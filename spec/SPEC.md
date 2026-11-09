@@ -248,6 +248,38 @@ Slots are not animatable in 0.1. A paint colour that any track or pose writes mu
 literal as its document value, and every keyframe and pose value for it must be a hex literal
 (`color-slot-animated`).
 
+### Optional slot mixing (`colormix`)
+
+With `requires: ["colormix"]`, a node fill or stroke can replace `color` with
+`"mix": { "a": "off", "b": "on", "t": 0.3 }`. The endpoints are hex literals or declared
+slots with hex defaults; they remain static references. `currentColor` defaults are rejected
+(`colormix-color`) because static renderers cannot resolve page inheritance. Page overrides may
+still use `currentColor`. Slots themselves remain non-animatable.
+
+The number address `<id>.<fill|stroke>.mix.t` is animatable and bindable through the ordinary
+numeric channels. Its rest value must be in 0..1 (`colormix-range`); sampled, blended and bound
+values clamp to that interval after resolution. Ordinary numeric key/pose validation applies.
+AniML uses a child `<colorMix a="off" b="on" t="0.3"/>` (default fill), or
+`<colorMix paint="stroke" .../>`; install `@anima-format/web/markup-colormix` for browser
+compilation. Stroke width/cap/join keep their usual spelling. This module adds no syntax to the
+base AniML colour parser. JSON Schema and CLI schema describe `fill.mix` and `stroke.mix`.
+
+SVG renders `color-mix(in srgb, var(--anima-off, <default>), var(--anima-on, <default>) 30%)`.
+The second colour has weight t and the first 1−t. Literal-only and static SVG renders resolve the
+colours first; static renders use defaults or supplied slot overrides. Canvas resolves page slots
+from its owning host, including offscreen effects surfaces. All interpolate **premultiplied** sRGB
+channels and alpha, then unpremultiply (zero alpha gives zero RGB), round channels to the nearest
+8-bit value with ties upward, and clamp to 0..255. This matches CSS `color-mix(in srgb)`; it does
+not change §5's existing non-premultiplied colour-track interpolation.
+
+`mix` cannot accompany `color`, gradient `type`, or component `paint`, and is currently a node
+fill/stroke source, not an ordered `paints` entry (`colormix-source`). Invalid endpoint names or
+non-hex defaults are `colormix-color` at `/nodes/…/<paint>/mix/a` or `/b`, with a hex/default hint.
+An out-of-range rest weight is `colormix-range` at `…/mix/t`, with a 0..1 hint. Malformed objects,
+missing arguments, incorrect argument types and unknown fields retain registry diagnostics
+(`type`, `missing-key`, `unknown-key`) at the object/argument. Absent declarations use
+`undeclared-feature` at `…/mix`. A paint still needs exactly one colour/gradient/source.
+
 ## 7. Playback, blending and the step function *(normative)*
 
 A **player** holds: input values, pending triggers, and per layer: the current state, its **state
@@ -408,7 +440,40 @@ root `component` uses that component's viewBox. Author CSS width, height and
 aspect-ratio declarations take precedence over these shadow stylesheet defaults;
 setting both dimensions keeps the authored box. Reloading or changing the shown
 component refreshes the default ratio. Fit/alignment control the drawing within
-that box. Legacy square-viewBox grid offsets remain unchanged.
+that box. In the default grid/bleed mapping the host's long axis spans `grid`
+units and its short axis follows the viewBox aspect. For a host `W×H` with the
+viewBox aspect `w/h`, the uniform scale is `s=W/grid` when `w>=h`, otherwise
+`s=H/grid`. The SVG viewport is `(x*s,y*s,w*s,h*s)` relative to the host and
+retains the source aspect. If author CSS gives the host another aspect, a
+non-square source still uses the same source-long-axis scale rule and keeps its
+own aspect; square sources retain their legacy per-axis viewport placement.
+Canvas uses the same placement; pointer coordinates
+invert the drawing transform and semantic overlay bounds use it forwards.
+Legacy square-viewBox grid offsets remain unchanged. The shadow SVG exposes
+`part="svg"`; the canvas backend's canvas exposes `part="canvas"`. These hooks must
+survive every shadow rebuild, including text-run changes, reloads and renderer switches,
+so page `::part()` rules continue to apply.
+
+### Host input queue
+
+Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+in call order. They are applied once to the next player created by that host,
+before its first step, including when asset preparation deferred creation.
+Superseded load completions do not consume the queue. Names and values are validated
+by the player's normal methods when the queue is applied.
+
+### Host settling
+
+`icon.settle()` resolves current inputs, blends and once-timelines by stepping the
+player first at `dt=0`, then at `dt=0.25` until settled or 60 simulated seconds have
+elapsed. It returns whether rest was reached. Events from these steps are discarded;
+no `anima:event` or `anima:state` is dispatched, and the settled state notification
+baseline is updated so the next ordinary frame does not replay a suppressed change.
+The result is drawn and ARIA updated. It preserves pause, speed and reduced-motion
+settings, resets the display clock and re-arms normal playback when still busy.
+Before a player exists it queues once, in order with host input calls, returns false,
+and is resolved before that player's first draw. This supports mounting a control
+already at rest after `set()` without animating from its initial state.
 
 ### Semantics and motion
 
@@ -846,6 +911,10 @@ Invalid geometry uses registry bad-value diagnostics at the parameter/item; miss
 required geometry uses missing-key. New types without paint use undeclared-feature at type.
 
 ### Rectangle corner radii
+
+The small optional `corners` module also accepts this geometry without importing `paint`.
+Declare either `paint` or `corners` (registry feature `paint|corners`); existing paint scenes
+keep the same geometry and addresses. The browser entry is `@anima-format/web/corners`.
 
 Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
 Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).
@@ -1787,6 +1856,10 @@ stops. Traversal returns whether the target changed. Invalid direction names thr
 Focusable component internals are exposed as dotted instance paths (`save.label`),
 with each component player's local traversal and scope rules. Root targets precede
 component targets; instances and their descendants follow authored instance order.
+Disabling a scope's own focus target does not hide its semantic subtree or disable
+eligible descendants. Semantic elements remain in the accessibility tree; only
+nonsemantic focus proxies are hidden when ineligible.
+
 An instance is an implicit scope: after local traversal stops, its node's focus.edge
 must be parent-scope to traverse outside it. Nested transforms compose for spatial
 centers and pointer mapping. Focus changes route to the owning player's local
@@ -2896,6 +2969,28 @@ of the current target. Unchanged semantic reads reuse retained dependencies befo
 scene. Geometry/visibility, binding and owner dependencies govern recollection; paint-only changes and
 unchanged list steps preserve it. See the module contracts and `spec/conformance/a11y-spatial-focus`. Root §10 is unchanged.
 
+### Native composite roles and synchronous actions
+
+Node roles include `toolbar`, `grid`, `row` and `gridcell`. With a11y-actions and
+focus, gridcells are implicit focus targets; the three structural roles are not.
+The optional `@anima-format/web/a11y-navigation` entry includes the DOM overlay and
+adds one tab stop per toolbar/grid. Toolbar arrows on both axes and Home/End use
+the tab-list roving policy. A grid contains semantic rows of cells: Left/Right stay
+within a row; Up/Down select the same authored column in the adjacent row (missing
+or unavailable cells retain focus). Home/End select row endpoints; Ctrl+Home/End
+select grid endpoints. Row `focus.edge` controls horizontal boundaries: stop,
+closed-loop within the row, or parent-scope using existing focus traversal.
+Vertical boundaries stop. Page Up/Down bubble unprevented for the page to handle.
+See [the native navigation contract](../modules/a11y-dom/SPEC.md) for availability,
+modifier and ordering rules. Module-owned conformance assertions are in
+`modules/a11y/test/core/issues.test.ts`, with the paired `navigation` example.
+
+Accepted host semantic actions synchronously step(0) through the scheduled-step
+path: all resulting events (including nested component events) and state changes
+are dispatched as `anima:event` and `anima:state`, just as for `icon.fire()`.
+A focus-disabled scope retains its semantic role and subtree; enabled descendants
+remain eligible for native focus and roving.
+
 <!-- capability: a11y.tree-bounds -->
 ### Semantic bounds
 
@@ -3211,6 +3306,27 @@ See [the normative field contract](../modules/text-input/SPEC.md) for both spell
 
 <!-- capability: text.input-limits -->
 ### Text input limits
+
+Text fields accept the bindable bool address `<text>.textInput.obscured`; its rest
+value is authored `obscured` or false. Resolved masking, semantic redaction and the
+native input type change together, preserving selection and caret. Static
+multiline+obscured remains a configuration error; bound obscuring is ineffective
+on multiline fields.
+
+`caretBlink` (`caret-blink`, default true) alternates 530 ms visible / 530 ms
+hidden only for a focused browser field, restarting visible on edits and caret
+moves. Reduced motion, paused/static and CLI rendering keep it steady. Blink
+repaints do not advance Player time or keep an unfocused scene awake.
+
+`selectionTextColor` (`selection-text-color`) colors selected glyphs over the
+`selectionColor` highlight; omission preserves foreground. The older
+`selectedTextColor` remains an alias; the new spelling wins if both are present.
+
+The optional `text-input-extra` browser entry supplies blinking and scroll to
+caret: horizontal for single-line fields (which never wrap), vertical for
+multiline fields. Glyphs, highlight and caret clip to the fixed field box; the
+viewport translation does not reflow layout. Tool/CLI rendering includes the
+pure viewport projection and a steady caret.
 
 See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
 

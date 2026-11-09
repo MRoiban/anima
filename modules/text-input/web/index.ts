@@ -84,6 +84,16 @@ if (!Icon.prototype.textInput) {
         el.style.width = p.prop(i, 'width') + 'px';
         el.style.height = p.prop(i, 'height') + 'px';
         const c = config(p, i)!;
+        if (el instanceof HTMLInputElement) {
+          const type = c.obscured ? 'password' : 'text';
+          if (el.type !== type) {
+            const start = el.selectionStart,
+              end = el.selectionEnd,
+              direction = el.selectionDirection;
+            el.type = type;
+            el.setSelectionRange(start, end, direction ?? undefined);
+          }
+        }
         const eligible = p.focusItems().some((n) => n.id === id);
         el.hidden = !eligible;
         el.readOnly = c.editable === false;
@@ -120,8 +130,14 @@ if (!Icon.prototype.textInput) {
       const s = input.styles[input.runs[0]?.style ?? ''] ?? {};
       el.style.cssText = `position:absolute;left:0;top:0;transform-origin:0 0;margin:0;padding:0;border:0;resize:none;background:transparent;color:transparent;caret-color:transparent;outline:0;box-sizing:border-box;`;
       el.style.font = `${s.style ?? 'normal'} ${s.weight ?? 400} ${s.size ?? 1}px/${n.raw.lineHeight || 1.2} ${s.font ?? 'sans-serif'}`;
-      if (c.obscured)
-        for (const name of ['copy', 'cut']) el.addEventListener(name, (e) => e.preventDefault());
+      for (const name of ['copy', 'cut'])
+        el.addEventListener(
+          name,
+          (e) => {
+            if (config(p, i)?.obscured) e.preventDefault();
+          },
+          { signal: abort.signal },
+        );
       const listen = (name: string, fn: EventListener) =>
         el.addEventListener(name, fn, { signal: abort.signal });
       listen('focus', () => {

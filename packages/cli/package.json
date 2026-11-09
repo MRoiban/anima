@@ -17,6 +17,8 @@
   "dependencies": {
     "@anima-format/core": "0.1.0",
     "@anima-format/markup": "0.1.0",
-    "@resvg/resvg-js": "^2.6.2"
+    "@resvg/resvg-js": "^2.6.2",
+    "esbuild": "^0.28.2",
+    "terser": "^5.51.2"
   }
 }

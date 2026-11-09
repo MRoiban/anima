@@ -1,0 +1,152 @@
+{
+  "anima": "0.1",
+  "name": "navigation",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "bold": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "tools",
+      "type": "group",
+      "children": [
+        {
+          "id": "bold",
+          "type": "rect",
+          "x0": 1,
+          "y0": 1,
+          "w": 4,
+          "h": 4,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "button",
+            "label": "Bold",
+            "pressed": "bold"
+          }
+        },
+        {
+          "id": "help",
+          "type": "rect",
+          "x0": 6,
+          "y0": 1,
+          "w": 4,
+          "h": 4,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "button",
+            "label": "Help"
+          }
+        }
+      ],
+      "a11y": {
+        "role": "toolbar",
+        "label": "Formatting"
+      }
+    },
+    {
+      "id": "dates",
+      "type": "group",
+      "children": [
+        {
+          "id": "week1",
+          "type": "group",
+          "children": [
+            {
+              "id": "day1",
+              "type": "rect",
+              "x0": 1,
+              "y0": 7,
+              "w": 4,
+              "h": 4,
+              "fill": {
+                "color": "#000"
+              },
+              "a11y": {
+                "role": "gridcell",
+                "label": "1"
+              }
+            },
+            {
+              "id": "day2",
+              "type": "rect",
+              "x0": 6,
+              "y0": 7,
+              "w": 4,
+              "h": 4,
+              "fill": {
+                "color": "#000"
+              },
+              "a11y": {
+                "role": "gridcell",
+                "label": "2"
+              }
+            }
+          ],
+          "a11y": {
+            "role": "row"
+          },
+          "focus": {
+            "enabled": false,
+            "scope": true,
+            "edge": "closed-loop"
+          }
+        },
+        {
+          "id": "week2",
+          "type": "group",
+          "children": [
+            {
+              "id": "day3",
+              "type": "rect",
+              "x0": 1,
+              "y0": 12,
+              "w": 4,
+              "h": 4,
+              "fill": {
+                "color": "#000"
+              },
+              "a11y": {
+                "role": "gridcell",
+                "label": "3"
+              }
+            },
+            {
+              "id": "day4",
+              "type": "rect",
+              "x0": 6,
+              "y0": 12,
+              "w": 4,
+              "h": 4,
+              "fill": {
+                "color": "#000"
+              },
+              "a11y": {
+                "role": "gridcell",
+                "label": "4"
+              }
+            }
+          ],
+          "a11y": {
+            "role": "row"
+          },
+          "focus": {
+            "enabled": false,
+            "scope": true,
+            "edge": "closed-loop"
+          }
+        }
+      ],
+      "a11y": {
+        "role": "grid",
+        "label": "Dates"
+      }
+    }
+  ]
+}

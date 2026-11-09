@@ -1,0 +1,38 @@
+RUN  v5.1.0 /tmp/anima-31-text-before
+
+ ❯ |browser| modules/text/test/web/paint-repaint.test.ts (1 test | 1 failed) 8179ms
+   × 31: retained local-style text repaints bound fill, stroke and every theme colour in both renderers 8174ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/text/test/web/paint-repaint.test.ts > 31: retained local-style text repaints bound fill, stroke and every theme colour in both renderers
+AssertionError: expected [ 'rgb(206, 205, 195)', …(2) ] to deeply equal [ 'rgb(255, 0, 0)', …(2) ]
+
+- Expected
++ Received
+
+  [
+-   "rgb(255, 0, 0)",
++   "rgb(206, 205, 195)",
+    "rgb(0, 0, 255)",
+    "ABCD",
+  ]
+
+ ❯ modules/text/test/web/paint-repaint.test.ts:106:14
+    104|               }),
+    105|             )
+    106|             .toEqual([rgb(fg!), rgb(edge!), 'ABCD']);
+       |              ^
+    107|         } else {
+    108|           await expect
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/text/test/web/paint-repaint.test.ts:99:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  09:20:07
+   Duration  47.14s (import 60%, transform 22%, tests 18%)

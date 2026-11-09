@@ -1,0 +1,53 @@
+Final source 16247484.
+Command: ANIMA_ISSUE_PROOF=after VITEST_MAX_WORKERS=2 npm run test:scope -- web canvas components oracle
+Result: PASS in Chromium and Firefox; all 12 new WEB regressions passed.
+Chromium: {
+  "initial": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "text": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "reload": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "canvas": {
+    "part": "canvas",
+    "background": "rgb(120, 210, 240)"
+  },
+  "svg": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  }
+}
+Firefox: {
+  "initial": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "text": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "reload": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  },
+  "canvas": {
+    "part": "canvas",
+    "background": "rgb(120, 210, 240)"
+  },
+  "svg": {
+    "part": "svg",
+    "background": "rgb(240, 210, 120)"
+  }
+}
+
+Trimmed Vitest summary:
+Test Files  89 passed (89)
+      Tests  7231 passed | 599 skipped | 18 todo (7848)
+   Start at  10:06:54
+   Duration  628.01s (tests 96%, import 4%)

@@ -1,0 +1,11 @@
+Command: npx vitest run --project browser modules/a11y-dom/test/web/issues.test.ts --maxWorkers=1 --reporter=verbose
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 Enter dispatches state-entry events and states, nested=false 1755ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 Enter dispatches state-entry events and states, nested=true 1747ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 semantic focus dispatches listener events and state changes synchronously 1399ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Chromium > #32 semantic increase dispatches state-entry events synchronously 1045ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #32 Enter dispatches state-entry events and states, nested=false 12575ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #32 Enter dispatches state-entry events and states, nested=true 5509ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #32 semantic focus dispatches listener events and state changes synchronously 5361ms
+ ✓ |browser| modules/a11y-dom/test/web/issues.test.ts > A11Y issues Firefox > #32 semantic increase dispatches state-entry events synchronously 4510ms
+
+Result: 22 passed across Chromium and Firefox; exit 0.

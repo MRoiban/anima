@@ -1,0 +1,35 @@
+<anima version="0.1" name="navigation" grid="20" requires="a11y focus">
+  <bool name="bold"/>
+  <group id="tools">
+    <a11y role="toolbar" label="Formatting"/>
+    <rect id="bold" x0="1" y0="1" width="4" height="4" fill="#000">
+      <a11y role="button" label="Bold" pressed="bold"/>
+    </rect>
+    <rect id="help" x0="6" y0="1" width="4" height="4" fill="#000">
+      <a11y role="button" label="Help"/>
+    </rect>
+  </group>
+  <group id="dates">
+    <a11y role="grid" label="Dates"/>
+    <group id="week1">
+      <a11y role="row"/>
+      <focus enabled="false" scope="true" edge="closed-loop"/>
+      <rect id="day1" x0="1" y0="7" width="4" height="4" fill="#000">
+        <a11y role="gridcell" label="1"/>
+      </rect>
+      <rect id="day2" x0="6" y0="7" width="4" height="4" fill="#000">
+        <a11y role="gridcell" label="2"/>
+      </rect>
+    </group>
+    <group id="week2">
+      <a11y role="row"/>
+      <focus enabled="false" scope="true" edge="closed-loop"/>
+      <rect id="day3" x0="1" y0="12" width="4" height="4" fill="#000">
+        <a11y role="gridcell" label="3"/>
+      </rect>
+      <rect id="day4" x0="6" y0="12" width="4" height="4" fill="#000">
+        <a11y role="gridcell" label="4"/>
+      </rect>
+    </group>
+  </group>
+</anima>
