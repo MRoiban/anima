@@ -4,16 +4,21 @@
       width="1" height="1"/>
 
   <bone id="arm" length="10"/>
-  <path id="path" d="M0 0L10 0" skin="{&quot;bones&quot;:[&quot;arm&quot;],&quot;weights&quot;:[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]}" stroke="#000"/>
+  <path id="path" d="M0 0L10 0" stroke="#000">
+    <skin bones="arm" weights="[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]"/>
+  </path>
   <contour id="contour"
       vertices="[{&quot;point&quot;:[0,2],&quot;kind&quot;:&quot;straight&quot;},{&quot;point&quot;:[10,2],&quot;kind&quot;:&quot;straight&quot;},{&quot;point&quot;:[10,4],&quot;kind&quot;:&quot;straight&quot;},{&quot;point&quot;:[0,4],&quot;kind&quot;:&quot;straight&quot;}]"
-      closed="true"
-      skin="{&quot;bones&quot;:[&quot;arm&quot;],&quot;weights&quot;:[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]}"
-      fill="#000"/>
+      closed="true" fill="#000">
+    <skin bones="arm"
+        weights="[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]"/>
+  </contour>
   <image id="mesh" asset="pixel" x0="0" y0="6"
       mesh="{&quot;vertices&quot;:[[0,6,0,0],[10,6,1,0],[10,8,1,1],[0,8,0,1]],&quot;triangles&quot;:[[0,1,2],[0,2,3]]}"
-      skin="{&quot;bones&quot;:[&quot;arm&quot;],&quot;weights&quot;:[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]}"
-      width="10" height="2"/>
+      width="10" height="2">
+    <skin bones="arm"
+        weights="[{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;arm&quot;:1}}]"/>
+  </image>
 
   <timeline name="bend" duration="1">
     <track target="arm.rotate">

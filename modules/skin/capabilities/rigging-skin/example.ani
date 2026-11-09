@@ -1,16 +1,165 @@
 {
   "anima": "0.1",
   "name": "rigging-skin",
-  "grid": 20,
+  "grid": 30,
+  "requires": ["paint", "contour", "assets", "mesh", "rig", "skin"],
   "nodes": [
     {
-      "id": "probe",
-      "type": "circle",
-      "center": [10, 10],
-      "r": 1,
+      "id": "arm",
+      "type": "bone",
+      "children": [],
+      "length": 10
+    },
+    {
+      "id": "path",
+      "type": "path",
+      "d": "M0 0L10 0",
+      "stroke": {
+        "color": "#000"
+      },
+      "skin": {
+        "bones": ["arm"],
+        "weights": [
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "contour",
+      "type": "contour",
       "fill": {
         "color": "#000"
+      },
+      "vertices": [
+        {
+          "point": [0, 2],
+          "kind": "straight"
+        },
+        {
+          "point": [10, 2],
+          "kind": "straight"
+        },
+        {
+          "point": [10, 4],
+          "kind": "straight"
+        },
+        {
+          "point": [0, 4],
+          "kind": "straight"
+        }
+      ],
+      "closed": true,
+      "skin": {
+        "bones": ["arm"],
+        "weights": [
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mesh",
+      "type": "image",
+      "x0": 0,
+      "y0": 6,
+      "asset": "pixel",
+      "mesh": {
+        "vertices": [
+          [0, 6, 0, 0],
+          [10, 6, 1, 0],
+          [10, 8, 1, 1],
+          [0, 8, 0, 1]
+        ],
+        "triangles": [
+          [0, 1, 2],
+          [0, 2, 3]
+        ]
+      },
+      "width": 10,
+      "height": 2,
+      "skin": {
+        "bones": ["arm"],
+        "weights": [
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "arm": 1
+            }
+          }
+        ]
       }
     }
-  ]
+  ],
+  "timelines": {
+    "bend": {
+      "duration": 1,
+      "tracks": {
+        "arm.rotate": [
+          [0, 0],
+          [1, 90]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "bend",
+        "states": {
+          "bend": {
+            "play": "bend"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "pixel": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWP4z8DwHwAFgAI/ScLJ0QAAAABJRU5ErkJggg==",
+      "width": 1,
+      "height": 1
+    }
+  }
 }

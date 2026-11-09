@@ -1,7 +1,6 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { Model, NodeM } from '../../../packages/core/src/load.ts';
-import type { Shape } from '../../../packages/core/src/registry.ts';
 import { apply, IDENTITY, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import {
   C,
@@ -19,6 +18,7 @@ import { nodePointer } from '../../components/core/node-pointer.ts';
 import { compileVertices, type Vertex } from '../../contour/core/index.ts';
 import type { RigModule } from '../../rig/core/index.ts';
 import { after } from '../manifest.ts';
+import { entries, skinElement } from '../capabilities/rigging-skin/registry.ts';
 
 type Influence = [number, number][];
 type Weight = { point: Influence; in?: Influence; out?: Influence };
@@ -26,20 +26,6 @@ type SkinData = { bones: number[]; weights?: Weight[]; rest: [number, number][] 
 type RawInfluence = Record<string, number>;
 type RawWeight = { point: RawInfluence; in?: RawInfluence; out?: RawInfluence };
 
-const number: Shape = { k: 'num', min: 0, max: 1 };
-const influences: Shape = { k: 'map', of: number };
-const skinShape: Shape = {
-  k: 'obj',
-  p: {
-    bones: { k: 'arr', min: 1, of: { k: 'str' } },
-    weights: {
-      k: 'arr',
-      min: 1,
-      of: { k: 'obj', p: { point: influences, in: influences, out: influences }, req: ['point'] },
-    },
-  },
-  req: ['bones'],
-};
 const data = new WeakMap<object, SkinData>();
 const auto = new WeakMap<Player, Map<string, Influence>>();
 let rig: RigModule | undefined;
@@ -281,8 +267,9 @@ function geometry(p: Player, node: number): string | undefined {
 export const skin: Module = {
   name: 'skin',
   after,
-  entries: [{ target: 'node', shapes: { skin: skinShape } }],
+  entries,
   init(registry, shared) {
+    if (V) skin.entries[0]!.elements = { skin: skinElement };
     rig = registry.get('rig') as RigModule | undefined;
     const values = shared.Player.prototype.values;
     if (!(shared.Player.prototype as unknown as { skinValues?: boolean }).skinValues) {

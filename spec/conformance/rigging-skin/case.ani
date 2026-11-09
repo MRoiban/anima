@@ -102,6 +102,8 @@
           [0, 2, 3]
         ]
       },
+      "width": 10,
+      "height": 2,
       "skin": {
         "bones": ["arm"],
         "weights": [
@@ -126,9 +128,7 @@
             }
           }
         ]
-      },
-      "width": 10,
-      "height": 2
+      }
     }
   ],
   "timelines": {

@@ -1,5 +1,5 @@
 import type { ModuleEntry } from '../../../../packages/core/src/modules.ts';
-// TODO: fill and compose these into modules/skin/core/index.ts. No placeholder key is registered.
-// { target: 'TODO', shapes: { jsonName: { k: 'num', markup: 'svg-name' } } }
-// TODO: JSON name and markup name (SVG spelling where one exists), feature: 'skin'.
+
+// Weight maps are the nested `skin.weights` field registered by rigging-skin.
+// They deliberately add no second node key or AniML element.
 export const entries: ModuleEntry[] = [];

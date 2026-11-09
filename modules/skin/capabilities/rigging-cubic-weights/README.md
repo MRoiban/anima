@@ -1,12 +1,3 @@
 # Independent handle weights
 
-Pending scaffold for rigging.cubic-weights; no implementation or parity completion is claimed.
-
-- TODO: spec/SPEC.md subsection, registry.ts entries and both spellings; compose entries into core.
-- TODO: diagnostics and invalid documents, deterministic conformance expectations.
-- TODO: replace example.animl and rebuild example.ani through the compiler.
-- TODO: CLI validate/schema/inspect/sample coverage, generated schema and measured manifest size budget.
-- TODO: independent oracle scene/frames; add to tests/oracle/cases.json only when complete.
-
-Remove todo.json only after completing the probe and its independently checked expected output.
-Follow spec/MODULES.md §5 and docs/research/rive-web-runtime.md comparison cautions.
+Implemented inside each explicit weight entry as `point`, optional `in`, and optional `out` maps. Missing handle maps inherit the anchor map. See `spec/conformance/rigging-cubic-weights` and its draw-geometry regression.

@@ -2,15 +2,65 @@
   "anima": "0.1",
   "name": "rigging-cubic-weights",
   "grid": 20,
+  "requires": ["paint", "rig", "skin"],
   "nodes": [
     {
-      "id": "probe",
-      "type": "circle",
-      "center": [10, 10],
-      "r": 1,
-      "fill": {
+      "id": "arm",
+      "type": "bone",
+      "children": [],
+      "length": 10
+    },
+    {
+      "id": "curve",
+      "type": "path",
+      "d": "M0 0C2 0 8 0 10 0",
+      "stroke": {
         "color": "#000"
+      },
+      "skin": {
+        "bones": ["arm"],
+        "weights": [
+          {
+            "point": {
+              "@rest": 1
+            },
+            "out": {
+              "arm": 1
+            }
+          },
+          {
+            "point": {
+              "@rest": 1
+            },
+            "in": {
+              "arm": 1
+            }
+          }
+        ]
       }
     }
-  ]
+  ],
+  "timelines": {
+    "bend": {
+      "duration": 1,
+      "tracks": {
+        "arm.rotate": [
+          [0, 0],
+          [1, 90]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "bend",
+        "states": {
+          "bend": {
+            "play": "bend"
+          }
+        }
+      }
+    }
+  }
 }

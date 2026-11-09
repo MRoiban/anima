@@ -3966,28 +3966,61 @@ measurement table, transform handling, and undeformed-skinned-target limitation 
 
 ## skin
 
+The optional `skin` module deforms authored geometry from bone rest frames. Documents using it declare
+`skin` and `rig` in `requires`, plus the ordinary feature modules needed by the host geometry. A
+`skin` is valid on a `path` backed by inline `d` or a glyph, a `contour`, or an `image` that also has
+a `mesh`. Any other host reports `rig-skin-host` at the node's `/skin` pointer with a hint to move the
+skin to supported geometry. A path whose `d` is animated or posed while skinned reports
+`rig-skin-morph`; bone animation is the supported way to deform a skinned path.
+
 <!-- capability: rigging.skin -->
 ### Bind-pose skinning
 
-TODO: Deform vector paths or image meshes relative to stored bone bind transforms.
+JSON authors `skin: {"bones":[ids], "weights"?: [...]}`. AniML authors the same object structurally:
+`<skin bones="upper fore" weights='[...]'/>` as a child of the host node. `bones` is a
+whitespace-separated list; `weights`, when present, is one JSON array. The compiler and decompiler
+round-trip this child form through the registry. Bone ids must name bone nodes. An unknown id, a
+non-bone id, or an explicit influence that is not listed in `skin.bones` reports `rig-weight-bone`
+with the precise bone or influence pointer and a repair hint.
 
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+Binding uses the bones' document rest frames. No bind matrices are authored. For a node-local rest
+point `p`, let `W0` be the node's rest-world transform and let `Bi(rest)` and `Bi(now)` be a bone's
+rest and solved world transforms. Each bone contributes `Di = Bi(now) · Bi(rest)^-1`; `@rest`
+contributes identity. The deformed local point is
+`p' = W0^-1 · Σ_i wi · Di · W0 · p`. A non-invertible rest transform leaves the source point
+unchanged. The host draw transform remains its rest-world transform, so animated transforms on the
+skinned node and its ancestors do not add a second motion source and stroke width follows rest scale.
 
+Path points are every M/L/C endpoint in order; Z adds no point. For a cubic, the first control is the
+previous anchor's `out` handle and the second control is the current anchor's `in` handle. Contour
+points are vertices; their handles deform before contour rounding is reconstructed. Mesh points are
+every mesh vertex. `draw.frame` publishes the deformed path/contour geometry, while meshed images use
+the `Player.skinPoints(node, xy)` seam before mesh points are published. Paint outline queries use the
+deformed path or contour, so pointer hit testing, semantic bounds, trims, and relative dashes observe
+the deformed outline rather than the bind outline.
+
+The read-only derived address `<node>.skin.point.<k>` returns the deformed anchor/vertex in world
+coordinates. It is a snapshot/conformance output, not an authored animation target.
 
 <!-- capability: rigging.weights -->
 ### Vertex bone weights
 
-TODO: Blend up to four packed bone influences per vertex; an identity influence can keep part of a shape fixed.
+With explicit weights, `weights` has exactly one entry per path anchor, contour vertex, or mesh
+vertex. Each entry has `point`, an influence map from a bone id or `@rest` to a number in 0..1.
+Influence maps may contain at most four entries; more report `rig-weight-count` with a hint to keep at
+most four. A sum differing from 1 by more than 1e-6 reports `rig-weight-sum` as a warning and the
+runtime normalizes the map. A non-positive sum resolves to a full `@rest` influence after the warning.
 
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
-
+When `weights` is absent, the loader computes deterministic automatic weights independently for each
+anchor and handle. It measures world-space distance from the rest point to every listed bone segment
+from bone start to its authored `length`, chooses the two nearest segments, assigns each
+`1 / (d + 0.001)^2`, and normalizes the two values. With one listed bone, that bone receives weight 1.
+The result is cached per player/rest geometry and does not change as the bones animate.
 
 <!-- capability: rigging.cubic-weights -->
 ### Independent handle weights
 
-TODO: Give cubic control handles their own bone weights, separately from the anchor.
-
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+An explicit weight entry may use `{ "point": {...}, "in": {...}, "out": {...} }`. `point` is
+required. `in` and `out` are independently validated and normalized by the same count, sum, and bone
+rules. If either handle map is omitted, that handle inherits its anchor's `point` map. This lets cubic
+handles bend independently while preserving the simpler anchor-only spelling for ordinary paths.

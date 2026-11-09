@@ -49,7 +49,6 @@ describe('one registry, two spellings', () => {
       'mix-blend-mode',
       'properties',
       'mix',
-      'skin',
       'pointerEnabled',
       'collapsed',
       'solo',
