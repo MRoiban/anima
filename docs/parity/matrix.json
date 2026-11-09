@@ -8828,7 +8828,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
  },
  {
   "id": "rigging.constraint-order",
@@ -8839,7 +8839,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.constraint-strength",
@@ -8850,7 +8850,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.cubic-weights",
@@ -8871,7 +8871,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.distance-exact",
@@ -8882,7 +8882,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.distance-further",
@@ -8893,7 +8893,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.follow-path",
@@ -8974,7 +8974,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
  },
  {
   "id": "rigging.rotation",
@@ -8985,7 +8985,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.scale",
@@ -8996,7 +8996,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.scripted-3d",
@@ -9038,7 +9038,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Tuple origin binding and AniML animation, and group/other target bounds for origin, remain incomplete."
  },
  {
   "id": "rigging.translation",
@@ -9049,7 +9049,7 @@
   "status": "planned",
   "test": "modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation",
   "phase": "P8",
-  "reason": "P8-1 implementation and independent conformance exist; native oracle integration and final size/verification gates remain pending."
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.weights",

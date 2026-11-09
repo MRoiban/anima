@@ -17,3 +17,24 @@
 - Root cause of prior OOM: paint's generic string interpolator looped on rig's non-path tuple encoding. A minimal moveto guard in paint fixes interoperability; a precision regression proves tuple interpolation remains unrounded. The first API contract is unchanged; api.ts only gains a lint exception documenting its intentional Mat | void return type.
 - The isolated bell-prefix file passed 51/51 after the timeout; the isolated WebP oracle passed 1/1 after the timeout. These are recorded separately from the failed broad run.
 - Latest entry measurements: core+web 22,782; rig 3,054; rig-distance 270; markup 7,435; markup-rig 310; paint 4,077 (was 4,060). Paint's 17 B interpolation guard is a necessary outside-ticket seam; final gate totals will reflect it.
+
+- 2026-11-09 19:22: merged p8-rigging (P8-6, P8-8, P8-9); D39 rejects zero document-rest scale on a bone or an ancestor. Corpus count is 643, matching the checked-in case files. The first API contract remains unchanged apart from its lint directive.
+- Final status: partial. All eleven rows remain planned pending owner oracle budgets/manifest integration. `copyTransform` whole-tuple origin has JSON animation but lacks AniML tuple animation and tuple binding; origin bounds omit group subtrees and other non-rect/path/circle shapes. A bone under a non-container is rejected by the structural checker as `unknown-key` before `rig-bone-parent`. The solver conservatively invalidates all draw nodes after a rig local change. The rig entry is at its hard cap, so further work needs a split or byte savings.
+- Final focused Chromium (`test:scope -- rig posepad conformance oracle --browser=chromium`): 11 files, 4,623 passed, 16 skipped, 34 todo. Firefox rig browser: 13 passed, 13 skipped. Full `test:scope -- changed`: 409 files passed, 12 skipped, 1 failed; 10,660 tests passed, 3 failed, 46 todo. Isolated canvas retry: 1 passed, the same 3 failed, 2,692 skipped. The merged a11y feather case emits unsupported-render for nonuniform local feather in both engines; Firefox clip has max 64 and 52 pixels over tolerance. Prior full attempt had 10,464 passes, 2 failures and 45 todo; its scaffolder and CLI failures passed isolated after the scaffold fix and browser cache rebuild, respectively (26 and 9 passes).
+- `modules.ts --check`, `parity.ts --check`, `build-animl.ts --check`, lint and typecheck passed. Strict oracle exited 0 for 324 completed manifest cases; new cases remain pending. Size exited 0. Main baseline → merged result, bytes: core+web 22,782 → 22,787; largest scene 57,781 → 59,355; app-UI 107,899 → 108,101; runtime 135,579 → 137,361; authoring 15,017 → 15,360; heavy 155,805 → 161,957. Entries: rig 0 → 3,072/3,072; rig-distance 0 → 270/512; markup-rig 0 → 310/384; paint 4,060 → 4,077; markup 7,435 → 7,434. Changes include the merged P8 tickets and paint interoperability seam; the ticket's unchanged core+web/app/runtime acceptance is not met.
+- Bell benchmark before → after: compile 88.162 → 66.059 ms; step median 9.709 → 9.898 µs; draw median 117.802 → 110.834 µs. Shared load: these are not evidence of the 3% guard. `tools/perf.ts` also ran; raw bell compile 7.31 ms, frame 97.9 µs, composite 63.0 µs, toolbar 98.8 µs (before final merge/D39).
+- Native oracle raw comparisons: each cell is max channel delta / number of pixels over 16, at the listed time; each frame has 57,600 pixels. Full values including percentages are in `oracle-raw.json`. The owner sets budgets; no threshold or manifest changes were made.
+
+| Probe | 0 s | 0.5 s | 1 s |
+| --- | ---: | ---: | ---: |
+| rigging-bone-chains | 53/22 | 53/25 | 53/20 |
+| rigging-constraint-order | 53/44 | 53/44 | 53/44 |
+| rigging-constraint-strength | 53/22 | 53/22 | 53/22 |
+| rigging-distance-closer | 78/54 | 78/54 | 53/66 |
+| rigging-distance-exact | 96/32 | 96/32 | 96/32 |
+| rigging-distance-further | 53/66 | 78/54 | 78/54 |
+| rigging-root-bones | 53/22 | 74/25 | 62/18 |
+| rigging-rotation | 1/0 | 22/50 | 22/50 |
+| rigging-scale | 1/0 | 1/0 | 1/0 |
+| rigging-transform | 1/0 | 22/50 | 1/0 |
+| rigging-translation | 53/22 | 53/22 | 53/22 |
