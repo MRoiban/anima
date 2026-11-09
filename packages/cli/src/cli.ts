@@ -8,6 +8,7 @@ import { componentNames } from '../../../modules/components/core/names.ts';
 import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
 import { findProject, projectSource, substituteConstants } from './project.ts';
+import { bundleBrowser } from './bundle.ts';
 import { doctor } from './doctor.ts';
 import { comparePNG } from './compare-png.ts';
 import { mixAudio } from './audio.ts';
@@ -100,6 +101,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
                                         compare RGBA pixels (default 256px, black currentColor,
                                         transparent background); exit 1 beyond tolerance (default 0)
   anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
+  anima bundle [--modules paint,bind] [-o anima.js] [--verbose]  chosen browser modules; min+gzip sizes
   anima doctor                          check Node, browsers, cache and module wiring
   anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
                [--frames N] [--fps N] [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
@@ -132,6 +134,8 @@ export async function run(argv: string[], io: IO): Promise<number> {
       args: argv,
       allowPositionals: true,
       options: {
+        modules: { type: 'string' },
+        verbose: { type: 'boolean' },
         font: { type: 'string', multiple: true },
         'browser-text': { type: 'boolean' },
         google: { type: 'string' },
@@ -246,6 +250,13 @@ export async function run(argv: string[], io: IO): Promise<number> {
     )
       return 1;
     switch (cmd) {
+      case 'bundle': {
+        if (rest.length) throw new Usage('bundle takes no positional arguments; use --modules');
+        const result = await bundleBrowser(o.modules, o.out ?? 'anima.js', !!o.verbose);
+        if (json) emit(result);
+        else io.out(`${result.wrote}: ${result.min} B min; ${result.gzip} B gzip`);
+        return 0;
+      }
       case 'doctor': {
         const result = await doctor();
         if (json) emit(result);

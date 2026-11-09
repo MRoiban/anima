@@ -354,3 +354,41 @@ See SPEC's events chapter for payload snapshot timing and next-step local listen
 
 Event definitions also apply to state endEmit and transition startEmit/endEmit actions. Their
 payloads and host delivery follow the same path as timeline events.
+
+## Bundling chosen modules
+
+Build one self-contained ESM browser runtime from the Anima checkout (Node 24, `npm ci`):
+
+```sh
+node packages/cli/src/main.ts bundle --modules paint,bind -o anima.js
+```
+
+The workspace `anima` binary accepts the same arguments. Import the output once:
+
+```html
+<script type="module" src="./anima.js"></script>
+<anima-icon src="./scene.ani"></anima-icon>
+```
+
+`--modules` accepts comma-separated browser entry names from the generated module registry,
+including optional authoring entries such as `markup-hooks`. Unknown names produce a
+`bundle-module` diagnostic at `/modules/<index>` with a suggestion and the valid names.
+Duplicates are removed; registration follows the manifests' `after` order regardless of argument
+order. `after` orders selected entries; it does not automatically select additional entries.
+Entries' own imports still bring their required implementation dependencies.
+
+Omit `--modules` to build the base runtime. `-o` defaults to `anima.js` in the current directory;
+an existing file is replaced. No stdout redirection is needed. The command prints minified and
+gzipped sizes in bytes; `--format=json` returns `wrote`, ordered `modules`, `verbose`, `min` and
+`gzip`. Exit codes are 0 on success, 1 for diagnostics or build/write failures, and 2 for usage.
+
+The pipeline is the same as the shipped dist bundles: esbuild, the terse-flags plugin, then
+terser. Default base and single-entry outputs are byte-identical to `anima-icon.js` and
+`anima-<entry>.js` in `packages/web/dist/`. Multiple entries share one bundled core and web runtime.
+`--verbose` retains diagnostic messages, hints and warning passes, increasing size while keeping
+minification. This command currently requires the source checkout; standalone package publication
+is deferred.
+
+Current dist entries can also register modules on the active `<anima-icon>` across separately
+loaded files, but each file includes its own runtime code. A chosen-module bundle avoids sending
+those duplicate copies.
