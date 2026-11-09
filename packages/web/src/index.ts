@@ -742,6 +742,11 @@ export class AnimaIcon extends HTMLElement {
 
   // ------------------------------------------------------------ time
 
+  /** Internal module seam: synchronously advance and dispatch through the scheduled-step path. */
+  flush(): void {
+    if (this.player) this.#step(0);
+  }
+
   #step(dt: number): void {
     const p = this.player!;
     this.trace?.push(['step', dt]);
