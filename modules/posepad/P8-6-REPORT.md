@@ -114,3 +114,12 @@ existing findings remain reported separately. The 20 new raw frames remain pendi
 P8-1 has not been rebased or integrated: awaiting the orchestrator's instruction, as requested.
 Native frames need orchestrator-owned oracle promotion; the broad run had two isolated-cleared
 browser timeouts and the corrected scaffolder fixture collision. No phase-completion, full parity, ≤3% perf, or distance-gated handle claim is made.
+
+## P8-6 rig integration checkpoint
+
+- Merged `origin/p8-rigging` at `4ff89f27`; lockfile unchanged. The `rig` manifest dependency now orders posepad after rig. `solvePasses` invokes `model.rigPose` after its first solve and solves once more when it returns true.
+- `animation-joystick-handle` now drags beyond a `keepDistance` within-radius gate. Independent expected values use radius 2, a 45° direction, and ±√2/4 pad outputs. The conformance marker is removed.
+- Unchanged rect-art oracle: frames 0, 0.25, 0.5, 0.75 and 1 each have maximum delta 1 and zero pixels over 16, independently in both edge and interior regions. The oracle remains pending orchestrator budget selection; no budget was changed.
+- Chromium scope: first run 4,716 pass / 1 fail / 21 skip / 22 TODO (decompiler fixture omitted box-vector recovery); after adding seam(P8-6), 4,717 pass / 0 fail / 21 skip / 22 TODO. Firefox posepad: 3 pass / 3 filtered.
+- Module, AniML and parity generated checks pass. Posepad-specific lint passes. Full size exits 1 solely with the known skin overage: posepad 775/896 B, posepad-handle 473/512 B; skin 2,754/1,536 B. Gates: core+web 22,803; largest scene 59,373; app-UI 108,121; runtime sum 137,408; authoring 15,358; Rive-class 168,761 B.
+- Additional seam: `packages/markup/test/decompile.test.ts` recovers `box` as a vector. Generated core/web package exports reorder after manifest dependency changes. The row remains planned until its oracle marker is promoted by the orchestrator.

@@ -1,4 +1,4 @@
-<anima version="0.1" name="look" grid="20" requires="posepad bind input">
+<anima version="0.1" name="look" grid="20" requires="posepad bind input rig">
   <number name="knobX" default="10"/>
   <number name="knobY" default="15"/>
   <circle id="leftEye" cx="6" cy="6" r="3" fill="#eee"/>
@@ -8,7 +8,10 @@
     <circle id="rightPupil" cx="14" cy="6" r="1" fill="#141413"/>
   </group>
   <rect id="rail" x0="6" y0="11" width="8" height="8" stroke="#888"/>
-  <circle id="knob" cx="0" cy="0" r="1" fill="#d97757"/>
+  <group id="anchor" x="10" y="15"/>
+  <circle id="knob" cx="0" cy="0" r="1" fill="#d97757">
+    <keep-distance to="anchor" distance="2" mode="within"/>
+  </circle>
   <bind target="knob.x" value="knobX"/>
   <bind target="knob.y" value="knobY"/>
   <listener on="drag-start|drag|drag-end" target="knob" write="{&quot;x&quot;:&quot;knobX&quot;,&quot;y&quot;:&quot;knobY&quot;}" align="preserve"/>

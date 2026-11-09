@@ -1,3 +1,4 @@
 advance 0
+snapshot look.valueX look.valueY pupils.x pupils.y knob.world.x knob.world.y
 pointer drag 10 15 14 11
-snapshot
+snapshot look.valueX look.valueY pupils.x pupils.y knob.world.x knob.world.y

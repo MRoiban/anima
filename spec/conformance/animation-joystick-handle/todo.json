@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Free pointer-drag handle is tested; distance-gated keepDistance probe awaits P8-1 merge and orchestrator rebase instruction."
-}
