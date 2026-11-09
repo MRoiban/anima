@@ -1,6 +1,6 @@
 import '@anima-format/core/all';
 import { expect, it } from 'vitest';
-import { load, Player } from '@anima-format/core';
+import { drawFrame, load, Player } from '@anima-format/core';
 
 const make = (nodes: object[], extra: object = {}) => {
   const result = load({
@@ -102,4 +102,43 @@ it('spreads direct children over start/end/shift fractions', () => {
   expect(world(p, 'a')[0]).toBeCloseTo(4, 12);
   expect(world(p, 'b')[0]).toBeCloseTo(10, 12);
   expect(world(p, 'c')[0]).toBeCloseTo(16, 12);
+});
+
+it('spreads reconciled repeat items at 1, 3 and 5 positions', () => {
+  const p = make(
+    [
+      { id: 'track', type: 'path', d: 'M0 0L20 0' },
+      {
+        id: 'rows',
+        type: 'repeat',
+        count: '$n',
+        component: 'bead',
+        constraints: [{ kind: 'spreadAlongPath', path: 'track' }],
+      },
+    ],
+    {
+      requires: ['rig', 'pathfollow', 'components', 'data', 'bind', 'lists'],
+      data: {
+        models: { Board: { properties: { n: { type: 'number', default: 1 } } } },
+        instances: { main: { model: 'Board', default: true, values: {} } },
+      },
+      components: {
+        bead: { grid: 10, nodes: [{ id: 'dot', type: 'rect', x0: 0, y0: 0, w: 1, h: 1 }] },
+      },
+    },
+  );
+  const positions = () => {
+    const frame = drawFrame(p);
+    return frame.tree.nodes
+      .map((node, index) => [node.id, frame.nodes[index]?.world?.[4]] as const)
+      .filter(([id]) => /^rows\/\d+$/.test(id))
+      .map(([, x]) => x);
+  };
+  expect(positions()).toEqual([0]);
+  p.set('$n', 3);
+  p.step(0);
+  expect(positions()).toEqual([0, 10, 20]);
+  p.set('$n', 5);
+  p.step(0);
+  expect(positions()).toEqual([0, 5, 10, 15, 20]);
 });

@@ -1,0 +1,3 @@
+{"time":0,"values":{"oneA.world.x":7,"oneA.world.y":20,"threeA.world.x":0,"threeB.world.x":10,"threeC.world.x":20,"fiveA.world.x":3,"fiveB.world.x":7,"fiveC.world.x":11,"fiveD.world.x":15,"fiveE.world.x":19,"turnA.world.x":30,"turnA.world.y":0,"turnA.world.rotate":90,"turnB.world.x":30,"turnB.world.y":5,"turnB.world.rotate":90,"turnC.world.x":30,"turnC.world.y":10,"turnC.world.rotate":90,"$n":1,"rows/0/dot.w":1},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$n":3,"rows/0/dot.w":1,"rows/1/dot.w":1,"rows/2/dot.w":1},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$n":5,"rows/0/dot.w":1,"rows/1/dot.w":1,"rows/2/dot.w":1,"rows/3/dot.w":1,"rows/4/dot.w":1},"states":{},"events":[],"settled":true}

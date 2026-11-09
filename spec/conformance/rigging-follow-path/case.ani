@@ -1,0 +1,163 @@
+{
+  "anima": "0.1",
+  "name": "rigging-follow-path",
+  "grid": 40,
+  "requires": ["rig", "pathfollow"],
+  "nodes": [
+    {
+      "id": "open",
+      "type": "path",
+      "d": "M0 0L8 0",
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "turned",
+      "type": "path",
+      "d": "M0 0L8 0",
+      "x": 10,
+      "y": 5,
+      "rotate": 90,
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "closed",
+      "type": "circle",
+      "center": [20, 10],
+      "r": 4,
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "at0",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "at25",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 0.25
+        }
+      ]
+    },
+    {
+      "id": "at1",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 1
+        }
+      ]
+    },
+    {
+      "id": "orientOff",
+      "type": "group",
+      "rotate": 17,
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 0.25
+        }
+      ]
+    },
+    {
+      "id": "transformed",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "turned",
+          "at": 0.25,
+          "orient": true
+        }
+      ]
+    },
+    {
+      "id": "wrapped",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "closed",
+          "at": 1.25
+        }
+      ]
+    },
+    {
+      "id": "animated",
+      "type": "group",
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "offset",
+      "type": "group",
+      "x": 2,
+      "children": [],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "open",
+          "at": 0.5,
+          "offset": true
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "move": {
+      "duration": 1,
+      "tracks": {
+        "animated.constraints.0.at": [
+          [0, 0],
+          [1, 1]
+        ],
+        "offset.x": [
+          [0, 2],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "move",
+        "states": {
+          "move": {
+            "play": "move"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{"time":0,"values":{"at0.world.x":0,"at0.world.y":0,"at25.world.x":2,"at25.world.y":0,"at1.world.x":8,"at1.world.y":0,"orientOff.world.rotate":17,"transformed.world.x":10,"transformed.world.y":7,"transformed.world.rotate":90,"wrapped.world.x":20,"wrapped.world.y":14,"animated.world.x":0,"animated.world.y":0,"offset.world.x":4,"offset.world.y":0},"states":{"main":"move"},"events":[],"settled":false}
+{"time":0.5,"values":{"animated.world.x":4,"animated.world.y":0,"offset.world.x":5,"offset.world.y":0},"states":{"main":"move"},"events":[],"settled":false}
+{"time":1,"values":{"animated.world.x":8,"animated.world.y":0,"offset.world.x":6,"offset.world.y":0},"states":{"main":"move"},"events":[],"settled":true}

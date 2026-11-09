@@ -1,1 +1,8 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot oneA.world.x oneA.world.y threeA.world.x threeB.world.x threeC.world.x fiveA.world.x fiveB.world.x fiveC.world.x fiveD.world.x fiveE.world.x turnA.world.x turnA.world.y turnA.world.rotate turnB.world.x turnB.world.y turnB.world.rotate turnC.world.x turnC.world.y turnC.world.rotate $n rows/0/dot.w
+set $n 3
+advance 0
+snapshot $n rows/0/dot.w rows/1/dot.w rows/2/dot.w
+set $n 5
+advance 0
+snapshot $n rows/0/dot.w rows/1/dot.w rows/2/dot.w rows/3/dot.w rows/4/dot.w

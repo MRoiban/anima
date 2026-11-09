@@ -1,4 +1,43 @@
-<!-- TODO: rigging.list-follow-path; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-list-follow-path" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-list-follow-path" grid="70" requires="rig pathfollow components data bind lists">
+  <path id="onePath" d="M0 20L20 20" stroke="#888"/>
+  <path id="threePath" d="M0 30L20 30" stroke="#888"/>
+  <path id="fivePath" d="M0 40L20 40" stroke="#888"/>
+  <path id="turnPath" d="M0 0L10 0" x="30" rotate="90" stroke="#888"/>
+  <path id="repeatPath" d="M0 50L20 50" stroke="#888"/>
+
+  <group id="one">
+    <spread-along-path path="onePath" start="0.25" end="0.9" shift="0.1"/>
+    <group id="oneA"/>
+  </group>
+  <group id="three">
+    <spread-along-path path="threePath"/>
+    <group id="threeA"/>
+    <group id="threeB"/>
+    <group id="threeC"/>
+  </group>
+  <group id="five">
+    <spread-along-path path="fivePath" start="0.1" end="0.9" shift="0.05"/>
+    <group id="fiveA"/>
+    <group id="fiveB"/>
+    <group id="fiveC"/>
+    <group id="fiveD"/>
+    <group id="fiveE"/>
+  </group>
+  <group id="oriented">
+    <spread-along-path path="turnPath" orient="true"/>
+    <group id="turnA"/>
+    <group id="turnB"/>
+    <group id="turnC"/>
+  </group>
+
+  <model name="Board">
+    <number name="n" default="1"/>
+  </model>
+  <instance name="main" model="Board" default="true"/>
+  <component name="bead" grid="10">
+    <rect id="dot" x0="0" y0="0" width="1" height="1" fill="#111"/>
+  </component>
+  <repeat id="rows" count="$n" component="bead">
+    <spread-along-path path="repeatPath"/>
+  </repeat>
 </anima>

@@ -13,6 +13,7 @@ import {
 } from '../../rig/core/api.ts';
 import { entries as followEntries } from '../capabilities/rigging-follow-path/registry.ts';
 import { entries as listEntries } from '../capabilities/rigging-list-follow-path/registry.ts';
+import { lists as listModule } from '../../lists/core/index.ts';
 import { after } from '../manifest.ts';
 import { pathMeasure } from './measure.ts';
 
@@ -193,13 +194,13 @@ export const pathfollow: Module = {
       solve: spread,
     });
     const lists = registry.get('lists') as unknown as Lists | undefined;
-    if (lists && !hooked.has(lists)) {
-      const previous = lists.beforeDraw;
-      lists.beforeDraw = (player) => {
+    if (lists && !hooked.has(listModule)) {
+      const previous = listModule.beforeDraw;
+      listModule.beforeDraw = (player) => {
         previous?.(player);
         placeRepeats(player, lists);
       };
-      hooked.add(lists);
+      hooked.add(listModule);
     }
     return pathfollow;
   },
