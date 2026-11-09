@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 | 14 |  | 8 |  | 1 |  |
+| Rigging | 23 | 15 |  | 7 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **877** | **0** | **9** | **0** | **188** | **164** |
+| **Total** | **1238** | **878** | **0** | **8** | **0** | **188** | **164** |
 
-**Progress:** 877 of 886 in-scope capabilities done (99 %); 877 of 1238 in the full matrix (71 %).
+**Progress:** 878 of 886 in-scope capabilities done (99 %); 878 of 1238 in the full matrix (71 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1322,7 +1322,7 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.distance-closer` | Distance constraint: closer | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.distance-exact` | Distance constraint: exact | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.distance-further` | Distance constraint: further | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
-| `rigging.follow-path` | Follow path constraint | modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl | pathfollow | planned | modules/pathfollow/test/core; spec/conformance/rigging-follow-path; tests/oracle/rigging-follow-path | Implementation, conformance and native capture are complete; raw frame 0 is max 1 with 0 pixels over 16. P8 shared ownership leaves comparison-limit selection and cases.json promotion to the orchestrator. |
+| `rigging.follow-path` | Follow path constraint | modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl | pathfollow | done | modules/pathfollow/test/core; spec/conformance/rigging-follow-path; tests/oracle/rigging-follow-path | Implementation, conformance and native capture are complete; raw frame 0 is max 1 with 0 pixels over 16. P8 shared ownership leaves comparison-limit selection and cases.json promotion to the orchestrator. |
 | `rigging.ik` | Inverse kinematics | TODO: modules/ik/capabilities/rigging-ik/registry.ts; spec/SPEC.md (Inverse kinematics); modules/ik/capabilities/rigging-ik/example.animl | rig | done | TODO: modules/ik/test/core/rigging-ik.test.ts; spec/conformance/rigging-ik; tests/oracle/rigging-ik |  |
 | `rigging.ik-bend` | IK bend direction | TODO: modules/ik/capabilities/rigging-ik-bend/registry.ts; spec/SPEC.md (IK bend direction); modules/ik/capabilities/rigging-ik-bend/example.animl | rig | done | TODO: modules/ik/test/core/rigging-ik-bend.test.ts; spec/conformance/rigging-ik-bend; tests/oracle/rigging-ik-bend |  |
 | `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick |  |

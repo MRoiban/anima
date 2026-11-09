@@ -12953,5 +12953,33 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-follow-path",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 60,
+        "over": 18,
+        "overPercent": 0.03125,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 30,
+        "over": 31,
+        "overPercent": 0.05381944444444445,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 60,
+        "over": 33,
+        "overPercent": 0.057291666666666664,
+        "pass": true
+      }
+    ]
   }
 ]

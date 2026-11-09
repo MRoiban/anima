@@ -3616,5 +3616,12 @@
     "threshold": 16,
     "maxDiff": 65,
     "maxOverPercent": 0.25
+  },
+  {
+    "name": "rigging-follow-path",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
   }
 ]
