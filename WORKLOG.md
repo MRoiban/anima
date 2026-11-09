@@ -17,14 +17,15 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
 - P8 design merged (`design/p8/`: DESIGN, BENCHMARK, tickets P8-1…9, DECISIONS D1–D35 + my answers
   and D36 `posepad` one word, D37 optional `posepad-handle` entry if `posepad` > 768 B, D38 bone
-  parents: root, component root, group, bone). Merged into `p8-rigging`: P8-9 (tree bounds done),
-  P8-6 (three posepad rows done; oracle cases added by me at 16/2/0 from measured max 1;
-  `animation.joystick-handle` waits for P8-1, its worktree t3-480918c8 kept), P8-8 (R4-02 + toggle
-  queue). 4/26 rows done. Perf vs main after these merges: within noise (bell +2.3/−5.2 %,
-  composite/toolbar ±1 %). P8-1 (only c7f8bc0c committed) and P8-5 stopped on the Codex limit again
-  (until 18:28); patches `p8-1-2.patch`, `p8-5-2.patch`; a scheduled task resumes both at 18:35.
-  Wave 2 after P8-1 merges: P8-2 IK, P8-3 path follow, P8-4 skin, P8-7 scroll; then P8-6 rebases for
-  the handle row. Wave 3: benchmark, closure, perf, PR.
+  parents: root, component root, group, bone), D39 zero rest scale is `bad-value`, D40 core point
+  tuples (+16 B core+web), D41 budget resets (mesh 1,472, posepad 896, components 3,840), D42 no
+  mesh oracle budgets before a diff analysis. Merged into `p8-rigging` (28d8d294): P8-9 + P8-9b
+  (canvas corpus fix), P8-6 (3 posepad rows done), P8-8, P8-5 (mesh, rows open), P8-1 (rig core,
+  partial, 11 rows open). 4/26 rows done. Size exits 0: core+web 22,803, Rive-class 163,987.
+  Running (cap 2): P8-5 thread = mesh oracle diff analysis; P8-1 thread = P8-1b (rig oracle analysis
+  — steady 53/22 px pattern, `rig-bone-parent` order, copyTransform origin gaps via an optional entry).
+  Next: wave 2 (P8-2 IK, P8-3 path follow, P8-4 skin, P8-7 scroll) two at a time, P8-6 handle row,
+  then wave 3. Disk: 3.3 GB free.
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
