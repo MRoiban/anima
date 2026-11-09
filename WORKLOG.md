@@ -36,8 +36,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Owner
 
-- Coders: **GPT-6.1 Terra** (`gpt-6.1-terra`) at **medium** effort, **at most 2 concurrent subagents**, of which at most **one** may be GPT-5.6 Sol (Web) on the **`codexWeb`** provider instance (`chatgpt-web/gpt-5.6-sol`, separate quota; owner 2026-11-09)
-  (owner, 2026-11-09).
+- Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
+  medium), **one at a time** (owner, 2026-11-09). No Terra or other `codex` models.
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
   changes. Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
