@@ -1,0 +1,38 @@
+
+> test:scope
+> node tools/test-scope.ts mesh --browser=firefox
+
+Scopes: mesh
+  unit: modules/mesh/test/core/mesh.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/mesh/test/web/mesh.test.ts
+  cases: ^conformance > (rigging-mesh|rigging-mesh-animation)$
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |scope-browser| modules/mesh/test/web/mesh.test.ts (12 tests | 12 skipped) 39048ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/mesh/test/web/mesh.test.ts > firefox
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/mesh/test/web/mesh.test.ts:37:5
+     35|   describe(name, () => {
+     36|     let browser: Browser, source: string, reversed: string;
+     37|     beforeAll(async () => {
+       |     ^
+     38|       browser = await engine.launch({ headless: true, executablePath: …
+     39|       [source, reversed] = await Promise.all([
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1380 passed | 636 skipped (2016)
+   Start at  12:58:31
+   Duration  59.15s (tests 54%, transform 23%, import 23%)

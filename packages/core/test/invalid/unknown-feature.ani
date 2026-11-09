@@ -18,6 +18,6 @@
   }
  ],
  "requires": [
-  "mesh"
+  "not-a-feature"
  ]
 }

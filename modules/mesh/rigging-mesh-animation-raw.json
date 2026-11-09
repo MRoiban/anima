@@ -1,0 +1,26 @@
+[
+  {
+    "time": 0,
+    "maxDiff": 73,
+    "over": 156,
+    "overPercent": 0.2708333333333333
+  },
+  {
+    "time": 0.25,
+    "maxDiff": 81,
+    "over": 230,
+    "overPercent": 0.3993055555555556
+  },
+  {
+    "time": 0.5,
+    "maxDiff": 82,
+    "over": 225,
+    "overPercent": 0.390625
+  },
+  {
+    "time": 1,
+    "maxDiff": 73,
+    "over": 156,
+    "overPercent": 0.2708333333333333
+  }
+]

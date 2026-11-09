@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import { nodePointer as pointer } from '../../components/core/node-pointer.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM, InputEvaluator } from '../../../packages/core/src/load.ts';
@@ -279,7 +280,10 @@ export const nested: Module & { dynamicTrees: typeof dynamicTrees } = {
               ...Object.fromEntries(
                 [...plans.keys()].map((name) => {
                   const v = p.get(name)!;
-                  return [name, Array.isArray(v) ? formatHex(v) : v];
+                  return [
+                    name,
+                    Array.isArray(v) ? formatHex(v as [number, number, number, number]) : v,
+                  ];
                 }),
               ),
             });

@@ -362,6 +362,15 @@ describe('AniML compiler', () => {
         '<anima><layout reflow="0.25 out" direction="row" justify="space-between" align="stretch" gap="1" padding="1" min-width="0" max-width="20" min-height="0" max-height="20" corners="1"><rect layout-width="fill" layout-height="fill" align-self="end" margin="1" display="none"/></layout></anima>',
       ).doc.root!,
     );
+    // seam(P8-5): include the registry-generic mesh spelling in the independent census.
+    collectPaint(
+      parseXml(
+        readFileSync(
+          new URL('../../../spec/conformance/rigging-mesh/case.animl', import.meta.url),
+          'utf8',
+        ),
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

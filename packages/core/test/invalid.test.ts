@@ -1,3 +1,4 @@
+// seam(P8-5): the unknown-feature fixture uses an unregistered sentinel now mesh is supported.
 import '@anima-format/core/all';
 // One broken document per diagnostic code (spec §11.3). Each file is named after the code it must
 // produce and says where in its "$comment": "expect <code> at <pointer>".

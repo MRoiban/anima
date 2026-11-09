@@ -1,0 +1,8 @@
+advance 0
+snapshot flag.mesh.vertex.2 flag.mesh.vertex.3
+advance 0.25
+snapshot flag.mesh.vertex.2 flag.mesh.vertex.3
+advance 0.25
+snapshot flag.mesh.vertex.2 flag.mesh.vertex.3
+advance 0.5
+snapshot flag.mesh.vertex.2 flag.mesh.vertex.3

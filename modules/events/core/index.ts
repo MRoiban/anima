@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import {
   eventSource,
@@ -303,7 +304,9 @@ export const events: Module = {
             : f.input === undefined
               ? f.value!
               : player.get(f.input)!;
-        return Array.isArray(v) ? formatHex(v) : (v as number | boolean | string);
+        return Array.isArray(v)
+          ? formatHex(v as [number, number, number, number])
+          : (v as number | boolean | string);
       };
       for (const e of out) {
         if (V && capturing) (e as CapturedEvent)[eventSource] = model;

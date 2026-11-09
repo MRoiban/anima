@@ -130,6 +130,8 @@ export interface DrawTree {
   }[];
 }
 export interface DrawNode {
+  // seam(P8-5): renderer-neutral textured triangle data.
+  mesh?: { points: number[]; uv: number[]; triangles: number[][] };
   transform: Mat;
   world?: Mat;
   opacity: number;

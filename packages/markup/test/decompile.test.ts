@@ -68,50 +68,53 @@ function recover(root: Element): Obj {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
       o[k === 'export' && e.name === 'instance' ? 'exported' : k] =
-        (['entry', 'exit', 'actions', 'guard'].includes(k) && v.startsWith('{')) ||
-        (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
-          ? JSON.parse(v)
-          : [
-                'global',
-                'exported',
-                'export',
-                'public',
-                'default',
-                'min',
-                'max',
-                'buffer',
-                'duration',
-                'quantize',
-                'exit',
-                'exitFraction',
-                'speed',
-                'blend',
-                'interruptible',
-                'hold',
-                'sync',
-                'at',
-                'hitPadding',
-                'continue',
-                'disabled',
-                'reset',
-                'weight',
-                'exitRatio',
-                'blendRatio',
-                'button',
-                'capture',
-                'consume',
-                'propagate',
-                'index',
-                'control',
-              ].includes(k)
-            ? scalar(v)
-            : k === 'work'
-              ? vector(v)
-              : k === 'when'
-                ? v.replace(/\band\b/g, '&&')
-                : v.startsWith('{"') || v.startsWith('[')
-                  ? JSON.parse(v)
-                  : v;
+        // seam(P8-5): binding expressions remain text even when they start with '['.
+        e.name === 'bind' && k === 'value'
+          ? v
+          : (['entry', 'exit', 'actions', 'guard'].includes(k) && v.startsWith('{')) ||
+              (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
+            ? JSON.parse(v)
+            : [
+                  'global',
+                  'exported',
+                  'export',
+                  'public',
+                  'default',
+                  'min',
+                  'max',
+                  'buffer',
+                  'duration',
+                  'quantize',
+                  'exit',
+                  'exitFraction',
+                  'speed',
+                  'blend',
+                  'interruptible',
+                  'hold',
+                  'sync',
+                  'at',
+                  'hitPadding',
+                  'continue',
+                  'disabled',
+                  'reset',
+                  'weight',
+                  'exitRatio',
+                  'blendRatio',
+                  'button',
+                  'capture',
+                  'consume',
+                  'propagate',
+                  'index',
+                  'control',
+                ].includes(k)
+              ? scalar(v)
+              : k === 'work'
+                ? vector(v)
+                : k === 'when'
+                  ? v.replace(/\band\b/g, '&&')
+                  : v.startsWith('{"') || v.startsWith('[')
+                    ? JSON.parse(v)
+                    : v;
     return o;
   };
   const node = (e: Element): Obj => {

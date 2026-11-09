@@ -1,0 +1,943 @@
+
+> test:scope
+> node tools/test-scope.ts changed
+
+Scopes: core, markup, web, cli, playground, tools, bind, canvas, components, data, events, nested, mesh, canvas-mesh, conformance, oracle
+  unit: modules/a11y-actions/test/core/rottweiler-p3.test.ts
+  unit: modules/a11y/test/cli/bf4.test.ts
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/issues.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/painted-bounds.test.ts
+  unit: modules/a11y/test/core/rottweiler-p6.test.ts
+  unit: modules/a11y/test/core/rt1.test.ts
+  unit: modules/a11y/test/core/rt2.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/text-hit.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/cli/rottweiler-p5.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/bind/test/core/p4-review.test.ts
+  unit: modules/bind/test/core/strings.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/colormix/test/cli/render.test.ts
+  unit: modules/colormix/test/core/colormix.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/componentpaint/test/core/invalid-source.test.ts
+  unit: modules/componentpaint/test/core/oracle.test.ts
+  unit: modules/componentpaint/test/core/rottweiler-p5.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/core/rt2.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/composite/test/core/p4-review.test.ts
+  unit: modules/composite/test/core/paint-composite.test.ts
+  unit: modules/composite/test/core/rottweiler-p5.test.ts
+  unit: modules/contour/test/core/contour.test.ts
+  unit: modules/contour/test/core/effects.test.ts
+  unit: modules/contour/test/core/p4-review.test.ts
+  unit: modules/contour/test/core/path-evidence.test.ts
+  unit: modules/contour/test/core/raster-evidence.test.ts
+  unit: modules/contour/test/core/winding.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/color-pattern.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/data-converter-color-formatting.test.ts
+  unit: modules/convert/test/core/data-converter-trigger.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/core/p4-review.test.ts
+  unit: modules/convert/test/core/p5b-oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/corners/test/core/corners.test.ts
+  unit: modules/data-artboard/test/core/artboard.test.ts
+  unit: modules/data-artboard/test/core/rt3.test.ts
+  unit: modules/data-artboard/test/core/rt4.test.ts
+  unit: modules/data-artboard/test/core/rt5.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/p4-review.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/data/test/markup/p4-review.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/derive/test/core/settled-guard.test.ts
+  unit: modules/devtools/test/core/policy.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/focus/test/core/p4-review.test.ts
+  unit: modules/fonts/test/core/assets.test.ts
+  unit: modules/fonts/test/core/canvas-settings.test.ts
+  unit: modules/fonts/test/core/css.test.ts
+  unit: modules/fonts/test/core/host-errors.test.ts
+  unit: modules/fonts/test/core/info-conformance.test.ts
+  unit: modules/fonts/test/core/options-conformance.test.ts
+  unit: modules/fonts/test/core/oracle-conformance.test.ts
+  unit: modules/fonts/test/core/rottweiler-p6.test.ts
+  unit: modules/fonts/test/core/rt2.test.ts
+  unit: modules/fonts/test/core/text-font-decoding.test.ts
+  unit: modules/fonts/test/core/text-font-metrics.test.ts
+  unit: modules/fonts/test/core/text-opentype-features.test.ts
+  unit: modules/fonts/test/core/text-variable-axes.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/rottweiler-p5.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/p4-review.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/layout/test/cli/layout.test.ts
+  unit: modules/layout/test/core/layout-animated-reflow.test.ts
+  unit: modules/layout/test/core/layout.test.ts
+  unit: modules/layout/test/core/rt1.test.ts
+  unit: modules/layout/test/core/rt2.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/lists/test/core/rottweiler-p5.test.ts
+  unit: modules/machine/test/core/diagnostics.test.ts
+  unit: modules/machine/test/core/p4-review.test.ts
+  unit: modules/machine/test/core/p5b-oracle.test.ts
+  unit: modules/machine/test/core/rottweiler-p3.test.ts
+  unit: modules/machine/test/core/runtime.test.ts
+  unit: modules/machine/test/core/state-machine-any-state.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-input.test.ts
+  unit: modules/machine/test/core/state-machine-blend-additive.test.ts
+  unit: modules/machine/test/core/state-machine-blend-direct.test.ts
+  unit: modules/machine/test/core/state-machine-blend-exit-clock.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-constant.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-input.test.ts
+  unit: modules/machine/test/core/state-machine-condition-artboard.test.ts
+  unit: modules/machine/test/core/state-machine-condition-component.test.ts
+  unit: modules/machine/test/core/state-machine-condition-data.test.ts
+  unit: modules/machine/test/core/state-machine-condition-focus.test.ts
+  unit: modules/machine/test/core/state-machine-continue-on-exit.test.ts
+  unit: modules/machine/test/core/state-machine-entry-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-time-relative.test.ts
+  unit: modules/machine/test/core/state-machine-literal-asset.test.ts
+  unit: modules/machine/test/core/state-machine-literal-boolean.test.ts
+  unit: modules/machine/test/core/state-machine-literal-color.test.ts
+  unit: modules/machine/test/core/state-machine-literal-enum.test.ts
+  unit: modules/machine/test/core/state-machine-literal-string.test.ts
+  unit: modules/machine/test/core/state-machine-literal-trigger.test.ts
+  unit: modules/machine/test/core/state-machine-state-entry-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-exit-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-random.test.ts
+  unit: modules/machine/test/core/state-machine-state-reset.test.ts
+  unit: modules/machine/test/core/state-machine-transition-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-disabled.test.ts
+  unit: modules/machine/test/core/state-machine-transition-duration-relative.test.ts
+  unit: modules/machine/test/core/state-machine-transition-end-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-random-weight.test.ts
+  unit: modules/markup-animation/test/markup/positions.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/mesh/test/core/mesh.test.ts
+  unit: modules/mix/test/core/mix.test.ts
+  unit: modules/mix/test/core/p4-review.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/motion/test/core/animation-cubic-value.test.ts
+  unit: modules/motion/test/core/animation-elastic-in-out.test.ts
+  unit: modules/motion/test/core/animation-elastic-in.test.ts
+  unit: modules/motion/test/core/animation-host-loop-override.test.ts
+  unit: modules/motion/test/core/animation-host-play-pause-stop.test.ts
+  unit: modules/motion/test/core/animation-keys-reference.test.ts
+  unit: modules/motion/test/core/animation-keys-signed-integer.test.ts
+  unit: modules/motion/test/core/animation-keys-string.test.ts
+  unit: modules/motion/test/core/animation-keys-unsigned-integer.test.ts
+  unit: modules/motion/test/core/animation-mix-discrete.test.ts
+  unit: modules/motion/test/core/animation-mix-numeric.test.ts
+  unit: modules/motion/test/core/animation-quantized-playback.test.ts
+  unit: modules/motion/test/core/animation-reverse.test.ts
+  unit: modules/motion/test/core/animation-seek.test.ts
+  unit: modules/motion/test/core/animation-work-area.test.ts
+  unit: modules/motion/test/core/boundaries.test.ts
+  unit: modules/motion/test/core/control.test.ts
+  unit: modules/motion/test/core/data-bind-keyframes.test.ts
+  unit: modules/motion/test/core/data-keys-oracle.test.ts
+  unit: modules/motion/test/core/diagnostics.test.ts
+  unit: modules/motion/test/core/host-api-animation-metadata.test.ts
+  unit: modules/motion/test/core/host-api-low-level-animation.test.ts
+  unit: modules/motion/test/core/host-api-low-level-scene-query.test.ts
+  unit: modules/motion/test/core/host-api-multi-state-machine.test.ts
+  unit: modules/motion/test/core/host-api-scrub.test.ts
+  unit: modules/motion/test/core/p4-review.test.ts
+  unit: modules/motion/test/core/reduced-live.test.ts
+  unit: modules/motion/test/core/rottweiler-p5.test.ts
+  unit: modules/motion/test/core/runtime.test.ts
+  unit: modules/motion/test/core/state-machine-exit-time-seconds.test.ts
+  unit: modules/motion/test/core/transforms-origin-animation.test.ts
+  unit: modules/motion/test/core/typed-oracle.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/rt1.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/core/rottweiler-p5.test.ts
+  unit: modules/surface/test/core/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: modules/text-effects/test/core/cli.test.ts
+  unit: modules/text-effects/test/core/effects.test.ts
+  unit: modules/text-effects/test/core/registration.test.ts
+  unit: modules/text-effects/test/core/rottweiler-p6.test.ts
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/cli/placeholder.test.ts
+  unit: modules/text-input/test/cli/rottweiler-p6.test.ts
+  unit: modules/text-input/test/core/drawing-conformance.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: modules/text-input/test/core/issue35.test.ts
+  unit: modules/text-input/test/core/rottweiler-p6.test.ts
+  unit: modules/text-input/test/core/text-input-placeholder.test.ts
+  unit: modules/text-input/test/core/text-input-selection.test.ts
+  unit: modules/text/test/cli/flatten.test.ts
+  unit: modules/text/test/cli/integration.test.ts
+  unit: modules/text/test/cli/live-runs.test.ts
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout-measure.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/live-runs.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/core/rottweiler-p6.test.ts
+  unit: modules/text/test/core/rt2.test.ts
+  unit: modules/text/test/core/rt4.test.ts
+  unit: modules/text/test/core/text-fit-baseline.test.ts
+  unit: modules/text/test/core/text-flatten.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p2-rottweiler.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/p6-12.test.ts
+  unit: packages/cli/test/p6-9b.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/rottweiler-p1.test.ts
+  unit: packages/cli/test/rottweiler-p3.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  unit: packages/core/test/bell-parity.test.ts
+  unit: packages/core/test/draw.test.ts
+  unit: packages/core/test/examples.test.ts
+  unit: packages/core/test/feature-hints.test.ts
+  unit: packages/core/test/inspect.test.ts
+  unit: packages/core/test/invalid.test.ts
+  unit: packages/core/test/issue-29.test.ts
+  unit: packages/core/test/module-order.test.ts
+  unit: packages/core/test/modules.test.ts
+  unit: packages/core/test/path.test.ts
+  unit: packages/core/test/player.test.ts
+  unit: packages/core/test/review-followups.test.ts
+  unit: packages/core/test/rottweiler-p1.test.ts
+  unit: packages/core/test/rottweiler-p3.test.ts
+  unit: packages/core/test/smoke.test.ts
+  unit: packages/core/test/svg-compat.test.ts
+  unit: packages/core/test/time.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/rottweiler-p1-lean.test.ts
+  unit: packages/markup/test/rottweiler-p1.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: packages/playground/test/pure.test.ts
+  unit: packages/playground/test/server.test.ts
+  unit: tools/browser-cache.test.ts
+  unit: tools/modules.test.ts
+  unit: tools/new-capability.test.ts
+  unit: tools/oracle.test.ts
+  unit: tools/parity.test.ts
+  unit: tools/test-scope.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/issues.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/a11y/test/web/painted-bounds.test.ts
+  browser: modules/assetio/test/web/reject.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/canvas/test/web/p4-review.test.ts
+  browser: modules/colormix/test/web/switch.test.ts
+  browser: modules/componentpaint/test/web/rottweiler-p5.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-artboard/test/web/artboard.test.ts
+  browser: modules/data-artboard/test/web/resources.test.ts
+  browser: modules/data-artboard/test/web/rt4.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/focus/test/web/p4-review.test.ts
+  browser: modules/focus/test/web/rottweiler-p3.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/info.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/rottweiler-p6.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/rottweiler-p3.test.ts
+  browser: modules/host-edit/test/web/rottweiler-p5.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/host-fit/test/web/rt4.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/input/test/web/p4-review.test.ts
+  browser: modules/input/test/web/rottweiler-p3.test.ts
+  browser: modules/input/test/web/rottweiler-p6.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/layout/test/web/reflow.test.ts
+  browser: modules/layout/test/web/rt4.test.ts
+  browser: modules/layout/test/web/rt5.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup-animation/test/web/animation.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/mesh/test/web/mesh.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/rottweiler-p5.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/issue35.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text-input/test/web/rottweiler-p6.browser.test.ts
+  browser: modules/text-input/test/web/selection.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/optional.test.ts
+  browser: modules/text/test/web/paint-repaint.test.ts
+  browser: modules/text/test/web/rottweiler-p6.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/cli/test/bundle.test.ts
+  browser: packages/playground/test/browser.test.ts
+  browser: packages/playground/test/rottweiler-p3.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |scope-browser| packages/web/test/markup-hooks.test.ts (18 tests | 18 skipped) 34932ms
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (24 tests | 3 failed) 96386ms
+   ❯ Chromium asset pipeline (12)
+     × Canvas bilinear clamp matches an independent shader at every pixel for box 8.1 590ms
+   ❯ Firefox asset pipeline (12)
+     × preloads component-only images relative to src and shares their resolved resources with repeated players 5011ms
+     × shares resolved pixel resources when media and then assets register 5005ms
+ ❯ |scope-browser| modules/events/test/web/events.browser.test.ts (32 tests | 1 failed | 16 skipped) 115648ms
+   ❯ events in Firefox (16)
+     × share example increments past ten and sends its generated tone through the audio request path 13790ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 1 failed) 150711ms
+   ❯ overlay Firefox (22)
+     × attaches after separately bundled focus/actions and an already loaded model 7415ms
+ ❯ |scope-browser| modules/data-artboard/test/web/resources.test.ts (6 tests | 6 failed) 190088ms
+   × Chromium adopts unused image/font components, scoped by source load (assets first) 30145ms
+   × Chromium adopts unused image/font components, scoped by source load (fonts first) 32602ms
+   × Firefox adopts unused image/font components, scoped by source load (assets first) 31253ms
+   × Firefox adopts unused image/font components, scoped by source load (fonts first) 30041ms
+   × Chromium cached loader initializers retain the actual destination owner 33674ms
+   × Firefox cached loader initializers retain the actual destination owner 32346ms
+ ❯ |scope-browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 12 skipped) 27401ms
+ ❯ |scope-browser| modules/data-host/test/web/browser.test.ts (8 tests | 8 skipped) 26881ms
+stdout | modules/host-edit/test/web/bf3.test.ts > Firefox BF-3 > B10 selects B from a model loaded as A, resets it, and diagnoses unknown roots
+Firefox B9 timing {"bytes":108286,"initial":11,"parsedCompiles":0,"sameModel":true,"independent":true,"textCompiles":0,"inlineCompiles":0,"urlCompiles":0,"firstMs":139,"laterMs":445,"totalMs":584,"instantiateMs":19.347826086956523}
+
+ ❯ |scope-browser| modules/fonts/test/web/fonts.test.ts (10 tests | 1 failed) 220196ms
+   ❯ Firefox fonts (5)
+     × initializes fonts for shared models in both entry orders (fonts first=false) 30034ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/bf4.test.ts (50 tests | 1 failed | 25 skipped) 172140ms
+   ❯ [BF-4] downstream Firefox (25)
+     × B16: only consumed semantic keys prevent default; input=true focus=true 6797ms
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan receive]:
+github.com/evanw/esbuild/internal/helpers.(*ThreadSafeWaitGroup).Wait(...)
+	github.com/evanw/esbuild/internal/helpers/waitgroup.go:36
+main.runService.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:114 +0x53
+main.runService(0x1)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:160 +0x637
+main.main()
+	github.com/evanw/esbuild/cmd/esbuild/main.go:252 +0xb16
+
+goroutine 19 [chan receive]:
+main.runService.func1()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:98 +0x45
+created by main.runService in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:97 +0x1ce
+
+goroutine 20 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8e6bade0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.runService.func3()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:125 +0x3e
+created by main.runService in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:122 +0x2c7
+
+goroutine 2873 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8cc3ccf0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8a149ae0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8a149ae0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8fa05680?, 0x1, 0x0?}, {0xae1500, 0x12d8f135a00}, 0x12d8fa05620, {0x12d8f932700, 0x12d8ef047c8, 0x12d8ef047e0, 0x12d8f1359e0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8f135a00}, {0x12d8f932700, 0x12d8ef047c8, 0x12d8ef047e0, 0x12d8f1359e0, 0x4, 0x12d8c090990}, 0x12d8f8c1b08, 0x12d8fa05620, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2511
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 3232 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8c05cf90})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d89e3d770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d89e3d770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2d560?, 0x1, 0x0?}, {0xae1500, 0x12d8d2f82e0}, 0x12d8ed2d500, {0x12d8f39b9d0, 0x12d8ecfd410, 0x12d8ecfd428, 0x12d8d2f82c0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8d2f82e0}, {0x12d8f39b9d0, 0x12d8ecfd410, 0x12d8ecfd428, 0x12d8d2f82c0, 0x4, 0x12d8ac570b0}, 0x12d8e667208, 0x12d8ed2d500, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2595
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2599 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8e865b08)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2d7a0, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2d7a0, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b86aae0, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x14, 0x12d8b3b5c50)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2602 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8da6a488)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8f647c80, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8f647c80, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b09a150, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x17, 0x12d8b3c9950)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2974 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d90762ff0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8b030370, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8b030370, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8f647a40?, 0x1, 0x0?}, {0xae1500, 0x12d8deaaf60}, 0x12d8f6479e0, {0x12d8d1dd030, 0x12d8deb0840, 0x12d8deb0858, 0x12d8deaaf40, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8deaaf60}, {0x12d8d1dd030, 0x12d8deb0840, 0x12d8deb0858, 0x12d8deaaf40, 0x4, 0x12d8b425080}, 0x12d8f4ebb08, 0x12d8f6479e0, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2601
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2600 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8f87f208)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8fa058c0, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8fa058c0, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b397d70, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x15, 0x12d8b3c8330)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2601 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8db12008)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8f6479e0, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8f6479e0, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b424600, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x16, 0x12d8b3c88d0)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2593 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8f0b5688)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2cfc0, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2cfc0, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8bc46150, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0xe, 0x12d8b3a0570)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2594 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8e777b08)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2d260, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2d260, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8ada6420, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0xf, 0x12d8b3a0de0)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2512 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8f015b08)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2cd20, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2cd20, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b374120, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0xd, 0x12d8bbc9980)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2511 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8f87e488)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8fa05620, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8fa05620, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8bdfbe30, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0xc, 0x12d8bbc9590)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2833 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8d7a00f0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8c103900, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8c103900, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2cae0?, 0x1, 0x0?}, {0xae1500, 0x12d8f9d9c00}, 0x12d8ed2ca80, {0x12d8f39b650, 0x12d8ecfccf0, 0x12d8ecfcd08, 0x12d8f9d9be0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8f9d9c00}, {0x12d8f39b650, 0x12d8ecfccf0, 0x12d8ecfcd08, 0x12d8f9d9be0, 0x4, 0x12d8c13f3e0}, 0x12d8fa21208, 0x12d8ed2ca80, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2596
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2253 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d90a9a960})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8dc047d0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8dc047d0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2d2c0?, 0x1, 0x0?}, {0xae1500, 0x12d89ab4f40}, 0x12d8ed2d260, {0x12d8f39b8f0, 0x12d8ecfd248, 0x12d8ecfd260, 0x12d89ab4ce0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d89ab4f40}, {0x12d8f39b8f0, 0x12d8ecfd248, 0x12d8ecfd260, 0x12d89ab4ce0, 0x4, 0x12d8ada7230}, 0x12d8e776d88, 0x12d8ed2d260, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2594
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 1498 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8fc4fad0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8a7c6d20, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8a7c6d20, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2d020?, 0x1, 0x0?}, {0xae1500, 0x12d8c0a1620}, 0x12d8ed2cfc0, {0x12d8f39b810, 0x12d8ecfd080, 0x12d8ecfd098, 0x12d8c0a15c0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8c0a1620}, {0x12d8f39b810, 0x12d8ecfd080, 0x12d8ecfd098, 0x12d8c0a15c0, 0x4, 0x12d8bc470b0}, 0x12d8f0b4488, 0x12d8ed2cfc0, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2593
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2598 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8d295b08)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2dce0, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2dce0, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8b4fd1a0, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x13, 0x12d8b3b5200)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2597 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8d294908)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2da40, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2da40, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8a8e2390, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x12, 0x12d8b3b4e10)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2596 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8fa21688)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2ca80, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2ca80, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8c13f2f0, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x11, 0x12d8b3b44b0)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 2595 [chan receive]:
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies(0x12d8e667688)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:2186 +0x22a
+github.com/evanw/esbuild/internal/bundler.ScanBundle(_, {_, _, _, _, _, _}, {_, _}, 0x12d8ed2d500, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1509 +0xecc
+github.com/evanw/esbuild/pkg/api.rebuildImpl({0x12d8ed2d500, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x1, 0x0, ...}, ...}, ...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1512 +0x338
+github.com/evanw/esbuild/pkg/api.(*internalContext).rebuild(_)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1026 +0x2fe
+github.com/evanw/esbuild/pkg/api.(*internalContext).Rebuild(...)
+	github.com/evanw/esbuild/pkg/api/api_impl.go:1087
+github.com/evanw/esbuild/pkg/api.Build({0x0, 0x4, 0x0, 0x0, 0x12d8a4a79e0, 0x0, 0x0, {0x0, 0x0}, 0x0, ...})
+	github.com/evanw/esbuild/pkg/api/api.go:405 +0xbf
+main.(*serviceType).handleBuildRequest(0x12d89b18ff0, 0x10, 0x12d8b3a1ce0)
+	github.com/evanw/esbuild/cmd/esbuild/service.go:789 +0xb29
+main.(*serviceType).handleIncomingPacket.func2()
+	github.com/evanw/esbuild/cmd/esbuild/service.go:235 +0x57
+created by main.(*serviceType).handleIncomingPacket in goroutine 1
+	github.com/evanw/esbuild/cmd/esbuild/service.go:233 +0x1aa
+
+goroutine 3117 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8a970c90})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d91406cd0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d91406cd0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2dd40?, 0x1, 0x0?}, {0xae1500, 0x12d89bf8460}, 0x12d8ed2dce0, {0x12d89b342a0, 0x12d8ecfd968, 0x12d8ecfd980, 0x12d8d2f9e20, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d89bf8460}, {0x12d89b342a0, 0x12d8ecfd968, 0x12d8ecfd980, 0x12d8d2f9e20, 0x4, 0x12d8b4fd7a0}, 0x12d8d295688, 0x12d8ed2dce0, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2598
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2916 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8a8e3b30})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8ce25770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8ce25770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8f647ce0?, 0x1, 0x0?}, {0xae1500, 0x12d8deab6a0}, 0x12d8f647c80, {0x12d8d1dd260, 0x12d8deb0a50, 0x12d8deb0a68, 0x12d8deab640, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8deab6a0}, {0x12d8d1dd260, 0x12d8deb0a50, 0x12d8deb0a68, 0x12d8deab640, 0x4, 0x12d8bf7c870}, 0x12d8db13b08, 0x12d8f647c80, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2602
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2898 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8f01b530})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8c974550, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8c974550, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8fa05920?, 0x1, 0x0?}, {0xae1500, 0x12d8f135c80}, 0x12d8fa058c0, {0x12d8f9327e0, 0x12d8ef04990, 0x12d8ef049a8, 0x12d8f135c60, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8f135c80}, {0x12d8f9327e0, 0x12d8ef04990, 0x12d8ef049a8, 0x12d8f135c60, 0x4, 0x12d8b84c780}, 0x12d8f87ed88, 0x12d8fa058c0, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2600
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 2255 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d91020060})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8bffa4b0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8bffa4b0, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2cd80?, 0x1, 0x0?}, {0xae1500, 0x12d8f9d9e80}, 0x12d8ed2cd20, {0x12d8f39b730, 0x12d8ecfceb8, 0x12d8ecfced0, 0x12d8f9d9e60, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8f9d9e80}, {0x12d8f39b730, 0x12d8ecfceb8, 0x12d8ecfced0, 0x12d8f9d9e60, 0x4, 0x12d8b3743c0}, 0x12d8f015688, 0x12d8ed2cd20, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2512
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 3019 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d9150b9e0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d89e3d180, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d89e3d180, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2d800?, 0x1, 0x40?}, {0xae1500, 0x12d8d2f8ae0}, 0x12d8ed2d7a0, {0x12d8f39bc00, 0x12d8ecfd5d8, 0x12d8ecfd5f0, 0x12d8d2f8a60, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8d2f8ae0}, {0x12d8f39bc00, 0x12d8ecfd5d8, 0x12d8ecfd5f0, 0x12d8d2f8a60, 0x4, 0x12d8b924360}, 0x12d8e864488, 0x12d8ed2d7a0, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2599
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+
+goroutine 3188 [chan receive]:
+main.(*serviceType).sendRequest(0x12d89b18ff0, {0xa13ca0, 0x12d8c356b70})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:192 +0x12b
+main.(*serviceType).convertPlugins.func2.4({{0x12d8cbab770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {0x0, 0x0}, 0x0})
+	github.com/evanw/esbuild/cmd/esbuild/service.go:1093 +0x865
+github.com/evanw/esbuild/pkg/api.(*pluginImpl).onLoad.func1({{0x0, 0x0}, {{0x12d8cbab770, 0x47}, {0xa9611c, 0x4}, {0x0, 0x0}, {{0x0, 0x0}}, ...}})
+	github.com/evanw/esbuild/pkg/api/api_impl.go:2037 +0x1bb
+github.com/evanw/esbuild/internal/bundler.runOnLoadPlugins({0x12d8ed2daa0?, 0x1, 0x0?}, {0xae1500, 0x12d8d2f9740}, 0x12d8ed2da40, {0x12d8f39bdc0, 0x12d8ecfd7a0, 0x12d8ecfd7b8, 0x12d8d2f96a0, ...}, ...)
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1207 +0x462
+github.com/evanw/esbuild/internal/bundler.parseFile({{0xae1500, 0x12d8d2f9740}, {0x12d8f39bdc0, 0x12d8ecfd7a0, 0x12d8ecfd7b8, 0x12d8d2f96a0, 0x4, 0x12d8a8e3020}, 0x12d8d294488, 0x12d8ed2da40, ...})
+	github.com/evanw/esbuild/internal/bundler/bundler.go:164 +0x2f6
+created by github.com/evanw/esbuild/internal/bundler.(*scanner).maybeParseFile in goroutine 2597
+	github.com/evanw/esbuild/internal/bundler/bundler.go:1634 +0xca9
+ ❯ |scope-browser| modules/host-edit/test/web/bf3.test.ts (12 tests | 6 failed) 293367ms
+   ❯ Chromium BF-3 (6)
+     × B9 shares compilation without host-edit while keeping concurrent root, nested and repeated assets local 30033ms
+     × B11 commits offscreen data before the visibility callback returns; B12 settles derived guards 31696ms
+   ❯ Firefox BF-3 (6)
+     × B9 shares compilation without host-edit while keeping concurrent root, nested and repeated assets local 31026ms
+     × B9 shares compilation for parsed, text, inline and URL documents across roots 32743ms
+     × B10 selects B from a model loaded as A, resets it, and diagnoses unknown roots 30313ms
+     × B11 commits offscreen data before the visibility callback returns; B12 settles derived guards 33078ms
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (10 tests | 10 skipped) 27464ms
+ ❯ |scope-browser| modules/host-edit/test/web/browser.test.ts (4 tests | 4 failed) 126034ms
+   ❯ Chromium host-edit (2)
+     × separate bundles in both load orders: edit first=true 30957ms
+     × separate bundles in both load orders: edit first=false 31008ms
+   ❯ Firefox host-edit (2)
+     × separate bundles in both load orders: edit first=true 31197ms
+     × separate bundles in both load orders: edit first=false 32855ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 1 failed) 88120ms
+   ❯ motion host in Firefox (10)
+     × recovers a connected document when motion registers late 6878ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/downstream.test.ts (18 tests | 9 skipped) 64219ms
+ ❯ |scope-browser| modules/fonts/test/web/text-integration.test.ts (4 tests | 4 failed) 124274ms
+   × Chromium fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs 30186ms
+   × Chromium fonts/text fonts-text→text→assets: readiness, layout, replacements and image catalogs 30699ms
+   × Firefox fonts/text assets→fonts-text→text: readiness, layout, replacements and image catalogs 30352ms
+   × Firefox fonts/text fonts-text→text→assets: readiness, layout, replacements and image catalogs 33029ms
+ ❯ |scope-browser| modules/fonts/test/web/nested-text.test.ts (2 tests | 2 failed) 65208ms
+   × Chromium bound font data and nested font catalogs refresh independently 34429ms
+   × Firefox bound font data and nested font catalogs refresh independently 30773ms
+ ❯ |scope-browser| modules/text-effects/test/web/effects.test.ts (4 tests | 2 failed) 107157ms
+   × Firefox effects text→text-effects→canvas: SVG/canvas transforms, opacity, auto direction and retained animation 30009ms
+   × Firefox effects text-effects→canvas→text: SVG/canvas transforms, opacity, auto direction and retained animation 30869ms
+ ❯ |scope-browser| modules/data-artboard/test/web/artboard.test.ts (6 tests | 6 skipped) 69556ms
+ ❯ |scope-browser| modules/host/test/web/browser.test.ts (4 tests | 2 failed) 120854ms
+   ❯ Firefox host (2)
+     × separate bundles; host first=true 33688ms
+     × separate bundles; host first=false 32973ms
+ ❯ |scope-browser| packages/web/test/browser.test.ts (106 tests | 2 failed) 467883ms
+   ❯ <anima-icon> in Chromium (47)
+     × ships a current standalone demo with only its file document request and no canvas/wasm/watermark 803ms
+   ❯ <anima-icon> in Firefox (47)
+     × ships a current standalone demo with only its file document request and no canvas/wasm/watermark 1841ms
+ ❯ |scope-browser| modules/host-edit/test/web/seams.test.ts (2 tests | 2 failed) 65233ms
+   ❯ Chromium host seams (1)
+     × retains repeat animation through icon.data, and shares source parsing/decode with isolated images 32919ms
+   ❯ Firefox host seams (1)
+     × retains repeat animation through icon.data, and shares source parsing/decode with isolated images 32308ms
+ ❯ |scope-browser| modules/focus/test/web/rottweiler-p3.test.ts (8 tests | 2 failed) 173379ms
+   ❯ Firefox focus bridge (Rottweiler P3) (4)
+     × keeps DOM focus targets when a repeat grows 32019ms
+     × creates DOM focus targets when a repeat grows from zero rows 35243ms
+ ❯ |scope-browser| modules/surface/test/web/surface.test.ts (2 tests | 1 failed) 57548ms
+   × Firefox surface pixels: image, modulation, slices and independent feather 32372ms
+ ❯ |scope-browser| modules/layout/test/web/reflow.test.ts (4 tests | 2 failed) 175944ms
+   × Chromium svg: reflow hugs live text, retargets continuously, wraps fill text, and snaps for reduced motion 45022ms
+   × Firefox canvas: reflow hugs live text, retargets continuously, wraps fill text, and snaps for reduced motion 48380ms

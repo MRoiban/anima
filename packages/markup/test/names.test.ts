@@ -1,3 +1,4 @@
+// seam(P8-5): account for the new mesh registry field and two conformance sources.
 import '@anima-format/core/all';
 import { describe, expect, it } from 'vitest';
 import {
@@ -43,6 +44,7 @@ describe('one registry, two spellings', () => {
     expect(attrs('group')).toEqual([
       'opaque',
       'cursor',
+      'mesh',
       'mix-blend-mode',
       'properties',
       'mix',
@@ -115,6 +117,7 @@ describe('one registry, two spellings', () => {
       'focus',
       'opaque',
       'cursor',
+      'mesh',
       'channels',
       'blend',
       'mask',

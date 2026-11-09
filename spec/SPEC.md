@@ -3530,3 +3530,75 @@ A host whose computed content size is not a resolved pixel length (for example `
 percentage size) is not measured; its layout size and viewport are kept until it has a layout box.
 Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
 This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.
+
+## mesh
+
+<!-- capability: rigging.mesh -->
+
+`requires: ["mesh", "assets", "paint"]` adds `mesh` to `image` nodes only. Other hosts
+are `rig-mesh-host`, at the node's `/mesh` pointer. Meshes are opt-in heavy modules.
+
+JSON `mesh` is either `{ "grid": [cols, rows] }` or
+`{ "vertices": [[x, y, u, v], ...], "triangles": [[a, b, c], ...] }`.
+The AniML spelling is the registry-generic JSON-valued `mesh` attribute, for example
+`<image ... mesh='{"grid":[4,2]}'/>`; no additional compiler entry is required.
+Choose exactly one form (`bad-value`). Grid counts are integer cell counts, each 1..128.
+Vertices are row-major, from top left, including both boundary rows/columns.
+Cell `(x,y)` has indices `a=y*(cols+1)+x`, `b=a+cols+1`, and triangles
+`[a,a+1,b+1]`, `[a,b+1,b]`. A 4×2 grid has 15 vertices and 16 triangles.
+
+Grid vertices span the image box `x0,y0,width,height`. Their UVs invert the image's
+fit/align rectangle (the Image nodes contract), so a rest mesh reproduces a plain
+image, including transparent letterboxing. Automatically generated UVs can extend
+outside 0..1; the finite texture rectangle supplies transparent space there.
+Untracked grid vertices follow animated width/height; a vertex track or binding
+replaces its position in local grid units. Explicit meshes ignore fit and align.
+They need at least three `[x,y,u,v]` vertices; explicit u/v must lie in 0..1
+(`bad-value`). The mesh needs at least one triangle. Triangle indices must be
+integers in `[0,vertexCount)` (`rig-mesh-index`). Degenerate UV triangles draw
+nothing; collapsed destination triangles have zero area.
+
+`drawFrame` publishes `DrawNode.mesh = {points, uv, triangles}`: points and UVs
+are flat coordinate arrays, triangles are index triples. Geometry also retains
+the ordinary image box and asset. If installed, `player.skinPoints(node, points)`
+deforms the resolved animated positions in place before publication (P8-4 seam).
+
+The optional `@anima-format/web/canvas-mesh` entry draws triangles by affine
+`drawImage`, with their clip edges expanded outwards by 0.5 backing-store pixel.
+It owns a per-renderer image cache and extends the existing renderer readiness promise;
+image decode requests a redraw without stepping time. Canvas itself adds no mesh code.
+The retained browser SVG keeps the undeformed image and emits one warning per
+node per player: `unsupported-render`, feature `mesh`, pointer `/nodes/.../mesh`,
+with a hint to use `renderer="canvas"` and import `canvas-mesh`.
+
+The tooling-only `toSVG` export from `@anima-format/core/mesh-static` accepts
+`meshTriangles: true`: each triangle becomes a clipPath plus an affine image.
+CLI `render` always enables this option. The default tooling serializer rejects mesh output with `unsupported-render`;
+the retained browser SVG keeps its undeformed fallback. No triangle serializer
+enters web bundles.
+
+<!-- capability: rigging.mesh-animation -->
+
+Each vertex has a tuple address `<image>.mesh.vertex.<k>` = `[x,y]`, with canonical
+zero-based indices. Tracks accept finite two-number arrays in JSON. AniML track
+text uses quoted JSON point literals, e.g. `0 "[10,5]"; 0.5 "[9.5,3.25]"`;
+the mesh value compiler decodes these to tuples. Invalid points are `value-type`.
+Sampling and state crossfades interpolate both coordinates linearly with the
+track/blend ease, preserving signed and fractional coordinates (no colour clamp
+or rounding). Public values and script snapshots expose arrays.
+
+With `bind`, `[x-expression, y-expression]` binds a vertex from two scalar numeric
+expressions; nested scalar calls are supported, e.g. `[x, max(5,y)]`. Invalid tuple
+syntax is `bind-type`, with the binding's JSON pointer and a correction hint.
+Binding is post-state, following the existing bind stage; it overrides track output.
+Without mesh in requires, no mesh per-frame work is installed.
+
+Independent draw expectations cover grid and explicit meshes, fit/align UVs and
+fractional animated/bound vertices. Native captures use the original generated
+flag texture at 12 px/unit; browser pixels compare to the CLI triangle render.
+Probe locations: `spec/conformance/rigging-mesh{,-animation}` and
+`tests/oracle/rigging-mesh{,-animation}`. Oracle budgets remain pending.
+
+Decisions follow `design/p8/DECISIONS.md` D21–D24 and D35, the Canvas2D mesh gap
+in `docs/research/rive-format-and-graph.md` §4.3, and backend separation/lifecycle
+notes in `docs/research/rive-web-runtime.md`. No native source was used.

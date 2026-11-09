@@ -24752,10 +24752,10 @@
       "rive-runtime/include/rive/generated/shapes/contour_mesh_vertex_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: textured triangle meshes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "rig",
+      "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
+      "module": "mesh",
       "status": "planned",
-      "test": "oracle/rigging-mesh",
+      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh",
       "phase": "P8"
     }
   },
@@ -24781,10 +24781,10 @@
       "rive-runtime/include/rive/generated/shapes/mesh_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: mesh vertex deformation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "rig",
+      "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
+      "module": "mesh",
       "status": "planned",
-      "test": "oracle/rigging-mesh-animation",
+      "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation",
       "phase": "P8"
     }
   },

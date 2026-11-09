@@ -1,0 +1,4 @@
+{
+  "feature": "mesh",
+  "reason": "Retained SVG draws the undeformed image; CLI meshTriangles and canvas-mesh draw triangles."
+}

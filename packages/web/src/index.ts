@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 // <anima-icon>: the Anima web runtime (ARCHITECTURE §web). Retained SVG DOM built from the core's
 // scene, one shared requestAnimationFrame loop that sleeps when every icon has settled, Pointer
 // Events through the core's hit test, keyboard and ARIA per spec §10, CSS theming via slots.
@@ -575,7 +576,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   /** Every animated address and its current value. */
-  values(): Record<string, number | boolean | string> {
+  values(): Record<string, number | boolean | string | [number, number]> {
     return this.player?.values() ?? {};
   }
 

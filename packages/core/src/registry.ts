@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 // The registry (ARCHITECTURE §core.1): every node type, property and paint field, and the shape of
 // every object in a document. Validation, the JSON Schema, `anima schema`, sampling and the
 // renderers all read it.
@@ -5,7 +6,7 @@
 import { text } from './diag.ts';
 
 export type ValueType =
-  'number' | 'bool' | 'color' | 'path' | 'int' | 'uint' | 'string' | 'reference';
+  'point' | 'number' | 'bool' | 'color' | 'path' | 'int' | 'uint' | 'string' | 'reference';
 
 export interface Prop {
   type: ValueType;
