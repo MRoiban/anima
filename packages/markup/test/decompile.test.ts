@@ -129,10 +129,18 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : // seam(P7-2): layout spacing is a vector; its uniform corners are scalar.
-              ['pivot', 'subpaths', 'geometryOrigin', 'size', 'gap', 'padding', 'margin'].includes(
-                  key,
-                ) ||
+            : // seam(P8-6): posepad box is a four-number vector.
+              // seam(P7-2): layout spacing is a vector; its uniform corners are scalar.
+              [
+                  'pivot',
+                  'subpaths',
+                  'geometryOrigin',
+                  'size',
+                  'gap',
+                  'padding',
+                  'margin',
+                  'box',
+                ].includes(key) ||
                 (key === 'corners' && e.name === 'rect')
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
