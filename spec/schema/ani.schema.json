@@ -26745,6 +26745,13 @@
                 "obscured": {
                   "type": "boolean"
                 },
+                "caretBlink": {
+                  "type": "boolean"
+                },
+                "selectionTextColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
                 "placeholder": {
                   "type": "string"
                 },

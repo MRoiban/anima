@@ -1,0 +1,21 @@
+Size: node tools/size.ts completed with exit code 0.
+gate                     value (B)   ceiling (B)
+core+web                     22564         24576
+largest scene (30)           57505         65536
+app-UI scene                107630        131072
+runtime sum                 133491        163840
+authoring add-on             15006         16384
+Rive-class (heavy)          153691        256000
+
+Owned scope: 31 files, 3521 tests passed; 573 skipped; exit 0.
+Earlier text browser failures rerun: 5 files, 12 tests passed; exit 0.
+Both issue repros passed (31 in combined run, 35 isolated).
+Initial 35 combined browser run timed out at 30 s; isolated passed (14 s test execution).
+Broad changed browser run stopped after unrelated host/overlay failures.
+Host subset rerun: 9 passed, Firefox off-screen rAF test failed (8 vs 7 callbacks).
+Broad changed unit run stopped after unrelated JPEG pipeline and CLI bell-build timeouts.
+Isolated asset pipeline rerun: 17 passed, JPEG/WebP timed out at 5 s.
+The first literal binding golden case omitted initial advance 0; corrected; final owned scope passes.
+Schema generation, AniML check (674 files), parity check (1238 rows), generated wiring,
+core/web and web test typechecks, lint and formatting passed.
+Timings under shared load are not performance evidence; no 3% guard claim.

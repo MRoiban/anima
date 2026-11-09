@@ -3212,6 +3212,27 @@ See [the normative field contract](../modules/text-input/SPEC.md) for both spell
 <!-- capability: text.input-limits -->
 ### Text input limits
 
+Text fields accept the bindable bool address `<text>.textInput.obscured`; its rest
+value is authored `obscured` or false. Resolved masking, semantic redaction and the
+native input type change together, preserving selection and caret. Static
+multiline+obscured remains a configuration error; bound obscuring is ineffective
+on multiline fields.
+
+`caretBlink` (`caret-blink`, default true) alternates 530 ms visible / 530 ms
+hidden only for a focused browser field, restarting visible on edits and caret
+moves. Reduced motion, paused/static and CLI rendering keep it steady. Blink
+repaints do not advance Player time or keep an unfocused scene awake.
+
+`selectionTextColor` (`selection-text-color`) colors selected glyphs over the
+`selectionColor` highlight; omission preserves foreground. The older
+`selectedTextColor` remains an alias; the new spelling wins if both are present.
+
+The optional `text-input-extra` browser entry supplies blinking and scroll to
+caret: horizontal for single-line fields (which never wrap), vertical for
+multiline fields. Glyphs, highlight and caret clip to the fixed field box; the
+viewport translation does not reflow layout. Tool/CLI rendering includes the
+pure viewport projection and a steady caret.
+
 See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
 
 <!-- capability: text.input-multiline -->

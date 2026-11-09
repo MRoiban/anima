@@ -1,0 +1,9 @@
+Already fixed by bb989f1e; regression only. Historical parent run in 31-before.txt.
+
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-1b52af7a
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  09:16:27
+   Duration  6.91s (import 84%, tests 11%, transform 5%)

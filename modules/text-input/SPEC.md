@@ -23,7 +23,7 @@ truncation drops a trailing high surrogate. `maxLines` (`max-lines`, multiline o
 newline-delimited lines. CRLF/CR normalize to LF; single-line fields drop line separators.
 `selectOnFocus` (`select-on-focus`) selects the entire native value on focus. Selection offsets
 are UTF-16. `caretColor`, `selectionColor`, `selectionRadius` (`caret-color`, `selection-color`,
-`selection-radius`) style the drawing overlay; the caret is steady and 0.06 grid units wide.
+`selection-radius`) style the drawing overlay; the caret is 0.06 grid units wide. See the live field behavior below for blinking.
 
 The browser handles clipboard, IME, dead keys and keyboard selection. The native text and native
 caret are transparent. Selection and caret boxes use text layout clusters, and selection is drawn
@@ -65,7 +65,7 @@ showing all rows and a derived result count. Validate it with
 The older `modules/text-input/examples/search-card.animl` demonstrates exact-label equality;
 use the bind recipe for substring filtering.
 Browser clipboard grants, mobile keyboard and real OS IME sessions are outside the automated proof.
-Nested/repeated native field mounting, scroll-to-caret and mixed-direction selection geometry are
+Nested/repeated native field mounting and mixed-direction selection geometry are
 not yet implemented. Those limits block full parity closure.
 
 Caret and selection colors accept hexadecimal colors (3/4/6/8 digits) or currentColor; other paints are rejected by registry validation. Font shorthand is assigned through its CSS property setter rather than interpolated into a style declaration list.
@@ -86,7 +86,7 @@ nonempty, cleared and external writes against derived counts, opacity and a mach
 Original-font native captures compare the independent text layer, bound field values, explicit
 multiline content and obscured content. The fixture does not contain U+2022, so the obscured
 probe deliberately compares missing-glyph outlines; it does not certify a particular dot design.
-Caret width remains Anima's steady 0.06 grid units. Selection uses SVG rx (or the equivalent
+Caret width remains Anima's 0.06 grid units (steady in headless captures). Selection uses SVG rx (or the equivalent
 canvas rounded rectangle) over logical cluster intervals; the native capture's caret coverage
 and selection rounding differ. Those drawable comparisons remain pending with no passing
 budget. P7-8 adds selected-text color and reusable style paint references; see below.
@@ -144,3 +144,46 @@ used: font, size, axes and metrics stay those of the original text. A missing st
 overrides the style. Styles with no paint make selected glyphs transparent. This reuses declared
 text styles rather than a reference to a rendered scene node. Both backends consume the same
 resolved fill/stroke; no special selected-font layout is introduced.
+
+### Live field behavior (issues #31, #35)
+
+`textInput.obscured` is a bindable bool address on a text field, e.g.
+`<bind target="q.textInput.obscured" value="$secret"/>`. Its rest value is the
+authored `obscured` (default false). It switches drawn UTF-16 masking and semantic
+value redaction on the same completed step. The browser switches the existing
+input between text and password without replacing it, preserving selection offsets,
+direction and focus. Copy/cut suppression follows the resolved obscured value.
+Static `multiline=true, obscured=true` still raises `text-input-config` at
+`/nodes/N/textInput/obscured`; a true binding on a multiline field is ignored
+(the effective value remains false), because the DOM has no password textarea.
+
+`selectionTextColor` (`selection-text-color`) is the preferred spelling of the
+existing `selectedTextColor` paint; both are accepted. When both occur,
+`selectionTextColor` wins. Omission keeps the original field foreground. It
+replaces only selected cluster ink, above `selectionColor`, with the same
+hex/currentColor validation and paint precedence over `selectedTextStyle`.
+
+Import the optional heavy `@anima-format/web/text-input-extra` entry after
+`text-input` for viewport scrolling and browser caret blinking. It extends the
+existing `textinput` feature; no extra document requirement is necessary. Tooling
+includes its pure viewport projection automatically. This split keeps the base
+entry inside its unchanged byte ceiling.
+
+`caretBlink` (`caret-blink`) defaults true. In the browser extra entry, a focused
+field's collapsed caret alternates 530 ms visible / 530 ms hidden. Every edit or
+caret/selection move restarts the visible phase. Selection replaces the caret.
+Reduced motion, paused/static hosts and CLI/headless draws show a steady caret.
+Blink repainting uses a focus-scoped timer, never a Player clock or busy flag;
+blur, pause, reload and destruction cancel it. Idle/unfocused scenes settle as
+before. `Player.step` does not sample wall-clock time.
+
+Single-line fields do not wrap. The extra entry scrolls their drawn text
+horizontally just enough to expose the active selection end (or collapsed caret);
+multiline fields keep their normal wrapping and scroll vertically. The viewport
+is the fixed field box, accounting for its text origin. Glyphs, highlights and
+caret are clipped to it. Scroll is clamped after edits or box changes and is
+retained on blur. It translates a copy of measured cluster positions; it never
+changes the box, cached measurement, layout of siblings, or input value. Oversized
+line heights show the portion fitting the box. Native editing/navigation remains
+the DOM's responsibility, as in `docs/research/rive-web-runtime.md` §3; the timer
+follows that note's sleeping scheduler and reduced-motion recommendations.

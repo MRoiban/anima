@@ -51,5 +51,6 @@ import './text-host.ts';
 import './text-input.ts';
 import './text-input-canvas.ts';
 import './text-input-clipboard.ts';
+import './text-input-extra.ts';
 import './text-input-svg.ts';
 import './text-overflow.ts';
