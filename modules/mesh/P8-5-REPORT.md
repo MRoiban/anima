@@ -1,110 +1,120 @@
-# P8-5 — image meshes and animation
+# P8-5 final implementation report
 
-Status: **partial**. Functional implementation and original probes are ready; the mesh entry is
-299 B over budget and the shared tuple infrastructure adds 17 B to core+web. Neither row is closed.
-Branch: `p8-5`, based on `59263eb7`. No push, PR, publication or dependency change.
+## Status and branch
+
+**Partial.** Functional image meshes, animation/binding, canvas drawing, static triangles and
+original probes are committed. Entry budgets and the zero-growth guard are not met.
+Branch `p8-5`; implementation checkpoint `aac2fb3b`, merge `5f7cd04e`, interoperability
+`f9b2250e`, verification checkpoint `b6396029`. No push, PR or publication.
+Merged `p8-rigging` through **f28a1ac6**, including P8-9, P8-6 and P8-8, before final verification.
 
 ## Rows
 
-Closed: none. `rigging.mesh` and `rigging.mesh-animation` remain planned pending entry-size closure,
-the zero-growth decision for core+web, and orchestrator-owned oracle promotion. Native frames and
-raw measurements are present; no oracle budget, manifest, finding or benchmark record was changed.
+Closed: **none**. `rigging.mesh` and `rigging.mesh-animation` remain planned pending size closure,
+the shared-core zero-growth decision and orchestrator-owned oracle promotion. Native captures and
+raw measurements are present; neither oracle thresholds nor `cases.json` were changed by this ticket.
 
 ## Seams outside ticket files
 
-- Core draw: type-only `DrawNode.mesh`; Player: type-only `skinPoints(node, xy)` mutator for P8-4.
+All non-generated seams are marked `seam(P8-5)`.
+
+- Core draw: type-only `DrawNode.mesh`; Player: optional `skinPoints(node, xy)` mutator for P8-4.
 - Core registry/load/player: `point` value type, two-number tuples, fractional signed interpolation
-  and tuple-preserving public values. At this HEAD arrays previously meant RGBA, with rounding,
-  clamping and hex formatting; the design's "existing tuple sampling" assumption did not hold.
-- Core script and playground samples preserve tuple arrays. Web's `values()` return type expands.
-- Core SVG: tooling-only `SVGBackend.checkStatic(player)`. Retained DOM never calls this, including
-  verbose browser builds. Static triangle serialization stays in `@anima-format/core/mesh-static`.
-- Bind calls its composed `this.expression` hook so mesh can add tuple expressions without changing
-  the scalar parser. Components/data/events/nested have type assertions at colour serialization
-  sites only; these emit no runtime code.
-- CLI render imports the tooling-only serializer and passes `meshTriangles: true`.
-- Markup corpus count 619 → 621, exact field lists include mesh, independent spelling census reads
-  the mesh probe. The mesh manifest owns these integration tests.
-- Canvas corpus recognizes mesh's static rejection and sparse geometry. Exact mesh pixels are
-  compared against CLI triangles in the mesh suite, rather than at the older circular probes'
-  fixed sample coordinates. No canvas runtime source or pixel tolerance changed.
-- Generated module adapters/exports/tables, schema and own parity mappings were regenerated.
+  and tuple-preserving public values. This HEAD had only RGBA array sampling, rounding/clamping
+  arrays and formatting them as hex; the design's existing-tuple assumption did not hold.
+- Core script, web value types and playground samples preserve tuples. Components/data/events/nested
+  have colour-boundary type assertions only, with no emitted module-code growth.
+- Bind invokes its composed `this.expression` hook; mesh supplies tuple expressions without changing
+  the scalar parser. Posepad's value printer distinguishes point arrays from RGBA arrays.
+- Core SVG adds tooling-only `SVGBackend.checkStatic(player)`, never used by retained DOM. CLI render
+  imports `@anima-format/core/mesh-static` and enables `meshTriangles: true`.
+- Markup spelling/decompiler readers and corpus count account for mesh; the independent reader
+  preserves binding expression text. The unknown-feature fixture now uses an unregistered sentinel.
+- Canvas corpus recognizes mesh's static rejection and sparse geometry; module-owned pixel tests
+  compare the mesh against CLI triangles. No canvas runtime or pixel tolerance changed.
+- Shared adapters/exports/tables/schema and own parity mappings were regenerated.
 
-All non-generated seams carry `seam(P8-5)` comments. No rig files are used or changed.
+No rig files are used or changed. Skin/rig integration tests belong to P8-4.
 
-## Verification
+## Final verification
 
-- `npm ci`: pass (153 packages; existing 10 moderate audit findings; dependency files unchanged).
-- `npm run test:scope -- mesh --browser=chromium`: 1,386 pass / 630 filtered, 6 files before adding
-  the census to scope. Firefox equivalent: 1,386 pass / 630 filtered, 6 files. Both engines cover
-  reverse module arrival, canvas versus CLI at four times, and exactly one SVG fallback warning.
-- Current isolated core mesh + spelling census: **73/73 pass**, 2 files; census alone 51/51.
-- Canvas mesh corpus isolation after integration fixes: **5 pass / 2,587 filtered**.
-- Initial broad `mesh canvas conformance oracle --browser=chromium`: **3,816 pass, 12 fail,
-  1,306 skipped, 24 TODO**, 13 files. Five real failures exposed static-SVG/corpus assumptions
-  (fixed and isolated above); four were 15 s timeouts, one a detached screenshot after a timeout,
-  two 5 s browser perf timeouts. See `verification/scope-chromium.txt`.
-- Initial Firefox setup and isolated retry both timed out (30 s setup; retry also 10 s teardown).
-  Bundle preparation was moved outside timed hooks and reused across engines; no timeout or pixel
-  tolerance was raised. Corrected engine suites pass as above.
-- An asset-clamp assertion failed during a contended default changed run; isolated selection passes
-  **2/2** (8 and 8.1 boxes). Unbounded changed attempts were interrupted after real integration
-  findings or heavy swapping (12 detected CPUs). These are not counted as green checks.
-- The two-CPU changed attempt found two stale standalone-demo cache failures; after rebuilding all
-  77 entries, the isolated demo selection passes **2/2**, covering both engines (104 filtered).
-- One subsequent tool-session test run received SIGTERM before a summary: no result claimed.
-  The final two-worker run is tracked at `verification/changed-recorded.txt` and
-  `verification/changed-recorded.status`; **pending**. Do not edit sources while status is absent.
-- `npm run typecheck`, `npm run lint` (including resumed lint): pass.
-- `node tools/modules.ts --check`, `node tools/parity.ts --check`: pass;
-  `node tools/build-animl.ts --check`: 680 sources checked, pre-existing pending probes reported.
-- Changed-file Prettier and `git diff --check`: pass, final staged check pending.
-- CLI `validate flag.animl`, `schema image`, `render flag.ani --at 0.5`: pass.
-- `node tools/oracle.ts --strict`: exit 0 for existing gated cases; its existing accepted findings
-  remain findings. New probes retain TODO markers for orchestrator-owned promotion.
-- `node tools/perf.ts`: exit 0. Shared-load report only: bell compile 15.25 ms, prefix sweep
-  5,027 ms; frame bell 209.9 µs, composite 94.3 µs, toolbar 185.8 µs; toolbar compile 38.02 ms.
-  These timings do **not** establish the ≤3% guard.
+Sources were frozen at the committed interoperability checkpoint; test workers were limited to two.
 
-## Sizes
+| Command/check | Result |
+| --- | --- |
+| `npm ci` | Pass; no dependency changes |
+| `npm run test:scope -- mesh canvas conformance oracle --browser=chromium` | 5,860 pass, 1 fail, 1,330 filtered, 25 TODO; 15 files |
+| `npm run test:scope -- mesh --browser=firefox` | 3,378 pass, 644 filtered; 8 files |
+| `npm run test:scope -- changed` | 10,535 pass, 3 fail, 37 TODO; 408 files pass, 1 fails, 12 filtered |
+| Mesh + posepad integration | 52/52 pass, including a posed vertex tuple |
+| Invalid-loader + independent decompiler recovery | 1,922/1,922 pass |
+| Current mesh + spelling census (pre-merge) | 73/73 pass |
+| Full typecheck / lint | Both pass on merged sources |
+| Module / parity generated checks | Pass |
+| AniML generated check | 697 sources checked; existing pending probes reported |
+| Corpus count | Assertion **634** = actual `.ani` count **634** |
+| CLI validate / image schema / flag render | Pass |
+| Strict existing oracle check | Exit 0; new mesh probes intentionally pending promotion |
+| Size tool | Exit 1; three entry overruns below |
+| Perf tool | Exit 0; shared-load report only, not a ≤3% A/B proof |
 
-Before-entry values were measured with a read-only esbuild overlay of the original HEAD, using
-identical terse/minifier/gzip-9 settings. Other before values are the shared design baseline.
-Latest frozen runtime measurement: `verification/size-complete.txt`, exit **1 solely for mesh**.
+The acceptance failure is inherited `a11y-tree-bounds-feather`: Canvas explicitly rejects nonuniform
+local feather at `/nodes/0/fill`. It reproduces alone (1 fail / 2,639 filtered), maximum delta 247,
+691 pixels over 16 (1.19965%). The full canvas run also reports this in Firefox and a Firefox
+`a11y-tree-bounds-clip` comparison failure; the clip reproduces alone: max 64, 52 pixels over 16
+(0.090278%), against the existing flat-geometry limit 2 / 0%. Neither foreign probe nor tolerance
+was changed. These are all three failures in the completed aggregate run; other selected tests pass.
+
+Earlier full pre-merge changed run: 10,343 pass / 3 failures / 36 TODO. Two fixture assumptions
+(unknown feature named mesh; bracket binding parsed as JSON) were fixed and recovery tests pass.
+The separate-dist bundle test passes isolation (1/1). Stale demo cache failures passed isolation
+in both engines after rebuilding (2/2). Initial contended Firefox setup and isolated retry timed
+out; moving bundle preparation out of timed hooks produced passing engine suites. No timeout or
+pixel tolerance was raised. Earlier interrupted/unbounded runs are not counted as green checks.
+
+## Entry sizes
+
+Read-only baseline overlay is merged `p8-rigging` **f28a1ac6**, using identical production
+minifier and gzip-9 settings. New entries were absent. Latest: `verification/size-final-merged.txt`.
 
 | Entry | Before B | After B | Budget B |
 | --- | ---: | ---: | ---: |
-| mesh | absent | 1,323 | 1,024 (**299 over**) |
+| mesh | absent | 1,325 | 1,024 — **301 over** |
 | canvas-mesh | absent | 678 | 768 |
-| canvas | 5,864 | 5,862 | 5,888 |
-| bind | 1,881 | 1,880 | 2,048 |
-| components | 3,453 | 3,456 | 3,456 |
-| data | 6,644 | 6,643 | 7,040 |
-| events | 2,936 | 2,940 | 3,264 |
-| nested | 4,565 | 4,569 | 5,056 |
+| canvas | 5,863 | 5,862 | 5,888 |
+| bind | 1,880 | 1,880 | 2,048 |
+| components | 3,453 | 3,457 | 3,456 — **1 over** |
+| data | 6,643 | 6,643 | 7,040 |
+| events | 2,937 | 2,942 | 3,264 |
+| nested | 4,567 | 4,572 | 5,056 |
+| posepad | 766 | 772 | 768 — **4 over** |
+| core + web | 22,787 | 22,803 | P8 zero-growth guard missed by **16 B** |
 
-Type-only compatibility edits emit no new module code; incremental gzip varies with the shared
+Type-only compatibility edits emit no module code; incremental gzip also varies with the shared
 base. Canvas and markup runtime sources are unchanged. CLI/playground/script are unbudgeted tools.
+No budget was raised.
 
-| Owner gate | Before B | After B | Ceiling B |
+## All six owner gates
+
+Before is the shared design baseline; after includes merged P8-9/P8-6/P8-8 and this ticket.
+All owner ceilings pass despite the entry and additional zero-growth failures above.
+
+| Gate | Before B | After B | Ceiling B |
 | --- | ---: | ---: | ---: |
-| core + web | 22,782 | 22,799 | 24,576 |
-| largest scene (30 scenes) | 57,781 | 57,796 | 65,536 |
-| app-UI | 107,899 | 107,912 | 131,072 |
-| runtime sum | 135,579 | 135,592 | 163,840 |
-| authoring | 15,017 | 15,014 | 16,384; P8 cap 15,872 |
-| Rive-class | 155,805 | 157,823 | 256,000 |
+| core + web | 22,782 | 22,803 | 24,576 |
+| largest scene (31 scenes after merge) | 57,781 | 59,373 | 65,536 |
+| app-UI | 107,899 | 108,098 | 131,072 |
+| runtime sum | 135,579 | 137,361 | 163,840 |
+| authoring | 15,017 | 15,016 | 16,384; P8 cap 15,872 |
+| Rive-class | 155,805 | 160,779 | 256,000 |
 
-All six owner ceilings pass. The additional P8 **zero-growth** core+web requirement misses by 17 B.
+## Native evidence and design deviations
 
-## Native raw results
+The committed generator creates the original **87 B** flag texture. Native scenes use 12 px/unit,
+240×240 opaque white artboards and bilinear sampling. Capture code deletes transient binaries
+without reading them. Raw values below are not new tolerances; promotion belongs to the orchestrator.
 
-Original 87 B texture generated by committed `test/fixtures/generate.ts`. Native scenes use
-12 px/unit, 240×240 opaque white artboards, bilinear sampling; capture code deletes transient
-binaries without reading them. First capture used the wrong native asset sampler enum (nearest);
-corrected to bilinear before these final measurements. No thresholds were selected or widened.
-
-| Probe / time | Maximum channel delta | Pixels over 16 | Percent |
+| Probe / time | Maximum delta | Pixels over 16 | Percent |
 | --- | ---: | ---: | ---: |
 | mesh / 0 | 53 | 192 | 0.333333 |
 | animation / 0 | 73 | 156 | 0.270833 |
@@ -112,58 +122,28 @@ corrected to bilinear before these final measurements. No thresholds were select
 | animation / 0.5 | 82 | 225 | 0.390625 |
 | animation / 1 | 73 | 156 | 0.270833 |
 
-Canvas/CLI comparisons in both engines: maxima 53–63, over-16 percentage 0.2726–0.4271,
-within the existing 128 / 0.5% path-geometry tolerance. Raw JSON is committed alongside this report.
+Both engines' mesh/CLI comparisons: max 53–63, over-16 percentage 0.2726–0.4271, within the existing
+128 / 0.5% path-geometry tolerance. First native capture used the wrong sampler enum; it was
+corrected to bilinear before these final measurements.
 
-## Deviations and problems
+- Generic JSON-valued AniML `mesh` attributes, as the shared brief permits. Track tuples use quoted
+  JSON literals (`0 "[10,5]"`) decoded by mesh; no compiler/runtime markup growth.
+- Module-owned static serializer wrapper and static-check seam keep triangle tooling out of web
+  entries. Default tooling SVG rejects mesh; browser SVG falls back and warns once per node/player.
+- Grid counts are 1..128 cells per axis. Generated UVs may exceed 0..1 for letterboxing; explicit
+  UVs remain 0..1. Untracked grid points follow image width/height.
+- Additional tuple infrastructure and posepad interoperability are necessary for actual point
+  values. They add 16 B to the shared base and contribute to the stated entry-size failures.
 
-- Generic JSON-valued AniML `mesh` attributes, as allowed by the shared brief; track tuples use
-  quoted JSON literals (`0 "[10,5]"`) decoded by mesh. No compiler/runtime markup growth.
-- Module-owned static serializer wrapper plus the small static-check seam keeps triangle tooling
-  out of web entries. Default static SVG explicitly rejects mesh; browser SVG falls back and warns.
-- Grid counts bounded to 1..128 cells per axis. Generated UVs may exceed 0..1 for letterboxing;
-  explicit UVs remain restricted to 0..1. Untracked grid points follow image width/height.
-- Tuple infrastructure required extra seams and 17 B in core+web. Mesh remains 299 B over its
-  entry budget. No budget was raised. These are explicit integration decisions for the orchestrator;
-  neither row is claimed done. Combined skin/rig tests belong to P8-4 and are not claimed here.
+## Problems and checkpoints
 
-## Checkpoints
+Remaining: three entry overruns, the 16 B zero-growth miss, orchestrator oracle promotion, and
+inherited canvas feather/clip failures. No full-parity or controlled performance claim is made.
+Merged perf: bell compile 4.86 ms; 9,040-prefix sweep 1,016 ms; frame bell 50.1 µs,
+composite 32.9 µs, toolbar 34.1 µs; toolbar compile 4.73 ms.
 
-- 2026-11-09: branched `p8-5` from the requested HEAD; installed dependencies; scaffolded both rows.
-- 2026-11-09: implemented grid/explicit meshes, point sampling/binding, draw data, static triangles,
-  retained fallback, canvas dilation/readiness/cache, independent expectations and original probes.
-- 2026-11-09: fixed fixture/census and static-corpus integration failures; engine suites pass.
-- 2026-11-09 12:30 UTC: resumed after usage limit; intact worktree, no backup restoration needed.
-- 2026-11-09 12:42 UTC: refreshed browser cache and verified both stale-demo failures in isolation.
-- 2026-11-09 12:47 UTC: final recorded two-worker changed run started, launcher PID 328084.
-- Resume checkpoint: the recorded full run completed with **10,343 pass, 3 failures, 36 TODO** across 415 files (400 pass, 3 fail, 12 skipped). Failures: unknown-feature fixture still used the now-supported mesh name; independent decompiler reader treated tuple binding text as JSON; separately bundled paint/bind collision test. The first two are corrected in this checkpoint; the third passes its isolated rerun (1/1, 8 filtered). Integration with current p8-rigging is next, per the user's instruction.
-- Integration checkpoint: committed implementation as `aac2fb3b`, then merged `p8-rigging` at `f28a1ac6` (P8-9, P8-6, P8-8 and docs refresh). Kept both SPEC chapters and both census fixtures, regenerated shared wiring/schema/parity/browser outputs, and set corpus length to **634**, equal to the actual `.ani` count. Recovery tests pass **1,922/1,922**. Final verification below supersedes pre-merge measurements and test results.
-- Post-merge integration: posepad's overlay value printer needed the same RGBA-versus-point distinction as Player. Added a one-line `seam(P8-5)` guard and a mesh-owned regression posing a vertex tuple; **52/52 mesh/posepad tests pass**. This is an additional runtime compatibility seam in `modules/posepad/core/index.ts`; final size measurements will include it. Pre-fix merged typecheck found this error; merged lint/oracle/perf commands exited 0.
-- Working checkpoints are now committed: implementation `aac2fb3b`, merge `5f7cd04e`, posepad tuple interoperability `f9b2250e`. Current frozen merged verification launcher is PID **1054262**. It records `final-acceptance-chromium`, `final-mesh-firefox`, then `final-changed` under `verification/`, each with a `.status` exit-code file. These final merged results supersede earlier runs. Do not edit sources until those jobs finish (or are explicitly stopped).
-
-## Latest merged-tree handoff checkpoint (supersedes earlier figures)
-
-Source HEAD: `f9b2250e`; `p8-rigging` through `f28a1ac6` is merged. Corpus **634**, exactly matching
-the `.ani` files. Full typecheck and lint pass after the posepad point-value fix. Generated wiring,
-697 AniML sources and parity views pass checks; strict existing oracle check exits 0.
-
-Final entry sizes (baseline is read-only bundle overlay of `f28a1ac6`): core+web **22,787 → 22,803**;
-mesh **absent → 1,325/1,024 B**; canvas-mesh **absent → 678/768 B**; canvas **5,863 → 5,862**;
-bind **1,880 → 1,880**; components **3,453 → 3,457/3,456**; data **6,643 → 6,643**;
-events **2,937 → 2,942**; nested **4,567 → 4,572**; posepad **766 → 772/768**.
-Size exits **1**: mesh 301 B over, components 1 B over, posepad 4 B over. Shared base grows 16 B
-relative to the merged P8 baseline. No budget is raised; rows remain planned.
-
-All six owner gates pass on the merged tree: core+web 22,803; largest scene (31) 59,373;
-app-UI 108,098; runtime sum 137,361; authoring 15,016; Rive-class 160,779 B.
-
-Merged Chromium acceptance: **5,860 pass, 1 fail, 1,330 filtered, 25 TODO**, 15 files.
-The sole failure is inherited `a11y-tree-bounds-feather`: Canvas explicitly rejects its nonuniform
-local feather (diagnostic `/nodes/0/fill`), max delta 247 / over 16: 691 pixels (1.19965%).
-Its isolated rerun also fails identically (1 fail / 2,639 filtered). No renderer, tolerance or
-foreign probe was changed to hide it. Merged mesh Firefox scope: **3,378 pass / 644 filtered**, 8 files.
-Final full `changed` run is still active under PID 1054262, with no aggregate result claimed yet.
-Its recorded result will be `verification/final-changed.status` and `final-changed.txt`.
-
-Merged perf command exits 0: bell compile 4.86 ms, prefix sweep 1,016 ms, bell frame 50.1 µs,
-composite 32.9 µs, toolbar 34.1 µs, toolbar compile 4.73 ms. Shared-load timings are not a ≤3% proof.
+- 2026-11-09: scaffolded both rows, implemented/probed meshes and original captures.
+- 2026-11-09: corrected fixture/census/static-corpus integration issues and verified both engines.
+- 2026-11-09: implementation checkpoint `aac2fb3b`; merged P8 at `5f7cd04e`, corpus 634.
+- 2026-11-09: posepad point compatibility checkpoint `f9b2250e` (52 passing integration tests).
+- 2026-11-09: completed verification checkpoint `b6396029`; final aggregate run completed, exit 1, with the three inherited canvas failures above.
