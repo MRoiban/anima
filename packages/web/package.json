@@ -86,6 +86,7 @@
     "./rig-distance": "./src/rig-distance.ts",
     "./markup-rig": "./src/markup-rig.ts",
     "./ik": "./src/ik.ts",
+    "./pathfollow": "./src/pathfollow.ts",
     "./text-effects": "./src/text-effects.ts",
     "./texteffects": "./src/texteffects.ts",
     "./markup-text-effects": "./src/markup-text-effects.ts",

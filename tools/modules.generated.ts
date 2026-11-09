@@ -75,6 +75,7 @@ export const webEntries = [
   'rig-distance',
   'markup-rig',
   'ik',
+  'pathfollow',
   'text-effects',
   'markup-text-effects',
   'text-input',
@@ -159,6 +160,7 @@ export const webOwners: Record<string, string> = {
   'rig-distance': 'rig',
   'markup-rig': 'rig',
   ik: 'ik',
+  pathfollow: 'pathfollow',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
   'text-input': 'text-input',
@@ -279,6 +281,7 @@ export const moduleBudgets: {
   { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
   { name: 'ik', budget: 896, heavy: true, over: 'rig' },
+  { name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
   { name: 'text-input', budget: 4544, heavy: true },
@@ -1100,6 +1103,15 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['rigging-ik', 'rigging-ik-bend'],
+  },
+  pathfollow: {
+    tests: [
+      'modules/pathfollow/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: ['rigging-follow-path', 'rigging-list-follow-path'],
   },
   'text-effects': {
     tests: [

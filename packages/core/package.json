@@ -55,6 +55,7 @@
     "./posepad": "./src/modules/posepad/index.ts",
     "./rig": "./src/modules/rig/index.ts",
     "./ik": "./src/modules/ik/index.ts",
+    "./pathfollow": "./src/modules/pathfollow/index.ts",
     "./text-effects": "./src/modules/text-effects/index.ts",
     "./text-input": "./src/modules/text-input/index.ts"
   },

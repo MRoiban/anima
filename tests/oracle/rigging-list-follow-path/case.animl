@@ -1,0 +1,9 @@
+<anima version="0.1" name="rigging-list-follow-path-oracle" grid="20" requires="rig pathfollow">
+  <path id="track" d="M4 10L16 10" opacity="0" stroke="#000"/>
+  <group id="rows">
+    <spread-along-path path="track" start="0.2" end="0.8" shift="0.1" orient="false"/>
+    <rect id="a" x0="-0.5" y0="-0.5" width="1" height="1" fill="#111827"/>
+    <rect id="b" x0="-0.5" y0="-0.5" width="1" height="1" fill="#111827"/>
+    <rect id="c" x0="-0.5" y0="-0.5" width="1" height="1" fill="#111827"/>
+  </group>
+</anima>

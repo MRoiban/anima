@@ -61,6 +61,8 @@ import { rig } from '../../../modules/rig/core/index.ts';
 import { rigSVG } from '../../../modules/rig/core/svg.ts';
 import { ik } from '../../../modules/ik/core/index.ts';
 import { ikSVG } from '../../../modules/ik/core/svg.ts';
+import { pathfollow } from '../../../modules/pathfollow/core/index.ts';
+import { pathfollowSVG } from '../../../modules/pathfollow/core/svg.ts';
 import { textEffects } from '../../../modules/text-effects/core/index.ts';
 import { textEffectsSVG } from '../../../modules/text-effects/core/svg.ts';
 import { textinput } from '../../../modules/text-input/core/index.ts';
@@ -125,6 +127,8 @@ if (VERBOSE) {
   registerSVGBackend('rig', rigSVG);
   registerModule(ik);
   registerSVGBackend('ik', ikSVG);
+  registerModule(pathfollow);
+  registerSVGBackend('pathfollow', pathfollowSVG);
   registerModule(textEffects);
   registerSVGBackend('text-effects', textEffectsSVG);
   registerModule(textinput);

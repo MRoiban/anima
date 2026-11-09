@@ -8899,11 +8899,12 @@
   "id": "rigging.follow-path",
   "category": "rigging",
   "capability": "Follow path constraint",
-  "construct": "new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-  "module": "rig",
+  "construct": "modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl",
+  "module": "pathfollow",
   "status": "planned",
-  "test": "oracle/rigging-follow-path",
-  "phase": "P8"
+  "test": "modules/pathfollow/test/core; spec/conformance/rigging-follow-path; tests/oracle/rigging-follow-path",
+  "phase": "P8",
+  "reason": "Implementation, conformance and native capture are complete; raw frame 0 is max 1 with 0 pixels over 16. P8 shared ownership leaves comparison-limit selection and cases.json promotion to the orchestrator."
  },
  {
   "id": "rigging.ik",
@@ -8939,11 +8940,12 @@
   "id": "rigging.list-follow-path",
   "category": "rigging",
   "capability": "List follow-path constraint",
-  "construct": "new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-  "module": "rig",
-  "status": "planned",
-  "test": "oracle/rigging-list-follow-path",
-  "phase": "P8"
+  "construct": "modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl",
+  "module": "pathfollow",
+  "status": "done",
+  "test": "modules/pathfollow/test/core; spec/conformance/rigging-list-follow-path; tests/oracle/rigging-list-follow-path/skip.json",
+  "phase": "P8",
+  "reason": "Direct children and live repeat items are implemented and conformant. Native ListFollowPathConstraint RML was accepted but rendered all children overlapped at the origin, so the retained capture documents the ticket-authorized no-faithful-counterpart skip."
  },
  {
   "id": "rigging.mesh",

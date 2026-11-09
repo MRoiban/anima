@@ -48,6 +48,7 @@ import './motion.ts';
 import './nested.ts';
 import './paint.ts';
 import './paint-sampling.ts';
+import './pathfollow.ts';
 import './posepad.ts';
 import './posepad-handle.ts';
 import './rig.ts';

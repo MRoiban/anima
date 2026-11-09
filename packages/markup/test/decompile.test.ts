@@ -164,6 +164,9 @@ function recover(root: Element): Obj {
         'keep-distance': 'keepDistance',
         // seam(P8-2): IK is a registered rig constraint child.
         ik: 'ik',
+        // seam(P8-3): path-follow constraints are registered rig children.
+        'along-path': 'alongPath',
+        'spread-along-path': 'spreadAlongPath',
       };
       if (rigKinds[child.name]) {
         const constraint: Obj = { kind: rigKinds[child.name] };
@@ -653,6 +656,9 @@ function check(source: string | object) {
       'keep-distance',
       // seam(P8-2): canonical IK constraint child spelling.
       'ik',
+      // seam(P8-3): canonical path-follow constraint child spellings.
+      'along-path',
+      'spread-along-path',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

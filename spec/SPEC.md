@@ -3912,3 +3912,54 @@ the screen-clockwise side of the directed line from the chain start to the targe
 opposite analytic solution. A negative-determinant ancestor mirrors that side so authored bend
 direction follows the mirrored chain. The same side choice is used for each deterministic pair solve
 in a chain longer than two bones.
+
+## pathfollow
+
+The optional `pathfollow` module extends rig constraints with normalized outline following. Documents
+using these constraints declare both `rig` and `pathfollow` in `requires`. Path measurement is an
+internal runtime detail of this module; it does not add public APIs.
+
+<!-- capability: rigging.follow-path -->
+### Follow path constraint
+
+JSON `{"kind":"alongPath","path":"track",...}` and AniML `<along-path path="track" .../>` place
+the constrained node's pivot on the target outline. `path` is required and names a measurable
+`path`, `contour`, `circle`, `rect`, or `arc`. `at` is an animatable normalized distance and defaults
+to 0. Open outlines clamp `at` to 0..1. Closed outlines wrap it modulo 1, so 1 and 0 name the same
+point and values outside the interval continue around the outline. `orient` defaults to false; when
+true, the constrained node's world rotation becomes the sampled tangent angle, with 0 degrees along
++x. `offset` defaults to false; when true, the node's animated translation away from its authored
+rest translation is added after path placement. The inherited rig `strength` field defaults to 1 and
+blends the old and desired world transforms.
+
+The target is a rig dependency and is measured in its current resolved local geometry, then its world
+transform is applied to the sampled point and tangent. Path data includes current morph values.
+Measurement uses the same cubic subdivision as `Shared outline lengths`: absolute segments, arc
+conversion into at-most-90-degree cubic pieces, recursive de Casteljau subdivision at t=0.5 until
+control-polygon length minus chord is at most 0.0001 grid units or depth 20, and the mean of polygon
+and chord for each accepted piece. The cumulative table supplies both arc-length position and tangent.
+Circles, arcs and rounded rectangles follow their equivalent outline geometry. A skinned target is a
+known limitation: following uses its undeformed outline rather than the deformed skin result.
+
+If `path` resolves to a node that is not measurable, loading reports `rig-path-target` at the exact
+constraint `/path` field, with a message that the target is not a measurable shape and a hint to use
+a path, contour, circle, rect or arc. Unknown ids continue to use rig's normal target diagnostic.
+Constraint fields are addressable as `<node>.constraints.<k>.<field>` and participate in the normal
+rig solve order.
+
+<!-- capability: rigging.list-follow-path -->
+### List follow-path constraint
+
+JSON `{"kind":"spreadAlongPath","path":"track",...}` and AniML `<spread-along-path
+path="track" .../>` distribute the constrained node's direct children along an outline. On a
+`repeat`, the same rule applies to its live reconciled items after list reconciliation. `start`,
+`end`, and `shift` are animatable normalized distances with defaults 0, 1, and 0. For child index
+`k` among `n` children, the sampled fraction is
+`start + (end - start) * k / max(n - 1, 1) + shift`. Therefore a single child uses `start + shift`.
+Open outlines clamp each resulting fraction and closed outlines wrap it by the same rule as
+`alongPath`. `orient` defaults to false and applies the sampled tangent rotation independently to
+each child. The inherited `strength` field blends each child's current and desired world transform.
+
+A changing repeat count immediately recomputes all item fractions without rebuilding rig solve order.
+`spreadAlongPath` uses the same measurable-target set, `rig-path-target` diagnostic, private
+measurement table, transform handling, and undeformed-skinned-target limitation as `alongPath`.
