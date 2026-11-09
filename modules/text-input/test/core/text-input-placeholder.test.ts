@@ -40,11 +40,11 @@ it('default placeholder dims only glyph ink, preserves paint alpha and never dim
   expect(n.text!.opacity).toBe(0.5);
   expect(n.text!.paints[0]).toMatchObject([{ color: '#12345680' }, { color: '#654321' }]);
   expect(n.fieldBoxes![0]!.color).toBe('#f00');
-  expect(toSVG(p)).toContain('<g opacity="0.5">');
+  expect(toSVG(p)).toContain('opacity="0.5"><text');
   edit(p, 'q', 'AB');
   p.step(0);
   expect((drawFrame(p).nodes[0] as FieldNode).text!.opacity).toBeUndefined();
-  expect(toSVG(p)).not.toContain('<g opacity="0.5">');
+  expect(toSVG(p)).not.toContain('opacity="0.5"><text');
   select(p, 'q', 0, 2);
   expect((drawFrame(p).nodes[0] as FieldNode).fieldBoxes![0]!.color).toBe('#b3d4fc');
   edit(p, 'q', '');

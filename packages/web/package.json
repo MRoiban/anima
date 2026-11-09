@@ -73,6 +73,7 @@
     "./texteffects": "./src/texteffects.ts",
     "./markup-text-effects": "./src/markup-text-effects.ts",
     "./text-input": "./src/text-input.ts",
+    "./text-input-extra": "./src/text-input-extra.ts",
     "./text-input-svg": "./src/text-input-svg.ts",
     "./text-input-clipboard": "./src/text-input-clipboard.ts",
     "./text-input-canvas": "./src/text-input-canvas.ts",
