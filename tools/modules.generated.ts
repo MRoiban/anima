@@ -55,7 +55,6 @@ export const webEntries = [
   'data-artboard',
   'data-artboard-values',
   'markup-data-artboard',
-  'skin',
   'colormix',
   'markup-colormix',
   'mix',
@@ -77,6 +76,7 @@ export const webEntries = [
   'markup-rig',
   'ik',
   'pathfollow',
+  'skin',
   'text-effects',
   'markup-text-effects',
   'text-input',
@@ -139,7 +139,6 @@ export const webOwners: Record<string, string> = {
   'data-artboard': 'data-artboard',
   'data-artboard-values': 'data-artboard',
   'markup-data-artboard': 'data-artboard',
-  skin: 'skin',
   surface: 'surface',
   'markup-surface': 'surface',
   colormix: 'colormix',
@@ -163,6 +162,7 @@ export const webOwners: Record<string, string> = {
   'markup-rig': 'rig',
   ik: 'ik',
   pathfollow: 'pathfollow',
+  skin: 'skin',
   'text-effects': 'text-effects',
   'markup-text-effects': 'text-effects',
   'text-input': 'text-input',
@@ -263,7 +263,6 @@ export const moduleBudgets: {
   { name: 'data-artboard', budget: 1024, over: 'data-artboard-values' },
   { name: 'data-artboard-values', budget: 1536, over: 'nested' },
   { name: 'markup-data-artboard', budget: 256, authoring: true, over: 'markup-hooks' },
-  { name: 'skin', budget: 5120 },
   { name: 'colormix', budget: 3072 },
   { name: 'markup-colormix', budget: 512, over: 'index', authoring: true },
   { name: 'mix', budget: 1856 },
@@ -285,6 +284,7 @@ export const moduleBudgets: {
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
   { name: 'ik', budget: 896, heavy: true, over: 'rig' },
   { name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' },
+  { name: 'skin', budget: 1536, heavy: true },
   { name: 'text-effects', budget: 4096, over: 'text' },
   { name: 'markup-text-effects', budget: 256, over: 'markup-text', authoring: true },
   { name: 'text-input', budget: 4544, heavy: true },
@@ -940,14 +940,6 @@ export const moduleScopes = {
       'components-host-artboard-reference',
     ],
   },
-  skin: {
-    tests: [
-      'modules/skin/test/**/*.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: ['rigging-skin', 'rigging-weights', 'rigging-cubic-weights'],
-  },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',
@@ -1123,6 +1115,14 @@ export const moduleScopes = {
       'packages/markup/test/decompile.test.ts',
     ],
     conformance: ['rigging-follow-path', 'rigging-list-follow-path'],
+  },
+  skin: {
+    tests: [
+      'modules/skin/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['rigging-skin', 'rigging-weights', 'rigging-cubic-weights'],
   },
   'text-effects': {
     tests: [

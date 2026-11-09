@@ -4895,10 +4895,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -7420,10 +7572,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -9948,10 +10252,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -12503,10 +12959,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -15041,10 +15649,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -16280,10 +17040,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -17498,10 +18410,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             }
           },
           "required": [
@@ -19818,10 +20882,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -22360,10 +23576,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -24903,10 +26271,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -27436,10 +28956,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -29263,10 +30935,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -31133,10 +32957,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -33565,10 +35541,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "effects": {
               "type": "array",
@@ -36461,10 +38589,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -38254,10 +40534,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
@@ -39400,10 +41832,162 @@
                       "target"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "alongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "at": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      },
+                      "offset": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "spreadAlongPath"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "feature": "pathfollow"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "end": {
+                        "type": "number"
+                      },
+                      "shift": {
+                        "type": "number"
+                      },
+                      "orient": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
               "feature": "rig"
+            },
+            "skin": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "bones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
+                },
+                "weights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "point": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "in": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      },
+                      "out": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "point"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "bones"
+              ],
+              "additionalProperties": false,
+              "feature": "skin"
             },
             "focus": {
               "type": "object",
