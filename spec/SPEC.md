@@ -3576,6 +3576,10 @@ Per D38, a bone may be at document/component root level, or have a `group` or
 `text`, is `rig-bone-parent` at the bone's pointer, with hint
 "wrap the bones in a <group>". A group within layout can host a skeleton.
 
+Per D39, zero rest `scale`, `scaleX` or `scaleY` on a bone or any ancestor is
+`bad-value` at the affected bone, with a hint to use nonzero rest scales. Animation may
+collapse a bone from a nonzero rest pose.
+
 Rest frames are computed once from document values, never the first sampled
 pose. A chained bone's frame is its parent's frame multiplied by
 `T(parent.length,0) R(rotate) S(scale*scaleX,scale*scaleY)`.

@@ -13,7 +13,7 @@ import {
 export const bone = (m: Model, i: number) => (m.nodes[i]?.type as string) === 'bone';
 export const pivot = (m: Model, i: number): number[] =>
   bone(m, i) ? [0, 0] : (m.nodes[i]?.raw.pivot ?? [0, 0]);
-export const inverse = (m: Mat): Mat => invert(m) ?? [...IDENTITY];
+export const inverse = (m: Mat): Mat => invert(m) ?? IDENTITY;
 export const contexts = new WeakMap<Player, RigContext>();
 export function install(model: Model, order: number[]): void {
   const rest: Mat[] = [],
@@ -64,12 +64,8 @@ export function install(model: Model, order: number[]): void {
           const old = locals[i];
           if (!old || m.some((v, k) => v !== old[k])) {
             locals[i] = m;
-            // Descendants' cached geometry/world consumers must see upstream motion too.
-            const dirty = (j: number) => {
-              p.drawVersions[j] = ++p.drawRevision;
-              model.nodes[j]!.children.forEach(dirty);
-            };
-            dirty(i);
+            // A changed rig frame can affect geometry consumers anywhere in its dependency graph.
+            p.drawVersions.fill(++p.drawRevision);
           }
         }
       },

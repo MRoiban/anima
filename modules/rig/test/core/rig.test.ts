@@ -231,6 +231,35 @@ describe('rig', () => {
     q.step(0);
     expect(pos(q, 'arm')).toEqual([6, 5]);
   });
+  it('publishes constrained locals to semantic bounds and pointer hits', () => {
+    const p = player(
+      doc(
+        [
+          group('arm', {
+            constraints: [{ kind: 'copyPosition', from: 'aim' }],
+            children: [
+              {
+                id: 'art',
+                type: 'rect',
+                x0: 0,
+                y0: 0,
+                w: 2,
+                h: 2,
+                fill: { color: '#000' },
+                a11y: { role: 'text', label: 'rigged' },
+              },
+            ],
+          }),
+          group('aim', { x: 8, y: 6 }),
+        ],
+        { requires: ['rig', 'a11y'], listeners: [{ on: 'click', target: 'art', emit: 'hit' }] },
+      ),
+    );
+    p.step(0);
+    expect(p.semantics().find((n) => n.id === 'art')!.bounds).toEqual([8, 6, 2, 2]);
+    expect(p.hits(p.model.listeners[0]!, 9, 7)).toBe(true);
+    expect(p.hits(p.model.listeners[0]!, 1, 1)).toBe(false);
+  });
   it('blends shortest arcs, mirrored scales and shear about a pivot', () => {
     const a = compose([4, 5, (170 * Math.PI) / 180, 2, -3, 1], [2, 3]),
       b = compose([10, 9, (-170 * Math.PI) / 180, 4, -1, 3], [2, 3]);

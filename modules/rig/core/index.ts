@@ -182,6 +182,15 @@ export const rig: RigModule = {
     for (const [i, n] of model.nodes.entries()) {
       const at = nodePointer(model, i);
       if (bone(model, i)) {
+        for (let a = i; a >= 0; a = model.nodes[a]!.parent) {
+          if (['scale', 'scaleX', 'scaleY'].some((k) => model.nodes[a]!.raw[k] === 0))
+            d.err(
+              'bad-value',
+              at,
+              V && 'bone rest frames must be invertible',
+              V && 'use nonzero rest scales; animate collapse from a nonzero rest pose',
+            );
+        }
         if (n.raw.pivot !== undefined)
           d.err(
             'rig-bone-pivot',
@@ -228,14 +237,14 @@ export const rig: RigModule = {
         }
       });
     }
-    const visited = new Set<number>();
+    const visited: boolean[] = [];
     const visit = (i: number) => {
-      if (visited.has(i)) return;
-      visited.add(i);
+      if (visited[i]) return;
+      visited[i] = true;
       edges[i]!.forEach(visit);
       order.push(i);
     };
-    model.nodes.forEach((_, i) => visit(i));
+    edges.forEach((_, i) => visit(i));
     if (!d.failed) install(model, order.reverse());
   },
   draw: {

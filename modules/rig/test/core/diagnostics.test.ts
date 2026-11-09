@@ -27,6 +27,18 @@ const broken: [string, object[], string][] = [
   ['rig-bone-pivot', [bone('a', { pivot: [0, 0] })], '/nodes/0/pivot'],
 ];
 describe('rig diagnostics', () => {
+  it('rejects zero rest scales on bones and their ancestors (D39)', () => {
+    for (const nodes of [
+      [bone('a', { scaleX: 0 })],
+      [group('g', { scale: 0, children: [bone('a')] })],
+    ])
+      expect(load(document(nodes)).diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: 'bad-value',
+          hint: expect.stringContaining('nonzero rest'),
+        }),
+      );
+  });
   for (const [code, nodes, pointer] of broken)
     it(code, () => {
       const r = load(document(nodes));
