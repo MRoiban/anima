@@ -10,3 +10,5 @@ spec/conformance/**/*.jsonl
 spec/schema
 spec/conformance/eases.json
 examples/web/index.html
+# Browser test artifacts (git-ignored per directory; written by test runs)
+**/test/web/artifacts/

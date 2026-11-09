@@ -122,5 +122,3 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
   only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
-- Ignored canvas test artifacts (`modules/canvas/test/web/artifacts/*-metrics.json`) fail
-  `npm run format:check` locally; delete them before checking.
