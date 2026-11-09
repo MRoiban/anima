@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "bounds-feather",
+  "grid": 100,
+  "requires": ["a11y", "surface"],
+  "nodes": [
+    {
+      "id": "feathered",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 4,
+      "h": 6,
+      "x": 10,
+      "y": 10,
+      "scaleX": 2,
+      "fill": {
+        "color": "#000",
+        "feather": {
+          "inner": 7,
+          "outer": 3,
+          "offset": [2, -1]
+        }
+      },
+      "a11y": {
+        "role": "img"
+      }
+    }
+  ]
+}

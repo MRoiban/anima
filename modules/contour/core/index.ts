@@ -107,7 +107,9 @@ export function compileVertices(
   }
   return d;
 }
-export const contour: Module = {
+export const contour: Module & Pick<typeof effects, 'undashed'> = {
+  // seam(P8-9): expose the pure bounds reader through the active module registry.
+  undashed: effects.undashed,
   name: 'contour',
   after,
   entries: [

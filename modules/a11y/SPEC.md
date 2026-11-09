@@ -169,8 +169,8 @@ half-width inflation cannot reproduce butt caps or miter joins. A shared pure ca
 that platform divergence, following the separation described in docs/research/rive-web-runtime.md.
 Explicit authored boxes still win. Caps take their direction from the subpath's first/last
 non-zero tangent; a zero-length open subpath with round or square caps is a dot or a square aligned
-with the local x axis, as SVG draws it. The broader final-painted-extents row stays planned for the
-unsupported combinations listed below; standard centered geometry now has independent tests.
+with the local x axis, as SVG draws it. The P8 extension below adds clipping, masks, trims, viewport strokes and feather support;
+standard centered geometry retains its independent tests.
 
 Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 `docs/research/rive-format-and-graph.md` (registry discipline),
@@ -237,7 +237,7 @@ arrow movement wraps and selects. Tabs retain manual activation. This extends th
 ## Optional text consumer (P6)
 
 [TEXT.md](TEXT.md) specifies grapheme host/listener access, inferred labels, and measured
-text layout bounds. Exact path/stroke bounds remain open as recorded above.
+text layout bounds. Painted geometric bounds and their two intentional differences are specified below.
 
 ### Painted geometric bounds (P7-8)
 
@@ -248,10 +248,54 @@ control hulls/chords; standard centered strokes include butt/round/square caps, 
 joins (the SVG/Canvas default miter limit of 4), transformed circles and rounded rectangles.
 Stroke/paint changes now invalidate the semantic cache while this calculator is installed.
 
-This is geometry before masks/clips. Dash/trim gaps, non-scaling strokes, feather/filter support
-and text ink-outline bounds are not yet fully represented. Existing text semantics keep their
-measured logical layout boxes. Consequently `a11y.tree-bounds` remains planned as a broader row;
-this module does not advertise exact final painted extents for unsupported paint combinations.
+Clips intersect the target box (and exposed descendant boxes) with the clip source's world
+**geometry** box: source paint, visibility, opacity and source compositing are ignored. Masks
+intersect with the source subtree's world painted box, including its own clips/masks and visible
+children. Source ancestors supply transforms, not visibility. Inverted masks retain the target
+box: the complement can paint outside the source, so intersecting with it would be incorrect.
+These are intersections of axis-aligned boxes, not a boolean path operation. A disjoint
+intersection is a zero-size box at the componentwise maximum of the two box origins; an empty
+mask retains the target origin with zero size. Explicit authored semantic boxes still win.
+
+Legacy trims and contour trims bound only retained pieces, including caps at cut ends. Empty
+trims contribute no paint. Sequential, synchronized and wrapped contour trims use the resolved
+contour geometry; legacy trims use the same bounded de Casteljau subdivision as contour
+(0.0001 local-grid control-polygon excess, depth 20), followed by length slicing. The primitive
+outline starts and directions remain those in SPEC §4. Stroke caps use the retained piece's tangent.
+
+Fixed strokes transform the outline into viewport coordinates, apply the unchanged numeric stroke
+width/caps/joins there, then map the resulting box back into world-grid units. Host resize and fit
+refresh this scale and invalidate the shared semantic cache even for settled players. Nonuniform
+node transforms never serve as a scalar width correction. Headless tools without a host use one
+viewport unit per grid unit; `a11y-tree-bounds-fixed/host-sizes.json` supplies two host scales to
+the pure conformance test (`expected.jsonl` and `host-large/expected.jsonl`), and both browsers
+test actual 100/200 CSS-pixel hosts.
+
+Feather boxes grow to the three-standard-deviation outer falloff distance specified by surface's
+Gaussian model, including the local offset vector. Local falloff projects through the world
+matrix; world-space falloff grows equally on both grid axes. The box encloses the original paint
+and its offset/grown support. Inner feather remains inside the original alpha and adds no extent.
+The Gaussian's mathematical infinite tail is not a useful accessibility rectangle; the specified
+three-sigma extent gives its finite geometric support policy. Disabled feather preserves the box.
+
+Two intentional differences close the remaining extents:
+
+- **Dash:** ordinary dashes use the undashed stroke box, a conservative superset. For contour effect
+  stacks, use the contour entering the first dash (including preceding trims); subsequent effects
+  only remove paint. Walking dash gaps again on every semantic frame would cost work only to
+  shrink end gaps and does not improve accessibility targeting.
+- **Text ink:** text uses the measured logical line boxes from the optional text consumer, including
+  its layout clipping, rather than glyph ink or text-stroke outlines. DOM text rectangles and
+  screen-reader highlights use logical boxes; this also keeps platform font rendering differences
+  out of the shared semantic geometry contract.
+
+The bounds refinement composes with the native-field semantic refinement regardless of module
+registration order. A small pure contour reader exposes the incoming undashed contour through the
+active module registry; no contour renderer or extra effect walk is bundled into the base a11y entry.
+This preserves the core/platform separation in `docs/research/rive-web-runtime.md` §3 and Lessons
+5–6. Independent conformance cases are `a11y-tree-bounds-*`; both engine overlays consume these same
+boxes. No Rive algorithm or documentation text is copied.
+
 Native semantic JSON reports the uninflated rectangle. In the new explicitly linear control,
 animation lag does not reproduce. The capture and measured difference are retained under `tests/oracle/p7-8-semantic-bounds/`.
 

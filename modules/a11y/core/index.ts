@@ -16,7 +16,7 @@ export const a11y: Module & { runtime: typeof runtime } = {
     install(shared.Player, modules);
     if (V) {
       installTextSemantics(runtime, modules);
-      installPaintedBounds(runtime);
+      installPaintedBounds(runtime, modules); // seam(P8-9): active contour effect reader for bounds.
     }
     return {
       ...a11y,

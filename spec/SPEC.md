@@ -2997,8 +2997,15 @@ remain eligible for native focus and roving.
 `nodes[].a11y.bounds` (AniML `bounds`) is a local `[x,y,w,h]` box with nonnegative width and height,
 transformed to world-grid coordinates. Without it, visible child boxes are unioned
 for unpainted groups; an empty node reports its transformed origin as a point.
-The bounded implementation and explicit path/stroke limitations are specified in
-[modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.
+The optional painted calculator shared by tooling and the browser overlay bounds trimmed pieces
+with their caps, viewport-sized non-scaling strokes and feather falloff; it intersects clips with
+source geometry boxes and masks with source painted boxes. Explicit boxes win. Dash bounds
+intentionally use the undashed stroke (conservative), and text uses measured logical line boxes
+rather than ink, matching DOM text rectangles and screen-reader highlights. The full contract,
+including inverted-mask complements and finite three-sigma feather support, is specified in
+[modules/a11y/SPEC.md](../modules/a11y/SPEC.md#painted-geometric-bounds-p7-8).
+Native semantic rectangles omit stroke; the existing P7-8 capture records this intentional native
+difference in `tests/oracle/p7-8-semantic-bounds/`.
 
 
 <!-- capability: a11y.property-heading-level -->

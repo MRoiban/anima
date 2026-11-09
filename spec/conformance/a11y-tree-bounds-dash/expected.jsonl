@@ -1,0 +1,1 @@
+{"time":0,"values":{},"states":{},"events":[],"settled":true,"semantics":[{"id":"dashed","role":"img","states":{},"bounds":[2,4,16,2],"actions":[],"children":[]},{"id":"before","role":"img","states":{},"bounds":[5,14,10,2],"actions":[],"children":[]},{"id":"after","role":"img","states":{},"bounds":[0,19,20,2],"actions":[],"children":[]}]}

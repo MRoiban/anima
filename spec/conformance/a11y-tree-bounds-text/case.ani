@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "bounds-text",
+  "grid": 100,
+  "requires": ["a11y", "text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "logical",
+      "type": "text",
+      "x": 10,
+      "y": 20,
+      "wrap": false,
+      "width": 12,
+      "height": 11,
+      "styles": {
+        "s": {
+          "size": 10
+        }
+      },
+      "runs": [
+        {
+          "text": "AB",
+          "style": "s"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "Logical"
+      }
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}
