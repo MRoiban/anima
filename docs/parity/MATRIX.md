@@ -17,7 +17,7 @@ scope by the owner's triage of 2026-11-07).
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Drawing and paint | 125 | 110 |  |  |  | 1 | 14 |
 | Transforms and draw order | 17 | 16 |  |  |  |  | 1 |
-| Animation | 40 | 33 |  | 3 |  |  | 4 |
+| Animation | 40 | 35 |  | 1 |  |  | 4 |
 | State machines | 61 | 60 |  |  |  |  | 1 |
 | Listeners and input | 93 | 90 |  |  |  |  | 3 |
 | Data: view models, binding, converters | 169 | 165 |  |  |  |  | 4 |
@@ -25,17 +25,17 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 |  |  | 22 |  | 1 |  |
+| Rigging | 23 | 1 |  | 21 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
-| Accessibility | 63 | 62 |  | 1 |  |  |  |
+| Accessibility | 63 | 63 |  |  |  |  |  |
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **860** | **0** | **26** | **0** | **188** | **164** |
+| **Total** | **1238** | **864** | **0** | **22** | **0** | **188** | **164** |
 
-**Progress:** 860 of 886 in-scope capabilities done (97 %); 860 of 1238 in the full matrix (69 %).
+**Progress:** 864 of 886 in-scope capabilities done (98 %); 864 of 1238 in the full matrix (70 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1307,9 +1307,9 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `animation.joystick-handle` | Handle-driven posing | new: joystick.handle and grid-unit bounds | rig | planned | conformance/joystick-handle |
-| `animation.joystick-invert` | Invert pose axes | new: joystick.invertX/invertY | rig | planned | conformance/joystick-invert |
-| `animation.joystick-two-axis` | Two-axis timeline posing | new: joystick with x/y timeline references | rig | planned | conformance/joystick-two-axis |
+| `animation.joystick-handle` | Handle-driven posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | planned | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle (pending orchestrator budgets) |
+| `animation.joystick-invert` | Invert pose axes | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert |
+| `animation.joystick-two-axis` | Two-axis timeline posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis |
 
 ### Rigging
 
@@ -1325,7 +1325,7 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.follow-path` | Follow path constraint | new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-follow-path |
 | `rigging.ik` | Inverse kinematics | new: inverse kinematics with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik |
 | `rigging.ik-bend` | IK bend direction | new: ik bend direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik-bend |
-| `rigging.joystick` | Two-axis animation control | new: two-axis animation control with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-joystick |
+| `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick |
 | `rigging.list-follow-path` | List follow-path constraint | new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-list-follow-path |
 | `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | planned | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh |
 | `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | planned | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation |
@@ -1342,7 +1342,7 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md | Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned. |
+| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md; modules/a11y/SPEC.md; modules/a11y/P8-9-REPORT.md; modules/a11y/test/core/painted-extents.test.ts; modules/a11y/test/web/painted-extents.test.ts; modules/a11y/examples/painted-extents.animl; spec/conformance/a11y-tree-bounds-clip; spec/conformance/a11y-tree-bounds-mask; spec/conformance/a11y-tree-bounds-trim; spec/conformance/a11y-tree-bounds-trim-wrap; spec/conformance/a11y-tree-bounds-fixed; spec/conformance/a11y-tree-bounds-feather; spec/conformance/a11y-tree-bounds-dash; spec/conformance/a11y-tree-bounds-text; modules/a11y/oracle/P8-9.md; tests/oracle/a11y-tree-bounds/skip.json; tests/oracle/p7-8-semantic-bounds/README.md | P8-9: the shared optional a11y-bounds calculator intersects clip geometry and mask painted bounds, bounds trimmed pieces/caps (including wrap and both contour modes), converts non-scaling strokes through current host fit, and grows feather falloff. Dash intentionally uses conservative undashed stroke bounds (the incoming contour at the first effect-stack dash); text intentionally uses logical line boxes, matching DOM text rectangles and screen-reader highlights rather than ink. Explicit semantic boxes still win. Native semantic rectangles omit stroke; the existing P7-8 linear-control capture records that native difference. Eight independent semantic conformance probes, two host-size expected.jsonl snapshots and both-engine overlays/resize/import-order tests close the row; no widened oracle budget. |
 
 ## P9 — Scripting — won't do (owner triage, 2026-11-07) <a id="p9"></a>
 

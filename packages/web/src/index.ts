@@ -571,7 +571,8 @@ export class AnimaIcon extends HTMLElement {
 
   toggle(name: string): void {
     this.trace?.push(['toggle', name]);
-    this.player?.toggle(name);
+    if (this.player) this.player.toggle(name);
+    else this.#pending.push((p) => p.toggle(name));
     this.#wake();
   }
 

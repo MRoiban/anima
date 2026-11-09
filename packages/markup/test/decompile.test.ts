@@ -209,6 +209,21 @@ function recover(root: Element): Obj {
         }
         o.focus = focus;
       }
+      // seam(P8-9): independently recover the feather extent probe's structural paint.
+      if (child.name === 'feather') {
+        const feather: Obj = {};
+        for (const [key, value] of Object.entries(a))
+          if (key !== 'paint')
+            feather[key] =
+              key === 'offset'
+                ? vector(value)
+                : key === 'enabled'
+                  ? value === 'true'
+                  : key === 'space'
+                    ? value
+                    : Number(value);
+        ((o[a.paint ?? 'fill'] ??= {}) as Obj).feather = feather;
+      }
       if (child.name === 'a11y') {
         const semantics = base(child);
         for (const [key, value] of Object.entries(a))
@@ -590,6 +605,7 @@ function check(source: string | object) {
       'drawOrder',
       'fillPaint',
       'strokePaint',
+      'feather', // seam(P8-9): painted semantic extent conformance.
       'channel',
       'focus',
       'machine',

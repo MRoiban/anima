@@ -7,10 +7,12 @@ export default {
   adapters: {
     'packages/core/src/modules/host-edit/index.ts': 'core/index.ts',
     'packages/web/src/host-edit.ts': 'web/index.ts',
+    'packages/web/src/hostedit.ts': 'web/index.ts',
   },
   exports: {
     'core:./host-edit': 'packages/core/src/modules/host-edit/index.ts',
     'web:./host-edit': 'packages/web/src/host-edit.ts',
+    'web:./hostedit': 'packages/web/src/hostedit.ts',
   },
   tests: ['modules/host-edit/test/**/*.test.ts'],
   conformance: [],

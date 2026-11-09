@@ -1,0 +1,131 @@
+
+> test:scope
+> node tools/test-scope.ts input focus composite web conformance oracle --browser=chromium
+
+Scopes: input, focus, composite, web, conformance, oracle
+  unit: modules/composite/test/core/p4-review.test.ts
+  unit: modules/composite/test/core/paint-composite.test.ts
+  unit: modules/composite/test/core/rottweiler-p5.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/focus/test/core/p4-review.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/p4-review.test.ts
+  unit: modules/input/test/core/p8-draw-order.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/issues.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser: modules/a11y/test/web/painted-bounds.test.ts
+  browser: modules/assetio/test/web/reject.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/canvas/test/web/p4-review.test.ts
+  browser: modules/colormix/test/web/switch.test.ts
+  browser: modules/componentpaint/test/web/rottweiler-p5.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-artboard/test/web/artboard.test.ts
+  browser: modules/data-artboard/test/web/resources.test.ts
+  browser: modules/data-artboard/test/web/rt4.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/focus/test/web/p4-review.test.ts
+  browser: modules/focus/test/web/rottweiler-p3.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/fonts/test/web/info.test.ts
+  browser: modules/fonts/test/web/nested-text.test.ts
+  browser: modules/fonts/test/web/options.test.ts
+  browser: modules/fonts/test/web/rottweiler-p6.test.ts
+  browser: modules/fonts/test/web/text-integration.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/rottweiler-p3.test.ts
+  browser: modules/host-edit/test/web/rottweiler-p5.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host-fit/test/web/fit.test.ts
+  browser: modules/host-fit/test/web/rt4.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/input/test/web/p4-review.test.ts
+  browser: modules/input/test/web/rottweiler-p3.test.ts
+  browser: modules/input/test/web/rottweiler-p6.test.ts
+  browser: modules/layout/test/web/layout.test.ts
+  browser: modules/layout/test/web/reflow.test.ts
+  browser: modules/layout/test/web/rt4.test.ts
+  browser: modules/layout/test/web/rt5.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup-animation/test/web/animation.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/rottweiler-p5.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text-effects/test/web/effects.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  browser: modules/text-input/test/web/issue35.test.ts
+  browser: modules/text-input/test/web/placeholder.browser.test.ts
+  browser: modules/text-input/test/web/rottweiler-p6.browser.test.ts
+  browser: modules/text-input/test/web/selection.browser.test.ts
+  browser: modules/text/test/web/live-runs.test.ts
+  browser: modules/text/test/web/optional.test.ts
+  browser: modules/text/test/web/paint-repaint.test.ts
+  browser: modules/text/test/web/rottweiler-p6.test.ts
+  browser: modules/text/test/web/shorthand.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e73b3d9c
+
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (24 tests | 1 failed | 12 skipped) 8555ms
+   ❯ Chromium asset pipeline (12)
+     × Canvas bilinear clamp matches an independent shader at every pixel for box 8 374ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > Canvas bilinear clamp matches an independent shader at every pixel for box 8
+Error: page.evaluate: Array(1)
+ ❯ modules/assets/test/web/pipeline.test.ts:420:22
+    418|               content: await bundle(resolve('packages/web/src/' + entr…
+    419|             });
+    420|           await page.evaluate(
+       |                      ^
+    421|             async ({ uri, boxSize }) => {
+    422|               const icon = document.querySelector('anima-icon') as Ani…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 96 passed | 2 skipped (99)
+      Tests  1 failed | 6314 passed | 1713 skipped | 22 todo (8050)
+   Start at  13:33:29
+   Duration  330.61s (tests 84%, import 16%)

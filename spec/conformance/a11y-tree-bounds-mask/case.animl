@@ -1,0 +1,9 @@
+<anima version="0.1" name="bounds-mask" grid="100" requires="a11y composite">
+  <rect id="target" x0="0" y0="0" width="20" height="10" x="5" fill="#000">
+    <mask source="source" mode="alpha" source-draws="false"/>
+    <a11y role="img"/>
+  </rect>
+  <group id="source" x="7">
+    <rect id="edge" x0="0" y0="2" width="6" height="4" stroke="#000" stroke-width="2"/>
+  </group>
+</anima>

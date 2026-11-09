@@ -355,6 +355,98 @@ function issueTests(name: string, getPage: () => Page, getJS: () => string) {
     ]);
   }, 30000);
 
+  it('P8-8: pre-player toggle shares the set/fire FIFO before the first step and applies once', async () => {
+    const page = await setup();
+    const result = await page.evaluate(async (scene) => {
+      const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+      // A probe exposes the active bundle's Player prototype for first-step observation.
+      const probe = document.createElement('anima-icon');
+      probe.pause();
+      probe.load(scene);
+      const proto = Object.getPrototypeOf(probe.player!) as Player;
+      const step = proto.step,
+        toggle = proto.toggle,
+        set = proto.set,
+        fire = proto.fire;
+      const calls: unknown[][] = [];
+      proto.toggle = function (name) {
+        calls.push(['toggle', name]);
+        toggle.call(this, name);
+      };
+      proto.set = function (name, value) {
+        calls.push(['set', name, value]);
+        set.call(this, name, value);
+      };
+      proto.fire = function (name) {
+        calls.push(['fire', name]);
+        fire.call(this, name);
+      };
+      proto.step = function (...args) {
+        calls.push(['step']);
+        return step.apply(this, args);
+      };
+      const icon = document.createElement('anima-icon');
+      document.body.append(icon);
+      icon.toggle('on');
+      icon.set('on', false);
+      icon.fire('go');
+      icon.toggle('on');
+      const model = Icon.compile(structuredClone(scene)).model!;
+      model.doc.assets = {};
+      const finishes: (() => void)[] = [];
+      Icon.loadAssets = () => new Promise((resolve) => finishes.push(() => resolve(undefined)));
+      icon.loadModel(model);
+      icon.toggle('on');
+      icon.loadModel(model);
+      finishes[0]!();
+      await Promise.resolve();
+      const stale = !icon.player;
+      finishes[1]!();
+      await icon.ready;
+      const first = { on: icon.get('on'), states: icon.player!.states(), calls: [...calls] };
+      proto.step = step;
+      proto.toggle = toggle;
+      proto.set = set;
+      proto.fire = fire;
+      icon.pause();
+      icon.loadModel(model);
+      finishes[2]!();
+      await icon.ready;
+      icon.player!.step(0);
+      const next = { on: icon.get('on'), states: icon.player!.states() };
+      // Synchronous loading uses the same queue, and invalid toggles use normal validation.
+      const sync = document.createElement('anima-icon');
+      sync.toggle('on');
+      sync.load(scene);
+      const synchronous = sync.get('on');
+      const bad = document.createElement('anima-icon');
+      bad.toggle('absent');
+      let unknown = '';
+      try {
+        bad.load(scene);
+      } catch (error) {
+        unknown = String(error);
+      }
+      return { stale, first, next, synchronous, unknown };
+    }, scene);
+    expect(result.stale).toBe(true);
+    expect(result.first).toEqual({
+      on: false,
+      states: { main: 'entering' },
+      calls: [
+        ['toggle', 'on'],
+        ['set', 'on', false],
+        ['fire', 'go'],
+        ['toggle', 'on'],
+        ['toggle', 'on'],
+        ['step'],
+      ],
+    });
+    expect(result.next).toEqual({ on: false, states: { main: 'off' } });
+    expect(result.synchronous).toBe(true);
+    expect(result.unknown).toContain('absent');
+  }, 30000);
+
   it('issue #25: settle resolves once timelines/blends silently and queues before first paint', async () => {
     const page = await setup();
     const result = await page.evaluate((scene) => {

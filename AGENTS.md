@@ -1,7 +1,10 @@
 # AGENTS
 
-Anima is an open animation format (`.ani`) and a small web runtime for interactive icons, designed
-to be written by agents and to fit Glyphy-made icon sets.
+Anima is an open animation format (`.ani`) and a small web runtime for animated, interactive web
+UI, designed to be written by agents and to fit Glyphy-made icon sets.
+
+This file is for working **on** Anima. To **use** Anima (write scenes, embed them), read
+`docs/FOR-AGENTS.md` and `docs/GETTING-STARTED.md`; `docs/README.md` maps every document.
 
 Start here, in this order:
 

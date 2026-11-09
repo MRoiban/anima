@@ -1,0 +1,11 @@
+<anima version="0.1" name="bounds-dash" grid="100" requires="a11y paint contour">
+  <path id="dashed" d="M2 5H18" stroke="#000" stroke-width="2" stroke-linecap="butt" stroke-dasharray="0.25 0.75">
+    <a11y role="img"/>
+  </path>
+  <path id="before" d="M0 15H20" stroke="#000" stroke-width="2" stroke-linecap="butt" effects="[{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.25,&quot;end&quot;:0.75},{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,8]}]">
+    <a11y role="img"/>
+  </path>
+  <path id="after" d="M0 20H20" stroke="#000" stroke-width="2" stroke-linecap="butt" effects="[{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,8]},{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.5,&quot;end&quot;:1}]">
+    <a11y role="img"/>
+  </path>
+</anima>

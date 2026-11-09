@@ -1,0 +1,142 @@
+[
+  {
+    "name": "rigging-joystick",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-two-axis",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-invert",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-handle",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0
+      }
+    ]
+  }
+]

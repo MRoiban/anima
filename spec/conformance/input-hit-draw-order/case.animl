@@ -1,0 +1,10 @@
+<anima version="0.1" name="input-hit-draw-order" grid="20" requires="input composite bind">
+  <bool name="raised" default="true"/>
+  <bind target="a.drawOrder.active" value="raised"/>
+  <rect id="a" x0="0" y0="0" opaque="true" width="10" height="10" fill="#f00">
+    <drawOrder target="b" position="after"/>
+  </rect>
+  <rect id="b" x0="0" y0="0" width="10" height="10" fill="#00f"/>
+  <listener on="click" target="b" emit="b" consume="true"/>
+  <listener on="click" target="a" emit="a" consume="true"/>
+</anima>

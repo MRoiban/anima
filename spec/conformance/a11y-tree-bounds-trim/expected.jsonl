@@ -1,0 +1,1 @@
+{"time":0,"values":{},"states":{},"events":[],"settled":true,"semantics":[{"id":"sequential","role":"img","states":{},"bounds":[4,4,22,2],"actions":[],"children":[]},{"id":"synchronized","role":"img","states":{},"bounds":[1.5,9,27,2],"actions":[],"children":[]},{"id":"wrapped","role":"img","states":{},"bounds":[0,14,30,2],"actions":[],"children":[]}]}

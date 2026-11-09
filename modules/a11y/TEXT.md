@@ -69,8 +69,9 @@ intervals, and from baseline minus scaled ascent to baseline plus scaled descent
 overlapping clusters under negative tracking and leaves box widths nonnegative. Empty lines have zero width and metric height. Clip rectangles intersect these
 boxes. Transform **all four corners** through the full world matrix, including nested/repeated
 owners, and union them in artboard coordinates. Parents use the existing visible-child union.
-These are exact **layout** extents, not glyph-ink or text-stroke extents. The preexisting
-`a11y.tree-bounds` requirement for exact painted paths/strokes remains open.
+These are exact **layout** extents, not glyph-ink or text-stroke extents. <!-- seam(P8-9): shared painted support closes the text-ink disposition under D32. -->
+The shared painted calculator applies the clip/mask contract in [SPEC.md](SPEC.md) after this
+consumer; logical line boxes are its documented text-ink difference (D32).
 
 Layout identity participates in the semantic dependency cache. Bound run/style/box changes,
 host run edits and font-measurer revisions refresh inferred labels/bounds and semantic diffs.
@@ -90,6 +91,6 @@ contract. Explicit labels, including empty strings, continue to win. The differe
 by independent semantic conformance and both-engine overlay tests, not a passing native-label
 comparison. `a11y.inferred-text` closes with this evidenced no-equivalent-comparison disposition.
 
-`a11y.tree-bounds` stays planned. This optional consumer supplies exact layout boxes, while exact
-painted path/stroke extents require the platform/tooling work recorded in a11y's spec. Neither the
-native line-gap observation nor this broader missing implementation is hidden by a tolerance.
+P8-9 closes `a11y.tree-bounds` with the painted calculator and its documented dash/text differences.
+This optional consumer continues to supply logical line boxes. The native line-gap observation
+remains unchanged and is not hidden by a tolerance.

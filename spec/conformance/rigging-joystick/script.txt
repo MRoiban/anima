@@ -1,0 +1,9 @@
+advance 0
+snapshot
+advance 0.5
+snapshot
+set px -0.5
+advance 0.5
+snapshot
+advance 1
+snapshot

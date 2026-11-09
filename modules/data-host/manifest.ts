@@ -7,10 +7,12 @@ export default {
   adapters: {
     'packages/core/src/modules/data-host/index.ts': 'core/index.ts',
     'packages/web/src/data-host.ts': 'web/index.ts',
+    'packages/web/src/datahost.ts': 'web/index.ts',
   },
   exports: {
     'core:./data-host': 'packages/core/src/modules/data-host/index.ts',
     'web:./data-host': 'packages/web/src/data-host.ts',
+    'web:./datahost': 'packages/web/src/datahost.ts',
   },
   tests: [
     'modules/data-host/test/**/*.test.ts',

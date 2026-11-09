@@ -1,0 +1,8 @@
+<anima version="0.1" name="bounds-trim-wrap" grid="100" requires="a11y">
+  <path id="wrapped" d="M0 5H20" stroke="#000" stroke-width="2" stroke-linecap="square" trimStart="0.25" trimEnd="0.75" trimOffset="0.5">
+    <a11y role="img"/>
+  </path>
+  <path id="empty" d="M0 10H20" stroke="#000" stroke-width="2" trimStart="0.5" trimEnd="0.5">
+    <a11y role="img"/>
+  </path>
+</anima>

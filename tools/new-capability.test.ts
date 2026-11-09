@@ -37,11 +37,20 @@ function scratch() {
 
 it('plans without writing, is idempotent, and generates a registered, typechecked module', async () => {
   const root = scratch();
-  // A row that stays planned until P8 (it was tooling.seed until P3b closed it).
-  const id = 'animation.joystick-handle';
-  mkdirSync(resolve(root, 'tests/oracle/animation-joystick-handle/rive'), { recursive: true });
+  // seam(P8-6): real P8 rows now have probes; keep this fixture independent of phase completion.
+  const inventoryPath = resolve(root, 'docs/parity/inventory.json');
+  const fixtureRows: Row[] = JSON.parse(readFileSync(inventoryPath, 'utf8'));
+  const probe = structuredClone(fixtureRows.find((r) => r.id === 'animation.joystick-handle')!);
+  probe.id = 'animation.scaffold-probe';
+  probe.anima.status = 'planned';
+  probe.anima.phase = '—';
+  delete probe.aliases;
+  fixtureRows.push(probe);
+  writeFileSync(inventoryPath, JSON.stringify(fixtureRows, null, 2) + '\n');
+  const id = 'animation.scaffold-probe';
+  mkdirSync(resolve(root, 'tests/oracle/animation-scaffold-probe/rive'), { recursive: true });
   writeFileSync(
-    resolve(root, 'tests/oracle/animation-joystick-handle/rive/README.md'),
+    resolve(root, 'tests/oracle/animation-scaffold-probe/rive/README.md'),
     'Existing reference notes\n',
   );
   const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -57,9 +66,9 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
     expect(read('docs/parity/inventory.json')).toBe(inventory);
     expect(plan).toContain('modules/capabilityprobe/core/index.ts');
     expect(plan).toContain('packages/web/src/capabilityprobe.ts');
-    expect(plan).toContain('spec/conformance/animation-joystick-handle/todo.json');
+    expect(plan).toContain('spec/conformance/animation-scaffold-probe/todo.json');
     expect(await scaffold(root, id, 'capabilityprobe')).toEqual(plan);
-    expect(read('tests/oracle/animation-joystick-handle/rive/README.md')).toBe(
+    expect(read('tests/oracle/animation-scaffold-probe/rive/README.md')).toBe(
       'Existing reference notes\n',
     );
     expect(await scaffold(root, id, 'capabilityprobe')).toEqual([]);
@@ -69,10 +78,8 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
     expect(rows.find((r) => r.id === id)!.anima.status).toBe('planned');
     for (const [path, text] of Object.entries(outputs(rows)))
       expect(read(`docs/parity/${path}`)).toBe(text);
-    expect(pendingReason(resolve(root, 'spec/conformance/animation-joystick-handle'))).toContain(
-      id,
-    );
-    expect(pendingReason(resolve(root, 'tests/oracle/animation-joystick-handle'))).toContain(id);
+    expect(pendingReason(resolve(root, 'spec/conformance/animation-scaffold-probe'))).toContain(id);
+    expect(pendingReason(resolve(root, 'tests/oracle/animation-scaffold-probe'))).toContain(id);
     const url = pathToFileURL(resolve(root, 'packages/core/src/all.ts')).href;
     const registry = pathToFileURL(resolve(root, 'packages/core/src/modules.ts')).href;
     const result = execFileSync(
@@ -108,7 +115,7 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
           ANIMA_TEST_SCOPE: JSON.stringify({
             unit: [
               'tools/oracle.test.ts',
-              'modules/capabilityprobe/test/core/animation-joystick-handle.test.ts',
+              'modules/capabilityprobe/test/core/animation-scaffold-probe.test.ts',
             ],
             conformance: ['packages/core/test/conformance.test.ts'],
             browser: [],
@@ -126,14 +133,14 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
       )
       .filter(
         (test: { fullName: string }) =>
-          test.fullName.includes('animation-joystick-handle') ||
-          test.fullName.includes('animation.joystick-handle: diagnostic'),
+          test.fullName.includes('animation-scaffold-probe') ||
+          test.fullName.includes('animation.scaffold-probe: diagnostic'),
       );
     expect(probes).toHaveLength(3);
     expect(probes.every((test: { status: string }) => test.status === 'todo')).toBe(true);
     // Preserve coder edits and add a second capability to the same module.
     writeFileSync(
-      resolve(root, 'modules/capabilityprobe/capabilities/animation-joystick-handle/registry.ts'),
+      resolve(root, 'modules/capabilityprobe/capabilities/animation-scaffold-probe/registry.ts'),
       '// coder edit\n',
     );
     // Any still-planned row works; picking it from the inventory keeps the test valid as phases
@@ -142,7 +149,7 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
       (r) => r.anima.status === 'planned' && r.id !== id,
     )!.id;
     await scaffold(root, second, 'capabilityprobe');
-    expect(read('modules/capabilityprobe/capabilities/animation-joystick-handle/registry.ts')).toBe(
+    expect(read('modules/capabilityprobe/capabilities/animation-scaffold-probe/registry.ts')).toBe(
       '// coder edit\n',
     );
     expect(await scaffold(root, second, 'capabilityprobe')).toEqual([]);

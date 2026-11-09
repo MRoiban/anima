@@ -3490,5 +3490,26 @@
     "scripts": {
       "1": "set $size 5\nadvance 0"
     }
+  },
+  {
+    "name": "rigging-joystick",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animation-joystick-two-axis",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animation-joystick-invert",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
   }
 ]
