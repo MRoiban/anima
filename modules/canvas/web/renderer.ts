@@ -53,6 +53,7 @@ export class CanvasRenderer implements IconRenderer {
     style.textContent =
       ':host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}canvas{position:absolute;pointer-events:none}';
     this.canvas.setAttribute('aria-hidden', 'true');
+    this.canvas.setAttribute('part', 'canvas');
     icon.shadowRoot!.replaceChildren(style, this.canvas);
     this.connect();
   }

@@ -635,6 +635,7 @@ export class AnimaIcon extends HTMLElement {
     const svg = (this.#svg = document.createElementNS(SVG, 'svg'));
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('part', 'svg');
     this.#els = [];
     const make = (el: El, parent: Element) => {
       const d = document.createElementNS(SVG, el.tag);

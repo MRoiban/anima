@@ -57,6 +57,17 @@ Square viewBoxes keep their existing grid/bleed mapping. Pointer hits and semant
 bounds use the drawing's transform, and canvas uses the same placement. Fit and
 alignment still apply inside the host box. Canvas retains its own host sizing defaults.
 
+The shadow SVG exposes `part="svg"` and the canvas backend exposes `part="canvas"`.
+Style them from the page with `anima-icon::part(svg)` or `anima-icon::part(canvas)`:
+
+```css
+anima-icon::part(svg) { overflow: visible; }
+```
+
+Parts are recreated on every shadow rebuild, including `textRun()`, reload and
+renderer switches, so page styles keep applying without injecting shadow styles.
+Changing placement through these hooks may override the default grid mapping.
+
 ## Fit, alignment and artboard size
 
 Import `@anima-format/web/host-fit` for the full fitting API:

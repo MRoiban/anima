@@ -414,7 +414,10 @@ viewBox aspect `w/h`, the uniform scale is `s=W/grid` when `w>=h`, otherwise
 `s=H/grid`. The SVG viewport is `(x*s,y*s,w*s,h*s)` relative to the host and
 retains the source aspect. Canvas uses the same placement; pointer coordinates
 invert the drawing transform and semantic overlay bounds use it forwards.
-Legacy square-viewBox grid offsets remain unchanged.
+Legacy square-viewBox grid offsets remain unchanged. The shadow SVG exposes
+`part="svg"`; the canvas backend's canvas exposes `part="canvas"`. These hooks must
+survive every shadow rebuild, including text-run changes, reloads and renderer switches,
+so page `::part()` rules continue to apply.
 
 ### Host input queue
 
