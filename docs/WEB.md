@@ -148,6 +148,7 @@ playback or the loaded model.
 | `loadModel(model)` | Instantiate a compiled model with fresh player state. With `host-edit`, the host's `component` selects any retained exported root, independent of the root previously loaded from that model. |
 | `set(name, value)` | Queue a bool or number write; applied on the next step. |
 | `fire(name)` | Queue a trigger. |
+| `settle()` | Resolve current inputs, blends and once-timelines silently, then draw. Returns true if at rest; false if deferred or capped. |
 | `toggle(name)` | Queue a bool toggle. |
 | `get(name)` | Current committed bool or number value, or undefined for a missing input/trigger/empty element. Queued writes are not reflected yet. |
 | `values()` | Current resolved values keyed by animated address. |
@@ -157,12 +158,32 @@ playback or the loaded model.
 | `destroy()` | Idempotently detach internal listeners, observers and scheduler entry, invalidate pending URL responses, and clear the player and SVG. Keeps the host and external listeners. A later `load()` or new `src` can reuse it. |
 | `invalidate()` | Repaint the retained SVG once without stepping, consuming queued inputs, or scheduling frames. Empty elements are unchanged. |
 
-
 `set()` and `fire()` also queue before a player exists, including while asset loading
 is deferred. Calls retain their order and apply to the next player this host creates,
 before its first step. They are consumed once; a superseded asynchronous load does
 not consume them. Unknown names and invalid values follow the player's normal error
 handling when the queue is applied.
+
+For a control that should **mount already on**, call `set()` then `settle()` before
+the first paint. You can do this before loading:
+
+```js
+const icon = document.createElement('anima-icon');
+icon.set('on', true);
+icon.settle(); // false: deferred until a player exists
+icon.load(scene);
+document.body.append(icon);
+```
+
+`settle()` consumes current queued inputs and advances in bounded 0.25-second steps
+(up to 60 simulated seconds), stopping as soon as the player reports rest. It discards
+all events from those steps and suppresses `anima:event` and `anima:state`, including
+on the next normal frame. It draws the resulting state and updates ARIA. Pause and
+speed settings are preserved; normal playback is re-armed if still busy. Loops or
+other scenes that cannot reach rest return false at the cap. Calling it without a
+player queues the operation in order with `set()` and `fire()`, returns false, and
+resolves it before that player's first draw. Simulation is independent of host speed;
+normal reduced-motion policy still applies.
 
 Successful `load()` compilation is shared by parsed document identity (weak references) or exact
 source text (a 16-entry LRU, separately keyed for JSON and AniML). Treat parsed documents as

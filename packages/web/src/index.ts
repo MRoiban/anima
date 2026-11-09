@@ -106,11 +106,11 @@ export class AnimaIcon extends HTMLElement {
       player.onChange = () => {
         if (this.player === player) this.#wake();
       };
+      this.#motion();
       const pending = this.#pending;
       this.#pending = [];
       for (const apply of pending) apply(player);
       this.#build(model);
-      this.#motion();
       this.#aria();
       if (!this.hasAttribute('paused')) {
         AnimaIcon.eventHook?.(this, 'play', null);
@@ -540,6 +540,34 @@ export class AnimaIcon extends HTMLElement {
     if (this.player) this.player.fire(name);
     else this.#pending.push((p) => p.fire(name));
     this.#wake();
+  }
+
+  /** Resolve current inputs without emitting scene events; false means deferred or capped. */
+  settle(): boolean {
+    if (!this.player) {
+      this.#pending.push(() => this.#settle());
+      return false;
+    }
+    const settled = this.#settle();
+    this.#draw(true);
+    this.#aria();
+    schedule(this, false);
+    this.#last = -1;
+    if (!settled) this.#wake();
+    return settled;
+  }
+
+  #settle(): boolean {
+    const p = this.player!;
+    const step = (dt: number) => {
+      this.trace?.push(['step', dt]);
+      return p.step(dt).settled;
+    };
+    let settled = step(0);
+    for (let i = 0; !settled && i < 60 / MAX_DT; i++) settled = step(MAX_DT);
+    // Suppressed state changes must not leak out on the next ordinary frame.
+    this.#states = JSON.stringify(p.states());
+    return settled;
   }
 
   toggle(name: string): void {

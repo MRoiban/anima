@@ -424,6 +424,19 @@ before its first step, including when asset preparation deferred creation.
 Superseded load completions do not consume the queue. Names and values are validated
 by the player's normal methods when the queue is applied.
 
+### Host settling
+
+`icon.settle()` resolves current inputs, blends and once-timelines by stepping the
+player first at `dt=0`, then at `dt=0.25` until settled or 60 simulated seconds have
+elapsed. It returns whether rest was reached. Events from these steps are discarded;
+no `anima:event` or `anima:state` is dispatched, and the settled state notification
+baseline is updated so the next ordinary frame does not replay a suppressed change.
+The result is drawn and ARIA updated. It preserves pause, speed and reduced-motion
+settings, resets the display clock and re-arms normal playback when still busy.
+Before a player exists it queues once, in order with host input calls, returns false,
+and is resolved before that player's first draw. This supports mounting a control
+already at rest after `set()` without animating from its initial state.
+
 ### Semantics and motion
 
 The optional browser semantic overlay, native controls, focus synchronization and
