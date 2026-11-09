@@ -102,7 +102,13 @@ function normalize(
       );
   const sum = pairs.reduce((s, [, w]) => s + w, 0);
   if (Math.abs(sum - 1) > 1e-6)
-    d.warn('rig-weight-sum', pointer, V && `weights sum to ${sum}; normalized automatically`);
+    d.err(
+      'rig-weight-sum',
+      pointer,
+      V && `weights sum to ${sum}`,
+      V && 'weights are normalized automatically',
+      'warning',
+    );
   if (!(sum > 0)) return [[-1, 1]];
   return pairs.map(([name, w]) => [name === '@rest' ? -1 : (allowed.get(name) ?? -2), w / sum]);
 }
@@ -317,7 +323,16 @@ export const skin: Module = {
           V && 'skin requires a path, contour, or meshed image',
           V && 'move skin to supported geometry',
         );
-      if (type === 'path' && model.addrs.has(n.id + '.d'))
+      const dAddress = n.id + '.d';
+      const timelineMorph = Object.values(model.doc.timelines ?? {}).some((timeline) =>
+        Object.prototype.hasOwnProperty.call(timeline.tracks ?? {}, dAddress),
+      );
+      const poseMorph = Object.values(model.doc.machine?.layers ?? {}).some((layer) =>
+        Object.values(layer.states ?? {}).some((state) =>
+          Object.prototype.hasOwnProperty.call(state.pose ?? {}, dAddress),
+        ),
+      );
+      if (type === 'path' && (model.addrs.has(dAddress) || timelineMorph || poseMorph))
         d.err(
           'rig-skin-morph',
           at,
