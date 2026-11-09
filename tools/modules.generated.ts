@@ -55,6 +55,7 @@ export const webEntries = [
   'data-artboard',
   'data-artboard-values',
   'markup-data-artboard',
+  'scroll',
   'colormix',
   'markup-colormix',
   'mix',
@@ -139,6 +140,7 @@ export const webOwners: Record<string, string> = {
   'data-artboard': 'data-artboard',
   'data-artboard-values': 'data-artboard',
   'markup-data-artboard': 'data-artboard',
+  scroll: 'scroll',
   surface: 'surface',
   'markup-surface': 'surface',
   colormix: 'colormix',
@@ -263,6 +265,7 @@ export const moduleBudgets: {
   { name: 'data-artboard', budget: 1024, over: 'data-artboard-values' },
   { name: 'data-artboard-values', budget: 1536, over: 'nested' },
   { name: 'markup-data-artboard', budget: 256, authoring: true, over: 'markup-hooks' },
+  { name: 'scroll', budget: 5120 },
   { name: 'colormix', budget: 3072 },
   { name: 'markup-colormix', budget: 512, over: 'index', authoring: true },
   { name: 'mix', budget: 1856 },
@@ -939,6 +942,14 @@ export const moduleScopes = {
       'host-api-data-artboard',
       'components-host-artboard-reference',
     ],
+  },
+  scroll: {
+    tests: [
+      'modules/scroll/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['rigging-scroll'],
   },
   surface: {
     tests: [

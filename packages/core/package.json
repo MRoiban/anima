@@ -43,6 +43,7 @@
     "./a11y-actions": "./src/modules/a11y-actions/index.ts",
     "./nested": "./src/modules/nested/index.ts",
     "./data-artboard": "./src/modules/data-artboard/index.ts",
+    "./scroll": "./src/modules/scroll/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
     "./colormix": "./src/modules/colormix/index.ts",

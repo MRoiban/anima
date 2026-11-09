@@ -53,6 +53,7 @@ import './posepad.ts';
 import './posepad-handle.ts';
 import './rig.ts';
 import './rig-distance.ts';
+import './scroll.ts';
 import './skin.ts';
 import './surface.ts';
 import './text.ts';

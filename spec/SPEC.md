@@ -4026,3 +4026,13 @@ An explicit weight entry may use `{ "point": {...}, "in": {...}, "out": {...} }`
 required. `in` and `out` are independently validated and normalized by the same count, sum, and bone
 rules. If either handle map is omitted, that handle inherits its anchor's `point` map. This lets cubic
 handles bend independently while preserving the simpler anchor-only spelling for ordinary paths.
+
+## scroll
+
+<!-- capability: rigging.scroll -->
+### Scroll rig constraint
+
+TODO: Constrain content movement relative to a viewport and link scrollbar motion; detailed physics and virtualization are inventoried under layout.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.

@@ -9015,10 +9015,10 @@
   "id": "rigging.scroll",
   "category": "rigging",
   "capability": "Scroll rig constraint",
-  "construct": "new: scroll rig constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "TODO: modules/scroll/capabilities/rigging-scroll/registry.ts; spec/SPEC.md (Scroll rig constraint); modules/scroll/capabilities/rigging-scroll/example.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-scroll",
+  "test": "TODO: modules/scroll/test/core/rigging-scroll.test.ts; spec/conformance/rigging-scroll; tests/oracle/rigging-scroll",
   "phase": "P8"
  },
  {

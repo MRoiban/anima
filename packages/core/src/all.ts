@@ -44,6 +44,8 @@ import { a11yActions } from '../../../modules/a11y-actions/core/index.ts';
 import { nested } from '../../../modules/nested/core/index.ts';
 import { nestedSVG } from '../../../modules/nested/core/svg.ts';
 import { dataArtboard } from '../../../modules/data-artboard/core/index.ts';
+import { scroll } from '../../../modules/scroll/core/index.ts';
+import { scrollSVG } from '../../../modules/scroll/core/svg.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { colormix } from '../../../modules/colormix/core/index.ts';
@@ -112,6 +114,8 @@ if (VERBOSE) {
   registerModule(nested);
   registerSVGBackend('nested', nestedSVG);
   registerModule(dataArtboard);
+  registerModule(scroll);
+  registerSVGBackend('scroll', scrollSVG);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
   registerModule(colormix);
