@@ -316,10 +316,15 @@ export const skin: Module = {
           V && 'move skin to supported geometry',
         );
       const dAddress = n.id + '.d';
-      const timelineMorph = Object.values(model.doc.timelines ?? {}).some((timeline) =>
-        Object.prototype.hasOwnProperty.call(timeline.tracks ?? {}, dAddress),
-      );
-      const poseMorph = Object.values(model.doc.machine?.layers ?? {}).some((layer) =>
+      const timelineMorph = Object.values(
+        (model.doc.timelines ?? {}) as Record<string, { tracks?: Record<string, unknown> }>,
+      ).some((timeline) => Object.prototype.hasOwnProperty.call(timeline.tracks ?? {}, dAddress));
+      const poseMorph = Object.values(
+        (model.doc.machine?.layers ?? {}) as Record<
+          string,
+          { states?: Record<string, { pose?: Record<string, unknown> }> }
+        >,
+      ).some((layer) =>
         Object.values(layer.states ?? {}).some((state) =>
           Object.prototype.hasOwnProperty.call(state.pose ?? {}, dAddress),
         ),
