@@ -1,0 +1,23 @@
+Issue #40 after fix
+
+Regression test:
+packages/core/test/issue-40.test.ts passed
+1 test passed
+
+Measured SVG from the issue scene:
+  units: matrix(0.000001 0 0 1 0 0)
+  undo: matrix(1000000 0 0 1 0 0)
+  path: matrix(1 0 0 1 0 0)
+
+CLI PNG rendered through the browser path (`--browser-text`), --size 160:
+  center (80,80): rgba [20,20,19,255]
+  interior (30,30): rgba [20,20,19,255]
+  interior (139,139): rgba [20,20,19,255]
+
+The default CLI resvg rasterizer still returns transparent pixels for this extreme nested
+1e-6 x 1e6 transform pair even with the corrected SVG matrix text. Chromium renders the corrected
+SVG as specified; this proof therefore uses the CLI's existing browser rasterization path.
+
+Canvas and hit testing do not use SVG number formatting:
+  canvas passes raw Mat numbers to DOMMatrix/setTransform
+  hit testing inverts the raw world Mat before mapping the point to local coordinates
