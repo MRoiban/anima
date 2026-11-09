@@ -1,0 +1,450 @@
+Baseline eb89d464; regression test issue #23 on the unmodified runtime.
+Command: ANIMA_ISSUE_PROOF=before npx vitest run --project browser packages/web/test/browser.test.ts -t "WEB issues"
+Result: FAIL in Chromium and Firefox (8 expected assertion failures across the four issues).
+Chromium: [
+  {
+    "renderer": "svg",
+    "label": "golem",
+    "host": [
+      31.5,
+      17.5
+    ],
+    "drawing": [
+      0,
+      0,
+      31,
+      9.5625
+    ],
+    "semantic": [
+      6.893749237060547,
+      0,
+      17.212501525878906,
+      9.5625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "wide",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      0,
+      0,
+      120,
+      6.53125
+    ],
+    "semantic": [
+      46.00446319580078,
+      0,
+      27.991073608398438,
+      6.53125
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "tall",
+    "host": [
+      120,
+      180
+    ],
+    "drawing": [
+      0,
+      0,
+      79.984375,
+      180
+    ],
+    "semantic": [
+      0,
+      30.01171875,
+      79.984375,
+      119.9765625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "offset",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      -3,
+      -0.453125,
+      120,
+      6.53125
+    ],
+    "semantic": [
+      43.70424270629883,
+      0.013393402099609375,
+      27.991069793701172,
+      6.53125
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "square-bleed",
+    "host": [
+      24,
+      24
+    ],
+    "drawing": [
+      -2.390625,
+      -2.390625,
+      28.796875,
+      28.796875
+    ],
+    "semantic": [
+      0.009115219116210938,
+      0.009115219116210938,
+      28.796876907348633,
+      28.796876907348633
+    ],
+    "hit": true
+  },
+  {
+    "renderer": "canvas",
+    "label": "golem",
+    "host": [
+      31.5,
+      17.5
+    ],
+    "drawing": [
+      0,
+      0,
+      31,
+      9.5625
+    ],
+    "semantic": [
+      6.888889312744141,
+      0,
+      17.22222137451172,
+      9.5625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "wide",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      0,
+      0,
+      120,
+      6.53125
+    ],
+    "semantic": [
+      46,
+      0,
+      28,
+      6.53125
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "tall",
+    "host": [
+      120,
+      180
+    ],
+    "drawing": [
+      0,
+      0,
+      80,
+      180
+    ],
+    "semantic": [
+      0,
+      30,
+      80,
+      120
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "offset",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      -3,
+      -0.453125,
+      120,
+      6.53125
+    ],
+    "semantic": [
+      43.70000076293945,
+      0.013393402099609375,
+      27.999996185302734,
+      6.53125
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "square-bleed",
+    "host": [
+      24,
+      24
+    ],
+    "drawing": [
+      -2.390625,
+      -2.390625,
+      28.796875,
+      28.796875
+    ],
+    "semantic": [
+      0.009115219116210938,
+      0.009115219116210938,
+      28.796876907348633,
+      28.796876907348633
+    ],
+    "hit": true
+  }
+]
+Firefox: [
+  {
+    "renderer": "svg",
+    "label": "golem",
+    "host": [
+      31.5,
+      17.5
+    ],
+    "drawing": [
+      0,
+      0,
+      31,
+      9.566665649414062
+    ],
+    "semantic": [
+      6.883331298828125,
+      0,
+      17.2166748046875,
+      9.566665649414062
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "wide",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      0,
+      0,
+      120,
+      6.5333404541015625
+    ],
+    "semantic": [
+      46,
+      0,
+      28,
+      6.5333404541015625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "tall",
+    "host": [
+      120,
+      180
+    ],
+    "drawing": [
+      0,
+      0,
+      80,
+      180
+    ],
+    "semantic": [
+      0,
+      30,
+      80,
+      120
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "offset",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      -3,
+      -0.4666595458984375,
+      120,
+      6.5333251953125
+    ],
+    "semantic": [
+      43.69999694824219,
+      0,
+      28,
+      6.5333404541015625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "svg",
+    "label": "square-bleed",
+    "host": [
+      24,
+      24
+    ],
+    "drawing": [
+      -2.399993896484375,
+      -2.399993896484375,
+      28.79998779296875,
+      28.79998779296875
+    ],
+    "semantic": [
+      0,
+      0,
+      28.800003051757812,
+      28.800003051757812
+    ],
+    "hit": true
+  },
+  {
+    "renderer": "canvas",
+    "label": "golem",
+    "host": [
+      31.5,
+      17.5
+    ],
+    "drawing": [
+      0,
+      0,
+      31,
+      9.566665649414062
+    ],
+    "semantic": [
+      6.883331298828125,
+      0,
+      17.2166748046875,
+      9.566665649414062
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "wide",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      0,
+      0,
+      120,
+      6.5333404541015625
+    ],
+    "semantic": [
+      46,
+      0,
+      28,
+      6.5333404541015625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "tall",
+    "host": [
+      120,
+      180
+    ],
+    "drawing": [
+      0,
+      0,
+      80,
+      180
+    ],
+    "semantic": [
+      0,
+      30,
+      80,
+      120
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "offset",
+    "host": [
+      120,
+      28
+    ],
+    "drawing": [
+      -3,
+      -0.4666595458984375,
+      120,
+      6.5333251953125
+    ],
+    "semantic": [
+      43.69999694824219,
+      0,
+      28,
+      6.5333404541015625
+    ],
+    "hit": false
+  },
+  {
+    "renderer": "canvas",
+    "label": "square-bleed",
+    "host": [
+      24,
+      24
+    ],
+    "drawing": [
+      -2.399993896484375,
+      -2.399993896484375,
+      28.79998779296875,
+      28.79998779296875
+    ],
+    "semantic": [
+      0,
+      0,
+      28.800003051757812,
+      28.800003051757812
+    ],
+    "hit": true
+  }
+]
+
+Trimmed Vitest assertion output:
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Chromium > issue #23: uniform viewport, far-edge hits and semantic boxes in SVG and canvas
+AssertionError: svg golem drawing[3]: expected 9.5625 to be close to 17.2265625, received difference is 7.6640625, but expected 0.05
+ ❯ packages/web/test/issues.ts:206:78
+    204|             : [0, 0];
+    205|       [offsets[0]!, offsets[1]!, w * s, h * s].forEach((n, i) =>
+    206|         expect(row.drawing[i], `${row.renderer} ${row.label} drawing[$…
+       |                                                                              ^
+    207|       );
+    208|       [0, 0, w * s, h * s].forEach((n, i) =>
+ ❯ packages/web/test/issues.ts:205:48
+
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #23: uniform viewport, far-edge hits and semantic boxes in SVG and canvas
+AssertionError: svg golem drawing[3]: expected 9.566665649414062 to be close to 17.2265625, received difference is 7.6598968505859375, but expected 0.05
+ ❯ packages/web/test/issues.ts:206:78
+    204|             : [0, 0];
+    205|       [offsets[0]!, offsets[1]!, w * s, h * s].forEach((n, i) =>
+    206|         expect(row.drawing[i], `${row.renderer} ${row.label} drawing[$…
+       |                                                                              ^
+    207|       );
+    208|       [0, 0, w * s, h * s].forEach((n, i) =>
+ ❯ packages/web/test/issues.ts:205:48

@@ -440,7 +440,40 @@ root `component` uses that component's viewBox. Author CSS width, height and
 aspect-ratio declarations take precedence over these shadow stylesheet defaults;
 setting both dimensions keeps the authored box. Reloading or changing the shown
 component refreshes the default ratio. Fit/alignment control the drawing within
-that box. Legacy square-viewBox grid offsets remain unchanged.
+that box. In the default grid/bleed mapping the host's long axis spans `grid`
+units and its short axis follows the viewBox aspect. For a host `W×H` with the
+viewBox aspect `w/h`, the uniform scale is `s=W/grid` when `w>=h`, otherwise
+`s=H/grid`. The SVG viewport is `(x*s,y*s,w*s,h*s)` relative to the host and
+retains the source aspect. If author CSS gives the host another aspect, a
+non-square source still uses the same source-long-axis scale rule and keeps its
+own aspect; square sources retain their legacy per-axis viewport placement.
+Canvas uses the same placement; pointer coordinates
+invert the drawing transform and semantic overlay bounds use it forwards.
+Legacy square-viewBox grid offsets remain unchanged. The shadow SVG exposes
+`part="svg"`; the canvas backend's canvas exposes `part="canvas"`. These hooks must
+survive every shadow rebuild, including text-run changes, reloads and renderer switches,
+so page `::part()` rules continue to apply.
+
+### Host input queue
+
+Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+in call order. They are applied once to the next player created by that host,
+before its first step, including when asset preparation deferred creation.
+Superseded load completions do not consume the queue. Names and values are validated
+by the player's normal methods when the queue is applied.
+
+### Host settling
+
+`icon.settle()` resolves current inputs, blends and once-timelines by stepping the
+player first at `dt=0`, then at `dt=0.25` until settled or 60 simulated seconds have
+elapsed. It returns whether rest was reached. Events from these steps are discarded;
+no `anima:event` or `anima:state` is dispatched, and the settled state notification
+baseline is updated so the next ordinary frame does not replay a suppressed change.
+The result is drawn and ARIA updated. It preserves pause, speed and reduced-motion
+settings, resets the display clock and re-arms normal playback when still busy.
+Before a player exists it queues once, in order with host input calls, returns false,
+and is resolved before that player's first draw. This supports mounting a control
+already at rest after `set()` without animating from its initial state.
 
 ### Semantics and motion
 

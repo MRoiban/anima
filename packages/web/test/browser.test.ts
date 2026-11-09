@@ -1,4 +1,5 @@
 import type {} from '../src/devtools.ts';
+import { issueSuite } from './issues.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
@@ -86,7 +87,10 @@ function traceScript(trace: unknown[][]): string {
   return lines.join('\n');
 }
 
-for (const [name, type, executablePath] of BROWSERS) suite(name, type, executablePath);
+for (const [name, type, executablePath] of BROWSERS) {
+  suite(name, type, executablePath);
+  issueSuite(name, type, executablePath);
+}
 
 function suite(name: string, type: BrowserType, executablePath: string | undefined) {
   describe.skipIf(!executablePath || !existsSync(executablePath))(`<anima-icon> in ${name}`, () => {
@@ -1553,6 +1557,7 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         tag: 'svg',
         attrs: {
           viewBox: model.viewBox.join(' '),
+          part: 'svg',
           'aria-hidden': 'true',
           preserveAspectRatio: 'xMidYMid meet',
         },

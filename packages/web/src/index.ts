@@ -106,8 +106,9 @@ export class AnimaIcon extends HTMLElement {
       player.onChange = () => {
         if (this.player === player) this.#wake();
       };
-      this.#build(model);
       this.#motion();
+      for (const apply of this.#pending.splice(0)) apply(player);
+      this.#build(model);
       this.#aria();
       if (!this.hasAttribute('paused')) {
         AnimaIcon.eventHook?.(this, 'play', null);
@@ -169,6 +170,7 @@ export class AnimaIcon extends HTMLElement {
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   #prepare?: (player: Player) => boolean;
+  #pending: ((player: Player) => void)[] = [];
   #model?: Model;
   static observedAttributes = [
     'src',
@@ -526,14 +528,44 @@ export class AnimaIcon extends HTMLElement {
   /** Set a bool or number input. */
   set(name: string, value: number | boolean): void {
     this.trace?.push(['set', name, value]);
-    this.player?.set(name, value);
+    if (this.player) this.player.set(name, value);
+    else this.#pending.push((p) => p.set(name, value));
     this.#wake();
   }
 
   fire(name: string): void {
     this.trace?.push(['fire', name]);
-    this.player?.fire(name);
+    if (this.player) this.player.fire(name);
+    else this.#pending.push((p) => p.fire(name));
     this.#wake();
+  }
+
+  /** Resolve current inputs without emitting scene events; false means deferred or capped. */
+  settle(): boolean {
+    if (!this.player) {
+      this.#pending.push(() => this.#settle());
+      return false;
+    }
+    const settled = this.#settle();
+    this.#draw(true);
+    this.#aria();
+    schedule(this, false);
+    this.#last = -1;
+    if (!settled) this.#wake();
+    return settled;
+  }
+
+  #settle(): boolean {
+    const p = this.player!;
+    const step = (dt: number) => {
+      this.trace?.push(['step', dt]);
+      return p.step(dt).settled;
+    };
+    let settled = step(0);
+    for (let i = 0; !settled && i < 60 / MAX_DT; i++) settled = step(MAX_DT);
+    // Suppressed state changes must not leak out on the next ordinary frame.
+    this.#states = JSON.stringify(p.states());
+    return settled;
   }
 
   toggle(name: string): void {
@@ -597,10 +629,18 @@ export class AnimaIcon extends HTMLElement {
     const [x, y, w, h] = m.viewBox;
     const g = m.grid;
     const pct = (v: number) => (v / g) * 100 + '%';
-    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:${pct(x)};top:${pct(y)};width:${pct(w)};height:${pct(h)};overflow:visible}</style>`;
+    // Keep the intrinsic source aspect even when author CSS gives the host another ratio.
+    const box =
+      w === h
+        ? `left:${pct(x)};top:${pct(y)};width:${pct(w)};height:${pct(h)}`
+        : w > h
+          ? `left:${pct(x)};top:0;width:${pct(w)};height:auto;transform:translateY(${(y / h) * 100}%)`
+          : `left:0;top:${pct(y)};width:auto;height:${pct(h)};transform:translateX(${(x / w) * 100}%)`;
+    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;${box};overflow:visible}</style>`;
     const svg = (this.#svg = document.createElementNS(SVG, 'svg'));
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('part', 'svg');
     this.#els = [];
     const make = (el: El, parent: Element) => {
       const d = document.createElementNS(SVG, el.tag);
@@ -623,7 +663,10 @@ export class AnimaIcon extends HTMLElement {
 
   #layout(): void {
     const svg = this.#svg;
-    if (svg && AnimaIcon.viewBox?.(this, svg)) return; // seam(P7-3)
+    if (svg && AnimaIcon.viewBox?.(this, svg)) {
+      svg.style.transform = 'none'; // Fitted placement already includes the source origin.
+      return;
+    } // seam(P7-3)
     this.#renderer?.layout();
     const m = this.player?.model;
     if (!svg || !m) return;
@@ -644,6 +687,7 @@ export class AnimaIcon extends HTMLElement {
         const fraction = part === 'Min' ? 0 : part === 'Mid' ? 0.5 : 1;
         return `calc(${100 * fraction}% - ${size * fraction}px)`;
       };
+      svg.style.transform = 'none';
       svg.style.width = m.viewBox[2] + 'px';
       svg.style.height = m.viewBox[3] + 'px';
       svg.style.left = offset(x, m.viewBox[2]);

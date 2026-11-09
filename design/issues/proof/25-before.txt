@@ -1,0 +1,153 @@
+Baseline eb89d464; regression test issue #25 on the unmodified runtime.
+Command: ANIMA_ISSUE_PROOF=before npx vitest run --project browser packages/web/test/browser.test.ts -t "WEB issues"
+Result: FAIL in Chromium and Firefox (8 expected assertion failures across the four issues).
+Chromium: {
+  "first": {
+    "x": 0,
+    "state": {
+      "main": "off"
+    },
+    "events": [
+      "state"
+    ]
+  },
+  "off": 0,
+  "final": {
+    "x": 0,
+    "playback": "playing",
+    "events": [
+      "event",
+      "state"
+    ],
+    "transform": "matrix(1 0 0 1 0 0)"
+  },
+  "elapsed": 0
+}
+Firefox: {
+  "first": {
+    "x": 0,
+    "state": {
+      "main": "off"
+    },
+    "events": [
+      "state"
+    ]
+  },
+  "off": 0,
+  "final": {
+    "x": 0,
+    "playback": "playing",
+    "events": [
+      "event",
+      "state"
+    ],
+    "transform": "matrix(1 0 0 1 0 0)"
+  },
+  "elapsed": 0
+}
+
+Trimmed Vitest assertion output:
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Chromium > issue #25: settle resolves once timelines/blends silently and queues before first paint
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #25: settle resolves once timelines/blends silently and queues before first paint
+AssertionError: expected { queued: undefined, …(7) } to match object { queued: false, …(6) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "capped": false,
++   "capped": undefined,
+    "final": {
+-     "events": [],
+-     "playback": "settled",
+-     "transform": "matrix(1 0 0 1 10 0)",
+-     "x": 10,
++     "events": [
++       "event",
++       "state",
++     ],
++     "playback": "playing",
++     "transform": "matrix(1 0 0 1 0 0)",
++     "x": 0,
+    },
+    "first": {
+-     "events": [],
++     "events": [
++       "state",
++     ],
+      "state": {
+-       "main": "on",
++       "main": "off",
+      },
+-     "x": 10,
++     "x": 0,
+    },
+    "off": 0,
+-   "paused": true,
+-   "playing": true,
+-   "queued": false,
++   "paused": undefined,
++   "playing": undefined,
++   "queued": undefined,
+  }
+
+ ❯ packages/web/test/issues.ts:343:20
+    341|     }, scene);
+    342|     await proof(25, result);
+    343|     expect(result).toMatchObject({
+       |                    ^
+    344|       queued: false,
+    345|       first: { x: 10, state: { main: 'on' }, events: [] },
+
+ FAIL  |browser| packages/web/test/browser.test.ts > WEB issues in Firefox > issue #25: settle resolves once timelines/blends silently and queues before first paint
+AssertionError: expected { queued: undefined, …(7) } to match object { queued: false, …(6) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "capped": false,
++   "capped": undefined,
+    "final": {
+-     "events": [],
+-     "playback": "settled",
+-     "transform": "matrix(1 0 0 1 10 0)",
+-     "x": 10,
++     "events": [
++       "event",
++       "state",
++     ],
++     "playback": "playing",
++     "transform": "matrix(1 0 0 1 0 0)",
++     "x": 0,
+    },
+    "first": {
+-     "events": [],
++     "events": [
++       "state",
++     ],
+      "state": {
+-       "main": "on",
++       "main": "off",
+      },
+-     "x": 10,
++     "x": 0,
+    },
+    "off": 0,
+-   "paused": true,
+-   "playing": true,
+-   "queued": false,
++   "paused": undefined,
++   "playing": undefined,
++   "queued": undefined,
+  }
+
+ ❯ packages/web/test/issues.ts:343:20
+    341|     }, scene);
+    342|     await proof(25, result);
+    343|     expect(result).toMatchObject({
+       |                    ^
+    344|       queued: false,
+    345|       first: { x: 10, state: { main: 'on' }, events: [] },
