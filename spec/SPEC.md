@@ -3963,3 +3963,31 @@ each child. The inherited `strength` field blends each child's current and desir
 A changing repeat count immediately recomputes all item fractions without rebuilding rig solve order.
 `spreadAlongPath` uses the same measurable-target set, `rig-path-target` diagnostic, private
 measurement table, transform handling, and undeformed-skinned-target limitation as `alongPath`.
+
+## skin
+
+<!-- capability: rigging.skin -->
+### Bind-pose skinning
+
+TODO: Deform vector paths or image meshes relative to stored bone bind transforms.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+
+
+<!-- capability: rigging.weights -->
+### Vertex bone weights
+
+TODO: Blend up to four packed bone influences per vertex; an identity influence can keep part of a shape fixed.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+
+
+<!-- capability: rigging.cubic-weights -->
+### Independent handle weights
+
+TODO: Give cubic control handles their own bone weights, separately from the anchor.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
