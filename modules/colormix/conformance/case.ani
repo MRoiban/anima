@@ -1,0 +1,51 @@
+{
+  "anima": "0.1",
+  "name": "switch",
+  "grid": 20,
+  "requires": ["colormix"],
+  "colors": {
+    "off": "#000",
+    "on": "#fff"
+  },
+  "nodes": [
+    {
+      "id": "track",
+      "type": "rect",
+      "x0": 1,
+      "y0": 5,
+      "w": 18,
+      "h": 10,
+      "rx": 5,
+      "fill": {
+        "mix": {
+          "a": "off",
+          "b": "on",
+          "t": 0
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "track.fill.mix.t": [
+          [0, 0],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

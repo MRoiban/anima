@@ -3224,6 +3224,30 @@
                 "additionalProperties": false,
                 "feature": "surface"
               },
+              "mix": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "a": {
+                    "type": "string"
+                  },
+                  "b": {
+                    "type": "string"
+                  },
+                  "t": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "a",
+                  "b",
+                  "t"
+                ],
+                "additionalProperties": false,
+                "feature": "colormix"
+              },
               "blend": {
                 "type": "string",
                 "enum": [
@@ -3616,6 +3640,30 @@
                 },
                 "additionalProperties": false,
                 "feature": "surface"
+              },
+              "mix": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "a": {
+                    "type": "string"
+                  },
+                  "b": {
+                    "type": "string"
+                  },
+                  "t": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "a",
+                  "b",
+                  "t"
+                ],
+                "additionalProperties": false,
+                "feature": "colormix"
               },
               "blend": {
                 "type": "string",
@@ -4763,6 +4811,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -5155,6 +5227,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -5587,6 +5683,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -5979,6 +6099,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -6763,6 +6907,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -7155,6 +7323,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -7587,6 +7779,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -7979,6 +8195,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -8497,66 +8737,30 @@
             "y0": {
               "type": "number"
             },
-            "focus": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
+            "corners": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0
                 },
-                "enabled": {
-                  "type": "boolean"
+                {
+                  "type": "number",
+                  "minimum": 0
                 },
-                "enabledInput": {
-                  "type": "string"
+                {
+                  "type": "number",
+                  "minimum": 0
                 },
-                "tabStops": {
-                  "type": "boolean"
-                },
-                "pointer": {
-                  "type": "boolean"
-                },
-                "order": {
-                  "type": "number"
-                },
-                "scope": {
-                  "type": "boolean"
-                },
-                "edge": {
-                  "type": "string",
-                  "enum": [
-                    "stop",
-                    "closed-loop",
-                    "parent-scope"
-                  ]
-                },
-                "label": {
-                  "type": "string"
-                },
-                "bounds": {
-                  "type": "array",
-                  "prefixItems": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "number",
-                      "minimum": 0
-                    },
-                    {
-                      "type": "number",
-                      "minimum": 0
-                    }
-                  ],
-                  "items": false,
-                  "minItems": 4,
-                  "maxItems": 4
+                {
+                  "type": "number",
+                  "minimum": 0
                 }
-              },
-              "additionalProperties": false,
-              "feature": "focus"
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4,
+              "feature": "paint|corners"
             },
             "fill": {
               "type": "object",
@@ -8764,6 +8968,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -9158,6 +9386,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -9194,6 +9446,67 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "pointerEnabled": {
               "type": "boolean",
@@ -9270,31 +9583,6 @@
                 "additionalProperties": false
               },
               "feature": "motion"
-            },
-            "corners": {
-              "type": "array",
-              "prefixItems": [
-                {
-                  "type": "number",
-                  "minimum": 0
-                },
-                {
-                  "type": "number",
-                  "minimum": 0
-                },
-                {
-                  "type": "number",
-                  "minimum": 0
-                },
-                {
-                  "type": "number",
-                  "minimum": 0
-                }
-              ],
-              "items": false,
-              "minItems": 4,
-              "maxItems": 4,
-              "feature": "paint"
             },
             "blend": {
               "type": "string",
@@ -9613,6 +9901,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -10006,6 +10318,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -10800,6 +11136,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -11192,6 +11552,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -11624,6 +12008,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -12016,6 +12424,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -14337,6 +14769,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -14730,6 +15186,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -15084,6 +15564,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -15477,6 +15981,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -16351,6 +16879,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -16744,6 +17296,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -17098,6 +17674,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -17491,6 +18091,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -18366,6 +18990,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -18759,6 +19407,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -19113,6 +19785,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -19506,6 +20202,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -20371,6 +21091,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -20764,6 +21508,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -21118,6 +21886,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -21511,6 +22303,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -22468,6 +23284,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -22860,6 +23700,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -23751,6 +24615,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -24143,6 +25031,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -25295,6 +26207,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -25688,6 +26624,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -26076,6 +27036,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -26469,6 +27453,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -27306,6 +28314,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -27698,6 +28730,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",
@@ -28445,6 +29501,30 @@
                   "additionalProperties": false,
                   "feature": "surface"
                 },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
+                },
                 "blend": {
                   "type": "string",
                   "enum": [
@@ -28837,6 +29917,30 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "mix": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "a": {
+                      "type": "string"
+                    },
+                    "b": {
+                      "type": "string"
+                    },
+                    "t": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "a",
+                    "b",
+                    "t"
+                  ],
+                  "additionalProperties": false,
+                  "feature": "colormix"
                 },
                 "blend": {
                   "type": "string",
@@ -29413,6 +30517,30 @@
                         "additionalProperties": false,
                         "feature": "surface"
                       },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
+                      },
                       "blend": {
                         "type": "string",
                         "enum": [
@@ -29805,6 +30933,30 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "a": {
+                            "type": "string"
+                          },
+                          "b": {
+                            "type": "string"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "a",
+                          "b",
+                          "t"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "colormix"
                       },
                       "blend": {
                         "type": "string",

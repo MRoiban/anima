@@ -1,0 +1,178 @@
+Broad changed run (exit 1)
+505: FAIL  |scope-browser| packages/web/test/browser.test.ts > <anima-icon> in Firefox
+506:Error: Hook timed out in 30000ms.
+518: FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox
+519:Error: Hook timed out in 30000ms.
+531: FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Chromium optional component paint
+532: FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint
+533:Error: Hook timed out in 10000ms.
+545: FAIL  |scope-browser| modules/data-host/test/web/browser.test.ts > Chromium data-host
+546: FAIL  |scope-browser| modules/data-host/test/web/browser.test.ts > Firefox data-host
+547:Error: Hook timed out in 10000ms.
+562: FAIL  |scope-unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+563:Error: Test timed out in 120000ms.
+575: FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+576:Error: Test timed out in 5000ms.
+588: FAIL  |scope-unit| packages/core/test/examples.test.ts > truncation > every prefix of bell.ani parses or returns diagnostics, never throws
+589:Error: Test timed out in 5000ms.
+601: FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > never throws on every prefix of bell.animl
+602:Error: Test timed out in 5000ms.
+614: FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes jpeg, updates MIME/byte size and decodes dimensions
+615:Error: Test timed out in 5000ms.
+627: FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Chromium > renders the real icon, reports exact typo position, keeps last stage and recovers on edit
+628:Error: Hook timed out in 10000ms.
+640: FAIL  |scope-browser| packages/playground/test/browser.test.ts > playground in Chromium > saves edits with the keyboard and reloads an externally changed file
+641:TimeoutError: locator.fill: Timeout 15000ms exceeded.
+773: FAIL  |scope-browser| packages/web/test/browser.test.ts > <anima-icon> in Chromium > pauses off-screen mid-ring and resumes when visible
+774:Error: Test timed out in 5000ms.
+786: FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > modules-first: diagnostics without hooks; scoped compilation and async compilation with hooks
+787:Error: Test timed out in 30000ms.
+799: FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > explicit-load: connected inline sources recover when optional entries arrive
+800:Error: Test timed out in 30000ms.
+812: FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+813:Error: Hook timed out in 10000ms.
+825: FAIL  |scope-browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Firefox > B16: Escape reaches an ancestor bubble listener; overlay=false input=false focus=false
+826:Error: Test timed out in 5000ms.
+838: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > Canvas bilinear clamp matches an independent shader at every pixel for box 8
+839:Error: page.evaluate: Array(1)
+850: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > preloads component-only images relative to src and shares their resolved resources with repeated players
+851:Error: Test timed out in 5000ms.
+863: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver
+864:Error: Test timed out in 5000ms.
+876: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > caches media bytes per host when hosts share a compiled model
+877:Error: Test timed out in 5000ms.
+889: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes original WAV bytes without consuming the cached buffer
+890:Error: Test timed out in 5000ms.
+902: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes genuine flac source with independently known frame counts
+903: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > host-decodes genuine mp3 source with independently known frame counts
+904:Error: Test timed out in 5000ms.
+916: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > shares resolved pixel resources when media and then assets register
+917:Error: Test timed out in 5000ms.
+929: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+930: FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize
+931:Error: Test timed out in 5000ms.
+943: FAIL  |scope-browser| modules/data-artboard/test/web/resources.test.ts > Firefox adopts unused image/font components, scoped by source load (fonts first)
+944:Error: Test timed out in 30000ms.
+956: FAIL  |scope-browser| modules/fonts/test/web/fonts.test.ts > Firefox fonts > loads generated bytes before load; scopes replacements, CSS features, fallback weight and cleanup
+957:Error: Test timed out in 30000ms.
+969: FAIL  |scope-browser| modules/fonts/test/web/fonts.test.ts > Firefox fonts > initializes fonts for shared models in both entry orders (fonts first=true)
+970:Error: Test timed out in 30000ms.
+982: FAIL  |scope-browser| modules/fonts/test/web/fonts.test.ts > Firefox fonts > assigns decoded fonts through typed data handles without changing other properties or icons
+983:Error: Test timed out in 30000ms.
+995: FAIL  |scope-browser| modules/fonts/test/web/fonts.test.ts > Firefox fonts > reports policy/decode failures as structured warnings and preserves fallback
+996:Error: Test timed out in 30000ms.
+1008: FAIL  |scope-browser| modules/fonts/test/web/rottweiler-p6.test.ts > Firefox: R1-09 with the text consumer, reconnecting a host restores its named font faces; a reload does not
+1009:Error: Test timed out in 30000ms.
+1021: FAIL  |scope-browser| modules/fonts/test/web/rottweiler-p6.test.ts > Firefox: R2-06 a reconnect restores a child scope's host fallback faces
+1022:Error: Test timed out in 30000ms.
+1034: FAIL  |scope-browser| modules/fonts/test/web/rottweiler-p6.test.ts > Firefox: P7 R2-5 replacing a named font releases the superseded face unless another name uses it
+1035:Error: Test timed out in 30000ms.
+1047: FAIL  |scope-browser| modules/host-edit/test/web/bf3.test.ts > Firefox BF-3 > B13 missing feature fails before registration and retries when its web module arrives
+1048:Error: Test timed out in 30000ms.
+1060: FAIL  |scope-browser| modules/host-edit/test/web/bf3.test.ts > Firefox BF-3 > B9 shares compilation without host-edit while keeping concurrent root, nested and repeated assets local
+1061:Error: Test timed out in 30000ms.
+1073: FAIL  |scope-browser| modules/host-edit/test/web/bf3.test.ts > Firefox BF-3 > B9 shares compilation for parsed, text, inline and URL documents across roots
+1074:Error: Test timed out in 30000ms.
+1086: FAIL  |scope-browser| modules/host-edit/test/web/bf3.test.ts > Firefox BF-3 > B10 selects B from a model loaded as A, resets it, and diagnoses unknown roots
+1087:Error: Test timed out in 30000ms.
+1099: FAIL  |scope-browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,components,nested,data,motion,host,host-edit,markup
+1100: FAIL  |scope-browser| modules/host-edit/test/web/components.test.ts > Firefox component values and data keyframes > keeps typed host changes and keyframes local across separately loaded bundles: index,markup,host-edit,host,motion,data,nested,components
+1101:Error: Test timed out in 5000ms.
+1113: FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: R1-2/R1-4/R1-5 layout drawing, hits and semantic overlay stay aligned
+1114: FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > canvas: R1-2/R1-4/R1-5 layout drawing, hits and semantic overlay stay aligned
+1115:Error: Hook timed out in 10000ms.
+1127: FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: scale-down shares drawing, pointer and semantic matrices
+1128:Error: Hook timed out in 10000ms.
+1140: FAIL  |scope-browser| modules/host-fit/test/web/fit.test.ts > host fit Firefox > svg: all eight fits match independent native captures at 240x120
+1141:Error: Test timed out in 5000ms.
+1153: FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > recovers a connected document when motion registers late
+1154:Error: Test timed out in 5000ms.
+1166: FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+1167: FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components
+1168:Error: Test timed out in 5000ms.
+1180: FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > fits child drawing and pointer hit coordinates and exposes live outputs
+1181:Error: Test timed out in 5000ms.
+1193: FAIL  |scope-browser| modules/text-input/test/web/field.browser.test.ts > Firefox fields forward: native editing, semantics, selection, clipboard and lifecycle
+1194: FAIL  |scope-browser| modules/text-input/test/web/field.browser.test.ts > Firefox fields reverse: native editing, semantics, selection, clipboard and lifecycle
+1195:Error: Test timed out in 30000ms.
+1207: FAIL  |scope-browser| modules/text-input/test/web/field.browser.test.ts > Firefox multiline, password privacy, limits and select-on-focus
+1208:Error: Test timed out in 30000ms.
+1221: Test Files  22 failed | 372 passed | 12 skipped (406)
+1222:      Tests  47 failed | 10093 passed | 89 skipped | 34 todo (10263)
+
+Paint/corners/colormix + all conformance/oracle run (one WebP timeout)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 16 passed (17)
+      Tests  1 failed | 4513 passed | 22 todo (4536)
+   Start at  09:36:11
+   Duration  89.08s (tests 58%, transform 26%, import 16%)
+
+Final isolated WebP + rect-corners (exit 0)
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a3a62f7b
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 535 skipped (537)
+   Start at  09:57:32
+   Duration  3.11s (tests 41%, import 37%, transform 21%)
+
+Final Chromium + Firefox switch tests (exit 0)
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a3a62f7b
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  09:56:46
+   Duration  7.59s (tests 88%, import 12%)
+
+Final isolated prefix sweep (exit 0)
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a3a62f7b
+
+
+ Test Files  1 passed (1)
+      Tests  51 passed (51)
+   Start at  09:56:47
+   Duration  3.56s (tests 64%, transform 19%, import 17%)
+
+Isolated asset shader cases (exit 0)
+RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a3a62f7b
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 22 skipped (24)
+   Start at  09:56:49
+   Duration  3.23s (tests 65%, import 30%, transform 4%)
+
+Final module scopes (exit 0)
+> test:scope
+> node tools/test-scope.ts paint corners colormix --no-browser
+
+Scopes: paint, corners, colormix
+  unit: modules/colormix/test/cli/render.test.ts
+  unit: modules/colormix/test/core/colormix.test.ts
+  unit: modules/corners/test/core/corners.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (drawing-paint-gradient-angular|drawing-paint-gradient-transform|drawing-paint-image-fit-resize|drawing-paint-image-wrap-clamp|drawing-paint-image-wrap-mirror|drawing-paint-image-wrap-repeat|paint-dash|paint-gradient|paint-morph|paint-pose-morph|paint-shape-corners|paint-shape-ellipse|paint-shape-fixed|paint-shape-polygon|paint-shape-star|paint-shape-triangle)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a3a62f7b
+
+
+ Test Files  16 passed (16)
+      Tests  3392 passed | 608 skipped (4000)
+   Start at  09:59:44
+   Duration  8.32s (tests 54%, import 28%, transform 18%)

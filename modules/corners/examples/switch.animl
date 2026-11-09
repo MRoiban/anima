@@ -1,0 +1,3 @@
+<anima version="0.1" name="corners-switch" grid="20" requires="corners">
+  <rect id="track" x0="1" y0="5" corners="5 5 5 5" width="18" height="10" fill="#123456"/>
+</anima>

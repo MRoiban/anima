@@ -50,8 +50,8 @@ describe('paint geometry', () => {
     expect(svg).toContain('d="M10 10L12 12"');
     expect(svg).not.toContain('M0 0L2 2');
   });
-  it('keeps legacy rx and registers the new keys with feature paint', () => {
-    expect(nodeShape('rect').p.corners?.feature).toBe('paint');
+  it('keeps legacy rx and registers the new keys with feature paint|corners', () => {
+    expect(nodeShape('rect').p.corners?.feature).toBe('paint|corners');
     const r = load(doc({ type: 'rect', x0: 0, y0: 0, w: 10, h: 10, rx: 2 }));
     expect(toSVG(new Player(r.model!))).toContain('<rect');
     const d = { ...doc(shapes[0]!), requires: [] };

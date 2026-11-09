@@ -9,7 +9,8 @@ import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { ObjShape, Prop, Shape } from '../../../packages/core/src/registry.ts';
 
 const number = (min?: number, max?: number): Shape => ({ k: 'num', min, max });
-const coords = ['x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'r', 'fx', 'fy'];
+const line = ['x1', 'y1', 'x2', 'y2'];
+const coords = [...line, 'cx', 'cy', 'r', 'fx', 'fy'];
 const stop: ObjShape = {
   k: 'obj',
   p: { position: { ...number(0, 1), markup: 'offset' }, color: { k: 'str', markup: 'stop-color' } },
@@ -54,8 +55,8 @@ const base: Module = {
       props,
       required: [],
       elements: {
-        angularGradient: gradientForm('angular', ['x1', 'y1', 'x2', 'y2']),
-        linearGradient: gradientForm('linear', ['x1', 'y1', 'x2', 'y2']),
+        angularGradient: gradientForm('angular', line),
+        linearGradient: gradientForm('linear', line),
         radialGradient: gradientForm('radial', ['cx', 'cy', 'r', 'fx', 'fy'], ['cx', 'cy', 'r']),
         stop: { shape: stop },
       },
@@ -97,7 +98,7 @@ const base: Module = {
             V && 'add surface to requires',
           );
         if (p.type === undefined) {
-          if (p.color === undefined && p.paint === undefined)
+          if (p.color === undefined && p.paint === undefined && p.mix === undefined)
             d.err(
               'missing-key',
               base,
@@ -114,7 +115,7 @@ const base: Module = {
         } else if (p.type !== 'image') {
           if (p.color !== undefined)
             bad('color', V && 'a gradient cannot also have a flat color', V && 'remove color');
-          const fields = p.type !== 'radial' ? ['x1', 'y1', 'x2', 'y2'] : ['cx', 'cy', 'r'];
+          const fields = p.type !== 'radial' ? line : ['cx', 'cy', 'r'];
           for (const k of [...fields, 'stops'])
             if (!(k in p)) d.err('missing-key', base, V && `gradient needs ${k}`, V && `add ${k}`);
           for (const k of coords)
@@ -229,9 +230,7 @@ export function enhancePaint(
     paint.color = undefined;
     paint.type = raw.type;
     paint.coordinates = {};
-    for (const k of raw.type !== 'radial'
-      ? ['x1', 'y1', 'x2', 'y2']
-      : ['cx', 'cy', 'r', 'fx', 'fy'])
+    for (const k of raw.type !== 'radial' ? line : ['cx', 'cy', 'r', 'fx', 'fy'])
       paint.coordinates[k] = p.num(
         i,
         `${key}.${k}`,

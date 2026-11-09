@@ -1,0 +1,77 @@
+{
+  "before": [
+    [
+      {
+        "code": "unknown-feature",
+        "severity": "error",
+        "pointer": "/requires/0",
+        "message": "unknown-feature"
+      }
+    ],
+    [
+      {
+        "code": "unknown-feature",
+        "severity": "error",
+        "pointer": "/requires/0",
+        "message": "unknown-feature"
+      }
+    ]
+  ],
+  "samples": [
+    {
+      "theme": "",
+      "weight": 0,
+      "computed": "color(srgb 0 0 0)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 0%)",
+      "pixel": [0, 0, 0, 255],
+      "oracle": [0, 0, 0, 255],
+      "nodes": 1
+    },
+    {
+      "theme": "",
+      "weight": 0.5,
+      "computed": "color(srgb 0.5 0.5 0.5)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 50%)",
+      "pixel": [128, 128, 128, 255],
+      "oracle": [128, 128, 128, 255],
+      "nodes": 1
+    },
+    {
+      "theme": "",
+      "weight": 1,
+      "computed": "color(srgb 1 1 1)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 100%)",
+      "pixel": [255, 255, 255, 255],
+      "oracle": [255, 255, 255, 255],
+      "nodes": 1
+    },
+    {
+      "theme": "--anima-off:#ff0000;--anima-on:#0000ff",
+      "weight": 0,
+      "computed": "color(srgb 1 0 0)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 0%)",
+      "pixel": [255, 0, 0, 255],
+      "oracle": [255, 0, 0, 255],
+      "nodes": 1
+    },
+    {
+      "theme": "--anima-off:#ff0000;--anima-on:#0000ff",
+      "weight": 0.5,
+      "computed": "color(srgb 0.5 0 0.5)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 50%)",
+      "pixel": [128, 0, 128, 255],
+      "oracle": [128, 0, 128, 255],
+      "nodes": 1
+    },
+    {
+      "theme": "--anima-off:#ff0000;--anima-on:#0000ff",
+      "weight": 1,
+      "computed": "color(srgb 0 0 1)",
+      "svg": "color-mix(in srgb, var(--anima-off, #000), var(--anima-on, #fff) 100%)",
+      "pixel": [0, 0, 255, 255],
+      "oracle": [0, 0, 255, 255],
+      "nodes": 1
+    }
+  ],
+  "transparent": [0, 0, 255, 128]
+}

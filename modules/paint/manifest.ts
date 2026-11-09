@@ -1,4 +1,4 @@
-export const after = ['assets'];
+export const after = ['assets', 'corners'];
 export default {
   name: 'paint',
   after,

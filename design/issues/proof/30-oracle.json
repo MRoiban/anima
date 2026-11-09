@@ -1,0 +1,13 @@
+{
+  "threshold": 16,
+  "maxOverPercent": 0.12,
+  "metrics": [
+    {
+      "time": 0,
+      "maxDiff": 70,
+      "over": 69,
+      "overPercent": 0.11979166666666667,
+      "pass": true
+    }
+  ]
+}
