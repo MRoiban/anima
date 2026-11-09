@@ -4,6 +4,8 @@ import type { Model } from '../../../packages/core/src/load.ts';
 import { drawFrame, type Geometry } from '../../../packages/core/src/draw.ts';
 import { apply, clamp, IDENTITY, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import { flatten, parsePath } from '../../../packages/core/src/path.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { nodePointer } from '../../components/core/node-pointer.ts';
 import {
   compose,
   decompose,
@@ -137,6 +139,14 @@ function contains(p: Player, node: number, x: number, y: number): boolean {
     point[0] <= box[0] + box[2] &&
     point[1] <= box[1] + box[3]
   );
+}
+
+function measurable(model: Model, node: number): boolean {
+  const n = model.nodes[node]!,
+    type = n.type as string;
+  if (type === 'layout') return true;
+  if (!['group', 'bone', 'posepad', 'repeat'].includes(type)) return true;
+  return n.children.some((child) => measurable(model, child));
 }
 
 function move(p: Player, spec: ScrollSpec, dx: number, dy: number): boolean {
@@ -280,7 +290,7 @@ export const scroll: Module = {
           offsetY: number,
           interactive: { k: 'bool' },
         },
-        req: ['viewport'],
+        req: ['viewport', 'axis'],
       },
       targets: (raw, model) => (model.ids.has(raw.viewport) ? [raw.viewport] : []),
       solve(ctx, node, raw, k) {
@@ -298,7 +308,7 @@ export const scroll: Module = {
           axis: { k: 'str', of: ['x', 'y'] },
           resize: { k: 'bool' },
         },
-        req: ['scroll', 'track'],
+        req: ['scroll', 'track', 'axis'],
       },
       targets: (raw) => [raw.scroll, raw.track],
       solve(ctx, node, raw) {
@@ -359,13 +369,20 @@ export const scroll: Module = {
     };
     return scroll;
   },
-  load(model) {
+  load(model, _raw, d) {
     if (!model.doc.requires?.includes('scroll')) return;
     const scrolls: ScrollSpec[] = [];
     for (const [node, n] of model.nodes.entries())
       for (const [k, raw] of (n.raw.constraints ?? []).entries())
         if (raw.kind === 'scroll') {
           const viewport = model.ids.get(raw.viewport);
+          if (viewport === undefined || !measurable(model, viewport))
+            d.err(
+              'scroll-viewport',
+              nodePointer(model, node) + `/constraints/${k}/viewport`,
+              V && 'scroll viewport is missing or has no measurable bounds',
+              V && 'target a layout container or a node/subtree with rest geometry',
+            );
           if (viewport !== undefined) scrolls.push({ node, k, raw, viewport });
         }
     const thumbs: ThumbSpec[] = [];
