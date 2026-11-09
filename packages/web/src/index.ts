@@ -106,6 +106,9 @@ export class AnimaIcon extends HTMLElement {
       player.onChange = () => {
         if (this.player === player) this.#wake();
       };
+      const pending = this.#pending;
+      this.#pending = [];
+      for (const apply of pending) apply(player);
       this.#build(model);
       this.#motion();
       this.#aria();
@@ -169,6 +172,7 @@ export class AnimaIcon extends HTMLElement {
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   #prepare?: (player: Player) => boolean;
+  #pending: ((player: Player) => void)[] = [];
   #model?: Model;
   static observedAttributes = [
     'src',
@@ -526,13 +530,15 @@ export class AnimaIcon extends HTMLElement {
   /** Set a bool or number input. */
   set(name: string, value: number | boolean): void {
     this.trace?.push(['set', name, value]);
-    this.player?.set(name, value);
+    if (this.player) this.player.set(name, value);
+    else this.#pending.push((p) => p.set(name, value));
     this.#wake();
   }
 
   fire(name: string): void {
     this.trace?.push(['fire', name]);
-    this.player?.fire(name);
+    if (this.player) this.player.fire(name);
+    else this.#pending.push((p) => p.fire(name));
     this.#wake();
   }
 

@@ -157,6 +157,13 @@ playback or the loaded model.
 | `destroy()` | Idempotently detach internal listeners, observers and scheduler entry, invalidate pending URL responses, and clear the player and SVG. Keeps the host and external listeners. A later `load()` or new `src` can reuse it. |
 | `invalidate()` | Repaint the retained SVG once without stepping, consuming queued inputs, or scheduling frames. Empty elements are unchanged. |
 
+
+`set()` and `fire()` also queue before a player exists, including while asset loading
+is deferred. Calls retain their order and apply to the next player this host creates,
+before its first step. They are consumed once; a superseded asynchronous load does
+not consume them. Unknown names and invalid values follow the player's normal error
+handling when the queue is applied.
+
 Successful `load()` compilation is shared by parsed document identity (weak references) or exact
 source text (a 16-entry LRU, separately keyed for JSON and AniML). Treat parsed documents as
 immutable; pass a new object after editing one. Module registration invalidates these caches;

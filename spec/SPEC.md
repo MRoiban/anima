@@ -416,6 +416,14 @@ retains the source aspect. Canvas uses the same placement; pointer coordinates
 invert the drawing transform and semantic overlay bounds use it forwards.
 Legacy square-viewBox grid offsets remain unchanged.
 
+### Host input queue
+
+Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+in call order. They are applied once to the next player created by that host,
+before its first step, including when asset preparation deferred creation.
+Superseded load completions do not consume the queue. Names and values are validated
+by the player's normal methods when the queue is applied.
+
 ### Semantics and motion
 
 The optional browser semantic overlay, native controls, focus synchronization and
