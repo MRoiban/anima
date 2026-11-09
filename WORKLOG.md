@@ -21,6 +21,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Queued: issues #39 (trim dasharray repeats at the endpoint) and #40 (5-decimal matrix rounding
   zeroes tiny scales); brief `design/issues/BRIEF-39-40.md`; a Codex Web coder on branch
   `issues-39-40` from main, running as the third agent; separate PR to main.
+- Owner (2026-11-10): when P8 is done, run /rottweiler on the whole phase (3 rounds, one Sol
+  reviewer on Codex Web, minimal fixes, ledger `design/rottweiler/P8-LEDGER.md`, push back with
+  reasons), then push: PR `p8-rigging` → main, merge on green CI.
 - Then wave 3: benchmark (`design/p8/BENCHMARK.md`, fresh agents on Codex Web), parity closure
   (`docs/parity/P8-closure.md`), PLAN, LOG, perf A/B, full check, PR.
 - Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
