@@ -63,7 +63,7 @@ import { ikSVG } from '../../../modules/ik/core/svg.ts';
 import { pathfollow } from '../../../modules/pathfollow/core/index.ts';
 import { pathfollowSVG } from '../../../modules/pathfollow/core/svg.ts';
 import { posepad } from '../../../modules/posepad/core/index.ts';
-import { skin } from '../../../modules/skin/core/index.ts';
+import { skin } from '../../../modules/skin/core/all.ts';
 import { skinSVG } from '../../../modules/skin/core/svg.ts';
 import { textEffects } from '../../../modules/text-effects/core/index.ts';
 import { textEffectsSVG } from '../../../modules/text-effects/core/svg.ts';

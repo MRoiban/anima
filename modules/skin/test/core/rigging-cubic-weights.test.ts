@@ -2,6 +2,18 @@ import '@anima-format/core/all';
 import { expect, it } from 'vitest';
 import { drawFrame, load, Player } from '@anima-format/core';
 
+type TestSkinNode = {
+  d: string;
+  skin: {
+    bones: string[];
+    weights?: {
+      point?: Record<string, number>;
+      in?: Record<string, number>;
+      out?: Record<string, number>;
+    }[];
+  };
+};
+
 const baseDoc = () => ({
   anima: '0.1',
   name: 'skin-diags',
@@ -30,8 +42,9 @@ const diagnostic = (doc: ReturnType<typeof baseDoc>, code: string) => {
 
 it('accepts independent point, in and out influence maps', () => {
   const doc = baseDoc();
-  (doc.nodes[2] as any).d = 'M0 0C2 0 8 0 10 0';
-  (doc.nodes[2] as any).skin.weights = [
+  const path = doc.nodes[2] as TestSkinNode;
+  path.d = 'M0 0C2 0 8 0 10 0';
+  path.skin.weights = [
     { point: { arm: 1 }, out: { '@rest': 1 } },
     { point: { arm: 1 }, in: { '@rest': 1 } },
   ];
@@ -40,8 +53,9 @@ it('accepts independent point, in and out influence maps', () => {
 
 it('applies complete diagnostics to handle weights too', () => {
   const doc = baseDoc();
-  (doc.nodes[2] as any).d = 'M0 0C2 0 8 0 10 0';
-  (doc.nodes[2] as any).skin.weights = [
+  const path = doc.nodes[2] as TestSkinNode;
+  path.d = 'M0 0C2 0 8 0 10 0';
+  path.skin.weights = [
     { point: { arm: 1 }, out: { other: 0.25 } },
     { point: { arm: 1 }, in: { arm: 1 } },
   ];
@@ -54,8 +68,9 @@ it('applies complete diagnostics to handle weights too', () => {
 
 it('deforms cubic handles independently from their @rest anchors', () => {
   const doc = baseDoc() as ReturnType<typeof baseDoc> & { timelines: object; machine: object };
-  (doc.nodes[2] as any).d = 'M0 0C2 0 8 0 10 0';
-  (doc.nodes[2] as any).skin.weights = [
+  const path = doc.nodes[2] as TestSkinNode;
+  path.d = 'M0 0C2 0 8 0 10 0';
+  path.skin.weights = [
     { point: { '@rest': 1 }, out: { arm: 1 } },
     { point: { '@rest': 1 }, in: { arm: 1 } },
   ];
