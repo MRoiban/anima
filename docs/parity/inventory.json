@@ -24468,7 +24468,7 @@
     "anima": {
       "construct": "TODO: modules/skin/capabilities/rigging-cubic-weights/registry.ts; spec/SPEC.md (Independent handle weights); modules/skin/capabilities/rigging-cubic-weights/example.animl",
       "module": "rig",
-      "status": "planned",
+      "status": "done",
       "test": "TODO: modules/skin/test/core/rigging-cubic-weights.test.ts; spec/conformance/rigging-cubic-weights; tests/oracle/rigging-cubic-weights",
       "phase": "P8"
     }
@@ -24985,7 +24985,7 @@
     "anima": {
       "construct": "TODO: modules/skin/capabilities/rigging-skin/registry.ts; spec/SPEC.md (Bind-pose skinning); modules/skin/capabilities/rigging-skin/example.animl",
       "module": "rig",
-      "status": "planned",
+      "status": "done",
       "test": "TODO: modules/skin/test/core/rigging-skin.test.ts; spec/conformance/rigging-skin; tests/oracle/rigging-skin",
       "phase": "P8"
     }
@@ -25082,7 +25082,7 @@
     "anima": {
       "construct": "TODO: modules/skin/capabilities/rigging-weights/registry.ts; spec/SPEC.md (Vertex bone weights); modules/skin/capabilities/rigging-weights/example.animl",
       "module": "rig",
-      "status": "planned",
+      "status": "done",
       "test": "TODO: modules/skin/test/core/rigging-weights.test.ts; spec/conformance/rigging-weights; tests/oracle/rigging-weights",
       "phase": "P8"
     }
