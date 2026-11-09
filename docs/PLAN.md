@@ -181,18 +181,19 @@ and an oracle test against Rive.
       markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
 - [x] P2 M5 (Glyphy export draft, two more glyphs in AniML; the head-to-head ran in P1).
 - [x] P3 Playground/inspector (`anima playground`) and the web host API (`docs/WEB.md`).
-- [ ] P4a `paint` on the module system of `spec/MODULES.md` (PR):
+- [x] P4a `paint` on the module system of `spec/MODULES.md` (PR; LOG "P4a — paint and composite").
   - [x] P4a-1 module system and gradients, dashes.
   - [x] P4a-2 geometry: ellipse, polygon, star, triangle, corner radii, path morphing, fixed
         stroke, static path lengths for PNG output.
   - [x] P4a-3 compositing: blend modes, masks, clips, multiple paints, stroke position, draw order.
-  - [ ] P4a-4 **renderer-neutral draw layer** (owner, 2026-11-06; `spec/MODULES.md` §3.1): modules
+  - [x] P4a-4 **renderer-neutral draw layer** (owner, 2026-11-06; `spec/MODULES.md` §3.1): modules
         describe resolved draw data; the SVG backend turns it into retained DOM and `toSVG`;
         `paint` converted; core + web for icons must not grow (`tools/size.ts`).
         Draw tree/frame, independent paint/composite modules and SVG backends implemented; 706 tests
         green, 0.1 example SVG bytes unchanged. Acceptance remains open after size round 2:
         core+web 16901 B vs 16697 B (+204 B); paint 3708/5120, composite 3840/4096,
-        markup 7502/8192 B.
+        markup 7502/8192 B. Closed by the owner's size decision (LOG "P4a size decision"): +204 B
+        accepted, compile time fixed.
         AniML prefix compilation is back within 10% of the same-session pre-draw baseline
         (759 → 767 ms median); see LOG for measurements and output parity checks.
   - [x] P4a-5 agent-native benchmark run with a paint brief: AniML 5/6, Rive 5/6
@@ -298,7 +299,7 @@ and an oracle test against Rive.
         Seven conformance probes, share 6/6 through 25 clicks, 1274 scoped tests plus 18 markup
         browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
-  - [ ] Parent integration, phase benchmark and parity promotion/PR.
+  - [x] Parent integration, phase benchmark and parity promotion/PR (LOG "P4d — events").
 - [x] P4e `data`: view models, bindings, converters, host data API, paint leftovers (LOG "P4e — data").
   - [x] `data` core (models, instances, lists, `$` paths, binding modes, data listeners, custom
         properties), `convert` (named converters and groups, formula functions, formatting,

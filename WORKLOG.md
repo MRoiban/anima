@@ -8,26 +8,28 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Now
 
-- Goal: a smaller, agent-native Rive for animated web UI. Next phase: P8 rigging (bones,
-  constraints, IK, skinning, meshes, vertex weights; heavy modules on the canvas backend; path
-  measurement internal) plus the `a11y.tree-bounds` carry-over.
-- Per-phase Rottweiler review (P1–P7, ~190 fixes) merged in PR #37 (2ce1ef3). Ledgers in
-  `design/rottweiler/`; changelog `docs/changelog/2026-11-09-rottweiler.md`.
-- Open issues #23–#35 (Golem, anima-kit) fixed on `issues-23-35` (brief, ticket reports and
-  before/after proof in `design/issues/`), one PR to main. P6 R2-04 (non-square viewBox) is
-  settled by #23. Still waiting on the owner: P4 R4-02 hit/focus order vs `drawOrder`;
-  `a11y.tree-bounds` maybe-later.
-- Deferred review items are listed in PR #37 (entry splits for markup-libraries/fonts, construction
-  context, gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names).
-- Next: P8 design (`design/p8/DESIGN.md`) and briefs.
-- Gates now (issues branch): core+web 22,782; largest scene 57,781; app-UI 107,899; runtime sum
-  135,579; authoring 15,017; Rive-class 155,805. Tight entries: markup-libraries 2,174/2,176,
-  components 3,454/3,456, canvas 5,865/5,888, markup-hooks 4,523/4,544, fonts-info 8,100/8,192.
+- Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
+  (25 `rig` rows: bones, constraints, IK, skinning, meshes, weights, joystick, follow-path; heavy
+  modules on the canvas backend; path measurement internal), plus carry-overs: `a11y.tree-bounds`
+  and P4 R4-02 (hit and pointer-focus order follow composite `drawOrder`), and pre-player `toggle()`
+  queued like `set`/`fire`.
+- Main is c2b870ae: PR #37 (per-phase Rottweiler, ~190 fixes, `docs/changelog/2026-11-09-rottweiler.md`)
+  and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
+- Next: `design/p8/DESIGN.md`, then coder briefs.
+- Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
+  gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
+  fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
+  seam), `fill="mix(...)"` attribute spelling (needs a compiler colour-reader seam).
+- Gates (main): core+web 22,782; largest scene 57,781; app-UI 107,899; runtime sum 135,579;
+  authoring 15,017; Rive-class 155,805 (of 256,000).
 
 ## Owner
 
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
-  changes.
+  changes. Licence is MIT (owner, 2026-11-08).
+- 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
+  revisit: P4 R4-02 — pointer hits and pointer focus follow the painted order (`drawOrder`), as one
+  coordinated input + focus + composite change in P8; `a11y.tree-bounds` stays in P8.
 - Decided by me, owner may revisit (details in `docs/LOG.md` P6 entry and the designs):
   - Downstream bugs: the overlay passes pointer input to the drawing; events bubble (Anima only
     prevents defaults it consumes); the host sizes to the viewBox aspect; imported components keep
@@ -73,11 +75,12 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   loop, then `node --cpu-prof` both sides (P6 bell compile +5 % was a per-character `matchAll`).
 - Agents don't set oracle budgets: they report raw max/over and leave `todo.json`; I add the case to
   `tests/oracle/cases.json` from the measured anti-aliasing numbers.
-- Parity lint: `IN_PROGRESS` in `tools/parity.ts` names the phase being worked on (now P7); add a
+- Parity lint: `IN_PROGRESS` in `tools/parity.ts` names the phase being worked on (now P8); add a
   finished phase to `FINISHED`.
 - An interrupted ticket resumes by messaging its thread (`t3_thread_send`); its worktree survives.
-- Budget headroom: markup-libraries 2,176/2,176 (full), markup-hooks ~4,534/4,544, data-artboard
-  1,013/1,024, host-fit 733/768 — growth there needs a split first.
+- Budget headroom (2026-11-09): markup-libraries 2,174/2,176, components 3,453/3,456, a11y-dom
+  2,154/2,176, markup-hooks 4,523/4,544, canvas 5,864/5,888, fonts 2,016/2,048, layout 4,057/4,096,
+  fonts-info 8,100/8,192 — growth there needs a split first (P8 draws on canvas: plan for it).
 - Disk fills during review waves: every reviewer gets a ~245 MB worktree and agents leave
   `/tmp/anima-*` (tmpfs, 7.8 GB). After each lead/merge, remove only worktrees on an explicit list
   of finished branches — never by "clean + idle + name matches": a lead waiting on its reviewer is
@@ -93,4 +96,5 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
   only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
-- 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
+- Ignored canvas test artifacts (`modules/canvas/test/web/artifacts/*-metrics.json`) fail
+  `npm run format:check` locally; delete them before checking.
