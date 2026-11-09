@@ -20,7 +20,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   worktree t3-8efe4597).
 - Queued: issues #39 (trim dasharray repeats at the endpoint) and #40 (5-decimal matrix rounding
   zeroes tiny scales); brief `design/issues/BRIEF-39-40.md`; a Codex Web coder on branch
-  `issues-39-40` from main starts when a slot frees; separate PR to main.
+  `issues-39-40` from main, running as the third agent; separate PR to main.
 - Then wave 3: benchmark (`design/p8/BENCHMARK.md`, fresh agents on Codex Web), parity closure
   (`docs/parity/P8-closure.md`), PLAN, LOG, perf A/B, full check, PR.
 - Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
@@ -37,7 +37,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 ## Owner
 
 - Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
-  medium), **at most 2 at a time** (owner, 2026-11-10). No Terra or other `codex` models.
+  medium), **at most 3 at a time** (owner, 2026-11-10; was 2). No Terra or other `codex` models.
 - Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
   changes. Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
