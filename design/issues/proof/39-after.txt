@@ -1,0 +1,20 @@
+Issue #39 after fix
+
+Regression test:
+packages/core/test/issue-39.test.ts passed
+2 tests passed
+
+Measured SVG from the issue scene:
+  check dasharray: 9.18642 29.00447
+  slash dasharray: 5.09117 25.45584
+  both non-wrapping gaps are 2x the local outline length, so no second dash can reach the far endpoint
+
+CLI PNG, --size 140, far-endpoint probes:
+  check endpoint (120,35): rgba [0,0,0,0]
+  slash endpoint (105,105): rgba [0,0,0,0]
+  adjacent check pixel (119,35): rgba [0,0,0,0]
+  adjacent slash pixel (104,105): rgba [0,0,0,0]
+
+Canvas Chromium scope after the fix:
+  8 test files passed
+  2646 tests passed, 1918 skipped
