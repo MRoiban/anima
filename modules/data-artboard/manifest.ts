@@ -11,6 +11,7 @@ export default {
   adapters: {
     'packages/core/src/modules/data-artboard/index.ts': 'core/index.ts',
     'packages/web/src/data-artboard.ts': 'web/index.ts',
+    'packages/web/src/dataartboard.ts': 'web/index.ts',
     'packages/web/src/data-artboard-values.ts': 'web/values.ts',
     'packages/web/src/markup-data-artboard.ts': 'web/markup.ts',
     'packages/markup/src/data-artboard.ts': 'markup/index.ts',
@@ -18,6 +19,7 @@ export default {
   exports: {
     'core:./data-artboard': 'packages/core/src/modules/data-artboard/index.ts',
     'web:./data-artboard': 'packages/web/src/data-artboard.ts',
+    'web:./dataartboard': 'packages/web/src/dataartboard.ts',
     'web:./data-artboard-values': 'packages/web/src/data-artboard-values.ts',
     'web:./markup-data-artboard': 'packages/web/src/markup-data-artboard.ts',
     'markup:./data-artboard': 'packages/markup/src/data-artboard.ts',
