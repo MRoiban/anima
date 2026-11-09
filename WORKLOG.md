@@ -92,6 +92,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   A Codex usage limit fails every running coder (2026-11-09, all five of wave 1): save each
   worktree's uncommitted work first (`git add -A -N . && git diff HEAD > …/anima-worktree-backups/<branch>.patch && git reset -q`),
   then resume. Don't switch providers without asking the owner.
+- Terra at medium effort stops early (P8-2 committed only the scaffold and reported "partial"; P8-1b
+  stopped after the first analysis step). Briefs must list the steps in order and say that a
+  scaffold or a first checkpoint is not a final state; resume with the remaining steps spelled out.
 - Disk: `/` was 93 % (3.7 GB free) with five P8 worktrees; check `df -h /` before each wave and
   remove merged worktrees promptly.
 - Budget headroom (2026-11-09): markup-libraries 2,174/2,176, components 3,453/3,456, a11y-dom
