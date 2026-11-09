@@ -53,7 +53,9 @@ By default, the host's long axis spans `grid` units; the short axis follows its
 viewBox aspect. Both drawing axes use the same scale. For viewBox `[x,y,w,h]`,
 `w >= h` gives an SVG width of `w/grid` times the host width, with its own `w/h`
 aspect and offsets `x` and `y` at that scale; mirror this for a tall viewBox.
-Square viewBoxes keep their existing grid/bleed mapping. Pointer hits and semantic
+Non-square SVG viewports keep their own aspect even if CSS sets a different host
+aspect; the scale follows the host dimension corresponding to the viewBox's long
+axis. Square viewBoxes keep their existing grid/bleed mapping. Pointer hits and semantic
 bounds use the drawing's transform, and canvas uses the same placement. Fit and
 alignment still apply inside the host box. Canvas retains its own host sizing defaults.
 

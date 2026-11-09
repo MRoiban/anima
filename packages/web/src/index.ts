@@ -107,9 +107,7 @@ export class AnimaIcon extends HTMLElement {
         if (this.player === player) this.#wake();
       };
       this.#motion();
-      const pending = this.#pending;
-      this.#pending = [];
-      for (const apply of pending) apply(player);
+      for (const apply of this.#pending.splice(0)) apply(player);
       this.#build(model);
       this.#aria();
       if (!this.hasAttribute('paused')) {
@@ -630,8 +628,15 @@ export class AnimaIcon extends HTMLElement {
     }
     const [x, y, w, h] = m.viewBox;
     const g = m.grid;
-    const pct = (v: number, side: number) => (v / g) * (Math.max(w, h) / side) * 100 + '%';
-    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:${pct(x, w)};top:${pct(y, h)};width:${pct(w, w)};height:${pct(h, h)};overflow:visible}</style>`;
+    const pct = (v: number) => (v / g) * 100 + '%';
+    // Keep the intrinsic source aspect even when author CSS gives the host another ratio.
+    const box =
+      w === h
+        ? `left:${pct(x)};top:${pct(y)};width:${pct(w)};height:${pct(h)}`
+        : w > h
+          ? `left:${pct(x)};top:0;width:${pct(w)};height:auto;transform:translateY(${(y / h) * 100}%)`
+          : `left:0;top:${pct(y)};width:auto;height:${pct(h)};transform:translateX(${(x / w) * 100}%)`;
+    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;${box};overflow:visible}</style>`;
     const svg = (this.#svg = document.createElementNS(SVG, 'svg'));
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
@@ -658,7 +663,10 @@ export class AnimaIcon extends HTMLElement {
 
   #layout(): void {
     const svg = this.#svg;
-    if (svg && AnimaIcon.viewBox?.(this, svg)) return; // seam(P7-3)
+    if (svg && AnimaIcon.viewBox?.(this, svg)) {
+      svg.style.transform = 'none'; // Fitted placement already includes the source origin.
+      return;
+    } // seam(P7-3)
     this.#renderer?.layout();
     const m = this.player?.model;
     if (!svg || !m) return;
@@ -679,6 +687,7 @@ export class AnimaIcon extends HTMLElement {
         const fraction = part === 'Min' ? 0 : part === 'Mid' ? 0.5 : 1;
         return `calc(${100 * fraction}% - ${size * fraction}px)`;
       };
+      svg.style.transform = 'none';
       svg.style.width = m.viewBox[2] + 'px';
       svg.style.height = m.viewBox[3] + 'px';
       svg.style.left = offset(x, m.viewBox[2]);

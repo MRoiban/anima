@@ -412,7 +412,10 @@ that box. In the default grid/bleed mapping the host's long axis spans `grid`
 units and its short axis follows the viewBox aspect. For a host `W×H` with the
 viewBox aspect `w/h`, the uniform scale is `s=W/grid` when `w>=h`, otherwise
 `s=H/grid`. The SVG viewport is `(x*s,y*s,w*s,h*s)` relative to the host and
-retains the source aspect. Canvas uses the same placement; pointer coordinates
+retains the source aspect. If author CSS gives the host another aspect, a
+non-square source still uses the same source-long-axis scale rule and keeps its
+own aspect; square sources retain their legacy per-axis viewport placement.
+Canvas uses the same placement; pointer coordinates
 invert the drawing transform and semantic overlay bounds use it forwards.
 Legacy square-viewBox grid offsets remain unchanged. The shadow SVG exposes
 `part="svg"`; the canvas backend's canvas exposes `part="canvas"`. These hooks must
