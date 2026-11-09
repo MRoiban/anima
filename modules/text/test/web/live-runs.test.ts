@@ -111,6 +111,19 @@ for (const [name, engine, executablePath] of [
                   requestAnimationFrame(() => requestAnimationFrame(() => r())),
                 ),
             );
+            // SVG: identical markup is the exact, environment-independent check. CI's Chromium
+            // rasterised byte-identical SVG at two page positions differently (PR #37 log), so
+            // pixels are compared for canvas only.
+            if (renderer === 'svg') {
+              const xml = await page.evaluate(() =>
+                ['live', 'control'].map(
+                  (id) =>
+                    document.getElementById(id)!.shadowRoot!.querySelector('svg')?.outerHTML ?? '',
+                ),
+              );
+              expect(xml[0]).toBe(xml[1]);
+              continue;
+            }
             // CI paints later than local runs: retry until both hosts have painted (exact match
             // still required). On failure, report what differs so CI logs show the cause.
             try {

@@ -286,11 +286,16 @@ function attach(icon: AnimaIcon) {
     attached.delete(icon);
   });
 }
+const hooked = new WeakSet<AnimaIcon>();
 const loadModel = Icon.prototype.loadModel,
   destroy = Icon.prototype.destroy;
 Icon.prototype.loadModel = function (model) {
   attached.get(this)?.();
-  this.addEventListener('anima:load', () => attach(this), { once: true });
+  // One persistent listener per icon: a failing load never fires `anima:load` (P4 R3-02 class).
+  if (!hooked.has(this)) {
+    hooked.add(this);
+    this.addEventListener('anima:load', () => attach(this));
+  }
   loadModel.call(this, model);
 };
 Icon.prototype.destroy = function () {

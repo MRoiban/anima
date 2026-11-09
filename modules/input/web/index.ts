@@ -209,18 +209,17 @@ const load = Icon.prototype.load,
 Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
   attached.get(this)?.abort();
   attached.delete(this);
-  // Asset loads create the player asynchronously; attach once it exists (one listener per icon).
-  if (!hooked.has(this)) {
-    hooked.add(this);
-    this.addEventListener('anima:load', () => attach(this));
-  }
+  later(this);
   loadModel.apply(this, args);
   attach(this);
-  later(this);
 };
-// Asset-backed loads create the player asynchronously; attach once it exists.
+// Asset-backed loads create the player asynchronously; attach once it exists. One persistent
+// listener per icon (P4 R3-02): failing loads never fire `anima:load`, so per-load listeners pile up.
 const later = (i: AnimaIcon) => {
-  if (!attached.has(i)) i.addEventListener('anima:load', () => attach(i), { once: true });
+  if (!hooked.has(i)) {
+    hooked.add(i);
+    i.addEventListener('anima:load', () => attach(i));
+  }
 };
 Icon.prototype.load = function (...args: Parameters<AnimaIcon['load']>) {
   attached.get(this)?.abort();
