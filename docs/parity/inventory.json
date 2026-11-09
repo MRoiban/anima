@@ -2051,10 +2051,10 @@
       "rive schema Joystick --all --json (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: joystick.handle and grid-unit bounds",
-      "module": "rig",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
       "status": "planned",
-      "test": "conformance/joystick-handle",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle (pending orchestrator budgets)",
       "phase": "P8"
     },
     "aliases": [
@@ -2082,10 +2082,10 @@
       "rive-runtime/include/rive/generated/joystick_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: joystick.invertX/invertY",
-      "module": "rig",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
       "status": "planned",
-      "test": "conformance/joystick-invert",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert (pending orchestrator budgets)",
       "phase": "P8"
     }
   },
@@ -2113,10 +2113,10 @@
       "rive-runtime/include/rive/generated/joystick_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: joystick with x/y timeline references",
-      "module": "rig",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
       "status": "planned",
-      "test": "conformance/joystick-two-axis",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis (pending orchestrator budgets)",
       "phase": "P8"
     }
   },
@@ -24681,10 +24681,10 @@
       "rive docs easing (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: two-axis animation control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-      "module": "rig",
+      "construct": "posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl",
+      "module": "posepad",
       "status": "planned",
-      "test": "oracle/rigging-joystick",
+      "test": "modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick (pending orchestrator budgets)",
       "phase": "P8"
     }
   },

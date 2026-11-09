@@ -1,0 +1,1 @@
+Original two-axis control scene at 12 pixels per Anima unit. Rectangle geometry is identical; timelines cover two and four seconds. Driver clock covers one second. Handle reference uses keyed node positions. Native command: `~/.rive/bin/rive . --commands=commands.txt`. No native docs or binary files are committed.

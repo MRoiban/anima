@@ -73,6 +73,8 @@
     "./layout": "./src/layout.ts",
     "./layout-svg": "./src/layout-svg.ts",
     "./markup-layout": "./src/markup-layout.ts",
+    "./posepad": "./src/posepad.ts",
+    "./posepad-handle": "./src/posepad-handle.ts",
     "./text-effects": "./src/text-effects.ts",
     "./texteffects": "./src/texteffects.ts",
     "./markup-text-effects": "./src/markup-text-effects.ts",

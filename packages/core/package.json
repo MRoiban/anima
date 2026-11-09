@@ -49,6 +49,7 @@
     "./text-hit": "./src/modules/text/hit.ts",
     "./text-host": "./src/modules/text/host.ts",
     "./layout": "./src/modules/layout/index.ts",
+    "./posepad": "./src/modules/posepad/index.ts",
     "./text-effects": "./src/modules/text-effects/index.ts",
     "./text-input": "./src/modules/text-input/index.ts"
   },
