@@ -21,7 +21,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
   deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
   pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1), P6 (merged 7561bb7; its R2-5 fix for P7).
-  All seven merged into p8; P7 round-1 fix coder (7 findings, ledger in my
+  All seven merged into p8; review PR #37 open (unit 6,812/0, oracle 0, perf within guard); P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
@@ -37,7 +37,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   `packages/web/src/index.ts` ARIA edits (expect a conflict); P1 R2-03 knockouts ignore stroke trims
   (needs bell fixture + canvas change). Decided (owner may revisit) and done: one 96-level JSON nesting
   limit for the whole document (P1 R3-04/R4-08 root cause).
-- After the review: P8 design (rigging).
+- Owner decisions raised in PR #37: P6 R2-04 non-square viewBox drawing offset (needs a mapping
+  decision for SVG + canvas), P4 R4-02 hit/focus order vs drawOrder, a11y.tree-bounds maybe-later.
+- After the review PR merges: P8 design (rigging).
 - Gates at end of P7: core+web 21,165; largest scene 55,444; app-UI 104,592; runtime sum 130,133;
   authoring 14,899; Rive-class 148,870 (rigging counts here). Full: layout 4,084/4,096,
   markup-libraries 2,176/2,176, fonts-info 7,952/8,192 (heavy).
