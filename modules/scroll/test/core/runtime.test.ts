@@ -41,3 +41,40 @@ it('lets a bound offset override player-local scroll state each step', () => {
   p.step(0);
   expect(p.values()['content.world.y']).toBe(-8);
 });
+
+it('links and resizes a vertical thumb from the scroll percentage', () => {
+  const result = load({
+    anima: '0.1',
+    name: 'scroll-thumb',
+    grid: 40,
+    requires: ['rig', 'input', 'scroll'],
+    nodes: [
+      { id: 'viewport', type: 'rect', x0: 0, y0: 0, w: 10, h: 10 },
+      {
+        id: 'content',
+        type: 'group',
+        constraints: [{ kind: 'scroll', viewport: 'viewport', axis: 'y', offsetY: 10 }],
+        children: [{ id: 'body', type: 'rect', x0: 0, y0: 0, w: 10, h: 30 }],
+      },
+      { id: 'track', type: 'rect', x0: 12, y0: 0, w: 2, h: 12 },
+      {
+        id: 'thumb',
+        type: 'rect',
+        x0: 12,
+        y0: 0,
+        w: 2,
+        h: 2,
+        constraints: [
+          { kind: 'scrollThumb', scroll: 'content', track: 'track', axis: 'y', resize: true },
+        ],
+      },
+    ],
+  });
+  expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const p = new Player(result.model!),
+    values = p.values();
+  expect(values['content.constraints.0.percentY']).toBe(0.5);
+  expect(values['thumb.world.y']).toBeCloseTo(4, 8);
+  const m = p.world(result.model!.ids.get('thumb')!);
+  expect(Math.hypot(m[2], m[3])).toBeCloseTo(2, 8);
+});
