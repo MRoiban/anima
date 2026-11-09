@@ -3912,3 +3912,22 @@ the screen-clockwise side of the directed line from the chain start to the targe
 opposite analytic solution. A negative-determinant ancestor mirrors that side so authored bend
 direction follows the mirrored chain. The same side choice is used for each deterministic pair solve
 in a chain longer than two bones.
+
+## pathfollow
+
+<!-- capability: rigging.follow-path -->
+### Follow path constraint
+
+TODO: Place an object at a normalized path distance with an offset and optional tangent orientation.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+
+
+<!-- capability: rigging.list-follow-path -->
+### List follow-path constraint
+
+TODO: Distribute a list across a path interval with an additional distance offset.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.

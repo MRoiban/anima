@@ -27,6 +27,7 @@
     "./a11y": "./src/a11y.ts",
     "./nested": "./src/nested.ts",
     "./data-artboard": "./src/data-artboard.ts",
+    "./pathfollow": "./src/pathfollow.ts",
     "./colormix": "./src/colormix.ts",
     "./mix": "./src/mix.ts",
     "./text": "./src/text.ts",

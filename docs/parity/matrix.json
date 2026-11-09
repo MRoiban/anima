@@ -8899,10 +8899,10 @@
   "id": "rigging.follow-path",
   "category": "rigging",
   "capability": "Follow path constraint",
-  "construct": "new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "TODO: modules/pathfollow/capabilities/rigging-follow-path/registry.ts; spec/SPEC.md (Follow path constraint); modules/pathfollow/capabilities/rigging-follow-path/example.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-follow-path",
+  "test": "TODO: modules/pathfollow/test/core/rigging-follow-path.test.ts; spec/conformance/rigging-follow-path; tests/oracle/rigging-follow-path",
   "phase": "P8"
  },
  {
@@ -8939,10 +8939,10 @@
   "id": "rigging.list-follow-path",
   "category": "rigging",
   "capability": "List follow-path constraint",
-  "construct": "new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "TODO: modules/pathfollow/capabilities/rigging-list-follow-path/registry.ts; spec/SPEC.md (List follow-path constraint); modules/pathfollow/capabilities/rigging-list-follow-path/example.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-list-follow-path",
+  "test": "TODO: modules/pathfollow/test/core/rigging-list-follow-path.test.ts; spec/conformance/rigging-list-follow-path; tests/oracle/rigging-list-follow-path",
   "phase": "P8"
  },
  {
