@@ -49,8 +49,13 @@ The default SVG host is `1em` wide and uses the document viewBox aspect ratio fo
 its automatic height. A selected `component` uses its own viewBox. CSS width,
 height and aspect-ratio override the defaults; setting both dimensions keeps that
 box. For example, a 24×7 stepper with `width: 240px` is 70px high by default.
-Existing grid offsets remain unchanged. Fit and alignment still apply inside the
-host box. The optional canvas renderer retains its own sizing defaults.
+By default, the host's long axis spans `grid` units; the short axis follows its
+viewBox aspect. Both drawing axes use the same scale. For viewBox `[x,y,w,h]`,
+`w >= h` gives an SVG width of `w/grid` times the host width, with its own `w/h`
+aspect and offsets `x` and `y` at that scale; mirror this for a tall viewBox.
+Square viewBoxes keep their existing grid/bleed mapping. Pointer hits and semantic
+bounds use the drawing's transform, and canvas uses the same placement. Fit and
+alignment still apply inside the host box. Canvas retains its own host sizing defaults.
 
 ## Fit, alignment and artboard size
 

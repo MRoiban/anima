@@ -596,8 +596,8 @@ export class AnimaIcon extends HTMLElement {
     }
     const [x, y, w, h] = m.viewBox;
     const g = m.grid;
-    const pct = (v: number) => (v / g) * 100 + '%';
-    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:${pct(x)};top:${pct(y)};width:${pct(w)};height:${pct(h)};overflow:visible}</style>`;
+    const pct = (v: number, side: number) => (v / g) * (Math.max(w, h) / side) * 100 + '%';
+    this.#root.innerHTML = `<style>:host{display:inline-block;position:relative;width:1em;aspect-ratio:${w}/${h};vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:${pct(x, w)};top:${pct(y, h)};width:${pct(w, w)};height:${pct(h, h)};overflow:visible}</style>`;
     const svg = (this.#svg = document.createElementNS(SVG, 'svg'));
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
