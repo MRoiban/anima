@@ -8823,31 +8823,34 @@
   "id": "rigging.bone-chains",
   "category": "rigging",
   "capability": "Bone chains",
-  "construct": "new: bone chains with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-bone-chains",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
  },
  {
   "id": "rigging.constraint-order",
   "category": "rigging",
   "capability": "Ordered constraint composition",
-  "construct": "new: constraints array with explicit order and per-constraint strength",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rig-constraint-order",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.constraint-strength",
   "category": "rigging",
   "capability": "Constraint influence",
-  "construct": "new: constraint influence with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-constraint-strength",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.cubic-weights",
@@ -8863,31 +8866,34 @@
   "id": "rigging.distance-closer",
   "category": "rigging",
   "capability": "Distance constraint: closer",
-  "construct": "new: distance constraint: closer with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-distance-closer",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.distance-exact",
   "category": "rigging",
   "capability": "Distance constraint: exact",
-  "construct": "new: distance constraint: exact with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-distance-exact",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.distance-further",
   "category": "rigging",
   "capability": "Distance constraint: further",
-  "construct": "new: distance constraint: further with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-distance-further",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.follow-path",
@@ -8963,31 +8969,34 @@
   "id": "rigging.root-bones",
   "category": "rigging",
   "capability": "Root bones",
-  "construct": "new: root bones with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-root-bones",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
  },
  {
   "id": "rigging.rotation",
   "category": "rigging",
   "capability": "Rotation constraint",
-  "construct": "new: rotation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-rotation",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.scale",
   "category": "rigging",
   "capability": "Scale constraint",
-  "construct": "new: scale constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-scale",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.scripted-3d",
@@ -9024,21 +9033,23 @@
   "id": "rigging.transform",
   "category": "rigging",
   "capability": "Transform constraint",
-  "construct": "new: transform constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-transform",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Tuple origin binding and AniML animation, and group/other target bounds for origin, remain incomplete."
  },
  {
   "id": "rigging.translation",
   "category": "rigging",
   "capability": "Translation constraint",
-  "construct": "new: translation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-translation",
-  "phase": "P8"
+  "test": "modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation",
+  "phase": "P8",
+  "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
  },
  {
   "id": "rigging.weights",

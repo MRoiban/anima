@@ -1,0 +1,61 @@
+{
+  "anima": "0.1",
+  "name": "rigging-bone-chains",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "upper",
+      "type": "bone",
+      "x": 2,
+      "y": 5,
+      "children": [
+        {
+          "id": "fore",
+          "type": "bone",
+          "children": [
+            {
+              "id": "hand",
+              "type": "circle",
+              "center": [9, 5],
+              "r": 0.5,
+              "pivot": [9, 5],
+              "fill": {
+                "color": "#000"
+              }
+            }
+          ],
+          "length": 3
+        }
+      ],
+      "length": 4
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "upper.rotate": [
+          [0, 0],
+          [1, 90]
+        ],
+        "upper.length": [
+          [0, 4],
+          [1, 6]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

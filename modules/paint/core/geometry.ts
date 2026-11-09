@@ -136,7 +136,14 @@ export const geometry: Module = {
     return value;
   },
   interpolate(a, b, w) {
-    if (typeof a !== 'string' || typeof b !== 'string') return;
+    // seam(P8-1): string-valued module slots are not necessarily SVG paths (rig origin tuples).
+    if (
+      typeof a !== 'string' ||
+      typeof b !== 'string' ||
+      !/^\s*[mM]/.test(a) ||
+      !/^\s*[mM]/.test(b)
+    )
+      return;
     const aa = segments(a),
       bb = segments(b);
     return aa

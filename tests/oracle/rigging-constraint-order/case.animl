@@ -1,0 +1,23 @@
+<anima version="0.1" name="rigging-constraint-order" grid="20" requires="rig">
+  <group id="a" x="6" y="6"/>
+  <group id="b" x="14" y="8"/>
+  <group id="ab" x="4" y="4">
+    <copy-position from="a"/>
+    <copy-position from="b"/>
+    <circle id="abArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+  </group>
+  <group id="ba" x="4" y="4">
+    <copy-position from="b"/>
+    <copy-position from="a"/>
+    <circle id="baArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+  </group>
+  <timeline name="go" duration="1">
+    <track target="b.y">
+      0  8
+      1  10
+    </track>
+  </timeline>
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

@@ -1,0 +1,248 @@
+{
+  "anima": "0.1",
+  "name": "rigging-translation",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "targetParent",
+      "type": "group",
+      "x": 3,
+      "y": 4,
+      "children": [
+        {
+          "id": "target",
+          "type": "group",
+          "x": 2,
+          "y": 3,
+          "children": [
+            {
+              "id": "targetArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hostParent",
+      "type": "group",
+      "x": 8,
+      "y": 1,
+      "children": [
+        {
+          "id": "local",
+          "type": "group",
+          "x": 1,
+          "y": 2,
+          "children": [
+            {
+              "id": "localArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local",
+              "factorX": -2,
+              "copyY": false,
+              "minX": -3,
+              "maxX": 0
+            }
+          ]
+        },
+        {
+          "id": "world",
+          "type": "group",
+          "x": 1,
+          "y": 2,
+          "children": [
+            {
+              "id": "worldArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition",
+              "from": "target",
+              "factorY": -1,
+              "minY": -6,
+              "maxY": -2
+            }
+          ]
+        },
+        {
+          "id": "limited",
+          "type": "group",
+          "x": 1,
+          "y": 2,
+          "children": [
+            {
+              "id": "limitedArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition",
+              "from": "target",
+              "limitSpace": "local",
+              "minX": 0
+            }
+          ]
+        },
+        {
+          "id": "parentCopy",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "parentCopyArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition"
+            }
+          ]
+        },
+        {
+          "id": "identityCopy",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "identityCopyArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition",
+              "fromSpace": "local",
+              "toSpace": "local"
+            }
+          ]
+        },
+        {
+          "id": "offsetCopy",
+          "type": "group",
+          "x": 1,
+          "y": 2,
+          "children": [
+            {
+              "id": "offsetCopyArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyPosition",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local",
+              "offset": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "free",
+      "type": "group",
+      "x": 0,
+      "y": 0,
+      "children": [
+        {
+          "id": "freeArt",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 0.35,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "from": "target"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 2],
+          [1, 4]
+        ]
+      }
+    },
+    "later": {
+      "duration": 1,
+      "tracks": {
+        "free.constraints.0.maxX": [
+          [0, 1],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

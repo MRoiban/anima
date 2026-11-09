@@ -84,6 +84,8 @@ export type Shape = (
   element?: string;
   default?: unknown;
   format?: Shape;
+  // seam(P8-1): tooling can expose a discriminated schema validated by a module prepare hook.
+  schema?: Shape;
   description?: string;
 };
 

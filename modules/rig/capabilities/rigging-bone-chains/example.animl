@@ -1,0 +1,22 @@
+<anima version="0.1" name="rigging-bone-chains" grid="20" requires="rig">
+  <bone id="upper" length="4" x="2" y="5">
+    <bone id="fore" length="3">
+      <circle id="hand" cx="9" cy="5" r="0.5" pivot="9 5" fill="#000"/>
+    </bone>
+  </bone>
+
+  <timeline name="go" duration="1">
+    <track target="upper.rotate">
+      0  0
+      1  90
+    </track>
+    <track target="upper.length">
+      0  4
+      1  6
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

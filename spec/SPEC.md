@@ -331,6 +331,9 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    **Layout stage (optional).** After bindings and clamping, resolve participating boxes using
    the layout contract, including nested-player/post-step updates, before drawing. Guards read
    the previous step's boxes; layout never reruns transitions in the current step.
+   **Rig stage (optional).** After layout and before drawing, solve parent/constraint dependencies,
+   publish rest-relative bone and constrained transforms, then call the optional pose stage.
+   A pose write requests exactly one additional solve; see the rig chapter.
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
    it has been pending for longer than `buffer` seconds of step time, or is consumed.
@@ -3620,6 +3623,173 @@ Decisions follow `design/p8/DECISIONS.md` D21–D24 and D35, the Canvas2D mesh g
 in `docs/research/rive-format-and-graph.md` §4.3, and backend separation/lifecycle
 notes in `docs/research/rive-web-runtime.md`. No native source was used.
 
+## rig
+
+`requires: ["rig"]` adds bones and ordered transform constraints. The browser imports
+`@anima-format/web/rig`; distance constraints also import the optional
+`@anima-format/web/rig-distance`. Both entries are heavy and dependency-free.
+AniML uses `<bone>` and constraint child elements; JSON uses `type: "bone"` and an
+ordered `constraints: [{kind, ...}]` array. Generic JSON-valued constraint attributes
+are deliberately absent; structural children preserve authored order.
+
+### Bone frames and rigid art
+
+A bone draws nothing and accepts `children`, `length` (nonnegative, default 0),
+`root` (static boolean, default false), and the common transform/visibility fields.
+Length, rotation, uniform/axis scales, opacity and visibility animate normally.
+Its pivot is always its start: authoring `pivot` is `rig-bone-pivot`.
+
+Outside another bone a bone starts at `(x,y)` and is a root. Inside a bone it
+starts at its parent's current tip, with rotation relative to that parent's
+frame; `x` or `y`, even 0, is `rig-bone-offset`. A nested `root: true` instead
+starts at `(x,y)` in its parent's moving grid coordinates, anchoring a new chain.
+Per D38, a bone may be at document/component root level, or have a `group` or
+`bone` parent. Every other parent, including `layout`, `repeat`, `instance` and
+`text`, is `rig-bone-parent` at the bone's pointer, with hint
+"wrap the bones in a <group>". A group within layout can host a skeleton.
+
+Per D39, zero rest `scale`, `scaleX` or `scaleY` on a bone or any ancestor is
+`bad-value` at the affected bone, with a hint to use nonzero rest scales. Animation may
+collapse a bone from a nonzero rest pose.
+
+Rest frames are computed once from document values, never the first sampled
+pose. A chained bone's frame is its parent's frame multiplied by
+`T(parent.length,0) R(rotate) S(scale*scaleX,scale*scaleY)`.
+A root uses its parent's grid transform multiplied by
+`T(x,y) R(rotate) S(scale*scaleX,scale*scaleY)`.
+Rigid child geometry remains in rest grid coordinates: the bone contributes
+`F(now) F(rest)^-1`, keeping every bone's drawing transform identity at rest
+(relative to its non-bone ancestors). A nested root uses this same rule.
+This preserves Glyphy geometry without re-origining (DECISIONS D3–D6;
+`docs/research/glyphy-compat.md`). A bone's world frame is its physical start
+frame, while the published drawing matrix is its rest-relative deformation.
+
+### Constraint fields and evaluation
+
+All five kinds accept numeric `strength` in 0..1, default 1, animatable and
+bindable. Fields are addressed `<id>.constraints.<index>.<field>`; arrays are
+zero-based, ordered, and later full-strength constraints override earlier ones.
+All fields shown as numbers below are animatable/bindable. Static controls are
+booleans, references, enumerations and space choices.
+
+| JSON / AniML | Fields and defaults |
+| --- | --- |
+| `copyPosition` / `<copy-position>` | optional `from`; `factorX`, `factorY` = 1; `copyX`, `copyY` = true; optional `minX`, `maxX`, `minY`, `maxY`; `offset` = false; `fromSpace`, `toSpace` = world; `limitSpace` defaults to `toSpace` |
+| `copyRotation` / `<copy-rotation>` | optional `from`; `factor` = 1; optional `min`, `max` in degrees; `offset` = false; spaces as above |
+| `copyScale` / `<copy-scale>` | position fields, operating on scale axes |
+| `copyTransform` / `<copy-transform>` | required `from`; optional numeric `origin: [u,v]`; `fromSpace`, `toSpace` = world |
+| `keepDistance` / `<keep-distance>` | required `to` and nonnegative `distance`; `mode`: within (default), beyond, exact |
+
+Camel-case field names use hyphenated AniML attributes (`factor-x`, `from-space`,
+`limit-space`, etc.). The CLI accepts JSON kind names as schema topics as well
+as canonical AniML element names. Every kind validates only its declared fields.
+Unknown references are `rig-target` at the constraint, with a repair hint.
+
+Position is the transformed pivot (the start for a bone). Rotation and scales
+come from QR decomposition: nonnegative X scale, signed Y scale and shear.
+Derived rotations are normalized to [-180,180). A zero X axis uses the Y axis
+for its angle. Blend decomposes around the same pivot, interpolates position,
+scale and shear, and rotates along the shortest arc; the positive half-turn
+wins an exact tie. Strength 0 skips, 1 replaces. Each partial constraint reads
+the preceding constraint's result, never the previous frame's result.
+
+For copy constraints, source-space decomposition reads the target world frame
+(`world`) or the target relative to its own parent (`local`). With no `from`,
+world reads the parent's frame and pivot; local reads identity (D17).
+The copied components replace the host's corresponding components in destination
+space; disabled axes keep their current values. Factors multiply source values.
+`offset` adds the host's document-rest position/rotation, or multiplies its
+rest scale. Limits clamp the result in `limitSpace`, without changing uncopied
+components, then convert back to world. When limit and destination space match,
+limits act on the signed copied axes before canonical decomposition.
+
+`copyTransform` copies position, rotation, scales and shear together. By default
+the target point is its pivot. `origin` selects a normalized point over the
+target's rest geometric bounds (no stroke); its transformed point replaces the
+host's pivot position. The tuple is animatable in JSON. AniML authors the rest tuple as `origin="u v"`.
+
+Distance constraints measure between world pivots and preserve the host's
+rotation, scale and shear. Within enforces a maximum radius, beyond a minimum,
+and exact the ring. A point already allowed is unchanged; a coincident point
+needing a nonzero radius moves along world +X. Strength uses the same transform
+blend as every other constraint. Distance is in grid units.
+
+### Rig stage and extension contract
+
+After bindings, clamp and layout, solve nodes in a dependency order computed
+once at load: parents and targets before hosts; a solver's declared additional
+writes before their other descendants. Add constraints in authored order; a
+cycle is `rig-cycle` at the constraint closing it, with a hint to move its target
+outside the constrained subtree. No dirty-restart loop runs (D2, D15;
+`docs/research/rive-format-and-graph.md` §3 and
+`docs/research/rive-animation-and-state.md` §2.3).
+
+Each pass starts from the layout-adjusted authored local values. It publishes
+per-player local matrices for rendering, hits, accessibility and pointer mapping.
+A pose pad reads that first solved result via `Model.rigPose(player)`; returning
+true performs exactly one more pass, with freshly posed values. Unchanged values
+and layout matrices skip the first solve, retaining its previous solved result;
+the pose callback may still request its second pass. Layout/guards never read
+same-step pose outputs. Rigging does not keep a settled player awake.
+
+`modules/rig/core/api.ts` exposes `registerConstraint({kind, shape, targets,
+writes?, solve})` and `RigContext`. Independently bundled modules register through
+the active rig module's `registerConstraint` during `init`. `world`/`rest` use
+bone start frames for bones and grid matrices for ordinary nodes; `position`
+returns the world pivot. `setWorld` publishes a solver's declared writes;
+`num(node,k,key,fallback)` reads current constraint slots. Solvers return a desired
+host matrix for central strength blending, or explicitly blend multiple writes
+through `ctx.blend`. Each player owns its solved frames and local overrides.
+
+Snapshots and `expect` select derived, read-only
+`<id>.world.x|y|rotate|scaleX|scaleY` and `<bone>.tip.x|y`.
+They are not animation destinations, binding destinations, or guard operands.
+
+### Evidence by capability
+
+<!-- capability: rigging.bone-chains -->
+Independent numeric evidence: `spec/conformance/rigging-bone-chains/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-bone-chains/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.root-bones -->
+Independent numeric evidence: `spec/conformance/rigging-root-bones/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-root-bones/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.constraint-order -->
+Independent numeric evidence: `spec/conformance/rigging-constraint-order/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-constraint-order/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.constraint-strength -->
+Independent numeric evidence: `spec/conformance/rigging-constraint-strength/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-constraint-strength/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.translation -->
+Independent numeric evidence: `spec/conformance/rigging-translation/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-translation/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.rotation -->
+Independent numeric evidence: `spec/conformance/rigging-rotation/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-rotation/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.scale -->
+Independent numeric evidence: `spec/conformance/rigging-scale/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-scale/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.transform -->
+Independent numeric evidence: `spec/conformance/rigging-transform/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-transform/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-closer -->
+Independent numeric evidence: `spec/conformance/rigging-distance-closer/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-closer/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-further -->
+Independent numeric evidence: `spec/conformance/rigging-distance-further/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-further/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-exact -->
+Independent numeric evidence: `spec/conformance/rigging-distance-exact/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-exact/`; a pending marker is not a parity pass.
 
 ## posepad
 

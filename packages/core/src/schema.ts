@@ -9,7 +9,8 @@ const COMMENT = { $comment: { type: 'string' } };
 
 function toSchema(s: Shape): JSONSchema {
   return {
-    ...shapeSchema(s),
+    // seam(P8-1): module-owned discriminated validation has a precise tooling schema.
+    ...shapeSchema(s.schema ?? s),
     ...(s.feature && { feature: s.feature }),
     ...(s.default !== undefined && { default: s.default }),
   };

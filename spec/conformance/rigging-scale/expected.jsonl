@@ -1,0 +1,3 @@
+{"time": 0, "values": {"local.world.rotate": -180, "local.world.scaleX": 6, "local.world.scaleY": -6, "world.world.scaleX": 4, "world.world.scaleY": -5, "limited.world.scaleX": 3}, "states": {"main": "go"}, "events": [], "settled": false}
+{"time": 0.5, "values": {"local.world.rotate": -180, "local.world.scaleX": 7.5, "local.world.scaleY": -6, "world.world.scaleX": 5.0, "world.world.scaleY": -5, "limited.world.scaleX": 3}, "states": {"main": "go"}, "events": [], "settled": false}
+{"time": 1, "values": {"local.world.rotate": -180, "local.world.scaleX": 9, "local.world.scaleY": -6, "world.world.scaleX": 6, "world.world.scaleY": -5, "limited.world.scaleX": 3}, "states": {"main": "go"}, "events": [], "settled": true}

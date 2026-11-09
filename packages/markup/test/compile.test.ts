@@ -371,6 +371,9 @@ describe('AniML compiler', () => {
         ),
       ).doc.root!,
     );
+    // seam(P8-1): bone fields use the same registry-derived node path.
+    collectPaint(parseXml('<anima><bone length="5" root="true"/></anima>').doc.root!);
+
     // seam(P8-6): include all posepad attribute spellings in the registry census.
     collectPaint(
       parseXml(

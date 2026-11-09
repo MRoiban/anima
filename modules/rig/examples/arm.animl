@@ -1,0 +1,29 @@
+<anima version="0.1" name="rig-arm" grid="20" requires="rig">
+  <bone id="upper" length="5" x="4" y="12">
+    <path id="upperArt" d="M4 11.5H9V12.5H4Z" fill="#d97757"/>
+    <bone id="fore" length="4">
+      <path id="foreArt" d="M9 11.5H13V12.5H9Z" fill="#4263eb"/>
+      <circle id="hand" cx="13" cy="12" r="0.7" fill="#141413"/>
+    </bone>
+  </bone>
+  <group id="aim" x="15" y="5"/>
+  <group id="eye" x="15" y="5"/>
+  <group id="pupil" x="12" y="5">
+    <copy-position strength="0.5" from="aim"/>
+    <keep-distance to="eye" distance="1"/>
+    <circle id="pupilArt" cx="0" cy="0" r="0.5" fill="#141413"/>
+  </group>
+  <timeline name="reach" duration="1" loop="pingpong">
+    <track target="upper.rotate">
+      0  0
+      1  -60
+    </track>
+    <track target="fore.rotate">
+      0  0
+      1  35
+    </track>
+  </timeline>
+  <layer name="motion" initial="reach">
+    <state name="reach" play="reach"/>
+  </layer>
+</anima>

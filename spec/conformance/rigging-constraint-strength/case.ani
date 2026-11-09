@@ -1,0 +1,105 @@
+{
+  "anima": "0.1",
+  "name": "rigging-constraint-strength",
+  "grid": 20,
+  "requires": ["rig", "bind"],
+  "inputs": {
+    "mix": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "nodes": [
+    {
+      "id": "animated",
+      "type": "group",
+      "x": 2,
+      "y": 4,
+      "children": [
+        {
+          "id": "animatedArt",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 0.35,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "strength": 0,
+          "from": "target"
+        }
+      ]
+    },
+    {
+      "id": "bound",
+      "type": "group",
+      "x": 2,
+      "y": 4,
+      "children": [
+        {
+          "id": "boundArt",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 0.35,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "strength": 0,
+          "from": "target"
+        }
+      ]
+    },
+    {
+      "id": "target",
+      "type": "group",
+      "x": 10,
+      "y": 8,
+      "children": [
+        {
+          "id": "targetArt",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 0.35,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "animated.constraints.0.strength": [
+          [0, 0],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "bound.constraints.0.strength": "mix"
+  }
+}

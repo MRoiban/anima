@@ -110,7 +110,10 @@ async function render(scripts: string[]) {
         ],
         bind: { 'circle.r': 'radius' },
       });
-      await icon.ready;
+      // seam(P8-1): retain loader diagnostics when independent bundles fail.
+      await icon.ready.catch((diagnostics: unknown) => {
+        throw Error(JSON.stringify(diagnostics));
+      });
       await new Promise<void>((resolve) =>
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       );

@@ -1,0 +1,30 @@
+<anima version="0.1" name="rigging-transform" grid="20" requires="rig">
+  <group id="sourceParent" x="3" y="4">
+    <rect id="target" x0="1" y0="2" width="4" height="2" x="2" y="1" fill="#888"/>
+  </group>
+  <group id="hostParent" x="8" y="3">
+    <group id="world" x="0" y="0">
+      <copy-transform from="target"/>
+      <circle id="worldArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="local" x="0" y="0">
+      <copy-transform from="target" from-space="local" to-space="local"/>
+      <circle id="localArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="origin" x="0" y="0">
+      <copy-transform from="target" origin="1 1"/>
+      <circle id="originArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+  </group>
+
+  <timeline name="go" duration="1">
+    <track target="target.x">
+      0  2
+      1  4
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

@@ -24373,11 +24373,12 @@
       "rive-runtime/include/rive/generated/bones/bone_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: bone chains with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-bone-chains",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
     }
   },
   {
@@ -24399,11 +24400,12 @@
       "https://rive.app/docs/editor/constraints/ik-constraint"
     ],
     "anima": {
-      "construct": "new: constraints array with explicit order and per-constraint strength",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rig-constraint-order",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24432,11 +24434,12 @@
       "rive-runtime/include/rive/generated/constraints/transform_constraint_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: constraint influence with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-constraint-strength",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24494,11 +24497,12 @@
       "rive-runtime/include/rive/generated/constraints/distance_constraint_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: distance constraint: closer with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-distance-closer",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24525,11 +24529,12 @@
       "rive-runtime/include/rive/generated/constraints/distance_constraint_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: distance constraint: exact with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-distance-exact",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24556,11 +24561,12 @@
       "rive-runtime/include/rive/generated/constraints/distance_constraint_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: distance constraint: further with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-distance-further",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24812,11 +24818,12 @@
       "rive-runtime/include/rive/generated/bones/root_bone_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: root bones with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-root-bones",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent."
     }
   },
   {
@@ -24846,11 +24853,12 @@
       "rive-runtime/include/rive/generated/constraints/rotation_constraint_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: rotation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-rotation",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -24878,11 +24886,12 @@
       "rive-runtime/include/rive/generated/constraints/scale_constraint_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: scale constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-scale",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {
@@ -25003,11 +25012,12 @@
       "rive-runtime/include/rive/generated/constraints/transform_constraint_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: transform constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-transform",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Tuple origin binding and AniML animation, and group/other target bounds for origin, remain incomplete."
     }
   },
   {
@@ -25038,11 +25048,12 @@
       "rive-runtime/include/rive/generated/constraints/translation_constraint_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: translation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
       "status": "planned",
-      "test": "oracle/rigging-translation",
-      "phase": "P8"
+      "test": "modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation",
+      "phase": "P8",
+      "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
   },
   {

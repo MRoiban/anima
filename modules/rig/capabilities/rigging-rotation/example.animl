@@ -1,0 +1,32 @@
+<anima version="0.1" name="rigging-rotation" grid="20" requires="rig">
+  <group id="sourceParent" rotate="30">
+    <group id="target" x="0" y="0" rotate="10">
+      <circle id="targetArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+  </group>
+  <group id="hostParent" rotate="20">
+    <group id="local" x="0" y="0" rotate="5">
+      <copy-rotation from="target" from-space="local" to-space="local" offset="true" factor="-2" min="-45" max="0"/>
+      <circle id="localArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="world" x="0" y="0">
+      <copy-rotation from="target" max="50"/>
+      <circle id="worldArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="limitLocal" x="0" y="0">
+      <copy-rotation from="target" limit-space="local" min="-10" max="10"/>
+      <circle id="limitLocalArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+  </group>
+
+  <timeline name="go" duration="1">
+    <track target="target.rotate">
+      0  10
+      1  30
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

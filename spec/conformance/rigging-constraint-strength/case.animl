@@ -1,0 +1,28 @@
+<anima version="0.1" name="rigging-constraint-strength" grid="20" requires="rig bind">
+  <number name="mix" default="0"/>
+
+  <group id="animated" x="2" y="4">
+    <copy-position strength="0" from="target"/>
+    <circle id="animatedArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+  </group>
+  <group id="bound" x="2" y="4">
+    <copy-position strength="0" from="target"/>
+    <circle id="boundArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+  </group>
+  <group id="target" x="10" y="8">
+    <circle id="targetArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+  </group>
+
+  <timeline name="go" duration="1">
+    <track target="animated.constraints.0.strength">
+      0  0
+      1  1
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+
+  <bind target="bound.constraints.0.strength" value="mix"/>
+</anima>

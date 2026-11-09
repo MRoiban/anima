@@ -43,7 +43,8 @@ export function checkDoc(value: unknown, d: Diags): boolean {
   return d.list.length === before;
 }
 
-function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
+// seam(P8-1): optional modules reuse strict field validation after discriminating their forms.
+export function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
   if (depth > MAX_DEPTH) return d.err('limit-exceeded', p, V && 'nesting is too deep');
   if (s.feature && !s.feature.split('|').some((f) => d.features?.includes(f)))
     d.err(

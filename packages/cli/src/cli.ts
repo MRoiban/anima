@@ -1250,6 +1250,9 @@ function lookupTopic(topic: string | undefined, topics: string[], command: strin
 
 function schemaTopic(topic: string | undefined) {
   if (!topic) return topic;
+  // seam(P8-1): JSON discriminators are aliases for their structural AniML schema topics.
+  const form = Object.entries(ELEMENTS).find(([, f]) => f.values?.kind === topic);
+  if (form) topic = form[0];
   const [head, ...tail] = topic.split('.');
   const topics = [
     ...new Set([

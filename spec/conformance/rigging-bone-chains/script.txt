@@ -1,0 +1,6 @@
+advance 0
+snapshot upper.world.x upper.world.y fore.world.x fore.world.y hand.world.x hand.world.y upper.tip.x upper.tip.y fore.tip.x fore.tip.y fore.world.rotate
+advance 0.5
+snapshot upper.world.x upper.world.y fore.world.x fore.world.y hand.world.x hand.world.y upper.tip.x upper.tip.y fore.tip.x fore.tip.y fore.world.rotate
+advance 0.5
+snapshot upper.world.x upper.world.y fore.world.x fore.world.y hand.world.x hand.world.y upper.tip.x upper.tip.y fore.tip.x fore.tip.y fore.world.rotate

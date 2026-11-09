@@ -1,0 +1,6 @@
+advance 0
+snapshot ab.world.x ab.world.y ba.world.x ba.world.y
+advance 0.5
+snapshot ab.world.x ab.world.y ba.world.x ba.world.y
+advance 0.5
+snapshot ab.world.x ab.world.y ba.world.x ba.world.y

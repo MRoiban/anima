@@ -1,0 +1,6 @@
+advance 0
+snapshot free.world.x free.world.y local.world.x local.world.y world.world.x world.world.y limited.world.x limited.world.y parentCopy.world.x parentCopy.world.y identityCopy.world.x identityCopy.world.y offsetCopy.world.x offsetCopy.world.y
+advance 0.5
+snapshot free.world.x free.world.y local.world.x local.world.y world.world.x world.world.y limited.world.x limited.world.y parentCopy.world.x parentCopy.world.y identityCopy.world.x identityCopy.world.y offsetCopy.world.x offsetCopy.world.y
+advance 0.5
+snapshot free.world.x free.world.y local.world.x local.world.y world.world.x world.world.y limited.world.x limited.world.y parentCopy.world.x parentCopy.world.y identityCopy.world.x identityCopy.world.y offsetCopy.world.x offsetCopy.world.y

@@ -1,0 +1,16 @@
+<anima version="0.1" name="rigging-transform" grid="20" requires="rig">
+  <group id="target" x="10" y="10"/>
+  <group id="host" x="2" y="4">
+    <copy-transform from="target"/>
+    <rect id="hostArt" x0="1" y0="0" width="2" height="1" fill="#d97757"/>
+  </group>
+  <timeline name="go" duration="1">
+    <track target="target.rotate">
+      0  0
+      1  90
+    </track>
+  </timeline>
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>
