@@ -8911,7 +8911,7 @@
   "capability": "Inverse kinematics",
   "construct": "TODO: modules/ik/capabilities/rigging-ik/registry.ts; spec/SPEC.md (Inverse kinematics); modules/ik/capabilities/rigging-ik/example.animl",
   "module": "rig",
-  "status": "planned",
+  "status": "done",
   "test": "TODO: modules/ik/test/core/rigging-ik.test.ts; spec/conformance/rigging-ik; tests/oracle/rigging-ik",
   "phase": "P8"
  },
@@ -8921,7 +8921,7 @@
   "capability": "IK bend direction",
   "construct": "TODO: modules/ik/capabilities/rigging-ik-bend/registry.ts; spec/SPEC.md (IK bend direction); modules/ik/capabilities/rigging-ik-bend/example.animl",
   "module": "rig",
-  "status": "planned",
+  "status": "done",
   "test": "TODO: modules/ik/test/core/rigging-ik-bend.test.ts; spec/conformance/rigging-ik-bend; tests/oracle/rigging-ik-bend",
   "phase": "P8"
  },

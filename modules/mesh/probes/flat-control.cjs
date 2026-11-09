@@ -1,3 +1,5 @@
+/* global require, console */
+/* eslint-disable @typescript-eslint/no-require-imports -- standalone Node probe scripts (CommonJS) */
 // The static meshes are both affine rectangles. Render the same image without
 // triangle clipping to isolate the effect of per-triangle rasterization.
 const { Resvg } = require('@resvg/resvg-js');

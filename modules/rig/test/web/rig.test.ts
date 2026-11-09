@@ -13,7 +13,9 @@ const cases = globSync('spec/conformance/rigging-*/case.ani')
     name: file.split('/')[2]!,
     doc: JSON.parse(readFileSync(file, 'utf8')),
     script: readFileSync(file.replace('case.ani', 'script.txt'), 'utf8'),
-  }));
+  }))
+  // Rig cases only: `rigging-mesh*` belong to the mesh module and load image assets by URL.
+  .filter((c) => c.doc.requires?.includes('rig'));
 let harness: Promise<string> | undefined;
 let separate: Promise<string[]> | undefined;
 for (const [name, engine, relative] of [

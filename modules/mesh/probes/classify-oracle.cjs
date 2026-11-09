@@ -1,3 +1,5 @@
+/* global require, console */
+/* eslint-disable @typescript-eslint/no-require-imports -- standalone Node probe scripts (CommonJS) */
 const { PNG } = require('pngjs');
 const fs = require('fs');
 function dist(p, a, b) {

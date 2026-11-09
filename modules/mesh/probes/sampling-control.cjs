@@ -1,3 +1,5 @@
+/* global require, console */
+/* eslint-disable @typescript-eslint/no-require-imports -- standalone Node probe scripts (CommonJS) */
 const fs = require('fs'),
   { PNG } = require('pngjs');
 const texture = PNG.sync.read(fs.readFileSync('modules/mesh/test/fixtures/flag.png'));

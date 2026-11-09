@@ -12897,5 +12897,61 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-ik",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 52,
+        "over": 89,
+        "overPercent": 0.1545138888888889,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 101,
+        "overPercent": 0.1753472222222222,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 42,
+        "over": 80,
+        "overPercent": 0.1388888888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-ik-bend",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 45,
+        "over": 127,
+        "overPercent": 0.2204861111111111,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 53,
+        "over": 124,
+        "overPercent": 0.2152777777777778,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 59,
+        "over": 126,
+        "overPercent": 0.21875,
+        "pass": true
+      }
+    ]
   }
 ]
