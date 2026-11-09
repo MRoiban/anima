@@ -1,4 +1,4 @@
-export const after = ['layout'];
+export const after = ['layout', 'rig'];
 export default {
   ...{
     name: 'posepad',
