@@ -1,0 +1,123 @@
+{
+  "anima": "0.1",
+  "name": "rigging-scroll",
+  "grid": 20,
+  "requires": ["rig", "input", "scroll", "bind"],
+  "inputs": {
+    "boundY": {
+      "type": "number",
+      "default": 4
+    }
+  },
+  "nodes": [
+    {
+      "id": "viewport",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": {
+        "color": "#e9ecef"
+      }
+    },
+    {
+      "id": "content",
+      "type": "group",
+      "children": [
+        {
+          "id": "body",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 10,
+          "h": 30,
+          "fill": {
+            "color": "#4263eb"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "scroll",
+          "viewport": "viewport",
+          "axis": "y",
+          "offsetY": 0,
+          "interactive": true
+        }
+      ]
+    },
+    {
+      "id": "track",
+      "type": "rect",
+      "x0": 12,
+      "y0": 0,
+      "w": 2,
+      "h": 12,
+      "fill": {
+        "color": "#ced4da"
+      }
+    },
+    {
+      "id": "thumb",
+      "type": "rect",
+      "x0": 12,
+      "y0": 0,
+      "w": 2,
+      "h": 2,
+      "fill": {
+        "color": "#343a40"
+      },
+      "constraints": [
+        {
+          "kind": "scrollThumb",
+          "scroll": "content",
+          "track": "track",
+          "axis": "y",
+          "resize": true
+        }
+      ]
+    },
+    {
+      "id": "boundViewport",
+      "type": "rect",
+      "x0": 20,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": {
+        "color": "#e9ecef"
+      }
+    },
+    {
+      "id": "boundContent",
+      "type": "group",
+      "x": 20,
+      "children": [
+        {
+          "id": "boundBody",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 10,
+          "h": 30,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "scroll",
+          "viewport": "boundViewport",
+          "axis": "y",
+          "offsetY": 0,
+          "interactive": true
+        }
+      ]
+    }
+  ],
+  "bind": {
+    "boundContent.constraints.0.offsetY": "boundY"
+  }
+}

@@ -1,4 +1,20 @@
-<!-- TODO: rigging.scroll; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-scroll" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-scroll" grid="20" requires="rig input scroll bind">
+  <number name="boundY" default="4"/>
+
+  <rect id="viewport" x0="0" y0="0" width="10" height="10" fill="#e9ecef"/>
+  <group id="content">
+    <scroll viewport="viewport" axis="y" offset-y="0" interactive="true"/>
+    <rect id="body" x0="0" y0="0" width="10" height="30" fill="#4263eb"/>
+  </group>
+  <rect id="track" x0="12" y0="0" width="2" height="12" fill="#ced4da"/>
+  <rect id="thumb" x0="12" y0="0" width="2" height="2" fill="#343a40">
+    <scroll-thumb scroll="content" track="track" axis="y" resize="true"/>
+  </rect>
+
+  <rect id="boundViewport" x0="20" y0="0" width="10" height="10" fill="#e9ecef"/>
+  <group id="boundContent" x="20">
+    <scroll viewport="boundViewport" axis="y" offset-y="0" interactive="true"/>
+    <rect id="boundBody" x0="0" y0="0" width="10" height="30" fill="#d97757"/>
+  </group>
+  <bind target="boundContent.constraints.0.offsetY" value="boundY"/>
 </anima>
