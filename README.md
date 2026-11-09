@@ -93,7 +93,7 @@ Optional features add more; [docs/FEATURES.md](docs/FEATURES.md) lists them all 
 
 Format version 0.1.
 
-- **Coverage:** 864 of the 886 in-scope capabilities are done (97.5 %), measured against Rive's
+- **Coverage:** 860 of the 886 in-scope capabilities are done (97 %), measured against Rive's
   runtime feature set ([`docs/parity/MATRIX.md`](docs/parity/MATRIX.md)).
 - **Phases:** P1–P7 are complete: core, CLI, web runtime, paint, motion, interaction, events, data,
   components, assets, text, layout and accessibility.
@@ -113,7 +113,7 @@ Owner ceilings, min+gzip, enforced in CI by `node tools/size.ts`:
 | Largest single scene, with its modules | 57.8 KB | 64 KB |
 | App-UI reference page (text, layout, data, accessibility…) | 108 KB | 128 KB |
 | All runtime modules | 136 KB | 160 KB |
-| Everything, Rive-class modules included | 157 KB | 250 KB |
+| Everything, Rive-class modules included | 156 KB | 250 KB |
 
 ## Documentation
 

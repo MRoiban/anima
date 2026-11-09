@@ -27,7 +27,7 @@ also works, so the hint's import is always valid.
 - **Entry** is the browser module you load: `anima-<entry>.js` in `packages/web/dist/`, or
   `--modules <entry>` for `anima bundle`. Entries in the same row are split for size; load the
   extra ones only when you use what they hold. An extra entry imports the one it builds on, so
-  loading `posepad-handle` also loads `posepad`.
+  loading `text-input-extra` also loads `text-input`.
 - **Budget** is the most the entry may add, min+gzip, enforced by `node tools/size.ts`. Real sizes
   are usually lower. *Heavy* entries are larger, Rive-class capabilities that stay out of the
   typical app-UI page.
@@ -72,7 +72,6 @@ What's included without any module:
 | `input` | Drag, keyboard, scroll, gamepad and capture listeners | `input` (7,104) |
 | `focus` | Focus targets, traversal order, scopes, pointer focus, focus/blur listeners | `focus` (3,456) |
 | `events` | Typed event payloads, URL events (opt-in), audio events, lifecycle events | `events` (3,264) |
-| `posepad` | Two-axis pose pads (joystick-style): two inputs pose two timelines; optional handle | `posepad` (768, heavy); `posepad-handle` (512, heavy) |
 
 ## Data
 
@@ -127,9 +126,9 @@ compile with `anima build` instead.
 
 ## In progress: rigging (P8)
 
-Bones, constraints, IK, skinning, meshes, path following and scroll constraints are being built as
-heavy modules (`rig`, `ik`, `skin`, `mesh`, `pathfollow`, `scroll`). `posepad` has landed. The design
-is in [`design/p8/DESIGN.md`](../design/p8/DESIGN.md).
+Bones, constraints, IK, skinning, meshes, pose pads, path following and scroll constraints are being
+built as heavy modules (`rig`, `ik`, `skin`, `mesh`, `posepad`, `pathfollow`, `scroll`) on the
+`p8-rigging` branch, which holds the design in `design/p8/DESIGN.md`.
 
 ## Size gates
 
@@ -142,4 +141,4 @@ The owner's ceilings (min+gzip), checked on every pull request by `node tools/si
 | The app-UI reference page (text, layout, data, a11y, …) | 128 KB | 108 KB |
 | All runtime modules together | 160 KB | 136 KB |
 | Authoring add-on | 16 KB | 15.0 KB |
-| Rive-class (everything, heavy modules included) | 250 KB | 157 KB |
+| Rive-class (everything, heavy modules included) | 250 KB | 156 KB |
