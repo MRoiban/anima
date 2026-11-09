@@ -1,12 +1,5 @@
 # Follow path constraint
 
-Pending scaffold for rigging.follow-path; no implementation or parity completion is claimed.
+Implemented by the `pathfollow` module through rig's `registerConstraint` seam. The normative contract is `spec/SPEC.md` `## pathfollow`; `rig-path-target` is covered in `modules/pathfollow/test/core/rigging-follow-path.test.ts`, and deterministic placement evidence is in `spec/conformance/rigging-follow-path/`.
 
-- TODO: spec/SPEC.md subsection, registry.ts entries and both spellings; compose entries into core.
-- TODO: diagnostics and invalid documents, deterministic conformance expectations.
-- TODO: replace example.animl and rebuild example.ani through the compiler.
-- TODO: CLI validate/schema/inspect/sample coverage, generated schema and measured manifest size budget.
-- TODO: independent oracle scene/frames; add to tests/oracle/cases.json only when complete.
-
-Remove todo.json only after completing the probe and its independently checked expected output.
-Follow spec/MODULES.md §5 and docs/research/rive-web-runtime.md comparison cautions.
+The combined example is `modules/pathfollow/examples/orbit.animl`.
