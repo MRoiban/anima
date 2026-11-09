@@ -162,6 +162,8 @@ function recover(root: Element): Obj {
         'copy-scale': 'copyScale',
         'copy-transform': 'copyTransform',
         'keep-distance': 'keepDistance',
+        // seam(P8-2): IK is a registered rig constraint child.
+        ik: 'ik',
       };
       if (rigKinds[child.name]) {
         const constraint: Obj = { kind: rigKinds[child.name] };
@@ -649,6 +651,8 @@ function check(source: string | object) {
       'copy-scale',
       'copy-transform',
       'keep-distance',
+      // seam(P8-2): canonical IK constraint child spelling.
+      'ik',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {
