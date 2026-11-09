@@ -1,1 +1,1 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+Native expressibility probe authored independently with the local Rive CLI 1.9.x. `ListFollowPathConstraint` is accepted by the RML compiler on a node with three rectangle children, but the captured frame leaves all three children overlapped at the origin rather than distributing them along the target path. This retained capture is evidence for the skip disposition; generated build output and binary files are not retained.

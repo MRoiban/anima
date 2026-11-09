@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "rigging.follow-path: implement the capability and independent expected evidence"
+  "reason": "Native follow-path reference captured and measured: frame 0 raw max delta 1, 0 pixels over 16 (0%); no >16 pixels to classify as edge or interior. P8 shared ownership requires the orchestrator to choose comparison limits and promote the case into tests/oracle/cases.json."
 }

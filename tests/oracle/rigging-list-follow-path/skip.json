@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The local Rive CLI accepts an independently authored ListFollowPathConstraint RML scene, but the headless capture leaves all three child rectangles overlapped at the origin instead of distributing them along the target path. The available local authoring surface therefore does not provide a faithful native list-follow-path counterpart for D19 spacing. Anima behavior is covered by direct-child and live repeat-item conformance/runtime tests.",
+  "tests": [
+    "modules/pathfollow/test/core/runtime.test.ts",
+    "spec/conformance/rigging-list-follow-path"
+  ],
+  "captureEvidence": [
+    "tests/oracle/rigging-list-follow-path/rive/scene.rml",
+    "tests/oracle/rigging-list-follow-path/rive/commands.txt",
+    "tests/oracle/rigging-list-follow-path/rive/session.txt",
+    "tests/oracle/rigging-list-follow-path/rive/frames/0.png"
+  ]
+}

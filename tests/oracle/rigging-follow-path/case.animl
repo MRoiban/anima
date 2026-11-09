@@ -1,4 +1,7 @@
-<!-- TODO: rigging.follow-path; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-follow-path" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-follow-path-oracle" grid="20" requires="rig pathfollow">
+  <path id="track" d="M4 10L16 10" opacity="0" stroke="#000"/>
+  <group id="marker">
+    <along-path path="track" at="0.25" orient="false"/>
+    <rect id="art" x0="-1" y0="-0.5" width="2" height="1" fill="#111827"/>
+  </group>
 </anima>

@@ -1,1 +1,1 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+Native reference authored independently with the local Rive CLI 1.9.x as a straight open path and one axis-aligned rectangle constrained at normalized distance 0.25 with orientation disabled. The path itself is unpainted. `commands.txt` captures the single static frame. Generated build output and binary files are not retained.
