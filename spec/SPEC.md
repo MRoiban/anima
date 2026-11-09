@@ -3646,7 +3646,9 @@ starts at `(x,y)` in its parent's moving grid coordinates, anchoring a new chain
 Per D38, a bone may be at document/component root level, or have a `group` or
 `bone` parent. Every other parent, including `layout`, `repeat`, `instance` and
 `text`, is `rig-bone-parent` at the bone's pointer, with hint
-"wrap the bones in a <group>". A group within layout can host a skeleton.
+"wrap the bones in a <group>". A group within layout can host a skeleton. A node that takes no
+children at all (a shape such as `circle` or `rect`) fails structurally first, with
+`unknown-key` at its `children`; the rig module adds nothing to core validation (D47).
 
 Per D39, zero rest `scale`, `scaleX` or `scaleY` on a bone or any ancestor is
 `bad-value` at the affected bone, with a hint to use nonzero rest scales. Animation may
