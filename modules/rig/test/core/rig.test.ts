@@ -190,6 +190,47 @@ describe('rig', () => {
     p.step(0);
     expect(pos(p, 'a')[0]).toBe(5);
   });
+  it('resolves the actual posepad overlay with a second solve in the same step', () => {
+    const p = player(
+      doc(
+        [
+          {
+            id: 'arm',
+            type: 'bone',
+            x: 2,
+            y: 5,
+            length: 4,
+            constraints: [{ kind: 'copyPosition', from: 'aim' }],
+          },
+          group('aim', { x: 6, y: 5 }),
+          { id: 'pad', type: 'posepad', timelineX: 'look', valueX: -1 },
+        ],
+        {
+          requires: ['rig', 'posepad', 'bind'],
+          inputs: { look: { type: 'number', default: -1 } },
+          bind: { 'pad.valueX': 'look' },
+          timelines: {
+            look: {
+              duration: 1,
+              tracks: {
+                'aim.x': [
+                  [0, 6],
+                  [1, 12],
+                ],
+              },
+            },
+          },
+        },
+      ),
+    );
+    const q = new Player(p.model);
+    p.set('look', 1);
+    p.step(0);
+    expect(pos(p, 'arm')).toEqual([12, 5]);
+    expect(p.values()['arm.tip.x']).toBe(16);
+    q.step(0);
+    expect(pos(q, 'arm')).toEqual([6, 5]);
+  });
   it('blends shortest arcs, mirrored scales and shear about a pivot', () => {
     const a = compose([4, 5, (170 * Math.PI) / 180, 2, -3, 1], [2, 3]),
       b = compose([10, 9, (-170 * Math.PI) / 180, 4, -1, 3], [2, 3]);

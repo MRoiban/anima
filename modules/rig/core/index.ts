@@ -73,10 +73,9 @@ export const rig: RigModule = {
         if (ctx)
           for (const [i, n] of this.model.nodes.entries()) {
             const v = decompose(ctx.world(i), pivot(this.model, i));
+            if (v[2] === Math.PI) v[2] = -Math.PI;
             ['x', 'y', 'rotate', 'scaleX', 'scaleY'].forEach(
-              (key, k) =>
-                (out[n.id + '.world.' + key] =
-                  k === 2 ? (((((v[k]! * 180) / Math.PI + 180) % 360) + 360) % 360) - 180 : v[k]!),
+              (key, k) => (out[n.id + '.world.' + key] = v[k]! * (k === 2 ? 180 / Math.PI : 1)),
             );
             if (bone(this.model, i)) {
               const tip = apply(ctx.world(i), this.num(i, 'length', 0), 0);
@@ -157,7 +156,7 @@ export const rig: RigModule = {
         );
       }
   },
-  resolve(model, d) {
+  load(model, _raw, d) {
     if (d.failed || !model.doc.requires?.includes('rig')) return;
     const edges = model.nodes.map(() => new Set<number>()),
       order: number[] = [];
@@ -192,10 +191,10 @@ export const rig: RigModule = {
           );
         if (bone(model, n.parent) && !n.raw.root)
           for (const key of ['x', 'y'])
-            if (n.raw[key] !== undefined)
+            if (n.raw[key] !== undefined || model.addrs.has(n.id + '.' + key))
               d.err(
                 'rig-bone-offset',
-                at + '/' + key,
+                n.raw[key] === undefined ? at : at + '/' + key,
                 V && 'a chained bone starts at its parent tip',
                 V && 'remove x/y or set root=true',
               );

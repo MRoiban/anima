@@ -57,6 +57,23 @@ describe('rig diagnostics', () => {
         load(document([group('a', { constraints: [raw] }), group('b')])).model,
       ).toBeUndefined();
   });
+  it('rejects animated and bound offsets on chained bones', () => {
+    const nodes = [bone('a', { children: [bone('b')] })];
+    for (const extra of [
+      { timelines: { go: { duration: 1, tracks: { 'b.x': [[0, 1]] } } } },
+      {
+        requires: ['rig', 'bind'],
+        inputs: { offset: { type: 'number', default: 1 } },
+        bind: { 'b.y': 'offset' },
+      },
+    ]) {
+      const r = load({ ...document(nodes), ...extra });
+      expect(r.model).toBeUndefined();
+      expect(r.diagnostics).toContainEqual(
+        expect.objectContaining({ code: 'rig-bone-offset', pointer: '/nodes/0/children/0' }),
+      );
+    }
+  });
   it('rejects out-of-range constraint addresses without throwing', () => {
     const raw = {
       ...document([group('a')]),
