@@ -1,0 +1,14 @@
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/0.png
+ok advance
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/0.5.png
+ok advance
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/1.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:14:35.193] rive  deferred replay: inline
+[23:14:35.198] rive  built (384 bytes, 4ms, 0 errors, 0 warnings)
+[23:14:35.198] rive  showing Oracle [1/1]
+[23:14:35.198] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:14:35.205] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/0.png
+[23:14:35.208] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/0.5.png
+[23:14:35.212] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-weights/rive/frames/1.png

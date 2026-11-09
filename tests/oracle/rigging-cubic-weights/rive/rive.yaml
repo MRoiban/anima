@@ -1,0 +1,4 @@
+name: oracle-rigging-cubic-weights
+logs:
+  file: build/rive.log
+  problems: build/problems.log

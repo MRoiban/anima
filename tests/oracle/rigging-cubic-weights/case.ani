@@ -1,0 +1,86 @@
+{
+  "anima": "0.1",
+  "name": "rigging-cubic-weights-oracle",
+  "grid": 20,
+  "requires": ["paint", "rig", "skin"],
+  "nodes": [
+    {
+      "id": "move",
+      "type": "bone",
+      "x": 10,
+      "y": 10,
+      "children": [],
+      "length": 4
+    },
+    {
+      "id": "rest",
+      "type": "bone",
+      "x": 10,
+      "y": 10,
+      "children": [],
+      "length": 4
+    },
+    {
+      "id": "quad",
+      "type": "path",
+      "d": "M8 8C9.3333333333 8 10.6666666667 8 12 8L12 12L8 12Z",
+      "fill": {
+        "color": "#d97757"
+      },
+      "skin": {
+        "bones": ["move", "rest"],
+        "weights": [
+          {
+            "point": {
+              "rest": 1
+            },
+            "out": {
+              "move": 1
+            }
+          },
+          {
+            "point": {
+              "rest": 1
+            },
+            "in": {
+              "rest": 1
+            }
+          },
+          {
+            "point": {
+              "rest": 1
+            }
+          },
+          {
+            "point": {
+              "rest": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "move.rotate": [
+          [0, 0],
+          [1, 90]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

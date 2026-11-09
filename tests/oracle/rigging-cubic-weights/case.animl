@@ -1,4 +1,17 @@
-<!-- TODO: rigging.cubic-weights; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="rigging-cubic-weights" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="rigging-cubic-weights-oracle" grid="20" requires="paint rig skin">
+  <bone id="move" length="4" x="10" y="10"/>
+  <bone id="rest" length="4" x="10" y="10"/>
+  <path id="quad" d="M8 8C9.3333333333 8 10.6666666667 8 12 8L12 12L8 12Z" fill="#d97757">
+    <skin bones="move rest"
+        weights="[{&quot;point&quot;:{&quot;rest&quot;:1},&quot;out&quot;:{&quot;move&quot;:1}},{&quot;point&quot;:{&quot;rest&quot;:1},&quot;in&quot;:{&quot;rest&quot;:1}},{&quot;point&quot;:{&quot;rest&quot;:1}},{&quot;point&quot;:{&quot;rest&quot;:1}}]"/>
+  </path>
+  <timeline name="go" duration="1">
+    <track target="move.rotate">
+      0  0
+      1  90
+    </track>
+  </timeline>
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
 </anima>
