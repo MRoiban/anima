@@ -27,6 +27,14 @@ const broken: [string, object[], string][] = [
   ['rig-bone-pivot', [bone('a', { pivot: [0, 0] })], '/nodes/0/pivot'],
 ];
 describe('rig diagnostics', () => {
+  it('leaves a bone under a leaf shape to structural validation (D47)', () => {
+    const result = load(
+      document([{ id: 'a', type: 'circle', cx: 0, cy: 0, r: 1, children: [bone('b')] }]),
+    );
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'unknown-key', pointer: '/nodes/0/children' }),
+    );
+  });
   it('rejects zero rest scales on bones and their ancestors (D39)', () => {
     for (const nodes of [
       [bone('a', { scaleX: 0 })],
