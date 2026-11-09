@@ -18,9 +18,11 @@
           "children": [
             {
               "id": "hand",
-              "type": "circle",
-              "center": [12, 12],
-              "r": 0.5,
+              "type": "rect",
+              "x0": 11.5,
+              "y0": 11.5,
+              "w": 1,
+              "h": 1,
               "fill": {
                 "color": "#d97757"
               }

@@ -2,172 +2,172 @@
   {
     "name": "rigging-bone-chains",
     "time": 0,
-    "max": 53,
-    "over": 22,
+    "max": 1,
+    "over": 0,
     "pixels": 57600,
-    "percent": 0.03819444444444445
+    "percent": 0
   },
   {
     "name": "rigging-bone-chains",
     "time": 0.5,
-    "max": 53,
-    "over": 25,
+    "max": 52,
+    "over": 17,
     "pixels": 57600,
-    "percent": 0.043402777777777776
+    "percent": 0.029513888888888888
   },
   {
     "name": "rigging-bone-chains",
     "time": 1,
-    "max": 53,
+    "max": 42,
+    "over": 23,
+    "pixels": 57600,
+    "percent": 0.03993055555555555
+  },
+  {
+    "name": "rigging-constraint-order",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-constraint-order",
+    "time": 0.5,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-constraint-order",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "time": 0.5,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-closer",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-closer",
+    "time": 0.5,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-closer",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-exact",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-exact",
+    "time": 0.5,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-exact",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-further",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-further",
+    "time": 0.5,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-distance-further",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-root-bones",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "pixels": 57600,
+    "percent": 0
+  },
+  {
+    "name": "rigging-root-bones",
+    "time": 0.5,
+    "max": 32,
     "over": 20,
     "pixels": 57600,
     "percent": 0.034722222222222224
   },
   {
-    "name": "rigging-constraint-order",
-    "time": 0,
-    "max": 53,
-    "over": 44,
-    "pixels": 57600,
-    "percent": 0.0763888888888889
-  },
-  {
-    "name": "rigging-constraint-order",
-    "time": 0.5,
-    "max": 53,
-    "over": 44,
-    "pixels": 57600,
-    "percent": 0.0763888888888889
-  },
-  {
-    "name": "rigging-constraint-order",
-    "time": 1,
-    "max": 53,
-    "over": 44,
-    "pixels": 57600,
-    "percent": 0.0763888888888889
-  },
-  {
-    "name": "rigging-constraint-strength",
-    "time": 0,
-    "max": 53,
-    "over": 22,
-    "pixels": 57600,
-    "percent": 0.03819444444444445
-  },
-  {
-    "name": "rigging-constraint-strength",
-    "time": 0.5,
-    "max": 53,
-    "over": 22,
-    "pixels": 57600,
-    "percent": 0.03819444444444445
-  },
-  {
-    "name": "rigging-constraint-strength",
-    "time": 1,
-    "max": 53,
-    "over": 22,
-    "pixels": 57600,
-    "percent": 0.03819444444444445
-  },
-  {
-    "name": "rigging-distance-closer",
-    "time": 0,
-    "max": 78,
-    "over": 54,
-    "pixels": 57600,
-    "percent": 0.09375
-  },
-  {
-    "name": "rigging-distance-closer",
-    "time": 0.5,
-    "max": 78,
-    "over": 54,
-    "pixels": 57600,
-    "percent": 0.09375
-  },
-  {
-    "name": "rigging-distance-closer",
-    "time": 1,
-    "max": 53,
-    "over": 66,
-    "pixels": 57600,
-    "percent": 0.11458333333333333
-  },
-  {
-    "name": "rigging-distance-exact",
-    "time": 0,
-    "max": 96,
-    "over": 32,
-    "pixels": 57600,
-    "percent": 0.05555555555555555
-  },
-  {
-    "name": "rigging-distance-exact",
-    "time": 0.5,
-    "max": 96,
-    "over": 32,
-    "pixels": 57600,
-    "percent": 0.05555555555555555
-  },
-  {
-    "name": "rigging-distance-exact",
-    "time": 1,
-    "max": 96,
-    "over": 32,
-    "pixels": 57600,
-    "percent": 0.05555555555555555
-  },
-  {
-    "name": "rigging-distance-further",
-    "time": 0,
-    "max": 53,
-    "over": 66,
-    "pixels": 57600,
-    "percent": 0.11458333333333333
-  },
-  {
-    "name": "rigging-distance-further",
-    "time": 0.5,
-    "max": 78,
-    "over": 54,
-    "pixels": 57600,
-    "percent": 0.09375
-  },
-  {
-    "name": "rigging-distance-further",
-    "time": 1,
-    "max": 78,
-    "over": 54,
-    "pixels": 57600,
-    "percent": 0.09375
-  },
-  {
     "name": "rigging-root-bones",
-    "time": 0,
-    "max": 53,
-    "over": 22,
-    "pixels": 57600,
-    "percent": 0.03819444444444445
-  },
-  {
-    "name": "rigging-root-bones",
-    "time": 0.5,
-    "max": 74,
+    "time": 1,
+    "max": 43,
     "over": 25,
     "pixels": 57600,
     "percent": 0.043402777777777776
   },
   {
-    "name": "rigging-root-bones",
-    "time": 1,
-    "max": 62,
-    "over": 18,
-    "pixels": 57600,
-    "percent": 0.03125
-  },
-  {
     "name": "rigging-rotation",
     "time": 0,
     "max": 1,
@@ -242,25 +242,25 @@
   {
     "name": "rigging-translation",
     "time": 0,
-    "max": 53,
-    "over": 22,
+    "max": 1,
+    "over": 0,
     "pixels": 57600,
-    "percent": 0.03819444444444445
+    "percent": 0
   },
   {
     "name": "rigging-translation",
     "time": 0.5,
-    "max": 53,
-    "over": 22,
+    "max": 1,
+    "over": 0,
     "pixels": 57600,
-    "percent": 0.03819444444444445
+    "percent": 0
   },
   {
     "name": "rigging-translation",
     "time": 1,
-    "max": 53,
-    "over": 22,
+    "max": 1,
+    "over": 0,
     "pixels": 57600,
-    "percent": 0.03819444444444445
+    "percent": 0
   }
 ]

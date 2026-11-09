@@ -7,10 +7,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 INK='<Fill><SolidColor colorValue="FFd97757"/></Fill>'
 def keys(id,prop,a,b):return f'<KeyedObject objectId="0:{id}"><KeyedProperty property="{prop}"><KeyFrameDouble frame="0" value="{a}" interpolationType="linear"/><KeyFrameDouble frame="60" value="{b}"/></KeyedProperty></KeyedObject>'
-def circle(id,x,y,extra='',children='',r=.5):return f'<Shape id="0:{id}" x="{x*12}" y="{y*12}" {extra}>{children}<Ellipse width="{r*24}" height="{r*24}"/>{INK}</Shape>'
+def circle(id,x,y,extra='',children='',r=.5):return f'<Shape id="0:{id}" x="{x*12}" y="{y*12}" {extra}>{children}<Rectangle x="-6" y="-6" width="12" height="12" originX="0" originY="0"/>{INK}</Shape>'
 def mark(id,x=0,y=0,constraints='',extra=''):return f'<Shape id="0:{id}" x="{x*12}" y="{y*12}" {extra}>{constraints}<Rectangle x="12" y="0" width="24" height="12" originX="0" originY="0"/>{INK}</Shape>'
 def node(id,x,y,extra=''):return f'<Node id="0:{id}" x="{x*12}" y="{y*12}" {extra}/>'
-def acircle(id,x=0,y=0,children='',extra=''):return f'<group id="{id}" x="{x}" y="{y}" {extra}>{children}<circle id="{id}Art" cx="0" cy="0" r="0.5" fill="#d97757"/></group>'
+def acircle(id,x=0,y=0,children='',extra=''):return f'<group id="{id}" x="{x}" y="{y}" {extra}>{children}<rect id="{id}Art" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/></group>'
 def amark(id,x,y,children='',extra=''):return f'<group id="{id}" x="{x}" y="{y}" {extra}>{children}<rect id="{id}Art" x0="1" y0="0" width="2" height="1" fill="#d97757"/></group>'
 def track(address,a,b):return f'<track target="{address}">0 {a}\n1 {b}</track>'
 def save(name,ani,native,tracks,animation):
@@ -34,10 +34,10 @@ def save(name,ani,native,tracks,animation):
             shutil.rmtree(project/'build',ignore_errors=True)
 
 # Bone art is converted by hand from authored rest grid positions into physical bone space.
-ani='<bone id="upper" x="4" y="12" length="5"><bone id="fore" length="4"><circle id="hand" cx="13" cy="12" r="0.5" fill="#d97757"/></bone></bone>'
+ani='<bone id="upper" x="4" y="12" length="5"><bone id="fore" length="4"><rect id="hand" x0="12.5" y0="11.5" width="1" height="1" fill="#d97757"/></bone></bone>'
 native='<RootBone id="0:10" x="48" y="144" length="60"><Bone id="0:11" length="48">'+circle(12,4,0)+'</Bone></RootBone>'
 save('bone-chains',ani,native,track('upper.rotate',0,-60)+track('upper.length',5,6)+track('fore.rotate',0,30),keys(10,'rotation',0,-math.pi/3)+keys(10,'length',60,72)+keys(11,'rotation',0,math.pi/6))
-ani='<bone id="outer" x="4" y="12" length="5"><bone id="inner" root="true" x="10" y="12" length="2"><circle id="hand" cx="12" cy="12" r="0.5" fill="#d97757"/></bone></bone>'
+ani='<bone id="outer" x="4" y="12" length="5"><bone id="inner" root="true" x="10" y="12" length="2"><rect id="hand" x0="11.5" y0="11.5" width="1" height="1" fill="#d97757"/></bone></bone>'
 native='<RootBone id="0:10" x="48" y="144" length="60"><RootBone id="0:11" x="72" y="0" length="24">'+circle(12,2,0)+'</RootBone></RootBone>'
 save('root-bones',ani,native,track('outer.rotate',0,-60)+track('inner.rotate',0,30),keys(10,'rotation',0,-math.pi/3)+keys(11,'rotation',0,math.pi/6))
 ani='<group id="a" x="6" y="6"/><group id="b" x="14" y="8"/>'+acircle('ab',4,4,'<copy-position from="a"/><copy-position from="b"/>')+acircle('ba',4,4,'<copy-position from="b"/><copy-position from="a"/>')

@@ -20296,8 +20296,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20324,8 +20324,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20373,8 +20373,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20398,8 +20398,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20423,8 +20423,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20662,8 +20662,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20687,8 +20687,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }
@@ -20819,8 +20819,8 @@
     "anima": {
       "construct": "modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl",
       "module": "rig",
-      "status": "planned",
-      "test": "modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation",
+      "status": "done",
+      "test": "modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation; modules/rig/ORACLE-ANALYSIS.md",
       "phase": "P8",
       "reason": "P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending."
     }

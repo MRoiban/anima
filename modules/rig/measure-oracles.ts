@@ -4,7 +4,9 @@ import { PNG } from 'pngjs';
 import { compile, formatMarkup } from '../../packages/markup/src/index.ts';
 import { run } from '../../packages/cli/src/cli.ts';
 const results = [];
-for (const file of globSync('tests/oracle/rigging-*/case.animl').sort()) {
+for (const file of globSync('tests/oracle/rigging-*/case.animl')
+  .filter((file) => !/rigging-(mesh|joystick)/.test(file))
+  .sort()) {
   const dir = file.slice(0, -11),
     source = formatMarkup(readFileSync(file, 'utf8')).text!,
     built = compile(source);

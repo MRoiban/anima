@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 | 3 |  | 19 |  | 1 |  |
+| Rigging | 23 | 11 |  | 11 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **866** | **0** | **20** | **0** | **188** | **164** |
+| **Total** | **1238** | **874** | **0** | **12** | **0** | **188** | **164** |
 
-**Progress:** 866 of 886 in-scope capabilities done (98 %); 866 of 1238 in the full matrix (70 %).
+**Progress:** 874 of 886 in-scope capabilities done (99 %); 874 of 1238 in the full matrix (71 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1316,12 +1316,12 @@ scope by the owner's triage of 2026-11-07).
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
 | `rigging.bone-chains` | Bone chains | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
-| `rigging.constraint-order` | Ordered constraint composition | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
-| `rigging.constraint-strength` | Constraint influence | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.constraint-order` | Ordered constraint composition | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.constraint-strength` | Constraint influence | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.cubic-weights` | Independent handle weights | new: independent handle weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-cubic-weights |  |
-| `rigging.distance-closer` | Distance constraint: closer | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
-| `rigging.distance-exact` | Distance constraint: exact | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
-| `rigging.distance-further` | Distance constraint: further | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.distance-closer` | Distance constraint: closer | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.distance-exact` | Distance constraint: exact | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.distance-further` | Distance constraint: further | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.follow-path` | Follow path constraint | new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-follow-path |  |
 | `rigging.ik` | Inverse kinematics | TODO: modules/ik/capabilities/rigging-ik/registry.ts; spec/SPEC.md (Inverse kinematics); modules/ik/capabilities/rigging-ik/example.animl | rig | planned | TODO: modules/ik/test/core/rigging-ik.test.ts; spec/conformance/rigging-ik; tests/oracle/rigging-ik |  |
 | `rigging.ik-bend` | IK bend direction | TODO: modules/ik/capabilities/rigging-ik-bend/registry.ts; spec/SPEC.md (IK bend direction); modules/ik/capabilities/rigging-ik-bend/example.animl | rig | planned | TODO: modules/ik/test/core/rigging-ik-bend.test.ts; spec/conformance/rigging-ik-bend; tests/oracle/rigging-ik-bend |  |
@@ -1330,12 +1330,12 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh; modules/mesh/ORACLE-ANALYSIS.md |  |
 | `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation; modules/mesh/ORACLE-ANALYSIS.md |  |
 | `rigging.root-bones` | Root bones | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
-| `rigging.rotation` | Rotation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
-| `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.rotation` | Rotation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.scroll` | Scroll rig constraint | new: scroll rig constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-scroll |  |
 | `rigging.skin` | Bind-pose skinning | new: bind-pose skinning with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-skin |  |
 | `rigging.transform` | Transform constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Tuple origin binding and AniML animation, and group/other target bounds for origin, remain incomplete. |
-| `rigging.translation` | Translation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.translation` | Translation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.weights` | Vertex bone weights | new: vertex bone weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-weights |  |
 
 ### Accessibility

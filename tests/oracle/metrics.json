@@ -12589,5 +12589,313 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-constraint-order",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-closer",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-exact",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-further",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-scale",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-translation",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-bone-chains",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 52,
+        "over": 17,
+        "overPercent": 0.029513888888888888,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 42,
+        "over": 23,
+        "overPercent": 0.03993055555555555,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-root-bones",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 32,
+        "over": 20,
+        "overPercent": 0.034722222222222224,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 43,
+        "over": 25,
+        "overPercent": 0.043402777777777776,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-rotation",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-transform",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]
