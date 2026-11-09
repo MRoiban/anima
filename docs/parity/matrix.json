@@ -8943,20 +8943,20 @@
   "id": "rigging.mesh",
   "category": "rigging",
   "capability": "Textured triangle meshes",
-  "construct": "new: textured triangle meshes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-  "module": "rig",
+  "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
+  "module": "mesh",
   "status": "planned",
-  "test": "oracle/rigging-mesh",
+  "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh",
   "phase": "P8"
  },
  {
   "id": "rigging.mesh-animation",
   "category": "rigging",
   "capability": "Mesh vertex deformation",
-  "construct": "new: mesh vertex deformation with readable named properties; lengths in grid units, time in seconds and angles in degrees",
-  "module": "rig",
+  "construct": "image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples",
+  "module": "mesh",
   "status": "planned",
-  "test": "oracle/rigging-mesh-animation",
+  "test": "modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation",
   "phase": "P8"
  },
  {

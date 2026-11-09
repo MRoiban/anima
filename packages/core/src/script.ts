@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import { installRandom } from './random.ts';
 import { captureStep } from './script-events.ts';
 import { occurrence, eventSource, type CapturedEvent } from './event-capture.ts';
@@ -15,7 +16,7 @@ import { type AnimaEvent, Player } from './player.ts';
 
 export interface Snapshot {
   time: number;
-  values: Record<string, number | boolean | string>;
+  values: Record<string, number | boolean | string | [number, number]>;
   states: Record<string, string>;
   events: AnimaEvent[];
   settled: boolean;
@@ -270,7 +271,7 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
       watched.set(path, stamp);
     }
   };
-  const allValues = (player = p): Record<string, number | string | boolean> => {
+  const allValues = (player = p): Record<string, number | string | boolean | [number, number]> => {
     const source = player.model;
     const values = player.values();
     for (const node of source.nodes) {
@@ -287,14 +288,15 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
         const resolved = resolveAddress(address, source.nodes, source.ids);
         if (!Array.isArray(resolved)) {
           const v = resolved.rest;
-          if (v !== undefined) values[address] = Array.isArray(v) ? formatHex(v) : v;
+          if (v !== undefined)
+            values[address] = Array.isArray(v) && v.length === 4 ? formatHex(v) : v;
         }
       }
     }
     for (const [name, input] of source.inputs) {
       if (input.type === 'trigger') continue;
       const v = player.get(name);
-      if (v !== undefined) values[name] = Array.isArray(v) ? formatHex(v) : v;
+      if (v !== undefined) values[name] = Array.isArray(v) && v.length === 4 ? formatHex(v) : v;
     }
     const children = (player.nested as { players?: Map<string, Player> } | undefined)?.players;
     for (const [id, child] of children ?? [])
@@ -742,9 +744,10 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
                       `"${a}" is not an animated address or a bool/number input`,
                       line,
                     );
-                  pick[canonical] = Array.isArray(v)
-                    ? formatHex(v as [number, number, number, number])
-                    : (v as number | boolean | string);
+                  pick[canonical] =
+                    Array.isArray(v) && v.length === 4
+                      ? formatHex(v as [number, number, number, number])
+                      : (v as number | boolean | string | [number, number]);
                 }
                 values = pick;
               }

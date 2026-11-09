@@ -1,0 +1,112 @@
+
+> test:scope
+> node tools/test-scope.ts mesh canvas conformance oracle --browser=chromium
+
+Scopes: mesh, canvas, conformance, oracle
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/mesh/test/core/mesh.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/canvas/test/web/p4-review.test.ts
+  browser: modules/mesh/test/web/mesh.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+stdout | modules/canvas/test/web/canvas.test.ts > Chromium canvas > measures canvas step + draw in a real browser
+Chromium svg bell: 2015.2 µs/frame (step + draw, 600 frames, median of 3)
+
+ ❯ |scope-browser| modules/canvas/test/web/canvas.test.ts (2592 tests | 12 failed | 1296 skipped) 577467ms
+   ❯ Chromium canvas (1296)
+     × spec/conformance/rigging-mesh-animation/case.ani#0 49ms
+     × spec/conformance/rigging-mesh-animation/case.ani#1 2ms
+     × spec/conformance/rigging-mesh-animation/case.ani#2 2ms
+     × spec/conformance/rigging-mesh-animation/case.ani#3 25ms
+     × spec/conformance/rigging-mesh/case.ani#0 6ms
+     × spec/conformance/a11y-manual-tabs/case.ani#0 22729ms
+     × spec/conformance/a11y-bf4-radio/case.ani#0 15211ms
+     × component-paint/gradient 15015ms
+     × component-paint/nested 15004ms
+     × component-paint/opacity 7515ms
+     × measures svg step + draw in a real browser 5005ms
+     × measures canvas step + draw in a real browser 5029ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/rigging-mesh-animation/case.ani#0
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/rigging-mesh-animation/case.ani#1
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/rigging-mesh-animation/case.ani#2
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/rigging-mesh-animation/case.ani#3
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/rigging-mesh/case.ani#0
+AssertionError: expected function to throw an error, but it didn't
+ ❯ modules/canvas/test/web/canvas.test.ts:316:36
+    314|           if (c.svgUnsupported) {
+    315|             const p = new Player(load(c.doc).model!);
+    316|             expect(() => toSVG(p)).toThrowError(
+       |                                    ^
+    317|               expect.objectContaining({
+    318|                 code: 'unsupported-render',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/a11y-manual-tabs/case.ani#0
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/a11y-bf4-radio/case.ani#0
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > component-paint/gradient
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > component-paint/nested
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/canvas/test/web/canvas.test.ts:311:7
+    309|     });
+    310|     for (const c of cases)
+    311|       it(
+       |       ^
+    312|         c.name,
+    313|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > component-paint/opacity
+Error: locator.screenshot: Element is not attached to the DOM
+Call log:
+[2m  - taking element screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+[2m  - attempting scroll into view action[22m
+[2m    - waiting for element to be stable[22m
+
+ ❯ modules/canvas/test/web/canvas.test.ts:405:20
+    403|                   .locator(backend === 'svg' ? 'svg' : 'canvas')
+    404|                   .first()
+    405|                   .screenshot(),
+       |                    ^
+    406|               ),
+    407|             );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > measures svg step + draw in a real browser
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > measures canvas step + draw in a real browser
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/canvas/test/web/canvas.test.ts:728:31
+    726|       ).toEqual([255, 0, 0, 128]);
+    727|     });
+    728|     it.each(['svg', 'canvas'])('measures %s step + draw in a real brow…
+       |                               ^
+    729|       await page.evaluate(({ doc, backend }) => window.canvasTest.moun…
+    730|         doc: JSON.parse(readFileSync('examples/bell.ani', 'utf8')),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  12 failed | 3816 passed | 1306 skipped | 24 todo (5158)
+   Start at  12:52:39
+   Duration  606.64s (tests 84%, import 9%, transform 7%)

@@ -1,7 +1,9 @@
 import { compareRGBA } from './compare-png.ts';
 // `anima render`: single frames and labelled contact sheets, as SVG or PNG.
 
-import { type Paint, type Player, staticSlots, toSVG } from '@anima-format/core';
+import { type Paint, type Player, staticSlots } from '@anima-format/core';
+// seam(P8-5): tooling-only mesh serializer; browser SVG remains undeformed.
+import { toSVG } from '../../../modules/mesh/core/static.ts';
 import { Resvg } from '@resvg/resvg-js';
 
 export interface Look {
@@ -19,6 +21,7 @@ export const LIGHT: Look = { paint: staticSlots(), color: '#141413' };
 export function frameSVG(p: Player, look: Look, size?: number, id = 'a'): string {
   const svg = toSVG(p, {
     staticLengths: true,
+    meshTriangles: true,
     paint: look.paint,
     background: look.background,
     width: size,

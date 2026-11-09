@@ -1,0 +1,62 @@
+
+> test:scope
+> node tools/test-scope.ts mesh canvas conformance oracle --browser=chromium
+
+Scopes: mesh, canvas, conformance, oracle
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/mesh/test/core/mesh.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/canvas/test/web/p4-review.test.ts
+  browser: modules/mesh/test/web/mesh.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |scope-browser| modules/canvas/test/web/canvas.test.ts (2640 tests | 1 failed | 1320 skipped) 282893ms
+   ❯ Chromium canvas (1320)
+     × spec/conformance/a11y-tree-bounds-feather/case.ani#0 245ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/a11y-tree-bounds-feather/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-feather/case.ani#0","max":247,"over":691,"percent":1.1996527777777777,"tolerance":{"max":128,"percent":0.5,"feature":"feather"},"diagnostics":[{"code":"unsupported-render","severity":"error","pointer":"/nodes/0/fill","message":"Canvas2D cannot render nonuniform local feather","hint":"use the SVG renderer or remove this feature"}]}: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unsupported-render",
++     "hint": "use the SVG renderer or remove this feature",
++     "message": "Canvas2D cannot render nonuniform local feather",
++     "pointer": "/nodes/0/fill",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/canvas/test/web/canvas.test.ts:462:55
+    460|               writeFileSync(prefix + '-' + suffix + '.png', PNG.sync.w…
+    461|           }
+    462|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+       |                                                       ^
+    463|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+    464|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 14 passed (15)
+      Tests  1 failed | 5860 passed | 1330 skipped | 25 todo (7216)
+   Start at  18:44:37
+   Duration  288.55s (tests 94%, import 5%)

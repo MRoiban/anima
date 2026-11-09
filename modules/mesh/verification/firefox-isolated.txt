@@ -1,0 +1,38 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |browser| modules/mesh/test/web/mesh.test.ts (12 tests | 12 skipped) 62037ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/mesh/test/web/mesh.test.ts > firefox
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/mesh/test/web/mesh.test.ts:37:5
+     35|   describe(name, () => {
+     36|     let browser: Browser, source: string, reversed: string;
+     37|     beforeAll(async () => {
+       |     ^
+     38|       browser = await engine.launch({ headless: true, executablePath: …
+     39|       [source, reversed] = await Promise.all([
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |browser| modules/mesh/test/web/mesh.test.ts > firefox
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/mesh/test/web/mesh.test.ts:52:5
+     50|       ]);
+     51|     }, 30000);
+     52|     afterAll(async () => {
+       |     ^
+     53|       await browser?.close();
+     54|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 skipped (12)
+   Start at  13:00:24
+   Duration  87.56s (tests 73%, transform 21%, import 7%)

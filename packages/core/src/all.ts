@@ -13,6 +13,8 @@ import { focusSVG } from '../../../modules/focus/core/svg.ts';
 import { input } from '../../../modules/input/core/index.ts';
 import { inputSVG } from '../../../modules/input/core/svg.ts';
 import { media } from '../../../modules/media/core/index.ts';
+import { mesh } from '../../../modules/mesh/core/index.ts';
+import { meshSVG } from '../../../modules/mesh/core/svg.ts';
 import { motion } from '../../../modules/motion/core/index.ts';
 import { motionSVG } from '../../../modules/motion/core/svg.ts';
 import { events } from '../../../modules/events/core/index.ts';
@@ -71,6 +73,8 @@ if (VERBOSE) {
   registerModule(input);
   registerSVGBackend('input', inputSVG);
   registerModule(media);
+  registerModule(mesh);
+  registerSVGBackend('mesh', meshSVG);
   registerModule(motion);
   registerSVGBackend('motion', motionSVG);
   registerModule(events);

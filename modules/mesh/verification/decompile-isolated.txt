@@ -1,0 +1,29 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |unit| packages/markup/test/decompile.test.ts (1869 tests | 1 failed | 1868 skipped) 32ms
+   ❯ decompile (624)
+     × rigging-mesh-animation preserves every compiled value deterministically 26ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/markup/test/decompile.test.ts > decompile > rigging-mesh-animation preserves every compiled value deterministically
+SyntaxError: Unexpected token 'x', "[x, max(5, y)]" is not valid JSON
+ ❯ plain packages/markup/test/decompile.test.ts:113:26
+    111|                 ? v.replace(/\band\b/g, '&&')
+    112|                 : v.startsWith('{"') || v.startsWith('[')
+    113|                   ? JSON.parse(v)
+       |                          ^
+    114|                   : v;
+    115|     return o;
+ ❯ recover packages/markup/test/decompile.test.ts:285:75
+ ❯ check packages/markup/test/decompile.test.ts:627:10
+ ❯ packages/markup/test/decompile.test.ts:632:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1868 skipped (1869)
+   Start at  13:58:59
+   Duration  1.18s (transform 48%, import 48%, tests 3%, worker 1%)

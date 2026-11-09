@@ -1,3 +1,4 @@
+// seam(P8-5): account for the new mesh registry field and two conformance sources.
 import { globSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -49,8 +50,8 @@ describe('authored AniML corpus', () => {
     // RT1: selected-component dimensions and laid-out pointer/semantic bounds.
     // Rottweiler P3 R2-04/R3-05/R3-06/R4-03: blend children, source clocks and controlled clocks
     // resume after reduced motion. R5-01/R5-03: reduced motion entered mid-state; ping-pong children.
-    // seam(P8-9, P8-6, P8-8): semantic extent probes, posepad scenes, paint-order hits.
-    expect(cases).toHaveLength(632);
+    // seam(P8-5, P8-9, P8-6, P8-8): merged mesh, bounds, posepad and input probes.
+    expect(cases).toHaveLength(634);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

@@ -3915,6 +3915,82 @@
               "minimum": -1,
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -5312,6 +5388,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -7408,6 +7560,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -9532,6 +9760,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -11638,6 +11942,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -13074,6 +13454,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -13898,6 +14354,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -16528,6 +17060,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -18637,6 +19245,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -20749,6 +21433,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -22850,6 +23610,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -24244,6 +25080,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -25682,6 +26594,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",
@@ -27944,6 +28932,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -30147,6 +31211,82 @@
               "type": "boolean",
               "feature": "input"
             },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -31507,6 +32647,82 @@
             "collapsed": {
               "type": "boolean",
               "feature": "input"
+            },
+            "mesh": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "grid": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "minItems": 3
+                },
+                "triangles": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "feature": "mesh"
             },
             "pivotX": {
               "type": "number",

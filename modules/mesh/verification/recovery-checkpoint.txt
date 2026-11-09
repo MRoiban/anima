@@ -1,0 +1,8 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+
+ Test Files  2 passed (2)
+      Tests  1922 passed (1922)
+   Start at  18:36:27
+   Duration  4.79s (tests 76%, transform 14%, import 10%)

@@ -25,6 +25,8 @@
     "./markup-animation": "./src/markup-animation.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
     "./media": "./src/media.ts",
+    "./mesh": "./src/mesh.ts",
+    "./canvas-mesh": "./src/canvas-mesh.ts",
     "./motion": "./src/motion.ts",
     "./events": "./src/events.ts",
     "./machine": "./src/machine.ts",

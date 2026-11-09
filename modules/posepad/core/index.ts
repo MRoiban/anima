@@ -28,7 +28,8 @@ function overlay(p: Player) {
     p.prop = (i, k) => values!.get(p.model.nodes[i]!.id + '.' + k) ?? prop(i, k);
     p.value = (a) => {
       const v = values!.get(a) ?? value(a);
-      return Array.isArray(v) ? formatHex(v) : v;
+      // seam(P8-5): point overlays retain tuples; only RGBA arrays become hex.
+      return Array.isArray(v) && v.length === 4 ? formatHex(v) : v;
     };
   }
   return values;

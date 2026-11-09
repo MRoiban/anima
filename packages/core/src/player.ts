@@ -71,7 +71,7 @@ export interface PlayerExtension {
   input(op: string, name: string, value?: Value): boolean;
   get(name: string): Value | undefined;
   states(): Record<string, string>;
-  values(): Record<string, number | boolean | string>;
+  values(): Record<string, number | boolean | string | [number, number]>;
   inspect(): LayerInspect[];
   pointer(kind: PointerKind, x: number, y: number): void;
   hits(node: number, x: number, y: number): boolean | undefined;
@@ -139,7 +139,9 @@ export const mixValues = (a: Value, b: Value, w: number): Value =>
       ? a + ((b as number) - a) * w
       : typeof a === 'boolean'
         ? a || (b as boolean)
-        : lerpColor(a, b as RGBA, w);
+        : a.length === 2 // seam(P8-5): point tuples retain fractional coordinates.
+          ? (a.map((v, i) => v + ((b as number[])[i]! - v) * w) as [number, number])
+          : lerpColor(a, b as RGBA, w);
 
 /**
  * Elliptical arc samples from a0 to a1 degrees: 6° chords, or finer so the chord sag stays within
@@ -174,6 +176,8 @@ function arc(
 }
 
 export class Player {
+  // seam(P8-5): P8-4 supplies optional per-player mesh deformation.
+  declare skinPoints?: (node: number, xy: number[]) => void;
   /** Installed by random-capable modules; the base runtime does not allocate a source. */
   declare readonly randomSource: RandomSource;
   readonly seed?: number;
@@ -350,16 +354,16 @@ export class Player {
   }
 
   /** Resolved value of an animated address, colours as hex. */
-  value(addr: string): number | boolean | string | undefined {
+  value(addr: string): number | boolean | string | [number, number] | undefined {
     const s = this.#slots.get(addr);
     if (s === undefined) return this.nested?.values()[addr];
     const v = this.#vals[s]!;
-    return Array.isArray(v) ? formatHex(v) : v;
+    return Array.isArray(v) && v.length === 4 ? formatHex(v) : v;
   }
 
   /** Every animated address and its resolved value. */
-  values(): Record<string, number | boolean | string> {
-    const o: Record<string, number | boolean | string> = {};
+  values(): Record<string, number | boolean | string | [number, number]> {
+    const o: Record<string, number | boolean | string | [number, number]> = {};
     for (const a of this.addrs) o[a] = this.value(a)!;
     return Object.assign(o, this.nested?.values());
   }

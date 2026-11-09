@@ -1,0 +1,41 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2640 tests | 1 failed | 2639 skipped) 9247ms
+   ❯ Chromium canvas (1320)
+     × spec/conformance/a11y-tree-bounds-feather/case.ani#0 448ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/a11y-tree-bounds-feather/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-feather/case.ani#0","max":247,"over":691,"percent":1.1996527777777777,"tolerance":{"max":128,"percent":0.5,"feature":"feather"},"diagnostics":[{"code":"unsupported-render","severity":"error","pointer":"/nodes/0/fill","message":"Canvas2D cannot render nonuniform local feather","hint":"use the SVG renderer or remove this feature"}]}: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unsupported-render",
++     "hint": "use the SVG renderer or remove this feature",
++     "message": "Canvas2D cannot render nonuniform local feather",
++     "pointer": "/nodes/0/fill",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/canvas/test/web/canvas.test.ts:462:55
+    460|               writeFileSync(prefix + '-' + suffix + '.png', PNG.sync.w…
+    461|           }
+    462|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+       |                                                       ^
+    463|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+    464|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2639 skipped (2640)
+   Start at  18:50:54
+   Duration  12.36s (tests 76%, import 23%, transform 2%)
