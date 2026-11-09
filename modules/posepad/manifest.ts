@@ -8,7 +8,8 @@ export default {
       export: 'posepad',
     },
     web: [
-      { name: 'posepad', budget: 768, heavy: true },
+      // P3c reset rule: 772 B after the P8-5 tuple printer.
+      { name: 'posepad', budget: 896, heavy: true },
       { name: 'posepad-handle', budget: 512, over: 'posepad', heavy: true },
     ],
     adapters: {

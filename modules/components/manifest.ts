@@ -13,7 +13,8 @@ export default {
       name: 'components',
       buildOrder: 5,
       sizeOrder: 11,
-      budget: 3456,
+      // P3c reset rule: 3,457 B after P8-5's shared point-tuple base (no components code change).
+      budget: 3840,
     },
     {
       name: 'markup-components',

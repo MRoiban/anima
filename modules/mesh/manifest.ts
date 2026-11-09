@@ -4,7 +4,8 @@ export default {
   after,
   core: { entry: 'core/index.ts', export: 'mesh', svg: 'core/svg.ts', svgExport: 'meshSVG' },
   web: [
-    { name: 'mesh', budget: 1024, heavy: true },
+    // P3c reset rule after P8-5 (1,325 B measured; decided, owner may revisit).
+    { name: 'mesh', budget: 1472, heavy: true },
     { name: 'canvas-mesh', budget: 768, over: 'canvas', heavy: true },
   ],
   adapters: {
