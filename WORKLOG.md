@@ -15,7 +15,10 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   queued like `set`/`fire`.
 - Main is c2b870ae: PR #37 (per-phase Rottweiler, ~190 fixes, `docs/changelog/2026-11-09-rottweiler.md`)
   and PR #38 (issues #23–#35, proof in `design/issues/`) are merged; no open issues or PRs.
-- Next: `design/p8/DESIGN.md`, then coder briefs.
+- P8 design merged (`design/p8/`: DESIGN, DECISIONS D1–D35 + my answers, BENCHMARK, tickets
+  P8-1…9). Wave 1 running (2026-11-09): P8-1 rig core, P8-5 mesh, P8-6 pose pads, P8-8 R4-02 +
+  toggle, P8-9 tree bounds. Wave 2 after P8-1 merges: P8-2 IK, P8-3 path follow, P8-4 skin,
+  P8-7 scroll; tell P8-6 to rebase for its distance-gated handle. Wave 3: benchmark, closure, PR.
 - Deferred review items (PR #37): entry splits for markup-libraries/fonts, construction context,
   gamepad connect signal, knockout trims, external `$parent` checks, fonts.assign names, sliced
   fixed-width strokes. Issue follow-ups: `colormix` `currentColor` defaults (needs a static-colour
