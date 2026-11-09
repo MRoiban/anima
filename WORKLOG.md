@@ -20,8 +20,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   faces → sent to P6 lead, R4-6 `$parent` check in external components; 1 pushed back; 0f2f92c). Done also: P3 (25 fixed, 2
   pushed back, 3 deferred; 698693e). Done also: P4 (30 fixed, 1 pushed back, 3
   deferred; merged with P3 input/machine overlap combined). Done also: P1 (44 + 2 partial fixed, 10
-  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1).
-  Running: P6 lead; P7 round-1 fix coder (7 findings, ledger in my
+  pushed back, 2 deferred; e8d4436; hit testing combined with P4's ordered paints). Done also: P2 (15 fixed; ARIA merged with P1), P6 (merged 7561bb7; its R2-5 fix for P7).
+  All seven merged into p8; P7 round-1 fix coder (7 findings, ledger in my
   scratchpad: R1-1 nested crash, R1-2/R1-5 hit-test + a11y bounds ignore layout, R1-3 dynamic
   instance measure, R1-4 a11y cache, R1-6 data-artboard retention, R1-7 host-fit content box) →
   then the P7 lead from round 2. Queue: P3, P2, P1. I merge each lead's branch into p8, then one PR.
@@ -96,5 +96,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   clean and idle (2026-11-09 I removed the P2 and P6 leads' worktrees that way and recreated them from
   their tips b5214b08 / 342e586e at the same paths); and delete `/tmp/anima-*` older than 3 h — on 2026-11-08 `/tmp` hit 100 %
   and `/` 97 %. Abandoned P4-era worktree diffs were saved to `/data/t3/projects/anima-worktree-backups/`.
+- Never symlink the main checkout's `node_modules` into a worktree for tests: its workspace links
+  resolve `@anima-format/*` to the main checkout's packages, so tests run main's code (P6 lead saw 54
+  false failures); run `npm ci` in the worktree. (Symlinks are fine for the perf A/B, which imports
+  by absolute path.)
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
 - 2026-11-08 15:20 [orch]: PR #36 CI red twice on modules/text/test/web/live-runs.test.ts (Chromium live vs literal control screenshots): a frame wait and a 3 s poll didn't help — the mismatch persists on CI only (same Chromium 1248, source-hashed bundle cache; passes 5/5 locally); pushed diagnostics (renderer, step, both SVGs, inked canvas pixels) to read from the next CI log (unverified cause)
