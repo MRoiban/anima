@@ -61,42 +61,43 @@ export const ik: Module = {
               points[j]![0] + (dx / dist) * length[j]!,
               points[j]![1] + (dy / dist) * length[j]!,
             ];
-        } else if (n === 2) {
-          const a = length[0]!,
-            b = length[1]!,
-            along = (a * a - b * b + dist * dist) / (2 * dist),
-            height = Math.sqrt(Math.max(0, a * a - along * along));
+        } else {
           const parent = ctx.model.nodes[ids[0]!]!.parent,
             m = ctx.world(parent),
             side = (raw.bend === 'ccw' ? -1 : 1) * (m[0] * m[3] - m[1] * m[2] < 0 ? -1 : 1);
-          points[1] = [
-            start[0] + (dx * along - dy * height * side) / dist,
-            start[1] + (dy * along + dx * height * side) / dist,
-          ];
-          points[2] = target;
-        } else {
-          for (let iteration = 0; iteration < 64; iteration++) {
-            points[n] = [...target];
-            for (let j = n - 1; j >= 0; j--) {
-              const x = points[j]![0] - points[j + 1]![0],
-                y = points[j]![1] - points[j + 1]![1],
-                d = Math.hypot(x, y) || 1;
-              points[j] = [
-                points[j + 1]![0] + (x / d) * length[j]!,
-                points[j + 1]![1] + (y / d) * length[j]!,
-              ];
+          const pair = (j: number) => {
+            const a0 = points[j]!,
+              c0 = points[j + 1]!,
+              b0 = points[n]!,
+              tx = target[0] - a0[0],
+              ty = target[1] - a0[1],
+              c = Math.hypot(tx, ty),
+              rx = b0[0] - c0[0],
+              ry = b0[1] - c0[1],
+              a = Math.hypot(rx, ry),
+              b = length[j]!;
+            if (!c || !a) return;
+            const far = c >= a + b,
+              along = far ? b : (b * b - a * a + c * c) / (2 * c),
+              height = far ? 0 : Math.sqrt(Math.max(0, b * b - along * along)),
+              next: [number, number] = [
+                a0[0] + (tx * along - ty * height * side) / c,
+                a0[1] + (ty * along + tx * height * side) / c,
+              ],
+              end: [number, number] = far
+                ? [a0[0] + (tx / c) * (a + b), a0[1] + (ty / c) * (a + b)]
+                : target,
+              angle = Math.atan2(end[1] - next[1], end[0] - next[0]) - Math.atan2(ry, rx),
+              co = Math.cos(angle),
+              si = Math.sin(angle);
+            for (let q = j + 2; q <= n; q++) {
+              const x = points[q]![0] - c0[0],
+                y = points[q]![1] - c0[1];
+              points[q] = [next[0] + co * x - si * y, next[1] + si * x + co * y];
             }
-            points[0] = [...start];
-            for (let j = 0; j < n; j++) {
-              const x = points[j + 1]![0] - points[j]![0],
-                y = points[j + 1]![1] - points[j]![1],
-                d = Math.hypot(x, y) || 1;
-              points[j + 1] = [
-                points[j]![0] + (x / d) * length[j]!,
-                points[j]![1] + (y / d) * length[j]!,
-              ];
-            }
-          }
+            points[j + 1] = next;
+          };
+          for (let j = 0; j < n - 1; j++) pair(j);
         }
         const strength = ctx.num(node, k, 'strength', 1);
         for (let j = 0; j < n; j++) {
