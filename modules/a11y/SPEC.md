@@ -10,7 +10,7 @@ Every node can have `a11y`, declared with `requires: ["a11y"]`, or an AniML
 
 | JSON field | AniML attribute | Values |
 |---|---|---|
-| role | role | button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none, progressbar, meter, status |
+| role | role | button, checkbox, switch, radio, radio-group, slider, tab, tab-list, toolbar, grid, row, gridcell, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none, progressbar, meter, status |
 | label, hint, value | same | literal string or `$path` string data binding; slider/meter value requires a number input/path; progressbar value is optional and numeric when present |
 | valueText | value-text | slider/progressbar/meter: literal string or `$path` string data binding; spoken value independent of numeric value |
 | level | level | integer 1–6 or number input/data path; heading only; bound AniML values are JSON strings (`&quot;depth&quot;`) |
@@ -254,3 +254,7 @@ measured logical layout boxes. Consequently `a11y.tree-bounds` remains planned a
 this module does not advertise exact final painted extents for unsupported paint combinations.
 Native semantic JSON reports the uninflated rectangle. In the new explicitly linear control,
 animation lag does not reproduce. The capture and measured difference are retained under `tests/oracle/p7-8-semantic-bounds/`.
+
+Toolbar/grid/row/gridcell native browser navigation is specified in
+[the overlay contract](../a11y-dom/SPEC.md). Gridcells are implicit focus targets
+when a11y-actions and focus are installed; toolbar, grid and row are containers.

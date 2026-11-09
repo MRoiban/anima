@@ -1,0 +1,63 @@
+Command: npm run test:scope -- changed
+Exit: 1
+Test Files  51 failed | 341 passed | 12 skipped (404)
+      Tests  161 failed | 7197 passed | 2870 skipped | 34 todo (10262)
+   Start at  09:30:19
+   Duration  855.23s (tests 86%, import 13%, transform 1%)
+
+Failing files (primary failures are timeout/setup related; no assertion failure reported):
+ ❯ |scope-browser| modules/events/test/web/events.browser.test.ts (32 tests | 32 skipped) 60033ms
+ ❯ |scope-browser| modules/composite/test/web/paint-composite.test.ts (56 tests | 56 skipped) 60030ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (44 tests | 44 skipped) 60039ms
+ ❯ |scope-browser| modules/input/test/web/browser.test.ts (62 tests | 62 skipped) 60029ms
+ ❯ |scope-browser| packages/web/test/browser.test.ts (94 tests | 94 skipped) 60037ms
+ ❯ |scope-browser| modules/canvas/test/web/canvas.test.ts (2582 tests | 2582 skipped) 131271ms
+ ❯ |scope-browser| modules/data-artboard/test/web/resources.test.ts (6 tests | 5 failed) 151637ms
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (24 tests | 24 failed) 173383ms
+ ❯ |scope-browser| modules/text-input/test/web/field.browser.test.ts (6 tests | 4 failed) 128184ms
+ ❯ |scope-browser| modules/fonts/test/web/fonts.test.ts (10 tests | 4 failed) 149097ms
+ ❯ |scope-browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 7 failed) 62545ms
+ ❯ |scope-browser| modules/fonts/test/web/rottweiler-p6.test.ts (10 tests | 4 failed) 149599ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/issues.test.ts (22 tests | 3 failed) 152334ms
+ ❯ |scope-browser| modules/host-edit/test/web/bf3.test.ts (12 tests | 6 failed) 226857ms
+ ❯ |scope-browser| modules/host-edit/test/web/browser.test.ts (4 tests | 2 failed) 82515ms
+ ❯ |scope-browser| packages/web/test/markup-hooks.test.ts (18 tests | 4 failed) 250623ms
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (10 tests | 2 failed) 38766ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 1 failed) 52182ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/bf4.test.ts (50 tests | 12 failed) 229335ms
+ ❯ |scope-browser| modules/host-fit/test/web/fit.test.ts (78 tests | 12 failed) 294328ms
+ ❯ |scope-browser| modules/focus/test/web/rottweiler-p3.test.ts (8 tests | 1 failed) 105202ms
+ ❯ |scope-browser| packages/playground/test/browser.test.ts (16 tests | 3 failed) 179985ms
+ ❯ |scope-browser| modules/componentpaint/test/web/rottweiler-p5.test.ts (2 tests | 2 failed) 60028ms
+ ❯ |scope-browser| modules/text-input/test/web/selection.browser.test.ts (2 tests | 2 failed) 60050ms
+ ❯ |scope-browser| modules/lists/test/web/lists.test.ts (4 tests | 3 failed) 94605ms
+ ❯ |scope-browser| modules/data/test/web/browser.test.ts (4 tests | 1 failed) 92184ms
+ ❯ |scope-browser| modules/focus/test/web/focus.test.ts (12 tests | 4 failed) 97067ms
+ ❯ |scope-browser| modules/text/test/web/rottweiler-p6.test.ts (4 tests | 1 failed) 91841ms
+ ❯ |scope-browser| modules/a11y-dom/test/web/text-hit.test.ts (4 tests | 1 failed) 90780ms
+ ❯ |scope-browser| modules/layout/test/web/layout.test.ts (4 tests | 1 failed) 99580ms
+ ❯ |scope-browser| modules/host-edit/test/web/components.test.ts (4 tests | 2 failed) 24448ms
+ ❯ |scope-browser| modules/markup-animation/test/web/animation.test.ts (8 tests | 1 failed) 104076ms
+ ❯ |scope-browser| modules/host-edit/test/web/rottweiler-p3.test.ts (2 tests | 1 failed) 40150ms
+ ❯ |scope-browser| modules/text/test/web/optional.test.ts (2 tests | 1 failed) 37655ms
+ ❯ |scope-browser| modules/input/test/web/p4-review.test.ts (6 tests | 1 failed) 26998ms
+ ❯ |scope-browser| modules/focus/test/web/p4-review.test.ts (6 tests | 1 failed) 28305ms
+ ❯ |scope-browser| modules/text/test/web/text.test.ts (8 tests | 2 failed) 134731ms
+ ❯ |scope-browser| modules/input/test/web/rottweiler-p3.test.ts (2 tests | 1 failed) 32412ms
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 1 failed) 13462ms
+ ❯ |scope-browser| modules/markup/test/web/authoring.test.ts (8 tests | 2 failed) 131549ms
+ ❯ |scope-unit| packages/cli/test/markup.test.ts (27 tests | 1 failed) 15619ms
+ ❯ |scope-unit| packages/cli/test/p3c-tooling.test.ts (11 tests | 1 failed) 32890ms
+ ❯ |scope-browser| modules/canvas/test/web/native-paint.test.ts (6 tests | 1 failed) 96778ms
+ ❯ |scope-unit| packages/core/test/examples.test.ts (17 tests | 1 failed) 10806ms
+ ❯ |scope-unit| modules/text-input/test/cli/placeholder.test.ts (1 test | 1 failed) 30037ms
+ ❯ |scope-unit| modules/contour/test/core/raster-evidence.test.ts (2 tests | 1 failed) 12953ms
+ ❯ |scope-unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 90242ms
+ ❯ |scope-unit| tools/oracle.test.ts (537 tests | 1 failed | 18 todo) 170136ms
+ ❯ |scope-unit| modules/text/test/cli/text.test.ts (4 tests | 3 failed) 28820ms
+ ❯ |scope-unit| tools/new-capability.test.ts (4 tests | 3 failed) 213422ms
+ ❯ |scope-unit| packages/cli/test/authoring.test.ts (59 tests | 25 failed) 298014ms
+
+Owned-file serial retry recorded in 34-retry.txt.
+Other checks: typecheck, lint, format:check, modules --check, gen, build-animl --check, parity --check, build-web and full size all exit 0.
+Owned-file retry: six passed files / one timeout; 145 passed tests / one timed out. Remaining test rerun alone: one passed, exit 0. See 34-retry.txt.

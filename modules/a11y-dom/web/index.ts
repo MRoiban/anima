@@ -20,8 +20,7 @@ Object.defineProperty(Icon.prototype, 'semantics', {
 Icon.prototype.semanticAction = function (id, action) {
   const changed = this.player?.semanticAction(id, action) ?? false;
   if (changed) {
-    this.player!.step(0);
-    this.invalidate();
+    this.flush();
     if (!this.hasAttribute('paused')) this.play();
   }
   return changed;

@@ -1,0 +1,8 @@
+Command: node tools/size.ts
+Baseline: eb89d464
+core+web: 22564 B min+gzip (ceiling 24576 B)
+focus: 3352 B min+gzip incremental (budget 3456 B)
+a11y: 2339 B min+gzip incremental (budget 2496 B)
+a11y-actions: 1095 B min+gzip over web+a11y (budget 1216 B)
+a11y-dom: 2163 B min+gzip over web+a11y-actions (budget 2176 B)
+Stopped after touched-entry baseline measurements, before scene sweep; exit 143.
