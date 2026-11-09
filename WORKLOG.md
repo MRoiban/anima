@@ -18,6 +18,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   `rigging.scroll` (P8-7 running); `rigging.transform` (copyTransform origin: AniML tuple animation,
   binding, group-subtree bounds; `rig` has 19 B left, so an optional entry; resume the P8-1 thread,
   worktree t3-8efe4597).
+- Queued: issues #39 (trim dasharray repeats at the endpoint) and #40 (5-decimal matrix rounding
+  zeroes tiny scales); brief `design/issues/BRIEF-39-40.md`; a Codex Web coder on branch
+  `issues-39-40` from main starts when a slot frees; separate PR to main.
 - Then wave 3: benchmark (`design/p8/BENCHMARK.md`, fresh agents on Codex Web), parity closure
   (`docs/parity/P8-closure.md`), PLAN, LOG, perf A/B, full check, PR.
 - Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
