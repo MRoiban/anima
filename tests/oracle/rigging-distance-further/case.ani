@@ -19,9 +19,11 @@
       "children": [
         {
           "id": "insideArt",
-          "type": "circle",
-          "center": [0, 0],
-          "r": 0.5,
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
           "fill": {
             "color": "#d97757"
           }
@@ -44,9 +46,11 @@
       "children": [
         {
           "id": "ringArt",
-          "type": "circle",
-          "center": [0, 0],
-          "r": 0.5,
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
           "fill": {
             "color": "#d97757"
           }
@@ -69,9 +73,11 @@
       "children": [
         {
           "id": "outsideArt",
-          "type": "circle",
-          "center": [0, 0],
-          "r": 0.5,
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
           "fill": {
             "color": "#d97757"
           }

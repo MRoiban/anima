@@ -2,7 +2,7 @@
   <group id="target" x="14" y="8"/>
   <group id="host" x="4" y="4">
     <copy-position strength="0" from="target"/>
-    <circle id="hostArt" cx="0" cy="0" r="0.5" fill="#d97757"/>
+    <rect id="hostArt" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/>
   </group>
   <timeline name="go" duration="1">
     <track target="host.constraints.0.strength">

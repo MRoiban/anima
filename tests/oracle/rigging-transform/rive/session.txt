@@ -4,11 +4,11 @@ ok screenshot: frames/0.5.png
 ok advance
 ok screenshot: frames/1.png
 [egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
-[13:06:51.378] rive  deferred replay: inline
-[13:06:51.403] rive  built (266 bytes, 25ms, 0 errors, 0 warnings)
-[13:06:51.404] rive  showing Oracle [1/1]
-[13:06:51.404] rive  viewport 240x240 @1x
+[19:32:09.765] rive  deferred replay: inline
+[19:32:09.770] rive  built (266 bytes, 5ms, 0 errors, 0 warnings)
+[19:32:09.771] rive  showing Oracle [1/1]
+[19:32:09.771] rive  viewport 240x240 @1x
 rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
-[13:06:51.439] rive  wrote frames/0.png
-[13:06:51.469] rive  wrote frames/0.5.png
-[13:06:51.506] rive  wrote frames/1.png
+[19:32:09.778] rive  wrote frames/0.png
+[19:32:09.782] rive  wrote frames/0.5.png
+[19:32:09.787] rive  wrote frames/1.png

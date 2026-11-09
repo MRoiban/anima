@@ -1,7 +1,7 @@
 <anima version="0.1" name="rigging-bone-chains" grid="20" requires="rig">
   <bone id="upper" length="5" x="4" y="12">
     <bone id="fore" length="4">
-      <circle id="hand" cx="13" cy="12" r="0.5" fill="#d97757"/>
+      <rect id="hand" x0="12.5" y0="11.5" width="1" height="1" fill="#d97757"/>
     </bone>
   </bone>
   <timeline name="go" duration="1">
