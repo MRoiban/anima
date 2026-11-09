@@ -5,18 +5,22 @@ ES2022, no runtime dependencies in the packages that ship to browsers.
 
 ```
 spec/
-  SPEC.md                 normative format + semantics
+  SPEC.md                 normative format + semantics; ANIML.md the markup; MODULES.md the module system
   schema/ani.schema.json  generated from the registry, never hand-edited
-  conformance/            runtime-independent cases (case.ani, script.txt, expected.jsonl)
+  conformance/            runtime-independent cases (case.animl/.ani, script.txt, expected.jsonl)
 packages/
   core/    parse → validate → compile → Player.step(dt); pure, deterministic, no DOM
-  web/     <anima-icon> custom element: retained SVG DOM, scheduler, input, a11y
-  cli/     anima validate | inspect | sample | render | fmt | new | schema | docs | playground
+  markup/  AniML compiler, decompiler and formatter
+  web/     <anima-icon> custom element: retained SVG DOM, scheduler, input, a11y; dist/ bundles
+  cli/     anima validate | inspect | sample | session | render | build | bundle | fmt | new | schema | docs | playground …
   playground/ private local editor and inspectors; plain DOM/SVG, compiler + web runtime
-modules/   one manifest + core/SVG/markup/web sources + tests per optional module
-examples/  bell.ani and later icons
-fixtures/  Glyphy glyphs and the Rive reference for the bell
-docs/      architecture, plan, research notes
+modules/   one folder per optional feature: manifest + core/SVG/markup/web sources, spec notes, tests, examples
+examples/  reference scenes (AniML sources with compiled .ani siblings); lib/ holds imported libraries
+fixtures/  Glyphy glyphs, the test font and Rive references
+tests/oracle/  frame comparisons against Rive's own renderer
+tools/     generators and gates: modules, size, perf, parity, oracle, build-web, test-scope
+docs/      guides (start at docs/README.md), plan, log, research, parity, benchmarks
+design/    per-phase designs, tickets and decisions
 ```
 
 ## core (`packages/core`)
