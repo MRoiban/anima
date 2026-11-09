@@ -139,3 +139,31 @@ within the existing 128 / 0.5% path-geometry tolerance. Raw JSON is committed al
 - Resume checkpoint: the recorded full run completed with **10,343 pass, 3 failures, 36 TODO** across 415 files (400 pass, 3 fail, 12 skipped). Failures: unknown-feature fixture still used the now-supported mesh name; independent decompiler reader treated tuple binding text as JSON; separately bundled paint/bind collision test. The first two are corrected in this checkpoint; the third passes its isolated rerun (1/1, 8 filtered). Integration with current p8-rigging is next, per the user's instruction.
 - Integration checkpoint: committed implementation as `aac2fb3b`, then merged `p8-rigging` at `f28a1ac6` (P8-9, P8-6, P8-8 and docs refresh). Kept both SPEC chapters and both census fixtures, regenerated shared wiring/schema/parity/browser outputs, and set corpus length to **634**, equal to the actual `.ani` count. Recovery tests pass **1,922/1,922**. Final verification below supersedes pre-merge measurements and test results.
 - Post-merge integration: posepad's overlay value printer needed the same RGBA-versus-point distinction as Player. Added a one-line `seam(P8-5)` guard and a mesh-owned regression posing a vertex tuple; **52/52 mesh/posepad tests pass**. This is an additional runtime compatibility seam in `modules/posepad/core/index.ts`; final size measurements will include it. Pre-fix merged typecheck found this error; merged lint/oracle/perf commands exited 0.
+- Working checkpoints are now committed: implementation `aac2fb3b`, merge `5f7cd04e`, posepad tuple interoperability `f9b2250e`. Current frozen merged verification launcher is PID **1054262**. It records `final-acceptance-chromium`, `final-mesh-firefox`, then `final-changed` under `verification/`, each with a `.status` exit-code file. These final merged results supersede earlier runs. Do not edit sources until those jobs finish (or are explicitly stopped).
+
+## Latest merged-tree handoff checkpoint (supersedes earlier figures)
+
+Source HEAD: `f9b2250e`; `p8-rigging` through `f28a1ac6` is merged. Corpus **634**, exactly matching
+the `.ani` files. Full typecheck and lint pass after the posepad point-value fix. Generated wiring,
+697 AniML sources and parity views pass checks; strict existing oracle check exits 0.
+
+Final entry sizes (baseline is read-only bundle overlay of `f28a1ac6`): core+web **22,787 → 22,803**;
+mesh **absent → 1,325/1,024 B**; canvas-mesh **absent → 678/768 B**; canvas **5,863 → 5,862**;
+bind **1,880 → 1,880**; components **3,453 → 3,457/3,456**; data **6,643 → 6,643**;
+events **2,937 → 2,942**; nested **4,567 → 4,572**; posepad **766 → 772/768**.
+Size exits **1**: mesh 301 B over, components 1 B over, posepad 4 B over. Shared base grows 16 B
+relative to the merged P8 baseline. No budget is raised; rows remain planned.
+
+All six owner gates pass on the merged tree: core+web 22,803; largest scene (31) 59,373;
+app-UI 108,098; runtime sum 137,361; authoring 15,016; Rive-class 160,779 B.
+
+Merged Chromium acceptance: **5,860 pass, 1 fail, 1,330 filtered, 25 TODO**, 15 files.
+The sole failure is inherited `a11y-tree-bounds-feather`: Canvas explicitly rejects its nonuniform
+local feather (diagnostic `/nodes/0/fill`), max delta 247 / over 16: 691 pixels (1.19965%).
+Its isolated rerun also fails identically (1 fail / 2,639 filtered). No renderer, tolerance or
+foreign probe was changed to hide it. Merged mesh Firefox scope: **3,378 pass / 644 filtered**, 8 files.
+Final full `changed` run is still active under PID 1054262, with no aggregate result claimed yet.
+Its recorded result will be `verification/final-changed.status` and `final-changed.txt`.
+
+Merged perf command exits 0: bell compile 4.86 ms, prefix sweep 1,016 ms, bell frame 50.1 µs,
+composite 32.9 µs, toolbar 34.1 µs, toolbar compile 4.73 ms. Shared-load timings are not a ≤3% proof.

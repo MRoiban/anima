@@ -1,0 +1,23 @@
+
+> test:scope
+> node tools/test-scope.ts mesh --browser=firefox
+
+Scopes: mesh
+  unit: modules/mesh/test/core/mesh.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/mesh/test/web/mesh.test.ts
+  cases: ^conformance > (rigging-mesh|rigging-mesh-animation)$
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+
+ Test Files  8 passed (8)
+      Tests  3378 passed | 644 skipped (4022)
+   Start at  18:49:26
+   Duration  41.44s (tests 90%, import 9%, transform 1%)
