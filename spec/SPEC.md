@@ -3850,3 +3850,22 @@ Design rationale: [animation/state research](../docs/research/rive-animation-and
 and [format/graph research](../docs/research/rive-format-and-graph.md) §3.2–3.4 describe update
 restarts; this explicit stage retains deterministic step order. No Rive source or binary format
 is used. Native oracle captures await orchestrator-owned budgets and remain pending evidence.
+
+## ik
+
+<!-- capability: rigging.ik -->
+### Inverse kinematics
+
+TODO: Aim a bone chain at a target and choose the number of parent bones to solve.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+
+
+<!-- capability: rigging.ik-bend -->
+### IK bend direction
+
+TODO: Choose the opposite bend solution for an IK chain.
+
+TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
+resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.

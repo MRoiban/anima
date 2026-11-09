@@ -1,0 +1,16 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik-bend",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "probe",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ]
+}

@@ -8909,20 +8909,20 @@
   "id": "rigging.ik",
   "category": "rigging",
   "capability": "Inverse kinematics",
-  "construct": "new: inverse kinematics with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "TODO: modules/ik/capabilities/rigging-ik/registry.ts; spec/SPEC.md (Inverse kinematics); modules/ik/capabilities/rigging-ik/example.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-ik",
+  "test": "TODO: modules/ik/test/core/rigging-ik.test.ts; spec/conformance/rigging-ik; tests/oracle/rigging-ik",
   "phase": "P8"
  },
  {
   "id": "rigging.ik-bend",
   "category": "rigging",
   "capability": "IK bend direction",
-  "construct": "new: ik bend direction with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "TODO: modules/ik/capabilities/rigging-ik-bend/registry.ts; spec/SPEC.md (IK bend direction); modules/ik/capabilities/rigging-ik-bend/example.animl",
   "module": "rig",
   "status": "planned",
-  "test": "oracle/rigging-ik-bend",
+  "test": "TODO: modules/ik/test/core/rigging-ik-bend.test.ts; spec/conformance/rigging-ik-bend; tests/oracle/rigging-ik-bend",
   "phase": "P8"
  },
  {

@@ -10,6 +10,8 @@ import { assetsSVG } from '../../../modules/assets/core/svg.ts';
 import { corners } from '../../../modules/corners/core/index.ts';
 import { focus } from '../../../modules/focus/core/index.ts';
 import { focusSVG } from '../../../modules/focus/core/svg.ts';
+import { ik } from '../../../modules/ik/core/index.ts';
+import { ikSVG } from '../../../modules/ik/core/svg.ts';
 import { input } from '../../../modules/input/core/index.ts';
 import { inputSVG } from '../../../modules/input/core/svg.ts';
 import { media } from '../../../modules/media/core/index.ts';
@@ -72,6 +74,8 @@ if (VERBOSE) {
   registerModule(corners);
   registerModule(focus);
   registerSVGBackend('focus', focusSVG);
+  registerModule(ik);
+  registerSVGBackend('ik', ikSVG);
   registerModule(input);
   registerSVGBackend('input', inputSVG);
   registerModule(media);

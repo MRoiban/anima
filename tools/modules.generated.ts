@@ -20,6 +20,7 @@ export const webEntries = [
   'focus',
   'host-fit',
   'host-fit-size',
+  'ik',
   'input',
   'markup-hooks',
   'markup-animation',
@@ -96,6 +97,7 @@ export const webOwners: Record<string, string> = {
   focus: 'focus',
   'host-fit': 'host-fit',
   'host-fit-size': 'host-fit',
+  ik: 'ik',
   input: 'input',
   markup: 'markup',
   'markup-hooks': 'markup',
@@ -222,6 +224,7 @@ export const moduleBudgets: {
   { name: 'focus', budget: 3456 },
   { name: 'host-fit', budget: 768, over: 'host-fit-size' },
   { name: 'host-fit-size', budget: 512 },
+  { name: 'ik', budget: 5120 },
   { name: 'input', budget: 7104 },
   { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
   { name: 'markup-animation', over: 'markup', budget: 1536, authoring: true },
@@ -412,6 +415,14 @@ export const moduleScopes = {
   'host-fit': {
     tests: ['modules/host-fit/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
     conformance: [],
+  },
+  ik: {
+    tests: [
+      'modules/ik/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: ['rigging-ik', 'rigging-ik-bend'],
   },
   input: {
     tests: [

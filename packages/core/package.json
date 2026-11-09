@@ -15,6 +15,7 @@
     "./assets-svg": "./src/modules/assets/svg.ts",
     "./corners": "./src/modules/corners/index.ts",
     "./focus": "./src/modules/focus/index.ts",
+    "./ik": "./src/modules/ik/index.ts",
     "./input": "./src/modules/input/index.ts",
     "./media": "./src/modules/media/index.ts",
     "./mesh": "./src/modules/mesh/index.ts",
