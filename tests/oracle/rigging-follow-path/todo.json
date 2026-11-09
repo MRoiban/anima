@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "Native follow-path reference captured and measured: frame 0 raw max delta 1, 0 pixels over 16 (0%); no >16 pixels to classify as edge or interior. P8 shared ownership requires the orchestrator to choose comparison limits and promote the case into tests/oracle/cases.json."
+  "reason": "Strengthened native follow-path reference uses an asymmetric cubic, orient=true, distance 0→1 over 1 s at frames 0/0.5/1, plus a closed-path marker at distance 1.25. Raw comparisons: frame 0 max 60, 18/57,600 over 16 (18 edge, 0 interior); frame 0.5 max 30, 31/57,600 over 16 (31 edge, 0 interior); frame 1 max 60, 33/57,600 over 16 (33 edge, 0 interior). The wrapped marker contributes no >16 pixels. P8 shared ownership requires the orchestrator to choose comparison limits and promote the case into tests/oracle/cases.json."
 }
