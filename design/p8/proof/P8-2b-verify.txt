@@ -1,0 +1,23 @@
+P8-2b verification
+
+Chromium scope: npm run test:scope -- ik rig cli conformance oracle --browser=chromium
+Result: exit 0; 60 files passed, 1 skipped; 5133 passed, 29 skipped, 22 todo.
+
+Firefox rig scope: npm run test:scope -- rig --browser=firefox
+Result: exit 0; 8 files passed; 3511 passed, 668 skipped.
+
+node tools/size.ts: exit 0. ik = -1687 B min+gzip against 896 B budget.
+Global size gates: core+web 22803/24576; largest scene 59373/65536; app-UI scene 108140/131072; runtime sum 137424/163840; authoring add-on 15372/16384; Rive-class heavy 171783/256000.
+
+npm run lint: exit 0.
+npm run typecheck: exit 0.
+npm run format:check: exit 0.
+node tools/modules.ts --check: exit 0; 0 stale files.
+node tools/build-animl.ts --check: exit 0; 721 AniML files checked.
+node tools/parity.ts --check: exit 0; 1238 capabilities current.
+node tools/oracle.ts --strict: exit 0; rigging-ik-strength remains pending with no budget, as required.
+npm run gen: exit 0; schema regenerated with no tracked diff.
+node tools/build-web.ts: exit 0; 91 browser entries; examples/web/index.html 76882 B, no tracked diff.
+
+Conformance corpus count: 654 expected, 654 actual.
+Raw strength-0.5 native oracle: maxDiff 42; pixels over 16 = 72 (0.125%); edge = 72; interior = 0.
