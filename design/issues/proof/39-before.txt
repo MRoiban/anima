@@ -1,0 +1,22 @@
+Issue #39 before fix
+
+Regression test:
+FAIL packages/core/test/issue-39.test.ts > does not repeat a non-wrapping trimmed round stroke at the far endpoint
+1 test failed
+
+Expected dasharrays:
+  check: 9.18642 29.00447
+  slash: 5.09117 25.45584
+Received dasharrays:
+  check: 9.18642 5.31581
+  slash: 5.09117 7.63675
+
+Measured SVG from the issue scene:
+  check path length: 14.502234055577233; emitted period: 9.18642 + 5.31581 = 14.50223
+  slash path length: 12.727922061357855; emitted period: 5.09117 + 7.63675 = 12.72792
+
+CLI PNG, --size 140, far-endpoint probes:
+  check endpoint (120,35): rgba [20,20,19,255]
+  slash endpoint (105,105): rgba [20,20,19,255]
+  adjacent check pixel (119,35): rgba [20,20,19,255]
+  adjacent slash pixel (104,105): rgba [20,20,19,255]
