@@ -170,6 +170,13 @@ export class Compiler {
   resolved = new Map<string, string>();
   readonly resolving = new Set<string>();
   private readonly finalEases: { key: unknown[]; pointer: string }[] = [];
+  private readonly deferredComments: {
+    base: Json;
+    path: string;
+    value: string;
+    pointer: string;
+    at: Pos;
+  }[] = [];
   xml: XmlDocument | undefined;
   private opts: CompileOptions;
 
@@ -409,11 +416,69 @@ export class Compiler {
     return out;
   }
   private comment(el: Element, o: Json, p: string): void {
+    let found = false;
     for (const c of el.children) {
       if (c.kind === 'element') break;
       if (c.kind === 'comment') {
-        this.put(o, '$comment', c.value.trim(), p, c.at);
-        break;
+        const text = c.value.trim();
+        if (text.startsWith('$comment ')) {
+          const body = text.slice(9).trimStart();
+          let path = '';
+          let literal = body;
+          if (body.startsWith('/')) {
+            const split = body.indexOf(' ');
+            if (split > 0) {
+              path = body.slice(0, split);
+              literal = body.slice(split + 1).trimStart();
+            }
+          }
+          try {
+            const value = JSON.parse(literal) as unknown;
+            if (typeof value === 'string') {
+              if (path) this.deferredComments.push({ base: o, path, value, pointer: p, at: c.at });
+              else if (!found) {
+                this.put(o, '$comment', value, p, c.at);
+                found = true;
+              }
+              continue;
+            }
+          } catch {
+            // A malformed reserved-looking comment remains an ordinary author comment.
+          }
+        }
+        if (!found) {
+          this.put(o, '$comment', text, p, c.at);
+          found = true;
+        }
+      }
+    }
+  }
+
+  private applyDeferredComments(): void {
+    for (const comment of this.deferredComments) {
+      let target: unknown = comment.base;
+      let pointer = comment.pointer;
+      let valid = true;
+      for (const token of comment.path.slice(1).split('/')) {
+        let key: string;
+        try {
+          key = decodeURIComponent(token);
+        } catch {
+          valid = false;
+          break;
+        }
+        if (target === null || typeof target !== 'object') {
+          valid = false;
+          break;
+        }
+        const parent = target as Json;
+        if (!Object.hasOwn(parent, key)) own(parent, key, {});
+        target = parent[key];
+        pointer = ptr(pointer, key);
+      }
+      if (valid && object(target)) {
+        own(target, '$comment', comment.value);
+        this.map.set(ptr(pointer, '$comment'), comment.at);
       }
     }
   }
@@ -823,6 +888,7 @@ export class Compiler {
     this.collectTypes(root);
     this.collectEases(root, '');
     const doc = this.build(root, '') as Json;
+    this.applyDeferredComments();
     componentCompiler.finish?.(doc);
     if (!this.failed && this.opts.validate !== false) {
       for (const d of load(doc).diagnostics) {

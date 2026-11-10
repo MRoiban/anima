@@ -1,0 +1,37 @@
+× round-trips a component definition comment 51ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/markup/test/decompile.test.ts > round-trip > round-trips a component definition comment
+AssertionError: expected { anima: '0.1', …(5) } to deeply equal { anima: '0.1', …(5) }
+
+- Expected
++ Received
+
+@@ -1,10 +1,9 @@
+  {
+    "anima": "0.1",
+    "components": {
+      "badge": {
+-       "$comment": "Component comment",
+        "grid": 8,
+        "nodes": [
+          {
+            "center": [
+              4,
+
+ ❯ packages/markup/test/decompile.test.ts:745:24
+    743|     const result = compile(decompile(source));
+    744|     expect(result.diagnostics.filter((d) => d.severity === 'error')).t…
+    745|     expect(result.doc).toEqual(source);
+       |                        ^
+    746|   });
+    747|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1968 skipped (1969)
+   Start at  16:13:32
+   Duration  2.34s (transform 75%, import 21%, tests 3%)

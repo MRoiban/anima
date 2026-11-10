@@ -24,7 +24,7 @@ describe('Rottweiler P1 AniML', () => {
     const built = compile(decompile(doc));
     expect(built.diagnostics).toEqual([]);
     expect(built.doc!.inputs).toBeUndefined();
-    expect(built.doc!.$comment).toBe('hello -- > <number name="injected"/> <!--');
+    expect(built.doc!.$comment).toBe(doc.$comment);
   });
 
   // R1-11: XML 1.0 forbids NUL, other C0 controls, U+FFFE/U+FFFF and lone surrogates.
@@ -67,11 +67,12 @@ describe('Rottweiler P1 AniML round 3', () => {
 });
 
 describe('Rottweiler P1 AniML round 4', () => {
-  // R4-07: a $comment with a character XML forbids still decompiles to markup that builds.
-  it('writes non-XML characters of a $comment as U+FFFD', () => {
-    const built = compile(decompile(base({ $comment: 'a\u0000b' })));
+  // R4-07: canonical comment literals escape characters XML forbids without losing their value.
+  it('round-trips non-XML characters of a $comment exactly', () => {
+    const doc = base({ $comment: 'a\u0000b' });
+    const built = compile(decompile(doc));
     expect(built.diagnostics).toEqual([]);
-    expect(built.doc!.$comment).toBe('a�b');
+    expect(built.doc!.$comment).toBe(doc.$comment);
   });
 });
 
