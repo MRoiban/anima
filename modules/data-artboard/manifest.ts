@@ -1,6 +1,8 @@
 export const after = ['nested', 'host'];
 export default {
   name: 'data-artboard',
+  summary:
+    'Data: component-valued model properties (choose which component an instance shows from data).',
   after,
   core: { entry: 'core/index.ts', export: 'dataArtboard' },
   web: [

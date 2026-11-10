@@ -3,6 +3,8 @@ export const after: string[] = ['components'];
 export default {
   ...{
     name: 'input',
+    summary:
+      'Input: pointer, keyboard, wheel and gamepad listeners, cursors, dragging and hit testing.',
     after: [],
     core: { entry: 'core/index.ts', export: 'input', svg: 'core/svg.ts', svgExport: 'inputSVG' },
     web: [{ name: 'input', budget: 7104 }],

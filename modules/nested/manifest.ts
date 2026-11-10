@@ -2,6 +2,8 @@ export const after = ['components', 'data', 'bind', 'lists', 'motion'];
 export default {
   ...{
     name: 'nested',
+    summary:
+      'Nested scenes: embed another scene’s animation with remapped or quantized time, and read its outputs.',
     after: [],
     core: { entry: 'core/index.ts', export: 'nested', svg: 'core/svg.ts', svgExport: 'nestedSVG' },
     web: [{ name: 'nested', budget: 5056 }],

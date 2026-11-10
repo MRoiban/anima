@@ -1,6 +1,8 @@
 export const after = ['bind', 'data'];
 export default {
   name: 'convert',
+  summary:
+    'Converters: format and transform values between data and display (numbers, strings, enums, templates).',
   after,
   core: { entry: 'core/index.ts', export: 'convert' },
   web: [

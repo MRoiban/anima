@@ -2,6 +2,8 @@ export const after = ['layout'];
 export default {
   ...{
     name: 'rig',
+    summary:
+      'Rigging: bones and ordered transform constraints (copy position, rotation, scale, transform; distance).',
     after: [],
     core: { entry: 'core/all.ts', export: 'rig', svg: 'core/svg.ts', svgExport: 'rigSVG' },
     web: [

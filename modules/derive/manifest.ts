@@ -1,6 +1,7 @@
 export const after = ['data', 'bind', 'convert'];
 export default {
   name: 'derive',
+  summary: 'Derived data: computed, read-only model properties from expressions.',
   after,
   core: { entry: 'core/index.ts', export: 'derive' },
   web: [{ name: 'derive', budget: 2624 }],

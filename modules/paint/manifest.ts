@@ -1,6 +1,8 @@
 export const after = ['assets', 'corners'];
 export default {
   name: 'paint',
+  summary:
+    'Paint: solid and gradient fills, strokes (width, caps, joins, dashes, trims) and ordered paints.',
   after,
   core: {
     entry: 'core/index.ts',

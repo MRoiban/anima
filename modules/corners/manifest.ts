@@ -1,6 +1,7 @@
 export const after: string[] = [];
 export default {
   name: 'corners',
+  summary: 'Rectangle corner radii (and the rounded geometry) for scenes that don’t load paint.',
   after,
   core: { entry: 'core/index.ts', export: 'corners' },
   web: [{ name: 'corners', budget: 1024 }],

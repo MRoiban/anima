@@ -2,6 +2,8 @@ export const after = ['rig', 'input', 'layout'];
 export default {
   ...{
     name: 'scroll',
+    summary:
+      'Scrolling: scroll containers with drag and wheel, clamped offsets and linked scroll thumbs.',
     after: [],
     core: { entry: 'core/index.ts', export: 'scroll', svg: 'core/svg.ts', svgExport: 'scrollSVG' },
     web: [{ name: 'scroll', budget: 1024, heavy: true, over: 'rig' }],

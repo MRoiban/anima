@@ -3,6 +3,8 @@ export const after: string[] = [];
 export default {
   ...{
     name: 'motion',
+    summary:
+      'Timeline control: play, pause, seek, scrub, reverse, work areas, loop overrides and quantized playback.',
     after: [],
     core: { entry: 'core/index.ts', export: 'motion', svg: 'core/svg.ts', svgExport: 'motionSVG' },
     web: [{ name: 'motion', budget: 6528 }],

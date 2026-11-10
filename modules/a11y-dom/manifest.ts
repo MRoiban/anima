@@ -1,6 +1,8 @@
 export const after = ['a11y-actions'];
 export default {
   name: 'a11y-dom',
+  summary:
+    'Browser entry: mirrors the semantic tree as real ARIA elements inside <anima-icon> for screen readers.',
   after,
   web: [
     { name: 'a11y-dom', budget: 2176, over: 'a11y-actions' },

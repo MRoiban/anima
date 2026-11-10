@@ -178,7 +178,7 @@ function examplesRaw(): ExampleRaw[] {
   });
   return EXAMPLES;
 }
-type FeatureMeta = { after: string[]; summary: string; module: string };
+type FeatureMeta = { after: string[]; summary: string; module: string; requirable: boolean };
 let FEATURES: Map<string, FeatureMeta> | undefined;
 function moduleSummary(module: string, fallback: string): string {
   const fromSpec = specModuleSummaries().get(module);
@@ -193,7 +193,7 @@ function moduleSummary(module: string, fallback: string): string {
 }
 function featureMap(): Map<string, FeatureMeta> {
   if (FEATURES) return FEATURES;
-  const m = new Map<string, { after: string[]; summary: string; module: string }>();
+  const m = new Map<string, FeatureMeta>();
   for (const f of files('modules', (p) => /\/manifest\.ts$/.test(p))) {
     const t = read(f);
     const mod = f.split('/')[1];
@@ -202,8 +202,16 @@ function featureMap(): Map<string, FeatureMeta> {
     const exportedAfter = /export const after(?:\s*:\s*[^=]+)?\s*=\s*\[([^\]]*)\]/s.exec(t)?.[1];
     const afterSource = exportedAfter ?? /after:\s*\[([^\]]*)\]/s.exec(t)?.[1] ?? '';
     const after = quoted(afterSource).map((value) => value.replaceAll('-', ''));
-    const sum = moduleSummary(mod, `${name} feature`);
-    m.set(canonical, { after: uniq(after), summary: sum, module: mod });
+    // The manifest's own one-line summary is the source of truth; spec prose is the fallback.
+    const own = /\bsummary:\s*'([^']+)'/.exec(t)?.[1];
+    const sum = own || moduleSummary(mod, `${name} feature`);
+    // Only modules with a core entry can appear in a document's `requires`.
+    m.set(canonical, {
+      after: uniq(after),
+      summary: sum,
+      module: mod,
+      requirable: /\bcore:\s*\{/.test(t),
+    });
   }
   FEATURES = m;
   return FEATURES;
@@ -621,4 +629,9 @@ export function featureAfter(): Map<string, string[]> {
 }
 export function exampleDetails() {
   return examplesRaw();
+}
+
+/** Features a document can name in `requires` (modules with a core entry). */
+export function requirableFeatures(): Set<string> {
+  return new Set([...featureMap()].filter(([, v]) => v.requirable).map(([k]) => k));
 }

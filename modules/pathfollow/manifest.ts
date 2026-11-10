@@ -2,6 +2,7 @@ export const after = ['rig', 'lists', 'contour'];
 export default {
   ...{
     name: 'pathfollow',
+    summary: 'Follow path: place or orient nodes along a path outline, with offsets and spreading.',
     after: [],
     core: {
       entry: 'core/index.ts',

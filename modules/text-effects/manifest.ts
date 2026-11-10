@@ -2,6 +2,8 @@ export const after = ['text'];
 export default {
   ...{
     name: 'text-effects',
+    summary:
+      'Text effects: per-character modifiers (offset, opacity, follow path) over animated ranges.',
     core: {
       entry: 'core/index.ts',
       export: 'textEffects',

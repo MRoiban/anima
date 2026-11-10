@@ -1,6 +1,7 @@
 export const after = ['host', 'data'];
 export default {
   name: 'host-edit',
+  summary: 'Host data API: edit scene data from page scripts.',
   after,
   core: { entry: 'core/index.ts', export: 'hostEdit' },
   web: [{ name: 'host-edit', budget: 4032 }],

@@ -1,6 +1,7 @@
 export const after = ['components', 'nested', 'lists', 'paint', 'surface', 'mix'];
 export default {
   name: 'componentpaint',
+  summary: 'Paint for components: let an instance override its component’s fills and strokes.',
   after,
   core: {
     entry: 'core/index.ts',

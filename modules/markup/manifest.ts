@@ -1,5 +1,6 @@
 export default {
   name: 'markup',
+  summary: 'Authoring: the AniML markup compiler and decompiler (.animl ↔ .ani).',
   after: [],
   web: [
     {

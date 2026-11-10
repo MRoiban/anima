@@ -3,6 +3,8 @@ export const after = ['data', 'focus', 'lists'];
 export default {
   ...{
     name: 'a11y',
+    summary:
+      'Accessible names, roles, values and states for nodes, with a headless semantic tree for tools and tests.',
     after: [],
     core: { entry: 'core/index.ts', export: 'a11y', svg: 'core/svg.ts', svgExport: 'a11ySVG' },
     web: [

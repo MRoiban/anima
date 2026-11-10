@@ -1,6 +1,7 @@
 export const after = [];
 export default {
   name: 'markup-hooks',
+  summary: 'Authoring: AniML extension hooks that optional modules plug their elements into.',
   after,
   core: null,
   web: [],

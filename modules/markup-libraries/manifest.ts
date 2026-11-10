@@ -1,6 +1,8 @@
 export const after = [];
 export default {
   name: 'markup-libraries',
+  summary:
+    'Authoring: AniML library imports (shared components, models and styles from other files).',
   after,
   core: null,
   web: [

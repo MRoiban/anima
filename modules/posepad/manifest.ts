@@ -2,6 +2,8 @@ export const after = ['layout', 'rig'];
 export default {
   ...{
     name: 'posepad',
+    summary:
+      'Pose pads: a draggable handle whose position blends poses (joystick-style, one or two axes).',
     after: [],
     core: {
       entry: 'core/index.ts',

@@ -49,7 +49,7 @@ export interface Hit {
   score: number;
 }
 
-import { buildIndex, featureAfter, exampleDetails } from './build.ts';
+import { buildIndex, featureAfter, exampleDetails, requirableFeatures } from './build.ts';
 import { suggest as suggestWords } from '../suggest.ts';
 let CACHE: Entry[] | undefined;
 const idx = () => (CACHE ??= buildIndex());
@@ -208,8 +208,9 @@ export function search(query: string, options: SearchOptions = {}): Hit[] {
         if (nameTokens.includes(t)) s = e.kind === 'capability' ? 45 : 58;
         else if (aliasTokens.includes(t))
           s = e.kind === 'capability' ? 55 : e.kind === 'feature' ? 90 : 52;
-        else if (n.includes(t)) s = 38;
-        else if (aliases.some((a) => a.includes(t))) s = 34;
+        // Substrings only for words of 3+ letters: `if` must not match `modifiers` or `justify`.
+        else if (t.length >= 3 && n.includes(t)) s = 38;
+        else if (t.length >= 3 && aliases.some((a) => a.includes(t))) s = 34;
         else if (sumTokens.includes(t)) s = 17;
         else if (
           fuzzy.get(t)?.has(nameTokens.find((x) => fuzzy.get(t)?.has(x)) || '') ||
@@ -266,8 +267,10 @@ export function features(name?: string): FeatureInfo[] | FeatureInfo | undefined
       provides: (provided.get(entry.name) || []).filter((e) => e !== entry),
       after: after.get(entry.name) || [],
     }));
+  // The list is what a document can `requires`; browser and authoring entries stay findable by name.
+  const requirable = requirableFeatures();
   return name === undefined
-    ? all
+    ? all.filter((f) => requirable.has(f.entry.name))
     : all.find((x) => x.entry.name === name || x.entry.aliases?.includes(name));
 }
 

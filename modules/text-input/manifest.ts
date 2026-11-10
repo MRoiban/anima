@@ -3,6 +3,8 @@ export const after = ['text', 'input', 'a11y', 'a11y-actions', 'focus'];
 export default {
   ...{
     name: 'text-input',
+    summary:
+      'Text input: an editable text field backed by the browser (caret, selection, IME, placeholder, limits).',
     after: [],
     core: {
       entry: 'core/index.ts',

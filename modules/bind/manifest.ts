@@ -1,6 +1,8 @@
 export const after = ['components'];
 export default {
   name: 'bind',
+  summary:
+    'Bindings: drive any animatable or bindable address from input expressions (math, comparisons, contains, lower…).',
   after,
   core: {
     entry: 'core/index.ts',

@@ -2,6 +2,8 @@ export const after = ['composite', 'contour', 'surface'];
 export default {
   ...{
     name: 'mix',
+    summary:
+      'Paint mixing: additive blending, blend strength and per-paint blend overrides in the drawing backends.',
     after: [],
     core: { entry: 'core/index.ts', export: 'mix', svg: 'core/svg.ts', svgExport: 'mixSVG' },
     web: [{ name: 'mix', budget: 1856 }],

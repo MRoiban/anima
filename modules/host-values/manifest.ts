@@ -1,6 +1,8 @@
 export const after = ['data'];
 export default {
   name: 'host-values',
+  summary:
+    'Host values: live value read-outs for the host data API (loaded automatically with host).',
   after,
   core: { entry: 'core/index.ts', export: 'hostValues' },
   web: [{ name: 'host-values', budget: 1344 }],

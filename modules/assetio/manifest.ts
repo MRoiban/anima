@@ -1,5 +1,7 @@
 export default {
   name: 'assetio',
+  summary:
+    'Browser entry: image source resolution, loading policy and preloading for the assets feature.',
   after: [],
   web: [{ name: 'assetio', budget: 768 }],
   adapters: { 'packages/web/src/assetio.ts': 'web/index.ts' },

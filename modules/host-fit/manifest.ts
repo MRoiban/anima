@@ -1,6 +1,8 @@
 export const after: string[] = [];
 export default {
   name: 'host-fit',
+  summary:
+    'Browser entry: fit and alignment of the scene inside its <anima-icon> element (contain, cover, fill, layout).',
   after,
   web: [
     { name: 'host-fit', budget: 768, over: 'host-fit-size' },
