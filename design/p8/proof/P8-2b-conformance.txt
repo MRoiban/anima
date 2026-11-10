@@ -1,0 +1,16 @@
+Independent two-link strength-0.5 derivation for rigging-ik
+
+Rest chain: start=(40,10), l1=5, l2=4, target offset=(6,3), c=sqrt(45).
+Law of cosines gives the full-strength elbow offset:
+  along=(l1^2-l2^2+c^2)/(2c)
+  height=sqrt(l1^2-along^2)
+  elbow=(2.2733500838578404,4.453299832284319)
+Full local rotations from the rest pose are:
+  upper=1.0987946406559146 rad
+  fore=-1.4706289056333366 rad
+At strength 0.5, shortest-arc local rotations are half those values.
+Forward kinematics then gives:
+  halfA.tip=(44.26419690089993,12.610866674182233)
+  halfB.world=halfA.tip
+  halfB.tip=(48.19526543658897,11.87147491894305)
+The animated chain at t=0.5 has the same relative geometry translated by +10 on y.

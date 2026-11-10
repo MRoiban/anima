@@ -1,0 +1,8 @@
+{
+  "threshold": 16,
+  "maxDiff": 42,
+  "over": 72,
+  "overPercent": 0.125,
+  "edge": 72,
+  "interior": 0
+}

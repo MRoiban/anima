@@ -1,0 +1,10 @@
+<anima version="0.1" name="rigging-ik-strength" grid="40" viewBox="0 0 40 40" requires="rig ik">
+  <group id="target" x="14" y="26"/>
+  <bone id="upper" length="9" x="8" y="20">
+    <rect id="upperArt" x0="8" y0="19.75" width="9" height="0.5" fill="#d97757"/>
+    <bone id="fore" length="8">
+      <ik target="target" bones="2" bend="cw" strength="0.5"/>
+      <rect id="foreArt" x0="17" y0="19.75" width="8" height="0.5" fill="#d97757"/>
+    </bone>
+  </bone>
+</anima>

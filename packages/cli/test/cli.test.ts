@@ -464,6 +464,18 @@ describe('anima inspect, schema, docs', () => {
     expect(topics.length).toBeGreaterThan(5);
     expect((await cli('docs', topics[2]!)).out).toMatch(/^## /);
   });
+
+  it('docs resolves rigging entry points and suggests close aliases', async () => {
+    expect((await cli('docs', 'constraint')).out).toMatch(/^## rig/);
+    expect((await cli('docs', 'constraint')).out).toContain(
+      'Pointer-driven IK with an eased release',
+    );
+    expect((await cli('docs', 'ik')).out).toMatch(/^## ik/);
+    expect((await cli('docs', 'skin')).out).toMatch(/^## skin/);
+    const typo = await cli('docs', 'constrant');
+    expect(typo.code).toBe(2);
+    expect(typo.err).toContain('did you mean "constraint"? Try anima docs constraint');
+  });
 });
 
 describe('bind tooling', () => {
