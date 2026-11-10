@@ -446,8 +446,11 @@ export const COMMANDS: Command[] = [
     name: 'docs',
     group: 'see',
     summary: 'read the authoring guide, format spec, markup spec, or module docs',
-    usage: ['docs [authoring | spec | markup | <section>] [section-slug] [--list]'],
-    options: [{ name: 'list', summary: 'list available topics or sections' }],
+    usage: ['docs [authoring | spec | markup | <section>] [section-slug] [--list | --full]'],
+    options: [
+      { name: 'list', summary: 'list available topics or sections' },
+      { name: 'full', summary: 'print a long section in full instead of its contents first' },
+    ],
     topics: docsTopics,
     aliases: ['topics'],
     examples: [
@@ -462,7 +465,7 @@ export const COMMANDS: Command[] = [
     group: 'see',
     summary: 'inspect registry fields, types, spellings, and JSON Schema',
     usage: [
-      'schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]',
+      'schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--all | --json-schema]',
       'schema --search <words> | <type>.<field> [--animatable] [--bindable] [--inherited] [--editor-only]',
     ],
     options: [
@@ -471,6 +474,7 @@ export const COMMANDS: Command[] = [
       { name: 'bindable', summary: 'show bindable fields only' },
       { name: 'inherited', summary: 'show inherited fields only' },
       { name: 'editor-only', summary: 'show editor-only fields when applicable' },
+      { name: 'all', summary: 'print every type and field instead of the topic index' },
       { name: 'json-schema', summary: 'print the complete generated JSON Schema' },
     ],
     topics: schemaTopics,

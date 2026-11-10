@@ -89,7 +89,7 @@ it('help and docs describe local fonts for every command that installs them', as
     expect(help).toContain('--font');
   }
   expect((await invoke(['docs'])).out.join('\n')).toContain('Contents');
-  for (const topic of [['authoring'], ['text']]) {
+  for (const topic of [['authoring', '--full'], ['text']]) {
     const docs = await invoke(['docs', ...topic]);
     expect(docs.code).toBe(0);
     expect(docs.out.join('\n')).toContain('--font');

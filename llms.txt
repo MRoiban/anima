@@ -1,0 +1,30 @@
+# Anima
+
+Anima is an open animation format (`.ani` JSON) with AniML text markup and a small deterministic web runtime for animated, interactive UI.
+
+Authoring loop:
+1. Write or edit a `.animl` scene.
+2. `anima validate scene.animl --format=json`
+3. `anima sample scene.animl -e "<script>"`
+4. `anima render scene.animl -o out.png` when appearance matters.
+5. `anima build scene.animl -o scene.ani`
+
+Discovery commands:
+- `anima help` — concise command overview.
+- `anima features` — list optional capabilities; add a feature name for details.
+- `anima search <words>` — ranked search across capabilities, fields, docs, examples and diagnostics.
+- `anima examples` — list examples; add a topic or name to filter.
+- `anima schema <topic>` — exact node/object fields, AniML/JSON spellings and animation addresses.
+- `anima docs <topic>` — authoring and normative docs by module, feature, capability row, element or section.
+- `anima help --json` — machine-readable command metadata.
+
+All commands (`anima help <command>` for each):
+- Write: `anima new`, `anima fmt`, `anima import`, `anima decompile`, `anima flatten`, `anima library`
+- Check: `anima validate`, `anima compare`, `anima bench`, `anima doctor`
+- See: `anima inspect`, `anima sample`, `anima session`, `anima render`, `anima playground`, `anima docs`, `anima schema`
+- Find: `anima features`, `anima search`, `anima examples`, `anima help`
+- Ship: `anima build`, `anima bundle`, `anima completion`, `anima version`
+- Fonts and assets: `anima import-font`
+
+Agent guide: docs/FOR-AGENTS.md
+Generated CLI reference: docs/CLI.md
