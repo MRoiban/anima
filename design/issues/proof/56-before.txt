@@ -1,0 +1,98 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-517d177c
+
+ ❯ |unit| packages/cli/test/issues-51-54-56.test.ts (5 tests | 3 failed | 2 skipped) 1001ms
+   × #56 contact-sheet labels contrast with a dark custom background 12ms
+   × #56 treats a missing Firefox as a doctor warning and names FIREFOX_PATH 945ms
+   × #56 session emits a snapshot once, in snapshots rather than output 42ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #56 contact-sheet labels contrast with a dark custom background
+AssertionError: expected '<svg xmlns="http://www.w3.org/2000/sv…' to contain 'fill="#f0eee6">t=0.000s</text>'
+
+Expected: "fill="#f0eee6">t=0.000s</text>"
+Received: "<svg xmlns="http://www.w3.org/2000/svg" width="24" height="42" viewBox="0 0 24 42"><rect width="24" height="42" fill="#111111"/><svg x="0" y="0" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"></svg><text x="12" y="37" text-anchor="middle" font-family="monospace" font-size="12" fill="#141413">t=0.000s</text></svg>"
+
+ ❯ packages/cli/test/issues-51-54-56.test.ts:84:15
+     82|     24,
+     83|   );
+     84|   expect(svg).toContain('fill="#f0eee6">t=0.000s</text>');
+       |               ^
+     85| });
+     86|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #56 treats a missing Firefox as a doctor warning and names FIREFOX_PATH
+AssertionError: expected { name: 'firefox', pass: true, …(4) } to match object { pass: false, severity: 'warning' }
+(5 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "pass": false,
+-   "severity": "warning",
++   "pass": true,
+  }
+
+ ❯ packages/cli/test/issues-51-54-56.test.ts:93:21
+     91|     const result = await doctor(temp());
+     92|     const firefox = result.checks.find((check) => check.name === 'fire…
+     93|     expect(firefox).toMatchObject({ pass: false, severity: 'warning' }…
+       |                     ^
+     94|     expect(firefox?.hint).toContain('FIREFOX_PATH');
+     95|     expect(result.ok).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #56 session emits a snapshot once, in snapshots rather than output
+AssertionError: expected [ { time: +0, …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "events": [],
++     "settled": false,
++     "states": {},
++     "time": 0,
++     "values": {
++       "dot.collapsed": false,
++       "dot.fill.blendAmount": 1,
++       "dot.fill.color": "#000000",
++       "dot.fill.visible": true,
++       "dot.opacity": 1,
++       "dot.pivotX": 0,
++       "dot.pivotY": 0,
++       "dot.pointerEnabled": true,
++       "dot.r": 2,
++       "dot.rotate": 0,
++       "dot.scale": 1,
++       "dot.scaleX": 1,
++       "dot.scaleY": 1,
++       "dot.visible": true,
++       "dot.x": 0,
++       "dot.y": 0,
++     },
++   },
++ ]
+
+ ❯ packages/cli/test/issues-51-54-56.test.ts:122:24
+    120|   const reply = JSON.parse(out[0]!);
+    121|   expect(reply.snapshots).toHaveLength(1);
+    122|   expect(reply.output).toEqual([]);
+       |                        ^
+    123| });
+    124|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 2 skipped (5)
+   Start at  16:15:20
+   Duration  2.24s (tests 48%, import 31%, transform 20%)

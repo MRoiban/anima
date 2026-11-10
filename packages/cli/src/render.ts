@@ -17,6 +17,21 @@ export interface Look {
 export const DARK: Look = { paint: staticSlots(), color: '#f0eee6', background: '#1d1d1d' };
 export const LIGHT: Look = { paint: staticSlots(), color: '#141413' };
 
+function sheetLabelColor(background?: string): string {
+  if (!background) return '#141413';
+  const match = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(background);
+  if (!match) return '#141413';
+  const hex =
+    match[1]!.length <= 4 ? [...match[1]!].map((channel) => channel + channel).join('') : match[1]!;
+  const [r, g, b] = [0, 2, 4].map(
+    (offset) => Number.parseInt(hex.slice(offset, offset + 2), 16) / 255,
+  );
+  const linear = (value: number) =>
+    value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  const luminance = 0.2126 * linear(r!) + 0.7152 * linear(g!) + 0.0722 * linear(b!);
+  return luminance < 0.35 ? '#f0eee6' : '#141413';
+}
+
 /** One frame as a standalone SVG. */
 export function frameSVG(p: Player, look: Look, size?: number, id = 'a'): string {
   const svg = toSVG(p, {
@@ -38,7 +53,7 @@ export function sheetSVG(frames: [string, string][], look: Look, cell = 160): st
   const label = 18;
   const w = cols * cell;
   const h = rows * (cell + label);
-  const fg = look.background ? look.color : '#141413';
+  const fg = sheetLabelColor(look.background);
   const cells = frames
     .map(([text, svg], k) => {
       const x = (k % cols) * cell;

@@ -577,7 +577,9 @@ errors carry `script-usage`, `/script/<zero-based-line>`, a message and hint.
 
 `anima session <file>` keeps the interpreter alive. Each stdin line is one command or a JSON
 object with a string `cmd`; each receives exactly one JSON reply containing `ok`, outputs,
-snapshots and diagnostics. A bad request does not end the process. `quit` replies then exits;
+snapshots and diagnostics. Snapshot values appear once in `snapshots`; `output` contains other
+command output rather than a duplicate snapshot. A bad request does not end the process. `quit`
+replies then exits;
 `reload` reads and validates the source again, resets time/inputs/control state, restores compatible
 data values through public handles and steps at 0. Its reply lists restored/skipped paths; failed
 reload retains the old interpreter. Breakpoints pause the current command, and the next request
@@ -2902,6 +2904,8 @@ An explicit background covers the entire output viewport, including letterbox re
 `--scale k` accepts finite `0 < k ≤ 1`, rounds each output dimension to the nearest integer,
 with a minimum of one pixel. Fit is computed before downscaling. These options apply to single
 frames; contact sheets reject viewport, fit and scale overrides.
+Contact-sheet labels choose dark or light text from the sheet background so custom dark
+backgrounds remain readable.
 
 `--probe 'x,y;x,y'` reports `{x,y,rgba:[r,g,b,a]}` for each point as one JSON object containing
 `probes`. Coordinates are zero-based integer **output pixels after viewport and scale**, with
@@ -2935,13 +2939,17 @@ scores are omitted. Results sort by descending score then ascending name (code-p
 
 `anima inspect --summary` returns a wiring table (JSON: `{wiring:[…]}`) of unbound inputs,
 unused component/model/property declarations, listener targets and unreachable states. Each
-finding has code, pointer, message and hint. This is a conservative static aid: dynamic host writes
-and imported/dynamically selected components may require human interpretation. Invalid documents
-still report normal loader diagnostics rather than a partially linked graph.
+finding has code, pointer, message and hint. Property reads through list/component context,
+including `$parent.name`, count as uses of the resolved enclosing-model property. This is a
+conservative static aid: dynamic host writes and imported/dynamically selected components may
+require human interpretation. Invalid documents still report normal loader diagnostics rather
+than a partially linked graph.
 
 `anima doctor` checks Node ≥24, cached Chromium/Firefox executables, cache write permission and,
 inside a repository containing `tools/modules.ts` and `spec/MODULES.md`, generated module
-wiring with `node tools/modules.ts --check`. It exits 1 if any check fails and supplies repair hints.
+wiring with `node tools/modules.ts --check`. Chromium is required; a missing Firefox executable
+is reported as a warning and does not make the command fail. Browser hints name `CHROMIUM_PATH`
+or `FIREFOX_PATH` respectively. It exits 1 when a required check fails and supplies repair hints.
 It does not install browsers or rewrite wiring.
 
 `anima new directory --sample bell|moon|progress` creates a fresh project directory containing
