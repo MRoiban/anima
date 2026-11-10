@@ -45,8 +45,8 @@ for (const [name, engine, relative] of [
       await page.addScriptTag({ type: 'module', content: await harness });
       await page.waitForFunction(() => !!window.canvasTest);
       separate ??= Promise.all(
-        ['index', 'rig', 'rig-distance', 'markup-rig', 'markup-animation'].map((entry) =>
-          bundle(resolve('packages/web/src/' + entry + '.ts')),
+        ['index', 'rig', 'rig-origin', 'rig-distance', 'markup-rig', 'markup-animation'].map(
+          (entry) => bundle(resolve('packages/web/src/' + entry + '.ts')),
         ),
       );
       await separate;
@@ -86,6 +86,43 @@ for (const [name, engine, relative] of [
         },
         30000,
       );
+    it('reports a missing origin entry and accepts it when loaded', async () => {
+      const p = await browser.newPage();
+      try {
+        for (const content of (await separate!).slice(0, 2))
+          await p.addScriptTag({ type: 'module', content });
+        const doc = {
+          anima: '0.1',
+          name: 'rig-origin-entry',
+          grid: 20,
+          requires: ['rig'],
+          nodes: [
+            { id: 'target', type: 'rect', x0: 1, y0: 2, w: 4, h: 2 },
+            {
+              id: 'host',
+              type: 'group',
+              constraints: [{ kind: 'copyTransform', from: 'target', origin: [1, 1] }],
+            },
+          ],
+        };
+        const load = (source: object) =>
+          p.evaluate((d) => {
+            const icon = document.createElement('anima-icon');
+            document.body.append(icon);
+            return icon.load(d);
+          }, source);
+        expect(await load(doc)).toContainEqual(
+          expect.objectContaining({
+            code: 'rig-origin',
+            pointer: '/nodes/1/constraints/0/origin',
+          }),
+        );
+        await p.addScriptTag({ type: 'module', content: (await separate!)[2]! });
+        expect(await load(doc)).toEqual([]);
+      } finally {
+        await p.close();
+      }
+    }, 30000);
     it('compiles bone/constraint children with separately bundled markup-rig', async () => {
       const p = await browser.newPage();
       try {

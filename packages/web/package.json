@@ -81,6 +81,7 @@
     "./layout-svg": "./src/layout-svg.ts",
     "./markup-layout": "./src/markup-layout.ts",
     "./rig": "./src/rig.ts",
+    "./rig-origin": "./src/rig-origin.ts",
     "./rig-distance": "./src/rig-distance.ts",
     "./markup-rig": "./src/markup-rig.ts",
     "./ik": "./src/ik.ts",

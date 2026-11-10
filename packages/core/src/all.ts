@@ -56,7 +56,7 @@ import { text } from '../../../modules/text/core/index.ts';
 import { textSVG } from '../../../modules/text/core/svg.ts';
 import { layout } from '../../../modules/layout/core/index.ts';
 import { layoutSVG } from '../../../modules/layout/core/svg.ts';
-import { rig } from '../../../modules/rig/core/index.ts';
+import { rig } from '../../../modules/rig/core/all.ts';
 import { rigSVG } from '../../../modules/rig/core/svg.ts';
 import { ik } from '../../../modules/ik/core/index.ts';
 import { ikSVG } from '../../../modules/ik/core/svg.ts';

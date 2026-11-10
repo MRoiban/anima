@@ -13,7 +13,7 @@ import {
 } from './api.ts';
 import { bone, pivot, install, contexts } from './solve.ts';
 import { constraintElements } from '../markup/elements.ts';
-import { number, registerCopies } from './constraints.ts';
+import { number, origin, registerCopies } from './constraints.ts';
 import { registerDistance } from './distance.ts';
 import { after } from '../manifest.ts';
 export * from './api.ts';
@@ -21,6 +21,7 @@ export { contexts, bone, pivot } from './solve.ts';
 export interface RigModule extends Module {
   registerConstraint: typeof registerConstraint;
   kinds: typeof constraintKinds;
+  origin: typeof origin;
   context(player: import('../../../packages/core/src/player.ts').Player): RigContext | undefined;
 }
 const shape: Shape = {
@@ -44,6 +45,7 @@ export const rig: RigModule = {
   after,
   registerConstraint,
   kinds: constraintKinds,
+  origin,
   context: (p) => contexts.get(p),
   entries: [
     {
@@ -218,6 +220,17 @@ export const rig: RigModule = {
       (n.raw.constraints ?? []).forEach((r: Constraint, k: number) => {
         const kind = constraintKinds.get(r.kind)!,
           pointer = at + '/constraints/' + k;
+        if (
+          r.kind === 'copyTransform' &&
+          !origin.point &&
+          (r.origin !== undefined || model.addrs.has(n.id + `.constraints.${k}.origin`))
+        )
+          d.err(
+            'rig-origin',
+            pointer + '/origin',
+            V && 'transform origin support is not installed',
+            V && 'import @anima-format/web/rig-origin',
+          );
         for (const id of kind.targets(r, model)) {
           const j = model.ids.get(id);
           if (j === undefined)
