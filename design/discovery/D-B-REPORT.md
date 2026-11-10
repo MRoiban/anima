@@ -1,42 +1,53 @@
 # D-B — Capability discovery index
 
 ## Status
-Implemented the D-B runtime discovery index, ranked search, feature lookup, example lookup, source-derived docs/capabilities/commands/vocabularies, and focused discovery tests on `discovery-b`.
+Round 2 is complete on `discovery-b` after merging D-A and D-C from `origin/cli-discovery`. The discovery index is built from live module/schema/docs/example/parity/command sources, cached per process, and the real `anima features|search|examples` commands use it through D-A.
 
-The implementation is functional and fully typed/linted/formatted, but the timeboxed discovery metric did not reach every target. No quiz-specific entries or copied quiz aliases were added.
+The round-2 work fixes capability-specific docs, schema/object-field coverage, feature summaries and `after` metadata, example summaries and attribution, search ranking and typo behavior, command indexing from `COMMANDS`, shared D-A suggestions, and index/search performance.
 
 ## Metric
 
-| Metric | Baseline | After |
+| Metric | Round-2 baseline after D-C | After |
 | --- | ---: | ---: |
-| quiz | 13/56 | 35/56 |
-| rows reachable | 0/886 | 877/886 |
-| rows with docs | 0/886 | 886/886 |
-| rows with example | 0/886 | 755/886 |
+| quiz | 32/56 | 56/56 |
+| rows reachable | 877/886 | 886/886 |
+| rows with docs | 574/886 | 886/886 |
+| rows with example | 755/886 | 779/886 |
 
-The 755 example-covered rows are backed by examples discovered from the requested repository paths; no examples were invented.
+The final `node tools/discovery.ts --misses` run reports 107 rows without an attributable example. A filesystem check found 0 matching capability example files among those 107 rows, so there are no known existing capability examples left unattributed. No examples were invented.
 
-## Remaining misses and why
-Quiz misses are mostly natural-language concepts where the current generic token weighting still ranks adjacent capability/index terms above the expected concrete feature/value in the first five results. Examples include hover/mouse-over, text/font, mesh/path/stroke/star, Lottie/embed, reduced motion/audio, and command-oriented queries.
+## Performance
+The user-observed round-2 baseline was about 1.7 s of index-build overhead per command. Intermediate profiling on this branch measured 2.95 s and then 2.17 s while capability docs were still resolved by repeated full-text scans.
 
-Nine parity rows remain outside the first five hits when searched by capability text: `animation.seek`, `host-api.auto-bind`, `host-api.cleanup`, `host-api.data-list`, `input.data-listener`, `text.input-limits`, `text.input-placeholder`, `tooling.pixel-compare`, and `tooling.publish-local`.
+Final cold timing on the committed implementation: 304.7 ms for `index()` after module import, 7,629 entries. This is below the 0.4 s budget. Capability docs now use D-C's directly resolvable row-id topics, source files are cached, capability/example lookups use maps, row attribution is batched, and normalized search data is cached.
 
-Rows without examples are genuine gaps in the discovered example corpus or cannot be attributed safely from feature/element use alone.
+## Round-2 fixes
+- Capability docs use specific D-C-resolvable topics such as the parity row id; no bare `spec`, `authoring`, or `markup` contents page is used as a capability answer.
+- Feature summaries come from real spec/module prose, feature docs use direct module topics, and manifest `after` relationships are preserved. `features ik` includes the `ik` type, element, fields, strength address, `Docs: anima docs ik`, and `After: rig`.
+- Schema indexing now walks node/document object shapes for fields and structural topics, includes markup/.ani spellings, animatable addresses, and element-backed object types.
+- Vocabulary entries cover supported eases, built-in/registered expression functions, listener events, and core/module script commands with provider features where known.
+- Commands derive from D-A's `COMMANDS` table, including aliases, group, option names/short names, and option choices.
+- Search uses D-A's `suggest.ts`, limits fuzzy matching to longer unmatched words, gives exact entity/vocabulary matches precedence over capability/doc/example noise, handles concept synonyms generically, and caches normalized search metadata.
+- Capability/example summaries are source-derived; capability `example.animl` files use the inventory capability/what text.
+- Real-source discovery tests use an explicit 30 s timeout and cover IK completeness, ranking regressions, summaries, uniqueness, examples, and every doc entry resolving through `anima docs`.
 
-## Verification
-- `npm run typecheck`: pass after fixing two D-B type errors found on the first verification attempt.
-- `npm run lint`: pass after local cleanup.
-- `npm run format:check`: pass.
-- `npm run test:scope -- cli`: 429/435 passed initially. Three asset pipeline tests timed out at Vitest's 5 s default under load; three bundle tests failed because `packages/web/dist` had not been built in the fresh worktree. Per repo rules, after `node tools/build-web.ts`, isolated rerun of `modules/assets/test/cli/pipeline.test.ts` and `packages/cli/test/bundle.test.ts` passed 28/28.
-- `packages/cli/test/discover.test.ts`: 4/4 pass, including every indexed doc topic resolving through the real `anima docs` command.
+## Remaining misses
+There are no quiz, reachability, or docs misses. The 107 example misses are rows for which the current example corpus has no directly matching capability example and no safe feature/construct-derived example. They are listed by the final `--misses` output; representative groups include core animation primitives, low-level paint/stroke variants, host API lifecycle controls, state-machine primitives, tooling-only operations, and basic transform properties.
 
 ## Deviations
-The current checkout has no D-A `suggest.ts`, so D-B uses a local single-word Levenshtein helper as permitted by the ticket.
-
-CLI command entries are derived at call time from the existing `HELP` source in `packages/cli/src/cli.ts` because `COMMANDS` is still empty on the branch base. This avoids a copied command list and can be replaced by D-A's command table once landed.
+None from the round-2 ownership/API constraints. `packages/cli/src/cli.ts`, `commands.ts`, `suggest.ts`, `help.ts`, schema/docs views, docs content, and `tools/discovery*` were not edited. No API type changes were needed.
 
 ## Open problems
-Search ranking needs another generic tuning pass to hit 56/56 without overmatching noise. Provider-feature inference for some schema entries is conservative because the live registry does not directly expose a provider on every shape/element. Expression functions registered indirectly outside `expression.ts` may need a more complete source scan.
+Example coverage is limited by the actual repository corpus: 107 done parity rows have no attributable example. Adding examples belongs to the owning capability/module work, not D-B discovery indexing.
 
 ## Requests
-D-A integration should expose the populated `COMMANDS` table and typo suggester on the shared branch so D-B can replace its HELP parsing and local typo helper. No API type changes are requested.
+None.
+
+## Verification
+- `npm run test:scope -- cli`: pass, 56 files / 473 tests.
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run format:check`: pass.
+- `packages/cli/test/discover.test.ts`: pass, 6/6.
+- `node tools/discovery.ts --misses`: 56/56 quiz, 886/886 reachable, 886/886 docs, 779/886 examples.
+- Final cold `index()` timing: 304.7 ms, within the ≤0.4 s budget.
