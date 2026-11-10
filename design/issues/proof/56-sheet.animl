@@ -1,0 +1,3 @@
+<anima version="0.1" name="sheet-contrast" grid="20">
+  <circle id="dot" cx="10" cy="10" r="4" fill="#000"/>
+</anima>

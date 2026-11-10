@@ -91,7 +91,11 @@ export async function session(
         continue;
       }
       const result = engine.execute(cmd);
-      io.out(JSON.stringify({ ok: result.diagnostics.length === 0, ...result }));
+      const snapshots = new Set(result.snapshots);
+      const output = result.output.filter(
+        (item) => !snapshots.has(item as (typeof result.snapshots)[number]),
+      );
+      io.out(JSON.stringify({ ok: result.diagnostics.length === 0, ...result, output }));
     } catch (error) {
       const e = error as Error & { code?: string; pointer?: string; hint?: string };
       io.out(

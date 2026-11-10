@@ -53,7 +53,7 @@ import {
   sheetSVG,
   toPNG,
 } from './render.ts';
-import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
+import { nameFromFile, newDoc, readGlyphy, scaffoldSVG, sha256 } from './scaffold.ts';
 import { COMMANDS, GLOBAL, type Command, type Option } from './commands.ts';
 import { commandByName, commandHelp, helpJSON, overview } from './help.ts';
 import { resolveAlias, suggest } from './suggest.ts';
@@ -728,7 +728,7 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
         else
           for (const c of result.checks)
             io.out(
-              `${c.pass ? 'PASS' : 'FAIL'} ${c.name}: ${c.message}${c.pass ? '' : '; hint: ' + c.hint}`,
+              `${c.pass ? 'PASS' : c.severity === 'warning' ? 'WARN' : 'FAIL'} ${c.name}: ${c.message}${c.pass ? '' : '; hint: ' + c.hint}`,
             );
         return result.ok ? 0 : 1;
       }
@@ -1659,8 +1659,11 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
     throw new Usage(`"${name}" must be kebab-case and not end in -<digits>`);
   if (!!o.glyph === !!o.glyphy)
     throw new Usage('new needs exactly one of --glyph <file.svg> or --glyphy <project-dir>');
-  const g = o.glyph ? readGlyphSVG(o.glyph as string) : readGlyphy(o.glyphy as string, name);
-  const doc = newDoc(name, g);
+  const glyphFile = o.glyph as string | undefined;
+  const svg = glyphFile ? scaffoldSVG(glyphFile, name) : undefined;
+  const g = svg ? svg.glyph : readGlyphy(o.glyphy as string, name);
+  const doc = svg?.doc ?? newDoc(name, g!);
+  const subpaths = svg?.subpaths ?? (g!.d.match(/[Mm]/g) ?? []).length;
   const out = (o.out as string) ?? `${name}.${o.ani ? 'ani' : 'animl'}`;
   if (existsSync(out) && !o.force) {
     io.err(`${out} exists (use --force to overwrite)`);
@@ -1681,13 +1684,10 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
       JSON.stringify({
         wrote: out,
         glyph: o.glyph ? nameFromFile(o.glyph as string) : name,
-        subpaths: (g.d.match(/[Mm]/g) ?? []).length,
+        subpaths,
       }),
     );
-  else
-    io.out(
-      `wrote ${out} (${(g.d.match(/[Mm]/g) ?? []).length} subpaths; see them with: anima inspect ${out})`,
-    );
+  else io.out(`wrote ${out} (${subpaths} subpaths; see them with: anima inspect ${out})`);
   return 0;
 }
 

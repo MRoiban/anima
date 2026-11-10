@@ -3,6 +3,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
+import { importSVG } from './import-svg.ts';
 
 export const sha256 = (s: string): string => createHash('sha256').update(s, 'utf8').digest('hex');
 
@@ -14,9 +15,7 @@ export interface GlyphSource {
   source: string;
 }
 
-/** Read a Glyphy-style glyph SVG: one path, square viewBox from 0. */
-export function readGlyphSVG(file: string): GlyphSource {
-  const text = readFileSync(file, 'utf8');
+function legacyGlyphSVG(text: string, file: string): GlyphSource {
   const paths = [...text.matchAll(/<path\b[^>]*\sd="([^"]+)"/g)];
   if (paths.length !== 1)
     throw new Error(`${file}: expected exactly one <path>, found ${paths.length}`);
@@ -28,6 +27,13 @@ export function readGlyphSVG(file: string): GlyphSource {
   if (!vb || vb.length !== 4 || vb[0] !== 0 || vb[1] !== 0 || vb[2] !== vb[3])
     throw new Error(`${file}: expected a square viewBox from 0 0 (a glyph grid)`);
   return { d: paths[0]![1]!, grid: vb[2]!, meta: {}, source: 'svg' };
+}
+
+/** Read a Glyphy-style glyph SVG: one path, square viewBox from 0. */
+export function readGlyphSVG(file: string): GlyphSource {
+  const text = readFileSync(file, 'utf8');
+  importSVG(text, nameFromFile(file));
+  return legacyGlyphSVG(text, file);
 }
 
 /** Just enough TOML for glyphy.toml: [sections], key = string | number | bool | [array]. */
@@ -111,3 +117,39 @@ export function newDoc(name: string, g: GlyphSource): Record<string, unknown> {
 }
 
 export const nameFromFile = (file: string) => basename(file).replace(/\.svg$/, '');
+
+/** Scaffold a standalone SVG through the importer, retaining the legacy one-path output shape. */
+export function scaffoldSVG(file: string, name: string) {
+  const source = readFileSync(file, 'utf8');
+  const imported = importSVG(source, name);
+  const leaves: Record<string, unknown>[] = [];
+  const collect = (nodes: unknown): void => {
+    if (!Array.isArray(nodes)) return;
+    for (const value of nodes) {
+      if (!value || typeof value !== 'object') continue;
+      const node = value as Record<string, unknown>;
+      if (node.type === 'group') collect(node.children);
+      else leaves.push(node);
+    }
+  };
+  collect(imported.doc.nodes);
+  if (leaves.length === 1 && leaves[0]?.type === 'path') {
+    try {
+      const glyph = legacyGlyphSVG(source, file);
+      return {
+        doc: newDoc(name, glyph),
+        diagnostics: imported.diagnostics,
+        glyph,
+        subpaths: (glyph.d.match(/[Mm]/g) ?? []).length,
+      };
+    } catch {
+      // Non-glyph geometry (for example a non-square viewBox) keeps the importer's document.
+    }
+  }
+  const subpaths = leaves.reduce(
+    (count, node) =>
+      count + (typeof node.d === 'string' ? Math.max(1, (node.d.match(/[Mm]/g) ?? []).length) : 1),
+    0,
+  );
+  return { doc: imported.doc, diagnostics: imported.diagnostics, subpaths };
+}
