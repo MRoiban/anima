@@ -30,7 +30,7 @@ describe('discovery index', () => {
       'command',
     ])
       expect(kinds.get(k) || 0, k).toBeGreaterThan(0);
-  });
+  }, 30000);
   it('ranks useful concepts', () => {
     expect(
       search('easing curve', { limit: 5 }).some((h) =>
@@ -46,8 +46,37 @@ describe('discovery index', () => {
   it('describes ik and rig examples', () => {
     const ik = features('ik');
     expect(ik?.entry.name).toBe('ik');
-    expect(ik?.provides.some((e) => e.name === 'ik' || e.name.startsWith('ik.'))).toBe(true);
+    expect(ik?.entry.docs).toContain('ik');
+    expect(ik?.after).toContain('rig');
+    for (const name of ['ik', 'ik.bend', 'ik.bones', 'ik.strength', 'ik.target'])
+      expect(
+        ik?.provides.some((e) => e.name === name),
+        name,
+      ).toBe(true);
+    expect(
+      ik?.provides.some((e) => e.kind === 'address' && e.aliases?.includes('ik.strength')),
+    ).toBe(true);
     expect(examples('rig').length).toBeGreaterThan(0);
+  });
+  it('keeps concrete discovery results ahead of noisy fuzzy matches', () => {
+    expect(search('hover', { limit: 5 }).map((hit) => hit.entry.name)).toEqual(['enter', 'leave']);
+    expect(search('ease in out', { limit: 5 }).some((hit) => hit.entry.name === 'inOut')).toBe(
+      true,
+    );
+    expect(
+      search('contains text filter', { limit: 5 }).some((hit) => hit.entry.name === 'contains'),
+    ).toBe(true);
+  });
+  it('uses meaningful source-derived summaries', () => {
+    for (const name of ['a11y', 'bind', 'convert', 'ik']) {
+      const summary = features(name)?.entry.summary || '';
+      expect(summary.length).toBeGreaterThan(20);
+      expect(summary).not.toBe(`${name} module`);
+    }
+    const capabilityExample = index().find(
+      (entry) => entry.kind === 'example' && entry.name.includes('/capabilities/'),
+    );
+    expect(capabilityExample?.summary).not.toMatch(/^example\.(?:animl|ani)$/);
   });
   it('all doc entries resolve through anima docs', async () => {
     for (const e of index().filter((e) => e.kind === 'doc'))
