@@ -20,6 +20,7 @@ const commentValue = (v: string): string =>
 const plainComment = (v: string): boolean =>
   v !== '' &&
   v === v.trim() &&
+  // eslint-disable-next-line no-control-regex -- control characters do not survive a plain comment
   !/--|-$|^\$comment |[\r\0-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]/.test(v);
 const commentPath = (path: string[]): string =>
   '/' + path.map((part) => encodeURIComponent(part).replace(/-/g, '%2D')).join('/');
