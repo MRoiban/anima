@@ -26,6 +26,8 @@
   `proof/40-after.txt`.
 - **Cause:** `matrix()` formatted entries with `fmt` (5 fixed decimals), so |v| < 0.000005 became 0
   and the nested inverse scale could not recover the geometry.
-- **Fix:** matrix entries use six significant digits (`Number(v.toPrecision(6))`). Other number
-  formatting is unchanged. Canvas and hit testing already used unrounded matrices. No recorded SVG
-  expectation changed (5,745 unit tests pass).
+- **Fix:** matrix entries below 0.001 keep six significant digits; float noise below 1e-9 (such as
+  cos 90°) stays 0; entries of 0.001 and above keep the shared 5-decimal formatting, so all earlier
+  output is unchanged. The first version used six significant digits everywhere and printed
+  `6.12323e-17` for a 90° rotation (CI caught it in `packages/cli/test/authoring.test.ts`); a
+  regression test now covers float noise. Canvas and hit testing already used unrounded matrices.

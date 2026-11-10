@@ -38,3 +38,23 @@ it('preserves tiny nonzero transform matrix entries', () => {
     'matrix(1000000 0 0 1 0 0)',
   ]);
 });
+
+it('keeps float noise at 0 and ordinary entries at five decimals', () => {
+  const { model } = load({
+    anima: '0.1',
+    name: 'turn',
+    grid: 20,
+    nodes: [
+      {
+        id: 'g',
+        type: 'group',
+        rotate: 90,
+        children: [{ id: 'r', type: 'rect', x0: 2, y0: 2, w: 4, h: 4, fill: { color: '#000' } }],
+      },
+      { id: 'h', type: 'group', rotate: 30, children: [] },
+    ],
+  });
+  const svg = toSVG(new Player(model!));
+  expect(svg).toContain('matrix(0 1 -1 0 0 0)');
+  expect(svg).not.toMatch(/e-\d/);
+});
