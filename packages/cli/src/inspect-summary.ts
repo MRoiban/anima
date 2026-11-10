@@ -88,6 +88,34 @@ export function wiringSummary(model: Model, diagnostics: Diagnostic[] = []) {
     ...Object.values(instances).map((instance) => instance.model),
   ]);
   const usedProperties = new Set<string>();
+  const componentParents = new Map<string, Set<string>>();
+  const collectComponentParents = (value: unknown, context = defaultModel): void => {
+    if (Array.isArray(value)) {
+      value.forEach((child) => collectComponentParents(child, context));
+      return;
+    }
+    if (!value || typeof value !== 'object') return;
+    const object = value as Record<string, unknown>;
+    if (typeof object.data === 'string' && models[object.data]) context = object.data;
+    const component = object.component;
+    const names =
+      typeof component === 'string'
+        ? [component]
+        : component && typeof component === 'object'
+          ? Object.values(component).filter((name): name is string => typeof name === 'string')
+          : [];
+    if (context)
+      for (const name of names) {
+        const parents = componentParents.get(name) ?? new Set<string>();
+        parents.add(context);
+        componentParents.set(name, parents);
+      }
+    for (const [key, child] of own(object)) {
+      if (key === 'data' && typeof child === 'object') continue;
+      collectComponentParents(child, context);
+    }
+  };
+  collectComponentParents(doc);
   const markPath = (path: string, context = defaultModel): void => {
     const [instance, relative] = path.includes(':')
       ? path.slice(1).split(':')
@@ -105,11 +133,14 @@ export function wiringSummary(model: Model, diagnostics: Diagnostic[] = []) {
       else break;
     }
   };
-  const scan = (value: unknown, context = defaultModel): void => {
+  const scan = (value: unknown, context = defaultModel, parents?: Set<string>): void => {
     if (typeof value === 'string') {
-      for (const path of value.match(/\$[A-Za-z][\w-]*(?::[A-Za-z][\w-]*)?(?:\.[\w-]+)*/g) ?? [])
-        markPath(path, context);
-    } else if (Array.isArray(value)) value.forEach((v) => scan(v, context));
+      for (const path of value.match(/\$[A-Za-z][\w-]*(?::[A-Za-z][\w-]*)?(?:\.[\w-]+)*/g) ?? []) {
+        if (path.startsWith('$parent.') && parents?.size)
+          for (const parent of parents) markPath('$' + path.slice('$parent.'.length), parent);
+        else markPath(path, context);
+      }
+    } else if (Array.isArray(value)) value.forEach((v) => scan(v, context, parents));
     else if (value && typeof value === 'object') {
       const object = value as Record<string, unknown>;
       if (typeof object.data === 'string' && models[object.data]) {
@@ -118,8 +149,17 @@ export function wiringSummary(model: Model, diagnostics: Diagnostic[] = []) {
       }
       for (const [key, child] of own(object)) {
         if (key === 'data' && typeof child === 'object') continue;
-        scan(key, context);
-        scan(child, context);
+        scan(key, context, parents);
+        if (key === 'components' && child && typeof child === 'object') {
+          for (const [name, definition] of own(child as Record<string, unknown>)) {
+            const component = definition as Record<string, unknown>;
+            const componentContext =
+              typeof component.data === 'string' && models[component.data]
+                ? component.data
+                : context;
+            scan(component, componentContext, componentParents.get(name));
+          }
+        } else scan(child, context, parents);
       }
     }
   };

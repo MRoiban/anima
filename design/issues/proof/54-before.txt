@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-517d177c
+
+ ❯ |unit| packages/cli/test/issues-51-54-56.test.ts (5 tests | 1 failed | 4 skipped) 110ms
+   × #54 new --glyph preserves a filled body and cut-out stroke through the import path 108ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #54 new --glyph preserves a filled body and cut-out stroke through the import path
+AssertionError: {"width":256,"height":256,"differingPixels":43989,"pixelsBeyondTolerance":43989,"maxChannelDifference":255,"meanChannelDifference":51.46574783325195,"pass":false,"size":256,"tolerance":0}: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ packages/cli/test/issues-51-54-56.test.ts:70:68
+     68|   expect(scaffold.code, scaffold.err.join('\n')).toBe(0);
+     69|   const compare = await cli('render', out, '--compare', source, '--for…
+     70|   expect(compare.code, compare.out.concat(compare.err).join('\n')).toB…
+       |                                                                    ^
+     71|   expect(JSON.parse(compare.out[0]!)).toMatchObject({
+     72|     pass: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  16:15:18
+   Duration  1.15s (import 50%, transform 39%, tests 11%, worker 1%)

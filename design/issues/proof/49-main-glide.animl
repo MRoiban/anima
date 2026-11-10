@@ -1,0 +1,23 @@
+<anima version="0.1" name="main-glide" grid="30" requires="components data bind lists derive convert">
+  <converter name="glide" type="interpolate" duration="450" ease="cubic(0.2, 0, 0.3, 1)"/>
+  <model name="Item">
+    <number name="x"/>
+    <number name="rel" value="$x - $main:view"/>
+    <number name="relc" value="$x - $main:sview"/>
+  </model>
+  <model name="Board">
+    <number name="view" default="1"/>
+    <number name="sview" value="$view" convert="glide"/>
+    <list name="items" of="Item"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="items" value='[{"x":5},{"x":9}]'/>
+  </instance>
+  <component name="row" grid="10" data="Item">
+    <converter name="glide" type="interpolate" duration="450" ease="cubic(0.2, 0, 0.3, 1)"/>
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.x" value="$rel"/>
+    <bind target="dot.y" value="$relc"/>
+  </component>
+  <repeat id="rows" list="$items" component="row"/>
+</anima>

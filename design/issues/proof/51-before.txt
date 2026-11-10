@@ -1,0 +1,34 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-517d177c
+
+ ❯ |unit| packages/cli/test/issues-51-54-56.test.ts (5 tests | 1 failed | 4 skipped) 49ms
+   × #51 counts list-component $parent reads while keeping genuine unused properties 47ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #51 counts list-component $parent reads while keeping genuine unused properties
+AssertionError: expected [ …(2) ] to deeply equal [ Array(1) ]
+
+- Expected
++ Received
+
+  [
++   "/data/models/Board/properties/mark",
+    "/data/models/Board/properties/stroke",
+  ]
+
+ ❯ packages/cli/test/issues-51-54-56.test.ts:56:5
+     54|       .filter((d) => d.code === 'unused-property')
+     55|       .map((d) => d.pointer),
+     56|   ).toEqual(['/data/models/Board/properties/stroke']);
+       |     ^
+     57| });
+     58|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  16:15:14
+   Duration  2.86s (transform 76%, import 22%, tests 2%)

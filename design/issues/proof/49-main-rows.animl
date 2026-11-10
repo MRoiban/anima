@@ -1,0 +1,16 @@
+<anima version="0.1" name="main-rows" grid="30" requires="components data bind lists derive">
+  <model name="Item">
+    <number name="score"/>
+    <number name="share" value="$score / $main:total"/>
+  </model>
+  <model name="Board"><number name="total" default="10"/><list name="items" of="Item"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="items" value='[{"score":2},{"score":4}]'/>
+  </instance>
+  <component name="row" grid="10" data="Item">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$share * 10"/>
+    <bind target="dot.y" value="$main:total"/>
+  </component>
+  <repeat id="rows" list="$items" component="row" dy="10" size="30 10"/>
+</anima>

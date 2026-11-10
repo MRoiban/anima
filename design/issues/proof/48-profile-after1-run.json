@@ -1,0 +1,14 @@
+{
+  "memory": {
+    "kind": "js-heap",
+    "beforeBytes": 47131208,
+    "afterBytes": 185784296,
+    "growthBytes": 138653088,
+    "bytesPerFrame": 231088.48
+  },
+  "frames": 600,
+  "compileMs": 66.78953600000023,
+  "unit": "µs",
+  "step": { "median": 4184.643999999935, "p95": 12466.453000000001 },
+  "draw": { "median": 1.7400000001543958, "p95": 2.6890000003731984 }
+}

@@ -1,0 +1,8 @@
+
+> format:check
+> prettier --check .
+
+Checking formatting...
+[warn] design/issues/proof/48-profile-after1-run.json
+[warn] design/issues/proof/48-profile-before-run.json
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.

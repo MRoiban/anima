@@ -19,6 +19,8 @@ export const SYNONYMS: Record<string, string[]> = {
   skeleton: ['rig', 'bone'],
   bones: ['rig', 'bone'],
   chain: ['ik', 'rig', 'bone'],
+  replace: ['list.insert', 'list.remove', 'set'],
+  delete: ['list.remove'],
   mesh: ['mesh'],
   inverse: ['ik'],
   kinematics: ['ik'],

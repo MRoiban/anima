@@ -15,7 +15,8 @@ export type EntryKind =
   | 'doc' // a docs section (spec, authoring guide, module SPEC)
   | 'example' // an example scene file
   | 'capability' // a done parity row, e.g. rigging.ik
-  | 'command'; // an `anima` CLI command
+  | 'command' // an `anima` CLI command
+  | 'api'; // a page-script (host) API method, e.g. list.insert
 
 export interface Entry {
   kind: EntryKind;

@@ -10,10 +10,31 @@ const obj = (v: unknown): Obj => (v ?? {}) as Obj;
 const entries = (v: unknown) => Object.entries(obj(v)).filter(([k]) => k !== '$comment');
 const value = (v: unknown): string =>
   Array.isArray(v) ? v.map(value).join(' ') : typeof v === 'string' ? v : JSON.stringify(v);
+const commentValue = (v: string): string =>
+  JSON.stringify(v).replace(
+    /[-\ud800-\udfff\ufffe\uffff]/g,
+    (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`,
+  );
+// A comment the compiler reads back exactly is written plainly (`<!-- text -->`), keeping long
+// multi-line comments readable; anything else uses the exact `$comment "JSON"` form (#55).
+const plainComment = (v: string): boolean =>
+  v !== '' &&
+  v === v.trim() &&
+  // eslint-disable-next-line no-control-regex -- control characters do not survive a plain comment
+  !/--|-$|^\$comment |[\r\0-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]/.test(v);
+const commentPath = (path: string[]): string =>
+  '/' + path.map((part) => encodeURIComponent(part).replace(/-/g, '%2D')).join('/');
 
 /** Canonical AniML for a valid compiled document; no defaults are materialised. */
 export function decompile(doc: string | object): string {
   const d = obj(typeof doc === 'string' ? JSON.parse(doc) : doc);
+  const handledComments = new WeakSet<object>();
+  const markTree = (v: unknown): void => {
+    if (!v || typeof v !== 'object') return;
+    handledComments.add(v);
+    if (Array.isArray(v)) v.forEach(markTree);
+    else for (const [k, child] of Object.entries(v)) if (k !== '$comment') markTree(child);
+  };
   const types = new Map<string, NodeType>();
   const visit = (nodes: unknown) => {
     for (const v of (nodes ?? []) as Obj[]) {
@@ -28,32 +49,44 @@ export function decompile(doc: string | object): string {
     o: Obj,
     keys: string[],
     extra: [string, string][] = [],
-  ): LayoutElement => ({
-    name,
-    attrs: [
-      ...extra,
-      ...(elementFields(name).length && name !== 'anima'
-        ? elementFields(name).map((f) => f.key)
-        : keys
-      )
-        .filter((k) => o[k] !== undefined)
-        .map((k): [string, string] => [
-          elementFields(name).find((f) => f.key === k)?.attr ?? k,
-          compoundField(elementFields(name).find((f) => f.key === k)?.shape ?? { k: 'str' }) &&
-          k !== 'set' &&
-          !['fire', 'toggle'].includes(k)
-            ? JSON.stringify(o[k])
-            : k === 'when'
-              ? value(o[k]).replace(/("(?:[^"\\]|\\.)*")|&&/g, (_, q) => q ?? 'and')
-              : k === 'set'
-                ? entries(o[k])
-                    .map(([n, v]) => `${n}=${value(v)}`)
-                    .join(' ')
-                : value(o[k]),
-        ]),
-    ],
-    children: typeof o.$comment === 'string' ? [{ comment: ` ${o.$comment} ` }] : [],
-  });
+  ): LayoutElement => {
+    if (typeof o.$comment === 'string') handledComments.add(o);
+    return {
+      name,
+      attrs: [
+        ...extra,
+        ...(elementFields(name).length && name !== 'anima'
+          ? elementFields(name).map((f) => f.key)
+          : keys
+        )
+          .filter((k) => o[k] !== undefined)
+          .map((k): [string, string] => [
+            elementFields(name).find((f) => f.key === k)?.attr ?? k,
+            compoundField(elementFields(name).find((f) => f.key === k)?.shape ?? { k: 'str' }) &&
+            k !== 'set' &&
+            !['fire', 'toggle'].includes(k)
+              ? JSON.stringify(o[k])
+              : k === 'when'
+                ? value(o[k]).replace(/("(?:[^"\\]|\\.)*")|&&/g, (_, q) => q ?? 'and')
+                : k === 'set'
+                  ? entries(o[k])
+                      .map(([n, v]) => `${n}=${value(v)}`)
+                      .join(' ')
+                  : value(o[k]),
+          ]),
+      ],
+      children:
+        typeof o.$comment === 'string'
+          ? [
+              {
+                comment: plainComment(o.$comment)
+                  ? ` ${o.$comment} `
+                  : ` $comment ${commentValue(o.$comment)} `,
+              },
+            ]
+          : [],
+    };
+  };
   const node = (n: Obj): LayoutElement => {
     const el = element(n.type as string, n, ['id']);
     el.children.push(...(motionCompiler.channels?.(n) ?? []));
@@ -168,6 +201,7 @@ export function decompile(doc: string | object): string {
     // not hold every character a JSON string can.
     const meta = element('meta', {}, []);
     meta.children.push({ text: JSON.stringify(obj(d.meta)) });
+    markTree(d.meta);
     groups.push([meta]);
   }
   groups.push(
@@ -225,14 +259,17 @@ export function decompile(doc: string | object): string {
         children: el.children.flatMap<LayoutChild>((c) =>
           c.kind === 'element'
             ? [convert(c)]
-            : c.kind === 'text' && c.value.trim()
-              ? [{ text: c.value.trim() }]
-              : [],
+            : c.kind === 'comment'
+              ? [{ comment: c.value }]
+              : c.kind === 'text' && c.value.trim()
+                ? [{ text: c.value.trim() }]
+                : [],
         ),
       });
       const el = convert(parsed);
       el.name = 'component';
       el.attrs.unshift(['name', name]);
+      markTree(nested);
       return el;
     }),
   );
@@ -333,7 +370,24 @@ export function decompile(doc: string | object): string {
     group[0]!.blank = root.children.length > 0;
     root.children.push(...group);
   }
-  // JSON strings can hold characters XML forbids, in comments or values: those become U+FFFD
-  // (ANIML §8), so the markup always builds again. Escaping never introduces them.
+  const detached: LayoutChild[] = [];
+  const collectComments = (v: unknown, path: string[]): void => {
+    if (!v || typeof v !== 'object') return;
+    if (!Array.isArray(v)) {
+      if (typeof (v as Obj).$comment === 'string' && !handledComments.has(v))
+        detached.push({
+          comment: ` $comment ${commentPath(path)} ${commentValue((v as Obj).$comment as string)} `,
+        });
+      for (const [key, child] of Object.entries(v))
+        if (key !== '$comment') collectComments(child, [...path, key]);
+    } else v.forEach((child, index) => collectComments(child, [...path, String(index)]));
+  };
+  collectComments(d, []);
+  if (detached.length) {
+    const firstElement = root.children.findIndex((child) => 'name' in child);
+    root.children.splice(firstElement < 0 ? root.children.length : firstElement, 0, ...detached);
+  }
+  // Ordinary JSON strings can hold characters XML forbids: those become U+FFFD (ANIML §8).
+  // Comment literals escaped those code units above, so their values remain exact.
   return xmlChars(render(root)) + '\n';
 }

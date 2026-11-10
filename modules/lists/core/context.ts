@@ -97,7 +97,18 @@ export function bindContext(
     b = data.dataState(child);
   if (!a || !b) return;
   parents.set(child, parent);
-  for (const [key, object] of Object.entries(a.instances)) b.instances['@' + key] = object;
+  // A child without `data` inherits its actual parent's context (review R2-1), and one naming a
+  // model shares the document's declarations: their named instances are the parent's live objects
+  // (#49). A component with its own `data` object keeps its instances local (review R1-1).
+  type Doc = { data?: { instances?: object } };
+  const shared =
+    inherited.has(child.model) ||
+    (child.model.doc as Doc).data?.instances === (parent.model.doc as Doc).data?.instances;
+  for (const [key, object] of Object.entries(a.instances)) {
+    b.instances['@' + key] = object;
+    if (shared && key[0] !== '@' && key !== b.compiled.defaultName && key in b.instances)
+      b.instances[key] = object;
+  }
   b.instances['@index'] = { value: index ?? Number(a.get('$index') ?? 0) };
   if (value) b.instances[b.compiled.defaultName] = value as Record<string, unknown>;
   const nested = child.nested as { players?: Map<string, Player> } | undefined;

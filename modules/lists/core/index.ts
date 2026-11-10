@@ -1,7 +1,7 @@
 import { nodePointer as pointer } from '../../components/core/node-pointer.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
-import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
+import type { Player, PlayerExtension, StepResult } from '../../../packages/core/src/player.ts';
 import type { DataModule } from '../../data/core/index.ts';
 import type { ComponentModule } from '../../components/core/index.ts';
 import { drawFrame, drawTree, type DrawTree } from '../../../packages/core/src/draw.ts';
@@ -23,6 +23,7 @@ interface Item {
   player: Player;
   model: Model;
   index: number;
+  data?: string;
 }
 interface Run {
   spec: Repeat;
@@ -98,12 +99,16 @@ interface Drawing {
   free: number[];
   resources: DrawTree['resources'];
   players?: Map<string, Player>;
+  dependencies: Set<number>;
+  initialized: boolean;
 }
 const drawings = new WeakMap<Player, Drawing>();
 function render(p: Player, frame: import('../../../packages/core/src/draw.ts').DrawFrame) {
   const state = states.get(p),
     drawing = drawings.get(p);
   if (!state || !drawing) return;
+  if (drawing.initialized && !frame.changed.some((n) => drawing.dependencies.has(n))) return;
+  drawing.initialized = true;
   const tree = frame.tree;
   const entries: { player: Player; parent: number; id: string; index?: number }[] = [];
   const players = drawing.players;
@@ -296,7 +301,14 @@ function resolve(
           'use declared model names',
         );
     }
-    if (prop?.of && !choices.has('*') && !choices.has(prop.of))
+    // A mapped component that failed to load has its own error; don't add a follow-on one (#50).
+    if (
+      prop?.of &&
+      typeof raw.component !== 'string' &&
+      !Object.hasOwn(raw.component, prop.of) &&
+      !choices.has('*') &&
+      !choices.has(prop.of)
+    )
       error(
         d,
         'list-map',
@@ -350,6 +362,10 @@ function resolve(
     bindContext(data, p, child, value as object | undefined);
   };
   const previous = model.nesting;
+  if (!plans.length && !model.nodes.some((n) => (n.type as string) === 'instance')) {
+    model.nesting = (p) => budgeted(p, previous?.(p));
+    return;
+  }
   model.nesting = (p) => {
     const base = previous?.(p);
     const state: ListState = { runs: plans.map((spec) => ({ spec, items: [] })), warnings: [] };
@@ -379,6 +395,15 @@ function resolve(
       free: [],
       resources: [...draw.resources],
       players: (base as { players?: Map<string, Player> } | undefined)?.players,
+      dependencies: new Set(
+        model.nodes.flatMap((node, i) => {
+          if (!['repeat', 'instance'].includes(node.type as string)) return [];
+          const out: number[] = [];
+          for (let at = i; at >= 0; at = model.nodes[at]!.parent) out.push(at);
+          return out;
+        }),
+      ),
+      initialized: false,
     });
     states.set(p, state);
     return extend(p, base, state, data, Child);
@@ -413,6 +438,31 @@ function property(data: DataModule, model: Model, path: string) {
 
 let depth = 0,
   expanded = 0;
+function budgeted(p: Player, base?: PlayerExtension): PlayerExtension {
+  // Same shape as convert's nesting wrapper: keep the base extension, count nested steps.
+  const ext: PlayerExtension = base ?? {
+    input: () => false,
+    get: () => undefined,
+    states: () => ({}),
+    values: () => ({}),
+    inspect: () => [],
+    pointer() {},
+    hits: () => undefined,
+    step: () => ({ events: [], settled: true }),
+  };
+  const step = ext.step.bind(ext);
+  ext.step = (dt) => {
+    if (!depth) expanded = 0;
+    else if (++expanded > 256) throw limit(p);
+    depth++;
+    try {
+      return step(dt);
+    } finally {
+      depth--;
+    }
+  };
+  return ext;
+}
 function extend(
   p: Player,
   base: PlayerExtension | undefined,
@@ -438,10 +488,17 @@ function extend(
         Object.entries(fn(i.player)).map(([k, v]) => [i.id.replaceAll('.', '/') + '/' + k, v]),
       ),
     );
+  const observed = [...p.model.inputs.keys()].filter((n) => n[0] === '$');
+  const sample = () => {
+    const own = data.dataState(p)!;
+    return observed.map((n) => JSON.stringify(own.get(n)));
+  };
+  let observedValues: (string | undefined)[] = [];
   let initializing = true;
   const extension: PlayerExtension = {
     ...base,
     input(op, name, value) {
+      if (name[0] === '$') return base?.input(op, name, value) ?? false;
       const t = target(name);
       if (!t) return base?.input(op, name, value) ?? false;
       if (op === 'set') t.player.set(t.key, value!);
@@ -450,6 +507,7 @@ function extend(
       return true;
     },
     get(name) {
+      if (name[0] === '$') return base?.get(name);
       const t = target(name);
       return t ? t.player.get(t.key) : base?.get(name);
     },
@@ -493,13 +551,13 @@ function extend(
       }
       try {
         // Descendant writes to shared data need another parent binding sample (SPEC inherited data context).
-        const scope = initializing
-          ? []
-          : [...p.model.inputs.keys()]
-              .filter((n) => n[0] === '$')
-              .map((n) => [n, JSON.stringify(p.get(n))]);
+        const before = initializing ? [] : sample();
         const result = (initializing ? undefined : base?.step(dt)) ?? { events: [], settled: true };
+        const current = !initializing && base ? sample() : before;
+        const dataChanged =
+          !initializing && current.some((value, i) => value !== observedValues[i]);
         let total = 0;
+        let childStepped = false;
         for (const run of state.runs) {
           const raw = p.model.nodes[run.spec.node]!.raw;
           const source = read(data, p, run.spec.path);
@@ -511,6 +569,44 @@ function extend(
           if (total + items.length > 256 || (run.spec.count && Number(source) > 256))
             throw limit(p, run.spec.node);
           total += items.length;
+          const sameItems =
+            items.length === run.items.length && items.every((key, i) => run.items[i]!.key === key);
+          let dirty = !sameItems;
+          const forward = (index: number, r: StepResult) => {
+            result.settled &&= r.settled;
+            for (const e of r.events)
+              result.events.push({
+                ...e,
+                name: raw.id + '.' + index + '.' + e.name,
+                layer: e.layer === null ? null : raw.id + '/' + index + '/' + e.layer,
+              });
+          };
+          if (sameItems && !dataChanged) {
+            for (const item of run.items) {
+              const itemData = typeof item.key === 'object' ? JSON.stringify(item.key) : undefined;
+              const itemChanged = itemData !== item.data;
+              item.player.reducedMotion = p.reducedMotion;
+              // Only a passive item (no listeners, focusable nodes or nested players) can be skipped:
+              // focus and pointer work don't mark a player busy (review R2-2).
+              if (
+                !itemChanged &&
+                !item.player.busy &&
+                !item.model.listeners.length &&
+                !item.model.nodes.some(
+                  (n) => n.raw.focus || /^(instance|repeat)$/.test(n.type as string),
+                )
+              )
+                continue;
+              if (itemChanged) {
+                bindContext(data, p, item.player, item.key as object, item.index);
+                item.data = itemData;
+              }
+              forward(item.index, item.player.step(dt));
+              childStepped = dirty = true;
+            }
+            if (dirty) p.drawVersions[run.spec.node] = ++p.drawRevision;
+            continue;
+          }
           const available = new Map<object | number, Item[]>();
           for (const i of run.items) available.set(i.key, [...(available.get(i.key) ?? []), i]);
           run.items = items.flatMap((key, index) => {
@@ -556,20 +652,19 @@ function extend(
                   ? scope.instances[scope.compiled.defaultName]
                   : undefined;
             bindContext(data, p, item.player, value, index);
+            item.data = typeof key === 'object' ? JSON.stringify(key) : undefined;
             item.player.reducedMotion = p.reducedMotion;
-            const r = initializing ? { events: [], settled: true } : item.player.step(dt);
-            result.settled &&= r.settled;
-            for (const e of r.events)
-              result.events.push({
-                ...e,
-                name: raw.id + '.' + index + '.' + e.name,
-                layer: e.layer === null ? null : raw.id + '/' + index + '/' + e.layer,
-              });
+            if (!initializing) {
+              forward(index, item.player.step(dt));
+              childStepped = dirty = true;
+            }
             return [item];
           });
-          p.drawVersions[run.spec.node] = ++p.drawRevision;
+          if (dirty || initializing) p.drawVersions[run.spec.node] = ++p.drawRevision;
         }
-        for (const [n, v] of scope) if (v !== JSON.stringify(p.get(n!))) result.settled = false;
+        const after = !initializing && childStepped ? sample() : current;
+        if (!initializing && before.some((value, i) => value !== after[i])) result.settled = false;
+        observedValues = initializing ? sample() : after;
         return result;
       } finally {
         if (!initializing) depth--;

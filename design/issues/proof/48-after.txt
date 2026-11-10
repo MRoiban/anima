@@ -1,0 +1,19 @@
+Issue #48 after proof
+
+Benchmark, 600 frames, best of 3 runs:
+- N=48: step median 290.507 µs, p95 599.850 µs
+- N=96: step median 305.074 µs, p95 968.465 µs
+- incremental item cost: (305.074 - 290.507) / 48 = 0.30348 µs/item/frame
+
+Correctness:
+- regression test updates rows/23/dot.r after p.set('$players.23.score', 9)
+- regression test updates rows/32/dot.r after direct mutation of a newly inserted item
+- SVG output is checked for both updates
+- isolated list browser rerun: 4/4 passed
+
+Required checks on final source:
+- typecheck: pass
+- lint: pass
+- format:check: initial failure only on two proof JSON files; after Prettier, rerun passed
+- size: pass, core+web 22855/24576 B, data 6655/7040 B, lists 5080/5120 B
+- required scoped test: 4562 passed, 16 browser timeout failures under shared load; the list browser suite subsequently passed 4/4 in isolation

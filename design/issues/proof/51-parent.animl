@@ -1,0 +1,19 @@
+<anima version="0.1" name="parent-summary" grid="24" requires="components data bind lists">
+  <model name="Row">
+    <number name="value"/>
+  </model>
+  <model name="Board">
+    <number name="mark" default="8"/>
+    <number name="stroke" default="2"/>
+    <list name="rows" of="Row"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="rows" value="[{&quot;value&quot;:4}]"/>
+  </instance>
+  <component name="row" grid="24" data="Row">
+    <circle id="dot" cx="4" cy="12" r="2" fill="#000"/>
+    <bind target="dot.r" value="$value"/>
+    <bind target="dot.x" value="$parent.mark"/>
+  </component>
+  <repeat id="rows" list="$rows" component="row"/>
+</anima>

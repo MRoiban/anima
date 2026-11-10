@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-517d177c
+
+ ❯ |unit| packages/cli/test/issues-51-54-56.test.ts (5 tests | 1 failed | 2 skipped) 30089ms
+   × #56 treats a missing Firefox as a doctor warning and names FIREFOX_PATH 30022ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/issues-51-54-56.test.ts > #56 treats a missing Firefox as a doctor warning and names FIREFOX_PATH
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/issues-51-54-56.test.ts:69:1
+     67| });
+     68|
+     69| it('#56 treats a missing Firefox as a doctor warning and names FIREFOX…
+       | ^
+     70|   const old = process.env.FIREFOX_PATH;
+     71|   process.env.FIREFOX_PATH = resolve(temp(), 'missing-firefox');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed | 2 skipped (5)
+   Start at  16:50:24
+   Duration  31.41s (tests 96%, import 2%, transform 2%)

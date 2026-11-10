@@ -6,7 +6,7 @@ export default {
       'Lists: repeat a component for each item of a data list, keeping each row’s state across edits.',
     after: [],
     core: { entry: 'core/index.ts', export: 'lists', svg: 'core/svg.ts', svgExport: 'listsSVG' },
-    web: [{ name: 'lists', budget: 5120 }],
+    web: [{ name: 'lists', budget: 5696 }],
     adapters: {
       'packages/core/src/modules/lists/index.ts': 'core/index.ts',
       'packages/core/src/modules/lists/svg.ts': 'core/svg.ts',

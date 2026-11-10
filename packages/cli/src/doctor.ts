@@ -7,7 +7,13 @@ import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 export async function doctor(cwd = process.cwd()) {
   const { firefox, chromium, devices } = await import('playwright-core');
-  const checks: { name: string; pass: boolean; message: string; hint: string }[] = [];
+  const checks: {
+    name: string;
+    pass: boolean;
+    message: string;
+    hint: string;
+    severity?: 'warning';
+  }[] = [];
   checks.push({
     name: 'authentication',
     pass: true,
@@ -80,7 +86,7 @@ export async function doctor(cwd = process.cwd()) {
     message: process.version,
     hint: 'install Node 24 or newer',
   });
-  for (const [name, path] of [
+  for (const [name, path, hint, optional] of [
     [
       'chromium',
       process.env.CHROMIUM_PATH ??
@@ -88,12 +94,24 @@ export async function doctor(cwd = process.cwd()) {
           homedir(),
           '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell',
         ),
+      'install the Playwright browser or set CHROMIUM_PATH for Chromium',
+      false,
     ],
-    ['firefox', firefox.executablePath()],
-  ]) {
+    [
+      'firefox',
+      process.env.FIREFOX_PATH ??
+        [
+          resolve(homedir(), '.cache/ms-playwright/firefox-1555/firefox/firefox'),
+          firefox.executablePath(),
+        ].find(existsSync) ??
+        firefox.executablePath(),
+      'install the Playwright browser or set FIREFOX_PATH for Firefox',
+      true,
+    ],
+  ] as const) {
     let pass = false;
     try {
-      accessSync(path!, constants.X_OK);
+      accessSync(path, constants.X_OK);
       pass = true;
     } catch {
       /* unavailable */
@@ -101,8 +119,9 @@ export async function doctor(cwd = process.cwd()) {
     checks.push({
       name: name!,
       pass,
-      message: path!,
-      hint: 'install the Playwright browser or set CHROMIUM_PATH for Chromium',
+      message: path,
+      hint,
+      ...(!pass && optional ? { severity: 'warning' as const } : {}),
     });
   }
   const cache = process.env.XDG_CACHE_HOME ?? resolve(homedir(), '.cache');
@@ -153,7 +172,7 @@ export async function doctor(cwd = process.cwd()) {
     });
   }
   return {
-    ok: checks.every((c) => c.pass),
+    ok: checks.every((c) => c.pass || c.severity === 'warning'),
     checks: checks.map((c) => ({ ...c, code: 'doctor-' + c.name, pointer: '/checks/' + c.name })),
   };
 }

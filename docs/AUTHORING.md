@@ -803,7 +803,8 @@ Custom channels use `node.properties.name`; strings/enums are discrete, hold-onl
 
 Add `derive` for computed scalar properties. `value` is a bind expression, with optional
 `convert` (requires `convert`). Inside a model `$score` means that instance's score;
-`$main:players.0.score` remains absolute. Each list item gets its own computed values.
+`$main:players.0.score` remains absolute, also inside repeated and nested components, where `$main:`
+reads the document's live instance. Each list item gets its own computed values.
 Number, string, bool, color and enum properties can be computed. Their `$` paths work in
 conditions, bindings, event fields, selected sample snapshots and host handles.
 They initialize on load and recompute in the data binding pass, before visual bindings.
@@ -1394,7 +1395,9 @@ project. Explicit render flags override presets. `anima build --out-dir dist` ex
 compiled document, embedded assets, a runtime and an HTML page locally.
 
 Start with `anima new my-icon --sample bell` (also `moon` or `progress`). Existing directories
-are protected. Glyph-based `anima new` remains available for your own SVGs.
+are protected. Glyph-based `anima new` remains available for your own SVGs. A single-path glyph
+keeps the compact glyph scaffold; SVGs with multiple painted shapes or strokes use the same SVG
+import path as `anima import`, so fill/stroke structure is preserved.
 
 Use `anima render --component button --viewport 200x100 --fit cover --scale 0.5 -o frame.png`
 for a selected component. Fit choices are `contain`, `cover`, `fill`, `none`; scale is in `(0,1]`.
@@ -1412,7 +1415,9 @@ assets. Events are scheduled at their exact timeline crossing within each step, 
 Use `anima schema --search 'stroke width'` for ranked registry and diagnostic matches,
 `anima schema rect.width` for one field, `anima inspect --summary` for a static wiring table,
 and `anima doctor --format=json` for Node, browser, cache and module-wiring checks. Doctor reports
-failures with hints and changes no installation or generated files.
+failures with hints and changes no installation or generated files. Chromium is required for the
+browser-dependent checks; an unavailable Firefox is a warning and can be supplied with
+`FIREFOX_PATH`.
 
 Host playback: `icon.stop()` holds the current frame and stops its clock; `icon.play()`
 resumes. Import `@anima-format/web/devtools` for `icon.stats`, the `perf` attribute or
@@ -1463,7 +1468,8 @@ last applied step, so advance after queued data/input edits before asserting the
 `anima session board.animl` reads one script command per stdin line, or `{"cmd":"snapshot --all"}`,
 and replies with one JSON line per request. It retains time, input, timeline handles, watches and
 breakpoints. `reload` validates the file again and restores compatible data, reporting any skipped
-paths; failed reload leaves the current player usable. `quit` closes the session.
+paths; failed reload leaves the current player usable. Snapshot commands return snapshots once in
+the `snapshots` array; `output` contains other command output. `quit` closes the session.
 
 `anima bench board.animl -s exercise.txt --frames 600 --format=json` reports compile time in ms
 and per-frame step/draw median and p95 in µs, using the renderer-neutral path from `tools/perf.ts`.

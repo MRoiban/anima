@@ -148,7 +148,11 @@ function prepare(
         (!model.doc.requires.includes('convert') ||
           !Object.hasOwn(model.doc.converters ?? {}, p.convert))
       )
-        error('derive-converter', at + '/convert', 'declare convert and a named converter');
+        error(
+          'derive-converter',
+          at + '/convert',
+          `declare convert and the converter "${p.convert}"`,
+        );
       try {
         const e = bind.parse(p.value, types);
         const expected = p.type === 'enum' ? 'string' : p.type;
@@ -157,13 +161,24 @@ function prepare(
         plans.set(p, e);
       } catch (e) {
         const err = e as Error & { code?: string; at?: number };
-        d.err(
-          err.code ?? 'bind-syntax',
-          at + '/value',
-          V && err.message,
-          V &&
-            `check token ${JSON.stringify(p.value.slice(err.at ?? 0).match(/^\S+/)?.[0] ?? 'end of expression')}; use typed values, arithmetic, comparisons, and/or/not or registered calls`,
-        );
+        const token = p.value.slice(err.at ?? 0).match(/^\S+/)?.[0];
+        // A model has no parent: `$parent` resolves only in a repeated component's binds (#50).
+        if (token?.startsWith('$parent'))
+          d.err(
+            err.code ?? 'unknown-input',
+            at + '/value',
+            V && `a model's computed value cannot read ${token}`,
+            V &&
+              'read $parent in the component binds that draw the item, or compute the value in the parent model',
+          );
+        else
+          d.err(
+            err.code ?? 'bind-syntax',
+            at + '/value',
+            V && err.message,
+            V &&
+              `check token ${JSON.stringify(token ?? 'end of expression')}; use typed values, arithmetic, comparisons, and/or/not or registered calls`,
+          );
       }
     }
   }
@@ -351,8 +366,10 @@ function prepare(
           for (const v of object[key] as Record<string, unknown>[]) visit(v, p.of!, seen);
       }
     };
+    // An instance shared from the parent player (#49) is computed by the parent, with its converters.
     for (const [name, values] of Object.entries(s.instances))
-      visit(values, c.document.instances![name]?.model ?? '');
+      if (s.instances['@' + name] !== values)
+        visit(values, c.document.instances![name]?.model ?? '');
   };
   const identity = new WeakMap<object, number>();
   let next = 0;

@@ -1,0 +1,1 @@
+{"wiring":[{"code":"unused-property","pointer":"/data/models/Board/properties/stroke","message":"property is unused: stroke","hint":"bind the property or remove it"}]}
