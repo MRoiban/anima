@@ -7,7 +7,7 @@ Pick the entry point that fits what you want to do.
 | Goal | Read |
 |---|---|
 | Make my first animated control, end to end | [GETTING-STARTED.md](GETTING-STARTED.md) |
-| Write scenes: shapes, timelines, states, data, text, components… | [AUTHORING.md](AUTHORING.md) (also `npx anima docs <topic>`) |
+| Write scenes: shapes, timelines, states, data, text, components… | [AUTHORING.md](AUTHORING.md) (also `npx --no anima docs <topic>`) |
 | Know which optional features exist and what they cost | [FEATURES.md](FEATURES.md) |
 | Put scenes on a web page, script and theme them | [WEB.md](WEB.md) |
 | Edit a scene live with a preview and inspectors | [PLAYGROUND.md](PLAYGROUND.md) |

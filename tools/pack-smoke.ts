@@ -18,8 +18,11 @@ import { PNG } from 'pngjs';
 
 const ROOT = resolve(fileURLToPath(new URL('../', import.meta.url)));
 const DIST = resolve(ROOT, 'dist-npm');
-const ANIML_TGZ = resolve(DIST, 'animl-0.1.0.tgz');
-const CLI_TGZ = resolve(DIST, 'animl-cli-0.1.0.tgz');
+const VERSION = (
+  JSON.parse(readFileSync(resolve(DIST, 'animl/package.json'), 'utf8')) as { version: string }
+).version;
+const ANIML_TGZ = resolve(DIST, `animl-${VERSION}.tgz`);
+const CLI_TGZ = resolve(DIST, `animl-cli-${VERSION}.tgz`);
 const TEMP = mkdtempSync(join(tmpdir(), 'anima-pack-smoke-'));
 const rows: { check: string; ok: boolean; detail: string }[] = [];
 
@@ -211,7 +214,13 @@ async function main(): Promise<void> {
   copyReferenceScene();
   await check('anima --version', () => {
     const version = anima('--version').trim();
-    if (version !== '0.1.0') throw new Error(`expected 0.1.0, got ${version}`);
+    if (version !== VERSION) throw new Error(`expected ${VERSION}, got ${version}`);
+    return version;
+  });
+  await check('animl-cli bin', () => {
+    // `npx animl-cli …` must run this package's CLI (the npm package `anima` is unrelated).
+    const version = command('npx', ['--no-install', 'animl-cli', 'version']).trim();
+    if (version !== VERSION) throw new Error(`expected ${VERSION}, got ${version}`);
     return version;
   });
   await check(

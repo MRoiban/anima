@@ -1,6 +1,6 @@
 {
   "name": "@anima-format/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -16,8 +16,8 @@
     "anima": "./src/main.ts"
   },
   "dependencies": {
-    "@anima-format/core": "0.1.0",
-    "@anima-format/markup": "0.1.0",
+    "@anima-format/core": "0.1.1",
+    "@anima-format/markup": "0.1.1",
     "@resvg/resvg-js": "^2.6.2",
     "esbuild": "^0.28.2",
     "terser": "^5.51.2"
