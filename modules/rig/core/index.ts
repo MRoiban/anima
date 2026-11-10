@@ -6,6 +6,7 @@ import { nodePointer } from '../../components/core/node-pointer.ts';
 import { apply } from '../../../packages/core/src/geom.ts';
 import {
   constraintKinds,
+  valueProviders,
   registerConstraint,
   decompose,
   type Constraint,
@@ -58,6 +59,7 @@ export const rig: RigModule = {
   ],
   init(_registry, shared) {
     constraintKinds.clear();
+    valueProviders.clear();
     registerCopies();
     if (V) registerDistance();
     if (V)
@@ -85,6 +87,7 @@ export const rig: RigModule = {
               out[n.id + '.tip.y'] = tip[1];
             }
           }
+        for (const add of valueProviders.values()) add(this, out);
         return out;
       };
     }

@@ -35,6 +35,12 @@ export interface ConstraintKind {
   solve(ctx: RigContext, node: number, raw: Constraint, k: number): Mat | void;
 }
 export const constraintKinds = new Map<string, ConstraintKind>();
+/** Derived values other modules add to `Player.values()`, called by rig's single wrapper in
+ *  registration (dependency) order, so key order never depends on module arrival order. */
+export const valueProviders = new Map<
+  string,
+  (player: Player, out: Record<string, unknown>) => void
+>();
 export function registerConstraint(kind: ConstraintKind): void {
   constraintKinds.set(kind.kind, kind);
 }

@@ -10,6 +10,7 @@ import {
   compose,
   decompose,
   registerConstraint,
+  valueProviders,
   type Constraint,
   type RigContext,
 } from '../../rig/core/api.ts';
@@ -265,20 +266,21 @@ export const scroll: Module = {
   entries: [],
   init(registry, shared) {
     activeRig = registry.get('rig') as typeof activeRig;
-    const proto = shared.Player.prototype as typeof shared.Player.prototype & {
-      scrollInput?: boolean;
-      input(): InputController;
-    };
-    if (!proto.scrollInput) {
-      proto.scrollInput = true;
-      const input = proto.input;
+    // Wrap input() whenever it exists and isn't wrapped yet: input may install after scroll (any
+    // arrival order re-runs every init), replacing an earlier wrapper.
+    type Input = ((this: Player) => InputController) & { scroll?: true };
+    const proto = shared.Player.prototype as unknown as { input?: Input },
+      input = proto.input;
+    if (input && !input.scroll)
       Object.defineProperty(proto, 'input', {
         configurable: true,
-        value: function (this: Player) {
-          return installInput(this, input.call(this));
-        },
+        value: Object.assign(
+          function (this: Player) {
+            return installInput(this, input.call(this));
+          },
+          { scroll: true as const },
+        ),
       });
-    }
     registerConstraint({
       kind: 'scroll',
       shape: {
@@ -356,17 +358,14 @@ export const scroll: Module = {
         return compose(values);
       },
     });
-    const values = shared.Player.prototype.values;
-    shared.Player.prototype.values = function () {
-      const out = values.call(this);
-      for (const [id, s] of states.get(this) ?? []) {
+    valueProviders.set('scroll', (player, out) => {
+      for (const [id, s] of states.get(player) ?? []) {
         const [node, k] = id.split(':').map(Number),
-          prefix = this.model.nodes[node!]!.id + `.constraints.${k}`;
+          prefix = player.model.nodes[node!]!.id + `.constraints.${k}`;
         out[prefix + '.percentX'] = s.maxX ? s.x / s.maxX : 0;
         out[prefix + '.percentY'] = s.maxY ? s.y / s.maxY : 0;
       }
-      return out;
-    };
+    });
     return scroll;
   },
   load(model, _raw, d) {
