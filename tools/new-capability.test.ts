@@ -45,7 +45,9 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
   probe.anima.status = 'planned';
   probe.anima.phase = '—';
   delete probe.aliases;
-  fixtureRows.push(probe);
+  // A second planned row: every real row can be complete (P8 closed the last planned ones).
+  const probe2 = { ...structuredClone(probe), id: 'animation.scaffold-probe-two' };
+  fixtureRows.push(probe, probe2);
   writeFileSync(inventoryPath, JSON.stringify(fixtureRows, null, 2) + '\n');
   const id = 'animation.scaffold-probe';
   mkdirSync(resolve(root, 'tests/oracle/animation-scaffold-probe/rive'), { recursive: true });
@@ -163,8 +165,16 @@ it('rejects invalid requests without writes and notes unsupported oracle counter
   const root = scratch();
   try {
     const before = readFileSync(resolve(root, 'spec/SPEC.md'), 'utf8');
+    // A planned fixture row, so the module-name check is reached even when every real row is done.
+    const inventoryPath = resolve(root, 'docs/parity/inventory.json');
+    const rows: Row[] = JSON.parse(readFileSync(inventoryPath, 'utf8'));
+    const planned = structuredClone(rows.find((r) => r.id === 'animation.joystick-handle')!);
+    planned.id = 'animation.scaffold-planned';
+    planned.anima.status = 'planned';
+    delete planned.aliases;
+    writeFileSync(inventoryPath, JSON.stringify([...rows, planned], null, 2) + '\n');
     await expect(scaffold(root, 'missing')).rejects.toThrow('Unknown parity row');
-    await expect(scaffold(root, 'animation.joystick-handle', '../bad')).rejects.toThrow(
+    await expect(scaffold(root, 'animation.scaffold-planned', '../bad')).rejects.toThrow(
       'Module name',
     );
     await expect(scaffold(root, 'animation.speed')).rejects.toThrow('already done');
