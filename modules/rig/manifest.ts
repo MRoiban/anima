@@ -3,9 +3,10 @@ export default {
   ...{
     name: 'rig',
     after: [],
-    core: { entry: 'core/index.ts', export: 'rig', svg: 'core/svg.ts', svgExport: 'rigSVG' },
+    core: { entry: 'core/all.ts', export: 'rig', svg: 'core/svg.ts', svgExport: 'rigSVG' },
     web: [
       { name: 'rig', budget: 3072, heavy: true },
+      { name: 'rig-origin', budget: 896, heavy: true, over: 'rig' },
       { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
       { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
     ],
@@ -14,6 +15,7 @@ export default {
       'packages/core/src/modules/rig/svg.ts': 'core/svg.ts',
       'packages/markup/src/rig.ts': 'markup/index.ts',
       'packages/web/src/rig.ts': 'web/index.ts',
+      'packages/web/src/rig-origin.ts': 'web/origin.ts',
       'packages/web/src/rig-distance.ts': 'web/distance.ts',
       'packages/web/src/markup-rig.ts': 'web/markup.ts',
     },
@@ -21,6 +23,7 @@ export default {
       'core:./rig': 'packages/core/src/modules/rig/index.ts',
       'markup:./rig': 'packages/markup/src/rig.ts',
       'web:./rig': 'packages/web/src/rig.ts',
+      'web:./rig-origin': 'packages/web/src/rig-origin.ts',
       'web:./rig-distance': 'packages/web/src/rig-distance.ts',
       'web:./markup-rig': 'packages/web/src/markup-rig.ts',
     },

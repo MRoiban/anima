@@ -25,7 +25,7 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 | 20 |  | 2 |  | 1 |  |
+| Rigging | 23 | 21 |  | 1 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **884** | **0** | **2** | **0** | **188** | **164** |
+| **Total** | **1238** | **885** | **0** | **1** | **0** | **188** | **164** |
 
-**Progress:** 884 of 886 in-scope capabilities done (100 %); 884 of 1238 in the full matrix (71 %).
+**Progress:** 885 of 886 in-scope capabilities done (100 %); 885 of 1238 in the full matrix (71 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1334,7 +1334,7 @@ scope by the owner's triage of 2026-11-07).
 | `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.scroll` | Scroll rig constraint | new: scroll rig constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-scroll |  |
 | `rigging.skin` | Bind-pose skinning | TODO: modules/skin/capabilities/rigging-skin/registry.ts; spec/SPEC.md (Bind-pose skinning); modules/skin/capabilities/rigging-skin/example.animl | rig | done | TODO: modules/skin/test/core/rigging-skin.test.ts; spec/conformance/rigging-skin; tests/oracle/rigging-skin |  |
-| `rigging.transform` | Transform constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | planned | modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Tuple origin binding and AniML animation, and group/other target bounds for origin, remain incomplete. |
+| `rigging.transform` | Transform constraint | modules/rig/core/index.ts; modules/rig/core/origin.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform | copyTransform origin uses the shared point tuple type with JSON/AniML animation and tuple binding; rig-origin resolves rest geometric bounds for leaf shapes and transformed group subtrees. Existing native oracle budget remains 16/65/0.12. |
 | `rigging.translation` | Translation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
 | `rigging.weights` | Vertex bone weights | TODO: modules/skin/capabilities/rigging-weights/registry.ts; spec/SPEC.md (Vertex bone weights); modules/skin/capabilities/rigging-weights/example.animl | rig | done | TODO: modules/skin/test/core/rigging-weights.test.ts; spec/conformance/rigging-weights; tests/oracle/rigging-weights |  |
 

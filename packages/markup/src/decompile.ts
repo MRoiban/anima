@@ -259,7 +259,11 @@ export function decompile(doc: string | object): string {
           text: (keys as unknown[][])
             .map((k) =>
               k
-                .map((v, i) => (i === 1 && typeof v === 'string' ? JSON.stringify(v) : value(v)))
+                .map((v, i) =>
+                  i === 1 && (typeof v === 'string' || Array.isArray(v))
+                    ? JSON.stringify(v)
+                    : value(v),
+                )
                 .join(' '),
             )
             .join('\n'),

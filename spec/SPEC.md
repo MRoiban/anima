@@ -3708,7 +3708,19 @@ limits act on the signed copied axes before canonical decomposition.
 `copyTransform` copies position, rotation, scales and shear together. By default
 the target point is its pivot. `origin` selects a normalized point over the
 target's rest geometric bounds (no stroke); its transformed point replaces the
-host's pivot position. The tuple is animatable in JSON. AniML authors the rest tuple as `origin="u v"`.
+host's pivot position. The point tuple uses the shared `point` value type and is
+animatable and bindable as one value. JSON track keys use `[u,v]`; AniML authors
+the rest tuple as `origin="u v"` and tuple track keys as `[u,v]`.
+
+Rest bounds are evaluated from authored geometry before animation. Paths, circles,
+arcs, rects, ellipses, polygons, stars, triangles, contours, images, text and
+layout boxes contribute their geometric bounds. A container target recursively
+unions descendant geometry after each descendant's authored rest transform is
+mapped into the target's local space; structural nodes with no drawing geometry
+contribute no box. Stroke width is never included. Browser builds that use a
+non-default `copyTransform.origin` must install the optional heavy `rig-origin`
+entry; otherwise loading reports `rig-origin` at the origin field with a repair
+hint.
 
 Distance constraints measure between world pivots and preserve the host's
 rotation, scale and shear. Within enforces a maximum radius, beyond a minimum,

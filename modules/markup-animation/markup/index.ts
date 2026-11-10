@@ -87,7 +87,8 @@ function frames(
     try {
       if (tokens.length < 2) throw new Error(VERBOSE ? 'expected time value [ease]' : '');
       const time = c.num(tokens[0]![0]);
-      const val = keyValue?.(tokens[1]![0]) ?? c.scalar(tokens[1]![0]);
+      const source = tokens[1]![0];
+      const val = keyValue?.(source) ?? (source[0] === '[' ? JSON.parse(source) : c.scalar(source));
       const key: unknown[] = [time, val];
       c.map.set(kp, at(tokens[0]!.index));
       c.map.set(kp + '/0', at(tokens[0]!.index));

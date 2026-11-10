@@ -1,10 +1,12 @@
-import { IDENTITY, mul, apply, clamp, type Mat } from '../../../packages/core/src/geom.ts';
+import { IDENTITY, mul, clamp, type Mat } from '../../../packages/core/src/geom.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
-import { flatten } from '../../../packages/core/src/path.ts';
 import { compose, decompose, registerConstraint, type RigContext } from './api.ts';
 import { bone, inverse, pivot } from './solve.ts';
 export const number = (min?: number, max?: number): Shape => ({ k: 'num', min, max });
 const string = (of?: string[]): Shape => ({ k: 'str', of });
+export const origin: {
+  point?: (ctx: RigContext, node: number, uv: number[], frame: Mat) => [number, number];
+} = {};
 export const space: Shape = string(['world', 'local']);
 const spaces = {
   fromSpace: space,
@@ -84,34 +86,9 @@ export function registerCopies(): void {
           rest = decompose(inSpace(ctx, i, ctx.rest(i), r.toSpace, true), pv);
         if (axis === -1) {
           current.splice(0, 6, ...source);
-          let origin = ctx.player.prop(i, `constraints.${k}.origin`) ?? r.origin;
-          if (typeof origin === 'string' && origin[0] === '~')
-            origin = origin.slice(1).split(',').map(Number);
-          if (j !== undefined && Array.isArray(origin)) {
-            const n = ctx.model.nodes[j]!,
-              raw = n.raw;
-            const points = n.geom
-              ? flatten(n.geom).flatMap((s) => s.pts)
-              : raw.center
-                ? [
-                    raw.center[0] - raw.r,
-                    raw.center[1] - raw.r,
-                    raw.center[0] + raw.r,
-                    raw.center[1] + raw.r,
-                  ]
-                : [
-                    raw.x0 ?? 0,
-                    raw.y0 ?? 0,
-                    (raw.x0 ?? 0) + (raw.w ?? 0),
-                    (raw.y0 ?? 0) + (raw.h ?? 0),
-                  ];
-            const at = (axis: number) => {
-              const values = points.filter((_, k) => k % 2 === axis),
-                lo = Math.min(...values);
-              return lo + (Math.max(...values) - lo) * Number(origin[axis]);
-            };
-            [current[0], current[1]] = apply(target, at(0), at(1));
-          }
+          const value = ctx.player.prop(i, `constraints.${k}.origin`) ?? r.origin;
+          if (j !== undefined && Array.isArray(value) && origin.point)
+            [current[0], current[1]] = origin.point(ctx, j, value, target);
         } else
           for (let a = 0; a < (vector ? 2 : 1); a++) {
             const suffix = vector ? 'XY'[a]! : '',
