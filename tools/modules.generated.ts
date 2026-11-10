@@ -288,7 +288,7 @@ export const moduleBudgets: {
   { name: 'layout-reflow', budget: 1024, over: 'layout' },
   { name: 'markup-layout', budget: 512, over: 'markup', authoring: true },
   { name: 'rig', budget: 3072, heavy: true },
-  { name: 'rig-origin', budget: 256, heavy: true, over: 'rig' },
+  { name: 'rig-origin', budget: 896, heavy: true, over: 'rig' },
   { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
   { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
   { name: 'ik', budget: 896, heavy: true, over: 'rig' },

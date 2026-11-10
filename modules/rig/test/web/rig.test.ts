@@ -6,6 +6,7 @@ import { chromium, firefox, type Browser, type Page } from 'playwright-core';
 import { PNG } from 'pngjs';
 import { beforeAll, afterAll, describe, it, expect } from 'vitest';
 import { bundle } from '../../../../tools/browser-build.ts';
+import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 import type {} from '../../../canvas/test/web/harness.ts';
 const cases = globSync('spec/conformance/rigging-*/case.ani')
   .sort()
@@ -91,6 +92,9 @@ for (const [name, engine, relative] of [
       try {
         for (const content of (await separate!).slice(0, 2))
           await p.addScriptTag({ type: 'module', content });
+        await p.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon | undefined)?.modules.has('rig'),
+        );
         const doc = {
           anima: '0.1',
           name: 'rig-origin-entry',
@@ -118,6 +122,11 @@ for (const [name, engine, relative] of [
           }),
         );
         await p.addScriptTag({ type: 'module', content: (await separate!)[2]! });
+        await p.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon | undefined)?.modules.has(
+            'rigorigin',
+          ),
+        );
         expect(await load(doc)).toEqual([]);
       } finally {
         await p.close();

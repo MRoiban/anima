@@ -7,14 +7,15 @@ import { origin } from './constraints.ts';
 
 function geometryPoints(ctx: RigContext, node: number): number[] {
   const n = ctx.model.nodes[node]!,
-    r = n.raw;
+    r = n.raw,
+    type = String(n.type);
   if (n.geom) return flatten(n.geom).flatMap((s) => s.pts);
-  if (n.type === 'circle') {
+  if (type === 'circle') {
     const [x, y] = r.center,
       d = r.r;
     return [x - d, y - d, x + d, y + d];
   }
-  if (n.type === 'arc') {
+  if (type === 'arc') {
     const [x, y] = r.center,
       d = r.r,
       from = r.from,
@@ -25,12 +26,12 @@ function geometryPoints(ctx: RigContext, node: number): number[] {
       return [x + d * Math.cos(q), y + d * Math.sin(q)];
     });
   }
-  if (n.type === 'rect') return [r.x0, r.y0, r.x0 + r.w, r.y0 + r.h];
-  if (n.type === 'ellipse') return [r.cx - r.rx, r.cy - r.ry, r.cx + r.rx, r.cy + r.ry];
-  if (n.type === 'triangle')
+  if (type === 'rect') return [r.x0, r.y0, r.x0 + r.w, r.y0 + r.h];
+  if (type === 'ellipse') return [r.cx - r.rx, r.cy - r.ry, r.cx + r.rx, r.cy + r.ry];
+  if (type === 'triangle')
     return [r.x0 + r.width / 2, r.y0, r.x0 + r.width, r.y0 + r.height, r.x0, r.y0 + r.height];
-  if (n.type === 'polygon' || n.type === 'star') {
-    const star = n.type === 'star',
+  if (type === 'polygon' || type === 'star') {
+    const star = type === 'star',
       count = r[star ? 'points' : 'sides'] * (star ? 2 : 1);
     return Array.from({ length: count }, (_, j) => {
       const a = ((star ? -90 : r.rotation - 90) * Math.PI) / 180 + (j * Math.PI * 2) / count,
@@ -38,9 +39,9 @@ function geometryPoints(ctx: RigContext, node: number): number[] {
       return [r.cx + d * Math.cos(a), r.cy + d * Math.sin(a)];
     }).flat();
   }
-  if (n.type === 'contour')
+  if (type === 'contour')
     return (r.vertices as { point: number[] }[]).flatMap((v) => v.point.slice(0, 2));
-  if (['image', 'text', 'layout'].includes(String(n.type))) {
+  if (['image', 'text', 'layout'].includes(type)) {
     const x = Number(r.x0 ?? 0),
       y = Number(r.y0 ?? 0),
       w = Number(r.width ?? 0),

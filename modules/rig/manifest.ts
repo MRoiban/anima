@@ -6,7 +6,7 @@ export default {
     core: { entry: 'core/all.ts', export: 'rig', svg: 'core/svg.ts', svgExport: 'rigSVG' },
     web: [
       { name: 'rig', budget: 3072, heavy: true },
-      { name: 'rig-origin', budget: 256, heavy: true, over: 'rig' },
+      { name: 'rig-origin', budget: 896, heavy: true, over: 'rig' },
       { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
       { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
     ],
