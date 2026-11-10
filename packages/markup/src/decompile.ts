@@ -15,6 +15,12 @@ const commentValue = (v: string): string =>
     /[-\ud800-\udfff\ufffe\uffff]/g,
     (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`,
   );
+// A comment the compiler reads back exactly is written plainly (`<!-- text -->`), keeping long
+// multi-line comments readable; anything else uses the exact `$comment "JSON"` form (#55).
+const plainComment = (v: string): boolean =>
+  v !== '' &&
+  v === v.trim() &&
+  !/--|-$|^\$comment |[\r\0-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]/.test(v);
 const commentPath = (path: string[]): string =>
   '/' + path.map((part) => encodeURIComponent(part).replace(/-/g, '%2D')).join('/');
 
@@ -70,7 +76,13 @@ export function decompile(doc: string | object): string {
       ],
       children:
         typeof o.$comment === 'string'
-          ? [{ comment: ` $comment ${commentValue(o.$comment)} ` }]
+          ? [
+              {
+                comment: plainComment(o.$comment)
+                  ? ` ${o.$comment} `
+                  : ` $comment ${commentValue(o.$comment)} `,
+              },
+            ]
           : [],
     };
   };

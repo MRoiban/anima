@@ -30,7 +30,9 @@ required with a rectangular viewBox.
   text is allowed only where §4 says so.
 - Comments may appear anywhere. Before an element's first child element, the first ordinary
   comment becomes the `$comment` of the JSON object that element compiles to, with surrounding
-  whitespace trimmed. Canonical decompilation uses `<!-- $comment "JSON string" -->` instead; the
+  whitespace trimmed. Canonical decompilation writes that plain form when it reads back exactly
+  (no leading or trailing whitespace, no `--`, no trailing `-`, no carriage return or XML-forbidden
+  character, not starting with `$comment `), and `<!-- $comment "JSON string" -->` otherwise; the
   JSON string is decoded exactly, so whitespace, `-->`, control characters and Unicode survive.
   For a descendant JSON object that has no AniML element of its own, canonical decompilation uses
   `<!-- $comment /path "JSON string" -->` before the owner's first child element. `/path` is
@@ -183,8 +185,8 @@ on objects without an element use the scoped `/path` form from §1. For every do
 Decompiling a hand-written `.ani` and building it again gives the same document up to three
 normalisations, none of which changes playback: `$schema` is dropped; a one-item action list
 (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`); and in ordinary string
-fields, characters XML does not allow are written as U+FFFD. `$comment` values are encoded as JSON
-inside XML comments and therefore round-trip exactly. The `$comment` of `meta` stays in its JSON
+fields, characters XML does not allow are written as U+FFFD. `$comment` values that would not read back
+exactly as plain comments are encoded as JSON inside XML comments, so every value round-trips exactly. The `$comment` of `meta` stays in its JSON
 text.
 
 `anima fmt x.animl` reformats markup into the same canonical layout but keeps the author's
