@@ -4032,7 +4032,35 @@ handles bend independently while preserving the simpler anchor-only spelling for
 <!-- capability: rigging.scroll -->
 ### Scroll rig constraint
 
-TODO: Constrain content movement relative to a viewport and link scrollbar motion; detailed physics and virtualization are inventoried under layout.
+The optional `scroll` module extends rig with `scroll` and `scrollThumb` constraints. A `scroll`
+constraint is authored on the content node as `{kind:"scroll", viewport, axis, offsetX?, offsetY?,
+interactive?}`; AniML uses `<scroll viewport="…" axis="x|y|both" offset-x="…" offset-y="…"
+interactive="…"/>`. `viewport` is required, `axis` is `x`, `y` or `both`, offsets default to zero in
+grid units, and `interactive` defaults to true. The viewport extent is its layout box when it is a
+layout container, otherwise its rest local bounds. Content extent is the content node's layout box
+when present, otherwise the rest bounds of its subtree. Each enabled offset clamps to
+`[0, max(0, content - viewport)]` and translates the content by the negative clamped offset. A
+disabled axis resolves to zero.
 
-TODO: define JSON and AniML spellings, validation diagnostics (code, JSON pointer, message, hint),
-resolution order, deterministic sampling, CLI/schema support and oracle equivalence/limits.
+Offsets are ordinary bindable/animatable constraint addresses. Interactive offsets are per-player
+state. Pointer and scroll input only queue a proposed state; phase 1 of the next `Player.step` applies
+the queue before rig solving. A primary-button drag that starts inside the viewport adds the pointer
+delta on enabled axes. Wheel or trackpad input over the viewport adds its delta and is handled only
+when clamping permits an actual offset change, so the host may scroll normally at an end stop. If an
+`offsetX` or `offsetY` address is bound or animated in the current step, that authored value wins over
+interactive state for that axis. The derived read-only snapshot addresses `percentX` and `percentY`
+are the clamped offset divided by its content range, or zero when the range is zero. They are output
+addresses only and are not guard operands.
+
+`scrollThumb` is authored on a thumb node as `{kind:"scrollThumb", scroll, track, axis, resize?}` or
+`<scroll-thumb scroll="…" track="…" axis="x|y" resize="…"/>`. `scroll` names a content node carrying
+a `scroll` constraint and `track` names the track node. The thumb position follows the linked
+`percentX` or `percentY` across the available track travel. With `resize=true`, thumb length is
+`trackLength * viewportLength / contentLength`, clamped to the track and never smaller than the
+authored thumb length. Dragging the thumb maps pointer travel back to the linked offset.
+
+A missing or unmeasurable viewport is `scroll-viewport` at that constraint's `/viewport` pointer,
+with a hint to target a layout container or a node/subtree with rest geometry. An unknown
+`scrollThumb.scroll` target uses rig's `rig-target` diagnostic. Authors clip visible scrolling content
+explicitly with composite's `clip`; scrolling does not add an implicit clip. This capability has no
+physics, inertia, elastic overscroll, snapping, virtualization or infinite-scroll semantics.

@@ -1,12 +1,5 @@
-# Scroll rig constraint
+# Scroll constraint
 
-Pending scaffold for rigging.scroll; no implementation or parity completion is claimed.
+Implemented by the `scroll` module through rig's `registerConstraint` seam. The normative contract is `spec/SPEC.md` `## scroll`; diagnostics are covered in `modules/scroll/test/core/rigging-scroll.test.ts`, and deterministic interaction evidence is in `spec/conformance/rigging-scroll/`.
 
-- TODO: spec/SPEC.md subsection, registry.ts entries and both spellings; compose entries into core.
-- TODO: diagnostics and invalid documents, deterministic conformance expectations.
-- TODO: replace example.animl and rebuild example.ani through the compiler.
-- TODO: CLI validate/schema/inspect/sample coverage, generated schema and measured manifest size budget.
-- TODO: independent oracle scene/frames; add to tests/oracle/cases.json only when complete.
-
-Remove todo.json only after completing the probe and its independently checked expected output.
-Follow spec/MODULES.md §5 and docs/research/rive-web-runtime.md comparison cautions.
+The clipped list example is `modules/scroll/examples/list.animl`.
