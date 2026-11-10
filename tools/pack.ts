@@ -276,55 +276,61 @@ function packageExports(): Record<string, { types: string; default: string }> {
 
 const animlReadme = `# animl
 
-Anima's dependency-free runtime, AniML compiler, web component, and optional modules.
-
-Install:
+The runtime for [Anima](https://github.com/MRoiban/anima): an open animation format (\`.ani\` JSON,
+written by hand or as AniML markup) for animated, interactive web UI. It includes the player, the
+AniML compiler, the \`<anima-icon>\` web component and every optional module (paint, state machines,
+input, text, layout, rigging and more). No dependencies.
 
 \`\`\`sh
 npm install animl
 \`\`\`
 
-Browser:
+## In a page, no build step
 
 \`\`\`html
-<script type="module">
-  import 'animl/web';
-</script>
-<anima-icon id="bell" style="width:48px;height:48px">
-  <script type="application/vnd.anima+json">
-    {"anima":"0.1","name":"dot","grid":20,"viewBox":[0,0,20,20],
-     "nodes":[{"type":"circle","id":"dot","cx":10,"cy":10,"r":7,
-     "fill":{"color":"currentColor"}}]}
-  </script>
-</anima-icon>
-<script type="module">
-  const bell = document.querySelector('#bell');
-  await customElements.whenDefined('anima-icon');
-  bell.style.color = 'tomato';
-</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/animl@${VERSION}/packages/web/dist/anima-icon.js"></script>
+<anima-icon src="bell.ani" style="width: 48px; height: 48px"></anima-icon>
 \`\`\`
 
-Node:
+\`anima-icon.js\` is the base runtime; optional modules have their own bundles next to it
+(\`anima-paint.js\`, \`anima-machine.js\`, \`anima-input.js\`, …). \`npx anima bundle --modules paint,input\`
+(from [animl-cli](https://www.npmjs.com/package/animl-cli)) builds one file with just the modules a scene needs.
+
+## With a bundler
+
+\`\`\`js
+import 'animl/web';
+
+const icon = document.querySelector('anima-icon');
+await icon.load({
+  anima: '0.1',
+  name: 'dot',
+  grid: 20,
+  viewBox: [0, 0, 20, 20],
+  nodes: [{ type: 'circle', id: 'dot', center: [10, 10], r: 7, fill: { color: 'currentColor' } }],
+});
+\`\`\`
+
+## In Node
 
 \`\`\`js
 import 'animl/all';
 import { load, Player } from 'animl';
 import { compile } from 'animl/markup';
-const source = '<anima version="0.1" name="dot" grid="20" viewBox="0 0 20 20">' +
-  '<circle id="dot" cx="10" cy="10" r="7" fill="#000"/></anima>';
-const built = compile(source);
-if (built.diagnostics.some(d => d.severity === 'error')) {
-  throw new Error(JSON.stringify(built.diagnostics));
-}
-const result = load(built.text);
-if (!result.model) throw new Error(JSON.stringify(result.diagnostics));
-const player = new Player(result.model);
-player.step(0);
+
+const built = compile(
+  '<anima version="0.1" name="dot" grid="20" viewBox="0 0 20 20">' +
+    '<circle id="dot" cx="10" cy="10" r="7" fill="#000"/></anima>',
+);
+if (!built.doc) throw new Error(JSON.stringify(built.diagnostics));
+const player = new Player(load(built.doc).model);
+player.step(0.5);
 console.log(player.values());
 \`\`\`
 
-Prebuilt script-tag/CDN bundles are exported under \`animl/browser/*\`.
-Documentation: https://github.com/MRoiban/anima/tree/main/docs
+Write and check scenes with the \`anima\` command from [animl-cli](https://www.npmjs.com/package/animl-cli)
+(\`anima features\`, \`anima search <words>\`, \`anima validate\`, \`anima render\`).
+Docs: https://github.com/MRoiban/anima/tree/main/docs · Licence: MIT.
 `;
 
 const cliReadme = `# animl-cli
@@ -342,8 +348,27 @@ anima schema rect
 anima help --json
 \`\`\`
 
+The loop: write a scene (\`anima new --sample bell\` or \`anima examples\`), check it with
+\`anima validate scene.animl\`, step it with \`anima sample scene.animl -e "snapshot"\`, look at it with
+\`anima render scene.animl -o out.png\`, and ship it with \`anima build scene.animl -o scene.ani\` plus the
+[animl](https://www.npmjs.com/package/animl) runtime. \`anima features\` and \`anima search <words>\` find
+any capability.
+
 CLI documentation: https://github.com/MRoiban/anima/blob/main/docs/CLI.md
 `;
+
+const KEYWORDS = [
+  'animation',
+  'interactive',
+  'web-component',
+  'svg',
+  'canvas',
+  'icons',
+  'state-machine',
+  'motion',
+  'ui',
+  'agents',
+];
 
 function writeJSON(path: string, value: unknown): void {
   mkdirSync(dirname(path), { recursive: true });
@@ -360,6 +385,9 @@ function stageAniml(runtime: string[]): void {
     license: 'MIT',
     type: 'module',
     repository: { type: 'git', url: 'git+https://github.com/MRoiban/anima.git' },
+    homepage: 'https://github.com/MRoiban/anima#readme',
+    bugs: { url: 'https://github.com/MRoiban/anima/issues' },
+    keywords: KEYWORDS,
     engines: root.engines,
     exports: packageExports(),
     files: ['packages', 'modules', 'tools', 'README.md', 'LICENSE', 'NOTICE'],
@@ -440,6 +468,9 @@ function stageCli(): void {
     license: 'MIT',
     type: 'module',
     repository: { type: 'git', url: 'git+https://github.com/MRoiban/anima.git' },
+    homepage: 'https://github.com/MRoiban/anima#readme',
+    bugs: { url: 'https://github.com/MRoiban/anima/issues' },
+    keywords: KEYWORDS,
     engines: root.engines,
     bin: { anima: 'packages/cli/src/main.js' },
     exports: {
