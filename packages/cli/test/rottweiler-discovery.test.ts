@@ -79,3 +79,41 @@ describe('discovery review round 1', () => {
     expect(files).toContain('llms.txt');
   });
 });
+
+describe('discovery review round 2', () => {
+  it('R2-1: an attached short value before the command works', async () => {
+    expect((await invoke('-esnapshot', 'sample', 'examples/bell.ani')).code).toBe(0);
+  }, 30000);
+
+  it('R2-2: a section whose slug repeats the page root narrows the page', async () => {
+    const whole = await invoke('docs', 'convert');
+    const part = await invoke('docs', 'convert', 'convert');
+    expect(part.code).toBe(0);
+    expect(part.out.length).toBeLessThan(whole.out.length);
+  }, 30000);
+
+  it('R2-3: an unknown feature suggests the nearest one', async () => {
+    const result = await invoke('features', 'pait', '--format=json');
+    expect(result.code).toBe(2);
+    expect(JSON.parse(result.err).suggestions).toContain('paint');
+  }, 30000);
+
+  it('R2-4, R2-5: schema rejects --all with --json-schema and an empty --search', async () => {
+    expect((await invoke('schema', '--all', '--json-schema')).code).toBe(2);
+    const empty = await invoke('schema', '--search', '', '--format=json');
+    expect(empty.code).toBe(2);
+    expect(JSON.parse(empty.err).error).toMatch(/needs at least one word/);
+  }, 30000);
+
+  it('R2-6: bash completion finds the command after leading options', () => {
+    const bash = completion('bash');
+    expect(bash).toMatch(/for \(\( i = 1; i < COMP_CWORD; i\+\+ \)\)/);
+    expect(bash).toContain('--format');
+  });
+
+  it('R2-7: zsh completes aliases with their command', () => {
+    const zsh = completion('zsh');
+    expect(zsh).toContain('validate|check|lint)');
+    expect(zsh).toContain("'check:");
+  });
+});

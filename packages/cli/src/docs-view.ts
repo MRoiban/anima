@@ -350,7 +350,9 @@ function docsImpl(
   // A second word narrows the page to one of its sections (`docs a11y <section>`); unknown ones miss.
   if (requestedSection) {
     const entries = headings(text, [2, 3, 4, 5, 6]);
-    const found = entries.find((entry) => compact(entry.slug) === compact(requestedSection));
+    // Combined pages repeat slugs (`## convert` then `### convert`): prefer a section below the page root.
+    const matches = entries.filter((entry) => compact(entry.slug) === compact(requestedSection));
+    const found = matches.find((entry) => entry.at > 0) ?? matches[0];
     if (!found)
       return miss(
         requestedSection,

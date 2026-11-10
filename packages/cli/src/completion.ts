@@ -39,14 +39,36 @@ ${choiceCases(command).join('\n')}
       fi
       ;;`;
   }).join('\n');
+  // Options that take a separate value, so the scan above can skip their value.
+  const valued = [
+    ...new Set(
+      [...GLOBAL, ...COMMANDS.flatMap((command) => command.options)]
+        .filter((option) => option.value)
+        .flatMap((option) => [`--${option.name}`, ...(option.short ? [`-${option.short}`] : [])]),
+    ),
+  ].join('|');
   return `# bash completion for anima
 _anima_completion() {
   local cur prev cmd
   cur="${'${COMP_WORDS[COMP_CWORD]}'}"
   prev="${'${COMP_WORDS[COMP_CWORD-1]}'}"
-  cmd="${'${COMP_WORDS[1]}'}"
-  if (( COMP_CWORD == 1 )); then
-    COMPREPLY=( $(compgen -W '${commands}' -- "$cur") )
+  # The command is the first word that is not a leading option or its value (anima --format json search …).
+  local i word
+  cmd=""
+  for (( i = 1; i < COMP_CWORD; i++ )); do
+    word="${'${COMP_WORDS[i]}'}"
+    case "$word" in
+      ${valued}) (( i++ )) ;;
+      -*) ;;
+      *) cmd="$word"; break ;;
+    esac
+  done
+  if [[ -z "$cmd" ]]; then
+    if [[ "$cur" == -* ]]; then
+      COMPREPLY=( $(compgen -W '--help --version --format' -- "$cur") )
+    else
+      COMPREPLY=( $(compgen -W '${commands}' -- "$cur") )
+    fi
     return
   fi
   case "$cmd" in
@@ -68,8 +90,11 @@ function zshOption(option: Option): string {
 }
 
 function zsh(): string {
-  const commandRows = COMMANDS.map(
-    (command) => `    '${command.name}:${command.summary.replaceAll("'", '')}'`,
+  // Aliases complete like their command (`anima check` → validate's options).
+  const commandRows = COMMANDS.flatMap((command) =>
+    [command.name, ...(command.aliases ?? [])].map(
+      (name) => `    '${name}:${command.summary.replaceAll("'", '')}'`,
+    ),
   ).join('\n');
   const cases = COMMANDS.map((command) => {
     const args = [...command.options, ...GLOBAL]
@@ -77,7 +102,7 @@ function zsh(): string {
       .join(' \\\n');
     const topic = values(command);
     const positional = topic.length ? ` \\\n        '*:value:(${topic.join(' ')})'` : '';
-    return `    ${command.name})
+    return `    ${[command.name, ...(command.aliases ?? [])].join('|')})
       _arguments \\\n${args}${positional}
       ;;`;
   }).join('\n');

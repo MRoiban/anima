@@ -16,3 +16,10 @@ or pushes back with the reason.
 | R1-6 | minor | `anima --format=bogus` exited 0 with the overview. | fixed: leading `--format` values are validated before the no-command overview |
 | R1-7 | minor | Fish completion ignored command aliases (`anima check --f`). | fixed: aliases complete like their command |
 | R1-8 | minor | `packages/cli/llms.txt` was not in the package `files`. | fixed: added |
+| R2-1 | major | A leading attached short value (`-esnapshot sample f`) was rejected; main and the after-command form accept it. | fixed: the leading scan accepts `-xVALUE` for value-taking short options |
+| R2-2 | major | `docs convert convert` printed the whole page: combined pages repeat the root slug. | fixed: a matching section below the page root wins over the root heading |
+| R2-3 | minor | `features pait` gave no suggestion. | fixed: unknown features are a usage issue with feature-name suggestions (text and JSON) |
+| R2-4 | minor | `schema --all --json-schema` silently ignored `--json-schema`. | fixed: usage error |
+| R2-5 | minor | `schema --search ''` printed the topic index with exit 0. | fixed: usage error `--search needs at least one word` |
+| R2-6 | minor | Bash completion assumed the command is the first word (`anima --format json search --k` completed nothing). | fixed: the script skips leading options and their values to find the command |
+| R2-7 | minor | Zsh completion ignored command aliases. | fixed: aliases are listed and share their command's case |

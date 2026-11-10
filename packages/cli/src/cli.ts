@@ -390,7 +390,14 @@ async function runFeatures(
       return 0;
     }
     const info = discovery.features(rest[0]) as FeatureInfo | undefined;
-    if (!info) throw new Usage(`unknown feature '${rest[0]}'`);
+    if (!info)
+      throw usageIssue(
+        commandByName('features'),
+        'value',
+        rest[0]!,
+        (discovery.features() as FeatureInfo[]).map((f) => f.entry.name),
+        `unknown feature '${rest[0]}'`,
+      );
     if (json) io.out(JSON.stringify(info));
     else io.out(featureText(info));
     return 0;
@@ -516,6 +523,12 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
       return 0;
     }
     if (!token.startsWith('-') || token === '-' || token === '--') break;
+    // `-eVALUE`: a value-taking short option with its value attached.
+    if (!token.startsWith('--') && token.length > 2 && takesValue.get(token.slice(0, 2))) {
+      leading.push(token);
+      index++;
+      continue;
+    }
     const name = token.split('=')[0]!;
     if (!takesValue.has(name)) break;
     leading.push(token);
@@ -953,6 +966,10 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
         if (rest[0]) rest[0] = schemaTopic(rest[0])!;
         if (o.animatable || o.bindable || o.inherited || o['editor-only'])
           return filteredSchema(rest[0], o, json, io);
+        if (o.all && o['json-schema'])
+          throw new Usage('schema takes --all or --json-schema, not both');
+        if (o.search !== undefined && !String(o.search).trim())
+          throw new Usage('--search needs at least one word');
         if (o.all && !rest[0] && !o.search) return schemaAll(json, io);
         return o.search
           ? schemaSearch(o.search, json, io)
