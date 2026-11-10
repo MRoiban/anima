@@ -64,6 +64,8 @@ interface Context {
   stack: Set<string>;
   requires: string[];
   data?: Model['doc'];
+  // Document converters: models are inherited by components, so their converters are too (#50).
+  converters?: Model['doc'];
   used: Set<string>;
   // seam(P7-5): the root document's catalog, including transitively placed definitions.
   root: Map<string, Model>;
@@ -180,6 +182,7 @@ function create(
         stack: new Set(),
         requires: model.doc.requires,
         data: model.doc.data,
+        converters: model.doc.converters,
         used: new Set(),
         root: models,
       });
@@ -267,6 +270,7 @@ function create(
                     : (def.data ?? ctx.data),
               }
             : {}),
+          ...(ctx.converters ? { converters: { ...ctx.converters, ...def.converters } } : {}),
         };
         const hook = active?.loadComponent;
         const result = hook
@@ -274,13 +278,16 @@ function create(
           : runtime.load(document);
         ctx.stack.delete(name);
         if (result.model && !def.data) result.model.inheritedData = true;
+        // Inherited models are validated (and reported) by the document itself (#50).
+        const ownModels = !!def.data && typeof def.data === 'object';
         for (const d of result.diagnostics)
-          diag.list.push({
-            ...d,
-            pointer: d.pointer.startsWith('/components/')
-              ? d.pointer
-              : ptr('/components', name) + d.pointer,
-          });
+          if (ownModels || !d.pointer.startsWith('/data/models/'))
+            diag.list.push({
+              ...d,
+              pointer: d.pointer.startsWith('/components/')
+                ? d.pointer
+                : ptr('/components', name) + d.pointer,
+            });
         ctx.cache.set(key, result.model);
         if (result.model) keep(name, result.model);
         return result.model;

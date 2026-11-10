@@ -296,7 +296,11 @@ function resolve(
           'use declared model names',
         );
     }
-    if (prop?.of && !choices.has('*') && !choices.has(prop.of))
+    // A mapped component that failed to load has its own error; don't add a follow-on one (#50).
+    const mapped =
+      typeof raw.component === 'string' ||
+      (prop?.of !== undefined && Object.hasOwn(raw.component, prop.of));
+    if (prop?.of && !mapped && !choices.has('*') && !choices.has(prop.of))
       error(
         d,
         'list-map',

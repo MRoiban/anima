@@ -2766,6 +2766,11 @@ JSON/AniML spellings, ordering, bounds, identity, limits and diagnostics are def
 
 <!-- capability: components.inherited-context -->
 ### Inherited data context
+Every component compiles with the document's model declarations and its `converters`; a
+component's own `converters` add to or replace them by name, so a model computed value that
+converts with a document converter works inside components (#50). Named instances read through
+`$main:` (or any other instance name) inside a component are the document's live instances, also in
+repeated items and their computed values (#49); only the component's own default context differs.
 A component with no `data` declaration shares the inherited document's live named data instances,
 recursively, including non-global models. This applies to host writes inside/outside `batch` and to
 document writes. An explicit child `data` model keeps local storage unless bound; global models

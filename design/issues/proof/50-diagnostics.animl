@@ -1,0 +1,18 @@
+<anima version="0.1" name="diag50" grid="30" requires="components data bind lists derive convert">
+  <converter name="glide" type="interpolate" duration="450"/>
+  <model name="Item">
+    <number name="x"/>
+    <number name="sx" value="$x" convert="glide"/>
+    <number name="up" value="$parent.view"/>
+  </model>
+  <model name="Board">
+    <number name="view" default="1"/>
+    <list name="items" of="Item"/>
+  </model>
+  <instance name="main" model="Board" default="true"/>
+  <component name="row" grid="10" data="Item">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.x" value="$sx"/>
+  </component>
+  <repeat id="rows" list="$items" component="row"/>
+</anima>
