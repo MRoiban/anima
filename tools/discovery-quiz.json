@@ -1,0 +1,240 @@
+{
+  "$comment": "Orchestrator-owned (design/discovery/DESIGN.md). A query passes when search(q) returns, in its first 5 hits, an entry whose name, feature or one of whose rows is in expect. Agents run this, never edit it.",
+  "limit": 5,
+  "queries": [
+    {
+      "q": "hover effect on a button",
+      "expect": ["enter", "leave", "input", "input.cursor-pointer"]
+    },
+    {
+      "q": "change colour when the mouse is over it",
+      "expect": ["enter", "leave", "input"]
+    },
+    {
+      "q": "make something draggable",
+      "expect": ["drag", "drag-start", "listener.write", "input"]
+    },
+    {
+      "q": "click handler",
+      "expect": ["click", "down", "up", "input"]
+    },
+    {
+      "q": "easing curve",
+      "expect": ["cubic", "inOut", "in", "out", "animation.cubic-ease"]
+    },
+    {
+      "q": "spring or bounce animation",
+      "expect": ["elastic", "elasticOut", "animation.elastic-out", "animation.elastic-in-out"]
+    },
+    {
+      "q": "ease in out",
+      "expect": ["inOut", "animation.cubic-ease"]
+    },
+    {
+      "q": "loop an animation forever",
+      "expect": ["timeline", "timeline.loop", "animation.loop-loop"]
+    },
+    {
+      "q": "play an animation when a state changes",
+      "expect": ["state", "machine", "state-machine.animation-state"]
+    },
+    {
+      "q": "state machine with transitions",
+      "expect": ["machine", "transition", "state-machine.animation-state"]
+    },
+    {
+      "q": "bind a property to an input value",
+      "expect": ["bind", "data.bind-text", "data.binding-to-target"]
+    },
+    {
+      "q": "show a number as text",
+      "expect": ["text", "bind", "data.bind-text"]
+    },
+    {
+      "q": "text label",
+      "expect": ["text", "text.font-size"]
+    },
+    {
+      "q": "custom font",
+      "expect": ["fonts", "text.font-assets", "import-font"]
+    },
+    {
+      "q": "text field the user can type in",
+      "expect": ["textinput", "text-input", "text.input-editable"]
+    },
+    {
+      "q": "keyboard shortcut",
+      "expect": ["key-down", "key-up", "input.key-callback", "animation.key-callback"]
+    },
+    {
+      "q": "gamepad",
+      "expect": ["gamepad-button", "gamepad-axis", "input"]
+    },
+    {
+      "q": "accessible label for screen readers",
+      "expect": ["a11y", "a11y.icon-label"]
+    },
+    {
+      "q": "make it focusable with the tab key",
+      "expect": ["focus", "a11y"]
+    },
+    {
+      "q": "bones and skeleton",
+      "expect": ["rig", "bone", "rigging.bone-chains"]
+    },
+    {
+      "q": "inverse kinematics arm following the pointer",
+      "expect": ["ik", "rigging.ik"]
+    },
+    {
+      "q": "deform a shape with bones",
+      "expect": ["skin", "rigging.cubic-weights"]
+    },
+    {
+      "q": "warp an image with a mesh",
+      "expect": ["mesh", "rigging.mesh", "rigging.mesh-animation"]
+    },
+    {
+      "q": "move along a path",
+      "expect": ["pathfollow", "rigging.follow-path"]
+    },
+    {
+      "q": "scrolling list",
+      "expect": ["scroll", "lists", "rigging.scroll"]
+    },
+    {
+      "q": "scrollbar",
+      "expect": ["scroll-thumb", "scroll"]
+    },
+    {
+      "q": "copy rotation from another node",
+      "expect": ["copyRotation", "copy-rotation", "rig"]
+    },
+    {
+      "q": "blend modes like multiply",
+      "expect": ["composite", "blend", "drawing-paint.blend-multiply"]
+    },
+    {
+      "q": "gradient fill",
+      "expect": ["paint", "fill", "linear", "radial"]
+    },
+    {
+      "q": "dashed stroke",
+      "expect": [
+        "dash",
+        "stroke.dash",
+        "drawing-paint.dash-absolute",
+        "drawing-paint.dash-relative"
+      ]
+    },
+    {
+      "q": "trim path to draw a line on",
+      "expect": [
+        "trim",
+        "stroke.trim",
+        "drawing-paint.trim-single",
+        "drawing-paint.trim-sequential"
+      ]
+    },
+    {
+      "q": "clip or mask a group",
+      "expect": ["mask", "clip", "composite"]
+    },
+    {
+      "q": "rounded corners",
+      "expect": ["corners", "rect", "rect.corners"]
+    },
+    {
+      "q": "draw a star",
+      "expect": ["star", "polygon"]
+    },
+    {
+      "q": "import an SVG",
+      "expect": ["import", "command"]
+    },
+    {
+      "q": "use a Lottie file",
+      "expect": ["import"]
+    },
+    {
+      "q": "render a PNG of a frame",
+      "expect": ["render"]
+    },
+    {
+      "q": "check my file for errors",
+      "expect": ["validate"]
+    },
+    {
+      "q": "embed in a web page",
+      "expect": ["build", "anima-icon", "host", "docs"]
+    },
+    {
+      "q": "responsive layout that hugs its content",
+      "expect": ["layout", "layout.hug-sizing"]
+    },
+    {
+      "q": "flex row with gap",
+      "expect": ["layout", "layout.flex-direction"]
+    },
+    {
+      "q": "list of items from data",
+      "expect": ["lists", "components.list", "data"]
+    },
+    {
+      "q": "reusable component",
+      "expect": ["components", "instance", "components.library-components"]
+    },
+    {
+      "q": "dark mode colours",
+      "expect": ["colors", "--dark", "render", "host"]
+    },
+    {
+      "q": "respect reduced motion",
+      "expect": ["reducedMotion", "timeline.reducedMotion", "reduced-motion"]
+    },
+    {
+      "q": "fire an event to the page",
+      "expect": ["events", "events.named-event", "emit", "listener.emit"]
+    },
+    {
+      "q": "play a sound",
+      "expect": ["media", "assets.audio", "events.audio"]
+    },
+    {
+      "q": "random value",
+      "expect": ["random", "data.formula-function-random", "state-machine.state-random"]
+    },
+    {
+      "q": "if condition in an expression",
+      "expect": ["if", "state-machine.condition-number", "state-machine.condition-boolean"]
+    },
+    {
+      "q": "contains text filter",
+      "expect": ["contains", "lower"]
+    },
+    {
+      "q": "what does undeclared-feature mean",
+      "expect": ["undeclared-feature"]
+    },
+    {
+      "q": "list the features I can require",
+      "expect": ["features", "command"]
+    },
+    {
+      "q": "bundle only the modules I use",
+      "expect": ["bundle"]
+    },
+    {
+      "q": "measure frame cost",
+      "expect": ["bench"]
+    },
+    {
+      "q": "simulate pointer input headlessly",
+      "expect": ["sample", "script", "pointer"]
+    },
+    {
+      "q": "press a button through the accessibility tree in a script",
+      "expect": ["semantic", "script"]
+    }
+  ]
+}
