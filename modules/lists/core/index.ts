@@ -1,7 +1,7 @@
 import { nodePointer as pointer } from '../../components/core/node-pointer.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
-import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
+import type { Player, PlayerExtension, StepResult } from '../../../packages/core/src/player.ts';
 import type { DataModule } from '../../data/core/index.ts';
 import type { ComponentModule } from '../../components/core/index.ts';
 import { drawFrame, drawTree, type DrawTree } from '../../../packages/core/src/draw.ts';
@@ -302,10 +302,13 @@ function resolve(
         );
     }
     // A mapped component that failed to load has its own error; don't add a follow-on one (#50).
-    const mapped =
-      typeof raw.component === 'string' ||
-      (prop?.of !== undefined && Object.hasOwn(raw.component, prop.of));
-    if (prop?.of && !mapped && !choices.has('*') && !choices.has(prop.of))
+    if (
+      prop?.of &&
+      typeof raw.component !== 'string' &&
+      !Object.hasOwn(raw.component, prop.of) &&
+      !choices.has('*') &&
+      !choices.has(prop.of)
+    )
       error(
         d,
         'list-map',
@@ -436,28 +439,29 @@ function property(data: DataModule, model: Model, path: string) {
 let depth = 0,
   expanded = 0;
 function budgeted(p: Player, base?: PlayerExtension): PlayerExtension {
-  return {
-    ...base,
-    input: (op, name, value) => base?.input(op, name, value) ?? false,
-    get: (name) => base?.get(name),
-    states: () => base?.states() ?? {},
-    values: () => base?.values() ?? {},
-    inspect: () => base?.inspect() ?? [],
-    hits: (node, x, y) => base?.hits(node, x, y),
-    pointer(kind, x, y) {
-      base?.pointer(kind, x, y);
-    },
-    step(dt) {
-      if (!depth) expanded = 0;
-      else if (++expanded > 256) throw limit(p);
-      depth++;
-      try {
-        return base?.step(dt) ?? { events: [], settled: true };
-      } finally {
-        depth--;
-      }
-    },
+  // Same shape as convert's nesting wrapper: keep the base extension, count nested steps.
+  const ext: PlayerExtension = base ?? {
+    input: () => false,
+    get: () => undefined,
+    states: () => ({}),
+    values: () => ({}),
+    inspect: () => [],
+    pointer() {},
+    hits: () => undefined,
+    step: () => ({ events: [], settled: true }),
   };
+  const step = ext.step.bind(ext);
+  ext.step = (dt) => {
+    if (!depth) expanded = 0;
+    else if (++expanded > 256) throw limit(p);
+    depth++;
+    try {
+      return step(dt);
+    } finally {
+      depth--;
+    }
+  };
+  return ext;
 }
 function extend(
   p: Player,
@@ -568,6 +572,15 @@ function extend(
           const sameItems =
             items.length === run.items.length && items.every((key, i) => run.items[i]!.key === key);
           let dirty = !sameItems;
+          const forward = (index: number, r: StepResult) => {
+            result.settled &&= r.settled;
+            for (const e of r.events)
+              result.events.push({
+                ...e,
+                name: raw.id + '.' + index + '.' + e.name,
+                layer: e.layer === null ? null : raw.id + '/' + index + '/' + e.layer,
+              });
+          };
           if (sameItems && !dataChanged) {
             for (const item of run.items) {
               const itemData = typeof item.key === 'object' ? JSON.stringify(item.key) : undefined;
@@ -578,15 +591,8 @@ function extend(
                 bindContext(data, p, item.player, item.key as object, item.index);
                 item.data = itemData;
               }
-              const r = item.player.step(dt);
+              forward(item.index, item.player.step(dt));
               childStepped = dirty = true;
-              result.settled &&= r.settled;
-              for (const e of r.events)
-                result.events.push({
-                  ...e,
-                  name: raw.id + '.' + item.index + '.' + e.name,
-                  layer: e.layer === null ? null : raw.id + '/' + item.index + '/' + e.layer,
-                });
             }
             if (dirty) p.drawVersions[run.spec.node] = ++p.drawRevision;
             continue;
@@ -638,15 +644,10 @@ function extend(
             bindContext(data, p, item.player, value, index);
             item.data = typeof key === 'object' ? JSON.stringify(key) : undefined;
             item.player.reducedMotion = p.reducedMotion;
-            const r = initializing ? { events: [], settled: true } : item.player.step(dt);
-            if (!initializing) childStepped = dirty = true;
-            result.settled &&= r.settled;
-            for (const e of r.events)
-              result.events.push({
-                ...e,
-                name: raw.id + '.' + index + '.' + e.name,
-                layer: e.layer === null ? null : raw.id + '/' + index + '/' + e.layer,
-              });
+            if (!initializing) {
+              forward(index, item.player.step(dt));
+              childStepped = dirty = true;
+            }
             return [item];
           });
           if (dirty || initializing) p.drawVersions[run.spec.node] = ++p.drawRevision;

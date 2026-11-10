@@ -90,3 +90,48 @@ it('keeps $main: computed and converted values live in item computed values (#49
   const rows = listState(p)!.runs[0]!.items.map((item) => item.player.values());
   expect(rows.map((v) => v['dot.x'])).toEqual([0, 4]);
 });
+
+it('keeps a component data object own named instances local (#49 review R1-1)', () => {
+  const doc = {
+    anima: '0.1',
+    name: 'own-data',
+    grid: 20,
+    requires: ['components', 'data', 'bind', 'lists'],
+    data: {
+      models: {
+        Item: { properties: { x: { type: 'number' } } },
+        Board: { properties: { items: { type: 'list', of: 'Item' } } },
+        Other: { properties: { value: { type: 'number' } } },
+      },
+      instances: {
+        main: { model: 'Board', default: true, values: { items: [{ x: 1 }] } },
+        other: { model: 'Other', values: { value: 8 } },
+      },
+    },
+    components: {
+      row: {
+        grid: 10,
+        data: {
+          models: {
+            Item: { properties: { x: { type: 'number' } } },
+            Other: { properties: { value: { type: 'number', default: 99 } } },
+          },
+          instances: {
+            main: { model: 'Item', default: true },
+            other: { model: 'Other', values: { value: 99 } },
+          },
+        },
+        nodes: [{ id: 'dot', type: 'circle', center: [2, 2], r: 1 }],
+        bind: { 'dot.y': '$other:value' },
+      },
+    },
+    nodes: [{ id: 'rows', type: 'repeat', list: '$items', component: 'row' }],
+  };
+  const result = load(doc);
+  expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const p = new Player(result.model!);
+  p.step(0);
+  p.step(0);
+  const child = listState(p)!.runs[0]!.items[0]!.player;
+  expect(child.values()['dot.y']).toBe(99);
+});
