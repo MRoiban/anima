@@ -56,23 +56,22 @@ export function install(model: Model, order: number[]): void {
       rest: (i) => rest[i] ?? IDENTITY,
       position: (i, matrix = worlds[i] ?? IDENTITY) => position(matrix, pivot(model, i)),
       setWorld(i, matrix) {
-        if (solving >= 0 && i !== solving) overrides.set(i, matrix);
+        // seam(P8-7): solving is -1 or a node index; this compact equivalent preserves rig's budget.
+        if (~solving && i != solving) overrides.set(i, matrix);
         worlds[i] = matrix;
         drawn[i] = bone(model, i) ? mul(mul(matrix, inverse(rest[i]!)), restDraw[i]!) : matrix;
         const m = mul(inverse(drawn[model.nodes[i]!.parent] ?? IDENTITY), drawn[i]!);
-        {
-          const old = locals[i];
-          if (!old || m.some((v, k) => v !== old[k])) {
-            locals[i] = m;
-            // A changed rig frame can affect geometry consumers anywhere in its dependency graph.
-            p.drawVersions.fill(++p.drawRevision);
-          }
+        // seam(P8-7): equivalent matrix comparison, kept compact so the invalidation seam is size-neutral.
+        if (!locals[i]?.every((v, k) => v === m[k])) {
+          locals[i] = m;
+          // A changed rig frame can affect geometry consumers anywhere in its dependency graph.
+          p.drawVersions.fill(++p.drawRevision);
         }
       },
       num: (i, k, key, def) => p.num(i, `constraints.${k}.${key}`, def),
       blend: (a, b, t, i) => blend(a, b, t, i === undefined ? undefined : pivot(model, i)),
       // seam(P8-7): external per-player constraint state can invalidate the value-only signature.
-      invalidate() {
+      i() {
         signature = '';
       },
     };

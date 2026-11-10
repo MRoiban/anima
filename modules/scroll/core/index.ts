@@ -212,7 +212,7 @@ function applyQueued(p: Player): void {
     }
   }
   q.clear();
-  activeRig?.context(p)?.invalidate();
+  activeRig?.context(p)?.i();
 }
 
 function installInput(player: Player, controller: InputController): InputController {

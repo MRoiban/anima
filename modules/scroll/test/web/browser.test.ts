@@ -69,7 +69,7 @@ for (const [name, engine, executablePath] of [
         try {
           await icon.ready;
         } catch (error) {
-          throw new Error(JSON.stringify(error));
+          throw new Error(JSON.stringify(error), { cause: error });
         }
       }, doc);
     });

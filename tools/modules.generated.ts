@@ -55,7 +55,6 @@ export const webEntries = [
   'data-artboard',
   'data-artboard-values',
   'markup-data-artboard',
-  'scroll',
   'colormix',
   'markup-colormix',
   'mix',
@@ -77,6 +76,7 @@ export const webEntries = [
   'pathfollow',
   'posepad',
   'posepad-handle',
+  'scroll',
   'skin',
   'skin-auto',
   'skin-dash',
@@ -144,7 +144,6 @@ export const webOwners: Record<string, string> = {
   'data-artboard': 'data-artboard',
   'data-artboard-values': 'data-artboard',
   'markup-data-artboard': 'data-artboard',
-  scroll: 'scroll',
   surface: 'surface',
   'markup-surface': 'surface',
   colormix: 'colormix',
@@ -168,6 +167,7 @@ export const webOwners: Record<string, string> = {
   pathfollow: 'pathfollow',
   posepad: 'posepad',
   'posepad-handle': 'posepad',
+  scroll: 'scroll',
   skin: 'skin',
   'skin-auto': 'skin',
   'skin-dash': 'skin',
@@ -273,7 +273,6 @@ export const moduleBudgets: {
   { name: 'data-artboard', budget: 1024, over: 'data-artboard-values' },
   { name: 'data-artboard-values', budget: 1536, over: 'nested' },
   { name: 'markup-data-artboard', budget: 256, authoring: true, over: 'markup-hooks' },
-  { name: 'scroll', budget: 5120 },
   { name: 'colormix', budget: 3072 },
   { name: 'markup-colormix', budget: 512, over: 'index', authoring: true },
   { name: 'mix', budget: 1856 },
@@ -295,6 +294,7 @@ export const moduleBudgets: {
   { name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' },
   { name: 'posepad', budget: 896, heavy: true },
   { name: 'posepad-handle', budget: 512, over: 'posepad', heavy: true },
+  { name: 'scroll', budget: 1024, heavy: true, over: 'rig' },
   { name: 'skin', budget: 1536, heavy: true },
   { name: 'skin-auto', budget: 320, over: 'skin', heavy: true },
   { name: 'skin-dash', budget: 192, over: 'skin', heavy: true },
@@ -955,14 +955,6 @@ export const moduleScopes = {
       'components-host-artboard-reference',
     ],
   },
-  scroll: {
-    tests: [
-      'modules/scroll/test/**/*.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: ['rigging-scroll'],
-  },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',
@@ -1138,6 +1130,15 @@ export const moduleScopes = {
       'animation-joystick-invert',
       'animation-joystick-handle',
     ],
+  },
+  scroll: {
+    tests: [
+      'modules/scroll/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: ['rigging-scroll'],
   },
   skin: {
     tests: [

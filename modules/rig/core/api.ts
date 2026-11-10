@@ -20,7 +20,7 @@ export interface RigContext {
   num(node: number, k: number, key: string, fallback: number): number;
   blend(a: Mat, b: Mat, strength: number, node?: number): Mat;
   // seam(P8-7): queued scroll state is outside authored value slots but still needs a normal rig pass.
-  invalidate(): void;
+  i(): void;
 }
 export interface ConstraintKind {
   kind: string;
