@@ -30,8 +30,11 @@ export function skinMeshPoints(
   ) => [number, number],
 ): void {
   for (let k = 0; k * 2 < xy.length; k++) {
-    const base: [number, number] = [xy[k * 2]!, xy[k * 2 + 1]!],
-      q = move(p, node, k, 'point', s.rest[k] ?? base, s);
+    const base: [number, number] = [xy[k * 2]!, xy[k * 2 + 1]!];
+    // Automatic weights are cached per vertex: compute them from the rest vertex, then deform the
+    // animated one (SPEC: a skin on a meshed image deforms its animated vertices).
+    if (!s.weights) move(p, node, k, 'point', s.rest[k] ?? base, s);
+    const q = move(p, node, k, 'point', base, s);
     xy[k * 2] = q[0];
     xy[k * 2 + 1] = q[1];
   }

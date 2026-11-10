@@ -19,3 +19,9 @@ with the smallest change plus a regression test, or pushes back with the reason.
 Closed after the default three rounds. Round 3's only finding (R3-1) was a tightening of the same IK
 inversion path that R1-1 and R2-1 hardened; with it fixed, every IK inversion is finite-checked
 before any world frame is written. Usage was not reported by the reviewer runs.
+
+## Pass 2 (owner request, reviewer GPT-6 Sol Web, medium)
+
+| id | severity | finding | outcome |
+| --- | --- | --- | --- |
+| S1-1 | major | Pass 2 round 1: a skin on a meshed image deformed the rest vertices, discarding animated `mesh.vertex.<k>` values (DESIGN: the skin deforms the animated vertices); `values()` already used the animated vertex, so draw and read-out disagreed. | fixed: drawing and `skin.point` deform the animated vertex. The reviewer's one-line fix would have let automatic weights (cached per vertex) depend on the vertex position at the first draw, so automatic weights are first computed from the rest vertex. Regression: `modules/skin/test/core/mesh-animation.test.ts` (explicit and automatic weights; first draw at t=0 vs t=1) |
