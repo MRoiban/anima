@@ -193,6 +193,34 @@ describe('rig', () => {
     expect(ex).toBeCloseTo(-Math.sqrt(10), 9);
     expect(ey).toBeCloseTo(-Math.sqrt(10), 9);
   });
+  it('bounds arcs at any whole-turn offset of their angles (S3-1)', () => {
+    for (const [from, to] of [
+      [0, 180],
+      [1080, 1260],
+      [3600, 3780],
+      [-360, -180],
+    ]) {
+      const p = player(
+        doc([
+          group('target', {
+            children: [
+              {
+                id: 'c',
+                type: 'arc',
+                center: [0, 0],
+                r: 10,
+                from,
+                to,
+                stroke: { color: '#000', width: 1 },
+              },
+            ],
+          }),
+          group('a', { constraints: [{ kind: 'copyTransform', from: 'target', origin: [0, 1] }] }),
+        ]),
+      );
+      expect(pos(p, 'a')[1]).toBeCloseTo(10, 9);
+    }
+  });
   it('binds both origin coordinates through the shared point value type', () => {
     const p = player(
       doc(

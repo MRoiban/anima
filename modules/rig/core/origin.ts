@@ -30,7 +30,8 @@ function geometryPoints(ctx: RigContext, node: number, m: Mat): number[] {
       d = r.r,
       from = r.from,
       to = r.to,
-      a = extremes(m, d, d).flatMap((t) => [-720, -360, 0, 360, 720].map((k) => t + k));
+      // Each extreme's first angle at or after `from` (one turn covers them all).
+      a = extremes(m, d, d).map((t) => from + ((((t - from) % 360) + 360) % 360));
     return ellipse(x, y, d, d, [from, to, ...a.filter((v) => v > from && v < to)]);
   }
   const box = (x: number, y: number, w: number, h: number) => [

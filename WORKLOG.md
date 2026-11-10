@@ -19,7 +19,9 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - **Rottweiler on P8 done** (3 rounds, Codex Web GPT-5.6 Sol medium): ledger
   `design/rottweiler/P8-LEDGER.md`. Fixed O-1 (module arrival order), R1-1/R2-1/R3-1 (IK singular
   and subnormal frames), R1-2 (scroll driven only by current writers), R1-4 (`copyTransform` rejects
-  `limitSpace`); pushed back R1-3 (D48 clarified). Now: PR `p8-rigging` → main, merge on green CI.
+  `limitSpace`); pushed back R1-3 (D48 clarified). Pass 2 (owner, GPT-6 Sol Web for that pass only):
+  fixed S1-1, S2-2, S2-3, S2-4, S3-1 (skin meshes, auto weights, origin bounds); pushed back S2-1
+  (mesh hits use the image box, now in SPEC). Now: PR #43 → main, merge on green CI.
 - Decisions: `design/p8/DECISIONS.md` D1–D48. Oracle budgets: rig unrotated 16/2/0, rotated and
   follow-path 65/0.12, IK and skin 65/0.25, mesh 70/0.40 and 100/0.45, posepad 16/2/0. Rig probes
   use rect art (circles differ from Rive by construction). Rig adds nothing to core checks (D47);
