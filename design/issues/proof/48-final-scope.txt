@@ -1,0 +1,186 @@
+
+> test:scope
+> node tools/test-scope.ts lists data bind derive components conformance
+
+Scopes: lists, data, bind, derive, components, conformance
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/bind/test/core/p4-review.test.ts
+  unit: modules/bind/test/core/strings.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/core/rt2.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/p4-review.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/data/test/markup/p4-review.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/derive/test/core/settled-guard.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/lists/test/core/rottweiler-p5.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+ ❯ |scope-browser| modules/bind/test/web/bind.test.ts (2 tests | 2 failed) 60029ms
+   ❯ Chromium bind (1)
+     × a separate module wakes a settled ring and applies input on exactly the next frame 30024ms
+   ❯ Firefox bind (1)
+     × a separate module wakes a settled ring and applies input on exactly the next frame 30001ms
+ ❯ |scope-browser| modules/components/test/web/components.test.ts (2 tests | 2 failed) 60014ms
+   ❯ Chromium components (1)
+     × renders scoped instances and routes a pointer event that changes the parent 30009ms
+   ❯ Firefox components (1)
+     × renders scoped instances and routes a pointer event that changes the parent 30001ms
+ ❯ |scope-browser| modules/derive/test/web/browser.test.ts (4 tests | 4 failed) 121193ms
+   ❯ Chromium derive (2)
+     × separate bundles; derive first=true 30023ms
+     × separate bundles; derive first=false 30002ms
+   ❯ Firefox derive (2)
+     × separate bundles; derive first=true 31156ms
+     × separate bundles; derive first=false 30002ms
+ ❯ |scope-browser| modules/data/test/web/browser.test.ts (4 tests | 4 failed) 121531ms
+   ❯ Chromium data (2)
+     × loads separate runtime/markup bundles, data first=true 30020ms
+     × loads separate runtime/markup bundles, data first=false 30003ms
+   ❯ Firefox data (2)
+     × loads separate runtime/markup bundles, data first=true 31502ms
+     × loads separate runtime/markup bundles, data first=false 30002ms
+ ❯ |scope-browser| modules/lists/test/web/lists.test.ts (4 tests | 4 failed) 122163ms
+   ❯ Chromium lists (2)
+     × retains state, DOM and contexts across reorder; lists first=true 31343ms
+     × retains state, DOM and contexts across reorder; lists first=false 30002ms
+   ❯ Firefox lists (2)
+     × retains state, DOM and contexts across reorder; lists first=true 30777ms
+     × retains state, DOM and contexts across reorder; lists first=false 30001ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/bind/test/web/bind.test.ts > Chromium bind > a separate module wakes a settled ring and applies input on exactly the next frame
+ FAIL  |scope-browser| modules/bind/test/web/bind.test.ts > Firefox bind > a separate module wakes a settled ring and applies input on exactly the next frame
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/bind/test/web/bind.test.ts:33:5
+     31| ] as const)
+     32|   describe(name + ' bind', () => {
+     33|     it('a separate module wakes a settled ring and applies input on ex…
+       |     ^
+     34|       const executablePath = paths.find((p) => p && existsSync(p));
+     35|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  |scope-browser| modules/components/test/web/components.test.ts > Chromium components > renders scoped instances and routes a pointer event that changes the parent
+ FAIL  |scope-browser| modules/components/test/web/components.test.ts > Firefox components > renders scoped instances and routes a pointer event that changes the parent
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/components/test/web/components.test.ts:33:5
+     31| ] as const)
+     32|   describe(name + ' components', () => {
+     33|     it('renders scoped instances and routes a pointer event that chang…
+       |     ^
+     34|       const executablePath = paths.find((p) => p && existsSync(p));
+     35|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Chromium data > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Chromium data > loads separate runtime/markup bundles, data first=false
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Firefox data > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Firefox data > loads separate runtime/markup bundles, data first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/data/test/web/browser.test.ts:35:7
+     33|   describe(name + ' data', () => {
+     34|     for (const first of [true, false])
+     35|       it(
+       |       ^
+     36|         'loads separate runtime/markup bundles, data first=' + first,
+     37|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Chromium derive > separate bundles; derive first=true
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Chromium derive > separate bundles; derive first=false
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Firefox derive > separate bundles; derive first=true
+ FAIL  |scope-browser| modules/derive/test/web/browser.test.ts > Firefox derive > separate bundles; derive first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/derive/test/web/browser.test.ts:36:7
+     34|   describe(name + ' derive', () => {
+     35|     for (const first of [true, false])
+     36|       it(
+       |       ^
+     37|         'separate bundles; derive first=' + first,
+     38|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Chromium lists > retains state, DOM and contexts across reorder; lists first=true
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Chromium lists > retains state, DOM and contexts across reorder; lists first=false
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=true
+ FAIL  |scope-browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/lists/test/web/lists.test.ts:34:7
+     32|   describe(name + ' lists', () => {
+     33|     for (const first of [true, false])
+     34|       it(
+       |       ^
+     35|         'retains state, DOM and contexts across reorder; lists first='…
+     36|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+
+ Test Files  5 failed | 47 passed | 11 skipped (63)
+      Tests  16 failed | 4562 passed | 15 todo (4593)
+   Start at  17:09:40
+   Duration  133.38s (tests 92%, import 6%, transform 2%)

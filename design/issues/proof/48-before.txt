@@ -1,0 +1,25 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+ ❯ |unit| modules/lists/test/core/lists.test.ts (17 tests | 1 failed | 16 skipped) 106ms
+   × keeps constant list bindings from walking every item path and refreshes changed item data 103ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/lists/test/core/lists.test.ts > keeps constant list bindings from walking every item path and refreshes changed item data
+AssertionError: expected 7119 to be less than 1000
+ ❯ modules/lists/test/core/lists.test.ts:57:17
+     55|   }
+     56|   p.step(1 / 60);
+     57|   expect(reads).toBeLessThan(1000);
+       |                 ^
+     58|
+     59|   p.set('$players.23.score', 9);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  16:23:47
+   Duration  3.89s (transform 82%, import 15%, tests 3%)
