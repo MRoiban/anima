@@ -15,7 +15,7 @@ it('CLI schema, validate, sample and browser-text SVG rendering expose effects',
   const schema = await cli('schema', 'text', '--format=json');
   expect(schema.code).toBe(0);
   expect(schema.out).toContain('text-effects');
-  expect((await cli('sample', file, '--at', '0')).code).toBe(0);
+  expect((await cli('sample', file)).code).toBe(0);
   const dir = mkdtempSync(join(tmpdir(), 'anima-effect-cli-'));
   try {
     const target = join(dir, 'title.svg');
