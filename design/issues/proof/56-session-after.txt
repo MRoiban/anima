@@ -1,0 +1,2 @@
+{"ok":true,"snapshots":[{"time":0,"values":{"dot.x":0,"dot.y":0,"dot.rotate":0,"dot.scale":1,"dot.scaleX":1,"dot.scaleY":1,"dot.opacity":1,"dot.visible":true,"dot.r":4,"dot.pointerEnabled":true,"dot.collapsed":false,"dot.pivotX":0,"dot.pivotY":0,"dot.fill.color":"#000000","dot.fill.visible":true,"dot.fill.blendAmount":1},"states":{},"events":[],"settled":false}],"output":[],"diagnostics":[],"stopped":false}
+{"ok":true,"quit":true}

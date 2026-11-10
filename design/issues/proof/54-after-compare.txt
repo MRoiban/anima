@@ -1,0 +1,1 @@
+{"width":256,"height":256,"differingPixels":0,"pixelsBeyondTolerance":0,"maxChannelDifference":0,"meanChannelDifference":0,"pass":true,"size":256,"tolerance":0}
