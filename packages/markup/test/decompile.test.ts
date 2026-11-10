@@ -62,7 +62,17 @@ function recover(root: Element): Obj {
   const address = (s: string) => aniAddress(s, (id) => types.get(id)) ?? s;
   const base = (e: Element): Obj => {
     const c = e.children.find((c) => c.kind === 'comment');
-    return c?.kind === 'comment' ? { $comment: c.value.trim() } : {};
+    if (c?.kind !== 'comment') return {};
+    const text = c.value.trim();
+    if (text.startsWith('$comment ')) {
+      try {
+        const value = JSON.parse(text.slice(9)) as unknown;
+        if (typeof value === 'string') return { $comment: value };
+      } catch {
+        // The independent reader treats malformed reserved-looking comments as ordinary comments.
+      }
+    }
+    return { $comment: text };
   };
   const plain = (e: Element): Obj => {
     const o = base(e);
@@ -725,6 +735,48 @@ describe('decompile', () => {
 });
 
 describe('round-trip', () => {
+  it('round-trips a component definition comment', () => {
+    const source = {
+      anima: '0.1',
+      name: 'component-comment',
+      grid: 20,
+      requires: ['components'],
+      components: {
+        badge: {
+          $comment: 'Component comment',
+          grid: 8,
+          nodes: [{ id: 'dot', type: 'circle', center: [4, 4], r: 1, fill: { color: '#f00' } }],
+        },
+      },
+      nodes: [],
+    };
+    const result = compile(decompile(source));
+    expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    expect(result.doc).toEqual(source);
+  });
+
+  it('round-trips $comment on every JSON object in representative base and component documents', () => {
+    const decorate = (value: unknown, path: string[] = []): void => {
+      if (!value || typeof value !== 'object') return;
+      if (Array.isArray(value)) {
+        value.forEach((child, index) => decorate(child, [...path, String(index)]));
+        return;
+      }
+      const object = value as Obj;
+      const label = '/' + path.join('/');
+      object.$comment = path.length % 5 === 0 ? ` ${label} --> 😀 ` : label;
+      for (const [key, child] of Object.entries(object))
+        if (key !== '$comment') decorate(child, [...path, key]);
+    };
+    const sources = [structuredClone(rich), JSON.parse(read('examples/toolbar.ani')) as Obj];
+    for (const source of sources) {
+      decorate(source);
+      const result = compile(decompile(source));
+      expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+      expect(result.doc).toEqual(source);
+    }
+  });
+
   it.each(corpus)('%s: .ani → AniML → .ani gives the canonical .ani', (_name, source) => {
     const result = compile(decompile(source!));
     expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
