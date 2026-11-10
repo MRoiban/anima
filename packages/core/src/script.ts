@@ -111,6 +111,7 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
     if (!model.inputs.has(name) && p.get(name) === undefined)
       targetError('no input "' + name + '"; inspect inputs before targeting them');
   };
+  let dataWritten = false;
   const act = (op: Operation) => {
     op(p, instances);
     journal.push({ op, writer });
@@ -452,6 +453,7 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
                 act((player) => {
                   writeData(player, path, value);
                 });
+                dataWritten = true;
               } else if (op === 'dump') {
                 const prefixes = args.slice(1);
                 const values = Object.fromEntries(
@@ -543,6 +545,10 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
                 if (!Number.isInteger(n) || n < 1)
                   throw new ScriptError('step count must be a whole number ≥ 1', line);
               }
+              // A data write takes effect when written: a zero-length step lets converters start from
+              // the write's time, so `data set …; advance 1` ends settled (#53).
+              if (dataWritten && t > 0) step(0);
+              dataWritten = false;
               for (let k = 0; k < n; k++) step(t / n);
               break;
             }

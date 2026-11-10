@@ -548,7 +548,7 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 | `scroll <x> <y> <dx> <dy> [start\|move\|end\|cancel] [seconds]` | Input-module scroll API in grid units, followed by `step(0)`. |
 | `gamepads <JSON-array>` | Poll the input-module gamepad API, then `step(0)`; records have index, connected, optional mapping, axes and buttons. |
 | `pointer-enable <id> <true\|false>` / `scroll-cancel` | Enable a pointer or cancel scroll latching, then `step(0)`. |
-| `data set <$path> <value>` | Queue a typed public host-data handle write; applies on the next step. JSON strings, bools, numbers, colors and lists are accepted according to the property type. |
+| `data set <$path> <value>` | Queue a typed public host-data handle write; it takes effect at the time of the write: the next `advance` with a positive duration first runs a zero-length step, so converters (e.g. `interpolate`) start from the write and `data set …; advance 1` ends settled. JSON strings, bools, numbers, colors and lists are accepted according to the property type. |
 | `data dump [prefix …]` | Print `{data: {path: value}}` as one JSON line. No prefixes selects all; multiple prefixes form a union. Includes named instance paths and default scalar aliases. |
 | `data watch <$path …>` | Remember current values. Each later snapshot carries a `data` object of watched values changed since the previous snapshot (or watch registration). |
 | `data break <$path> [== value]` | Preflight each next step by instrumented replay on an isolated player. Stop before applying the step live at the first write (including same-value or overwritten writes, optionally matching the condition), reporting `script-breakpoint`, old/written values and the actual writer. |

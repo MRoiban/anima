@@ -1,0 +1,10 @@
+<anima version="0.1" name="glide53" grid="20" requires="data bind derive convert">
+  <converter name="glide" type="interpolate" duration="450"/>
+  <model name="Board">
+    <number name="view" default="0"/>
+    <number name="sview" value="$view" convert="glide"/>
+  </model>
+  <instance name="main" model="Board" default="true"/>
+  <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+  <bind target="dot.x" value="$sview"/>
+</anima>
