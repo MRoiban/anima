@@ -1,0 +1,14 @@
+Rive runtime proof, grid units
+rest hand=(25.0, 20.0) elbow=(17.0, 20.0) pupil=(32.0, 6.0) sleeve_points=6
+pointer(22.0000,12.0000): hand=(22.0, 12.0) elbow=(16.791, 18.0718) pupil=(31.1425, 6.5145) upper=9.0000 fore=8.0000 right_side_cross=43.3332 pupil_offset=1.0000 target_distance=16.1245 hand_error=0.0000 hand_distance=16.1245 line_cross=0.0000
+  sleeve=(17.0053,19.0486) (17.3321,18.9769) (17.5500,18.7229) (16.0320,17.4207) (16.2499,17.1667) (16.5768,17.0950)
+pointer(14.0000,26.0000): hand=(14.0, 26.0) elbow=(6.5365, 28.8802) pupil=(31.331, 6.7433) upper=9.0000 fore=8.0000 right_side_cross=62.0622 pupil_offset=1.0000 target_distance=8.4853 hand_error=0.0000 hand_distance=8.4853 line_cross=0.0000
+  sleeve=(5.5498,28.7176) (5.2655,30.4426) (6.8965,29.8131) (6.1764,27.9473) (7.8074,27.3179) (7.5232,29.0428)
+pointer(39.0000,2.0000): hand=(22.7014, 11.4637) elbow=(15.7831, 15.4808) pupil=(32.8682, 5.5039) upper=9.0000 fore=8.0000 right_side_cross=0.0003 pupil_offset=0.9999 target_distance=35.8469 hand_error=18.8469 hand_distance=17.0000 line_cross=-0.0001
+  sleeve=(16.2852,16.3456) (16.2852,16.3456) (16.2852,16.3456) (15.2810,14.6160) (15.2810,14.6160) (15.2810,14.6160)
+pointer(2.0000,20.0000): hand=(2.0, 20.0) elbow=(3.5833, 12.1582) pupil=(31.0938, 6.4229) upper=9.0001 fore=8.0000 right_side_cross=47.0508 pupil_offset=1.0000 target_distance=6.0000 hand_error=0.0000 hand_distance=6.0000 line_cross=0.0000
+  sleeve=(4.4546,11.6675) (3.1352,9.3249) (2.6031,11.9603) (4.5636,12.3562) (4.0314,14.9916) (2.7120,12.6490)
+leave@0.0: hand=(22.0, 12.0) elbow=(16.791, 18.0718) pupil=(31.1425, 6.5145)
+leave@0.2: hand=(23.5, 16.0) elbow=(16.9777, 20.6325) pupil=(31.5713, 6.2572)
+leave@0.4: hand=(25.0, 20.0) elbow=(17.0, 20.0) pupil=(32.0, 6.0)
+release_samples=25 hand_step_min=0.3560 hand_step_max=0.3561 expected_linear_step=0.3560 midpoint_error=0.0000

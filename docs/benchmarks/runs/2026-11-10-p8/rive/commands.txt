@@ -1,0 +1,17 @@
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/rest.png
+pointer move@264,144
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/p22_12.png
+pointer move@168,312
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/p14_26.png
+pointer move@468,24
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/p39_2.png
+pointer move@24,240
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/p2_20.png
+pointer move@264,144
+pointer exit@264,144
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/leave_0.png
+advance 12
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/leave_0_2.png
+advance 12
+screenshot docs/benchmarks/runs/2026-11-10-p8/rive/evidence/leave_0_4.png
+quit
