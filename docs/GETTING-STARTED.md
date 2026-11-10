@@ -10,10 +10,13 @@ runs from source:
 ```sh
 git clone https://github.com/MRoiban/anima && cd anima
 npm ci
-npx anima doctor        # checks Node, the headless browsers and the module wiring
+npx --no anima doctor        # checks Node, the headless browsers and the module wiring
 ```
 
-`npx anima` is the workspace binary. `node packages/cli/src/main.ts` is the same program.
+`npx --no anima` is the workspace binary (`node packages/cli/src/main.ts` is the same program). Keep
+the `--no`: it stops npx from downloading anything, and the npm package named `anima` is an
+unrelated project. Outside a clone, install the CLI with `npm install --save-dev animl-cli` (then
+`npx --no anima …`), or run it once with `npx -p animl-cli anima …` or `npx animl-cli …`.
 
 ## 1. Write the scene
 
@@ -64,7 +67,7 @@ What each part does:
 ## 2. Check it
 
 ```sh
-npx anima validate switch.animl
+npx --no anima validate switch.animl
 ```
 
 prints `switch.animl: ok`. When something is wrong, every problem has a line and column, a code, a
@@ -76,7 +79,7 @@ switch.animl:18:17 error bad-condition "not on": cannot read "not on"
 switch.animl: 1 error
 ```
 
-`npx anima inspect switch.animl` summarises what the file contains: nodes and what animates them,
+`npx --no anima inspect switch.animl` summarises what the file contains: nodes and what animates them,
 inputs, and the state graph with its transitions.
 
 ## 3. See it move, without a browser
@@ -84,7 +87,7 @@ inputs, and the state graph with its transitions.
 `sample` runs the scene headlessly and prints values as JSON lines. A script is one command per line:
 
 ```sh
-npx anima sample switch.animl -e "toggle on
+npx --no anima sample switch.animl -e "toggle on
 advance 0
 advance 0.1
 snapshot thumb.x
@@ -104,12 +107,12 @@ deterministic: the same script always prints the same numbers.
 `render` draws frames to PNG. `--sheet 6` lays out six frames of a time range:
 
 ```sh
-npx anima render switch.animl -o sheet.png --sheet 6 --over 0.3 -e "toggle on"
+npx --no anima render switch.animl -o sheet.png --sheet 6 --over 0.3 -e "toggle on"
 ```
 
 ![Six frames of the switch turning on](img/switch-sheet.png)
 
-For live editing, `npx anima playground switch.animl` opens a local editor with the preview,
+For live editing, `npx --no anima playground switch.animl` opens a local editor with the preview,
 diagnostics and inspectors.
 
 ## 4. Put it on a page
@@ -117,7 +120,7 @@ diagnostics and inspectors.
 Compile it to `.ani`:
 
 ```sh
-npx anima build switch.animl -o switch.ani
+npx --no anima build switch.animl -o switch.ani
 ```
 
 Then load the runtime and use the `<anima-icon>` element:
@@ -148,7 +151,7 @@ slots and the switch role are all built in.
 
 The whole host API is in [WEB.md](WEB.md).
 
-To try it without writing any HTML, `npx anima build switch.animl --out-dir site` writes a
+To try it without writing any HTML, `npx --no anima build switch.animl --out-dir site` writes a
 self-contained page with the runtime next to it. Serve that folder over HTTP: browsers don't load
 modules from `file://`.
 
@@ -173,7 +176,7 @@ hint names the import to add. Load each module after the base runtime:
 To ship one file, bundle exactly the modules you need:
 
 ```sh
-npx anima bundle --modules paint,text,layout -o anima.js
+npx --no anima bundle --modules paint,text,layout -o anima.js
 ```
 
 [FEATURES.md](FEATURES.md) lists every feature, what it adds and what it costs.
@@ -181,7 +184,7 @@ npx anima bundle --modules paint,text,layout -o anima.js
 ## Where to go next
 
 - [AUTHORING.md](AUTHORING.md): the full guide to writing scenes, also served by
-  `npx anima docs <topic>` (`npx anima docs --list` lists the topics).
+  `npx --no anima docs <topic>` (`npx --no anima docs --list` lists the topics).
 - [FEATURES.md](FEATURES.md): every optional feature, with its import and size.
 - [WEB.md](WEB.md): the `<anima-icon>` element, attributes, methods and events.
 - [FOR-AGENTS.md](FOR-AGENTS.md): the same workflow for coding agents, with JSON output.

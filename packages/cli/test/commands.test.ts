@@ -415,7 +415,10 @@ describe('D-A discovery command dispatch', () => {
 
   it('supports command aliases, version, and typo suggestions', async () => {
     expect((await call('check', bell)).code).toBe(0);
-    expect((await call('version')).out).toBe('0.1.0');
+    const pkg = JSON.parse(readFileSync('packages/cli/package.json', 'utf8')) as {
+      version: string;
+    };
+    expect((await call('version')).out).toBe(pkg.version);
     expect((await call('rendr')).err).toContain('render');
     expect((await call('render', bell, '--sze', '4')).err).toContain('--size');
     expect((await call('render', bell, '--fit', 'covr')).err).toContain('cover');

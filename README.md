@@ -48,13 +48,18 @@ support and a themable accent colour:
 </anima>
 ```
 
+The CLI is published as [`animl-cli`](https://www.npmjs.com/package/animl-cli) (command `anima`) and the
+runtime as [`animl`](https://www.npmjs.com/package/animl). Install the CLI with
+`npm install --save-dev animl-cli` (or clone this repo and `npm ci`), then (`--no` keeps npx from
+downloading anything: the npm package named `anima` is an unrelated project):
+
 ```sh
-npx anima validate examples/switch.animl                       # switch.animl: ok
-npx anima sample examples/switch.animl -e "toggle on
+npx --no anima validate examples/switch.animl                       # switch.animl: ok
+npx --no anima sample examples/switch.animl -e "toggle on
 advance 0
 advance 0.3
 snapshot thumb.x"                                              # {"time":0.3,"values":{"thumb.x":10},…}
-npx anima build examples/switch.animl -o switch.ani            # compile to .ani
+npx --no anima build examples/switch.animl -o switch.ani            # compile to .ani
 ```
 
 ```html
@@ -123,7 +128,7 @@ Owner ceilings, min+gzip, enforced in CI by `node tools/size.ts`:
   [Authoring guide](docs/AUTHORING.md) · [Features](docs/FEATURES.md) ·
   [Web host API](docs/WEB.md) · [Playground](docs/PLAYGROUND.md)
 - **Agents:** [Anima for coding agents](docs/FOR-AGENTS.md). The CLI serves the guide and the spec
-  with `npx anima docs <topic>` and `npx anima schema <type>`.
+  with `npx --no anima docs <topic>` and `npx --no anima schema <type>`.
 - **Format:** [`spec/SPEC.md`](spec/SPEC.md) (`.ani`), [`spec/ANIML.md`](spec/ANIML.md) (AniML),
   [`spec/MODULES.md`](spec/MODULES.md) (the module system)
 - **Contributing:** [`AGENTS.md`](AGENTS.md), [Architecture](docs/ARCHITECTURE.md),
@@ -135,10 +140,10 @@ Owner ceilings, min+gzip, enforced in CI by `node tools/size.ts`:
 
 ```sh
 npm ci                                  # Node 24; also installs the formatting git hooks
-npx anima doctor                        # checks Node, headless browsers and module wiring
-npx anima playground examples/bell.animl   # live editor at http://127.0.0.1:4519
+npx --no anima doctor                        # checks Node, headless browsers and module wiring
+npx --no anima playground examples/bell.animl   # live editor at http://127.0.0.1:4519
 node tools/build-web.ts                 # builds packages/web/dist/ and examples/web/index.html
-npx anima bundle --modules paint,text -o anima.js   # one runtime file with chosen modules
+npx --no anima bundle --modules paint,text -o anima.js   # one runtime file with chosen modules
 npm run test:scope -- core web          # tests for what you touched
 npm run check                           # everything CI runs
 ```

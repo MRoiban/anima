@@ -20,13 +20,8 @@ npm run pack:smoke
 ```
 
 `npm run pack` rebuilds the browser bundles, compiles the publishable TypeScript to ESM JavaScript
-plus declarations, stages both packages under `dist-npm/`, and runs `npm pack` there. For version
-`0.1.0` the resulting artifacts are:
-
-```text
-dist-npm/animl-0.1.0.tgz
-dist-npm/animl-cli-0.1.0.tgz
-```
+plus declarations, stages both packages under `dist-npm/`, and runs `npm pack` there. For version `X.Y.Z` the
+resulting artifacts are `dist-npm/animl-X.Y.Z.tgz` and `dist-npm/animl-cli-X.Y.Z.tgz`.
 
 `npm run pack:smoke` installs those exact tarballs into a fresh temporary project and exercises the
 CLI, Node imports, browser runtime, and tarball-content rules. Do not publish a tarball that has not
@@ -38,16 +33,27 @@ Publish the runtime first because `animl-cli` depends on the exact matching runt
 orchestrator should run these commands from the repository root:
 
 ```sh
-npm publish dist-npm/animl-0.1.0.tgz --access public
-npm publish dist-npm/animl-cli-0.1.0.tgz --access public
+npm publish ./dist-npm/animl-X.Y.Z.tgz --access public
+npm publish ./dist-npm/animl-cli-X.Y.Z.tgz --access public
 ```
+
+- Keep the `./`: without it npm reads `dist-npm/animl-….tgz` as a GitHub `user/repo` shorthand.
+- The account requires 2FA on publish: use a granular token with "Bypass two-factor
+  authentication" ticked (or `--otp <code>`), passed through a userconfig that reads it from the
+  environment, never written to disk in the repo.
+- New versions go through npm's automated review first: the registry serves a `0.0.0-stage`
+  placeholder (or the previous version) until the version leaves "Validating". Check with
+  `npm view animl dist-tags.latest` before announcing or testing from the registry.
+- Never tell anyone to run `npx anima`: the npm package `anima` is an unrelated project, and npx
+  would download and run it. Use `npx -p animl-cli anima …`, `npx animl-cli …`, or a local install
+  with `npx --no anima …`.
 
 After publication, keep the tested tarballs as the release artifacts or regenerate them only from
 the same commit.
 
 ## Bump the version
 
-For a release after `0.1.0`:
+For a new release:
 
 1. Change `VERSION` in `tools/pack.ts` to the new version.
 2. Update the version in `packages/core/package.json`, `packages/markup/package.json`,

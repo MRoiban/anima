@@ -19,7 +19,7 @@ const DIST = resolve(ROOT, 'dist-npm');
 const ANIML = resolve(DIST, 'animl');
 const CLI = resolve(DIST, 'animl-cli');
 const DECL = resolve(DIST, '.declarations');
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 
 const slash = (path: string) => path.replaceAll('\\', '/');
 const repoPath = (path: string) => slash(relative(ROOT, path));
@@ -293,7 +293,7 @@ npm install animl
 \`\`\`
 
 \`anima-icon.js\` is the base runtime; optional modules have their own bundles next to it
-(\`anima-paint.js\`, \`anima-machine.js\`, \`anima-input.js\`, …). \`npx anima bundle --modules paint,input\`
+(\`anima-paint.js\`, \`anima-machine.js\`, \`anima-input.js\`, …). \`npx -p animl-cli anima bundle --modules paint,input\`
 (from [animl-cli](https://www.npmjs.com/package/animl-cli)) builds one file with just the modules a scene needs.
 
 ## With a bundler
@@ -338,7 +338,7 @@ const cliReadme = `# animl-cli
 The \`anima\` command-line tool for authoring, validating, rendering, discovering, and bundling Anima files.
 
 \`\`\`sh
-npm install -g animl-cli
+npm install -g animl-cli        # or npm install --save-dev animl-cli, then npx --no anima …
 anima --version
 anima search hover
 anima features ik
@@ -347,6 +347,10 @@ anima docs ik
 anima schema rect
 anima help --json
 \`\`\`
+
+To run it once without installing: \`npx -p animl-cli anima --help\` or \`npx animl-cli --help\`.
+Never \`npx anima\` without \`-p animl-cli\` or a local install: the npm package named \`anima\` is an
+unrelated project, and npx would download and run it.
 
 The loop: write a scene (\`anima new --sample bell\` or \`anima examples\`), check it with
 \`anima validate scene.animl\`, step it with \`anima sample scene.animl -e "snapshot"\`, look at it with
@@ -472,7 +476,8 @@ function stageCli(): void {
     bugs: { url: 'https://github.com/MRoiban/anima/issues' },
     keywords: KEYWORDS,
     engines: root.engines,
-    bin: { anima: 'packages/cli/src/main.js' },
+    // `animl-cli` too, so `npx animl-cli …` runs this package (`npx anima` would fetch the unrelated `anima`).
+    bin: { anima: 'packages/cli/src/main.js', 'animl-cli': 'packages/cli/src/main.js' },
     exports: {
       '.': {
         types: './packages/cli/src/index.d.ts',
