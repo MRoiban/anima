@@ -37,6 +37,8 @@ everything they need to build with Anima. Reference for CLI quality: the Bedrock
    its `rows` is among the query's expected targets. Target: **100 %**.
 2. **Rows reachable:** for every parity row with `anima.status` `done` (886), `search(row.capability)`
    returns within the first 5 an entry listing that row id. Target: **100 %**.
+   A docs topic counts only when it is more specific than a bare contents page (`spec`,
+   `authoring`, `markup`), tightened after D-B's first run linked most rows to `spec`.
 3. **Rows with docs and an example:** of those 886, how many resolve to a `docs` topic that
    `anima docs` can print and to at least one example file that loads. Target: 100 % docs;
    examples as many as exist (report the number, don't invent examples to fill it).

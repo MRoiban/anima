@@ -86,6 +86,8 @@ for (const r of rows) {
   const slot = byRow.get(r.id);
   let docsOk = false;
   for (const topic of new Set(slot?.docs ?? [])) {
+    // A bare guide or spec contents page is not a docs answer for one capability.
+    if (['spec', 'authoring', 'markup'].includes(topic.trim())) continue;
     if (!topicOk.has(topic))
       topicOk.set(topic, (await cli(['docs', ...topic.split(/\s+/)])).code === 0);
     if (topicOk.get(topic)) docsOk = true;
