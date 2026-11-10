@@ -124,4 +124,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   scoped checks missed a lint error (P1's XML control-character regex) and CI caught it on PR #37.
 - Before a PR, check `node tools/size.ts`'s exit code, not just the gate table: per-entry overruns
   only show as "— over" lines (PR #37: fonts-text and text-input crossed after the merges).
+- Any change to core or web sources changes the demo bundle: run `node tools/build-web.ts` and commit
+  `examples/web/index.html` before pushing (PR #42 failed CI on a stale demo after an `svg.ts` fix).
+  Run `npm run typecheck` and the `cli` scope locally too: both caught things the core scope missed.
 - Repo-wide rules are in `AGENTS.md` `## Repo rules`.
