@@ -38,8 +38,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 - Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
   medium), **at most 3 at a time** (owner, 2026-11-10; was 2). No Terra or other `codex` models.
-- Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
-  changes. Licence is MIT (owner, 2026-11-08).
+- Still to ask before doing: publishing packages (npm scope not chosen), other Glyphy changes. The repo is public.
+  Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
   revisit: P4 R4-02 — pointer hits and pointer focus follow the painted order (`drawOrder`), as one
   coordinated input + focus + composite change in P8; `a11y.tree-bounds` stays in P8.

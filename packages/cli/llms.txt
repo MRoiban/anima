@@ -1,0 +1,22 @@
+# Anima CLI
+
+`anima` is the CLI for Anima, an open `.ani` JSON animation format with AniML markup and a small deterministic web runtime.
+
+Authoring loop:
+1. Edit `.animl`.
+2. `anima validate scene.animl --format=json`
+3. `anima sample scene.animl -e "<script>"`
+4. `anima render scene.animl -o out.png` when visual checking is useful.
+5. `anima build scene.animl -o scene.ani`
+
+Discovery commands:
+- `anima help` — command overview.
+- `anima features` — feature inventory and details.
+- `anima search <words>` — ranked discovery search.
+- `anima examples` — examples, optionally filtered by topic/name.
+- `anima schema <topic>` — registry-backed schema and spellings.
+- `anima docs <topic>` — docs by module, feature, capability row, element or section.
+- `anima help --json` — machine-readable command metadata.
+
+Agent guide: ../../docs/FOR-AGENTS.md
+Generated CLI reference: ../../docs/CLI.md

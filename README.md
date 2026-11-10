@@ -64,6 +64,8 @@ npx anima build examples/switch.animl -o switch.ani            # compile to .ani
 
 [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) builds this example step by step.
 
+For coding agents, [`llms.txt`](llms.txt) is the compact entry point. Discover the CLI with `anima help` or `anima help --json`, capabilities with `anima features` and `anima search <words>`, examples with `anima examples`, exact fields with `anima schema <topic>`, and documentation with `anima docs <topic>`. See [docs/FOR-AGENTS.md](docs/FOR-AGENTS.md) and the generated [docs/CLI.md](docs/CLI.md).
+
 ## What you can build
 
 The base runtime covers:
@@ -100,7 +102,7 @@ Format version 0.1.
 - **In progress:** P8, rigging (bones, constraints, IK, skinning, meshes).
 - **Won't do:** scripting, a visual editor and GPU backends are out of scope or deferred
   ([`docs/PLAN.md`](docs/PLAN.md)).
-- **Availability:** the repository is private and nothing is published to npm yet, so you work
+- **Availability:** the repository is public; packages are not published to npm yet, so you work
   from a checkout. The CLI runs from source on Node 24.
 
 ## Size

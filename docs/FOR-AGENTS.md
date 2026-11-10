@@ -7,10 +7,16 @@ Anima to make scenes. To change Anima itself, read [`AGENTS.md`](../AGENTS.md) a
 Run the CLI from a checkout with `npx anima …` (or `node packages/cli/src/main.ts …`), on Node 24.
 Every command below works without a browser.
 
+For the shortest agent entry point, start at [`../llms.txt`](../llms.txt); the generated command reference is [`CLI.md`](CLI.md).
+
 ## Look things up instead of guessing
 
 | Question | Command |
 |---|---|
+| What commands exist? | `npx anima help` or machine-readable `npx anima help --json` |
+| Which features exist? | `npx anima features [name]` |
+| Where is a concept mentioned? | `npx anima search <words>` |
+| Which examples match a concept? | `npx anima examples [topic|name]` |
 | Which topics exist? | `npx anima docs --list` |
 | How do I author X? | `npx anima docs <topic>`, for example `npx anima docs timelines-and-keyframes` |
 | What does feature X do, normatively? | `npx anima docs <feature>`, for example `paint`, `layout`, `text`, `a11y` |

@@ -1,0 +1,22 @@
+# Anima
+
+Anima is an open animation format (`.ani` JSON) with AniML text markup and a small deterministic web runtime for animated, interactive UI.
+
+Authoring loop:
+1. Write or edit a `.animl` scene.
+2. `anima validate scene.animl --format=json`
+3. `anima sample scene.animl -e "<script>"`
+4. `anima render scene.animl -o out.png` when appearance matters.
+5. `anima build scene.animl -o scene.ani`
+
+Discovery commands:
+- `anima help` — concise command overview.
+- `anima features` — list optional capabilities; add a feature name for details.
+- `anima search <words>` — ranked search across capabilities, fields, docs, examples and diagnostics.
+- `anima examples` — list examples; add a topic or name to filter.
+- `anima schema <topic>` — exact node/object fields, AniML/JSON spellings and animation addresses.
+- `anima docs <topic>` — authoring and normative docs by module, feature, capability row, element or section.
+- `anima help --json` — machine-readable command metadata.
+
+Agent guide: docs/FOR-AGENTS.md
+Generated CLI reference: docs/CLI.md
