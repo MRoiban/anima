@@ -7,7 +7,7 @@
   - `npm run test:scope -- core web paint canvas --no-browser`: 5,745 passed, 16 todo;
   - canvas corpus and web browser tests: 2,692 passed (Chromium and Firefox);
   - `node tools/oracle.ts --strict`, size, lint, typecheck and format check: all exit 0.
-- Sizes: core+web 22,808 B (ceiling 24,576 B); no budget or threshold changed.
+- Sizes: core+web 22,835 B (ceiling 24,576 B); no budget or threshold changed.
 
 ## #39: trimmed stroke with a round cap painted a dot at the far endpoint
 

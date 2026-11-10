@@ -112,8 +112,8 @@ export function sceneOrder(p: Player, nodes: number[]): number[] {
 
 // Tiny entries keep six significant digits so reciprocal scales survive (#40); float noise such as
 // cos(90°) stays 0, and entries ≥ 0.001 keep the shared 5-decimal formatting.
-const entry = (v: number): number =>
-  Math.abs(v) < 1e-9 ? 0 : Math.abs(v) < 1e-3 ? Number(v.toPrecision(6)) : fmt(v);
+const entry = (v: number): string =>
+  Math.abs(v) < 1e-9 ? '0' : Math.abs(v) < 1e-3 ? String(Number(v.toPrecision(6))) : fmt(v);
 const matrix = (m: Mat): string => `matrix(${m.map(entry).join(' ')})`;
 
 export interface Paint {
