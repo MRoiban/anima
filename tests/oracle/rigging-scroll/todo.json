@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "rigging.scroll: implement the capability and independent expected evidence"
+  "reason": "native capture and raw comparison complete; orchestrator must choose the anti-aliasing budget and add the case to cases.json"
 }
