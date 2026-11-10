@@ -1,9 +1,10 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Mat } from '../../../packages/core/src/geom.ts';
+import { invert, localMatrix, mul } from '../../../packages/core/src/geom.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { nodePointer } from '../../components/core/node-pointer.ts';
-import { registerConstraint, type Constraint } from '../../rig/core/api.ts';
+import { compose, decompose, registerConstraint, type Constraint } from '../../rig/core/api.ts';
 import { after } from '../manifest.ts';
 
 function chain(model: Model, node: number, count: number): number[] {
@@ -100,22 +101,40 @@ export const ik: Module = {
           for (let j = 0; j < n - 1; j++) pair(j);
         }
         const strength = ctx.num(node, k, 'strength', 1);
+        const locals = ids.map((i, j) => {
+            if (j) return mul(invert(frames[j - 1]!)!, frames[j]!);
+            const p = ctx.model.nodes[i]!.parent,
+              linked =
+                (ctx.model.nodes[p]?.type as string) === 'bone' && !ctx.model.nodes[i]!.raw.root,
+              scale = ctx.player.num(i, 'scale', 1);
+            return localMatrix(
+              linked ? ctx.player.num(p, 'length', 0) : ctx.player.num(i, 'x', 0),
+              linked ? 0 : ctx.player.num(i, 'y', 0),
+              0,
+              0,
+              ctx.player.num(i, 'rotate', 0),
+              scale * ctx.player.num(i, 'scaleX', 1),
+              scale * ctx.player.num(i, 'scaleY', 1),
+            );
+          }),
+          base = mul(frames[0]!, invert(locals[0]!)!),
+          solved: Mat[] = [];
         for (let j = 0; j < n; j++) {
-          const old = frames[j]!,
-            angle =
-              Math.atan2(points[j + 1]![1] - points[j]![1], points[j + 1]![0] - points[j]![0]) -
-              Math.atan2(old[1], old[0]),
-            c = Math.cos(angle),
-            s = Math.sin(angle);
-          const desired: Mat = [
-            c * old[0] - s * old[1],
-            s * old[0] + c * old[1],
-            c * old[2] - s * old[3],
-            s * old[2] + c * old[3],
-            points[j]![0],
-            points[j]![1],
-          ];
-          ctx.setWorld(ids[j]!, ctx.blend(old, desired, strength, ids[j]));
+          const parent = j ? solved[j - 1]! : base,
+            back = invert(parent)!,
+            dx = points[j + 1]![0] - points[j]![0],
+            dy = points[j + 1]![1] - points[j]![1],
+            parts = decompose(locals[j]!);
+          parts[2] = Math.atan2(back[1] * dx + back[3] * dy, back[0] * dx + back[2] * dy);
+          solved[j] = mul(parent, compose(parts));
+        }
+        let parent = base;
+        for (let j = 0; j < n; j++) {
+          parent = mul(
+            parent,
+            ctx.blend(locals[j]!, mul(invert(j ? solved[j - 1]! : base)!, solved[j]!), strength),
+          );
+          ctx.setWorld(ids[j]!, parent);
         }
       },
     });

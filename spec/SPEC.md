@@ -3905,9 +3905,11 @@ otherwise non-unique multi-link solution while keeping results deterministic acr
 
 The IK kind declares every solved ancestor bone through `writes()`, so rig dependency ordering runs
 the target first and the chain's descendants after the rewritten bones. The solver executes in the
-normal rig stage described in `## rig`. Strength blends each solved bone's old and desired world
-transform with rig's componentwise position / shortest-arc rotation / scale / skew rule; a zero
-strength performs no IK work.
+normal rig stage described in `## rig`. IK strength mixes only each chain bone's local rotation from
+its unconstrained value toward the fully solved value, using the shortest angular arc. The chain is
+then rebuilt in parent-to-child order from those mixed local rotations, so every child start remains
+at its parent's tip for every strength from 0 through 1. Bone lengths, local scale and local
+translation are unchanged. Strength 0 is the unconstrained pose and strength 1 is the full IK solve.
 
 Validation adds two IK-specific errors in addition to rig's shared `rig-target` for an unknown
 target. `rig-ik-host` points at `/nodes/.../constraints/<k>` when `ik` is attached to a non-bone and
