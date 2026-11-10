@@ -1,0 +1,1 @@
+Independent native IK strength probe for P8-2b. The native scene uses a two-bone IKConstraint with strength=0.5 and axis-aligned rectangle art authored in bone-local space. Coordinates are the benchmark repro scaled by 6 px/grid unit. Capture with Rive CLI 1.9.1; no generated .riv file is read or retained.
