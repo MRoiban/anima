@@ -97,11 +97,12 @@ export function bindContext(
     b = data.dataState(child);
   if (!a || !b) return;
   parents.set(child, parent);
-  // A child built from the document's data (no `data`, or a model name) shares its instance
-  // declarations, so its named instances are the parent's live objects (#49); a component with its
-  // own `data` object keeps its instances local (review R1-1). The child's default stays its own.
+  // A child without `data` inherits its actual parent's context (review R2-1), and one naming a
+  // model shares the document's declarations: their named instances are the parent's live objects
+  // (#49). A component with its own `data` object keeps its instances local (review R1-1).
   type Doc = { data?: { instances?: object } };
   const shared =
+    inherited.has(child.model) ||
     (child.model.doc as Doc).data?.instances === (parent.model.doc as Doc).data?.instances;
   for (const [key, object] of Object.entries(a.instances)) {
     b.instances['@' + key] = object;

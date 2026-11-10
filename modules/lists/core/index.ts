@@ -586,7 +586,17 @@ function extend(
               const itemData = typeof item.key === 'object' ? JSON.stringify(item.key) : undefined;
               const itemChanged = itemData !== item.data;
               item.player.reducedMotion = p.reducedMotion;
-              if (!itemChanged && !item.player.busy) continue;
+              // Only a passive item (no listeners, focusable nodes or nested players) can be skipped:
+              // focus and pointer work don't mark a player busy (review R2-2).
+              if (
+                !itemChanged &&
+                !item.player.busy &&
+                !item.model.listeners.length &&
+                !item.model.nodes.some(
+                  (n) => n.raw.focus || /^(instance|repeat)$/.test(n.type as string),
+                )
+              )
+                continue;
               if (itemChanged) {
                 bindContext(data, p, item.player, item.key as object, item.index);
                 item.data = itemData;
