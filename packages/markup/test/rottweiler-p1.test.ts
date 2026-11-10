@@ -20,11 +20,12 @@ describe('Rottweiler P1 AniML', () => {
 
   // R1-10: a `-->` in a $comment must not end the XML comment and inject markup.
   it('keeps a $comment containing --> a comment', () => {
-    const doc = base({ $comment: 'hello --> <number name="injected"/> <!--' });
+    const comment = 'hello --> <number name="injected"/> <!--';
+    const doc = base({ $comment: comment });
     const built = compile(decompile(doc));
     expect(built.diagnostics).toEqual([]);
     expect(built.doc!.inputs).toBeUndefined();
-    expect(built.doc!.$comment).toBe(doc.$comment);
+    expect(built.doc!.$comment).toBe(comment);
   });
 
   // R1-11: XML 1.0 forbids NUL, other C0 controls, U+FFFE/U+FFFF and lone surrogates.
@@ -69,10 +70,11 @@ describe('Rottweiler P1 AniML round 3', () => {
 describe('Rottweiler P1 AniML round 4', () => {
   // R4-07: canonical comment literals escape characters XML forbids without losing their value.
   it('round-trips non-XML characters of a $comment exactly', () => {
-    const doc = base({ $comment: 'a\u0000b' });
+    const comment = 'a\u0000b';
+    const doc = base({ $comment: comment });
     const built = compile(decompile(doc));
     expect(built.diagnostics).toEqual([]);
-    expect(built.doc!.$comment).toBe(doc.$comment);
+    expect(built.doc!.$comment).toBe(comment);
   });
 });
 
