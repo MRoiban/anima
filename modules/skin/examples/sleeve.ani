@@ -1,0 +1,91 @@
+{
+  "anima": "0.1",
+  "name": "skinned-sleeve",
+  "grid": 24,
+  "requires": ["paint", "rig", "skin"],
+  "nodes": [
+    {
+      "id": "upper",
+      "type": "bone",
+      "y": 12,
+      "children": [],
+      "length": 6
+    },
+    {
+      "id": "fore",
+      "type": "bone",
+      "x": 6,
+      "y": 12,
+      "children": [],
+      "length": 6
+    },
+    {
+      "id": "sleeve",
+      "type": "path",
+      "d": "M0 10L6 10L12 10L12 14L6 14L0 14Z",
+      "fill": {
+        "color": "#6b7cff"
+      },
+      "skin": {
+        "bones": ["upper", "fore"],
+        "weights": [
+          {
+            "point": {
+              "upper": 1
+            }
+          },
+          {
+            "point": {
+              "upper": 0.5,
+              "fore": 0.5
+            }
+          },
+          {
+            "point": {
+              "fore": 1
+            }
+          },
+          {
+            "point": {
+              "fore": 1
+            }
+          },
+          {
+            "point": {
+              "upper": 0.5,
+              "fore": 0.5
+            }
+          },
+          {
+            "point": {
+              "upper": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "timelines": {
+    "bend": {
+      "duration": 1,
+      "tracks": {
+        "fore.rotate": [
+          [0, 0],
+          [1, -55]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "bend",
+        "states": {
+          "bend": {
+            "play": "bend"
+          }
+        }
+      }
+    }
+  }
+}

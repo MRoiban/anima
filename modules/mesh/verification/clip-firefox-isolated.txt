@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-29651cfb
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2640 tests | 1 failed | 2639 skipped) 11096ms
+   ❯ Firefox canvas (1320)
+     × spec/conformance/a11y-tree-bounds-clip/case.ani#0 212ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/a11y-tree-bounds-clip/case.ani#0
+AssertionError: {"name":"spec/conformance/a11y-tree-bounds-clip/case.ani#0","max":64,"over":52,"percent":0.09027777777777778,"tolerance":{"max":2,"percent":0,"feature":"flat/gradient interiors"},"diagnostics":[]}: expected 64 to be less than or equal to 2
+ ❯ modules/canvas/test/web/canvas.test.ts:463:47
+    461|           }
+    462|           expect(diagnostics, JSON.stringify(result)).toEqual([]);
+    463|           expect(max, JSON.stringify(result)).toBeLessThanOrEqual(tole…
+       |                                               ^
+    464|           expect(percent, JSON.stringify(result)).toBeLessThanOrEqual(…
+    465|         },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2639 skipped (2640)
+   Start at  19:00:12
+   Duration  15.56s (tests 73%, import 25%, transform 2%)

@@ -1,0 +1,11 @@
+<anima version="0.1" name="bounds-trim" grid="100" requires="a11y contour">
+  <path id="sequential" d="M0 5H10M20 5H30" stroke="#000" stroke-width="2" stroke-linecap="square" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;mode&quot;:&quot;sequential&quot;}">
+    <a11y role="img"/>
+  </path>
+  <path id="synchronized" d="M0 10H10M20 10H30" stroke="#000" stroke-width="2" stroke-linecap="round" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;mode&quot;:&quot;synchronized&quot;}">
+    <a11y role="img"/>
+  </path>
+  <path id="wrapped" d="M0 15H10M20 15H30" stroke="#000" stroke-width="2" stroke-linecap="butt" trim="{&quot;start&quot;:0.25,&quot;end&quot;:0.75,&quot;offset&quot;:0.5}">
+    <a11y role="img"/>
+  </path>
+</anima>

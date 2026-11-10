@@ -1,0 +1,50 @@
+{
+  "anima": "0.1",
+  "name": "rigging-mesh",
+  "grid": 20,
+  "requires": ["paint", "assets", "mesh"],
+  "nodes": [
+    {
+      "id": "grid",
+      "type": "image",
+      "x0": 2,
+      "y0": 3,
+      "asset": "flag",
+      "mesh": {
+        "grid": [2, 1]
+      },
+      "width": 8,
+      "height": 4
+    },
+    {
+      "id": "explicit",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "flag",
+      "fit": "cover",
+      "mesh": {
+        "vertices": [
+          [2, 10, 0, 0],
+          [10, 10, 1, 0],
+          [10, 14, 1, 1],
+          [2, 14, 0, 1]
+        ],
+        "triangles": [
+          [0, 1, 2],
+          [0, 2, 3]
+        ]
+      },
+      "width": 1,
+      "height": 1
+    }
+  ],
+  "assets": {
+    "flag": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAHklEQVR4AWO8WR7+nwEPYGIgAFhinkgw4ANMDAQAALA7BAiJeuX5AAAAAElFTkSuQmCC",
+      "width": 8,
+      "height": 4
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<anima version="0.1" name="rigging-cubic-weights" grid="20" requires="paint rig skin">
+  <bone id="arm" length="10"/>
+  <path id="curve" d="M0 0C2 0 8 0 10 0" stroke="#000">
+    <skin bones="arm" weights="[{&quot;point&quot;:{&quot;@rest&quot;:1},&quot;out&quot;:{&quot;arm&quot;:1}},{&quot;point&quot;:{&quot;@rest&quot;:1},&quot;in&quot;:{&quot;arm&quot;:1}}]"/>
+  </path>
+
+  <timeline name="bend" duration="1">
+    <track target="arm.rotate">
+      0  0
+      1  90
+    </track>
+  </timeline>
+
+  <layer name="main" initial="bend">
+    <state name="bend" play="bend"/>
+  </layer>
+</anima>

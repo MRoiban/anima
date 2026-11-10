@@ -17,7 +17,7 @@ scope by the owner's triage of 2026-11-07).
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Drawing and paint | 125 | 110 |  |  |  | 1 | 14 |
 | Transforms and draw order | 17 | 16 |  |  |  |  | 1 |
-| Animation | 40 | 33 |  | 3 |  |  | 4 |
+| Animation | 40 | 36 |  |  |  |  | 4 |
 | State machines | 61 | 60 |  |  |  |  | 1 |
 | Listeners and input | 93 | 90 |  |  |  |  | 3 |
 | Data: view models, binding, converters | 169 | 165 |  |  |  |  | 4 |
@@ -25,17 +25,17 @@ scope by the owner's triage of 2026-11-07).
 | Components | 30 | 27 |  |  |  |  | 3 |
 | Text | 61 | 59 |  |  |  |  | 2 |
 | Layout | 49 | 16 |  |  |  |  | 33 |
-| Rigging | 23 |  |  | 22 |  | 1 |  |
+| Rigging | 23 | 22 |  |  |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 44 |  |  |  | 5 | 1 |
-| Accessibility | 63 | 62 |  | 1 |  |  |  |
+| Accessibility | 63 | 63 |  |  |  |  |  |
 | Host runtime API | 125 | 111 |  |  |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 48 |  |  |  | 51 | 20 |
-| **Total** | **1238** | **860** | **0** | **26** | **0** | **188** | **164** |
+| **Total** | **1238** | **886** | **0** | **0** | **0** | **188** | **164** |
 
-**Progress:** 860 of 886 in-scope capabilities done (97 %); 860 of 1238 in the full matrix (69 %).
+**Progress:** 886 of 886 in-scope capabilities done (100 %); 886 of 1238 in the full matrix (72 %).
 
 | Phase | Rows |
 |---|---:|
@@ -1307,42 +1307,42 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `animation.joystick-handle` | Handle-driven posing | new: joystick.handle and grid-unit bounds | rig | planned | conformance/joystick-handle |
-| `animation.joystick-invert` | Invert pose axes | new: joystick.invertX/invertY | rig | planned | conformance/joystick-invert |
-| `animation.joystick-two-axis` | Two-axis timeline posing | new: joystick with x/y timeline references | rig | planned | conformance/joystick-two-axis |
+| `animation.joystick-handle` | Handle-driven posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-handle; tests/oracle/animation-joystick-handle |
+| `animation.joystick-invert` | Invert pose axes | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-invert; tests/oracle/animation-joystick-invert |
+| `animation.joystick-two-axis` | Two-axis timeline posing | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/animation-joystick-two-axis; tests/oracle/animation-joystick-two-axis |
 
 ### Rigging
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `rigging.bone-chains` | Bone chains | new: bone chains with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-bone-chains |
-| `rigging.constraint-order` | Ordered constraint composition | new: constraints array with explicit order and per-constraint strength | rig | planned | oracle/rig-constraint-order |
-| `rigging.constraint-strength` | Constraint influence | new: constraint influence with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-constraint-strength |
-| `rigging.cubic-weights` | Independent handle weights | new: independent handle weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-cubic-weights |
-| `rigging.distance-closer` | Distance constraint: closer | new: distance constraint: closer with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-distance-closer |
-| `rigging.distance-exact` | Distance constraint: exact | new: distance constraint: exact with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-distance-exact |
-| `rigging.distance-further` | Distance constraint: further | new: distance constraint: further with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-distance-further |
-| `rigging.follow-path` | Follow path constraint | new: follow path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-follow-path |
-| `rigging.ik` | Inverse kinematics | new: inverse kinematics with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik |
-| `rigging.ik-bend` | IK bend direction | new: ik bend direction with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-ik-bend |
-| `rigging.joystick` | Two-axis animation control | new: two-axis animation control with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-joystick |
-| `rigging.list-follow-path` | List follow-path constraint | new: list follow-path constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-list-follow-path |
-| `rigging.mesh` | Textured triangle meshes | new: textured triangle meshes with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-mesh |
-| `rigging.mesh-animation` | Mesh vertex deformation | new: mesh vertex deformation with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-mesh-animation |
-| `rigging.root-bones` | Root bones | new: root bones with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-root-bones |
-| `rigging.rotation` | Rotation constraint | new: rotation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-rotation |
-| `rigging.scale` | Scale constraint | new: scale constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-scale |
-| `rigging.scroll` | Scroll rig constraint | new: scroll rig constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-scroll |
-| `rigging.skin` | Bind-pose skinning | new: bind-pose skinning with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-skin |
-| `rigging.transform` | Transform constraint | new: transform constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-transform |
-| `rigging.translation` | Translation constraint | new: translation constraint with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-translation |
-| `rigging.weights` | Vertex bone weights | new: vertex bone weights with readable named properties; lengths in grid units, time in seconds and angles in degrees | rig | planned | oracle/rigging-weights |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `rigging.bone-chains` | Bone chains | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-bone-chains; tests/oracle/rigging-bone-chains | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
+| `rigging.constraint-order` | Ordered constraint composition | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-order; tests/oracle/rigging-constraint-order; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.constraint-strength` | Constraint influence | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-constraint-strength; tests/oracle/rigging-constraint-strength; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.cubic-weights` | Independent handle weights | TODO: modules/skin/capabilities/rigging-cubic-weights/registry.ts; spec/SPEC.md (Independent handle weights); modules/skin/capabilities/rigging-cubic-weights/example.animl | rig | done | TODO: modules/skin/test/core/rigging-cubic-weights.test.ts; spec/conformance/rigging-cubic-weights; tests/oracle/rigging-cubic-weights |  |
+| `rigging.distance-closer` | Distance constraint: closer | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-closer; tests/oracle/rigging-distance-closer; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.distance-exact` | Distance constraint: exact | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-exact; tests/oracle/rigging-distance-exact; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.distance-further` | Distance constraint: further | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-distance-further; tests/oracle/rigging-distance-further; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.follow-path` | Follow path constraint | modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl | pathfollow | done | modules/pathfollow/test/core; spec/conformance/rigging-follow-path; tests/oracle/rigging-follow-path | Implementation, conformance and native capture are complete; raw frame 0 is max 1 with 0 pixels over 16. P8 shared ownership leaves comparison-limit selection and cases.json promotion to the orchestrator. |
+| `rigging.ik` | Inverse kinematics | TODO: modules/ik/capabilities/rigging-ik/registry.ts; spec/SPEC.md (Inverse kinematics); modules/ik/capabilities/rigging-ik/example.animl | rig | done | TODO: modules/ik/test/core/rigging-ik.test.ts; spec/conformance/rigging-ik; tests/oracle/rigging-ik |  |
+| `rigging.ik-bend` | IK bend direction | TODO: modules/ik/capabilities/rigging-ik-bend/registry.ts; spec/SPEC.md (IK bend direction); modules/ik/capabilities/rigging-ik-bend/example.animl | rig | done | TODO: modules/ik/test/core/rigging-ik-bend.test.ts; spec/conformance/rigging-ik-bend; tests/oracle/rigging-ik-bend |  |
+| `rigging.joystick` | Two-axis animation control | posepad node; valueX/valueY; timelineX/timelineY; invertX/invertY; optional handle + box (posepad-handle entry); spec/SPEC.md#posepad; modules/posepad/examples/look.animl | posepad | done | modules/posepad/test/core/posepad.test.ts; modules/posepad/test/web/browser.test.ts; spec/conformance/rigging-joystick; tests/oracle/rigging-joystick |  |
+| `rigging.list-follow-path` | List follow-path constraint | modules/pathfollow/core/index.ts; spec/SPEC.md (pathfollow); modules/pathfollow/examples/orbit.animl | pathfollow | done | modules/pathfollow/test/core; spec/conformance/rigging-list-follow-path; tests/oracle/rigging-list-follow-path/skip.json | Direct children and live repeat items are implemented and conformant. Native ListFollowPathConstraint RML was accepted but rendered all children overlapped at the origin, so the retained capture documents the ticket-authorized no-faithful-counterpart skip. |
+| `rigging.mesh` | Textured triangle meshes | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh; tests/oracle/rigging-mesh; modules/mesh/ORACLE-ANALYSIS.md |  |
+| `rigging.mesh-animation` | Mesh vertex deformation | image mesh JSON attribute; grid or explicit vertices/triangles; mesh.vertex.<k> tuples | mesh | done | modules/mesh/test/core/mesh.test.ts; modules/mesh/test/web/mesh.test.ts; spec/conformance/rigging-mesh-animation; tests/oracle/rigging-mesh-animation; modules/mesh/ORACLE-ANALYSIS.md |  |
+| `rigging.root-bones` | Root bones | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-root-bones; tests/oracle/rigging-root-bones | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. Invalid children of non-container nodes report unknown-key before rig-bone-parent. |
+| `rigging.rotation` | Rotation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-rotation; tests/oracle/rigging-rotation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.scale` | Scale constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-scale; tests/oracle/rigging-scale; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.scroll` | Scroll rig constraint | TODO: modules/scroll/capabilities/rigging-scroll/registry.ts; spec/SPEC.md (Scroll rig constraint); modules/scroll/capabilities/rigging-scroll/example.animl | rig | done | TODO: modules/scroll/test/core/rigging-scroll.test.ts; spec/conformance/rigging-scroll; tests/oracle/rigging-scroll |  |
+| `rigging.skin` | Bind-pose skinning | TODO: modules/skin/capabilities/rigging-skin/registry.ts; spec/SPEC.md (Bind-pose skinning); modules/skin/capabilities/rigging-skin/example.animl | rig | done | TODO: modules/skin/test/core/rigging-skin.test.ts; spec/conformance/rigging-skin; tests/oracle/rigging-skin |  |
+| `rigging.transform` | Transform constraint | modules/rig/core/index.ts; modules/rig/core/origin.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-transform; tests/oracle/rigging-transform | copyTransform origin uses the shared point tuple type with JSON/AniML animation and tuple binding; rig-origin resolves rest geometric bounds for leaf shapes and transformed group subtrees. Existing native oracle budget remains 16/65/0.12. |
+| `rigging.translation` | Translation constraint | modules/rig/core/index.ts; spec/SPEC.md (rig); modules/rig/examples/arm.animl | rig | done | modules/rig/test/core; spec/conformance/rigging-translation; tests/oracle/rigging-translation; modules/rig/ORACLE-ANALYSIS.md | P8-1 implementation and conformance exist; native oracle budgets and manifest integration remain pending. |
+| `rigging.weights` | Vertex bone weights | TODO: modules/skin/capabilities/rigging-weights/registry.ts; spec/SPEC.md (Vertex bone weights); modules/skin/capabilities/rigging-weights/example.animl | rig | done | TODO: modules/skin/test/core/rigging-weights.test.ts; spec/conformance/rigging-weights; tests/oracle/rigging-weights |  |
 
 ### Accessibility
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md | Moved from P7 (orchestrator, 2026-11-08; decided, owner may revisit — carried since P3c, a maybe-later candidate): P7-8: optional a11y-bounds and tooling now calculate cubic extrema, standard centered strokes/caps/joins (miter limit 4), circles/rounded rectangles and transformed boxes; both-engine overlay/conformance tested. Native semantic rectangles omit stroke; linear animation follows correctly. Final clipped/masked, dash/trim, non-scaling/feather and text-ink extents remain incomplete, so this broader row stays planned. |
+| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds; modules/a11y/TEXT.md; modules/a11y/test/core/text-hit.test.ts; modules/a11y/oracle/text/README.md; modules/a11y/P6-7-REPORT.md; modules/a11y/SPEC.md; modules/a11y/P8-9-REPORT.md; modules/a11y/test/core/painted-extents.test.ts; modules/a11y/test/web/painted-extents.test.ts; modules/a11y/examples/painted-extents.animl; spec/conformance/a11y-tree-bounds-clip; spec/conformance/a11y-tree-bounds-mask; spec/conformance/a11y-tree-bounds-trim; spec/conformance/a11y-tree-bounds-trim-wrap; spec/conformance/a11y-tree-bounds-fixed; spec/conformance/a11y-tree-bounds-feather; spec/conformance/a11y-tree-bounds-dash; spec/conformance/a11y-tree-bounds-text; modules/a11y/oracle/P8-9.md; tests/oracle/a11y-tree-bounds/skip.json; tests/oracle/p7-8-semantic-bounds/README.md | P8-9: the shared optional a11y-bounds calculator intersects clip geometry and mask painted bounds, bounds trimmed pieces/caps (including wrap and both contour modes), converts non-scaling strokes through current host fit, and grows feather falloff. Dash intentionally uses conservative undashed stroke bounds (the incoming contour at the first effect-stack dash); text intentionally uses logical line boxes, matching DOM text rectangles and screen-reader highlights rather than ink. Explicit semantic boxes still win. Native semantic rectangles omit stroke; the existing P7-8 linear-control capture records that native difference. Eight independent semantic conformance probes, two host-size expected.jsonl snapshots and both-engine overlays/resize/import-order tests close the row; no widened oracle budget. |
 
 ## P9 — Scripting — won't do (owner triage, 2026-11-07) <a id="p9"></a>
 

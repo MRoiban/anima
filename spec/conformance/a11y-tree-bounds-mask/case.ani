@@ -1,0 +1,47 @@
+{
+  "anima": "0.1",
+  "name": "bounds-mask",
+  "grid": 100,
+  "requires": ["a11y", "composite"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 10,
+      "x": 5,
+      "fill": {
+        "color": "#000"
+      },
+      "mask": {
+        "source": "source",
+        "mode": "alpha",
+        "sourceDraws": false
+      },
+      "a11y": {
+        "role": "img"
+      }
+    },
+    {
+      "id": "source",
+      "type": "group",
+      "x": 7,
+      "children": [
+        {
+          "id": "edge",
+          "type": "rect",
+          "x0": 0,
+          "y0": 2,
+          "w": 6,
+          "h": 4,
+          "stroke": {
+            "color": "#000",
+            "width": 2
+          }
+        }
+      ]
+    }
+  ]
+}

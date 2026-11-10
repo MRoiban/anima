@@ -1,0 +1,18 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[02:29:38.623] rive  deferred replay: inline
+[02:29:38.637] rive  built (554 bytes, 14ms, 0 errors, 0 warnings)
+[02:29:38.639] rive  showing ScrollOracle [1/1]
+[02:29:38.640] rive  viewport 240x240 @1x
+[02:29:38.640] rive  data: offset = 0 (mid-run)
+ok data
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[02:29:38.665] rive  wrote frames/0.png
+ok screenshot: frames/0.png
+[02:29:38.665] rive  data: offset = -120 (mid-run)
+ok data
+[02:29:38.669] rive  wrote frames/0.5.png
+ok screenshot: frames/0.5.png
+[02:29:38.669] rive  data: offset = -240 (mid-run)
+ok data
+[02:29:38.673] rive  wrote frames/1.png
+ok screenshot: frames/1.png

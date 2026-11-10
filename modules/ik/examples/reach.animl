@@ -1,0 +1,18 @@
+<anima version="0.1" name="ik-reach" grid="40" requires="rig ik input bind">
+  <number name="aimX" default="30"/>
+  <number name="aimY" default="10"/>
+
+  <bone id="upper" length="9" x="8" y="20">
+    <rect id="upperArt" x0="8" y0="19.5" width="9" height="1" fill="#d97757"/>
+    <bone id="fore" length="8">
+      <ik target="aim" bones="2" bend="cw"/>
+      <rect id="foreArt" x0="17" y0="19.5" width="8" height="1" fill="#d97757"/>
+      <circle id="hand" cx="25" cy="20" r="1.2" fill="#141413"/>
+    </bone>
+  </bone>
+
+  <circle id="aim" cx="0" cy="0" r="1.1" pivot="0 0" stroke="#4263eb" stroke-width="0.5"/>
+  <bind target="aim.x" value="aimX"/>
+  <bind target="aim.y" value="aimY"/>
+  <listener on="drag-start|drag|drag-end" target="aim" write="{&quot;x&quot;:&quot;aimX&quot;,&quot;y&quot;:&quot;aimY&quot;}" align="preserve"/>
+</anima>

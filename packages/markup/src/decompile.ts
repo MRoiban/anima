@@ -118,7 +118,14 @@ export function decompile(doc: string | object): string {
               if (!childForm.target?.array || !childForm.target.choices.includes(key)) continue;
               const data = entry[childForm.target.wrapper!];
               if (data) el.children.push(structural(childName, obj(data)));
-              else if (!childForm.target.wrapper) el.children.push(structural(childName, entry));
+              else if (
+                !childForm.target.wrapper &&
+                Object.entries(childForm.values ?? {}).every(([k, v]) => entry[k] === v)
+              ) {
+                // seam(P8-1): discriminate ordered unwrapped forms (constraint kind), once per entry.
+                el.children.push(structural(childName, entry));
+                break;
+              }
             }
           continue;
         }
@@ -252,7 +259,11 @@ export function decompile(doc: string | object): string {
           text: (keys as unknown[][])
             .map((k) =>
               k
-                .map((v, i) => (i === 1 && typeof v === 'string' ? JSON.stringify(v) : value(v)))
+                .map((v, i) =>
+                  i === 1 && (typeof v === 'string' || Array.isArray(v))
+                    ? JSON.stringify(v)
+                    : value(v),
+                )
                 .join(' '),
             )
             .join('\n'),

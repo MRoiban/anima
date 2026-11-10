@@ -1,0 +1,23 @@
+advance 0
+snapshot content.world.y content.constraints.0.percentY thumb.world.y thumb.world.scaleY boundContent.world.y boundContent.constraints.0.percentY
+pointer down 5 1
+pointer move 5 6
+snapshot content.world.y content.constraints.0.percentY thumb.world.y thumb.world.scaleY
+pointer up 5 6
+scroll 5 5 0 30 start 0
+snapshot content.world.y content.constraints.0.percentY thumb.world.y thumb.world.scaleY
+scroll 5 5 0 1 move 0.1
+snapshot content.world.y content.constraints.0.percentY
+pointer down 13 9
+pointer move 13 5
+snapshot content.world.y content.constraints.0.percentY thumb.world.y thumb.world.scaleY
+pointer up 13 5
+set boundY 99
+advance 0
+snapshot boundContent.world.y boundContent.constraints.0.percentY
+set boundY 5
+advance 0
+pointer down 25 1
+pointer move 25 7
+snapshot boundContent.world.y boundContent.constraints.0.percentY
+pointer up 25 7

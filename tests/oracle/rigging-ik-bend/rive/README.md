@@ -1,0 +1,1 @@
+Independent native bend reference for the Anima `rigging-ik-bend` probe. The upper chain uses native default IK direction and the lower chain uses `invertDirection=true`; all rectangle art is bone-local.

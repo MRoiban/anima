@@ -1,0 +1,54 @@
+<anima version="0.1" name="rigging-translation" grid="20" requires="rig">
+  <group id="targetParent" x="3" y="4">
+    <group id="target" x="2" y="3">
+      <circle id="targetArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+  </group>
+  <group id="hostParent" x="8" y="1">
+    <group id="local" x="1" y="2">
+      <copy-position from="target" from-space="local" to-space="local" factor-x="-2" copy-y="false" min-x="-3" max-x="0"/>
+      <circle id="localArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="world" x="1" y="2">
+      <copy-position from="target" factor-y="-1" min-y="-6" max-y="-2"/>
+      <circle id="worldArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="limited" x="1" y="2">
+      <copy-position from="target" limit-space="local" min-x="0"/>
+      <circle id="limitedArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="parentCopy" x="0" y="0">
+      <copy-position/>
+      <circle id="parentCopyArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="identityCopy" x="0" y="0">
+      <copy-position from-space="local" to-space="local"/>
+      <circle id="identityCopyArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="offsetCopy" x="1" y="2">
+      <copy-position from="target" from-space="local" to-space="local" offset="true"/>
+      <circle id="offsetCopyArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+  </group>
+  <group id="free" x="0" y="0">
+    <copy-position from="target"/>
+    <circle id="freeArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+  </group>
+
+  <timeline name="go" duration="1">
+    <track target="target.x">
+      0  2
+      1  4
+    </track>
+  </timeline>
+  <timeline name="later" duration="1">
+    <track target="free.constraints.0.maxX">
+      0  1
+      1  2
+    </track>
+  </timeline>
+
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

@@ -1,0 +1,5 @@
+screenshot /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-skin/rive/frames/0.png
+advance 500ms
+screenshot /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-skin/rive/frames/0.5.png
+advance 501ms
+screenshot /home/jarvis/.t3/worktrees/anima/t3-b3cbca0c/tests/oracle/rigging-skin/rive/frames/1.png

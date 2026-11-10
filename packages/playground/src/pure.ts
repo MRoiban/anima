@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import {
   formatHex,
   sampleTrack,
@@ -152,10 +153,10 @@ export function sampleTimeline(
   const t = Math.max(0, Math.min(timeline.duration, time));
   const pose: Record<string, unknown> = {};
   for (const [name, a] of model.addrs)
-    pose[name] = Array.isArray(a.rest) ? formatHex(a.rest) : a.rest;
+    pose[name] = Array.isArray(a.rest) && a.rest.length === 4 ? formatHex(a.rest) : a.rest;
   for (const tr of timeline.tracks) {
     const v = sampleTrack(tr, t, player);
-    pose[tr.addr] = Array.isArray(v) ? formatHex(v) : v;
+    pose[tr.addr] = Array.isArray(v) && v.length === 4 ? formatHex(v) : v;
   }
   // Post-state property bindings would override the sampled pose (SPEC §11: timeline over rest).
   const doc: Record<string, unknown> = { ...model.doc };

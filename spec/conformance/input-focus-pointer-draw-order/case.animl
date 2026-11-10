@@ -1,0 +1,13 @@
+<anima version="0.1" name="input-focus-pointer-draw-order" grid="20" requires="input focus composite bind">
+  <bool name="raised" default="true"/>
+  <bind target="a.drawOrder.active" value="raised"/>
+  <rect id="a" x0="0" y0="0" width="10" height="10" fill="#f00">
+    <focus/>
+    <drawOrder target="b" position="after"/>
+  </rect>
+  <rect id="b" x0="0" y0="0" width="10" height="10" fill="#00f">
+    <focus/>
+  </rect>
+  <listener on="focus" target="a" emit="a-focus"/>
+  <listener on="focus" target="b" emit="b-focus"/>
+</anima>

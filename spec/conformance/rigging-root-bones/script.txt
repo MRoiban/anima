@@ -1,0 +1,6 @@
+advance 0
+snapshot root.world.x root.world.y root.tip.x root.tip.y root.world.rotate
+advance 0.5
+snapshot root.world.x root.world.y root.tip.x root.tip.y root.world.rotate
+advance 0.5
+snapshot root.world.x root.world.y root.tip.x root.tip.y root.world.rotate

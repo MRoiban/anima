@@ -213,7 +213,8 @@ export async function dryRun(root: string, id: string, moduleName?: string) {
     for (const path of ['modules', 'packages', 'spec', 'docs', 'tools', 'tests'])
       cpSync(resolve(root, path), resolve(scratch, path), {
         recursive: true,
-        filter: (p) => !p.includes('/node_modules') && !p.includes('/dist'),
+        // seam(P8-1): exclude directories, not valid entry names such as distance.ts.
+        filter: (p) => !p.split(/[\\/]/).some((part) => part === 'node_modules' || part === 'dist'),
       });
     return await scaffold(scratch, id, moduleName);
   } finally {

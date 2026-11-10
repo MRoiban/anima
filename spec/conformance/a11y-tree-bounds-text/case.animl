@@ -1,0 +1,8 @@
+<anima version="0.1" name="bounds-text" grid="100" requires="a11y text assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="logical" wrap="false" width="12" height="11" x="10" y="20">
+    <a11y role="text" label="Logical"/>
+    <style id="s" size="10"/>
+    <run text="AB" style="s"/>
+  </text>
+</anima>

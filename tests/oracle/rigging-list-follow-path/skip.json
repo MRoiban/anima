@@ -1,0 +1,18 @@
+{
+  "status": "skip",
+  "reason": "Two bounded native authoring attempts were made with the local Rive CLI 1.9.x. Attempt 1: ListFollowPathConstraint on a parent with three rectangle children (distance=0, distanceEnd=1, distanceOffset=0) compiled, but its capture left all children overlapped at the origin. Attempt 2: three ordinary FollowPathConstraint children at distances 0.3/0.6/0.9, matching Anima D19 start=0.2/end=0.8/shift=0.1 for n=3, did distribute and matched the equivalent Anima spreadAlongPath scene at raw max delta 1 with 0/57,600 pixels over 16. The latter validates placement geometry but manually expands the list behavior, so no faithful direct native ListFollowPathConstraint counterpart is available on this CLI/headless route. Anima's direct-child and live repeat-item semantics remain covered by conformance/runtime tests.",
+  "tests": [
+    "modules/pathfollow/test/core/runtime.test.ts",
+    "spec/conformance/rigging-list-follow-path"
+  ],
+  "captureEvidence": [
+    "tests/oracle/rigging-list-follow-path/case.animl",
+    "tests/oracle/rigging-list-follow-path/case.ani",
+    "tests/oracle/rigging-list-follow-path/anima/0.png",
+    "tests/oracle/rigging-list-follow-path/anima/0-diff.png",
+    "tests/oracle/rigging-list-follow-path/rive/scene.rml",
+    "tests/oracle/rigging-list-follow-path/rive/commands.txt",
+    "tests/oracle/rigging-list-follow-path/rive/session.txt",
+    "tests/oracle/rigging-list-follow-path/rive/frames/0.png"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "anima": "0.1",
+  "name": "rigging-mesh-animation",
+  "grid": 20,
+  "requires": ["paint", "assets", "mesh", "bind"],
+  "inputs": {
+    "x": {
+      "type": "number",
+      "default": 2
+    },
+    "y": {
+      "type": "number",
+      "default": 12
+    }
+  },
+  "nodes": [
+    {
+      "id": "flag",
+      "type": "image",
+      "x0": 2,
+      "y0": 5,
+      "asset": "flag",
+      "mesh": {
+        "grid": [2, 1]
+      },
+      "width": 8,
+      "height": 4
+    }
+  ],
+  "timelines": {
+    "wave": {
+      "duration": 1,
+      "tracks": {
+        "flag.mesh.vertex.2": [
+          [0, "[10,5]"],
+          [0.5, "[9.5,3.25]"],
+          [1, "[10,5]"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "wave",
+        "states": {
+          "wave": {
+            "play": "wave"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "flag.mesh.vertex.3": "[x, max(5, y)]"
+  },
+  "assets": {
+    "flag": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAHklEQVR4AWO8WR7+nwEPYGIgAFhinkgw4ANMDAQAALA7BAiJeuX5AAAAAElFTkSuQmCC",
+      "width": 8,
+      "height": 4
+    }
+  }
+}

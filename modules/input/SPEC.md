@@ -66,7 +66,14 @@ eligible descendants. `pointerEnabled=false` suppresses pointer hits on that nod
 `hitTest(x,y,{bounded?,scroll?})` returns unique interactive target IDs, foremost first, with
 `@icon` for whole-icon listeners. `bounded` additionally clips to the document viewBox. Cursor-only
 and opaque nodes are interactive targets even without actions. An `opaque=true` target removes
-lower authored nodes from the hit traversal, retaining its ancestor chain and higher targets.
+lower painted nodes from the hit traversal, retaining its ancestor chain and higher targets.
+Foremost means latest painted: targets, cursor selection and opaque comparisons use composite's
+`Player.paintRank` when present (a pre-order walk with resolved `drawOrder` sibling lists),
+otherwise the authored node index. Reordering a group moves its whole subtree for this purpose.
+Nested players retain their own local paint order inside their host instance's paint rank.
+For models using `drawOrder`, normal pointer delivery at equal depth uses this same foremost-first
+key before listener authored order; capture, keyboard and gamepad delivery keep their existing
+ordering. A consuming pointer listener therefore claims an overlapping painted-top target first.
 `occludes(x,y)` detects an opaque target; `{scroll:true}` additionally requires a scroll listener
 on the blocker. Geometry follows the flattened-contour accuracy contract in §9; no separate
 approximate rectangle-only hit implementation is introduced.

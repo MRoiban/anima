@@ -1,0 +1,12 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-56247ff2
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  03:07:46
+   Duration  759ms (import 49%, transform 41%, tests 9%, worker 1%)
+
+
+--- exact repro snapshot ---
+{"time":0,"values":{"upper.tip.x":13.823579165887804,"upper.tip.y":26.861918514427106,"fore.world.x":13.823579165887804,"fore.world.y":26.86191851442711},"states":{},"events":[],"settled":true}

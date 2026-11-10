@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik-strength",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 40],
+  "requires": ["rig", "ik"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "x": 14,
+      "y": 26,
+      "children": []
+    },
+    {
+      "id": "upper",
+      "type": "bone",
+      "x": 8,
+      "y": 20,
+      "children": [
+        {
+          "id": "upperArt",
+          "type": "rect",
+          "x0": 8,
+          "y0": 19.75,
+          "w": 9,
+          "h": 0.5,
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "fore",
+          "type": "bone",
+          "children": [
+            {
+              "id": "foreArt",
+              "type": "rect",
+              "x0": 17,
+              "y0": 19.75,
+              "w": 8,
+              "h": 0.5,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "length": 8,
+          "constraints": [
+            {
+              "kind": "ik",
+              "strength": 0.5,
+              "target": "target",
+              "bones": 2,
+              "bend": "cw"
+            }
+          ]
+        }
+      ],
+      "length": 9
+    }
+  ]
+}

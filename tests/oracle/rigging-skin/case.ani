@@ -1,0 +1,72 @@
+{
+  "anima": "0.1",
+  "name": "rigging-skin-oracle",
+  "grid": 20,
+  "requires": ["paint", "rig", "skin"],
+  "nodes": [
+    {
+      "id": "move",
+      "type": "bone",
+      "x": 10,
+      "y": 10,
+      "children": [],
+      "length": 4
+    },
+    {
+      "id": "quad",
+      "type": "path",
+      "d": "M10 9L14 9L14 11L10 11Z",
+      "fill": {
+        "color": "#d97757"
+      },
+      "skin": {
+        "bones": ["move"],
+        "weights": [
+          {
+            "point": {
+              "move": 1
+            }
+          },
+          {
+            "point": {
+              "move": 1
+            }
+          },
+          {
+            "point": {
+              "move": 1
+            }
+          },
+          {
+            "point": {
+              "move": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "move.rotate": [
+          [0, 0],
+          [1, 90]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

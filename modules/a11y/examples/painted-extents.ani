@@ -1,0 +1,331 @@
+{
+  "anima": "0.1",
+  "name": "painted-extents",
+  "grid": 100,
+  "requires": ["a11y", "composite", "contour", "paint", "surface"],
+  "nodes": [
+    {
+      "id": "clip-example",
+      "type": "group",
+      "x": 0,
+      "y": 0,
+      "children": [
+        {
+          "id": "clip-clipped",
+          "type": "group",
+          "x": 5,
+          "children": [
+            {
+              "id": "clip-target",
+              "type": "rect",
+              "x0": 0,
+              "y0": 0,
+              "w": 20,
+              "h": 10,
+              "fill": {
+                "color": "#000"
+              },
+              "a11y": {
+                "role": "img"
+              }
+            }
+          ],
+          "clip": {
+            "source": "clip-edge"
+          },
+          "a11y": {
+            "role": "group"
+          }
+        },
+        {
+          "id": "clip-edge",
+          "type": "rect",
+          "x0": 0,
+          "y0": 2,
+          "w": 6,
+          "h": 20,
+          "x": 7,
+          "visible": false,
+          "stroke": {
+            "color": "#000",
+            "width": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "mask-example",
+      "type": "group",
+      "x": 40,
+      "y": 0,
+      "children": [
+        {
+          "id": "mask-target",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 20,
+          "h": 10,
+          "x": 5,
+          "fill": {
+            "color": "#000"
+          },
+          "mask": {
+            "source": "mask-source",
+            "mode": "alpha",
+            "sourceDraws": false
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "mask-source",
+          "type": "group",
+          "x": 7,
+          "children": [
+            {
+              "id": "mask-edge",
+              "type": "rect",
+              "x0": 0,
+              "y0": 2,
+              "w": 6,
+              "h": 4,
+              "stroke": {
+                "color": "#000",
+                "width": 2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trim-example",
+      "type": "group",
+      "x": 0,
+      "y": 22,
+      "children": [
+        {
+          "id": "trim-sequential",
+          "type": "path",
+          "d": "M0 5H10M20 5H30",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "square",
+            "trim": {
+              "start": 0.25,
+              "end": 0.75,
+              "mode": "sequential"
+            }
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "trim-synchronized",
+          "type": "path",
+          "d": "M0 10H10M20 10H30",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "round",
+            "trim": {
+              "start": 0.25,
+              "end": 0.75,
+              "mode": "synchronized"
+            }
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "trim-wrapped",
+          "type": "path",
+          "d": "M0 15H10M20 15H30",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "butt",
+            "trim": {
+              "start": 0.25,
+              "end": 0.75,
+              "offset": 0.5
+            }
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ]
+    },
+    {
+      "id": "trim-wrap-example",
+      "type": "group",
+      "x": 40,
+      "y": 22,
+      "children": [
+        {
+          "id": "trim-wrap-wrapped",
+          "type": "path",
+          "d": "M0 5H20",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "square",
+            "trimStart": 0.25,
+            "trimEnd": 0.75,
+            "trimOffset": 0.5
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "trim-wrap-empty",
+          "type": "path",
+          "d": "M0 10H20",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "trimStart": 0.5,
+            "trimEnd": 0.5
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fixed-example",
+      "type": "group",
+      "x": 0,
+      "y": 44,
+      "children": [
+        {
+          "id": "fixed-fixed",
+          "type": "path",
+          "d": "M0 0H4",
+          "x": 10,
+          "y": 10,
+          "rotate": 90,
+          "scaleX": 3,
+          "scaleY": 2,
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "square",
+            "scale": "fixed"
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ]
+    },
+    {
+      "id": "feather-example",
+      "type": "group",
+      "x": 40,
+      "y": 44,
+      "children": [
+        {
+          "id": "feather-feathered",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 4,
+          "h": 6,
+          "x": 10,
+          "y": 10,
+          "scaleX": 2,
+          "fill": {
+            "color": "#000",
+            "feather": {
+              "inner": 7,
+              "outer": 3,
+              "offset": [2, -1]
+            }
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dash-example",
+      "type": "group",
+      "x": 0,
+      "y": 66,
+      "children": [
+        {
+          "id": "dash-dashed",
+          "type": "path",
+          "d": "M2 5H18",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "butt",
+            "dash": [0.25, 0.75]
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "dash-before",
+          "type": "path",
+          "d": "M0 15H20",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "butt",
+            "effects": [
+              {
+                "type": "trim",
+                "start": 0.25,
+                "end": 0.75
+              },
+              {
+                "type": "dash",
+                "dash": [2, 8]
+              }
+            ]
+          },
+          "a11y": {
+            "role": "img"
+          }
+        },
+        {
+          "id": "dash-after",
+          "type": "path",
+          "d": "M0 20H20",
+          "stroke": {
+            "color": "#000",
+            "width": 2,
+            "cap": "butt",
+            "effects": [
+              {
+                "type": "dash",
+                "dash": [2, 8]
+              },
+              {
+                "type": "trim",
+                "start": 0.5,
+                "end": 1
+              }
+            ]
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ]
+    }
+  ]
+}

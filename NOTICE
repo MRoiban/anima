@@ -5,6 +5,13 @@ construction is used by modules/contour/core/index.ts; native path observations
 independently check its controls. Rive credits natural rounding by daformat:
 https://observablehq.com/@daformat/rounding-polygon-corners
 
+Anima contains an independent mathematical reimplementation of the multi-link
+inverse-kinematics strategy in Rive's IKConstraint
+(src/constraints/ik_constraint.cpp, https://github.com/rive-app/rive-runtime).
+For chains longer than two bones, modules/ik/core/index.ts applies analytic
+two-link solves in FK order against the final tip. No Rive source text is
+copied.
+
 Rive runtime — Copyright (c) 2020 Rive
 Licensed under the MIT License:
 

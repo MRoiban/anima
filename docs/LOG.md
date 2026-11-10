@@ -2635,3 +2635,35 @@ last two plus blink in optional `text-input-extra` (#35). CLI: `anima bundle --m
 Gates: core+web 22,782 B, largest scene 57,781, app-UI 107,899, runtime sum 135,579, authoring
 15,017, Rive-class 155,805. Perf vs main (pinned, minimums): bell frame +0.3 %, composite −1.4 %,
 toolbar −1.5 %, toolbar compile +2.5 %, bell compile −2 %.
+
+## P8 — rigging (2026-11-10, done)
+
+Rigging as optional heavy modules, designed in `design/p8/` (DESIGN, BENCHMARK, decisions D1–D48):
+`rig` (bones in Anima's grid coordinates acting by their motion from rest; one rig stage after
+layout; ordered constraints with strength; copy position, rotation, scale and transform;
+`rig-distance`, `rig-origin`), `ik` (aim, two-bone analytic, n-bone following Rive's MIT approach,
+credited in NOTICE; strength blends local rotations so the chain stays connected, a bug the
+benchmark found), `pathfollow` (internal path measurement; along-path and spread-along-path),
+`skin` (rest-pose binding; explicit, handle and automatic weights; optional `skin-auto`,
+`skin-mesh`, `skin-dash`, `skin-values`), `mesh` + `canvas-mesh` (textured triangles on canvas; the
+browser SVG renderer draws the undeformed image with `unsupported-render`; the CLI writes exact
+triangles), `posepad` + `posepad-handle` (two-axis timeline posing, invert, handle reading with the
+second rig solve) and `scroll` (clamped offsets by drag, wheel and binding; scroll thumbs). Carry-overs:
+`a11y.tree-bounds` (clip, mask, trim, non-scaling, feather; dash and text ink documented), R4-02
+(pointer hits and focus follow `drawOrder`) and the pre-load `toggle()` queue. 26/26 rows; in scope
+886/886 (100 %).
+
+Oracles: every rig probe draws rectangles, since circles differ from Rive by construction (the first
+rig captures showed a steady max 53 from that alone); budgets set only after classifying over-16
+pixels as edge or interior. Core grew by 21 B for point tuples and nothing else; rig adds no core
+checks (an 88 B checker seam was reverted). Benchmark (reaching arm): AniML 6/6 in 9 min 59 s with
+70 lines on native bones, IK and skin; Rive 6/6 in 10 min 5 s with 314 lines and a Luau controller;
+the P4c volume control replays byte for byte after R4-02. Coders ran under changing limits (Codex
+usage caps, then Codex Web only): several stopped early or lost their stream, so every merged
+ticket's checks were rerun on the combined branch, which caught lint, typecheck, budget, test-fixture
+and missing-frame problems before review.
+
+Gates: core+web 22,803 B, largest scene 59,373, app-UI 108,140, runtime sum 137,424, authoring
+15,372, Rive-class 171,783 (of 256,000). Perf vs main (pinned, best of five alternating runs): bell
+frame −0.6 %, bell compile +1.1 %, composite −0.2 %, toolbar frame +1.8 %, toolbar compile +1.4 %.
+

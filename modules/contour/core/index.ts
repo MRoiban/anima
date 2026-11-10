@@ -1,6 +1,7 @@
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 // Authoring geometry compiled once to ordinary SVG path data. No renderer state.
 import type { Module } from '../../../packages/core/src/modules.ts';
+import type { Player } from '../../../packages/core/src/player.ts';
 import type { Shape } from '../../../packages/core/src/registry.ts';
 import { flatten, parsePath } from '../../../packages/core/src/path.ts';
 import { fmt } from '../../../packages/core/src/draw.ts';
@@ -107,7 +108,12 @@ export function compileVertices(
   }
   return d;
 }
-export const contour: Module = {
+export const contour: Module &
+  Pick<typeof effects, 'undashed'> & {
+    pathfollowPath(player: Player, node: number): string | undefined;
+  } = {
+  // seam(P8-9): expose the pure bounds reader through the active module registry.
+  undashed: effects.undashed,
   name: 'contour',
   after,
   entries: [
@@ -162,7 +168,13 @@ export const contour: Module = {
       compiled.set(n.raw, compileVertices(n.raw.vertices, n.raw.closed, n.raw.geometryOrigin));
     });
   },
+  // seam(P8-3): expose exact compiled local path data so path following uses shared outline subdivision.
+  pathfollowPath(p, i) {
+    return compiled.get(p.model.nodes[i]!.raw);
+  },
   outline(p, i) {
+    // seam(P8-4): skin owns the deformed contour outline for hit testing.
+    if (p.model.nodes[i]!.raw.skin) return;
     const d = compiled.get(p.model.nodes[i]!.raw);
     if (d !== undefined) return flatten(parsePath(d));
   },

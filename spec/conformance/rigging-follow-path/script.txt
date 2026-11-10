@@ -1,0 +1,6 @@
+advance 0
+snapshot at0.world.x at0.world.y at25.world.x at25.world.y at1.world.x at1.world.y orientOff.world.rotate transformed.world.x transformed.world.y transformed.world.rotate wrapped.world.x wrapped.world.y animated.world.x animated.world.y offset.world.x offset.world.y
+advance 0.5
+snapshot animated.world.x animated.world.y offset.world.x offset.world.y
+advance 0.5
+snapshot animated.world.x animated.world.y offset.world.x offset.world.y

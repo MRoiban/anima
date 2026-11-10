@@ -331,6 +331,9 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    **Layout stage (optional).** After bindings and clamping, resolve participating boxes using
    the layout contract, including nested-player/post-step updates, before drawing. Guards read
    the previous step's boxes; layout never reruns transitions in the current step.
+   **Rig stage (optional).** After layout and before drawing, solve parent/constraint dependencies,
+   publish rest-relative bone and constrained transforms, then call the optional pose stage.
+   A pose write requests exactly one additional solve; see the rig chapter.
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
    it has been pending for longer than `buffer` seconds of step time, or is consumed.
@@ -456,7 +459,7 @@ so page `::part()` rules continue to apply.
 
 ### Host input queue
 
-Web-host `set(name,value)` and `fire(name)` calls made without a player are queued
+Web-host `set(name,value)`, `fire(name)` and `toggle(name)` calls made without a player are queued
 in call order. They are applied once to the next player created by that host,
 before its first step, including when asset preparation deferred creation.
 Superseded load completions do not consume the queue. Names and values are validated
@@ -1058,6 +1061,12 @@ have deterministic precedence. Cyclic target chains and nonsibling targets are r
 Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
 Static SVG serializes the current order; web reorders existing DOM siblings without replacing
 nodes or detaching their masks. The module's draw hook resolves sibling ranks before rendering.
+For models using `drawOrder`, composite supplies `Player.paintRank(node)`: the node's index
+in a pre-order tree walk whose child lists use those resolved sibling ranks, cached per player
+until `drawRevision` changes. Without `drawOrder` the hook is absent and node indices give the
+same authored pre-order walk. Input hit ordering, opaque blocking and pointer focus use this
+same key: **foremost** means latest painted. A nested player retains its local paint order
+inside its host instance's rank.
 Its registry factory binds to the active runtime's shared registry (MODULES §3.1).
 Cross-node draw changes conservatively invalidate dependent draw entries, keeping animated
 source references correct across node and ancestor boundaries.
@@ -1866,9 +1875,13 @@ centers and pointer mapping. Focus changes route to the owning player's local
 listeners; the parent hook reports the dotted path. Component-local state machines
 read their local `focused` ids. Instance visibility excludes its focus descendants.
 
-`focusPointer(x,y)` focuses the last eligible painted target under the point using
+`focusPointer(x,y)` focuses the foremost eligible target (latest painted) under the point using
 §9 hit testing, excluding targets with pointer false. Primary pointer down calls it
 before ordinary pointer listener actions; up, move and leave do not change focus.
+Ranking uses composite's `Player.paintRank` when present (the pre-order walk with resolved
+`drawOrder` sibling lists), otherwise the authored node index. Nested players rank locally
+inside their host instance's paint rank. Opaque blockers use the same key and retain their
+ancestor chain.
 Component forwarding does not independently focus other overlapped instances.
 
 Listeners add `on: "focus"` and `on: "blur"` (requires focus); `target` is a local node
@@ -2997,8 +3010,15 @@ remain eligible for native focus and roving.
 `nodes[].a11y.bounds` (AniML `bounds`) is a local `[x,y,w,h]` box with nonnegative width and height,
 transformed to world-grid coordinates. Without it, visible child boxes are unioned
 for unpainted groups; an empty node reports its transformed origin as a point.
-The bounded implementation and explicit path/stroke limitations are specified in
-[modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.
+The optional painted calculator shared by tooling and the browser overlay bounds trimmed pieces
+with their caps, viewport-sized non-scaling strokes and feather falloff; it intersects clips with
+source geometry boxes and masks with source painted boxes. Explicit boxes win. Dash bounds
+intentionally use the undashed stroke (conservative), and text uses measured logical line boxes
+rather than ink, matching DOM text rectangles and screen-reader highlights. The full contract,
+including inverted-mask complements and finite three-sigma feather support, is specified in
+[modules/a11y/SPEC.md](../modules/a11y/SPEC.md#painted-geometric-bounds-p7-8).
+Native semantic rectangles omit stroke; the existing P7-8 capture records this intentional native
+difference in `tests/oracle/p7-8-semantic-bounds/`.
 
 
 <!-- capability: a11y.property-heading-level -->
@@ -3530,3 +3550,534 @@ A host whose computed content size is not a resolved pixel length (for example `
 percentage size) is not measured; its layout size and viewport are kept until it has a layout box.
 Browser conformance and byte-exact native references at two host sizes live in the host-fit tests.
 This host-only control adds no scene registry keys, AniML attributes or static CLI rendering flag.
+
+## mesh
+
+<!-- capability: rigging.mesh -->
+
+`requires: ["mesh", "assets", "paint"]` adds `mesh` to `image` nodes only. Other hosts
+are `rig-mesh-host`, at the node's `/mesh` pointer. Meshes are opt-in heavy modules.
+
+JSON `mesh` is either `{ "grid": [cols, rows] }` or
+`{ "vertices": [[x, y, u, v], ...], "triangles": [[a, b, c], ...] }`.
+The AniML spelling is the registry-generic JSON-valued `mesh` attribute, for example
+`<image ... mesh='{"grid":[4,2]}'/>`; no additional compiler entry is required.
+Choose exactly one form (`bad-value`). Grid counts are integer cell counts, each 1..128.
+Vertices are row-major, from top left, including both boundary rows/columns.
+Cell `(x,y)` has indices `a=y*(cols+1)+x`, `b=a+cols+1`, and triangles
+`[a,a+1,b+1]`, `[a,b+1,b]`. A 4×2 grid has 15 vertices and 16 triangles.
+
+Grid vertices span the image box `x0,y0,width,height`. Their UVs invert the image's
+fit/align rectangle (the Image nodes contract), so a rest mesh reproduces a plain
+image, including transparent letterboxing. Automatically generated UVs can extend
+outside 0..1; the finite texture rectangle supplies transparent space there.
+Untracked grid vertices follow animated width/height; a vertex track or binding
+replaces its position in local grid units. Explicit meshes ignore fit and align.
+They need at least three `[x,y,u,v]` vertices; explicit u/v must lie in 0..1
+(`bad-value`). The mesh needs at least one triangle. Triangle indices must be
+integers in `[0,vertexCount)` (`rig-mesh-index`). Degenerate UV triangles draw
+nothing; collapsed destination triangles have zero area.
+
+`drawFrame` publishes `DrawNode.mesh = {points, uv, triangles}`: points and UVs
+are flat coordinate arrays, triangles are index triples. Geometry also retains
+the ordinary image box and asset. If installed, `player.skinPoints(node, points)`
+deforms the resolved animated positions in place before publication (P8-4 seam).
+
+The optional `@anima-format/web/canvas-mesh` entry draws triangles by affine
+`drawImage`, with their clip edges expanded outwards by 0.5 backing-store pixel.
+It owns a per-renderer image cache and extends the existing renderer readiness promise;
+image decode requests a redraw without stepping time. Canvas itself adds no mesh code.
+The retained browser SVG keeps the undeformed image and emits one warning per
+node per player: `unsupported-render`, feature `mesh`, pointer `/nodes/.../mesh`,
+with a hint to use `renderer="canvas"` and import `canvas-mesh`.
+
+The tooling-only `toSVG` export from `@anima-format/core/mesh-static` accepts
+`meshTriangles: true`: each triangle becomes a clipPath plus an affine image.
+CLI `render` always enables this option. The default tooling serializer rejects mesh output with `unsupported-render`;
+the retained browser SVG keeps its undeformed fallback. No triangle serializer
+enters web bundles.
+
+<!-- capability: rigging.mesh-animation -->
+
+Each vertex has a tuple address `<image>.mesh.vertex.<k>` = `[x,y]`, with canonical
+zero-based indices. Tracks accept finite two-number arrays in JSON. AniML track
+text uses quoted JSON point literals, e.g. `0 "[10,5]"; 0.5 "[9.5,3.25]"`;
+the mesh value compiler decodes these to tuples. Invalid points are `value-type`.
+Sampling and state crossfades interpolate both coordinates linearly with the
+track/blend ease, preserving signed and fractional coordinates (no colour clamp
+or rounding). Public values and script snapshots expose arrays.
+
+With `bind`, `[x-expression, y-expression]` binds a vertex from two scalar numeric
+expressions; nested scalar calls are supported, e.g. `[x, max(5,y)]`. Invalid tuple
+syntax is `bind-type`, with the binding's JSON pointer and a correction hint.
+Binding is post-state, following the existing bind stage; it overrides track output.
+Without mesh in requires, no mesh per-frame work is installed.
+
+Pointer hit testing and semantic bounds of a meshed image use its image box, not the deformed
+triangles, whether the vertices are animated, bound or skinned.
+
+Independent draw expectations cover grid and explicit meshes, fit/align UVs and
+fractional animated/bound vertices. Native captures use the original generated
+flag texture at 12 px/unit; browser pixels compare to the CLI triangle render.
+Probe locations: `spec/conformance/rigging-mesh{,-animation}` and
+`tests/oracle/rigging-mesh{,-animation}`. Oracle budgets remain pending.
+
+Decisions follow `design/p8/DECISIONS.md` D21–D24 and D35, the Canvas2D mesh gap
+in `docs/research/rive-format-and-graph.md` §4.3, and backend separation/lifecycle
+notes in `docs/research/rive-web-runtime.md`. No native source was used.
+
+## rig
+
+`requires: ["rig"]` adds bones and ordered transform constraints. The browser imports
+`@anima-format/web/rig`; distance constraints also import the optional
+`@anima-format/web/rig-distance`. Both entries are heavy and dependency-free.
+AniML uses `<bone>` and constraint child elements; JSON uses `type: "bone"` and an
+ordered `constraints: [{kind, ...}]` array. Generic JSON-valued constraint attributes
+are deliberately absent; structural children preserve authored order.
+
+### Bone frames and rigid art
+
+A bone draws nothing and accepts `children`, `length` (nonnegative, default 0),
+`root` (static boolean, default false), and the common transform/visibility fields.
+Length, rotation, uniform/axis scales, opacity and visibility animate normally.
+Its pivot is always its start: authoring `pivot` is `rig-bone-pivot`.
+
+Outside another bone a bone starts at `(x,y)` and is a root. Inside a bone it
+starts at its parent's current tip, with rotation relative to that parent's
+frame; `x` or `y`, even 0, is `rig-bone-offset`. A nested `root: true` instead
+starts at `(x,y)` in its parent's moving grid coordinates, anchoring a new chain.
+Per D38, a bone may be at document/component root level, or have a `group` or
+`bone` parent. Every other parent, including `layout`, `repeat`, `instance` and
+`text`, is `rig-bone-parent` at the bone's pointer, with hint
+"wrap the bones in a <group>". A group within layout can host a skeleton. A node that takes no
+children at all (a shape such as `circle` or `rect`) fails structurally first, with
+`unknown-key` at its `children`; the rig module adds nothing to core validation (D47).
+
+Per D39, zero rest `scale`, `scaleX` or `scaleY` on a bone or any ancestor is
+`bad-value` at the affected bone, with a hint to use nonzero rest scales. Animation may
+collapse a bone from a nonzero rest pose.
+
+Rest frames are computed once from document values, never the first sampled
+pose. A chained bone's frame is its parent's frame multiplied by
+`T(parent.length,0) R(rotate) S(scale*scaleX,scale*scaleY)`.
+A root uses its parent's grid transform multiplied by
+`T(x,y) R(rotate) S(scale*scaleX,scale*scaleY)`.
+Rigid child geometry remains in rest grid coordinates: the bone contributes
+`F(now) F(rest)^-1`, keeping every bone's drawing transform identity at rest
+(relative to its non-bone ancestors). A nested root uses this same rule.
+This preserves Glyphy geometry without re-origining (DECISIONS D3–D6;
+`docs/research/glyphy-compat.md`). A bone's world frame is its physical start
+frame, while the published drawing matrix is its rest-relative deformation.
+
+### Constraint fields and evaluation
+
+All five kinds accept numeric `strength` in 0..1, default 1, animatable and
+bindable. Fields are addressed `<id>.constraints.<index>.<field>`; arrays are
+zero-based, ordered, and later full-strength constraints override earlier ones.
+All fields shown as numbers below are animatable/bindable. Static controls are
+booleans, references, enumerations and space choices.
+
+| JSON / AniML | Fields and defaults |
+| --- | --- |
+| `copyPosition` / `<copy-position>` | optional `from`; `factorX`, `factorY` = 1; `copyX`, `copyY` = true; optional `minX`, `maxX`, `minY`, `maxY`; `offset` = false; `fromSpace`, `toSpace` = world; `limitSpace` defaults to `toSpace` |
+| `copyRotation` / `<copy-rotation>` | optional `from`; `factor` = 1; optional `min`, `max` in degrees; `offset` = false; spaces as above |
+| `copyScale` / `<copy-scale>` | position fields, operating on scale axes |
+| `copyTransform` / `<copy-transform>` | required `from`; optional numeric `origin: [u,v]`; `fromSpace`, `toSpace` = world |
+| `keepDistance` / `<keep-distance>` | required `to` and nonnegative `distance`; `mode`: within (default), beyond, exact |
+
+Camel-case field names use hyphenated AniML attributes (`factor-x`, `from-space`,
+`limit-space`, etc.). The CLI accepts JSON kind names as schema topics as well
+as canonical AniML element names. Every kind validates only its declared fields.
+Unknown references are `rig-target` at the constraint, with a repair hint.
+
+Position is the transformed pivot (the start for a bone). Rotation and scales
+come from QR decomposition: nonnegative X scale, signed Y scale and shear.
+Derived rotations are normalized to [-180,180). A zero X axis uses the Y axis
+for its angle. Blend decomposes around the same pivot, interpolates position,
+scale and shear, and rotates along the shortest arc; the positive half-turn
+wins an exact tie. Strength 0 skips, 1 replaces. Each partial constraint reads
+the preceding constraint's result, never the previous frame's result.
+
+For copy constraints, source-space decomposition reads the target world frame
+(`world`) or the target relative to its own parent (`local`). With no `from`,
+world reads the parent's frame and pivot; local reads identity (D17).
+The copied components replace the host's corresponding components in destination
+space; disabled axes keep their current values. Factors multiply source values.
+`offset` adds the host's document-rest position/rotation, or multiplies its
+rest scale. Limits clamp the result in `limitSpace`, without changing uncopied
+components, then convert back to world. When limit and destination space match,
+limits act on the signed copied axes before canonical decomposition.
+
+`copyTransform` copies position, rotation, scales and shear together. By default
+the target point is its pivot. `origin` selects a normalized point over the
+target's rest geometric bounds (no stroke); its transformed point replaces the
+host's pivot position. The point tuple uses the shared `point` value type and is
+animatable and bindable as one value. JSON track keys use `[u,v]`; AniML authors
+the rest tuple as `origin="u v"` and tuple track keys as `[u,v]`.
+
+Rest bounds are evaluated from authored geometry before animation. Paths, circles,
+arcs, rects, ellipses, polygons, stars, triangles, contours, images, text and
+layout boxes contribute their geometric bounds. A container target recursively
+unions descendant geometry after each descendant's authored rest transform is
+mapped into the target's local space; structural nodes with no drawing geometry
+contribute no box. Stroke width is never included. Browser builds that use a
+non-default `copyTransform.origin` must install the optional heavy `rig-origin`
+entry; otherwise loading reports `rig-origin` at the origin field with a repair
+hint.
+
+Distance constraints measure between world pivots and preserve the host's
+rotation, scale and shear. Within enforces a maximum radius, beyond a minimum,
+and exact the ring. A point already allowed is unchanged; a coincident point
+needing a nonzero radius moves along world +X. Strength uses the same transform
+blend as every other constraint. Distance is in grid units.
+
+### Rig stage and extension contract
+
+After bindings, clamp and layout, solve nodes in a dependency order computed
+once at load: parents and targets before hosts; a solver's declared additional
+writes before their other descendants. Add constraints in authored order; a
+cycle is `rig-cycle` at the constraint closing it, with a hint to move its target
+outside the constrained subtree. No dirty-restart loop runs (D2, D15;
+`docs/research/rive-format-and-graph.md` §3 and
+`docs/research/rive-animation-and-state.md` §2.3).
+
+Each pass starts from the layout-adjusted authored local values. It publishes
+per-player local matrices for rendering, hits, accessibility and pointer mapping.
+A pose pad reads that first solved result via `Model.rigPose(player)`; returning
+true performs exactly one more pass, with freshly posed values. Unchanged values
+and layout matrices skip the first solve, retaining its previous solved result;
+the pose callback may still request its second pass. Layout/guards never read
+same-step pose outputs. Rigging does not keep a settled player awake.
+
+`modules/rig/core/api.ts` exposes `registerConstraint({kind, shape, targets,
+writes?, solve})` and `RigContext`. Independently bundled modules register through
+the active rig module's `registerConstraint` during `init`. `world`/`rest` use
+bone start frames for bones and grid matrices for ordinary nodes; `position`
+returns the world pivot. `setWorld` publishes a solver's declared writes;
+`num(node,k,key,fallback)` reads current constraint slots. Solvers return a desired
+host matrix for central strength blending, or explicitly blend multiple writes
+through `ctx.blend`. Each player owns its solved frames and local overrides.
+
+Snapshots and `expect` select derived, read-only
+`<id>.world.x|y|rotate|scaleX|scaleY` and `<bone>.tip.x|y`.
+They are not animation destinations, binding destinations, or guard operands.
+
+### Evidence by capability
+
+<!-- capability: rigging.bone-chains -->
+Independent numeric evidence: `spec/conformance/rigging-bone-chains/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-bone-chains/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.root-bones -->
+Independent numeric evidence: `spec/conformance/rigging-root-bones/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-root-bones/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.constraint-order -->
+Independent numeric evidence: `spec/conformance/rigging-constraint-order/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-constraint-order/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.constraint-strength -->
+Independent numeric evidence: `spec/conformance/rigging-constraint-strength/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-constraint-strength/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.translation -->
+Independent numeric evidence: `spec/conformance/rigging-translation/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-translation/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.rotation -->
+Independent numeric evidence: `spec/conformance/rigging-rotation/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-rotation/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.scale -->
+Independent numeric evidence: `spec/conformance/rigging-scale/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-scale/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.transform -->
+Independent numeric evidence: `spec/conformance/rigging-transform/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-transform/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-closer -->
+Independent numeric evidence: `spec/conformance/rigging-distance-closer/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-closer/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-further -->
+Independent numeric evidence: `spec/conformance/rigging-distance-further/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-further/`; a pending marker is not a parity pass.
+
+<!-- capability: rigging.distance-exact -->
+Independent numeric evidence: `spec/conformance/rigging-distance-exact/` (0, 0.5, 1 s).
+Oracle capture/integration: `tests/oracle/rigging-distance-exact/`; a pending marker is not a parity pass.
+
+## posepad
+
+<!-- capability: rigging.joystick -->
+<!-- capability: animation.joystick-two-axis -->
+<!-- capability: animation.joystick-invert -->
+<!-- capability: animation.joystick-handle -->
+
+`requires: ["posepad"]` enables `type: "posepad"`, AniML `<posepad>`. It draws nothing
+and has no hit area. The identical lowercase node name follows the existing node registry;
+no node-name alias or markup compiler extension is needed (P8 orchestrator decision).
+
+| JSON | AniML | Meaning |
+|---|---|---|
+| `timelineX`, `timelineY` | `timeline-x`, `timeline-y` | Optional declared timeline names |
+| `valueX`, `valueY` | `value-x`, `value-y` | Numbers, default 0, clamped to −1..1; animatable/bindable |
+| `invertX`, `invertY` | `invert-x`, `invert-y` | Static booleans, default false |
+| `handle` | `handle` | Optional node id; declares the optional handle entry requirement |
+| `box` | `box` | `[x0, y0, width, height]` in pad coordinates, positive width/height |
+
+After layout, pads run in authored node order, X before Y. Clamp control v to −1..1,
+negate when its axis is inverted, then sample at `(v + 1) / 2 * timeline.duration`.
+Sampling uses the active registry's track sampler (§5), including typed tracks, custom
+eases and per-player data key values. Loop/work-area/playback controls do not change this
+whole-duration mapping. Pad sampling never plays clocks or emits timeline events.
+
+Sampled tracks form a per-player overlay above layers and bindings. Clamp numeric results
+to each target property's registry range; later axes/pads win collisions. `prop`, `num`,
+`value`, `values()` and snapshots expose the overlay. It does not mutate model rest values,
+tracks or another player's state. Layout sees the previous step's overlay; guards never
+read same-step posed output. Drawing revisions are invalidated for sampled target nodes.
+A pad introduces no ongoing clock and does not prevent settling.
+
+A handle requires the optional heavy `@anima-format/web/posepad-handle` entry in addition
+to `@anima-format/web/posepad`. Declaring `handle` without that entry reports `posepad-handle`
+at the handle field, with an import hint (verbose builds); it never silently poses freely.
+Tooling includes handle support. A handle also requires `box`. Read the handle's current
+world pivot (including motion's animated pivot), map it through the inverse pad world matrix,
+then derive `valueX = clamp(2*(hx-x0)/width-1, -1, 1)` and similarly for Y. These outputs
+are uninverted; inversion affects sampling only. A singular pad matrix yields centered outputs.
+Both outputs are included in snapshots even when no track references them. Animate or bind
+the handle, not these outputs. Pointer drags use the input/bind modules' existing queued writes.
+
+With `rig`, chain `model.rigPose` between its solve passes, returning true when the pad wrote;
+rig solves again exactly once. Without rig, chain a standalone `afterStep` stage after layout
+and read `p.world`. The distance-gated handle conformance probe remains pending until rig lands.
+
+Diagnostics: `posepad-timeline` at `/nodes/…/timelineX|timelineY` names an unknown timeline;
+`posepad-handle` at `/nodes/…/handle` means an unknown handle or missing handle entry;
+`posepad-box` at `/nodes/…/box` means the required box is absent. Structural box errors use
+`bad-type` or `bad-value` at the offending field/coordinate. `posepad-output` points
+at a bind, track or state-pose write to a handle-driven value. `posepad-cycle` at the pad's
+axis timeline rejects a write to its handle, any handle ancestor, any transitive constraint
+target (and its ancestors), or its own coordinate frame/ancestors. These restrictions keep
+the bounded solve/pose/solve order independent of a dirt-restart loop.
+
+Design rationale: [animation/state research](../docs/research/rive-animation-and-state.md) §2.3
+and [format/graph research](../docs/research/rive-format-and-graph.md) §3.2–3.4 describe update
+restarts; this explicit stage retains deterministic step order. No Rive source or binary format
+is used. Native oracle captures await orchestrator-owned budgets and remain pending evidence.
+
+## ik
+
+<!-- capability: rigging.ik -->
+### Inverse kinematics
+
+The optional `ik` module registers the `ik` constraint kind with `rig`. In JSON an IK constraint is
+an item in a bone's `constraints` array:
+
+```json
+{"kind":"ik","target":"aim","bones":2,"bend":"cw","strength":1}
+```
+
+AniML writes the same object as a child element:
+
+```xml
+<ik target="aim" bones="2" bend="cw" strength="1"/>
+```
+
+`target` is a required node id and the target point is that node's world pivot. `bones` is a static
+integer of at least 1, defaults to 1, and counts the entire solved chain including the bone carrying
+the constraint. Thus `bones=1` aims only the host bone and `bones=2` solves the host plus its parent.
+This intentionally differs from Rive's parent-count field. `strength` is the common rig constraint
+strength: it is animatable and bindable at `<bone>.constraints.<k>.strength`, defaults to 1, and is
+clamped to 0..1. `target`, `bones`, and `bend` are structural fields.
+
+The solve uses scaled world-space bone lengths and never changes a length. For one bone, the bone's
+direction aims from its start toward the target. For two bones, an analytic law-of-cosines solve
+places the joint on the selected bend side. When the target is farther away than the sum of the
+chain lengths, every bone straightens toward the target. A target coincident with the chain start
+leaves the current pose unchanged.
+
+For chains longer than two bones, Anima independently reimplements the multi-link strategy in
+Rive's MIT runtime `src/constraints/ik_constraint.cpp`: in FK order, each of the first `n-1` links
+performs one analytic two-link solve against the final tip, with the downstream subchain rotated as
+a rigid remainder. The iteration count is therefore fixed by the chain length (`n-1`) and has no
+convergence test or early exit. No Rive source text or binary format is used. This choice fixes the
+otherwise non-unique multi-link solution while keeping results deterministic across runtimes.
+
+The IK kind declares every solved ancestor bone through `writes()`, so rig dependency ordering runs
+the target first and the chain's descendants after the rewritten bones. The solver executes in the
+normal rig stage described in `## rig`. IK strength mixes only each chain bone's local rotation from
+its unconstrained value toward the fully solved value, using the shortest angular arc. The chain is
+then rebuilt in parent-to-child order from those mixed local rotations, so every child start remains
+at its parent's tip for every strength from 0 through 1. Bone lengths, local scale and local
+translation are unchanged. Strength 0 is the unconstrained pose and strength 1 is the full IK solve.
+
+Validation adds two IK-specific errors in addition to rig's shared `rig-target` for an unknown
+target. `rig-ik-host` points at `/nodes/.../constraints/<k>` when `ik` is attached to a non-bone and
+hints to move it to the chain tip. `rig-ik-chain` points at the constraint's `/bones` field when the
+requested count is longer than the available parent-bone chain and hints to reduce the count or add
+parent bones. Using an IK constraint without declaring `ik` in `requires` is `undeclared-feature`.
+`anima schema ik` exposes `target`, `bones`, `bend`, and `strength` through the registered AniML
+element descriptor.
+
+
+<!-- capability: rigging.ik-bend -->
+### IK bend direction
+
+`bend` is `cw` (the default) or `ccw`. For an unmirrored chain, `cw` places the two-link joint on
+the screen-clockwise side of the directed line from the chain start to the target; `ccw` selects the
+opposite analytic solution. A negative-determinant ancestor mirrors that side so authored bend
+direction follows the mirrored chain. The same side choice is used for each deterministic pair solve
+in a chain longer than two bones.
+
+## pathfollow
+
+The optional `pathfollow` module extends rig constraints with normalized outline following. Documents
+using these constraints declare both `rig` and `pathfollow` in `requires`. Path measurement is an
+internal runtime detail of this module; it does not add public APIs.
+
+<!-- capability: rigging.follow-path -->
+### Follow path constraint
+
+JSON `{"kind":"alongPath","path":"track",...}` and AniML `<along-path path="track" .../>` place
+the constrained node's pivot on the target outline. `path` is required and names a measurable
+`path`, `contour`, `circle`, `rect`, or `arc`. `at` is an animatable normalized distance and defaults
+to 0. Open outlines clamp `at` to 0..1. Closed outlines wrap it modulo 1, so 1 and 0 name the same
+point and values outside the interval continue around the outline. `orient` defaults to false; when
+true, the constrained node's world rotation becomes the sampled tangent angle, with 0 degrees along
++x. `offset` defaults to false; when true, the node's animated translation away from its authored
+rest translation is added after path placement. The inherited rig `strength` field defaults to 1 and
+blends the old and desired world transforms.
+
+The target is a rig dependency and is measured in its current resolved local geometry, then its world
+transform is applied to the sampled point and tangent. Path data includes current morph values.
+Measurement uses the same cubic subdivision as `Shared outline lengths`: absolute segments, arc
+conversion into at-most-90-degree cubic pieces, recursive de Casteljau subdivision at t=0.5 until
+control-polygon length minus chord is at most 0.0001 grid units or depth 20, and the mean of polygon
+and chord for each accepted piece. The cumulative table supplies both arc-length position and tangent.
+Circles, arcs and rounded rectangles follow their equivalent outline geometry. A skinned target is a
+known limitation: following uses its undeformed outline rather than the deformed skin result.
+
+If `path` resolves to a node that is not measurable, loading reports `rig-path-target` at the exact
+constraint `/path` field, with a message that the target is not a measurable shape and a hint to use
+a path, contour, circle, rect or arc. Unknown ids continue to use rig's normal target diagnostic.
+Constraint fields are addressable as `<node>.constraints.<k>.<field>` and participate in the normal
+rig solve order.
+
+<!-- capability: rigging.list-follow-path -->
+### List follow-path constraint
+
+JSON `{"kind":"spreadAlongPath","path":"track",...}` and AniML `<spread-along-path
+path="track" .../>` distribute the constrained node's direct children along an outline. On a
+`repeat`, the same rule applies to its live reconciled items after list reconciliation. `start`,
+`end`, and `shift` are animatable normalized distances with defaults 0, 1, and 0. For child index
+`k` among `n` children, the sampled fraction is
+`start + (end - start) * k / max(n - 1, 1) + shift`. Therefore a single child uses `start + shift`.
+Open outlines clamp each resulting fraction and closed outlines wrap it by the same rule as
+`alongPath`. `orient` defaults to false and applies the sampled tangent rotation independently to
+each child. The inherited `strength` field blends each child's current and desired world transform.
+
+A changing repeat count immediately recomputes all item fractions without rebuilding rig solve order.
+`spreadAlongPath` uses the same measurable-target set, `rig-path-target` diagnostic, private
+measurement table, transform handling, and undeformed-skinned-target limitation as `alongPath`.
+
+## skin
+
+The optional `skin` module deforms authored geometry from bone rest frames. Documents using it declare
+`skin` and `rig` in `requires`, plus the ordinary feature modules needed by the host geometry. A
+`skin` is valid on a `path` backed by inline `d` or a glyph, a `contour`, or an `image` that also has
+a `mesh`. Any other host reports `rig-skin-host` at the node's `/skin` pointer with a hint to move the
+skin to supported geometry. A path whose `d` is animated or posed while skinned reports
+`rig-skin-morph`; bone animation is the supported way to deform a skinned path.
+
+<!-- capability: rigging.skin -->
+### Bind-pose skinning
+
+JSON authors `skin: {"bones":[ids], "weights"?: [...]}`. AniML authors the same object structurally:
+`<skin bones="upper fore" weights='[...]'/>` as a child of the host node. `bones` is a
+whitespace-separated list; `weights`, when present, is one JSON array. The compiler and decompiler
+round-trip this child form through the registry. Bone ids must name bone nodes. An unknown id, a
+non-bone id, or an explicit influence that is not listed in `skin.bones` reports `rig-weight-bone`
+with the precise bone or influence pointer and a repair hint.
+
+Binding uses the bones' document rest frames. No bind matrices are authored. For a node-local rest
+point `p`, let `W0` be the node's rest-world transform and let `Bi(rest)` and `Bi(now)` be a bone's
+rest and solved world transforms. Each bone contributes `Di = Bi(now) · Bi(rest)^-1`; `@rest`
+contributes identity. The deformed local point is
+`p' = W0^-1 · Σ_i wi · Di · W0 · p`. A non-invertible rest transform leaves the source point
+unchanged. The host draw transform remains its rest-world transform, so animated transforms on the
+skinned node and its ancestors do not add a second motion source and stroke width follows rest scale.
+
+Path points are every M/L/C endpoint in order; Z adds no point. For a cubic, the first control is the
+previous anchor's `out` handle and the second control is the current anchor's `in` handle. Contour
+points are vertices; their handles deform before contour rounding is reconstructed. Mesh points are
+every mesh vertex. `draw.frame` publishes the deformed path/contour geometry, while meshed images use
+the `Player.skinPoints(node, xy)` seam before mesh points are published. Paint outline queries use the
+deformed path or contour, so pointer hit testing, semantic bounds, trims, and relative dashes observe
+the deformed outline rather than the bind outline.
+
+The read-only derived address `<node>.skin.point.<k>` returns the deformed anchor/vertex in world
+coordinates. It is a snapshot/conformance output, not an authored animation target.
+
+<!-- capability: rigging.weights -->
+### Vertex bone weights
+
+With explicit weights, `weights` has exactly one entry per path anchor, contour vertex, or mesh
+vertex. Each entry has `point`, an influence map from a bone id or `@rest` to a number in 0..1.
+Influence maps may contain at most four entries; more report `rig-weight-count` with a hint to keep at
+most four. A sum differing from 1 by more than 1e-6 reports `rig-weight-sum` as a warning and the
+runtime normalizes the map. A non-positive sum resolves to a full `@rest` influence after the warning.
+
+When `weights` is absent, the loader computes deterministic automatic weights independently for each
+anchor and handle. It measures world-space distance from the rest point to every listed bone segment
+from bone start to its authored `length`, chooses the two nearest segments, assigns each
+`1 / (d + 0.001)^2`, and normalizes the two values. With one listed bone, that bone receives weight 1.
+The result is cached per player/rest geometry and does not change as the bones animate.
+
+<!-- capability: rigging.cubic-weights -->
+### Independent handle weights
+
+An explicit weight entry may use `{ "point": {...}, "in": {...}, "out": {...} }`. `point` is
+required. `in` and `out` are independently validated and normalized by the same count, sum, and bone
+rules. If either handle map is omitted, that handle inherits its anchor's `point` map. This lets cubic
+handles bend independently while preserving the simpler anchor-only spelling for ordinary paths.
+
+## scroll
+
+<!-- capability: rigging.scroll -->
+### Scroll rig constraint
+
+The optional `scroll` module extends rig with `scroll` and `scrollThumb` constraints. A `scroll`
+constraint is authored on the content node as `{kind:"scroll", viewport, axis, offsetX?, offsetY?,
+interactive?}`; AniML uses `<scroll viewport="…" axis="x|y|both" offset-x="…" offset-y="…"
+interactive="…"/>`. `viewport` is required, `axis` is `x`, `y` or `both`, offsets default to zero in
+grid units, and `interactive` defaults to true. The viewport extent is its layout box when it is a
+layout container, otherwise its rest local bounds. Content extent is the content node's layout box
+when present, otherwise the rest bounds of its subtree. Each enabled offset clamps to
+`[0, max(0, content - viewport)]` and translates the content by the negative clamped offset. A
+disabled axis resolves to zero.
+
+Offsets are ordinary bindable/animatable constraint addresses. Interactive offsets are per-player
+state. Pointer and scroll input only queue a proposed state; phase 1 of the next `Player.step` applies
+the queue before rig solving. A primary-button drag that starts inside the viewport adds the pointer
+delta on enabled axes. Wheel or trackpad input over the viewport adds its delta and is handled only
+when clamping permits an actual offset change, so the host may scroll normally at an end stop. If an
+`offsetX` or `offsetY` address is bound or animated in the current step, that authored value wins over
+interactive state for that axis. The derived read-only snapshot addresses `percentX` and `percentY`
+are the clamped offset divided by its content range, or zero when the range is zero. They are output
+addresses only and are not guard operands.
+
+`scrollThumb` is authored on a thumb node as `{kind:"scrollThumb", scroll, track, axis, resize?}` or
+`<scroll-thumb scroll="…" track="…" axis="x|y" resize="…"/>`. `scroll` names a content node carrying
+a `scroll` constraint and `track` names the track node. The thumb position follows the linked
+`percentX` or `percentY` across the available track travel. With `resize=true`, thumb length is
+`trackLength * viewportLength / contentLength`, clamped to the track and never smaller than the
+authored thumb length. Dragging the thumb maps pointer travel back to the linked offset.
+
+A missing or unmeasurable viewport is `scroll-viewport` at that constraint's `/viewport` pointer,
+with a hint to target a layout container or a node/subtree with rest geometry. An unknown
+`scrollThumb.scroll` target uses rig's `rig-target` diagnostic. Authors clip visible scrolling content
+explicitly with composite's `clip`; scrolling does not add an implicit clip. This capability has no
+physics, inertia, elastic overscroll, snapping, virtualization or infinite-scroll semantics.

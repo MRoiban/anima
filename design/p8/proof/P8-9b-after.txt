@@ -1,0 +1,20 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/p8-9b
+
+
+ Test Files  1 passed (1)
+      Tests  16 passed | 2614 skipped (2630)
+   Start at  19:13:00
+   Duration  24.89s (tests 82%, import 16%, transform 2%)
+
+$ npm run test:scope -- a11y canvas conformance --browser=chromium
+ Test Files  32 passed | 1 skipped (33)
+      Tests  3432 passed | 1322 skipped | 6 todo (4760)
+   Start at  19:10:39
+   Duration  288.12s (tests 71%, import 19%, transform 10%)
+
+$ npx vitest run modules/canvas/test/web/canvas.test.ts -t 'Firefox canvas'
+ Test Files  1 passed (1)
+      Tests  1315 passed | 1315 skipped (2630)
+   Start at  19:13:37
+   Duration  190.99s (tests 98%, import 1%)

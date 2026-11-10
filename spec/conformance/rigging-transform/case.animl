@@ -1,0 +1,43 @@
+<anima version="0.1" name="rigging-transform" grid="20" requires="rig bind">
+  <number name="u" default="0.25"/>
+  <number name="v" default="0.75"/>
+  <group id="sourceParent" x="3" y="4">
+    <rect id="target" x0="1" y0="2" width="4" height="2" x="2" y="1" fill="#888"/>
+  </group>
+  <group id="targetGroup" x="1" y="2">
+    <rect id="gLeft" x0="0" y0="0" width="2" height="2" fill="#888"/>
+    <rect id="gRight" x0="0" y0="0" width="3" height="4" x="5" y="1" fill="#888"/>
+  </group>
+  <group id="hostParent" x="8" y="3">
+    <group id="world">
+      <copy-transform from="target"/>
+      <circle id="worldArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="local">
+      <copy-transform from="target" from-space="local" to-space="local"/>
+      <circle id="localArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="origin">
+      <copy-transform from="target" origin="1 1"/>
+      <circle id="originArt" cx="0" cy="0" r="0.35" fill="#d97757"/>
+    </group>
+    <group id="animatedOrigin">
+      <copy-transform from="target" origin="0 0"/>
+    </group>
+    <group id="boundOrigin">
+      <copy-transform from="target"/>
+    </group>
+    <group id="groupOrigin">
+      <copy-transform from="targetGroup" origin="1 1"/>
+    </group>
+  </group>
+
+  <timeline name="go" duration="1">
+    <track target="target.x">0 2; 1 4</track>
+    <track target="animatedOrigin.constraints.0.origin">0 [0,0]; 1 [1,1]</track>
+  </timeline>
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+  <bind target="boundOrigin.constraints.0.origin" value="[u, v]"/>
+</anima>

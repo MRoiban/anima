@@ -1,0 +1,82 @@
+{
+  "anima": "0.1",
+  "name": "animation-joystick-invert",
+  "grid": 20,
+  "requires": ["posepad", "bind"],
+  "nodes": [
+    {
+      "id": "eyeX",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "padX",
+      "type": "posepad",
+      "timelineX": "xX",
+      "timelineY": "yX",
+      "invertX": true,
+      "valueX": 0.25,
+      "valueY": -0.5
+    },
+    {
+      "id": "eyeY",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "padY",
+      "type": "posepad",
+      "timelineX": "xY",
+      "timelineY": "yY",
+      "invertY": true,
+      "valueX": 0.25,
+      "valueY": -0.5
+    }
+  ],
+  "timelines": {
+    "xX": {
+      "duration": 2,
+      "tracks": {
+        "eyeX.x": [
+          [0, -4],
+          [2, 4]
+        ]
+      }
+    },
+    "yX": {
+      "duration": 4,
+      "tracks": {
+        "eyeX.y": [
+          [0, -8],
+          [4, 8]
+        ]
+      }
+    },
+    "xY": {
+      "duration": 2,
+      "tracks": {
+        "eyeY.x": [
+          [0, -4],
+          [2, 4]
+        ]
+      }
+    },
+    "yY": {
+      "duration": 4,
+      "tracks": {
+        "eyeY.y": [
+          [0, -8],
+          [4, 8]
+        ]
+      }
+    }
+  }
+}

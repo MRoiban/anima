@@ -1,0 +1,6 @@
+advance 0
+snapshot inside.world.x inside.world.y outside.world.x outside.world.y ring.world.x ring.world.y coincident.world.x coincident.world.y
+advance 0.5
+snapshot inside.world.x inside.world.y outside.world.x outside.world.y ring.world.x ring.world.y coincident.world.x coincident.world.y
+advance 0.5
+snapshot inside.world.x inside.world.y outside.world.x outside.world.y ring.world.x ring.world.y coincident.world.x coincident.world.y

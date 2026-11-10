@@ -12414,5 +12414,740 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-joystick",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-two-axis",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-invert",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-mesh",
+    "threshold": 16,
+    "maxOverPercent": 0.4,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 53,
+        "over": 192,
+        "overPercent": 0.3333333333333333,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-mesh-animation",
+    "threshold": 16,
+    "maxOverPercent": 0.45,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 73,
+        "over": 156,
+        "overPercent": 0.2708333333333333,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 81,
+        "over": 230,
+        "overPercent": 0.3993055555555556,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 82,
+        "over": 225,
+        "overPercent": 0.390625,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 73,
+        "over": 156,
+        "overPercent": 0.2708333333333333,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-constraint-order",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-closer",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-exact",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-distance-further",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-scale",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-translation",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-bone-chains",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 52,
+        "over": 17,
+        "overPercent": 0.029513888888888888,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 42,
+        "over": 23,
+        "overPercent": 0.03993055555555555,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-root-bones",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 32,
+        "over": 20,
+        "overPercent": 0.034722222222222224,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 43,
+        "over": 25,
+        "overPercent": 0.043402777777777776,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-rotation",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-transform",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 50,
+        "overPercent": 0.08680555555555555,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-ik",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 52,
+        "over": 89,
+        "overPercent": 0.1545138888888889,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 101,
+        "overPercent": 0.1753472222222222,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 42,
+        "over": 80,
+        "overPercent": 0.1388888888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-ik-bend",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 45,
+        "over": 127,
+        "overPercent": 0.2204861111111111,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 53,
+        "over": 124,
+        "overPercent": 0.2152777777777778,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 59,
+        "over": 126,
+        "overPercent": 0.21875,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-follow-path",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 60,
+        "over": 18,
+        "overPercent": 0.03125,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 30,
+        "over": 31,
+        "overPercent": 0.05381944444444445,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 60,
+        "over": 33,
+        "overPercent": 0.057291666666666664,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-skin",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 22,
+        "over": 100,
+        "overPercent": 0.1736111111111111,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-weights",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 61,
+        "overPercent": 0.10590277777777778,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 22,
+        "over": 71,
+        "overPercent": 0.1232638888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-cubic-weights",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 42,
+        "over": 2,
+        "overPercent": 0.003472222222222222,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 52,
+        "over": 17,
+        "overPercent": 0.029513888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-joystick-handle",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-scroll",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rigging-ik-strength",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 42,
+        "over": 72,
+        "overPercent": 0.125,
+        "pass": true
+      }
+    ]
   }
 ]

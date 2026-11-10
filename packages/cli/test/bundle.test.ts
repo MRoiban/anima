@@ -80,6 +80,11 @@ async function render(scripts: string[]) {
       '<anima-icon style="display:block;width:100px;height:100px"></anima-icon>',
     );
     for (const content of scripts) await page.addScriptTag({ type: 'module', content });
+    // Inline module scripts may run after insertion: wait for their registrations (CI flake on PR #43).
+    await page.waitForFunction(() => {
+      const icon = customElements.get('anima-icon') as typeof AnimaIcon | undefined;
+      return ['paint', 'bind'].every((name) => icon?.modules.has(name));
+    });
     return await page.evaluate(async () => {
       const modules = [...(customElements.get('anima-icon') as typeof AnimaIcon).modules.keys()];
       const icon = document.querySelector('anima-icon')!;
@@ -110,7 +115,10 @@ async function render(scripts: string[]) {
         ],
         bind: { 'circle.r': 'radius' },
       });
-      await icon.ready;
+      // seam(P8-1): retain loader diagnostics when independent bundles fail.
+      await icon.ready.catch((diagnostics: unknown) => {
+        throw Error(JSON.stringify(diagnostics));
+      });
       await new Promise<void>((resolve) =>
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       );

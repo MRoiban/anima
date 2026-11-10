@@ -1,0 +1,21 @@
+{
+  "status": "skip",
+  "rows": ["a11y.tree-bounds"],
+  "reason": "The native semantic rectangle is logical and omits painted stroke support, as the existing P7-8 linear-control capture proves. It is not an oracle for Anima's specified clip/mask/trim/fixed-stroke/feather painted boxes. Dash uses conservative undashed bounds and text uses logical line boxes by D32. Independent semantic conformance and Chromium/Firefox overlays verify the shared calculator; no native-equivalence or pixel-budget claim is made.",
+  "captureEvidence": [
+    "tests/oracle/p7-8-semantic-bounds/README.md",
+    "modules/a11y/oracle/text/README.md"
+  ],
+  "tests": [
+    "modules/a11y/test/core/painted-extents.test.ts",
+    "modules/a11y/test/web/painted-extents.test.ts",
+    "spec/conformance/a11y-tree-bounds-clip",
+    "spec/conformance/a11y-tree-bounds-mask",
+    "spec/conformance/a11y-tree-bounds-trim",
+    "spec/conformance/a11y-tree-bounds-trim-wrap",
+    "spec/conformance/a11y-tree-bounds-fixed",
+    "spec/conformance/a11y-tree-bounds-feather",
+    "spec/conformance/a11y-tree-bounds-dash",
+    "spec/conformance/a11y-tree-bounds-text"
+  ]
+}

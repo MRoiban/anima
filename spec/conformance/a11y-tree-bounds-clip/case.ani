@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "bounds-clip",
+  "grid": 100,
+  "requires": ["a11y", "composite"],
+  "nodes": [
+    {
+      "id": "clipped",
+      "type": "group",
+      "x": 5,
+      "children": [
+        {
+          "id": "target",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 20,
+          "h": 10,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "img"
+          }
+        }
+      ],
+      "clip": {
+        "source": "edge"
+      },
+      "a11y": {
+        "role": "group"
+      }
+    },
+    {
+      "id": "edge",
+      "type": "rect",
+      "x0": 0,
+      "y0": 5,
+      "w": 5,
+      "h": 20,
+      "x": 10,
+      "visible": false,
+      "stroke": {
+        "color": "#000",
+        "width": 10
+      }
+    }
+  ]
+}

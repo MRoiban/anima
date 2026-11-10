@@ -1,0 +1,143 @@
+{
+  "anima": "0.1",
+  "name": "rigging-rotation",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "sourceParent",
+      "type": "group",
+      "rotate": 30,
+      "children": [
+        {
+          "id": "target",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "rotate": 10,
+          "children": [
+            {
+              "id": "targetArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hostParent",
+      "type": "group",
+      "rotate": 20,
+      "children": [
+        {
+          "id": "local",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "rotate": 5,
+          "children": [
+            {
+              "id": "localArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyRotation",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local",
+              "offset": true,
+              "factor": -2,
+              "min": -45,
+              "max": 0
+            }
+          ]
+        },
+        {
+          "id": "world",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "worldArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyRotation",
+              "from": "target",
+              "max": 50
+            }
+          ]
+        },
+        {
+          "id": "limitLocal",
+          "type": "group",
+          "x": 0,
+          "y": 0,
+          "children": [
+            {
+              "id": "limitLocalArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyRotation",
+              "from": "target",
+              "limitSpace": "local",
+              "min": -10,
+              "max": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.rotate": [
+          [0, 10],
+          [1, 30]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

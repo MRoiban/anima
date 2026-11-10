@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import { clone } from './types.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { Value } from '../../../packages/core/src/load.ts';
@@ -119,4 +120,4 @@ export function inputFor(
   };
 }
 export const printable = (v: Value): number | string | boolean =>
-  Array.isArray(v) ? formatHex(v) : v;
+  Array.isArray(v) ? formatHex(v as [number, number, number, number]) : v;

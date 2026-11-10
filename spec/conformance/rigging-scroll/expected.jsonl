@@ -1,0 +1,7 @@
+{"time":0,"values":{"content.world.y":0,"content.constraints.0.percentY":0,"thumb.world.y":0,"thumb.world.scaleY":2,"boundContent.world.y":-4,"boundContent.constraints.0.percentY":0.2},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"content.world.y":-5,"content.constraints.0.percentY":0.25,"thumb.world.y":2,"thumb.world.scaleY":2},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"content.world.y":-20,"content.constraints.0.percentY":1,"thumb.world.y":8,"thumb.world.scaleY":2},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"content.world.y":-20,"content.constraints.0.percentY":1},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"content.world.y":-10,"content.constraints.0.percentY":0.5,"thumb.world.y":4,"thumb.world.scaleY":2},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"boundContent.world.y":-20,"boundContent.constraints.0.percentY":1},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"boundContent.world.y":-5,"boundContent.constraints.0.percentY":0.25},"states":{},"events":[],"settled":true}

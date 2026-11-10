@@ -1,0 +1,6 @@
+advance 0
+snapshot local.world.rotate local.world.scaleX local.world.scaleY world.world.scaleX world.world.scaleY limited.world.scaleX
+advance 0.5
+snapshot local.world.rotate local.world.scaleX local.world.scaleY world.world.scaleX world.world.scaleY limited.world.scaleX
+advance 0.5
+snapshot local.world.rotate local.world.scaleX local.world.scaleY world.world.scaleX world.world.scaleY limited.world.scaleX

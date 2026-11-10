@@ -38,6 +38,8 @@ export type Attrs = Record<string, string | null>;
 
 export type SVGRenderer = (frame: DrawFrame, el: El, paint: Paint, id: string) => Attrs;
 export interface SVGBackend {
+  // seam(P8-5): tooling-only backend validation; retained DOM never calls this.
+  checkStatic?(player: Player): void;
   tree?(draw: DrawTree, tree: { root: El[]; defs: El[] }): void;
   attrs?(
     frame: DrawFrame,
@@ -232,6 +234,8 @@ export function toSVG(
     staticLengths?: boolean;
   } = {},
 ): string {
+  // seam(P8-5): optional static-export diagnostics stay outside browser draw paths.
+  for (const backend of svgBackends.values()) backend.checkStatic?.(p);
   const paint = opts.paint ?? staticSlots();
   const id = opts.id ?? 'a';
   const { root, defs } = sceneTree(p.model);

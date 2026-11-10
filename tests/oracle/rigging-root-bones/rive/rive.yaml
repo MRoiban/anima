@@ -1,0 +1,4 @@
+name: oracle-rigging-root-bones
+logs:
+  file: build/rive.log
+  problems: build/problems.log

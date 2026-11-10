@@ -136,7 +136,14 @@ export const geometry: Module = {
     return value;
   },
   interpolate(a, b, w) {
-    if (typeof a !== 'string' || typeof b !== 'string') return;
+    // seam(P8-1): string-valued module slots are not necessarily SVG paths (rig origin tuples).
+    if (
+      typeof a !== 'string' ||
+      typeof b !== 'string' ||
+      !/^\s*[mM]/.test(a) ||
+      !/^\s*[mM]/.test(b)
+    )
+      return;
     const aa = segments(a),
       bb = segments(b);
     return aa
@@ -156,6 +163,11 @@ export const geometry: Module = {
   },
   outline(p, i) {
     const n = p.model.nodes[i]!;
+    // seam(P8-4): hits consume the final skinned draw geometry when present.
+    if (n.raw.skin) {
+      const d = p.hitFrame?.().nodes[i]?.geometry?.d;
+      return d ? flatten(parsePath(d)) : undefined;
+    }
     if (
       !entries.some((e) => e.node && e.target === n.type) &&
       // seam(P7-2): another module may own corners on its own node type.

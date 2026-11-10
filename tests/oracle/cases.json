@@ -3490,5 +3490,180 @@
     "scripts": {
       "1": "set $size 5\nadvance 0"
     }
+  },
+  {
+    "name": "rigging-joystick",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animation-joystick-two-axis",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animation-joystick-invert",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-mesh",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 70,
+    "maxOverPercent": 0.4
+  },
+  {
+    "name": "rigging-mesh-animation",
+    "times": [0, 0.25, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 100,
+    "maxOverPercent": 0.45
+  },
+  {
+    "name": "rigging-constraint-order",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-constraint-strength",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-distance-closer",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-distance-exact",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-distance-further",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-scale",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-translation",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-bone-chains",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "rigging-root-bones",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "rigging-rotation",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "rigging-transform",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "rigging-ik",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "rigging-ik-bend",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "rigging-follow-path",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "rigging-skin",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "rigging-weights",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "rigging-cubic-weights",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "animation-joystick-handle",
+    "times": [0, 0.25, 0.5, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-scroll",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-ik-strength",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
   }
 ]

@@ -1,0 +1,6 @@
+advance 0
+snapshot local.world.rotate world.world.rotate limitLocal.world.rotate
+advance 0.5
+snapshot local.world.rotate world.world.rotate limitLocal.world.rotate
+advance 0.5
+snapshot local.world.rotate world.world.rotate limitLocal.world.rotate

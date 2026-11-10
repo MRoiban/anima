@@ -1,0 +1,99 @@
+{
+  "anima": "0.1",
+  "name": "rigging-follow-path-oracle",
+  "grid": 20,
+  "requires": ["rig", "pathfollow"],
+  "nodes": [
+    {
+      "id": "curve",
+      "type": "path",
+      "d": "M3 15C12.5 15 14 5 17 5",
+      "opacity": 0,
+      "stroke": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "closed",
+      "type": "path",
+      "d": "M3 2.5L7 2.5L7 6.5L3 6.5Z",
+      "opacity": 0,
+      "stroke": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "marker",
+      "type": "group",
+      "children": [
+        {
+          "id": "art",
+          "type": "rect",
+          "x0": -1,
+          "y0": -0.5,
+          "w": 2,
+          "h": 1,
+          "fill": {
+            "color": "#111827"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "curve",
+          "at": 0,
+          "orient": true
+        }
+      ]
+    },
+    {
+      "id": "wrapped",
+      "type": "group",
+      "children": [
+        {
+          "id": "wrap-art",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#2563eb"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "alongPath",
+          "path": "closed",
+          "at": 1.25,
+          "orient": true
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "drive": {
+      "duration": 1,
+      "tracks": {
+        "marker.constraints.0.at": [
+          [0, 0],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "drive",
+        "states": {
+          "drive": {
+            "play": "drive"
+          }
+        }
+      }
+    }
+  }
+}

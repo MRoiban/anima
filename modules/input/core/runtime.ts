@@ -71,7 +71,9 @@ export class InputController {
   private hits(l: InputListener, x: number, y: number): boolean {
     return this.eligible(l.target) && this.player.hits(l.action, x, y);
   }
-  /** Hit targets in reverse authored node order; an opaque target keeps its ancestor chain. */
+  private rank = (node: number): number => this.player.paintRank?.(node) ?? node;
+  private foremost = (a: number, b: number): number => this.rank(b) - this.rank(a);
+  /** Hit targets foremost first; an opaque target keeps its ancestor chain. */
   targets(x: number, y: number, options: HitOptions = {}): Set<number> {
     finite(x, y);
     const p = this.player,
@@ -92,18 +94,20 @@ export class InputController {
     const blockers = [...candidates.map((l) => l.target), ...extras.map((e) => e.target)].filter(
       (n) => n >= 0 && p.model.nodes[n]!.raw.opaque,
     );
-    const blocker = blockers.length ? Math.max(...blockers) : undefined;
+    const blocker = blockers.sort(this.foremost)[0];
     const accepts = (target: number) =>
-      blocker === undefined || target >= blocker || this.ancestor(target, blocker);
+      blocker === undefined ||
+      this.rank(target) >= this.rank(blocker) ||
+      this.ancestor(target, blocker);
     for (const l of candidates)
       if ((!options.scroll || l.on.includes('scroll')) && accepts(l.target)) out.add(l.target);
     if (!options.scroll) for (const e of extras) if (accepts(e.target)) out.add(e.target);
-    return out;
+    return new Set([...out].sort(this.foremost));
   }
   hitTest(x: number, y: number, options: HitOptions = {}): string[] {
-    return [...this.targets(x, y, options)]
-      .sort((a, b) => b - a)
-      .map((n) => (n < 0 ? '@icon' : this.player.model.nodes[n]!.id));
+    return [...this.targets(x, y, options)].map((n) =>
+      n < 0 ? '@icon' : this.player.model.nodes[n]!.id,
+    );
   }
   occludes(x: number, y: number, options: HitOptions = {}): boolean {
     return [...this.targets(x, y, { ...options, scroll: false })].some(
@@ -115,7 +119,7 @@ export class InputController {
   }
   get cursor(): Cursor | undefined {
     const over = new Set([...this.contacts.values()].flatMap((c) => [...c.over]));
-    for (const n of [...over].sort((a, b) => b - a)) {
+    for (const n of [...over].sort(this.foremost)) {
       const value = n >= 0 && this.player.model.nodes[n]!.raw.cursor;
       if (value) return value;
     }
@@ -146,10 +150,12 @@ export class InputController {
           : this.eligible(l.target)) &&
         filter(l),
     );
+    const pointer = this.player.paintRank && !/^(key|gamepad)-/.test(on);
     ls.sort(
       (a, b) =>
         Number(!!b.capture) - Number(!!a.capture) ||
         (a.capture ? a.depth - b.depth : b.depth - a.depth) ||
+        (pointer && !a.capture ? this.foremost(a.target, b.target) : 0) ||
         a.order - b.order,
     );
     let claimed = false;
@@ -239,7 +245,9 @@ export class InputController {
     for (const { node, player: child, matrix } of children) {
       const inv = invert(matrix);
       const valid =
-        inv && this.eligible(node) && !blockers.some((n) => n > node && !this.ancestor(n, node));
+        inv &&
+        this.eligible(node) &&
+        !blockers.some((n) => this.rank(n) > this.rank(node) && !this.ancestor(n, node));
       const [lx, ly] = inv ? apply(inv, x, y) : [0, 0];
       if (configurations.has(child.model.inputs))
         claimed = child.input().pointer(valid ? kind : 'cancel', lx, ly, opts) || claimed;
@@ -322,7 +330,10 @@ export class InputController {
         (node) =>
           this.eligible(node) &&
           ![...now].some(
-            (n) => n > node && this.player.model.nodes[n]!.raw.opaque && !this.ancestor(n, node),
+            (n) =>
+              this.rank(n) > this.rank(node) &&
+              this.player.model.nodes[n]!.raw.opaque &&
+              !this.ancestor(n, node),
           ),
       );
       c.startX = x;

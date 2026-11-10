@@ -1,0 +1,15 @@
+<anima version="0.1" name="rigging-mesh-animation" grid="20" requires="paint assets mesh bind">
+  <asset name="flag" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAHklEQVR4AWO8WR7+nwEPYGIgAFhinkgw4ANMDAQAALA7BAiJeuX5AAAAAElFTkSuQmCC"
+      width="8" height="4"/>
+  <bind target="flag.mesh.vertex.3" value="[x, max(5, y)]"/>
+  <number name="x" default="2"/>
+  <number name="y" default="12"/>
+  <image id="flag" asset="flag" x0="2" y0="5" mesh="{&quot;grid&quot;:[2,1]}" width="8" height="4"/>
+  <timeline name="wave" duration="1">
+    <track target="flag.mesh.vertex.2">0 "[10,5]"; 0.5 "[9.5,3.25]"; 1 "[10,5]"</track>
+  </timeline>
+  <layer name="main" initial="wave">
+    <state name="wave" play="wave"/>
+  </layer>
+</anima>

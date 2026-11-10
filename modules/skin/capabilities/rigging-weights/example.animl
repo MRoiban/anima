@@ -1,0 +1,37 @@
+<anima version="0.1" name="rigging-weights" grid="40" requires="paint rig skin">
+  <bone id="a" length="10"/>
+  <bone id="b" length="10" y="10"/>
+  <bone id="c" length="10" y="20"/>
+  <path id="one" d="M5 0L6 0" stroke="#000">
+    <skin bones="a" weights="[{&quot;point&quot;:{&quot;a&quot;:1}},{&quot;point&quot;:{&quot;a&quot;:1}}]"/>
+  </path>
+  <path id="two" d="M5 2L6 2" stroke="#000">
+    <skin bones="a" weights="[{&quot;point&quot;:{&quot;a&quot;:0.5,&quot;@rest&quot;:0.5}},{&quot;point&quot;:{&quot;a&quot;:0.5,&quot;@rest&quot;:0.5}}]"/>
+  </path>
+  <path id="four" d="M5 4L6 4" stroke="#000">
+    <skin bones="a b c"
+        weights="[{&quot;point&quot;:{&quot;a&quot;:0.25,&quot;b&quot;:0.25,&quot;c&quot;:0.25,&quot;@rest&quot;:0.25}},{&quot;point&quot;:{&quot;a&quot;:0.25,&quot;b&quot;:0.25,&quot;c&quot;:0.25,&quot;@rest&quot;:0.25}}]"/>
+  </path>
+  <path id="auto" d="M5 8L6 8" stroke="#000">
+    <skin bones="a b"/>
+  </path>
+
+  <timeline name="bend" duration="1">
+    <track target="a.rotate">
+      0  0
+      1  90
+    </track>
+    <track target="b.rotate">
+      0  0
+      1  -90
+    </track>
+    <track target="c.rotate">
+      0  0
+      1  180
+    </track>
+  </timeline>
+
+  <layer name="main" initial="bend">
+    <state name="bend" play="bend"/>
+  </layer>
+</anima>

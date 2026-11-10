@@ -59,6 +59,8 @@ export default {
       'input-gamepad-disconnected',
       'input-gamepad-host',
       'input-gamepad-index-mapping',
+      'input-hit-draw-order',
+      'input-focus-pointer-draw-order',
       'input-hit-occlusion-query',
       'input-hit-parent-chain',
       'input-hit-shape-geometry',

@@ -1,0 +1,153 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik-bend",
+  "grid": 20,
+  "requires": ["rig", "ik"],
+  "nodes": [
+    {
+      "id": "targetCw",
+      "type": "group",
+      "x": 10,
+      "y": 3,
+      "children": []
+    },
+    {
+      "id": "targetCcw",
+      "type": "group",
+      "x": 10,
+      "y": 13,
+      "children": []
+    },
+    {
+      "id": "upperCw",
+      "type": "bone",
+      "x": 4,
+      "y": 5,
+      "children": [
+        {
+          "id": "art1",
+          "type": "rect",
+          "x0": 4,
+          "y0": 4.75,
+          "w": 4,
+          "h": 0.5,
+          "fill": {
+            "color": "#4263eb"
+          }
+        },
+        {
+          "id": "foreCw",
+          "type": "bone",
+          "children": [
+            {
+              "id": "art2",
+              "type": "rect",
+              "x0": 8,
+              "y0": 4.75,
+              "w": 3.5,
+              "h": 0.5,
+              "fill": {
+                "color": "#4263eb"
+              }
+            }
+          ],
+          "length": 3.5,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "targetCw",
+              "bones": 2,
+              "bend": "cw"
+            }
+          ]
+        }
+      ],
+      "length": 4
+    },
+    {
+      "id": "upperCcw",
+      "type": "bone",
+      "x": 4,
+      "y": 15,
+      "children": [
+        {
+          "id": "art3",
+          "type": "rect",
+          "x0": 4,
+          "y0": 14.75,
+          "w": 4,
+          "h": 0.5,
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "foreCcw",
+          "type": "bone",
+          "children": [
+            {
+              "id": "art4",
+              "type": "rect",
+              "x0": 8,
+              "y0": 14.75,
+              "w": 3.5,
+              "h": 0.5,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "length": 3.5,
+          "constraints": [
+            {
+              "kind": "ik",
+              "target": "targetCcw",
+              "bones": 2,
+              "bend": "ccw"
+            }
+          ]
+        }
+      ],
+      "length": 4
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "targetCw.x": [
+          [0, 10],
+          [0.5, 4],
+          [1, 2]
+        ],
+        "targetCw.y": [
+          [0, 3],
+          [0.5, 10],
+          [1, 3]
+        ],
+        "targetCcw.x": [
+          [0, 10],
+          [0.5, 4],
+          [1, 2]
+        ],
+        "targetCcw.y": [
+          [0, 13],
+          [0.5, 20],
+          [1, 13]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

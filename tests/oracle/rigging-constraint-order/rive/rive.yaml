@@ -1,0 +1,4 @@
+name: oracle-rigging-constraint-order
+logs:
+  file: build/rive.log
+  problems: build/problems.log

@@ -93,7 +93,8 @@ export const bind: Module & {
           const source = raw.machine.layers[layer.name].states[state.name].time;
           if (source === undefined) continue;
           const pointer = ptr(ptr('/machine/layers', layer.name) + '/states', state.name) + '/time';
-          const run = bind.expression!(source, types, 'number', pointer, diag);
+          // seam(P8-5): use the composed module expression hook for point bindings.
+          const run = this.expression!(source, types, 'number', pointer, diag);
           if (run) (model.timeBindings ??= new Map()).set(state, run as (scope: unknown) => number);
         }
     // Property references are forbidden, including attempted cycles. Valid sources are inputs only.
@@ -136,7 +137,8 @@ export const bind: Module & {
           );
           continue;
         }
-        const run = bind.expression!(source, types, addr.prop.type, pointer, diag);
+        // seam(P8-5): use the composed module expression hook for point bindings.
+        const run = this.expression!(source, types, addr.prop.type, pointer, diag);
         if (run) {
           model.addrs.set(address, addr);
           (model.bindings ??= new Map()).set(address, run);

@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 // Loader: parse → structural check → resolve and validate → Model (spec §2 "Strictness").
 // Never partially loads: either a Model with no errors, or the diagnostics.
 
@@ -26,7 +27,7 @@ export const FORMAT_VERSION = '0.1';
 export { FEATURES } from './modules.ts';
 import { FEATURES, modules } from './modules.ts';
 
-export type Value = number | boolean | RGBA | string;
+export type Value = number | boolean | RGBA | [number, number] | string;
 type Json = Record<string, unknown>;
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- raw JSON after the structural check */

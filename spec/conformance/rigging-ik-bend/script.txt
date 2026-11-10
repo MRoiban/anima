@@ -1,0 +1,6 @@
+advance 0
+snapshot cwA.tip.x cwA.tip.y cwB.tip.x cwB.tip.y ccwA.tip.x ccwA.tip.y ccwB.tip.x ccwB.tip.y mirrorA.tip.x mirrorA.tip.y mirrorB.tip.x mirrorB.tip.y
+advance 0.5
+snapshot cwA.tip.x cwA.tip.y cwB.tip.x cwB.tip.y ccwA.tip.x ccwA.tip.y ccwB.tip.x ccwB.tip.y mirrorA.tip.x mirrorA.tip.y mirrorB.tip.x mirrorB.tip.y
+advance 0.5
+snapshot cwA.tip.x cwA.tip.y cwB.tip.x cwB.tip.y ccwA.tip.x ccwA.tip.y ccwB.tip.x ccwB.tip.y mirrorA.tip.x mirrorA.tip.y mirrorB.tip.x mirrorB.tip.y

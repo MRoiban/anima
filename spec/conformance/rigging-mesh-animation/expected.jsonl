@@ -1,0 +1,4 @@
+{"time":0,"values":{"flag.mesh.vertex.2":[10,5],"flag.mesh.vertex.3":[2,12]},"states":{"main":"wave"},"events":[],"settled":false}
+{"time":0.25,"values":{"flag.mesh.vertex.2":[9.75,4.125],"flag.mesh.vertex.3":[2,12]},"states":{"main":"wave"},"events":[],"settled":false}
+{"time":0.5,"values":{"flag.mesh.vertex.2":[9.5,3.25],"flag.mesh.vertex.3":[2,12]},"states":{"main":"wave"},"events":[],"settled":false}
+{"time":1,"values":{"flag.mesh.vertex.2":[10,5],"flag.mesh.vertex.3":[2,12]},"states":{"main":"wave"},"events":[],"settled":true}

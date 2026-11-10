@@ -1,0 +1,1 @@
+Independent native IK reference for the Anima `rigging-ik` probe. The RML uses native `IKConstraint` with `parentBoneCount=2`; rectangle art is authored in bone-local space. Capture with the repository oracle procedure.

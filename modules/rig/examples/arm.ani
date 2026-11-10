@@ -1,0 +1,120 @@
+{
+  "anima": "0.1",
+  "name": "rig-arm",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "upper",
+      "type": "bone",
+      "x": 4,
+      "y": 12,
+      "children": [
+        {
+          "id": "upperArt",
+          "type": "path",
+          "d": "M4 11.5H9V12.5H4Z",
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "fore",
+          "type": "bone",
+          "children": [
+            {
+              "id": "foreArt",
+              "type": "path",
+              "d": "M9 11.5H13V12.5H9Z",
+              "fill": {
+                "color": "#4263eb"
+              }
+            },
+            {
+              "id": "hand",
+              "type": "circle",
+              "center": [13, 12],
+              "r": 0.7,
+              "fill": {
+                "color": "#141413"
+              }
+            }
+          ],
+          "length": 4
+        }
+      ],
+      "length": 5
+    },
+    {
+      "id": "aim",
+      "type": "group",
+      "x": 15,
+      "y": 5,
+      "children": []
+    },
+    {
+      "id": "eye",
+      "type": "group",
+      "x": 15,
+      "y": 5,
+      "children": []
+    },
+    {
+      "id": "pupil",
+      "type": "group",
+      "x": 12,
+      "y": 5,
+      "children": [
+        {
+          "id": "pupilArt",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 0.5,
+          "fill": {
+            "color": "#141413"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "strength": 0.5,
+          "from": "aim"
+        },
+        {
+          "kind": "keepDistance",
+          "to": "eye",
+          "distance": 1
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "reach": {
+      "duration": 1,
+      "loop": "pingpong",
+      "tracks": {
+        "upper.rotate": [
+          [0, 0],
+          [1, -60]
+        ],
+        "fore.rotate": [
+          [0, 0],
+          [1, 35]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "motion": {
+        "initial": "reach",
+        "states": {
+          "reach": {
+            "play": "reach"
+          }
+        }
+      }
+    }
+  }
+}

@@ -68,50 +68,53 @@ function recover(root: Element): Obj {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
       o[k === 'export' && e.name === 'instance' ? 'exported' : k] =
-        (['entry', 'exit', 'actions', 'guard'].includes(k) && v.startsWith('{')) ||
-        (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
-          ? JSON.parse(v)
-          : [
-                'global',
-                'exported',
-                'export',
-                'public',
-                'default',
-                'min',
-                'max',
-                'buffer',
-                'duration',
-                'quantize',
-                'exit',
-                'exitFraction',
-                'speed',
-                'blend',
-                'interruptible',
-                'hold',
-                'sync',
-                'at',
-                'hitPadding',
-                'continue',
-                'disabled',
-                'reset',
-                'weight',
-                'exitRatio',
-                'blendRatio',
-                'button',
-                'capture',
-                'consume',
-                'propagate',
-                'index',
-                'control',
-              ].includes(k)
-            ? scalar(v)
-            : k === 'work'
-              ? vector(v)
-              : k === 'when'
-                ? v.replace(/\band\b/g, '&&')
-                : v.startsWith('{"') || v.startsWith('[')
-                  ? JSON.parse(v)
-                  : v;
+        // seam(P8-5): binding expressions remain text even when they start with '['.
+        e.name === 'bind' && k === 'value'
+          ? v
+          : (['entry', 'exit', 'actions', 'guard'].includes(k) && v.startsWith('{')) ||
+              (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
+            ? JSON.parse(v)
+            : [
+                  'global',
+                  'exported',
+                  'export',
+                  'public',
+                  'default',
+                  'min',
+                  'max',
+                  'buffer',
+                  'duration',
+                  'quantize',
+                  'exit',
+                  'exitFraction',
+                  'speed',
+                  'blend',
+                  'interruptible',
+                  'hold',
+                  'sync',
+                  'at',
+                  'hitPadding',
+                  'continue',
+                  'disabled',
+                  'reset',
+                  'weight',
+                  'exitRatio',
+                  'blendRatio',
+                  'button',
+                  'capture',
+                  'consume',
+                  'propagate',
+                  'index',
+                  'control',
+                ].includes(k)
+              ? scalar(v)
+              : k === 'work'
+                ? vector(v)
+                : k === 'when'
+                  ? v.replace(/\band\b/g, '&&')
+                  : v.startsWith('{"') || v.startsWith('[')
+                    ? JSON.parse(v)
+                    : v;
     return o;
   };
   const node = (e: Element): Obj => {
@@ -126,10 +129,18 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : // seam(P7-2): layout spacing is a vector; its uniform corners are scalar.
-              ['pivot', 'subpaths', 'geometryOrigin', 'size', 'gap', 'padding', 'margin'].includes(
-                  key,
-                ) ||
+            : // seam(P8-6): posepad box is a four-number vector.
+              // seam(P7-2): layout spacing is a vector; its uniform corners are scalar.
+              [
+                  'pivot',
+                  'subpaths',
+                  'geometryOrigin',
+                  'size',
+                  'gap',
+                  'padding',
+                  'margin',
+                  'box',
+                ].includes(key) ||
                 (key === 'corners' && e.name === 'rect')
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
@@ -152,6 +163,35 @@ function recover(root: Element): Obj {
       return effect;
     };
     for (const child of elements(e)) {
+      // seam(P8-1): independent verb/discriminator and field recovery for rig children.
+      const rigKinds: Record<string, string> = {
+        'copy-position': 'copyPosition',
+        'copy-rotation': 'copyRotation',
+        'copy-scale': 'copyScale',
+        'copy-transform': 'copyTransform',
+        'keep-distance': 'keepDistance',
+        // seam(P8-2): IK is a registered rig constraint child.
+        ik: 'ik',
+        // seam(P8-3): path-follow constraints are registered rig children.
+        'along-path': 'alongPath',
+        'spread-along-path': 'spreadAlongPath',
+        // seam(P8-7): scroll constraints are registered rig children.
+        scroll: 'scroll',
+        'scroll-thumb': 'scrollThumb',
+      };
+      if (rigKinds[child.name]) {
+        const constraint: Obj = { kind: rigKinds[child.name] };
+        for (const [k, v] of Object.entries(attrs(child)))
+          constraint[k.replace(/-([a-z])/g, (_m, c: string) => c.toUpperCase())] =
+            k === 'origin' ? vector(v) : scalar(v);
+        ((o.constraints ??= []) as Obj[]).push(constraint);
+      }
+      // seam(P8-4): independent skin recovery (space-separated bones, JSON weights).
+      if (child.name === 'skin') {
+        const a = attrs(child);
+        o.skin = { bones: a.bones!.trim().split(/\s+/) } as Obj;
+        if (a.weights !== undefined) (o.skin as Obj).weights = JSON.parse(a.weights);
+      }
       if (child.name === 'text-effect') ((o.effects ??= []) as Obj[]).push(recoverEffect(child));
       if (child.name === 'style')
         ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
@@ -206,6 +246,21 @@ function recover(root: Element): Obj {
         }
         o.focus = focus;
       }
+      // seam(P8-9): independently recover the feather extent probe's structural paint.
+      if (child.name === 'feather') {
+        const feather: Obj = {};
+        for (const [key, value] of Object.entries(a))
+          if (key !== 'paint')
+            feather[key] =
+              key === 'offset'
+                ? vector(value)
+                : key === 'enabled'
+                  ? value === 'true'
+                  : key === 'space'
+                    ? value
+                    : Number(value);
+        ((o[a.paint ?? 'fill'] ??= {}) as Obj).feather = feather;
+      }
       if (child.name === 'a11y') {
         const semantics = base(child);
         for (const [key, value] of Object.entries(a))
@@ -259,7 +314,7 @@ function recover(root: Element): Obj {
         if (!known.has(key)) ((o.inputs ??= {}) as Obj)[key] = scalar(v);
     }
     // seam(P7-2): recover registered layout containers independently of the compiler.
-    if (e.name === 'group' || e.name === 'layout')
+    if (e.name === 'group' || e.name === 'layout' || e.name === 'bone')
       o.children = elements(e)
         .filter((c) => NODE_ELEMENTS.includes(c.name))
         .map(node);
@@ -412,7 +467,12 @@ function recover(root: Element): Obj {
             .split('\n')
             .map((line) => {
               const m = /^(\S+)\s+("(?:\\.|[^"\\])*"|\S+)(?:\s+(.*))?$/.exec(line.trim())!;
-              return [Number(m[1]), scalar(m[2]!), ...(m[3] ? [m[3]] : [])];
+              const source = m[2]!;
+              return [
+                Number(m[1]),
+                source.startsWith('[') ? JSON.parse(source) : scalar(source),
+                ...(m[3] ? [m[3]] : []),
+              ];
             });
         else ((p.events ??= []) as unknown[]).push([Number(attrs(child).at), attrs(child).name]);
       }
@@ -587,6 +647,7 @@ function check(source: string | object) {
       'drawOrder',
       'fillPaint',
       'strokePaint',
+      'feather', // seam(P8-9): painted semantic extent conformance.
       'channel',
       'focus',
       'machine',
@@ -609,6 +670,22 @@ function check(source: string | object) {
       'text-input',
       // seam(P7-5): typed component data property.
       'artboard',
+      // seam(P8-1): canonical constraint child spellings.
+      'copy-position',
+      'copy-rotation',
+      'copy-scale',
+      'copy-transform',
+      'keep-distance',
+      // seam(P8-2): canonical IK constraint child spelling.
+      'ik',
+      // seam(P8-3): canonical path-follow constraint child spellings.
+      'along-path',
+      'spread-along-path',
+      // seam(P8-4): structural skin child.
+      'skin',
+      // seam(P8-7): structural scroll constraint children.
+      'scroll',
+      'scroll-thumb',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

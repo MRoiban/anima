@@ -1,0 +1,14 @@
+<anima version="0.1" name="animation-joystick-two-axis" grid="20" requires="posepad bind">
+  <number name="px"/>
+  <number name="py"/>
+  <circle id="eye" cx="10" cy="10" r="1" fill="#141413"/>
+  <posepad id="pad" timeline-x="across" timeline-y="vertical"/>
+  <timeline name="across" duration="2">
+    <track target="eye.x">0 -4; 2 4</track>
+  </timeline>
+  <timeline name="vertical" duration="4">
+    <track target="eye.y">0 -8; 4 8</track>
+  </timeline>
+  <bind target="pad.value-x" value="px"/>
+  <bind target="pad.value-y" value="py"/>
+</anima>

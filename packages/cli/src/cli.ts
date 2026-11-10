@@ -1250,6 +1250,9 @@ function lookupTopic(topic: string | undefined, topics: string[], command: strin
 
 function schemaTopic(topic: string | undefined) {
   if (!topic) return topic;
+  // seam(P8-1): JSON discriminators are aliases for their structural AniML schema topics.
+  const form = Object.entries(ELEMENTS).find(([, f]) => f.values?.kind === topic);
+  if (form) topic = form[0];
   const [head, ...tail] = topic.split('.');
   const topics = [
     ...new Set([
@@ -1554,18 +1557,17 @@ function docs(
       )
       .filter(([, files]) => files.length),
   );
-  topic = lookupTopic(
-    topic,
-    [
-      'authoring',
-      'spec',
-      'markup',
-      ...sections.map((s) => s.slug),
-      ...moduleTopics.map((m) => m[1]!),
-      ...moduleDocs.keys(),
-    ],
-    'docs',
-  );
+  const aliases: Record<string, string> = { constraint: 'rig' };
+  const topics = [
+    'authoring',
+    'spec',
+    'markup',
+    ...sections.map((s) => s.slug),
+    ...moduleTopics.map((m) => m[1]!),
+    ...moduleDocs.keys(),
+  ];
+  topic = lookupTopic(topic, [...topics, ...Object.keys(aliases)], 'docs');
+  topic = topic ? (aliases[topic] ?? topic) : topic;
   if ((topic === 'spec' && (list || section)) || (topic === 'authoring' && section)) {
     const source = topic === 'spec' ? spec : guide;
     const entries = [...source.matchAll(/^#{2,3} (.+)$/gm)].map((m) => ({
@@ -1591,7 +1593,7 @@ function docs(
     return (io.out(json ? JSON.stringify({ topic, section, text }) : text), 0);
   }
   if (list) {
-    const topics = [
+    const listed = [
       ...new Set([
         'authoring',
         'spec',
@@ -1601,7 +1603,7 @@ function docs(
         ...moduleDocs.keys(),
       ]),
     ];
-    return (io.out(json ? JSON.stringify(topics) : topics.join('\n')), 0);
+    return (io.out(json ? JSON.stringify(listed) : listed.join('\n')), 0);
   }
   let text: string;
   if (!topic || topic === 'authoring')

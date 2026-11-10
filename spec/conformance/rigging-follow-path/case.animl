@@ -1,0 +1,44 @@
+<anima version="0.1" name="rigging-follow-path" grid="40" requires="rig pathfollow">
+  <path id="open" d="M0 0L8 0" stroke="#888"/>
+  <path id="turned" d="M0 0L8 0" x="10" y="5" rotate="90" stroke="#888"/>
+  <circle id="closed" cx="20" cy="10" r="4" stroke="#888"/>
+
+  <group id="at0">
+    <along-path path="open" at="0"/>
+  </group>
+  <group id="at25">
+    <along-path path="open" at="0.25"/>
+  </group>
+  <group id="at1">
+    <along-path path="open" at="1"/>
+  </group>
+  <group id="orientOff" rotate="17">
+    <along-path path="open" at="0.25"/>
+  </group>
+  <group id="transformed">
+    <along-path path="turned" at="0.25" orient="true"/>
+  </group>
+  <group id="wrapped">
+    <along-path path="closed" at="1.25"/>
+  </group>
+  <group id="animated">
+    <along-path path="open" at="0"/>
+  </group>
+  <group id="offset" x="2">
+    <along-path path="open" at="0.5" offset="true"/>
+  </group>
+
+  <timeline name="move" duration="1">
+    <track target="animated.constraints.0.at">
+      0  0
+      1  1
+    </track>
+    <track target="offset.x">
+      0  2
+      1  4
+    </track>
+  </timeline>
+  <layer name="main" initial="move">
+    <state name="move" play="move"/>
+  </layer>
+</anima>

@@ -1,0 +1,20 @@
+set px -1
+set py -1
+advance 0
+snapshot
+set px -0.5
+set py 0.25
+advance 0
+snapshot
+set px 0
+set py 0
+advance 0
+snapshot
+set px 0.25
+set py -0.5
+advance 0
+snapshot
+set px 1
+set py 1
+advance 0
+snapshot

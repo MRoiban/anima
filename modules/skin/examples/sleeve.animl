@@ -1,0 +1,14 @@
+<anima version="0.1" name="skinned-sleeve" grid="24" requires="paint rig skin">
+  <bone id="upper" length="6" y="12"/>
+  <bone id="fore" length="6" x="6" y="12"/>
+  <path id="sleeve" d="M0 10L6 10L12 10L12 14L6 14L0 14Z" fill="#6b7cff">
+    <skin bones="upper fore"
+        weights="[{&quot;point&quot;:{&quot;upper&quot;:1}},{&quot;point&quot;:{&quot;upper&quot;:0.5,&quot;fore&quot;:0.5}},{&quot;point&quot;:{&quot;fore&quot;:1}},{&quot;point&quot;:{&quot;fore&quot;:1}},{&quot;point&quot;:{&quot;upper&quot;:0.5,&quot;fore&quot;:0.5}},{&quot;point&quot;:{&quot;upper&quot;:1}}]"/>
+  </path>
+  <timeline name="bend" duration="1">
+    <track target="fore.rotate">0 0; 1 -55</track>
+  </timeline>
+  <layer name="main" initial="bend">
+    <state name="bend" play="bend"/>
+  </layer>
+</anima>

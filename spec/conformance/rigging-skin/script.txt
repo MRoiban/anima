@@ -1,0 +1,4 @@
+advance 0
+snapshot path.skin.point.0 path.skin.point.1 contour.skin.point.0 contour.skin.point.1 mesh.skin.point.0 mesh.skin.point.1
+advance 1
+snapshot path.skin.point.0 path.skin.point.1 contour.skin.point.0 contour.skin.point.1 mesh.skin.point.0 mesh.skin.point.1

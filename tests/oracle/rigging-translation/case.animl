@@ -1,0 +1,16 @@
+<anima version="0.1" name="rigging-translation" grid="20" requires="rig">
+  <group id="target" x="2" y="8"/>
+  <group id="host" x="12" y="4">
+    <copy-position strength="0.5" from="target" factor-x="-1" copy-y="false"/>
+    <rect id="hostArt" x0="-0.5" y0="-0.5" width="1" height="1" fill="#d97757"/>
+  </group>
+  <timeline name="go" duration="1">
+    <track target="target.x">
+      0  2
+      1  4
+    </track>
+  </timeline>
+  <layer name="main" initial="go">
+    <state name="go" play="go"/>
+  </layer>
+</anima>

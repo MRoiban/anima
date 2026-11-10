@@ -1,3 +1,4 @@
+// seam(P8-5): preserve mesh point tuples alongside existing scalar/colour values.
 import { componentNames } from './names.ts';
 export { componentNames } from './names.ts';
 import { nodePointer } from './node-pointer.ts';
@@ -592,7 +593,7 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
             )
             .map(([n]) => {
               const v = p.get(n)!;
-              return [n, Array.isArray(v) ? formatHex(v) : v];
+              return [n, Array.isArray(v) ? formatHex(v as [number, number, number, number]) : v];
             }),
         ),
         ...p.values(),

@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "rigging-scale",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "scaleX": 1,
+      "children": []
+    },
+    {
+      "id": "host",
+      "type": "group",
+      "x": 10,
+      "y": 10,
+      "children": [
+        {
+          "id": "hostArt",
+          "type": "rect",
+          "x0": 1,
+          "y0": 0,
+          "w": 2,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyScale",
+          "from": "target",
+          "factorX": -1
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.scaleX": [
+          [0, 1],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

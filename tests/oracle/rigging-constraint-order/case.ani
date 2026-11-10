@@ -1,0 +1,103 @@
+{
+  "anima": "0.1",
+  "name": "rigging-constraint-order",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "group",
+      "x": 6,
+      "y": 6,
+      "children": []
+    },
+    {
+      "id": "b",
+      "type": "group",
+      "x": 14,
+      "y": 8,
+      "children": []
+    },
+    {
+      "id": "ab",
+      "type": "group",
+      "x": 4,
+      "y": 4,
+      "children": [
+        {
+          "id": "abArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "from": "a"
+        },
+        {
+          "kind": "copyPosition",
+          "from": "b"
+        }
+      ]
+    },
+    {
+      "id": "ba",
+      "type": "group",
+      "x": 4,
+      "y": 4,
+      "children": [
+        {
+          "id": "baArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "from": "b"
+        },
+        {
+          "kind": "copyPosition",
+          "from": "a"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "b.y": [
+          [0, 8],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

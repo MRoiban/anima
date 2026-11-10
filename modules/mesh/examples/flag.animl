@@ -1,0 +1,23 @@
+<anima version="0.1" name="flag" grid="20" requires="paint assets mesh">
+  <asset name="flag" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAHklEQVR4AWO8WR7+nwEPYGIgAFhinkgw4ANMDAQAALA7BAiJeuX5AAAAAElFTkSuQmCC"
+      width="8" height="4"/>
+  <image id="flag" asset="flag" x0="2" y0="5" mesh="{&quot;grid&quot;:[4,2]}" width="16" height="8"/>
+  <timeline name="wave" duration="1" loop="pingpong">
+    <track target="flag.mesh.vertex.1">0 "[6,5]"; 0.5 "[6,7.0]"; 1 "[6,5]"</track>
+    <track target="flag.mesh.vertex.2">0 "[10,5]"; 0.5 "[10,6.0]"; 1 "[10,5]"</track>
+    <track target="flag.mesh.vertex.3">0 "[14,5]"; 0.5 "[14,6.0]"; 1 "[14,5]"</track>
+    <track target="flag.mesh.vertex.4">0 "[18,5]"; 0.5 "[18,7.0]"; 1 "[18,5]"</track>
+    <track target="flag.mesh.vertex.6">0 "[6,9]"; 0.5 "[6,9.5]"; 1 "[6,9]"</track>
+    <track target="flag.mesh.vertex.7">0 "[10,9]"; 0.5 "[10,10.5]"; 1 "[10,9]"</track>
+    <track target="flag.mesh.vertex.8">0 "[14,9]"; 0.5 "[14,10.5]"; 1 "[14,9]"</track>
+    <track target="flag.mesh.vertex.9">0 "[18,9]"; 0.5 "[18,9.5]"; 1 "[18,9]"</track>
+    <track target="flag.mesh.vertex.11">0 "[6,13]"; 0.5 "[6,15.0]"; 1 "[6,13]"</track>
+    <track target="flag.mesh.vertex.12">0 "[10,13]"; 0.5 "[10,14.0]"; 1 "[10,13]"</track>
+    <track target="flag.mesh.vertex.13">0 "[14,13]"; 0.5 "[14,14.0]"; 1 "[14,13]"</track>
+    <track target="flag.mesh.vertex.14">0 "[18,13]"; 0.5 "[18,15.0]"; 1 "[18,13]"</track>
+  </timeline>
+  <layer name="main" initial="wave">
+    <state name="wave" play="wave"/>
+  </layer>
+</anima>

@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "rigging-translation",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "x": 2,
+      "y": 8,
+      "children": []
+    },
+    {
+      "id": "host",
+      "type": "group",
+      "x": 12,
+      "y": 4,
+      "children": [
+        {
+          "id": "hostArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "copyPosition",
+          "strength": 0.5,
+          "from": "target",
+          "factorX": -1,
+          "copyY": false
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 2],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

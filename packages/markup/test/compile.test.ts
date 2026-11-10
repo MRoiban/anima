@@ -362,6 +362,26 @@ describe('AniML compiler', () => {
         '<anima><layout reflow="0.25 out" direction="row" justify="space-between" align="stretch" gap="1" padding="1" min-width="0" max-width="20" min-height="0" max-height="20" corners="1"><rect layout-width="fill" layout-height="fill" align-self="end" margin="1" display="none"/></layout></anima>',
       ).doc.root!,
     );
+    // seam(P8-5): include the registry-generic mesh spelling in the independent census.
+    collectPaint(
+      parseXml(
+        readFileSync(
+          new URL('../../../spec/conformance/rigging-mesh/case.animl', import.meta.url),
+          'utf8',
+        ),
+      ).doc.root!,
+    );
+    // seam(P8-1): bone fields use the same registry-derived node path.
+    collectPaint(parseXml('<anima><bone length="5" root="true"/></anima>').doc.root!);
+    // seam(P8-4): skin is registry-generic so semantic validation can report rig-skin-host.
+    collectPaint(parseXml('<anima><group skin=\'{"bones":["b"]}\'/></anima>').doc.root!);
+
+    // seam(P8-6): include all posepad attribute spellings in the registry census.
+    collectPaint(
+      parseXml(
+        '<anima><posepad timeline-x="x" timeline-y="y" value-x="0" value-y="0" invert-x="true" invert-y="true" handle="knob" box="0 0 2 2"/></anima>',
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

@@ -1,0 +1,53 @@
+export const after = ['layout'];
+export default {
+  ...{
+    name: 'rig',
+    after: [],
+    core: { entry: 'core/all.ts', export: 'rig', svg: 'core/svg.ts', svgExport: 'rigSVG' },
+    web: [
+      { name: 'rig', budget: 3072, heavy: true },
+      { name: 'rig-origin', budget: 896, heavy: true, over: 'rig' },
+      { name: 'rig-distance', budget: 512, heavy: true, over: 'rig' },
+      { name: 'markup-rig', budget: 384, over: 'markup', authoring: true },
+    ],
+    adapters: {
+      'packages/core/src/modules/rig/index.ts': 'core/index.ts',
+      'packages/core/src/modules/rig/svg.ts': 'core/svg.ts',
+      'packages/markup/src/rig.ts': 'markup/index.ts',
+      'packages/web/src/rig.ts': 'web/index.ts',
+      'packages/web/src/rig-origin.ts': 'web/origin.ts',
+      'packages/web/src/rig-distance.ts': 'web/distance.ts',
+      'packages/web/src/markup-rig.ts': 'web/markup.ts',
+    },
+    exports: {
+      'core:./rig': 'packages/core/src/modules/rig/index.ts',
+      'markup:./rig': 'packages/markup/src/rig.ts',
+      'web:./rig': 'packages/web/src/rig.ts',
+      'web:./rig-origin': 'packages/web/src/rig-origin.ts',
+      'web:./rig-distance': 'packages/web/src/rig-distance.ts',
+      'web:./markup-rig': 'packages/web/src/markup-rig.ts',
+    },
+    tests: [
+      'modules/rig/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: [
+      'rigging-bone-chains',
+      'rigging-root-bones',
+      'rigging-constraint-order',
+      'rigging-constraint-strength',
+      'rigging-translation',
+      'rigging-rotation',
+      'rigging-scale',
+      'rigging-transform',
+      'rigging-distance-closer',
+      'rigging-distance-further',
+      'rigging-distance-exact',
+    ],
+    docs: ['spec/SPEC.md'],
+  },
+  after,
+};

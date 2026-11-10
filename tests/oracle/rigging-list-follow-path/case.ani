@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "rigging-list-follow-path-oracle",
+  "grid": 20,
+  "requires": ["rig", "pathfollow"],
+  "nodes": [
+    {
+      "id": "track",
+      "type": "path",
+      "d": "M4 10L16 10",
+      "opacity": 0,
+      "stroke": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "rows",
+      "type": "group",
+      "children": [
+        {
+          "id": "a",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#111827"
+          }
+        },
+        {
+          "id": "b",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#111827"
+          }
+        },
+        {
+          "id": "c",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#111827"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "track",
+          "start": 0.2,
+          "end": 0.8,
+          "shift": 0.1,
+          "orient": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "anima": "0.1",
+  "name": "rigging-distance-closer",
+  "grid": 20,
+  "requires": ["rig"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "x": 5,
+      "y": 10,
+      "children": []
+    },
+    {
+      "id": "inside",
+      "type": "group",
+      "x": 6,
+      "y": 10,
+      "children": [
+        {
+          "id": "insideArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "keepDistance",
+          "to": "target",
+          "distance": 2,
+          "mode": "within"
+        }
+      ]
+    },
+    {
+      "id": "ring",
+      "type": "group",
+      "x": 8,
+      "y": 10,
+      "children": [
+        {
+          "id": "ringArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "keepDistance",
+          "to": "target",
+          "distance": 2,
+          "mode": "within"
+        }
+      ]
+    },
+    {
+      "id": "outside",
+      "type": "group",
+      "x": 11,
+      "y": 10,
+      "children": [
+        {
+          "id": "outsideArt",
+          "type": "rect",
+          "x0": -0.5,
+          "y0": -0.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "keepDistance",
+          "to": "target",
+          "distance": 2,
+          "mode": "within"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "inside.constraints.0.distance": [
+          [0, 2],
+          [1, 4]
+        ],
+        "ring.constraints.0.distance": [
+          [0, 2],
+          [1, 4]
+        ],
+        "outside.constraints.0.distance": [
+          [0, 2],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

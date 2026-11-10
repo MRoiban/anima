@@ -1,0 +1,216 @@
+{
+  "anima": "0.1",
+  "name": "rigging-transform",
+  "grid": 20,
+  "requires": ["rig", "bind"],
+  "inputs": {
+    "u": {
+      "type": "number",
+      "default": 0.25
+    },
+    "v": {
+      "type": "number",
+      "default": 0.75
+    }
+  },
+  "nodes": [
+    {
+      "id": "sourceParent",
+      "type": "group",
+      "x": 3,
+      "y": 4,
+      "children": [
+        {
+          "id": "target",
+          "type": "rect",
+          "x0": 1,
+          "y0": 2,
+          "w": 4,
+          "h": 2,
+          "x": 2,
+          "y": 1,
+          "fill": {
+            "color": "#888"
+          }
+        }
+      ]
+    },
+    {
+      "id": "targetGroup",
+      "type": "group",
+      "x": 1,
+      "y": 2,
+      "children": [
+        {
+          "id": "gLeft",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#888"
+          }
+        },
+        {
+          "id": "gRight",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 3,
+          "h": 4,
+          "x": 5,
+          "y": 1,
+          "fill": {
+            "color": "#888"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hostParent",
+      "type": "group",
+      "x": 8,
+      "y": 3,
+      "children": [
+        {
+          "id": "world",
+          "type": "group",
+          "children": [
+            {
+              "id": "worldArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target"
+            }
+          ]
+        },
+        {
+          "id": "local",
+          "type": "group",
+          "children": [
+            {
+              "id": "localArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target",
+              "fromSpace": "local",
+              "toSpace": "local"
+            }
+          ]
+        },
+        {
+          "id": "origin",
+          "type": "group",
+          "children": [
+            {
+              "id": "originArt",
+              "type": "circle",
+              "center": [0, 0],
+              "r": 0.35,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target",
+              "origin": [1, 1]
+            }
+          ]
+        },
+        {
+          "id": "animatedOrigin",
+          "type": "group",
+          "children": [],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target",
+              "origin": [0, 0]
+            }
+          ]
+        },
+        {
+          "id": "boundOrigin",
+          "type": "group",
+          "children": [],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "target"
+            }
+          ]
+        },
+        {
+          "id": "groupOrigin",
+          "type": "group",
+          "children": [],
+          "constraints": [
+            {
+              "kind": "copyTransform",
+              "from": "targetGroup",
+              "origin": [1, 1]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 2],
+          [1, 4]
+        ],
+        "animatedOrigin.constraints.0.origin": [
+          [
+            0,
+            [0, 0]
+          ],
+          [
+            1,
+            [1, 1]
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "boundOrigin.constraints.0.origin": "[u, v]"
+  }
+}

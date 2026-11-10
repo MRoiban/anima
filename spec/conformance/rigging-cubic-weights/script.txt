@@ -1,0 +1,4 @@
+advance 0
+snapshot curve.skin.point.0 curve.skin.point.1
+advance 1
+snapshot curve.skin.point.0 curve.skin.point.1

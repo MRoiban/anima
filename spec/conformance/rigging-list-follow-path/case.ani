@@ -1,0 +1,214 @@
+{
+  "anima": "0.1",
+  "name": "rigging-list-follow-path",
+  "grid": 70,
+  "requires": ["rig", "pathfollow", "components", "data", "bind", "lists"],
+  "nodes": [
+    {
+      "id": "onePath",
+      "type": "path",
+      "d": "M0 20L20 20",
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "threePath",
+      "type": "path",
+      "d": "M0 30L20 30",
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "fivePath",
+      "type": "path",
+      "d": "M0 40L20 40",
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "turnPath",
+      "type": "path",
+      "d": "M0 0L10 0",
+      "x": 30,
+      "rotate": 90,
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "repeatPath",
+      "type": "path",
+      "d": "M0 50L20 50",
+      "stroke": {
+        "color": "#888"
+      }
+    },
+    {
+      "id": "one",
+      "type": "group",
+      "children": [
+        {
+          "id": "oneA",
+          "type": "group",
+          "children": []
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "onePath",
+          "start": 0.25,
+          "end": 0.9,
+          "shift": 0.1
+        }
+      ]
+    },
+    {
+      "id": "three",
+      "type": "group",
+      "children": [
+        {
+          "id": "threeA",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "threeB",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "threeC",
+          "type": "group",
+          "children": []
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "threePath"
+        }
+      ]
+    },
+    {
+      "id": "five",
+      "type": "group",
+      "children": [
+        {
+          "id": "fiveA",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "fiveB",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "fiveC",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "fiveD",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "fiveE",
+          "type": "group",
+          "children": []
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "fivePath",
+          "start": 0.1,
+          "end": 0.9,
+          "shift": 0.05
+        }
+      ]
+    },
+    {
+      "id": "oriented",
+      "type": "group",
+      "children": [
+        {
+          "id": "turnA",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "turnB",
+          "type": "group",
+          "children": []
+        },
+        {
+          "id": "turnC",
+          "type": "group",
+          "children": []
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "turnPath",
+          "orient": true
+        }
+      ]
+    },
+    {
+      "id": "rows",
+      "type": "repeat",
+      "count": "$n",
+      "component": "bead",
+      "constraints": [
+        {
+          "kind": "spreadAlongPath",
+          "path": "repeatPath"
+        }
+      ]
+    }
+  ],
+  "components": {
+    "bead": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#111"
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "models": {
+      "Board": {
+        "properties": {
+          "n": {
+            "type": "number",
+            "default": 1
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

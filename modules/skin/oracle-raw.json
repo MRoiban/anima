@@ -1,0 +1,83 @@
+[
+  {
+    "name": "rigging-cubic-weights",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "edge": 0,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-cubic-weights",
+    "time": 0.5,
+    "max": 42,
+    "over": 2,
+    "edge": 2,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-cubic-weights",
+    "time": 1,
+    "max": 52,
+    "over": 17,
+    "edge": 17,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-skin",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "edge": 0,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-skin",
+    "time": 0.5,
+    "max": 22,
+    "over": 100,
+    "edge": 100,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-skin",
+    "time": 1,
+    "max": 1,
+    "over": 0,
+    "edge": 0,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-weights",
+    "time": 0,
+    "max": 1,
+    "over": 0,
+    "edge": 0,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-weights",
+    "time": 0.5,
+    "max": 42,
+    "over": 61,
+    "edge": 61,
+    "interior": 0,
+    "exterior": 0
+  },
+  {
+    "name": "rigging-weights",
+    "time": 1,
+    "max": 22,
+    "over": 71,
+    "edge": 71,
+    "interior": 0,
+    "exterior": 0
+  }
+]

@@ -1,0 +1,103 @@
+image
+ attributes (markup ↔ .ani: type)
+  id ↔ id: string (required)
+  type ↔ type: "group" | "path" | "circle" | "rect" | "arc" | "instance" | "image" | "ellipse" | "polygon" | "star" | "triangle" | "contour" | "repeat" | "text" | "layout" (required)
+  pivot ↔ pivot: [number, number]
+  x ↔ x: number
+  y ↔ y: number
+  rotate ↔ rotate: number
+  scale ↔ scale: number
+  scaleX ↔ scaleX: number
+  scaleY ↔ scaleY: number
+  opacity ↔ opacity: number
+  visible ↔ visible: bool
+  width ↔ width: number (required)
+  height ↔ height: number (required)
+  asset ↔ asset: string (required)
+  x0 ↔ x0: number (required)
+  y0 ↔ y0: number (required)
+  fit ↔ fit: "contain" | "cover" | "fill" | "resize" | "none" | "scale-down" | "fit-width" | "fit-height"
+  align ↔ align: "center" | "top-left" | "top" | "top-right" | "left" | "right" | "bottom-left" | "bottom" | "bottom-right"
+  sampling ↔ sampling: "bilinear" | "nearest"
+  focus ↔ focus: obj
+  pointerEnabled ↔ pointerEnabled: bool
+  opaque ↔ opaque: bool
+  cursor ↔ cursor: "arrow" | "hidden" | "pointer" | "resize-horizontal" | "resize-vertical" | "text"
+  collapsed ↔ collapsed: bool
+  mesh ↔ mesh: obj
+  pivotX ↔ pivotX: number
+  pivotY ↔ pivotY: number
+  channels ↔ channels: map<obj>
+  wrap ↔ wrap: "clamp" | "repeat" | "mirror"
+  wrap-x ↔ wrapX: "clamp" | "repeat" | "mirror"
+  wrap-y ↔ wrapY: "clamp" | "repeat" | "mirror"
+  mix-blend-mode ↔ blend: "normal" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity"
+  mask ↔ mask: obj
+  clip ↔ clip: obj
+  draw-order ↔ drawOrder: obj
+  properties ↔ properties: map<any>
+  a11y ↔ a11y: obj
+  slice ↔ slice: obj
+  mix ↔ mix: obj
+   ↔ layout: obj
+ animatable (address: <id>.<property>)
+  x            number  default 0
+  y            number  default 0
+  rotate       number  default 0
+  scale        number  default 1
+  scaleX       number  default 1
+  scaleY       number  default 1
+  opacity      number  default 1  range [0, 1]
+  visible      bool    default true
+  width        number  default null  range [0, ∞] [assets]
+  height       number  default null  range [0, ∞] [assets]
+  pointerEnabled bool    default true [input]
+  collapsed    bool    default false [input]
+  pivotX       number  default 0 [motion]
+  pivotY       number  default 0 [motion]
+ not animatable: id, type, pivot, asset, x0, y0, fit, align, sampling, focus, opaque, cursor, mesh, channels, wrap, wrapX, wrapY, blend, mask, clip, drawOrder, properties, a11y, slice, mix, layout
+ markup ↔ .ani
+  wrap-x ↔ wrapX
+  wrap-y ↔ wrapY
+  mix-blend-mode ↔ blend
+  layout-width ↔ layout.width
+  layout-height ↔ layout.height
+  min-width ↔ layout.minWidth
+  max-width ↔ layout.maxWidth
+  min-height ↔ layout.minHeight
+  max-height ↔ layout.maxHeight
+  align-self ↔ layout.alignSelf
+  margin ↔ layout.margin
+  display ↔ layout.display
+  reflow ↔ layout.reflow
+ module fields
+  type [assets]
+  width [assets]
+  height [assets]
+  asset [assets]
+  x0 [assets]
+  y0 [assets]
+  fit [assets]
+  align [assets]
+  sampling [assets]
+  focus [focus]
+  pointerEnabled [input]
+  opaque [input]
+  cursor [input]
+  collapsed [input]
+  mesh [mesh]
+  pivotX [motion]
+  pivotY [motion]
+  channels [motion]
+  wrap [paint]
+  wrapX [paint]
+  wrapY [paint]
+  blend [composite]
+  mask [composite]
+  clip [composite]
+  drawOrder [composite]
+  properties [data]
+  a11y [a11y]
+  slice [surface]
+  mix [mix]
+  layout [layout]

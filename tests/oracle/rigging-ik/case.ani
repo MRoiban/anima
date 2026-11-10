@@ -1,0 +1,108 @@
+{
+  "anima": "0.1",
+  "name": "rigging-ik",
+  "grid": 20,
+  "requires": ["rig", "ik"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "group",
+      "x": 13,
+      "y": 7,
+      "children": []
+    },
+    {
+      "id": "upper",
+      "type": "bone",
+      "x": 4,
+      "y": 12,
+      "children": [
+        {
+          "id": "art1",
+          "type": "rect",
+          "x0": 4,
+          "y0": 11.75,
+          "w": 4,
+          "h": 0.5,
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "mid",
+          "type": "bone",
+          "children": [
+            {
+              "id": "art2",
+              "type": "rect",
+              "x0": 8,
+              "y0": 11.75,
+              "w": 4,
+              "h": 0.5,
+              "fill": {
+                "color": "#d97757"
+              }
+            },
+            {
+              "id": "fore",
+              "type": "bone",
+              "children": [
+                {
+                  "id": "art3",
+                  "type": "rect",
+                  "x0": 12,
+                  "y0": 11.75,
+                  "w": 3.5,
+                  "h": 0.5,
+                  "fill": {
+                    "color": "#d97757"
+                  }
+                }
+              ],
+              "length": 3.5,
+              "constraints": [
+                {
+                  "kind": "ik",
+                  "target": "target",
+                  "bones": 3,
+                  "bend": "cw"
+                }
+              ]
+            }
+          ],
+          "length": 4
+        }
+      ],
+      "length": 4
+    }
+  ],
+  "timelines": {
+    "go": {
+      "duration": 1,
+      "tracks": {
+        "target.x": [
+          [0, 13],
+          [0.5, 10],
+          [1, 6]
+        ],
+        "target.y": [
+          [0, 7],
+          [0.5, 17],
+          [1, 7]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "go",
+        "states": {
+          "go": {
+            "play": "go"
+          }
+        }
+      }
+    }
+  }
+}

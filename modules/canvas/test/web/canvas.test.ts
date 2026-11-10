@@ -29,7 +29,13 @@ const limit = (doc: object) => {
       ? { max: 128, percent: 0.5, feature: 'curved/dashed geometry' }
       : { max: 2, percent: 0, feature: 'flat/gradient interiors' };
 };
-const cases: { name: string; doc: object; script: string; svgUnsupported: boolean }[] = [];
+const cases: {
+  name: string;
+  doc: object;
+  script: string;
+  svgUnsupported: boolean;
+  canvasUnsupported?: object;
+}[] = [];
 for (const file of globSync([
   'spec/conformance/*/case.ani',
   'spec/draw-conformance/*/case.ani',
@@ -66,6 +72,10 @@ for (const file of globSync([
       doc,
       script,
       svgUnsupported: existsSync(resolve(dirname(file), 'unsupported-svg.json')),
+      // seam(P8-9b): declared Canvas limitations are diagnostic assertions, not pixel comparisons.
+      canvasUnsupported: existsSync(resolve(dirname(file), 'unsupported-canvas.json'))
+        ? JSON.parse(readFileSync(resolve(dirname(file), 'unsupported-canvas.json'), 'utf8'))
+        : undefined,
     });
   }
 }
@@ -311,17 +321,30 @@ for (const [name, engine, paths] of [
       it(
         c.name,
         async () => {
+          if (c.canvasUnsupported) {
+            await page.evaluate(
+              ({ doc, script }) => window.canvasTest.mount(doc, 'canvas', script),
+              c,
+            );
+            expect(await page.evaluate(() => window.canvasTest.errors)).toContainEqual(
+              c.canvasUnsupported,
+            );
+            return;
+          }
           if (c.svgUnsupported) {
             const p = new Player(load(c.doc).model!);
             expect(() => toSVG(p)).toThrowError(
               expect.objectContaining({
                 code: 'unsupported-render',
                 message: expect.stringContaining(
-                  JSON.stringify(c.doc).includes('angular')
-                    ? 'angular'
-                    : JSON.stringify(c.doc).includes('screen')
-                      ? 'per-paint'
-                      : 'additive',
+                  // seam(P8-5): mesh is another explicitly unsupported default static SVG feature.
+                  JSON.stringify(c.doc).includes('mesh')
+                    ? 'mesh'
+                    : JSON.stringify(c.doc).includes('angular')
+                      ? 'angular'
+                      : JSON.stringify(c.doc).includes('screen')
+                        ? 'per-paint'
+                        : 'additive',
                 ),
                 hint: expect.stringContaining('canvas'),
               }),
@@ -331,6 +354,26 @@ for (const [name, engine, paths] of [
               c,
             );
             expect(await page.evaluate(() => window.canvasTest.errors)).toEqual([]);
+            // seam(P8-5): sparse meshes do not occupy the old circular sample locations.
+            // Exact mesh pixels are compared against CLI triangles in the mesh-owned suite.
+            if (JSON.stringify(c.doc).includes('mesh')) {
+              expect(
+                await page.evaluate(() => {
+                  const canvas = window.canvasTest.renderer.canvas;
+                  return canvas
+                    .getContext('2d')!
+                    .getImageData(0, 0, canvas.width, canvas.height)
+                    .data.some((v, k) => k % 4 === 3 && v > 0);
+                }),
+              ).toBe(true);
+              metrics.push({
+                name: c.name,
+                status: 'unsupported-svg',
+                reason:
+                  'Mesh pixels compared to CLI triangles by modules/mesh/test/web/mesh.test.ts',
+              });
+              return;
+            }
             const colors = await page.evaluate(() => {
               const renderer = window.canvasTest.renderer;
               const ctx = renderer.canvas.getContext('2d')!;
