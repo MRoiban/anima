@@ -13135,5 +13135,19 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "rigging-ik-strength",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 42,
+        "over": 72,
+        "overPercent": 0.125,
+        "pass": true
+      }
+    ]
   }
 ]

@@ -3658,5 +3658,12 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "rigging-ik-strength",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.25
   }
 ]
