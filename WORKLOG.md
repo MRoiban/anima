@@ -11,16 +11,16 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
   (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
   carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
-- Main is 97b509f3 (PR #41 docs refresh, already merged into `p8-rigging`). No open issues or PRs.
+- Main is 83de14c4 (PR #42, issues #39/#40, merged into `p8-rigging`). No open issues.
 - **P8 complete (2026-11-10): 26/26 rows**, in scope 886/886. Closure `docs/parity/P8-closure.md`,
   PLAN ticked, LOG entry, parity phase lists (P8 finished, nothing in progress). Benchmark: AniML
   6/6, Rive 6/6 (Luau controller); it found the IK strength chain break, fixed in P8-2b. P4c replay
   after R4-02: identical. Perf vs main within ±1.8 %.
-- **Now: Rottweiler on P8** (owner): ledger `design/rottweiler/P8-LEDGER.md`, scope
-  `design/rottweiler/P8-SCOPE.txt` (92 files), round 1 reviewer running on Codex Web; I verify and
-  fix each finding. Then the PR `p8-rigging` → main, merged on green CI. PR #42 (issues #39/#40) is
-  waiting on CI.
-- Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
+- **Rottweiler on P8 done** (3 rounds, Codex Web GPT-5.6 Sol medium): ledger
+  `design/rottweiler/P8-LEDGER.md`. Fixed O-1 (module arrival order), R1-1/R2-1/R3-1 (IK singular
+  and subnormal frames), R1-2 (scroll driven only by current writers), R1-4 (`copyTransform` rejects
+  `limitSpace`); pushed back R1-3 (D48 clarified). Now: PR `p8-rigging` → main, merge on green CI.
+- Decisions: `design/p8/DECISIONS.md` D1–D48. Oracle budgets: rig unrotated 16/2/0, rotated and
   follow-path 65/0.12, IK and skin 65/0.25, mesh 70/0.40 and 100/0.45, posepad 16/2/0. Rig probes
   use rect art (circles differ from Rive by construction). Rig adds nothing to core checks (D47);
   core grew only by point tuples (D40).

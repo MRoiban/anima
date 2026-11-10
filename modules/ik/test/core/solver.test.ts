@@ -238,6 +238,22 @@ describe('ik solver', () => {
     expect(() => p.step(1)).not.toThrow();
     expect(Number.isFinite(value(p, 'tip.world.x'))).toBe(true);
   });
+  it('skips a chain whose inverse overflows on a subnormal scale', () => {
+    for (const scaleX of [1e-309, Number.MIN_VALUE]) {
+      let p: Player | undefined;
+      expect(() => {
+        p = player(
+          scene(
+            bone('arm', 1, { scaleX, constraints: [{ kind: 'ik', target: 'target', bones: 1 }] }),
+            target(1, 1),
+          ),
+        );
+        p.step(0);
+      }).not.toThrow();
+      for (const v of Object.values(p!.values()))
+        if (typeof v === 'number') expect(Number.isNaN(v)).toBe(false);
+    }
+  });
   it('skips a chain whose bones collapse to zero scale instead of throwing', () => {
     const p =
       fromMarkup(`<anima version="0.1" name="r11" grid="40" viewBox="0 0 40 30" requires="rig ik">

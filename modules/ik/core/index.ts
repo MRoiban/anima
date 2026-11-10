@@ -7,6 +7,12 @@ import { nodePointer } from '../../components/core/node-pointer.ts';
 import { compose, decompose, registerConstraint, type Constraint } from '../../rig/core/api.ts';
 import { after } from '../manifest.ts';
 
+// A usable inverse: null when the matrix is singular or its inverse overflows (subnormal scales).
+const inverse = (m: Mat): Mat | null => {
+  const r = invert(m);
+  return r && r.every(Number.isFinite) ? r : null;
+};
+
 function chain(model: Model, node: number, count: number): number[] {
   const out: number[] = [];
   while (count-- > 0 && (model.nodes[node]?.type as string) === 'bone') {
@@ -41,8 +47,9 @@ export const ik: Module = {
         if (!n) return;
         const frames = ids.map((i) => ctx.world(i)),
           points = ids.map((i) => ctx.position(i));
-        // A collapsed (zero-scale) bone has no direction to solve in: keep its pose.
-        if (frames.some((f) => !invert(f))) return;
+        // A collapsed (zero or subnormal scale) bone has no direction to solve in: keep its pose.
+        const backs = frames.map(inverse);
+        if (backs.some((b) => !b)) return;
         const last = frames[n - 1]!,
           length = ids.map(
             (i, j) => ctx.player.num(i, 'length', 0) * Math.hypot(frames[j]![0], frames[j]![1]),
@@ -104,7 +111,7 @@ export const ik: Module = {
         }
         const strength = ctx.num(node, k, 'strength', 1);
         const locals = ids.map((i, j) => {
-            if (j) return mul(invert(frames[j - 1]!)!, frames[j]!);
+            if (j) return mul(backs[j - 1]!, frames[j]!);
             const p = ctx.model.nodes[i]!.parent,
               linked =
                 (ctx.model.nodes[p]?.type as string) === 'bone' && !ctx.model.nodes[i]!.raw.root,
@@ -119,16 +126,19 @@ export const ik: Module = {
               scale * ctx.player.num(i, 'scaleY', 1),
             );
           }),
-          rest = invert(locals[0]!);
+          rest = inverse(locals[0]!);
         // The first bone's authored local can be singular even when a prior constraint repaired its
         // world frame (zero animated scale): there is no chain base to solve from, so keep the pose.
         if (!rest) return;
         const base = mul(frames[0]!, rest),
-          solved: Mat[] = [];
+          solved: Mat[] = [],
+          parents: Mat[] = [];
         for (let j = 0; j < n; j++) {
           const parent = j ? solved[j - 1]! : base,
-            back = invert(parent)!,
-            dx = points[j + 1]![0] - points[j]![0],
+            back = inverse(parent);
+          if (!back) return;
+          parents[j] = back;
+          const dx = points[j + 1]![0] - points[j]![0],
             dy = points[j + 1]![1] - points[j]![1],
             parts = decompose(locals[j]!);
           parts[2] = Math.atan2(back[1] * dx + back[3] * dy, back[0] * dx + back[2] * dy);
@@ -136,10 +146,7 @@ export const ik: Module = {
         }
         let parent = base;
         for (let j = 0; j < n; j++) {
-          parent = mul(
-            parent,
-            ctx.blend(locals[j]!, mul(invert(j ? solved[j - 1]! : base)!, solved[j]!), strength),
-          );
+          parent = mul(parent, ctx.blend(locals[j]!, mul(parents[j]!, solved[j]!), strength));
           ctx.setWorld(ids[j]!, parent);
         }
       },
