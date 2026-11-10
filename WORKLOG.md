@@ -11,7 +11,7 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 - Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
   (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
   carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
-- Main is 83de14c4 (PR #42, issues #39/#40, merged into `p8-rigging`). No open issues.
+- Main is 3ef59c62 (P8 merged, PR #43). No open issues or PRs.
 - **P8 complete (2026-11-10): 26/26 rows**, in scope 886/886. Closure `docs/parity/P8-closure.md`,
   PLAN ticked, LOG entry, parity phase lists (P8 finished, nothing in progress). Benchmark: AniML
   6/6, Rive 6/6 (Luau controller); it found the IK strength chain break, fixed in P8-2b. P4c replay
@@ -21,7 +21,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   and subnormal frames), R1-2 (scroll driven only by current writers), R1-4 (`copyTransform` rejects
   `limitSpace`); pushed back R1-3 (D48 clarified). Pass 2 (owner, GPT-6 Sol Web for that pass only):
   fixed S1-1, S2-2, S2-3, S2-4, S3-1 (skin meshes, auto weights, origin bounds); pushed back S2-1
-  (mesh hits use the image box, now in SPEC). Now: PR #43 → main, merge on green CI.
+  (mesh hits use the image box, now in SPEC). **Merged: PR #43 → main (3ef59c62), 2026-11-10.**
+  The CI-only `bundle.test.ts` race (inline module scripts not yet registered) is fixed in the test.
 - Decisions: `design/p8/DECISIONS.md` D1–D48. Oracle budgets: rig unrotated 16/2/0, rotated and
   follow-path 65/0.12, IK and skin 65/0.25, mesh 70/0.40 and 100/0.45, posepad 16/2/0. Rig probes
   use rect art (circles differ from Rive by construction). Rig adds nothing to core checks (D47);
