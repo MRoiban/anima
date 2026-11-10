@@ -1,0 +1,54 @@
+advance 0
+pointer move 2 20
+advance 0
+pointer leave
+advance 0
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y
+advance 0.016666666666667
+snapshot hand.world.x hand.world.y

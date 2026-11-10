@@ -1,0 +1,26 @@
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 22 12
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 14 26
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 39 2
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 2 20
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 32 6
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+pointer move 2 20
+advance 0
+pointer leave
+advance 0
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+advance 0.2 in 12
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
+advance 0.2 in 12
+snapshot upper.tip.x upper.tip.y fore.tip.x fore.tip.y hand.world.x hand.world.y pupil.world.x pupil.world.y sleeve.skin.point.1 sleeve.skin.point.2 sleeve.skin.point.3 sleeve.skin.point.6 sleeve.skin.point.7 sleeve.skin.point.8
