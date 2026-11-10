@@ -119,7 +119,11 @@ export const ik: Module = {
               scale * ctx.player.num(i, 'scaleY', 1),
             );
           }),
-          base = mul(frames[0]!, invert(locals[0]!)!),
+          rest = invert(locals[0]!);
+        // The first bone's authored local can be singular even when a prior constraint repaired its
+        // world frame (zero animated scale): there is no chain base to solve from, so keep the pose.
+        if (!rest) return;
+        const base = mul(frames[0]!, rest),
           solved: Mat[] = [];
         for (let j = 0; j < n; j++) {
           const parent = j ? solved[j - 1]! : base,
