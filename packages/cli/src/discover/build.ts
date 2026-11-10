@@ -480,6 +480,74 @@ function vocabEntries(): Entry[] {
         feature: f.startsWith('modules/') ? f.split('/')[1]!.replaceAll('-', '') : undefined,
       });
   }
+  // Data path syntax (language keywords, documented in the authoring guide's data and lists sections).
+  const paths: [string, string, string[], string, string][] = [
+    [
+      '$parent.<property>',
+      'a repeated or nested component reads its parent context (read-only); $parent.parent walks two levels',
+      ['parent', 'enclosing', 'outer', 'list item parent'],
+      'lists',
+      'authoring lists',
+    ],
+    [
+      '$index',
+      "a repeated component item's current zero-based position (read-only)",
+      ['index', 'position', 'row number'],
+      'lists',
+      'authoring lists',
+    ],
+    [
+      '$<instance>:<path>',
+      'an absolute path into a named data instance, e.g. $main:score, also inside components',
+      ['instance', 'absolute', 'main'],
+      'data',
+      'authoring data-view-models-paths-and-converters',
+    ],
+    [
+      '$<list>.length',
+      'the number of items in a data list (read-only)',
+      ['length', 'count', 'size'],
+      'data',
+      'authoring data-view-models-paths-and-converters',
+    ],
+    [
+      '$<list>.<index>.<property>',
+      'a property of one list item by index, e.g. $items.0.title',
+      ['item', 'element', 'nth'],
+      'data',
+      'authoring data-view-models-paths-and-converters',
+    ],
+  ];
+  for (const [name, summary, aliases, feature, docs] of paths)
+    out.push({
+      kind: 'address',
+      name,
+      summary: 'Data path: ' + summary,
+      aliases,
+      feature,
+      docs: [docs],
+    });
+  // Page-script data API methods, read from the host and host-edit handle interfaces.
+  for (const [file, feature, docs] of [
+    ['modules/host/core/api.ts', 'host', 'host'],
+    ['modules/host-edit/core/index.ts', 'hostedit', 'host-edit'],
+  ] as const) {
+    if (!exists(file)) continue;
+    for (const block of read(file).matchAll(
+      /export interface (\w+)Handle\b[^{]*\{([\s\S]*?)\n\}/g,
+    )) {
+      const owner = block[1]!.toLowerCase();
+      for (const m of block[2]!.matchAll(/^\s+(?:readonly\s+)?(\w+)(\([^)]*\))?\s*:/gm))
+        out.push({
+          kind: 'api',
+          name: `${owner}.${m[1]}`,
+          summary: `Page data API: ${block[1]}Handle.${m[1]}${m[2] ?? ''}`,
+          aliases: [m[1]!, 'page', 'host', 'javascript'],
+          feature,
+          docs: [docs],
+        });
+    }
+  }
   if (exists('spec/SPEC.md'))
     for (const l of read('spec/SPEC.md').split(/\r?\n/)) {
       const m = /^\| `([^`]+)` \| (?:error|warning) \| (.+) \|$/.exec(l);
@@ -496,7 +564,8 @@ function commandEntries(): Entry[] {
       'command',
       group,
       ...(aliases || []),
-      ...options.flatMap((option) => [option.name, option.short || '', ...(option.choices || [])]),
+      // Long option names and choices only: one-letter shorts (`s`, `o`) are search noise (#52).
+      ...options.flatMap((option) => [option.name, ...(option.choices || [])]),
     ]),
   }));
 }

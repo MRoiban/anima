@@ -52,7 +52,10 @@ export function suggest(word: string, candidates: readonly string[]): string[] {
   const ranked = candidates
     .map((candidate) => {
       const name = compact(candidate);
-      const prefix = name.startsWith(needle) || needle.startsWith(name);
+      // Extra typed letters (`renderx` → render) count only when the candidate covers at least half
+      // the word: a one-letter alias like `s` must not match `squircle` (#52).
+      const prefix =
+        name.startsWith(needle) || (needle.startsWith(name) && name.length * 2 >= needle.length);
       return { candidate, prefix, score: distance(word, candidate) };
     })
     .filter(({ score, prefix }) => prefix || score <= cutoff(word))

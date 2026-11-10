@@ -522,6 +522,7 @@ export const COMMANDS: Command[] = [
           'example',
           'capability',
           'command',
+          'api',
         ],
         summary: 'limit results to one or more entry kinds',
       },
