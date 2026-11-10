@@ -2667,3 +2667,32 @@ Gates: core+web 22,803 B, largest scene 59,373, app-UI 108,140, runtime sum 137,
 15,372, Rive-class 171,783 (of 256,000). Perf vs main (pinned, best of five alternating runs): bell
 frame −0.6 %, bell compile +1.1 %, composite −0.2 %, toolbar frame +1.8 %, toolbar compile +1.4 %.
 
+
+## Discovery — find any capability from the CLI (2026-11-10)
+
+**Changed**
+
+- One command table (`packages/cli/src/commands.ts`) is the only source of usage text: grouped
+  overview (`anima`, `help`, `-h`, `--help`), per-command pages (`help <cmd>`, `<cmd> --help`),
+  `help --json`, git-style "did you mean" for commands, subcommands, flags, values and topics,
+  per-command flags (exit 2 with a suggestion), `version`/`--version`, bash/zsh/fish completion and
+  the generated `docs/CLI.md` (checked in CI).
+- New `anima features [name]`, `anima search <words…>` and `anima examples [topic]` over one
+  capability index built at call time from the registry, manifests, docs, examples and the parity
+  inventory (`packages/cli/src/discover/`, ~7,600 entries, built in about 0.3 s). Every module
+  manifest carries a one-line `summary`.
+- `anima schema` prints a topic index (`--all` for the full dump); object fields show their shape;
+  `anima docs` resolves module, feature, row, element and type names and narrows to a section;
+  `docs authoring` prints contents (`--full` for the whole guide); `llms.txt` at the root and in the
+  CLI package.
+
+**Measured** (`node tools/discovery.ts`, orchestrator-owned): quiz 13/56 (schema-search proxy) →
+53/56; parity rows reachable by name 0 → 886/886; rows with a specific docs section 0 → 886/886;
+rows with an example 0 → 779/886 (the other 107 have no example in the repo). A private held-out
+query set went from about 19/30 to 24/30 sensible answers after removing quiz-fitted synonyms.
+
+**Review:** Rottweiler, 3 rounds on Codex Web (GPT-5.6 Sol): 18 findings, all fixed with regression
+tests (`design/rottweiler/DISCOVERY-LEDGER.md`).
+
+**Open:** three quiz misses (no `if` expression function exists; "text field…" and "simulate
+pointer input headlessly" rank other entries first); 107 rows without an example.

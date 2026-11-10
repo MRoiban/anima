@@ -39,6 +39,12 @@ ${choiceCases(command).join('\n')}
       fi
       ;;`;
   }).join('\n');
+  const globalChoices = GLOBAL.filter((option) => option.choices?.length)
+    .map(
+      (option) =>
+        `    --${option.name}) COMPREPLY=( $(compgen -W '${option.choices!.join(' ')}' -- "$cur") ); return ;;`,
+    )
+    .join('\n');
   // Options that take a separate value, so the scan above can skip their value.
   const valued = [
     ...new Set(
@@ -52,6 +58,10 @@ _anima_completion() {
   local cur prev cmd
   cur="${'${COMP_WORDS[COMP_CWORD]}'}"
   prev="${'${COMP_WORDS[COMP_CWORD-1]}'}"
+  # Global options with choices complete the same before or after the command.
+  case "$prev" in
+${globalChoices}
+  esac
   # The command is the first word that is not a leading option or its value (anima --format json search …).
   local i word
   cmd=""

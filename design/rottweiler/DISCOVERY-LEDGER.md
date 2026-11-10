@@ -23,3 +23,8 @@ or pushes back with the reason.
 | R2-5 | minor | `schema --search ''` printed the topic index with exit 0. | fixed: usage error `--search needs at least one word` |
 | R2-6 | minor | Bash completion assumed the command is the first word (`anima --format json search --k` completed nothing). | fixed: the script skips leading options and their values to find the command |
 | R2-7 | minor | Zsh completion ignored command aliases. | fixed: aliases are listed and share their command's case |
+| R3-1 | minor | `anima -oops` (a leading option without a command) exited 0 with the overview; main exits 2. | fixed: without a command only `--format` may lead; anything else is a usage error |
+| R3-2 | minor | The `schema` `--all`/`--json-schema` and empty `--search` checks ran after the filter-flag early return. | fixed: checks moved before it |
+| R3-3 | minor | Bash completion offered command names after `anima --format `. | fixed: global option choices complete first, generated from `GLOBAL` |
+
+Closed after the default three rounds. The round 3 fixes were made after the review budget, so no reviewer has checked them; their regression tests cover them. Usage was not reported by the reviewer runs.

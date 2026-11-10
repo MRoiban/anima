@@ -559,6 +559,27 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
         io,
       );
   if (index >= argv.length) {
+    // Without a command only the global --format may lead (`anima -oops` is a usage error, as on main).
+    const stray = leading.find(
+      (token, i) =>
+        token.startsWith('-') &&
+        token !== '--format' &&
+        !token.startsWith('--format=') &&
+        leading[i - 1] !== '--format',
+    );
+    if (stray)
+      return emitUsage(
+        usageIssue(
+          undefined,
+          'flag',
+          stray,
+          ['--help', '--version', '--format'],
+          `option '${stray}' needs a command`,
+        ),
+        undefined,
+        jsonRequested,
+        io,
+      );
     io.out(overview());
     return 0;
   }
@@ -964,12 +985,12 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
         return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
         if (rest[0]) rest[0] = schemaTopic(rest[0])!;
-        if (o.animatable || o.bindable || o.inherited || o['editor-only'])
-          return filteredSchema(rest[0], o, json, io);
         if (o.all && o['json-schema'])
           throw new Usage('schema takes --all or --json-schema, not both');
         if (o.search !== undefined && !String(o.search).trim())
           throw new Usage('--search needs at least one word');
+        if (o.animatable || o.bindable || o.inherited || o['editor-only'])
+          return filteredSchema(rest[0], o, json, io);
         if (o.all && !rest[0] && !o.search) return schemaAll(json, io);
         return o.search
           ? schemaSearch(o.search, json, io)

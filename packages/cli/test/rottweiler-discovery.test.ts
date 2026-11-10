@@ -117,3 +117,19 @@ describe('discovery review round 2', () => {
     expect(zsh).toContain("'check:");
   });
 });
+
+describe('discovery review round 3', () => {
+  it('R3-1: a leading non-global option without a command is a usage error', async () => {
+    expect((await invoke('-oops')).code).toBe(2);
+    expect((await invoke('--format', 'json')).code).toBe(0);
+  });
+
+  it('R3-2: schema flag checks run before the filtered view', async () => {
+    expect((await invoke('schema', '--all', '--json-schema', '--animatable')).code).toBe(2);
+    expect((await invoke('schema', '--search', '', '--animatable', '--format=json')).code).toBe(2);
+  }, 30000);
+
+  it('R3-3: bash completes global option choices before the command', () => {
+    expect(completion('bash')).toContain("--format) COMPREPLY=( $(compgen -W 'text json'");
+  });
+});
