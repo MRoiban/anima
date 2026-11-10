@@ -129,19 +129,27 @@ export function bindings(
     const state = dataState(p);
     const last = states.get(p) ?? new Map();
     states.set(p, last);
-    // All bindings sample one post-state snapshot; authored order cannot create feedback.
-    const snapshot = new Map([...model.inputs.keys()].map((n) => [n, scope.get(n)!]));
+    // All bindings sample one post-state snapshot; authored order cannot create feedback. Data
+    // inputs are cached on first use so large model/list schemas do not make every binding walk
+    // every declared path on every frame.
+    const snapshot = new Map<string, Value>();
     model.addrs.forEach((a, address) => {
       if (address.includes('.properties.'))
         snapshot.set(address, values[p.addrs.indexOf(address)] ?? a.rest);
     });
+    const inputSnapshot = {
+      get(name: string) {
+        if (!snapshot.has(name)) snapshot.set(name, scope.get(name)!);
+        return snapshot.get(name);
+      },
+    } as ReadonlyMap<string, Value>;
     const writes: [string, Value][] = [];
     for (const link of links) {
       const { spec, target, source } = link,
         slot = p.addrs.indexOf(target),
         raw = values[slot]!,
         old = last.get(link);
-      let value = link.read(snapshot, p);
+      let value = link.read(inputSnapshot, p);
       const mode = spec.mode ?? 'to-target';
       const options = Object.fromEntries(
         Object.entries(spec.options ?? {}).map(([k, v]) => [
