@@ -31,6 +31,54 @@ describe('discovery index', () => {
     ])
       expect(kinds.get(k) || 0, k).toBeGreaterThan(0);
   }, 30000);
+
+  it('contains only identifier-like entry names', () => {
+    for (const entry of index()) {
+      expect(entry.name.length, `${entry.kind}:${JSON.stringify(entry.name)}`).toBeGreaterThan(0);
+      expect(entry.name, `${entry.kind}:${JSON.stringify(entry.name)}`).toMatch(/^\S+$/);
+      expect(entry.name, `${entry.kind}:${JSON.stringify(entry.name)}`).toMatch(/[A-Za-z0-9]/);
+      if (entry.kind === 'capability')
+        expect(entry.name, entry.name).toMatch(/^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)+$/);
+    }
+  });
+  it('returns no noise for stop-only or unrelated queries', () => {
+    for (const query of [
+      'change',
+      'make',
+      'add',
+      'use',
+      'create',
+      'show',
+      'do',
+      'get',
+      'want',
+      'how',
+    ])
+      expect(search(query), query).toEqual([]);
+    expect(search('totally unrelated wombat quasiflux')).toEqual([]);
+  });
+  it('prioritizes interaction vocabulary over capability prose', () => {
+    expect(search('pointer', { limit: 5 }).every((hit) => hit.entry.kind === 'event')).toBe(true);
+    expect(search('wheel', { limit: 1 })[0]?.entry).toMatchObject({
+      kind: 'event',
+      name: 'scroll',
+    });
+    expect(search('keys', { limit: 3 }).map((hit) => hit.entry.name)).toEqual([
+      'key-down',
+      'key-repeat',
+      'key-up',
+    ]);
+    expect(search('cursor', { limit: 1 })[0]?.entry.kind).toBe('field');
+    expect(search('fade', { limit: 3 }).map((hit) => hit.entry.name)).toEqual([
+      'in',
+      'out',
+      '<id>.opacity',
+    ]);
+    expect(search('random', { limit: 1 })[0]?.entry).toMatchObject({
+      kind: 'function',
+      name: 'random',
+    });
+  });
   it('ranks useful concepts', () => {
     expect(
       search('easing curve', { limit: 5 }).some((h) =>
@@ -59,7 +107,9 @@ describe('discovery index', () => {
     expect(examples('rig').length).toBeGreaterThan(0);
   });
   it('keeps concrete discovery results ahead of noisy fuzzy matches', () => {
-    expect(search('hover', { limit: 5 }).map((hit) => hit.entry.name)).toEqual(['enter', 'leave']);
+    const hover = search('hover', { limit: 5 }).map((hit) => hit.entry.name);
+    expect(hover.slice(0, 2)).toEqual(['enter', 'leave']);
+    expect(hover.some((name) => name.includes('cover'))).toBe(false);
     expect(search('ease in out', { limit: 5 }).some((hit) => hit.entry.name === 'inOut')).toBe(
       true,
     );
