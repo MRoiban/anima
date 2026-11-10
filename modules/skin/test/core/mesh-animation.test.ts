@@ -59,3 +59,18 @@ it('computes automatic mesh weights from the rest vertices, whenever the first d
     drawFrame(early).nodes.find((n) => n.mesh)!.mesh!.points,
   );
 });
+
+it('reads grid skin points from the animated image box (S2-3)', () => {
+  const d = doc(true);
+  d.timelines.wave.tracks = {
+    'flag.width': [
+      [0, 8],
+      [1, 16],
+    ],
+  };
+  const p = new Player(load(d).model!);
+  p.step(1);
+  const points = drawFrame(p).nodes.find((n) => n.mesh)!.mesh!.points;
+  expect(p.values()['flag.skin.point.2']).toEqual(points.slice(4, 6));
+  expect(points.slice(4, 6)).toEqual([18, 5]);
+});

@@ -167,6 +167,32 @@ describe('rig', () => {
     expect(pos(p, 'a')[0]).toBeCloseTo(2 + 4 * 0.123456789, 12);
     expect(pos(p, 'a')[1]).toBeCloseTo(3 + 2 * 0.123456789, 12);
   });
+  it('bounds rotated descendant rects and ellipses exactly for origin (S2-4)', () => {
+    const at = (child: object) =>
+      pos(
+        player(
+          doc(
+            [
+              group('target', {
+                children: [{ id: 'c', rotate: 45, fill: { color: '#888' }, ...child }],
+              }),
+              group('a', {
+                constraints: [{ kind: 'copyTransform', from: 'target', origin: [0, 0] }],
+              }),
+            ],
+            { requires: ['rig', 'paint'] },
+          ),
+        ),
+        'a',
+      );
+    const [rx, ry] = at({ type: 'rect', x0: 0, y0: 0, w: 10, h: 10 });
+    expect(rx).toBeCloseTo(-10 / Math.SQRT2, 9);
+    expect(ry).toBeCloseTo(0, 9);
+    // An ellipse rotated 45°: half-extents are both sqrt((rx² + ry²) / 2).
+    const [ex, ey] = at({ type: 'ellipse', cx: 0, cy: 0, rx: 4, ry: 2 });
+    expect(ex).toBeCloseTo(-Math.sqrt(10), 9);
+    expect(ey).toBeCloseTo(-Math.sqrt(10), 9);
+  });
   it('binds both origin coordinates through the shared point value type', () => {
     const p = player(
       doc(

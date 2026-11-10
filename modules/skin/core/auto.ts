@@ -25,6 +25,10 @@ export function automatic(
   if (!values) cache.set(p, (values = new Map()));
   const hit = values.get(key);
   if (hit) return hit;
+  // A vertex's point weights come from its rest anchor, never from the first drawn or animated
+  // position (rounded contour corners and animated mesh vertices share the vertex's key).
+  const [, k, part] = key.split(':');
+  if (part === 'point') point = s.rest[+k!] ?? point;
   const ctx = rig?.context(p),
     w0 = ctx?.rest(node) ?? p.world(node),
     world = apply(w0, point[0], point[1]),

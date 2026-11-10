@@ -5,29 +5,46 @@ import type { Module } from '../../../packages/core/src/modules.ts';
 import type { RigContext } from './api.ts';
 import { origin } from './constraints.ts';
 
-function geometryPoints(ctx: RigContext, node: number): number[] {
+// Angles (degrees) where an ellipse with radii rx, ry reaches its x and y extremes once mapped by m:
+// 0/90/180/270 when unrotated, the rotated extremes otherwise.
+const extremes = (m: Mat, rx: number, ry: number): number[] =>
+  [0, 1].flatMap((i) => {
+    const t = (Math.atan2(m[i + 2]! * ry, m[i]! * rx) * 180) / Math.PI;
+    return [t, t + 180];
+  });
+
+// Local points whose mapped extremes are the node's exact geometric bounds under the affine m.
+function geometryPoints(ctx: RigContext, node: number, m: Mat): number[] {
   const n = ctx.model.nodes[node]!,
     r = n.raw,
     type = String(n.type);
   if (n.geom) return flatten(n.geom).flatMap((s) => s.pts);
-  if (type === 'circle') {
-    const [x, y] = r.center,
-      d = r.r;
-    return [x - d, y - d, x + d, y + d];
-  }
+  const ellipse = (x: number, y: number, rx: number, ry: number, angles: number[]) =>
+    angles.flatMap((v) => {
+      const q = (v * Math.PI) / 180;
+      return [x + rx * Math.cos(q), y + ry * Math.sin(q)];
+    });
+  if (type === 'circle') return ellipse(r.center[0], r.center[1], r.r, r.r, extremes(m, r.r, r.r));
   if (type === 'arc') {
     const [x, y] = r.center,
       d = r.r,
       from = r.from,
       to = r.to,
-      a = [from, to, ...[0, 90, 180, 270, 360].filter((v) => v > from && v < to)];
-    return a.flatMap((v) => {
-      const q = (v * Math.PI) / 180;
-      return [x + d * Math.cos(q), y + d * Math.sin(q)];
-    });
+      a = extremes(m, d, d).flatMap((t) => [-720, -360, 0, 360, 720].map((k) => t + k));
+    return ellipse(x, y, d, d, [from, to, ...a.filter((v) => v > from && v < to)]);
   }
-  if (type === 'rect') return [r.x0, r.y0, r.x0 + r.w, r.y0 + r.h];
-  if (type === 'ellipse') return [r.cx - r.rx, r.cy - r.ry, r.cx + r.rx, r.cy + r.ry];
+  const box = (x: number, y: number, w: number, h: number) => [
+    x,
+    y,
+    x + w,
+    y,
+    x + w,
+    y + h,
+    x,
+    y + h,
+  ];
+  if (type === 'rect') return box(r.x0, r.y0, r.w, r.h);
+  if (type === 'ellipse') return ellipse(r.cx, r.cy, r.rx, r.ry, extremes(m, r.rx, r.ry));
   if (type === 'triangle')
     return [r.x0 + r.width / 2, r.y0, r.x0 + r.width, r.y0 + r.height, r.x0, r.y0 + r.height];
   if (type === 'polygon' || type === 'star') {
@@ -46,7 +63,7 @@ function geometryPoints(ctx: RigContext, node: number): number[] {
       y = Number(r.y0 ?? 0),
       w = Number(r.width ?? 0),
       h = Number(r.height ?? 0);
-    return [x, y, x + w, y + h];
+    return box(x, y, w, h);
   }
   return [];
 }
@@ -57,7 +74,7 @@ function subtreePoints(ctx: RigContext, root: number): number[] {
   const out: number[] = [];
   const visit = (node: number) => {
     const rel = mul(inv, ctx.rest(node)),
-      p = geometryPoints(ctx, node);
+      p = geometryPoints(ctx, node, rel);
     for (let k = 0; k < p.length; k += 2) out.push(...apply(rel, p[k]!, p[k + 1]!));
     for (const child of ctx.model.nodes[node]!.children) visit(child);
   };

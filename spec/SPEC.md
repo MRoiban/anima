@@ -3613,6 +3613,9 @@ syntax is `bind-type`, with the binding's JSON pointer and a correction hint.
 Binding is post-state, following the existing bind stage; it overrides track output.
 Without mesh in requires, no mesh per-frame work is installed.
 
+Pointer hit testing and semantic bounds of a meshed image use its image box, not the deformed
+triangles, whether the vertices are animated, bound or skinned.
+
 Independent draw expectations cover grid and explicit meshes, fit/align UVs and
 fractional animated/bound vertices. Native captures use the original generated
 flag texture at 12 px/unit; browser pixels compare to the CLI triangle render.
