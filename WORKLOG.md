@@ -12,20 +12,14 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
   (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
   carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
 - Main is 97b509f3 (PR #41 docs refresh, already merged into `p8-rigging`). No open issues or PRs.
-- **21/26 rows done** (2026-11-10). Open: `rigging.skin`, `rigging.weights`, `rigging.cubic-weights`
-  (P8-4 merged, oracle cases added at 16/65/0.25; its thread is cutting `skin` 2,754 → ≤ 1,536 B and
-  fixing lint/typecheck, so `p8-rigging` fails size, lint and typecheck until it lands);
-  `rigging.scroll` (P8-7 running); `rigging.transform` (copyTransform origin: AniML tuple animation,
-  binding, group-subtree bounds; `rig` has 19 B left, so an optional entry; resume the P8-1 thread,
-  worktree t3-8efe4597).
-- Queued: issues #39 (trim dasharray repeats at the endpoint) and #40 (5-decimal matrix rounding
-  zeroes tiny scales); brief `design/issues/BRIEF-39-40.md`; a Codex Web coder on branch
-  `issues-39-40` from main, running as the third agent; separate PR to main.
-- Owner (2026-11-10): when P8 is done, run /rottweiler on the whole phase (3 rounds, one Sol
-  reviewer on Codex Web, minimal fixes, ledger `design/rottweiler/P8-LEDGER.md`, push back with
-  reasons), then push: PR `p8-rigging` → main, merge on green CI.
-- Then wave 3: benchmark (`design/p8/BENCHMARK.md`, fresh agents on Codex Web), parity closure
-  (`docs/parity/P8-closure.md`), PLAN, LOG, perf A/B, full check, PR.
+- **P8 complete (2026-11-10): 26/26 rows**, in scope 886/886. Closure `docs/parity/P8-closure.md`,
+  PLAN ticked, LOG entry, parity phase lists (P8 finished, nothing in progress). Benchmark: AniML
+  6/6, Rive 6/6 (Luau controller); it found the IK strength chain break, fixed in P8-2b. P4c replay
+  after R4-02: identical. Perf vs main within ±1.8 %.
+- **Now: Rottweiler on P8** (owner): ledger `design/rottweiler/P8-LEDGER.md`, scope
+  `design/rottweiler/P8-SCOPE.txt` (92 files), round 1 reviewer running on Codex Web; I verify and
+  fix each finding. Then the PR `p8-rigging` → main, merged on green CI. PR #42 (issues #39/#40) is
+  waiting on CI.
 - Decisions: `design/p8/DECISIONS.md` D1–D47. Oracle budgets: rig unrotated 16/2/0, rotated and
   follow-path 65/0.12, IK and skin 65/0.25, mesh 70/0.40 and 100/0.45, posepad 16/2/0. Rig probes
   use rect art (circles differ from Rive by construction). Rig adds nothing to core checks (D47);
