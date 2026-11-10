@@ -8,6 +8,13 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Now
 
+- **Now: CLI discovery** (owner, 2026-11-10: "can an agent or human find everything from the CLI?";
+  model: the Bedrock CLI rework). Branch `cli-discovery`; design `design/discovery/DESIGN.md`
+  (D1–D10); metric `node tools/discovery.ts` + `tools/discovery-quiz.json` (mine, agents never edit).
+  Baseline quiz 13/56 (schema --search proxy), rows reachable 0/886. Running on Codex Web 5.6 Sol:
+  D-A command table/help/suggest (`discovery-a`), D-B index + features/search/examples
+  (`discovery-b`), D-C schema/docs views, topics, llms.txt, docs/CLI.md (`discovery-c`). Then merge,
+  regenerate docs/CLI.md, measure, Rottweiler, PR.
 - Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
   (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
   carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
