@@ -160,8 +160,9 @@ export function documentFonts(
 /** Optional runtime seam. Does not import the text module into core or web. */
 export async function installToolMeasurer(measurer: ToolMeasurer): Promise<void> {
   const actual = new URL('../../../../modules/text/core/measure.ts', import.meta.url);
-  if (!existsSync(actual)) return;
-  const module = (await import(actual.href)) as {
+  const module = (await import(
+    existsSync(actual) ? actual.href : 'animl/internal/modules/text/core/measure.js'
+  )) as {
     setTextMeasurer?: (m: ToolMeasurer) => void;
     setMeasurer?: (m: ToolMeasurer) => void;
   };

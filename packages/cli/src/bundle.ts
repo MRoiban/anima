@@ -1,5 +1,5 @@
 // The generated registry preserves discover()/ordered()'s manifest `after` order.
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { bundle } from '../../../tools/browser-build.ts';
@@ -31,7 +31,12 @@ export async function bundleBrowser(names: string | undefined, output: string, v
     });
   }
   const modules = entries.filter((name) => requested.includes(name));
-  const entry = (name: string) => fileURLToPath(new URL(`packages/web/src/${name}.ts`, root));
+  const entry = (name: string) => {
+    const source = new URL(`packages/web/src/${name}.ts`, root);
+    if (existsSync(source)) return fileURLToPath(source);
+    const specifier = name === 'index' ? 'animl/web' : `animl/web/${name}`;
+    return fileURLToPath(import.meta.resolve(specifier));
+  };
   // Real entry points for zero/one module preserve dist's exact bytes, including its exports.
   const source =
     modules.length <= 1
