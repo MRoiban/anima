@@ -109,7 +109,7 @@ for (const [name, engine, paths] of [
           before: 0,
           queued: 0,
           after: 0.625,
-          dash: '31.41593 18.84956',
+          dash: '31.41593 100.53096',
           busy: false,
         });
         // Exercise the string branch in the shipped, terse browser bundle as well.

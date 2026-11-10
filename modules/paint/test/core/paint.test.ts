@@ -124,7 +124,7 @@ describe('paint rendering and sampling', () => {
     expect(leaf(p, 1)['stroke-dashoffset']).toBe('-5');
     expect(leaf(p, 2)).toMatchObject({
       pathLength: null,
-      'stroke-dasharray': '10 10',
+      'stroke-dasharray': '10 40',
       'stroke-dashoffset': '0',
     });
     p.step(0.5);

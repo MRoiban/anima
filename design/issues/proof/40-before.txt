@@ -1,0 +1,22 @@
+Issue #40 before fix
+
+Regression test:
+FAIL packages/core/test/issue-40.test.ts > preserves tiny nonzero transform matrix entries
+1 test failed
+
+Expected outer matrix:
+  matrix(0.000001 0 0 1 0 0)
+Received outer matrix:
+  matrix(0 0 0 1 0 0)
+Inner reciprocal matrix:
+  matrix(1000000 0 0 1 0 0)
+
+Measured SVG from the issue scene:
+  units: matrix(0 0 0 1 0 0)
+  undo: matrix(1000000 0 0 1 0 0)
+  path: matrix(1 0 0 1 0 0)
+
+CLI PNG, --size 160, expected square interior probes:
+  center (80,80): rgba [0,0,0,0]
+  interior (30,30): rgba [0,0,0,0]
+  interior (139,139): rgba [0,0,0,0]
