@@ -803,7 +803,8 @@ Custom channels use `node.properties.name`; strings/enums are discrete, hold-onl
 
 Add `derive` for computed scalar properties. `value` is a bind expression, with optional
 `convert` (requires `convert`). Inside a model `$score` means that instance's score;
-`$main:players.0.score` remains absolute. Each list item gets its own computed values.
+`$main:players.0.score` remains absolute, also inside repeated and nested components, where `$main:`
+reads the document's live instance. Each list item gets its own computed values.
 Number, string, bool, color and enum properties can be computed. Their `$` paths work in
 conditions, bindings, event fields, selected sample snapshots and host handles.
 They initialize on load and recompute in the data binding pass, before visual bindings.

@@ -351,8 +351,10 @@ function prepare(
           for (const v of object[key] as Record<string, unknown>[]) visit(v, p.of!, seen);
       }
     };
+    // An instance shared from the parent player (#49) is computed by the parent, with its converters.
     for (const [name, values] of Object.entries(s.instances))
-      visit(values, c.document.instances![name]?.model ?? '');
+      if (s.instances['@' + name] !== values)
+        visit(values, c.document.instances![name]?.model ?? '');
   };
   const identity = new WeakMap<object, number>();
   let next = 0;

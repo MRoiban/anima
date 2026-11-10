@@ -97,7 +97,13 @@ export function bindContext(
     b = data.dataState(child);
   if (!a || !b) return;
   parents.set(child, parent);
-  for (const [key, object] of Object.entries(a.instances)) b.instances['@' + key] = object;
+  for (const [key, object] of Object.entries(a.instances)) {
+    b.instances['@' + key] = object;
+    // Named instances belong to the document: `$main:` reads the parent's live objects (#49), not
+    // the child's private copy of their defaults. The child's own default (its item) stays its own.
+    if (!key.startsWith('@') && key !== b.compiled.defaultName && key in b.instances)
+      b.instances[key] = object;
+  }
   b.instances['@index'] = { value: index ?? Number(a.get('$index') ?? 0) };
   if (value) b.instances[b.compiled.defaultName] = value as Record<string, unknown>;
   const nested = child.nested as { players?: Map<string, Player> } | undefined;
