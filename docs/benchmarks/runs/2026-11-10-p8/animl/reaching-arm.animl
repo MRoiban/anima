@@ -1,0 +1,70 @@
+<anima version="0.1" name="reaching-arm" grid="40" viewBox="0 0 40 30" requires="input bind rig ik skin">
+  <number name="pointerX" default="25"/>
+  <number name="pointerY" default="20"/>
+  <bool name="hover" default="false"/>
+
+  <rect id="panel" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+
+  <group id="pointer-target" x="25" y="20"/>
+  <bind target="pointer-target.x" value="pointerX"/>
+  <bind target="pointer-target.y" value="pointerY"/>
+
+  <group id="aim" x="25" y="20">
+    <copy-position strength="0" from="pointer-target"/>
+  </group>
+
+  <group id="eye-center" x="32" y="6"/>
+  <circle id="eye-ring" cx="32" cy="6" r="2" stroke="#141413" stroke-width="0.3"/>
+  <circle id="pupil" cx="32" cy="6" r="0.6" pivot="32 6" fill="#141413">
+    <copy-position strength="0" from="pointer-target"/>
+    <keep-distance to="eye-center" distance="1" mode="within"/>
+  </circle>
+
+  <bone id="upper" root="true" length="9" x="8" y="20">
+    <bone id="fore" length="8">
+      <ik target="aim" bones="2" bend="cw"/>
+      <circle id="hand" cx="25" cy="20" r="1.2" pivot="25 20" fill="#141413"/>
+    </bone>
+  </bone>
+
+  <path id="sleeve" d="M8 19 L16 19 L17 19 L18 19 L25 19 L25 21 L18 21 L17 21 L16 21 L8 21 Z" fill="#d97757">
+    <skin bones="upper fore"
+        weights="[
+      {&quot;point&quot;:{&quot;upper&quot;:1}},
+      {&quot;point&quot;:{&quot;upper&quot;:1}},
+      {&quot;point&quot;:{&quot;upper&quot;:0.75,&quot;fore&quot;:0.25}},
+      {&quot;point&quot;:{&quot;upper&quot;:0.25,&quot;fore&quot;:0.75}},
+      {&quot;point&quot;:{&quot;fore&quot;:1}},
+      {&quot;point&quot;:{&quot;fore&quot;:1}},
+      {&quot;point&quot;:{&quot;upper&quot;:0.25,&quot;fore&quot;:0.75}},
+      {&quot;point&quot;:{&quot;upper&quot;:0.75,&quot;fore&quot;:0.25}},
+      {&quot;point&quot;:{&quot;upper&quot;:1}},
+      {&quot;point&quot;:{&quot;upper&quot;:1}}
+    ]"/>
+  </path>
+
+  <timeline name="release" duration="0.4" loop="once">
+    <track target="aim.constraints.0.strength">0 1; 0.4 0</track>
+    <track target="pupil.constraints.0.strength">0 1; 0.4 0</track>
+    <track target="aim.y">0 20; 0.1 24; 0.2 20; 0.4 20</track>
+  </timeline>
+
+  <layer name="tracking" initial="rest">
+    <state name="rest">
+      <pose aim.constraints.0.strength="0" pupil.constraints.0.strength="0"/>
+      <on when="hover" to="reach" blend="0"/>
+    </state>
+    <state name="reach">
+      <pose aim.constraints.0.strength="1" pupil.constraints.0.strength="1"/>
+      <on when="!hover" to="release" blend="0"/>
+    </state>
+    <state name="release" play="release">
+      <on when="hover" to="reach" blend="0"/>
+      <on when="@end" to="rest" blend="0"/>
+    </state>
+  </layer>
+
+  <listener on="enter" set="hover=true"/>
+  <listener on="move" write="{&quot;x&quot;:&quot;pointerX&quot;,&quot;y&quot;:&quot;pointerY&quot;}"/>
+  <listener on="leave" set="hover=false"/>
+</anima>
