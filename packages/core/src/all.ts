@@ -63,6 +63,8 @@ import { ikSVG } from '../../../modules/ik/core/svg.ts';
 import { pathfollow } from '../../../modules/pathfollow/core/index.ts';
 import { pathfollowSVG } from '../../../modules/pathfollow/core/svg.ts';
 import { posepad } from '../../../modules/posepad/core/index.ts';
+import { scroll } from '../../../modules/scroll/core/index.ts';
+import { scrollSVG } from '../../../modules/scroll/core/svg.ts';
 import { skin } from '../../../modules/skin/core/all.ts';
 import { skinSVG } from '../../../modules/skin/core/svg.ts';
 import { textEffects } from '../../../modules/text-effects/core/index.ts';
@@ -131,6 +133,8 @@ if (VERBOSE) {
   registerModule(pathfollow);
   registerSVGBackend('pathfollow', pathfollowSVG);
   registerModule(posepad);
+  registerModule(scroll);
+  registerSVGBackend('scroll', scrollSVG);
   registerModule(skin);
   registerSVGBackend('skin', skinSVG);
   registerModule(textEffects);

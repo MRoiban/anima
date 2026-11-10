@@ -1,0 +1,15 @@
+<anima version="0.1" name="scroll-list" grid="20" requires="rig input scroll composite">
+  <rect id="viewport" x0="2" y0="2" width="12" height="12" fill="#eef1f5"/>
+  <group id="content" x="2" y="2">
+    <scroll viewport="viewport" axis="y" offset-y="3" interactive="true"/>
+    <clip source="viewport" rule="nonzero"/>
+    <rect id="row1" x0="0" y0="0" width="12" height="4" fill="#4263eb"/>
+    <rect id="row2" x0="0" y0="5" width="12" height="4" fill="#748ffc"/>
+    <rect id="row3" x0="0" y0="10" width="12" height="4" fill="#91a7ff"/>
+    <rect id="row4" x0="0" y0="15" width="12" height="4" fill="#bac8ff"/>
+  </group>
+  <rect id="track" x0="15" y0="2" width="1" height="12" fill="#ced4da"/>
+  <rect id="thumb" x0="15" y0="2" width="1" height="2" fill="#495057">
+    <scroll-thumb scroll="content" track="track" axis="y" resize="true"/>
+  </rect>
+</anima>

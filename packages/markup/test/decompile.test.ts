@@ -175,6 +175,9 @@ function recover(root: Element): Obj {
         // seam(P8-3): path-follow constraints are registered rig children.
         'along-path': 'alongPath',
         'spread-along-path': 'spreadAlongPath',
+        // seam(P8-7): scroll constraints are registered rig children.
+        scroll: 'scroll',
+        'scroll-thumb': 'scrollThumb',
       };
       if (rigKinds[child.name]) {
         const constraint: Obj = { kind: rigKinds[child.name] };
@@ -680,6 +683,9 @@ function check(source: string | object) {
       'spread-along-path',
       // seam(P8-4): structural skin child.
       'skin',
+      // seam(P8-7): structural scroll constraint children.
+      'scroll',
+      'scroll-thumb',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

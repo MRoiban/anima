@@ -1,0 +1,94 @@
+{
+  "anima": "0.1",
+  "name": "rigging-scroll-oracle",
+  "grid": 20,
+  "requires": ["rig", "scroll", "composite"],
+  "nodes": [
+    {
+      "id": "viewport",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 10,
+      "h": 10,
+      "fill": {
+        "color": "#fff"
+      }
+    },
+    {
+      "id": "content",
+      "type": "group",
+      "children": [
+        {
+          "id": "row1",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 10,
+          "h": 10,
+          "fill": {
+            "color": "#4263eb"
+          }
+        },
+        {
+          "id": "row2",
+          "type": "rect",
+          "x0": 0,
+          "y0": 10,
+          "w": 10,
+          "h": 10,
+          "fill": {
+            "color": "#74c0fc"
+          }
+        },
+        {
+          "id": "row3",
+          "type": "rect",
+          "x0": 0,
+          "y0": 20,
+          "w": 10,
+          "h": 10,
+          "fill": {
+            "color": "#ffd43b"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "scroll",
+          "viewport": "viewport",
+          "axis": "y",
+          "offsetY": 0,
+          "interactive": false
+        }
+      ],
+      "clip": {
+        "source": "viewport",
+        "rule": "nonzero"
+      }
+    }
+  ],
+  "timelines": {
+    "drive": {
+      "duration": 1,
+      "tracks": {
+        "content.constraints.0.offsetY": [
+          [0, 0],
+          [1, 20]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "drive",
+        "states": {
+          "drive": {
+            "play": "drive"
+          }
+        }
+      }
+    }
+  }
+}

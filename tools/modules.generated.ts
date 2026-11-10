@@ -77,6 +77,7 @@ export const webEntries = [
   'pathfollow',
   'posepad',
   'posepad-handle',
+  'scroll',
   'skin',
   'skin-auto',
   'skin-dash',
@@ -168,6 +169,7 @@ export const webOwners: Record<string, string> = {
   pathfollow: 'pathfollow',
   posepad: 'posepad',
   'posepad-handle': 'posepad',
+  scroll: 'scroll',
   skin: 'skin',
   'skin-auto': 'skin',
   'skin-dash': 'skin',
@@ -295,6 +297,7 @@ export const moduleBudgets: {
   { name: 'pathfollow', budget: 1280, heavy: true, over: 'rig' },
   { name: 'posepad', budget: 896, heavy: true },
   { name: 'posepad-handle', budget: 512, over: 'posepad', heavy: true },
+  { name: 'scroll', budget: 1024, heavy: true, over: 'rig' },
   { name: 'skin', budget: 1536, heavy: true },
   { name: 'skin-auto', budget: 320, over: 'skin', heavy: true },
   { name: 'skin-dash', budget: 192, over: 'skin', heavy: true },
@@ -1130,6 +1133,15 @@ export const moduleScopes = {
       'animation-joystick-invert',
       'animation-joystick-handle',
     ],
+  },
+  scroll: {
+    tests: [
+      'modules/scroll/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: ['rigging-scroll'],
   },
   skin: {
     tests: [

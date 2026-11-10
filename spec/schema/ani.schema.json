@@ -4972,6 +4972,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -7647,6 +7737,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -10327,6 +10507,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -13036,6 +13306,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -15726,6 +16086,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -17117,6 +17567,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -18485,6 +19025,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -20957,6 +21587,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -23651,6 +24371,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -26348,6 +27158,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -29033,6 +29933,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -31010,6 +32000,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -33032,6 +34112,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -35616,6 +36786,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -38666,6 +39926,96 @@
                       "path"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -40574,6 +41924,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }
@@ -42696,6 +44136,96 @@
                     "required": [
                       "kind",
                       "path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scroll"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "viewport": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "offsetX": {
+                        "type": "number"
+                      },
+                      "offsetY": {
+                        "type": "number"
+                      },
+                      "interactive": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "viewport",
+                      "axis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "scrollThumb"
+                        ]
+                      },
+                      "strength": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "scroll": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "track": {
+                        "type": "string",
+                        "feature": "scroll"
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y"
+                        ]
+                      },
+                      "resize": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "scroll",
+                      "track",
+                      "axis"
                     ],
                     "additionalProperties": false
                   }

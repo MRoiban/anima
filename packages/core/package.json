@@ -56,6 +56,7 @@
     "./ik": "./src/modules/ik/index.ts",
     "./pathfollow": "./src/modules/pathfollow/index.ts",
     "./posepad": "./src/modules/posepad/index.ts",
+    "./scroll": "./src/modules/scroll/index.ts",
     "./skin": "./src/modules/skin/index.ts",
     "./text-effects": "./src/modules/text-effects/index.ts",
     "./text-input": "./src/modules/text-input/index.ts"

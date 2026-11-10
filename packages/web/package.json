@@ -88,6 +88,7 @@
     "./pathfollow": "./src/pathfollow.ts",
     "./posepad": "./src/posepad.ts",
     "./posepad-handle": "./src/posepad-handle.ts",
+    "./scroll": "./src/scroll.ts",
     "./skin": "./src/skin.ts",
     "./skin-auto": "./src/skin-auto.ts",
     "./skin-dash": "./src/skin-dash.ts",

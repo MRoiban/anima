@@ -1,0 +1,6 @@
+data offset=0
+screenshot frames/0.png
+data offset=-120
+screenshot frames/0.5.png
+data offset=-240
+screenshot frames/1.png
