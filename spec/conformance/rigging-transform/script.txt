@@ -1,6 +1,6 @@
 advance 0
-snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y
+snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y animatedOrigin.world.x animatedOrigin.world.y boundOrigin.world.x boundOrigin.world.y groupOrigin.world.x groupOrigin.world.y
 advance 0.5
-snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y
+snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y animatedOrigin.world.x animatedOrigin.world.y boundOrigin.world.x boundOrigin.world.y groupOrigin.world.x groupOrigin.world.y
 advance 0.5
-snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y
+snapshot world.world.x world.world.y local.world.x local.world.y origin.world.x origin.world.y animatedOrigin.world.x animatedOrigin.world.y boundOrigin.world.x boundOrigin.world.y groupOrigin.world.x groupOrigin.world.y

@@ -464,7 +464,12 @@ function recover(root: Element): Obj {
             .split('\n')
             .map((line) => {
               const m = /^(\S+)\s+("(?:\\.|[^"\\])*"|\S+)(?:\s+(.*))?$/.exec(line.trim())!;
-              return [Number(m[1]), scalar(m[2]!), ...(m[3] ? [m[3]] : [])];
+              const source = m[2]!;
+              return [
+                Number(m[1]),
+                source.startsWith('[') ? JSON.parse(source) : scalar(source),
+                ...(m[3] ? [m[3]] : []),
+              ];
             });
         else ((p.events ??= []) as unknown[]).push([Number(attrs(child).at), attrs(child).name]);
       }
