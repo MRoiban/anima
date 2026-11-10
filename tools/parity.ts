@@ -114,11 +114,12 @@ export const FINISHED = [
   'P5b',
   'P6',
   'P7',
+  'P8',
   'Pc',
 ];
 
 /** The phase being worked on: its rows may be done before the phase is finished. */
-export const IN_PROGRESS = ['P8'];
+export const IN_PROGRESS: string[] = [];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { lint, outputs, readInventory } from './parity.ts';
+import { IN_PROGRESS, lint, outputs, readInventory } from './parity.ts';
 
 describe('docs/parity', () => {
   const rows = readInventory();
@@ -12,12 +12,14 @@ describe('docs/parity', () => {
 
   it('allows done rows in the phase in progress only, and requires done in finished phases', () => {
     const row = structuredClone(rows.find((row) => row.id === 'text.wrap')!);
-    row.anima.phase = 'P8';
-    row.anima.status = 'done';
-    expect(lint([row])).toEqual([]);
+    // Between phases nothing is in progress; the in-progress allowance is then untestable.
+    if (IN_PROGRESS[0]) {
+      row.anima.phase = IN_PROGRESS[0];
+      row.anima.status = 'done';
+      expect(lint([row])).toEqual([]);
+    }
     row.anima.status = 'planned';
-    expect(lint([row])).toEqual([]);
-    row.anima.phase = 'P7';
+    row.anima.phase = 'P8';
     expect(lint([row])).not.toEqual([]);
     row.anima.phase = 'P0';
     expect(lint([row])).not.toEqual([]);

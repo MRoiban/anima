@@ -425,7 +425,7 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       → P8 (`docs/parity/P7-closure.md`). Benchmark: reflow card AniML 6/6 (37-line scene) = Rive 6/6
       (151 lines + a Luau controller). Gates: core+web 21,165, largest scene 55,444, app-UI 104,592,
       runtime sum 130,133, authoring 14,899, Rive-class 148,870.
-- [ ] P8 Rigging (25 rows, plus the `a11y.tree-bounds` carry-over): bones, constraints, IK, skinning, meshes and vertex weights, as optional
+- [x] P8 Rigging (25 rows, plus the `a11y.tree-bounds` carry-over; 26/26 done, LOG "P8 — rigging", `docs/parity/P8-closure.md`): bones, constraints, IK, skinning, meshes and vertex weights, as optional
       **heavy** modules on the canvas backend (owner confirmed 2026-11-07); path measurement stays internal
       to rigging (follow-path), not a public API. **Estimate:** 8–11 KB, counted toward Rive-class
       (114.5 KB now) rather than the full-featured page.
