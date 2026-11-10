@@ -167,6 +167,37 @@ describe('rig', () => {
     expect(pos(p, 'a')[0]).toBeCloseTo(2 + 4 * 0.123456789, 12);
     expect(pos(p, 'a')[1]).toBeCloseTo(3 + 2 * 0.123456789, 12);
   });
+  it('binds both origin coordinates through the shared point value type', () => {
+    const p = player(
+      doc(
+        [
+          { id: 'target', type: 'rect', x0: 2, y0: 3, w: 4, h: 2 },
+          group('a', { constraints: [{ kind: 'copyTransform', from: 'target' }] }),
+        ],
+        {
+          requires: ['rig', 'bind'],
+          inputs: {
+            u: { type: 'number', default: 0.25 },
+            v: { type: 'number', default: 0.75 },
+          },
+          bind: { 'a.constraints.0.origin': '[u, v]' },
+        },
+      ),
+    );
+    p.step(0);
+    expect(pos(p, 'a')).toEqual([3, 4.5]);
+  });
+  it('compiles and animates an AniML origin tuple track', () => {
+    const source =
+      '<anima version="0.1" name="rig-origin-track" grid="20" requires="rig"><rect id="target" x0="2" y0="3" width="4" height="2" fill="#888"/><group id="a"><copy-transform from="target" origin="0 0"/></group><timeline name="go" duration="1"><track target="a.constraints.0.origin">0 [0,0]; 1 [1,1]</track></timeline><layer name="main" initial="go"><state name="go" play="go"/></layer></anima>';
+    const compiled = compile(source);
+    expect(compiled.diagnostics).toEqual([]);
+    const p = player(compiled.doc!);
+    p.step(0.25);
+    expect(pos(p, 'a')[0]).toBeCloseTo(3, 12);
+    expect(pos(p, 'a')[1]).toBeCloseTo(3.5, 12);
+  });
+
   it('keeps unbounded defaults before a limit track starts playing', () => {
     const p = player(
       doc(

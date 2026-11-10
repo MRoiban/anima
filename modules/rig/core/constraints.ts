@@ -86,9 +86,7 @@ export function registerCopies(): void {
           rest = decompose(inSpace(ctx, i, ctx.rest(i), r.toSpace, true), pv);
         if (axis === -1) {
           current.splice(0, 6, ...source);
-          let value = ctx.player.prop(i, `constraints.${k}.origin`) ?? r.origin;
-          if (typeof value === 'string' && value[0] === '~')
-            value = value.slice(1).split(',').map(Number);
+          const value = ctx.player.prop(i, `constraints.${k}.origin`) ?? r.origin;
           if (j !== undefined && Array.isArray(value) && origin.point)
             [current[0], current[1]] = origin.point(ctx, j, value, target);
         } else

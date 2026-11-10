@@ -100,14 +100,14 @@ export const rig: RigModule = {
     if (s?.k !== 'num' && !(s?.k === 'tup' && field === 'origin')) return;
     return {
       prop: {
-        type: s.k === 'num' ? 'number' : 'path',
+        type: s.k === 'num' ? 'number' : 'point',
         min: s.k === 'num' ? s.min : undefined,
         max: s.k === 'num' ? s.max : undefined,
         feature: 'rig',
       },
       rest:
         s.k === 'tup'
-          ? '~' + (raw[field] ?? [0, 0])
+          ? (raw[field] ?? [0, 0])
           : (raw[field] ??
             s.default ??
             (field.startsWith('min')
@@ -120,20 +120,20 @@ export const rig: RigModule = {
     } as ReturnType<NonNullable<Module['model']>>;
   },
   value(_addr, value, pointer, d) {
-    if (Array.isArray(value) && value.length === 2 && value.every(Number.isFinite))
-      return '~' + value;
+    if (typeof value === 'string') {
+      try {
+        value = JSON.parse(value);
+      } catch {
+        /* diagnosed below */
+      }
+    }
+    if (
+      Array.isArray(value) &&
+      value.length === 2 &&
+      value.every((x) => typeof x === 'number' && Number.isFinite(x))
+    )
+      return value as [number, number];
     d.err('value-type', pointer, V && 'origin needs two finite numbers', V && 'use [u,v]');
-  },
-  interpolate(a, b, t) {
-    if (typeof a !== 'string' || typeof b !== 'string' || a[0] !== '~' || b[0] !== '~') return;
-    const y = b.slice(1).split(',');
-    return (
-      '~' +
-      a
-        .slice(1)
-        .split(',')
-        .map((v, i) => +v + (Number(y[i]) - Number(v)) * t)
-    );
   },
   prepare(model, d) {
     if (!model.doc.requires?.includes('rig')) return;

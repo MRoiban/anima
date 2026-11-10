@@ -6,7 +6,7 @@ export const rig: Module = {
   ...base,
   init(registry, shared) {
     const active = (base.init?.call(base, registry, shared) ?? base) as RigModule;
-    installOrigin(active.origin);
+    installOrigin(active.origin, registry.get('bind'));
     return active;
   },
 };
