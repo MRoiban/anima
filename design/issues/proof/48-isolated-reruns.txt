@@ -1,0 +1,195 @@
+
+===== packages/core/test/conformance.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  655 passed | 4 todo (659)
+   Start at  16:59:05
+   Duration  9.39s (tests 85%, import 7%, transform 7%)
+
+exit=0
+
+===== modules/bind/test/web/bind.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  16:59:15
+   Duration  43.43s (tests 98%, import 2%)
+
+exit=0
+
+===== modules/components/test/web/components.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  16:59:59
+   Duration  16.28s (tests 96%, import 3%)
+
+exit=0
+
+===== modules/data/test/web/browser.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  17:00:17
+   Duration  26.56s (tests 97%, import 3%)
+
+exit=0
+
+===== modules/data/test/web/bf1.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  17:00:44
+   Duration  26.40s (tests 94%, import 4%, transform 2%)
+
+exit=0
+
+===== modules/derive/test/web/browser.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+ ❯ |browser| modules/derive/test/web/browser.test.ts (4 tests | 1 failed) 67356ms
+   ❯ Firefox derive (2)
+     × separate bundles; derive first=false 30002ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/derive/test/web/browser.test.ts > Firefox derive > separate bundles; derive first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/derive/test/web/browser.test.ts:36:7
+     34|   describe(name + ' derive', () => {
+     35|     for (const first of [true, false])
+     36|       it(
+       |       ^
+     37|         'separate bundles; derive first=' + first,
+     38|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  17:01:12
+   Duration  68.33s (tests 99%, import 1%)
+
+exit=1
+
+===== modules/lists/test/web/lists.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+ ❯ |browser| modules/lists/test/web/lists.test.ts (4 tests | 4 failed) 121758ms
+   ❯ Chromium lists (2)
+     × retains state, DOM and contexts across reorder; lists first=true 30008ms
+     × retains state, DOM and contexts across reorder; lists first=false 31743ms
+   ❯ Firefox lists (2)
+     × retains state, DOM and contexts across reorder; lists first=true 30003ms
+     × retains state, DOM and contexts across reorder; lists first=false 30001ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/lists/test/web/lists.test.ts > Chromium lists > retains state, DOM and contexts across reorder; lists first=true
+ FAIL  |browser| modules/lists/test/web/lists.test.ts > Chromium lists > retains state, DOM and contexts across reorder; lists first=false
+ FAIL  |browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=true
+ FAIL  |browser| modules/lists/test/web/lists.test.ts > Firefox lists > retains state, DOM and contexts across reorder; lists first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/lists/test/web/lists.test.ts:34:7
+     32|   describe(name + ' lists', () => {
+     33|     for (const first of [true, false])
+     34|       it(
+       |       ^
+     35|         'retains state, DOM and contexts across reorder; lists first='…
+     36|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  17:02:22
+   Duration  122.49s (tests 100%)
+
+exit=1
+
+===== tools/oracle.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+ ❯ |unit| tools/oracle.test.ts (563 tests | 1 failed | 17 todo) 21170ms
+   × Rive oracle: assets-image-import-webp 5004ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tools/oracle.test.ts > Rive oracle: assets-image-import-webp
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/oracle.test.ts:27:3
+     25|
+     26| for (const c of cases)
+     27|   it(`Rive oracle: ${c.name}`, async () => {
+       |   ^
+     28|     const dir = mkdtempSync(join(tmpdir(), 'anima-oracle-'));
+     29|     try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 545 passed | 17 todo (563)
+   Start at  17:04:27
+   Duration  23.34s (tests 91%, transform 4%, import 4%)
+
+exit=1
+
+===== packages/cli/test/authoring.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  59 passed (59)
+   Start at  17:04:53
+   Duration  46.45s (tests 100%)
+
+exit=0
+
+===== packages/markup/test/decompile.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  1968 passed (1968)
+   Start at  17:05:41
+   Duration  7.72s (tests 83%, transform 8%, import 8%)
+
+exit=0
+
+===== packages/markup/test/format.test.ts =====
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-b3ccb70f
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  17:05:50
+   Duration  2.10s (tests 65%, transform 18%, import 18%)
+
+exit=0

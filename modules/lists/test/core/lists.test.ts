@@ -37,6 +37,40 @@ it('compiles both spellings, renders retained slots, and isolates root players',
   const f = drawFrame(p);
   expect(f.tree.nodes.filter((n) => n.kind === 'group').length).toBeGreaterThan(2);
 });
+it('keeps constant list bindings from walking every item path and refreshes changed item data', () => {
+  const document = doc();
+  document.data.instances.main!.values.players = Array.from({ length: 32 }, (_, i) => ({
+    score: 2 + (i % 5),
+  }));
+  const p = player(document);
+  p.step(1 / 60);
+  const run = listState(p)!.runs[0]!;
+  let reads = 0;
+  for (const state of [dataState(p)!, ...run.items.map((item) => dataState(item.player)!)]) {
+    const get = state.get.bind(state);
+    state.get = ((name: string) => {
+      reads++;
+      return get(name);
+    }) as typeof state.get;
+  }
+  p.step(1 / 60);
+  expect(reads).toBeLessThan(1000);
+
+  p.set('$players.23.score', 9);
+  p.step(1 / 60);
+  expect(p.values()['rows/23/dot.r']).toBe(9);
+  expect(toSVG(p)).toContain('r="9"');
+
+  const list = dataState(p)!.read('$players') as { score: number }[];
+  const added = { score: 7 };
+  dataState(p)!.modelTypes!.set(added, 'Player');
+  list.push(added);
+  p.step(1 / 60);
+  added.score = 12;
+  p.step(1 / 60);
+  expect(p.values()['rows/32/dot.r']).toBe(12);
+  expect(toSVG(p)).toContain('r="12"');
+});
 it('preserves player, clocks and queued state across insert/remove/swap, including duplicates', () => {
   const document = doc();
   const row = document.components.row!;
