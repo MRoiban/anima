@@ -34,6 +34,7 @@ const read = (p: string) => {
 };
 const exists = (p: string) => fs.existsSync(path.join(ROOT, p));
 const uniq = (a: string[]) => [...new Set(a.filter(Boolean))];
+const quoted = (source: string) => [...source.matchAll(/['"]([^'"]+)['"]/g)].map((m) => m[1]!);
 const firstSentence = (s: string) =>
   s
     .replace(/[`*_#]/g, '')
@@ -200,7 +201,7 @@ function featureMap(): Map<string, FeatureMeta> {
     const canonical = name.replaceAll('-', '');
     const exportedAfter = /export const after(?:\s*:\s*[^=]+)?\s*=\s*\[([^\]]*)\]/s.exec(t)?.[1];
     const afterSource = exportedAfter ?? /after:\s*\[([^\]]*)\]/s.exec(t)?.[1] ?? '';
-    const after = [...afterSource.matchAll(/['"]([^'"]+)/g)].map((y) => y[1].replaceAll('-', ''));
+    const after = quoted(afterSource).map((value) => value.replaceAll('-', ''));
     const sum = moduleSummary(mod, `${name} feature`);
     m.set(canonical, { after: uniq(after), summary: sum, module: mod });
   }
@@ -368,6 +369,17 @@ function schemaEntries(
           });
     }
   }
+  if (exists('modules/input/core/types.ts')) {
+    const source = read('modules/input/core/types.ts');
+    const cursorBlock = /export const cursors\s*=\s*\[([\s\S]*?)\]/.exec(source)?.[1] || '';
+    const cursorAliases = quoted(cursorBlock).flatMap((value) => [
+      `cursor.${value}`,
+      `cursor ${value}`,
+    ]);
+    for (const entry of out)
+      if (entry.kind === 'field' && entry.name.endsWith('.cursor'))
+        entry.aliases = uniq([...(entry.aliases || []), ...cursorAliases]);
+  }
   void jsonSchema;
   return out;
 }
@@ -406,15 +418,33 @@ function vocabEntries(): Entry[] {
         summary: `Registered expression function ${m[1]}`,
         feature: 'bind',
       });
+  if (exists('modules/convert/core/math.ts')) {
+    const source = read('modules/convert/core/math.ts');
+    const names = new Set<string>();
+    const unary = /const unary = \[([\s\S]*?)\] as const/.exec(source)?.[1] || '';
+    quoted(unary).forEach((name) => names.add(name));
+    for (const match of source.matchAll(/mathFunctions\.set\(\s*['"]([^'"]+)['"]/g))
+      names.add(match[1]!);
+    const aliasBlock = /const aliases:[^=]+=[^{]*\{([\s\S]*?)\};/.exec(source)?.[1] || '';
+    for (const match of aliasBlock.matchAll(/^\s*([A-Za-z][\w]*)\s*:/gm)) names.add(match[1]!);
+    for (const match of source.matchAll(/register\(\s*['"]([^'"]+)['"]/g)) names.add(match[1]!);
+    for (const name of names)
+      out.push({
+        kind: 'function',
+        name,
+        summary: `Expression function ${name}`,
+        feature: 'convert',
+      });
+  }
   if (exists('modules/input/core/types.ts')) {
     const block =
       /export const events\s*=\s*\[([\s\S]*?)\]/.exec(read('modules/input/core/types.ts'))?.[1] ||
       '';
-    for (const m of block.matchAll(/['"]([^'"]+)/g))
+    for (const name of quoted(block))
       out.push({
         kind: 'event',
-        name: m[1],
-        summary: `Input listener event ${m[1]}`,
+        name,
+        summary: `Input listener event ${name}`,
         feature: 'input',
       });
   }

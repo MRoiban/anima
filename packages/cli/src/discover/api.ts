@@ -84,6 +84,21 @@ const STOP = new Set([
   'does',
   'and',
   'or',
+  'change',
+  'make',
+  'add',
+  'use',
+  'create',
+  'show',
+  'do',
+  'get',
+  'want',
+  'how',
+  'please',
+  'can',
+  'draw',
+  'press',
+  'user',
 ]);
 type SearchEntry = {
   entry: Entry;
@@ -94,7 +109,14 @@ type SearchEntry = {
   aliasTokens: string[];
   summaryTokens: string[];
 };
-let SEARCH_DATA: { entries: SearchEntry[]; candidates: string[]; exact: Set<string> } | undefined;
+let SEARCH_DATA:
+  | {
+      entries: SearchEntry[];
+      candidates: string[];
+      exact: Set<string>;
+      documentFrequency: Map<string, number>;
+    }
+  | undefined;
 function searchData() {
   if (SEARCH_DATA) return SEARCH_DATA;
   const entries = idx().map((entry) => {
@@ -112,32 +134,36 @@ function searchData() {
     };
   });
   const exact = new Set<string>();
-  for (const item of entries)
+  const documentFrequency = new Map<string, number>();
+  for (const item of entries) {
     for (const token of [...item.nameTokens, ...item.aliasTokens]) exact.add(token);
-  SEARCH_DATA = { entries, candidates: [...exact], exact };
+    const seen = new Set([...item.nameTokens, ...item.aliasTokens, ...item.summaryTokens]);
+    for (const token of seen) documentFrequency.set(token, (documentFrequency.get(token) || 0) + 1);
+  }
+  SEARCH_DATA = { entries, candidates: [...exact], exact, documentFrequency };
   return SEARCH_DATA;
 }
 
-const CONTENT_KINDS = new Set<EntryKind>([
-  'event',
-  'ease',
-  'function',
-  'field',
-  'element',
-  'type',
-  'feature',
-  'command',
-  'script',
-  'diagnostic',
-  'address',
-]);
+const KIND_BONUS: Partial<Record<EntryKind, number>> = {
+  event: 65,
+  ease: 60,
+  function: 60,
+  address: 58,
+  field: 55,
+  script: 45,
+  element: 48,
+  type: 48,
+  feature: 45,
+  command: 45,
+  diagnostic: 40,
+};
 /** Ranked search over `index()`; empty when nothing is relevant (never pads with noise). */
 export function search(query: string, options: SearchOptions = {}): Hit[] {
   const q = norm(query);
   if (!q) return [];
   const allTokens = q.split(' ');
-  const qt = allTokens.filter((t) => !STOP.has(t));
-  const tokens = qt.length ? qt : allTokens;
+  const tokens = allTokens.filter((t) => !STOP.has(t));
+  if (!tokens.length) return [];
   const data = searchData();
   const entries = options.kinds
     ? data.entries.filter((item) => options.kinds!.includes(item.entry.kind))
@@ -147,9 +173,15 @@ export function search(query: string, options: SearchOptions = {}): Hit[] {
     : data.exact;
   const candidates = options.kinds ? [...exactTokens] : data.candidates;
   const fuzzy = new Map<string, Set<string>>();
-  for (const token of tokens)
+  if (tokens.length === 1) {
+    const token = tokens[0]!;
     if (token.length > 5 && !exactTokens.has(token))
       fuzzy.set(token, new Set(suggestWords(token, candidates)));
+  }
+  const rarity = (token: string) => {
+    const frequency = data.documentFrequency.get(token) || 1;
+    return Math.min(2, 1 + Math.log((data.entries.length + 1) / (frequency + 1)) / 8);
+  };
   const hits: Hit[] = [];
   for (const item of entries) {
     const e = item.entry,
@@ -173,9 +205,9 @@ export function search(query: string, options: SearchOptions = {}): Hit[] {
     } else
       for (const t of tokens) {
         let s = 0;
-        if (nameTokens.includes(t)) s = e.kind === 'capability' ? 100 : 58;
+        if (nameTokens.includes(t)) s = e.kind === 'capability' ? 45 : 58;
         else if (aliasTokens.includes(t))
-          s = e.kind === 'capability' ? 120 : e.kind === 'feature' ? 90 : 52;
+          s = e.kind === 'capability' ? 55 : e.kind === 'feature' ? 90 : 52;
         else if (n.includes(t)) s = 38;
         else if (aliases.some((a) => a.includes(t))) s = 34;
         else if (sumTokens.includes(t)) s = 17;
@@ -186,7 +218,7 @@ export function search(query: string, options: SearchOptions = {}): Hit[] {
           s = 22;
         if (s) {
           matched++;
-          score += s;
+          score += s * rarity(t);
         }
       }
     if (!matched) continue;
@@ -202,8 +234,7 @@ export function search(query: string, options: SearchOptions = {}): Hit[] {
       const need = tokens.length >= 3 ? 2 : 1;
       if (matched < need) continue;
       score += matched * 5;
-    } else if (CONTENT_KINDS.has(e.kind)) score += 45;
-    else if (e.kind === 'doc') score += 6;
+    } else score += KIND_BONUS[e.kind] || (e.kind === 'doc' ? 6 : 0);
     if (score >= 22) hits.push({ entry: e, score });
   }
   return hits
