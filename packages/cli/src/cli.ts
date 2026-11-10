@@ -20,7 +20,6 @@ import '@anima-format/core/all';
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
 
 import { mkdirSync, cpSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { parseArgs } from 'node:util';
 import {
   Player,
   type Diagnostic,
@@ -68,6 +67,12 @@ import {
   toPNG,
 } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
+import { COMMANDS, GLOBAL, type Command, type Option } from './commands.ts';
+import { commandByName, commandHelp, helpJSON, overview } from './help.ts';
+import { resolveAlias, suggest } from './suggest.ts';
+import { completion, type Shell } from './completion.ts';
+import * as discover from './discover/api.ts';
+import type { EntryKind, ExampleInfo, FeatureInfo, Hit, SearchOptions } from './discover/api.ts';
 
 export interface IO {
   out(s: string): void;
@@ -77,129 +82,541 @@ export interface IO {
   input?: AsyncIterable<string>;
 }
 
-class Usage extends Error {}
+class Usage extends Error {
+  readonly issue?: {
+    kind: 'command' | 'flag' | 'value' | 'subcommand';
+    word: string;
+    suggestions: string[];
+    help: string;
+  };
+
+  constructor(
+    message: string,
+    issue?: {
+      kind: 'command' | 'flag' | 'value' | 'subcommand';
+      word: string;
+      suggestions: string[];
+      help: string;
+    },
+  ) {
+    super(message);
+    this.issue = issue;
+  }
+}
+
+interface CLIOptions extends Record<string, unknown> {
+  format?: string;
+  help?: boolean;
+  json?: boolean;
+  all?: boolean;
+  modules?: string;
+  verbose?: boolean;
+  font?: string[];
+  'browser-text'?: boolean;
+  google?: string;
+  chars?: string;
+  node?: string;
+  component?: string;
+  fit?: string;
+  viewport?: string;
+  scale?: string;
+  probe?: string;
+  preset?: string[];
+  fps?: string;
+  animatable?: boolean;
+  bindable?: boolean;
+  inherited?: boolean;
+  'editor-only'?: boolean;
+  audio?: string;
+  search?: string;
+  summary?: boolean;
+  sample?: string;
+  'out-dir'?: string;
+  port?: string;
+  script?: string;
+  eval?: string;
+  'reduced-motion'?: boolean;
+  semantics?: boolean;
+  seed?: string;
+  frames?: string;
+  out?: string;
+  at?: string;
+  size?: string;
+  sheet?: string;
+  over?: string;
+  dark?: boolean;
+  color?: string[];
+  current?: string;
+  background?: string;
+  compare?: string;
+  tolerance?: string;
+  write?: boolean;
+  check?: boolean;
+  glyph?: string;
+  glyphy?: string;
+  force?: boolean;
+  ani?: boolean;
+  embed?: boolean;
+  'json-schema'?: boolean;
+  list?: boolean;
+  kind?: string[];
+  limit?: string;
+  print?: boolean;
+}
+
+interface DiscoveryAPI {
+  search(query: string, options?: SearchOptions): Hit[];
+  features(name?: string): FeatureInfo[] | FeatureInfo | undefined;
+  examples(filter?: string): ExampleInfo[];
+}
+
+export interface RunDeps {
+  discover?: Partial<DiscoveryAPI>;
+}
 
 const ROOT = new URL('../../../', import.meta.url);
+const CLI_VERSION = (
+  JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
+    version: string;
+  }
+).version;
+const DEFAULT_DISCOVERY: DiscoveryAPI = {
+  search: discover.search,
+  features: discover.features as DiscoveryAPI['features'],
+  examples: discover.examples,
+};
 
-const HELP = `anima — check, see and scaffold .animl and .ani animations
+function wantsJSON(argv: readonly string[]): boolean {
+  return argv.some(
+    (arg, index) => arg === '--format=json' || (arg === '--format' && argv[index + 1] === 'json'),
+  );
+}
 
-  anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
-  anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
-  anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
-  anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
-  anima validate <file> [--font name=path]  all diagnostics, with JSON pointers, lines and hints
-  anima inspect <file> [--font name=path]  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
-                                        run a script (spec §11.2), print snapshots as JSON lines
-  anima session <file> [--font name=path]  persistent JSON-line script session (reload, quit)
-  anima bench <file> [-s script] [--frames N] [--format=json] [--font name=path]  compile and frame costs
-  anima render <file> -o out.svg|png [--font name=path] [--at t] [-s script | -e "cmds"] [--size px]
-               [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
-               [--background #hex] [--browser-text] draw a frame or a labelled contact sheet
-  anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
-               [--size px] [--tolerance 0..255] [-o diff.png]
-                                        compare RGBA pixels (default 256px, black currentColor,
-                                        transparent background); exit 1 beyond tolerance (default 0)
-  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
-  anima bundle [--modules paint,bind] [-o anima.js] [--verbose]  chosen browser modules; min+gzip sizes
-  anima doctor                          check Node, browsers, cache and module wiring
-  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
-               [--frames N] [--fps N] [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
-  anima inspect [file] --summary         wiring diagnostics table
-  anima schema --search <words> | <type>.<field>
-               [--animatable] [--bindable] [--inherited] [--editor-only]
-  anima new <directory> --sample bell|moon|progress
-  anima build [file] --out-dir <directory> [--font name=path]  local HTML and runtime export
-  anima fmt <file> [--write | --check]  canonical formatting
-  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
-                                        scaffold AniML whose rest frame is the glyph (--ani for JSON)
-  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]  compile AniML to canonical .ani or inline JSON
-  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
-  anima library update <file.animl> [--check]  refresh vendored imports from local source paths
-  anima decompile <file.ani> [-o out.animl]    write canonical AniML
-  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
-                                        registry fields, types and markup/.ani spellings
-  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
-    Default: contents only; request a section to read it. Topics accept camelCase or kebab-case.
-                                        the authoring guide and the spec
+function usageHelp(command?: Command): string {
+  return command ? `anima help ${command.name}` : 'anima help';
+}
 
-Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
+function usageIssue(
+  command: Command | undefined,
+  kind: NonNullable<Usage['issue']>['kind'],
+  word: string,
+  candidates: readonly string[],
+  message: string,
+): Usage {
+  return new Usage(message, {
+    kind,
+    word,
+    suggestions: suggest(word, candidates),
+    help: usageHelp(command),
+  });
+}
 
-Authoring commands accept .animl and .ani. Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.`;
-
-export async function run(argv: string[], io: IO): Promise<number> {
-  let args;
-  try {
-    args = parseArgs({
-      args: argv,
-      allowPositionals: true,
-      options: {
-        modules: { type: 'string' },
-        verbose: { type: 'boolean' },
-        font: { type: 'string', multiple: true },
-        'browser-text': { type: 'boolean' },
-        google: { type: 'string' },
-        chars: { type: 'string' },
-        node: { type: 'string' },
-        component: { type: 'string' },
-        fit: { type: 'string' },
-        viewport: { type: 'string' },
-        scale: { type: 'string' },
-        probe: { type: 'string' },
-        preset: { type: 'string', multiple: true },
-        fps: { type: 'string' },
-        animatable: { type: 'boolean' },
-        bindable: { type: 'boolean' },
-        inherited: { type: 'boolean' },
-        'editor-only': { type: 'boolean' },
-        audio: { type: 'string' },
-        search: { type: 'string' },
-        summary: { type: 'boolean' },
-        sample: { type: 'string' },
-        'out-dir': { type: 'string' },
-        port: { type: 'string' },
-        format: { type: 'string', default: 'text' },
-        script: { type: 'string', short: 's' },
-        eval: { type: 'string', short: 'e' },
-        'reduced-motion': { type: 'boolean' },
-        all: { type: 'boolean' },
-        semantics: { type: 'boolean' },
-        seed: { type: 'string' },
-        frames: { type: 'string' },
-        out: { type: 'string', short: 'o' },
-        at: { type: 'string' },
-        size: { type: 'string' },
-        sheet: { type: 'string' },
-        over: { type: 'string' },
-        dark: { type: 'boolean' },
-        color: { type: 'string', multiple: true },
-        current: { type: 'string' },
-        background: { type: 'string' },
-        compare: { type: 'string' },
-        tolerance: { type: 'string' },
-        write: { type: 'boolean' },
-        check: { type: 'boolean' },
-        glyph: { type: 'string' },
-        glyphy: { type: 'string' },
-        force: { type: 'boolean' },
-        ani: { type: 'boolean' },
-        embed: { type: 'boolean' },
-        'json-schema': { type: 'boolean' },
-        list: { type: 'boolean' },
-        help: { type: 'boolean', short: 'h' },
-      },
-    });
-  } catch (e) {
-    io.err(`${(e as Error).message}\n\n${HELP}`);
+function emitUsage(error: Usage, command: Command | undefined, json: boolean, io: IO): number {
+  const suggestions = error.issue?.suggestions ?? [];
+  const help = error.issue?.help ?? usageHelp(command);
+  if (json) {
+    io.err(JSON.stringify({ error: error.message, suggestions, help }));
     return 2;
   }
-  const { values: o, positionals: pos } = args;
-  const [cmd, ...rest] = pos;
-  const json = o.format === 'json';
-  if (o.format !== 'text' && !json) return (io.err('--format is text or json'), 2);
-  if (!cmd || o.help) return (io.out(HELP), cmd || o.help ? 0 : 2);
-  const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
+  io.err(`anima: ${error.message}`);
+  if (suggestions.length) {
+    if (error.issue?.kind === 'command') {
+      io.err(
+        `${suggestions.length === 1 ? 'The most similar command is' : 'The most similar commands are'}\n${suggestions.map((item) => `  ${item}`).join('\n')}`,
+      );
+    } else if (suggestions.length === 1) io.err(`Did you mean '${suggestions[0]}'?`);
+    else io.err(`Did you mean one of these?\n${suggestions.map((item) => `  ${item}`).join('\n')}`);
+  }
+  if (!error.message.includes(`See '${help}'`)) io.err(`See '${help}'.`);
+  return 2;
+}
+
+function optionsFor(command: Command): Option[] {
+  return [...command.options, ...GLOBAL];
+}
+
+function setOption(values: CLIOptions, option: Option, value: string | boolean): void {
+  if (option.multiple) {
+    const current = values[option.name];
+    values[option.name] = [...(Array.isArray(current) ? current : []), String(value)];
+  } else values[option.name] = value;
+}
+
+function parseCommandArgs(
+  argv: string[],
+  command: Command,
+): { values: CLIOptions; positionals: string[] } {
+  const options = optionsFor(command);
+  const byLong = new Map(options.map((option) => [option.name, option]));
+  const byShort = new Map(
+    options.flatMap((option) => (option.short ? [[option.short, option] as const] : [])),
+  );
+  const longCandidates = options.map((option) => `--${option.name}`);
+  const shortCandidates = options.flatMap((option) => (option.short ? [`-${option.short}`] : []));
+  const values: CLIOptions = { format: 'text' };
+  const positionals: string[] = [];
+  let positionalOnly = false;
+
+  const accept = (option: Option, raw: string | undefined, spelling: string) => {
+    if (!option.value) {
+      if (raw !== undefined)
+        throw new Usage(`option '${spelling}' does not take a value`, {
+          kind: 'flag',
+          word: spelling,
+          suggestions: [],
+          help: usageHelp(command),
+        });
+      setOption(values, option, true);
+      return;
+    }
+    if (raw === undefined)
+      throw new Usage(`option '${spelling}' needs <${option.value}>`, {
+        kind: 'flag',
+        word: spelling,
+        suggestions: [],
+        help: usageHelp(command),
+      });
+    if (option.choices && !option.choices.includes(raw))
+      throw usageIssue(
+        command,
+        'value',
+        raw,
+        option.choices,
+        `'${raw}' is not a valid value for '${spelling}'`,
+      );
+    setOption(values, option, raw);
+  };
+
+  for (let index = 0; index < argv.length; index++) {
+    const token = argv[index]!;
+    if (positionalOnly) {
+      positionals.push(token);
+      continue;
+    }
+    if (token === '--') {
+      positionalOnly = true;
+      continue;
+    }
+    if (token.startsWith('--')) {
+      const equals = token.indexOf('=');
+      const name = token.slice(2, equals < 0 ? undefined : equals);
+      const option = byLong.get(name);
+      if (!option)
+        throw usageIssue(command, 'flag', token, longCandidates, `unknown option '${token}'`);
+      const inline = equals < 0 ? undefined : token.slice(equals + 1);
+      if (option.value && inline === undefined) {
+        const next = argv[index + 1];
+        if (next === undefined)
+          throw new Usage(`option '--${name}' needs <${option.value}>`, {
+            kind: 'flag',
+            word: token,
+            suggestions: [],
+            help: usageHelp(command),
+          });
+        index++;
+        accept(option, next, `--${name}`);
+      } else accept(option, inline, `--${name}`);
+      continue;
+    }
+    if (token.startsWith('-') && token !== '-') {
+      const short = token[1]!;
+      const option = byShort.get(short);
+      if (!option)
+        throw usageIssue(
+          command,
+          'flag',
+          token,
+          [...shortCandidates, ...longCandidates],
+          `unknown option '${token}'`,
+        );
+      const attached = token.length > 2 ? token.slice(token[2] === '=' ? 3 : 2) : undefined;
+      if (option.value && attached === undefined) {
+        const next = argv[index + 1];
+        if (next === undefined)
+          throw new Usage(`option '-${short}' needs <${option.value}>`, {
+            kind: 'flag',
+            word: token,
+            suggestions: [],
+            help: usageHelp(command),
+          });
+        index++;
+        accept(option, next, `-${short}`);
+      } else accept(option, attached, `-${short}`);
+      continue;
+    }
+    positionals.push(token);
+  }
+  if (command.subcommands?.length && positionals[0]) {
+    const candidates = command.subcommands.map(({ name }) => name);
+    if (!candidates.includes(positionals[0]))
+      throw usageIssue(
+        command,
+        'subcommand',
+        positionals[0],
+        candidates,
+        `'${positionals[0]}' is not an anima ${command.name} subcommand`,
+      );
+  }
+  return { values, positionals };
+}
+
+function unavailable(error: unknown, json: boolean, io: IO): number | undefined {
+  if (!(error instanceof Error) || !/discover\..*not implemented/.test(error.message))
+    return undefined;
+  if (json) io.err(JSON.stringify({ error: 'not available yet' }));
+  else io.err('not available yet');
+  return 1;
+}
+
+function featureText(info: FeatureInfo): string {
+  const groups = new Map<EntryKind, typeof info.provides>();
+  for (const entry of info.provides)
+    groups.set(entry.kind, [...(groups.get(entry.kind) ?? []), entry]);
+  const lines = [`${info.entry.name} — ${info.entry.summary}`];
+  if (groups.size) {
+    lines.push('Provides:');
+    for (const [kind, entries] of groups)
+      lines.push(`  ${kind}:`, ...entries.map((entry) => `    ${entry.name} — ${entry.summary}`));
+  }
+  lines.push(
+    `Docs: ${info.entry.docs?.join(', ') || 'none'}`,
+    `Examples: ${info.entry.examples?.join(', ') || 'none'}`,
+    `After: ${info.after.join(', ') || 'none'}`,
+  );
+  return lines.join('\n');
+}
+
+async function runFeatures(
+  rest: string[],
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  if (rest.length > 1) throw new Usage('features takes at most one name');
   try {
+    if (!rest[0]) {
+      const infos = discovery.features() as FeatureInfo[];
+      if (json) io.out(JSON.stringify({ features: infos }));
+      else for (const info of infos) io.out(`${info.entry.name} — ${info.entry.summary}`);
+      return 0;
+    }
+    const info = discovery.features(rest[0]) as FeatureInfo | undefined;
+    if (!info) throw new Usage(`unknown feature '${rest[0]}'`);
+    if (json) io.out(JSON.stringify(info));
+    else io.out(featureText(info));
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+async function runSearch(
+  rest: string[],
+  options: CLIOptions,
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  const query = rest.join(' ').trim();
+  if (!query) throw new Usage('search needs <words…>');
+  const limit = options.limit === undefined ? 10 : Number(options.limit);
+  if (!Number.isInteger(limit) || limit < 1) throw new Usage('--limit needs a positive integer');
+  try {
+    const results = discovery.search(query, {
+      kinds: options.kind as EntryKind[] | undefined,
+      limit,
+    });
+    if (json) io.out(JSON.stringify({ results }));
+    else if (!results.length) io.out('No results.');
+    else {
+      for (const hit of results)
+        io.out(`${hit.entry.kind}  ${hit.entry.name}  ${hit.entry.summary}`);
+      const top = results[0]!.entry;
+      const next = top.docs?.[0]
+        ? `anima docs ${top.docs[0]}`
+        : top.schema
+          ? `anima schema ${top.schema}`
+          : undefined;
+      if (next) io.out(`Next: ${next}`);
+    }
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+async function runExamples(
+  rest: string[],
+  options: CLIOptions,
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  if (rest.length > 1) throw new Usage('examples takes at most one topic or name');
+  if (options.print && options.out) throw new Usage('examples uses --print or -o dir, not both');
+  try {
+    const examples = discovery.examples(rest[0]);
+    if (!options.print && !options.out) {
+      if (json) io.out(JSON.stringify({ examples }));
+      else
+        for (const example of examples)
+          io.out(
+            `${example.path} — ${example.entry.summary} (requires ${example.requires.join(', ') || 'none'})`,
+          );
+      return 0;
+    }
+    if (examples.length !== 1)
+      throw new Usage(
+        examples.length
+          ? 'examples output needs one match; refine the topic or name'
+          : 'no matching example',
+      );
+    const example = examples[0]!;
+    const source = new URL(example.path, ROOT);
+    if (options.print) {
+      const text = readFileSync(source, 'utf8');
+      if (json) io.out(JSON.stringify({ example, text }));
+      else if (io.write) io.write(text);
+      else io.out(text.trimEnd());
+      return 0;
+    }
+    const dir = String(options.out);
+    mkdirSync(dir, { recursive: true });
+    const wrote = resolve(dir, basename(example.path));
+    cpSync(source, wrote);
+    if (json) io.out(JSON.stringify({ example, wrote }));
+    else io.out(`wrote ${wrote}`);
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<number> {
+  const jsonRequested = wantsJSON(argv);
+  const leading: string[] = [];
+  let index = 0;
+  while (index < argv.length) {
+    const token = argv[index]!;
+    if (token === '--help' || token === '-h') {
+      io.out(overview());
+      return 0;
+    }
+    if (token === '--version') {
+      io.out(jsonRequested ? JSON.stringify({ version: CLI_VERSION }) : CLI_VERSION);
+      return 0;
+    }
+    if (token === '--format' || token.startsWith('--format=')) {
+      leading.push(token);
+      if (token === '--format') {
+        const value = argv[index + 1];
+        if (value === undefined)
+          return emitUsage(
+            new Usage("option '--format' needs <text|json>"),
+            undefined,
+            jsonRequested,
+            io,
+          );
+        leading.push(value);
+        index++;
+      }
+      index++;
+      continue;
+    }
+    break;
+  }
+  if (index >= argv.length) {
+    io.out(overview());
+    return 0;
+  }
+  const rawCommand = argv[index]!;
+  if (rawCommand.startsWith('-')) {
+    const error = usageIssue(
+      undefined,
+      'flag',
+      rawCommand,
+      ['--help', '-h', '--version', '--format'],
+      `unknown option '${rawCommand}'`,
+    );
+    return emitUsage(error, undefined, jsonRequested, io);
+  }
+  const canonical = resolveAlias(rawCommand) ?? rawCommand;
+  const command = commandByName(canonical);
+  if (!command) {
+    const error = usageIssue(
+      undefined,
+      'command',
+      rawCommand,
+      COMMANDS.map(({ name }) => name),
+      `'${rawCommand}' is not an anima command. See 'anima help'.`,
+    );
+    return emitUsage(error, undefined, jsonRequested, io);
+  }
+
+  let parsed: { values: CLIOptions; positionals: string[] };
+  try {
+    parsed = parseCommandArgs([...leading, ...argv.slice(index + 1)], command);
+  } catch (error) {
+    return emitUsage(error as Usage, command, jsonRequested, io);
+  }
+  const o = parsed.values;
+  const rest = parsed.positionals;
+  const json = o.format === 'json';
+  if (o.help) {
+    io.out(commandHelp(command));
+    return 0;
+  }
+  const cmd = command.name;
+  const emit = (value: unknown) => io.out(JSON.stringify(value, null, json ? undefined : 2));
+  const discovery: DiscoveryAPI = { ...DEFAULT_DISCOVERY, ...deps.discover };
+
+  try {
+    if (cmd === 'help') {
+      if (o.json || json) return (io.out(helpJSON()), 0);
+      if (rest.length > 1) throw new Usage('help takes at most one command');
+      if (!rest[0]) return (io.out(overview(!!o.all)), 0);
+      const target = commandByName(resolveAlias(rest[0]) ?? rest[0]);
+      if (!target)
+        throw usageIssue(
+          command,
+          'command',
+          rest[0],
+          COMMANDS.map(({ name }) => name),
+          `'${rest[0]}' is not an anima command`,
+        );
+      io.out(commandHelp(target));
+      return 0;
+    }
+    if (cmd === 'version') {
+      if (rest.length) throw new Usage('version takes no positional arguments');
+      io.out(json ? JSON.stringify({ version: CLI_VERSION }) : CLI_VERSION);
+      return 0;
+    }
+    if (cmd === 'completion') {
+      if (rest.length !== 1 || !['bash', 'zsh', 'fish'].includes(rest[0]!)) {
+        const word = rest[0] ?? '';
+        throw usageIssue(
+          command,
+          'value',
+          word,
+          ['bash', 'zsh', 'fish'],
+          word ? `'${word}' is not a supported shell` : 'completion needs bash, zsh, or fish',
+        );
+      }
+      const script = completion(rest[0] as Shell);
+      io.out(json ? JSON.stringify({ shell: rest[0], script }) : script.trimEnd());
+      return 0;
+    }
+    if (cmd === 'features') return await runFeatures(rest, json, io, discovery);
+    if (cmd === 'search') return await runSearch(rest, o, json, io, discovery);
+    if (cmd === 'examples') return await runExamples(rest, o, json, io, discovery);
+
     let fonts = { measurer: new ToolMeasurer(), diagnostics: [] as Diagnostic[] };
     const prepareFonts = async () => {
       fonts = { measurer: new ToolMeasurer(), diagnostics: [] };
@@ -268,7 +685,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         return result.ok ? 0 : 1;
       }
       case 'compare': {
-        if (rest.length !== 2 || !rest.every((p) => p.endsWith('.png')))
+        if (rest.length !== 2 || !rest.every((path) => path.endsWith('.png')))
           throw new Usage('compare needs two PNG files');
         const tolerance = Number(o.tolerance ?? 0);
         if (!Number.isInteger(tolerance) || tolerance < 0 || tolerance > 255)
@@ -372,7 +789,9 @@ export async function run(argv: string[], io: IO): Promise<number> {
           if (!preset) throw new Usage('unknown render preset ' + name);
           return preset;
         });
-        const explicit = Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined));
+        const explicit = Object.fromEntries(
+          Object.entries(o).filter(([, value]) => value !== undefined),
+        );
         for (let i = 0; i < Math.max(1, presets.length); i++) {
           const output =
             presets.length > 1 && o.out
@@ -414,7 +833,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'build': {
         const dir = o['out-dir'] ?? (!o.out ? findProject()?.out : undefined);
         if (dir) return await exportProject(file(rest), dir, json, io);
-        return await build(file(rest), o.out, json, io, o.embed);
+        return await build(file(rest), o.out, json, io, !!o.embed);
       }
       case 'import': {
         const f = file(rest);
@@ -468,9 +887,9 @@ export async function run(argv: string[], io: IO): Promise<number> {
       }
       case 'decompile': {
         const f = file(rest);
-        const r = loaded(f, io, json);
-        if (!r.model) return 1;
-        const text = decompile(r.text);
+        const result = loaded(f, io, json);
+        if (!result.model) return 1;
+        const text = decompile(result.text);
         if (o.out) writeFileSync(o.out, text);
         else io.out(text.trimEnd());
         return 0;
@@ -478,40 +897,40 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'fmt': {
         const f = file(rest);
         const text = readFileSync(f, 'utf8');
-        let out: string;
+        let output: string;
         if (f.endsWith('.animl')) {
-          const r = formatMarkup(text);
-          const diagnostics = r.diagnostics.map((d) => ({ ...d, file: f }));
-          if (!r.text) {
+          const result = formatMarkup(text);
+          const diagnostics = result.diagnostics.map((d) => ({ ...d, file: f }));
+          if (!result.text) {
             if (json) emit({ file: f, ok: false, diagnostics });
             else report(f, diagnostics, io);
             return 1;
           }
-          out = r.text;
+          output = result.text;
         } else {
           let doc;
           try {
             doc = JSON.parse(text);
-          } catch (e) {
-            io.err(`${f}: not JSON: ${(e as Error).message}`);
+          } catch (error) {
+            io.err(`${f}: not JSON: ${(error as Error).message}`);
             return 1;
           }
-          out = format(doc);
+          output = format(doc);
         }
         if (o.check) {
-          if (json) emit({ file: f, formatted: out === text });
+          if (json) emit({ file: f, formatted: output === text });
           else
             io.out(
-              out === text ? `${f}: formatted` : `${f}: not formatted (run anima fmt --write)`,
+              output === text ? `${f}: formatted` : `${f}: not formatted (run anima fmt --write)`,
             );
-          return out === text ? 0 : 1;
+          return output === text ? 0 : 1;
         }
         if (o.write) {
-          writeFileSync(f, out);
+          writeFileSync(f, output);
           if (json) emit({ wrote: f });
           return 0;
         }
-        io.out(out.trimEnd());
+        io.out(output.trimEnd());
         return 0;
       }
       case 'new':
@@ -526,33 +945,35 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'docs':
         return docs(rest[0], !!o.list, json, io, rest[1]);
       default:
-        throw new Usage(`unknown command "${cmd}"`);
+        throw new Usage(`command '${cmd}' has no dispatcher`);
     }
-  } catch (e) {
-    if (e instanceof Usage) {
-      io.err(`${e.message}\n\n${HELP}`);
-      return 2;
-    }
-    if (e instanceof ScriptError) {
+  } catch (error) {
+    if (error instanceof Usage) return emitUsage(error, command, json, io);
+    if (error instanceof ScriptError) {
       io.err(
-        JSON.stringify({ code: e.code, pointer: e.pointer, message: e.message, hint: e.hint }),
+        JSON.stringify({
+          code: error.code,
+          pointer: error.pointer,
+          message: error.message,
+          hint: error.hint,
+        }),
       );
       return 2;
     }
-    const error = e as Error & { code?: string; pointer?: string; hint?: string };
-    if (error.code) {
+    const detail = error as Error & { code?: string; pointer?: string; hint?: string };
+    if (detail.code) {
       const diagnostic = {
-        code: error.code,
-        pointer: error.pointer ?? '',
-        message: error.message,
-        hint: error.hint ?? 'check local files and browser installation',
+        code: detail.code,
+        pointer: detail.pointer ?? '',
+        message: detail.message,
+        hint: detail.hint ?? 'check local files and browser installation',
       };
       if (json) emit({ diagnostics: [diagnostic] });
       else
         io.err(
           `${diagnostic.code} ${diagnostic.pointer}: ${diagnostic.message}; hint: ${diagnostic.hint}`,
         );
-    } else io.err(error.message);
+    } else io.err(detail.message);
     return 1;
   }
 }

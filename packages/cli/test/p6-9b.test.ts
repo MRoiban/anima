@@ -75,7 +75,6 @@ it('semantic sampling preserves a font-specific code, script pointer and font ov
   }
 });
 it('help and docs describe local fonts for every command that installs them', async () => {
-  const help = (await invoke(['--help'])).out.join('\n');
   for (const command of [
     'sample',
     'session',
@@ -85,8 +84,10 @@ it('help and docs describe local fonts for every command that installs them', as
     'render',
     'flatten',
     'build',
-  ])
-    expect(help).toMatch(new RegExp(`anima ${command}[^\\n]*--font`));
+  ]) {
+    const help = (await invoke(['help', command])).out.join('\n');
+    expect(help).toContain('--font');
+  }
   expect((await invoke(['docs'])).out.join('\n')).toContain('Contents');
   for (const topic of [['authoring'], ['text']]) {
     const docs = await invoke(['docs', ...topic]);

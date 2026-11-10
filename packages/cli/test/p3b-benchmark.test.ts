@@ -53,13 +53,15 @@ it('labels node and root semantics separately and exposes actions and node field
   expect((await cli('schema', 'a11y')).out).toContain('root icon semantics');
 });
 it('advertises headless semantics in help and the agent guide', async () => {
-  for (const text of [(await cli('--help')).out, (await cli('docs', 'agent-tools')).out])
-    for (const command of [
-      'semantics [id]',
-      'semantic <id> tap|increase|decrease|focus',
-      'snapshot --semantics',
-    ])
-      expect(text).toContain(command);
+  const sampleHelp = (await cli('sample', '--help')).out;
+  for (const option of ['--semantics', '--all', '--seed']) expect(sampleHelp).toContain(option);
+  const agentGuide = (await cli('docs', 'agent-tools')).out;
+  for (const command of [
+    'semantics [id]',
+    'semantic <id> tap|increase|decrease|focus',
+    'snapshot --semantics',
+  ])
+    expect(agentGuide).toContain(command);
 });
 it('resolves expect like snapshot, preserving exact input precedence and scoped aliases', () => {
   const doc = JSON.parse(

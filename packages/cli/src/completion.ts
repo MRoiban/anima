@@ -1,0 +1,141 @@
+import { COMMANDS, GLOBAL, type Command, type Option } from './commands.ts';
+
+export type Shell = 'bash' | 'zsh' | 'fish';
+
+function values(command: Command): string[] {
+  return [...(command.subcommands?.map(({ name }) => name) ?? []), ...(command.topics?.() ?? [])];
+}
+
+function flags(command: Command): string[] {
+  return [...command.options, ...GLOBAL].flatMap((option) => [
+    `--${option.name}`,
+    ...(option.short ? [`-${option.short}`] : []),
+  ]);
+}
+
+function choiceCases(command: Command): string[] {
+  return [...command.options, ...GLOBAL]
+    .filter((option) => option.choices?.length)
+    .map(
+      (option) =>
+        `      --${option.name}${option.short ? `|-${option.short}` : ''}) COMPREPLY=( $(compgen -W '${option.choices!.join(' ')}' -- "$cur") ); return ;;`,
+    );
+}
+
+function bash(): string {
+  const commands = COMMANDS.flatMap((command) => [command.name, ...(command.aliases ?? [])]).join(
+    ' ',
+  );
+  const cases = COMMANDS.map((command) => {
+    const positional = values(command).join(' ');
+    return `    ${[command.name, ...(command.aliases ?? [])].join('|')})
+      case "$prev" in
+${choiceCases(command).join('\n')}
+      esac
+      if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $(compgen -W '${flags(command).join(' ')}' -- "$cur") )
+      else
+        COMPREPLY=( $(compgen -W '${positional}' -- "$cur") )
+      fi
+      ;;`;
+  }).join('\n');
+  return `# bash completion for anima
+_anima_completion() {
+  local cur prev cmd
+  cur="${'${COMP_WORDS[COMP_CWORD]}'}"
+  prev="${'${COMP_WORDS[COMP_CWORD-1]}'}"
+  cmd="${'${COMP_WORDS[1]}'}"
+  if (( COMP_CWORD == 1 )); then
+    COMPREPLY=( $(compgen -W '${commands}' -- "$cur") )
+    return
+  fi
+  case "$cmd" in
+${cases}
+  esac
+}
+complete -F _anima_completion anima
+`;
+}
+
+function zshOption(option: Option): string {
+  const names = [`--${option.name}`, ...(option.short ? [`-${option.short}`] : [])].join(',');
+  const choice = option.choices?.length
+    ? `:value:(${option.choices.join(' ')})`
+    : option.value
+      ? `:value:`
+      : '';
+  return `'${names}[${option.summary.replaceAll("'", "'")}]${choice}'`;
+}
+
+function zsh(): string {
+  const commandRows = COMMANDS.map(
+    (command) => `    '${command.name}:${command.summary.replaceAll("'", '')}'`,
+  ).join('\n');
+  const cases = COMMANDS.map((command) => {
+    const args = [...command.options, ...GLOBAL]
+      .map((option) => `        ${zshOption(option)}`)
+      .join(' \\\n');
+    const topic = values(command);
+    const positional = topic.length ? ` \\\n        '*:value:(${topic.join(' ')})'` : '';
+    return `    ${command.name})
+      _arguments \\\n${args}${positional}
+      ;;`;
+  }).join('\n');
+  return `#compdef anima
+# zsh completion for anima
+_anima() {
+  local state command
+  _arguments '1:command:->command' '*::arg:->args'
+  case $state in
+    command)
+      _describe 'command' commands
+      ;;
+    args)
+      command=$words[2]
+      case $command in
+${cases}
+      esac
+      ;;
+  esac
+}
+local -a commands
+commands=(
+${commandRows}
+)
+_anima "$@"
+`;
+}
+
+function fishOption(command: Command, option: Option): string {
+  const pieces = [
+    `complete -c anima -n '__fish_seen_subcommand_from ${command.name}'`,
+    `-l ${option.name}`,
+  ];
+  if (option.short) pieces.push(`-s ${option.short}`);
+  if (option.value) pieces.push('-r');
+  if (option.choices?.length) pieces.push(`-a '${option.choices.join(' ')}'`);
+  pieces.push(`-d '${option.summary.replaceAll("'", "\\'")}'`);
+  return pieces.join(' ');
+}
+
+function fish(): string {
+  const commandLines = COMMANDS.map(
+    (command) =>
+      `complete -c anima -f -n '__fish_use_subcommand' -a '${command.name}' -d '${command.summary.replaceAll("'", "\\'")}'`,
+  );
+  const detailLines = COMMANDS.flatMap((command) => [
+    ...[...command.options, ...GLOBAL].map((option) => fishOption(command, option)),
+    ...(values(command).length
+      ? [
+          `complete -c anima -f -n '__fish_seen_subcommand_from ${command.name}' -a '${values(command).join(' ')}'`,
+        ]
+      : []),
+  ]);
+  return ['# fish completion for anima', ...commandLines, ...detailLines, ''].join('\n');
+}
+
+export function completion(shell: Shell): string {
+  if (shell === 'bash') return bash();
+  if (shell === 'zsh') return zsh();
+  return fish();
+}
