@@ -1,0 +1,22 @@
+<Rive version="1" kind="fragment">
+    <Artboard defaultStateMachineId="0:7" styleId="0:5" width="480" height="360" name="Arm Study" id="0:2">
+        <LayoutComponentStyle name="Artboard Style" id="0:5"/>
+        <StateMachine name="State Machine 1" id="0:7">
+            <StateMachineLayer name="Layer 1" id="0:8">
+                <AnyState x="200" y="-120"/>
+                <ExitState x="400" y="-120"/>
+                <EntryState>
+                    <StateTransition stateToId="0:12"/>
+                </EntryState>
+                <AnimationState x="200" animationId="0:6" id="0:12"/>
+            </StateMachineLayer>
+        </StateMachine>
+        <LinearAnimation duration="60" name="Animation 1" id="0:6"/>
+        <LayoutComponent width="480" height="360" styleId="0:11" name="Root" id="0:10">
+            <LayoutComponentStyle layoutWidthScaleType="fill" layoutHeightScaleType="fill"
+                widthUnitsValue="auto" heightUnitsValue="auto" name="Style" id="0:11"/>
+            <ScriptedLayout scriptAssetId="0:80" name="Two-link arm" id="0:13"/>
+        </LayoutComponent>
+    </Artboard>
+    <ScriptAsset file="arm.luau" name="arm" id="0:80"/>
+</Rive>
