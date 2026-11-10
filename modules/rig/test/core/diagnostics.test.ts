@@ -35,6 +35,22 @@ describe('rig diagnostics', () => {
       expect.objectContaining({ code: 'unknown-key', pointer: '/nodes/0/children' }),
     );
   });
+  it('accepts limitSpace only on component copies, not copyTransform', () => {
+    const kinds = (kind: string) =>
+      load(
+        document([
+          group('src', { x: 5 }),
+          group('g', { constraints: [{ kind, from: 'src', limitSpace: 'local' }] }),
+        ]),
+      ).diagnostics.filter((d) => d.severity === 'error');
+    expect(kinds('copyPosition')).toEqual([]);
+    expect(kinds('copyTransform')).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-key',
+        pointer: '/nodes/1/constraints/0/limitSpace',
+      }),
+    );
+  });
   it('rejects zero rest scales on bones and their ancestors (D39)', () => {
     for (const nodes of [
       [bone('a', { scaleX: 0 })],

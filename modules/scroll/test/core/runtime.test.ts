@@ -42,6 +42,28 @@ it('lets a bound offset override player-local scroll state each step', () => {
   expect(p.values()['content.world.y']).toBe(-8);
 });
 
+it('keeps drag scrolling when only a dormant timeline could drive the offset', () => {
+  const p = make(0, {
+    timelines: {
+      dormant: {
+        duration: 1,
+        tracks: {
+          'content.constraints.0.offsetY': [
+            [0, 0],
+            [1, 5],
+          ],
+        },
+      },
+    },
+  });
+  const input = p.input();
+  p.step(0);
+  input.pointer('down', 5, 1, { id: 7 });
+  input.pointer('move', 5, 6, { id: 7 });
+  p.step(0);
+  expect(p.values()['content.world.y']).toBe(-5);
+});
+
 it('links and resizes a vertical thumb from the scroll percentage', () => {
   const result = load({
     anima: '0.1',

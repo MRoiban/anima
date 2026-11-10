@@ -41,6 +41,8 @@ export const ik: Module = {
         if (!n) return;
         const frames = ids.map((i) => ctx.world(i)),
           points = ids.map((i) => ctx.position(i));
+        // A collapsed (zero-scale) bone has no direction to solve in: keep its pose.
+        if (frames.some((f) => !invert(f))) return;
         const last = frames[n - 1]!,
           length = ids.map(
             (i, j) => ctx.player.num(i, 'length', 0) * Math.hypot(frames[j]![0], frames[j]![1]),

@@ -223,4 +223,20 @@ describe('ik solver', () => {
     expect(value(p, 'upper.world.rotate')).toBeCloseTo(20, 10);
     expect(value(p, 'fore.world.rotate')).toBeCloseTo(35, 10);
   });
+  it('skips a chain whose bones collapse to zero scale instead of throwing', () => {
+    const p =
+      fromMarkup(`<anima version="0.1" name="r11" grid="40" viewBox="0 0 40 30" requires="rig ik">
+  <group id="target" x="10" y="10"/>
+  <bone id="root" length="10" x="0" y="0">
+    <bone id="tip" length="10"><ik target="target" bones="2"/></bone>
+  </bone>
+  <timeline name="collapse" duration="1"><track target="root.scale">0 1; 1 0</track></timeline>
+  <layer name="l" initial="s"><state name="s" play="collapse"/></layer>
+</anima>`);
+    expect(() => {
+      p.step(0.5);
+      p.step(0.5);
+    }).not.toThrow();
+    expect(Number.isFinite(value(p, 'tip.world.x'))).toBe(true);
+  });
 });

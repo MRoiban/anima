@@ -8,11 +8,7 @@ export const origin: {
   point?: (ctx: RigContext, node: number, uv: number[], frame: Mat) => [number, number];
 } = {};
 export const space: Shape = string(['world', 'local']);
-const spaces = {
-  fromSpace: space,
-  toSpace: space,
-  limitSpace: space,
-};
+const spaces = { fromSpace: space, toSpace: space };
 export function parentFrame(ctx: RigContext, i: number, rest = false): Mat {
   const p = ctx.model.nodes[i]!.parent;
   if (p < 0) return IDENTITY;
@@ -44,6 +40,7 @@ export function registerCopies(): void {
         ...(axis === -1
           ? { origin: { k: 'tup', of: [number(), number()], min: 2 } as Shape }
           : {
+              limitSpace: space,
               offset: { k: 'bool' } as Shape,
               ...(vector
                 ? {

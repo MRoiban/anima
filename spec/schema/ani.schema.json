@@ -4789,13 +4789,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -7550,13 +7543,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -10320,13 +10306,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -13123,13 +13102,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -15903,13 +15875,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -17384,13 +17349,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -18838,13 +18796,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -21400,13 +21351,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -24184,13 +24128,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -26975,13 +26912,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -29750,13 +29680,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -31813,13 +31736,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -33925,13 +33841,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -36599,13 +36508,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -39743,13 +39645,6 @@
                           "local"
                         ]
                       },
-                      "limitSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
                       "origin": {
                         "type": "array",
                         "prefixItems": [
@@ -41737,13 +41632,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",
@@ -43949,13 +43837,6 @@
                         ]
                       },
                       "toSpace": {
-                        "type": "string",
-                        "enum": [
-                          "world",
-                          "local"
-                        ]
-                      },
-                      "limitSpace": {
                         "type": "string",
                         "enum": [
                           "world",

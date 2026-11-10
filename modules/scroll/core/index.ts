@@ -102,14 +102,21 @@ function metrics(ctx: RigContext, node: number, raw: Constraint) {
   };
 }
 
+// An offset is driven only while a binding or the current layer states write it; a timeline that
+// no state plays leaves scrolling interactive.
+function driven(p: Player, node: number, k: number): [boolean, boolean] {
+  const w = p.writes(),
+    at = p.model.nodes[node]!.id + `.constraints.${k}.offset`;
+  return [w.includes(at + 'X'), w.includes(at + 'Y')];
+}
+
 function current(ctx: RigContext, node: number, raw: Constraint, k: number): State {
   let map = states.get(ctx.player);
   if (!map) states.set(ctx.player, (map = new Map()));
   const id = key(node, k),
     old = map.get(id),
     [maxX, maxY] = metrics(ctx, node, raw).max,
-    drivenX = ctx.model.addrs.has(ctx.model.nodes[node]!.id + `.constraints.${k}.offsetX`),
-    drivenY = ctx.model.addrs.has(ctx.model.nodes[node]!.id + `.constraints.${k}.offsetY`),
+    [drivenX, drivenY] = driven(ctx.player, node, k),
     axis = raw.axis ?? 'both',
     x =
       axis === 'y'
@@ -158,9 +165,7 @@ function move(p: Player, spec: ScrollSpec, dx: number, dy: number): boolean {
   if (!q) queued.set(p, (q = new Map()));
   const old = q.get(key(spec.node, spec.k)) ?? [state.x, state.y],
     axis = spec.raw.axis ?? 'both',
-    id = p.model.nodes[spec.node]!.id,
-    drivenX = p.model.addrs.has(id + `.constraints.${spec.k}.offsetX`),
-    drivenY = p.model.addrs.has(id + `.constraints.${spec.k}.offsetY`),
+    [drivenX, drivenY] = driven(p, spec.node, spec.k),
     x = axis === 'y' ? 0 : drivenX ? old[0] : clamp(old[0] + dx, 0, state.maxX),
     y = axis === 'x' ? 0 : drivenY ? old[1] : clamp(old[1] + dy, 0, state.maxY);
   if (x === old[0] && y === old[1]) return false;
