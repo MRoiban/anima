@@ -7,6 +7,7 @@ export default tseslint.config(
     ignores: [
       '**/node_modules/**',
       '**/dist/**',
+      'dist-npm/**',
       'coverage/**',
       'fixtures/**',
       'docs/benchmarks/runs/**',

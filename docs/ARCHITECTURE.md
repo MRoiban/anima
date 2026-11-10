@@ -116,9 +116,10 @@ package responsibilities. Each `manifest.ts` owns dependency order, core/SVG ent
 hooks, web entries and their separate byte budgets, test globs, conformance prefixes, docs and
 package adapters/exports. `node tools/modules.ts` generates the source adapters under the existing
 packages, `core/all`, markup-hook registration and `tools/modules.generated.ts` for build, size and
-scope consumers. `--check` runs first in `npm run check`. Public package import paths stay stable;
-source implementations and tests have a single owner. The packages are private development APIs;
-standalone package publication remains deferred. See `spec/MODULES.md` §3 for the manifest contract.
+scope consumers. `--check` runs first in `npm run check`. Source implementations and tests have a
+single owner. The workspace packages remain private development boundaries; `tools/pack.ts` stages
+their compiled runtime as the public `animl` package and the command line as `animl-cli`. See
+`spec/MODULES.md` §3 for the manifest contract and `docs/PUBLISHING.md` for the release workflow.
 
 npm workspaces, TypeScript strict (6.0; typescript-eslint does not support 7 yet), Vitest, ESLint,
 Prettier. Sources are erasable-syntax TypeScript with `.ts` import specifiers, so Node 24 runs them
@@ -127,9 +128,10 @@ size budget (`tools/size.ts`); `tsc` with `rewriteRelativeImportExtensions` will
 for publishing. `npm run check` runs everything CI runs.
 
 The project name stays **Anima**, with `.ani` (runtime format) and `.animl` (markup) as the file
-extensions (owner, 2026-11-05). Working package names (all `private` until the owner decides — `anima` and `anima-cli` are taken on
-npm, and whether the `@anima` scope is claimed cannot be checked without logging in):
-`@anima-format/core`, `@anima-format/web`, `@anima-format/cli` (binary `anima`).
+extensions (owner, 2026-11-05). The public npm packages are `animl` (core + markup + web + optional
+modules) and `animl-cli` (binary `anima`), owner decision 2026-11-10. The private workspace package
+names `@anima-format/core`, `@anima-format/markup`, `@anima-format/web` and `@anima-format/cli` remain
+source-level development boundaries only.
 
 ## Glyphy integration
 

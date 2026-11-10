@@ -24,15 +24,24 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../.
 const READ_CACHE = new Map<string, string>();
 const FILE_CACHE = new Map<string, string[]>();
 const HEADING_CACHE = new Map<string, { title: string; level: number }[]>();
+const dataPath = (p: string) => {
+  const direct = path.join(ROOT, p);
+  if (fs.existsSync(direct)) return direct;
+  if (p.endsWith('.ts')) {
+    const packaged = path.join(ROOT, p.slice(0, -3) + '.source');
+    if (fs.existsSync(packaged)) return packaged;
+  }
+  return direct;
+};
 const read = (p: string) => {
   let text = READ_CACHE.get(p);
   if (text === undefined) {
-    text = fs.readFileSync(path.join(ROOT, p), 'utf8');
+    text = fs.readFileSync(dataPath(p), 'utf8');
     READ_CACHE.set(p, text);
   }
   return text;
 };
-const exists = (p: string) => fs.existsSync(path.join(ROOT, p));
+const exists = (p: string) => fs.existsSync(dataPath(p));
 const uniq = (a: string[]) => [...new Set(a.filter(Boolean))];
 const quoted = (source: string) => [...source.matchAll(/['"]([^'"]+)['"]/g)].map((m) => m[1]!);
 const firstSentence = (s: string) =>
@@ -194,7 +203,7 @@ function moduleSummary(module: string, fallback: string): string {
 function featureMap(): Map<string, FeatureMeta> {
   if (FEATURES) return FEATURES;
   const m = new Map<string, FeatureMeta>();
-  for (const f of files('modules', (p) => /\/manifest\.ts$/.test(p))) {
+  for (const f of files('modules', (p) => /\/manifest\.(?:ts|source)$/.test(p))) {
     const t = read(f);
     const mod = f.split('/')[1];
     const name = /\bname:\s*['"]([^'"]+)/.exec(t)?.[1] || mod;
@@ -458,7 +467,7 @@ function vocabEntries(): Entry[] {
   }
   for (const f of uniq([
     'packages/core/src/script.ts',
-    ...files('modules', (p) => /\/core\/commands\.ts$/.test(p)),
+    ...files('modules', (p) => /\/core\/commands\.(?:ts|source)$/.test(p)),
   ])) {
     const t = read(f);
     for (const m of t.matchAll(

@@ -27,6 +27,8 @@
     "build:web": "node tools/build-web.ts",
     "build:animl": "node tools/build-animl.ts",
     "build:playground": "node tools/build-playground.ts",
+    "pack": "node tools/pack.ts",
+    "pack:smoke": "node tools/pack-smoke.ts",
     "perf": "node tools/perf.ts",
     "test:scope": "node tools/test-scope.ts"
   },

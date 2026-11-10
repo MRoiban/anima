@@ -1819,8 +1819,12 @@ async function exportProject(file: string, dir: string, json: boolean, io: IO): 
     doc = JSON.parse(compiled);
   } else embedAssets(doc, file);
   const { build: bundleRuntime } = await import('esbuild');
+  const localRuntime = new URL('../../web/src/all-modules.ts', import.meta.url);
+  const runtimeEntry = existsSync(localRuntime)
+    ? localRuntime.pathname
+    : new URL(import.meta.resolve('animl/internal/packages/web/src/all-modules.js')).pathname;
   const runtime = await bundleRuntime({
-    entryPoints: [new URL('../../web/src/all-modules.ts', import.meta.url).pathname],
+    entryPoints: [runtimeEntry],
     bundle: true,
     format: 'esm',
     target: 'es2022',

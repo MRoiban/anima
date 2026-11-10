@@ -144,6 +144,13 @@ export async function doctor(cwd = process.cwd()) {
       message: (result.stdout + result.stderr).trim(),
       hint: 'run node tools/modules.ts and commit generated wiring',
     });
+  } else {
+    checks.push({
+      name: 'module-wiring',
+      pass: true,
+      message: 'installed package: repository wiring check not applicable',
+      hint: 'run this check from an Anima source checkout to verify generated wiring',
+    });
   }
   return {
     ok: checks.every((c) => c.pass),
