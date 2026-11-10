@@ -1,6 +1,7 @@
 import '@anima-format/core/all';
 import { describe, expect, it } from 'vitest';
 import { load, Player } from '@anima-format/core';
+import { compile } from '@anima-format/markup';
 
 const bone = (id: string, length: number, extra: object = {}) => ({
   id,
@@ -34,8 +35,90 @@ const tip = (p: Player, id: string): [number, number] => [
 ];
 const bendSide = (p: Player, id: string, x: number, y: number) =>
   x * value(p, id + '.world.y') - y * value(p, id + '.world.x');
+const strengths = [0, 0.25, 0.5, 0.75, 1] as const;
+
+const halfStrengthRepro = `<anima version="0.1" name="ikhalf" grid="40" viewBox="0 0 40 30" requires="rig ik">
+  <group id="aim" x="14" y="26"/>
+  <bone id="upper" length="9" x="8" y="20">
+    <bone id="fore" length="8"><ik target="aim" bones="2" bend="cw" strength="0.5"/></bone>
+  </bone>
+</anima>`;
+
+const fromMarkup = (source: string): Player => {
+  const built = compile(source);
+  expect(built.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const p = player(built.doc!);
+  p.step(0);
+  return p;
+};
+
+function expectConnected(p: Player, chain: readonly [string, number][]): void {
+  for (let i = 0; i < chain.length; i++) {
+    const [id, length] = chain[i]!,
+      start: [number, number] = [value(p, id + '.world.x'), value(p, id + '.world.y')],
+      end = tip(p, id);
+    expect(Math.hypot(end[0] - start[0], end[1] - start[1])).toBeCloseTo(length, 10);
+    if (i) {
+      const parentTip = tip(p, chain[i - 1]![0]);
+      expect(Math.hypot(start[0] - parentTip[0], start[1] - parentTip[1])).toBeLessThanOrEqual(
+        1e-9,
+      );
+    }
+  }
+}
 
 describe('ik solver', () => {
+  it('keeps partially-strengthened two- and three-bone chains connected', () => {
+    for (const strength of strengths) {
+      const two = fromMarkup(
+        strength === 0.5
+          ? halfStrengthRepro
+          : halfStrengthRepro.replace('strength="0.5"', `strength="${strength}"`),
+      );
+      expectConnected(two, [
+        ['upper', 9],
+        ['fore', 8],
+      ]);
+      if (strength === 0) {
+        expect([value(two, 'upper.world.x'), value(two, 'upper.world.y')]).toEqual([8, 20]);
+        expect(tip(two, 'upper')).toEqual([17, 20]);
+        expect([value(two, 'fore.world.x'), value(two, 'fore.world.y')]).toEqual([17, 20]);
+        expect(tip(two, 'fore')).toEqual([25, 20]);
+      }
+      if (strength === 1) {
+        expect(tip(two, 'fore')[0]).toBeCloseTo(14, 10);
+        expect(tip(two, 'fore')[1]).toBeCloseTo(26, 10);
+      }
+
+      const three =
+        fromMarkup(`<anima version="0.1" name="ikthree" grid="40" viewBox="0 0 40 30" requires="rig ik">
+  <group id="aim" x="18" y="25"/>
+  <bone id="a" length="6" x="8" y="20">
+    <bone id="b" length="5">
+      <bone id="c" length="4"><ik target="aim" bones="3" bend="cw" strength="${strength}"/></bone>
+    </bone>
+  </bone>
+</anima>`);
+      expectConnected(three, [
+        ['a', 6],
+        ['b', 5],
+        ['c', 4],
+      ]);
+      if (strength === 0) {
+        expect([value(three, 'a.world.x'), value(three, 'a.world.y')]).toEqual([8, 20]);
+        expect(tip(three, 'a')).toEqual([14, 20]);
+        expect([value(three, 'b.world.x'), value(three, 'b.world.y')]).toEqual([14, 20]);
+        expect(tip(three, 'b')).toEqual([19, 20]);
+        expect([value(three, 'c.world.x'), value(three, 'c.world.y')]).toEqual([19, 20]);
+        expect(tip(three, 'c')).toEqual([23, 20]);
+      }
+      if (strength === 1) {
+        expect(tip(three, 'c')[0]).toBeCloseTo(18, 8);
+        expect(tip(three, 'c')[1]).toBeCloseTo(25, 8);
+      }
+    }
+  });
+
   it('aims one bone and straightens it toward an unreachable target', () => {
     const p = player(
       scene(

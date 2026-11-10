@@ -1,0 +1,33 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-56247ff2
+
+ ❯ |unit| modules/ik/test/core/solver.test.ts (6 tests | 1 failed) 53ms
+   ❯ ik solver (6)
+     × keeps partially-strengthened two- and three-bone chains connected 44ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/ik/test/core/solver.test.ts > ik solver > keeps partially-strengthened two- and three-bone chains connected
+AssertionError: expected 2.369755784467361 to be less than or equal to 1e-9
+ ❯ expectConnected modules/ik/test/core/solver.test.ts:63:76
+     61|     if (i) {
+     62|       const parentTip = tip(p, chain[i - 1]![0]);
+     63|       expect(Math.hypot(start[0] - parentTip[0], start[1] - parentTip[…
+       |                                                                            ^
+     64|         1e-9,
+     65|       );
+ ❯ modules/ik/test/core/solver.test.ts:78:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  03:05:45
+   Duration  2.22s (transform 78%, import 19%, tests 3%)
+
+
+exit_code=1
+
+--- exact repro snapshot ---
+{"time":0,"values":{"upper.tip.x":13.823579165887804,"upper.tip.y":26.861918514427106,"fore.world.x":11.768230477929167,"fore.world.y":24.440102855404163},"states":{},"events":[],"settled":true}
