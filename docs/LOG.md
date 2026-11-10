@@ -2696,3 +2696,16 @@ tests (`design/rottweiler/DISCOVERY-LEDGER.md`).
 
 **Open:** three quiz misses (no `if` expression function exists; "text field…" and "simulate
 pointer input headlessly" rank other entries first); 107 rows without an example.
+
+## 2026-11-10 — Elyxir CLI issues #48–#56, npm 0.1.2
+
+Using `animl-cli` 0.1.1 in a real project (Elyxir) gave nine issues; PR #58 fixes them: list items
+with unchanged data and no interactive state skip their step (#48; sparkline step about 7 ms →
+0.7 ms), `$main:` and named instances stay live inside components (#49), component diagnostics
+inherit converters and name the real cause (#50), CLI inspect/scaffold/render/doctor fixes (#51,
+#54, #56), search finds data paths and page-script API methods (#52), a script `data set` takes
+effect at the time of the write (#53), and AniML comments round-trip (#55). `lists` budget reset to
+5,696 B by the D41 rule. Rottweiler, 3 rounds: 3 findings fixed with regression tests
+(`design/rottweiler/ISSUES-48-56-LEDGER.md`). Released as `animl`/`animl-cli` 0.1.2.
+
+**Open:** #57 (two nested groups of a component instance share one SVG id).

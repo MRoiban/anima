@@ -19,7 +19,7 @@ const DIST = resolve(ROOT, 'dist-npm');
 const ANIML = resolve(DIST, 'animl');
 const CLI = resolve(DIST, 'animl-cli');
 const DECL = resolve(DIST, '.declarations');
-const VERSION = '0.1.1';
+const VERSION = '0.1.2';
 
 const slash = (path: string) => path.replaceAll('\\', '/');
 const repoPath = (path: string) => slash(relative(ROOT, path));
