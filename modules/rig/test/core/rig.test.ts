@@ -198,6 +198,22 @@ describe('rig', () => {
     expect(pos(p, 'a')[1]).toBeCloseTo(3.5, 12);
   });
 
+  it('normalizes transform origin over a transformed group subtree', () => {
+    const p = player(
+      doc([
+        group('target', {
+          children: [
+            { id: 'left', type: 'rect', x0: 1, y0: 2, w: 4, h: 2, fill: { color: '#888' } },
+            { id: 'right', type: 'rect', x: 10, x0: 1, y0: 1, w: 4, h: 2, fill: { color: '#888' } },
+          ],
+        }),
+        group('a', { constraints: [{ kind: 'copyTransform', from: 'target', origin: [1, 1] }] }),
+      ]),
+    );
+    p.step(0);
+    expect(pos(p, 'a')).toEqual([15, 4]);
+  });
+
   it('keeps unbounded defaults before a limit track starts playing', () => {
     const p = player(
       doc(
