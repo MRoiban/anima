@@ -295,7 +295,7 @@ function allSchemaData() {
   };
 }
 
-function topicFeature(topic: string, data: any): string {
+function topicFeature(topic: string, data: { fields?: Field[] } | undefined): string {
   if ((NODE_TYPES as readonly string[]).includes(topic)) return 'core';
   if (topic === 'fill' || topic === 'stroke') return 'core';
   const features = new Set<string>();
@@ -347,7 +347,8 @@ function examplesFor(topic: string, feature: string): string[] {
 }
 
 function metadata(topic: string, data: unknown): string {
-  const requires = topicFeature(topic, data);
+  const page = data as { fields?: Field[] } | undefined;
+  const requires = topicFeature(topic, page);
   const examples = examplesFor(topic, requires);
   return [
     'Requires: ' + requires,
@@ -424,7 +425,7 @@ function showType(data: ReturnType<typeof typeInfo>): string {
   );
 }
 
-function showObject(topic: string, data: any): string {
+function showObject(topic: string, data: { fields: Field[] }): string {
   const prefix = topic === 'fill' || topic === 'stroke' ? topic + '.' : '';
   let text =
     topic +
@@ -485,7 +486,7 @@ export function schema(topic: string | undefined, full: boolean, json: boolean, 
   if (topic.includes('.')) {
     const [head, ...path] = topic.split('.');
     const canonical = schemaTopic(head)!;
-    const data = schemaData(canonical) as any;
+    const data = schemaData(canonical) as { fields?: Field[] } | undefined;
     if (!data) return schemaMiss(topic, io);
     const key = path.join('.');
     const field = data.fields?.find(
@@ -509,7 +510,7 @@ export function schema(topic: string | undefined, full: boolean, json: boolean, 
   }
 
   if (topic === 'a11y') {
-    const a11y = data as any;
+    const a11y = data as { fields: Field[]; root: { fields: Field[] } };
     const rows = (a11y.fields as Field[]).map((field) => fieldLine(field)).join('\n');
     const rootRows = (a11y.root.fields as Field[]).map((field) => fieldLine(field)).join('\n');
     io.out(
@@ -524,7 +525,7 @@ export function schema(topic: string | undefined, full: boolean, json: boolean, 
   }
   if ((NODE_TYPES as readonly string[]).includes(topic))
     io.out(showType(data as ReturnType<typeof typeInfo>));
-  else io.out(showObject(topic, data));
+  else io.out(showObject(topic, data as { fields: Field[] }));
   return 0;
 }
 
@@ -539,7 +540,7 @@ export function schemaAll(json: boolean, io: IO): number {
       if (!data) return '';
       return (NODE_TYPES as readonly string[]).includes(topic)
         ? showType(data as ReturnType<typeof typeInfo>)
-        : showObject(topic, data);
+        : showObject(topic, data as { fields: Field[] });
     })
     .filter(Boolean);
   io.out(pages.join('\n\n'));
@@ -553,7 +554,7 @@ export function schemaSearch(words: string, json: boolean, io: IO): number {
   }
   const entries: { name: string; description: string; kind: string }[] = [];
   for (const topic of schemaTopics()) {
-    const data = schemaData(topic) as any;
+    const data = schemaData(topic) as { fields?: Field[] } | undefined;
     if (!data) continue;
     entries.push({ name: topic, description: 'registry topic ' + topic, kind: 'type' });
     for (const field of data.fields ?? []) {
@@ -653,7 +654,7 @@ export function filteredSchema(
     if (!field) return schemaMiss(topic, io);
     rows = nodeRows(type as never, { fields: [field] });
   } else {
-    const data = schemaData(topic) as any;
+    const data = schemaData(topic) as { fields?: Row[] } | undefined;
     if (!data) return schemaMiss(topic, io);
     rows = (data.fields ?? []).map((field: Row) => ({
       ...field,

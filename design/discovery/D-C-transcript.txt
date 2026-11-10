@@ -1,0 +1,355 @@
+$ anima schema | head -40
+arc	arc node fields, animation addresses and markup spellings; open: anima schema arc
+bone	bone node fields, animation addresses and markup spellings; open: anima schema bone
+circle	circle node fields, animation addresses and markup spellings; open: anima schema circle
+contour	contour node fields, animation addresses and markup spellings; open: anima schema contour
+ellipse	ellipse node fields, animation addresses and markup spellings; open: anima schema ellipse
+group	group node fields, animation addresses and markup spellings; open: anima schema group
+image	image node fields, animation addresses and markup spellings; open: anima schema image
+instance	instance node fields, animation addresses and markup spellings; open: anima schema instance
+layout	layout node fields, animation addresses and markup spellings; open: anima schema layout
+path	path node fields, animation addresses and markup spellings; open: anima schema path
+polygon	polygon node fields, animation addresses and markup spellings; open: anima schema polygon
+posepad	posepad node fields, animation addresses and markup spellings; open: anima schema posepad
+rect	rect node fields, animation addresses and markup spellings; open: anima schema rect
+repeat	repeat node fields, animation addresses and markup spellings; open: anima schema repeat
+star	star node fields, animation addresses and markup spellings; open: anima schema star
+text	text node fields, animation addresses and markup spellings; open: anima schema text
+triangle	triangle node fields, animation addresses and markup spellings; open: anima schema triangle
+a11y	a11y object/element fields and markup spellings; open: anima schema a11y
+along-path	along-path object/element fields and markup spellings; open: anima schema along-path
+angularGradient	angularGradient object/element fields and markup spellings; open: anima schema angularGradient
+anima	anima object/element fields and markup spellings; open: anima schema anima
+artboard	artboard object/element fields and markup spellings; open: anima schema artboard
+asset	asset object/element fields and markup spellings; open: anima schema asset
+audio-volume	audio-volume object/element fields and markup spellings; open: anima schema audio-volume
+bind	bind object/element fields and markup spellings; open: anima schema bind
+bool	bool object/element fields and markup spellings; open: anima schema bool
+channel	channel object/element fields and markup spellings; open: anima schema channel
+clip	clip object/element fields and markup spellings; open: anima schema clip
+color	color object/element fields and markup spellings; open: anima schema color
+colorMix	colorMix object/element fields and markup spellings; open: anima schema colorMix
+converter	converter object/element fields and markup spellings; open: anima schema converter
+converter-group	converter-group object/element fields and markup spellings; open: anima schema converter-group
+copy-position	copy-position object/element fields and markup spellings; open: anima schema copy-position
+copy-rotation	copy-rotation object/element fields and markup spellings; open: anima schema copy-rotation
+copy-scale	copy-scale object/element fields and markup spellings; open: anima schema copy-scale
+copy-transform	copy-transform object/element fields and markup spellings; open: anima schema copy-transform
+data	data object/element fields and markup spellings; open: anima schema data
+draw-order	draw-order object/element fields and markup spellings; open: anima schema draw-order
+drawOrder	drawOrder object/element fields and markup spellings; open: anima schema drawOrder
+ease	ease object/element fields and markup spellings; open: anima schema ease
+
+$ anima schema group | head -50
+group
+ attributes (markup ↔ .ani: type)
+  id ↔ id: string (required)
+  type ↔ type: "group" | "path" | "circle" | "rect" | "arc" | "instance" | "image" | "ellipse" | "polygon" | "star" | "triangle" | "contour" | "repeat" | "text" | "layout" | "bone" | "posepad" (required)
+  pivot ↔ pivot: [number, number]
+  x ↔ x: number
+  y ↔ y: number
+  rotate ↔ rotate: number
+  scale ↔ scale: number
+  scaleX ↔ scaleX: number
+  scaleY ↔ scaleY: number
+  opacity ↔ opacity: number
+  visible ↔ visible: bool
+  children ↔ children: array<node>
+  focus ↔ focus: { enabled, enabledInput, tabStops, pointer, order, scope, … } [focus]; details: anima schema group.focus
+  pointerEnabled ↔ pointerEnabled: bool [input]
+  opaque ↔ opaque: bool [input]
+  cursor ↔ cursor: "arrow" | "hidden" | "pointer" | "resize-horizontal" | "resize-vertical" | "text" [input]
+  collapsed ↔ collapsed: bool [input]
+  solo ↔ solo: number [input]
+  mesh ↔ mesh: { grid, vertices[], triangles[] } [mesh]; details: anima schema group.mesh
+  pivotX ↔ pivotX: number [motion]
+  pivotY ↔ pivotY: number [motion]
+  channels ↔ channels: map<{ type, value }> [motion]
+  mix-blend-mode ↔ blend: "normal" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity" [composite]
+  mask ↔ mask: { source, mode, sourceDraws } [composite]; details: anima schema group.mask
+  clip ↔ clip: { source, rule } [composite]; details: anima schema group.clip
+  draw-order ↔ drawOrder: { target, position, active } [composite]; details: anima schema group.drawOrder
+  properties ↔ properties: map<any> [data]
+  a11y ↔ a11y: { role, label, hint, value, valueText, level, … } [a11y]; details: anima schema group.a11y
+  slice ↔ slice: { x[], y[], width, height, modes[] } [surface]; details: anima schema group.slice
+  mix ↔ mix: { mode, strength } [mix]; details: anima schema group.mix
+  (no attribute; use layout-* attributes) ↔ layout: { width, height, minWidth, maxWidth, minHeight, maxHeight, … } [layout]; details: anima schema group.layout
+  constraints ↔ constraints: array<any> [rig]
+  skin ↔ skin: { bones[], weights[] } [skin]; details: anima schema group.skin
+ animatable (address: <id>.<property>)
+  x            number  default 0
+  y            number  default 0
+  rotate       number  default 0
+  scale        number  default 1
+  scaleX       number  default 1
+  scaleY       number  default 1
+  opacity      number  default 1  range [0, 1]
+  visible      bool    default true
+  pointerEnabled bool    default true [input]
+  collapsed    bool    default false [input]
+  solo         number  default -1 [input]
+  pivotX       number  default 0 [motion]
+  pivotY       number  default 0 [motion]
+ not animatable: id, type, pivot, children, focus, opaque, cursor, mesh, channels, blend, mask, clip, drawOrder, properties, a11y, slice, mix, layout, constraints, skin
+
+$ anima schema fill
+fill (markup ↔ .ani: type)
+  fill ↔ fill.color: string
+  fill-rule ↔ fill.rule: "nonzero" | "evenodd"
+  type ↔ fill.type: "linear" | "radial" | "angular" | "image" [paint]
+  x1 ↔ fill.x1: number [paint]
+  y1 ↔ fill.y1: number [paint]
+  x2 ↔ fill.x2: number [paint]
+  y2 ↔ fill.y2: number [paint]
+  cx ↔ fill.cx: number [paint]
+  cy ↔ fill.cy: number [paint]
+  r ↔ fill.r: number [paint]
+  fx ↔ fill.fx: number [paint]
+  fy ↔ fill.fy: number [paint]
+  gradient-transform ↔ fill.gradientTransform: [number, number, number, number, number, number] [paint]
+  stops ↔ fill.stops: { position, color }[] [paint]; details: anima schema fill.stops
+  fill-visible ↔ fill.visible: bool [composite]
+  fill-winding ↔ fill.winding: "clockwise" [contour]
+  asset ↔ fill.asset: string [surface]
+  image-width ↔ fill.imageWidth: number [surface]
+  image-height ↔ fill.imageHeight: number [surface]
+  image-x ↔ fill.imageX: number [surface]
+  image-y ↔ fill.imageY: number [surface]
+  image-rotate ↔ fill.imageRotate: number [surface]
+  image-scale-x ↔ fill.imageScaleX: number [surface]
+  image-scale-y ↔ fill.imageScaleY: number [surface]
+  modulate ↔ fill.modulate: string [surface]
+  feather ↔ fill.feather: { inner, outer, offset, enabled, space } [surface]; details: anima schema fill.feather
+  mix ↔ fill.mix: { a, b, t } [colormix]; details: anima schema fill.mix
+  fill-blend ↔ fill.blend: "inherit" | "normal" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity" | "additive" [mix]
+  fill-blend-amount ↔ fill.blendAmount: number [mix]
+  paint ↔ fill.paint: string [componentpaint]
+ animatable (address: <id>.fill.<field>)
+  color        color   default null
+  x1           number  default null [paint]
+  y1           number  default null [paint]
+  x2           number  default null [paint]
+  y2           number  default null [paint]
+  cx           number  default null [paint]
+  cy           number  default null [paint]
+  r            number  default null  range [0, ∞] [paint]
+  fx           number  default null [paint]
+  fy           number  default null [paint]
+  visible      bool    default true [composite]
+  blendAmount  number  default 1  range [0, 1] [mix]
+Requires: core
+Docs: anima docs fill
+Examples: examples/bell.animl, examples/composite.animl, examples/feather.animl
+
+$ anima schema rect
+rect
+ attributes (markup ↔ .ani: type)
+  id ↔ id: string (required)
+  type ↔ type: "group" | "path" | "circle" | "rect" | "arc" | "instance" | "image" | "ellipse" | "polygon" | "star" | "triangle" | "contour" | "repeat" | "text" | "layout" | "bone" | "posepad" (required)
+  pivot ↔ pivot: [number, number]
+  x ↔ x: number
+  y ↔ y: number
+  rotate ↔ rotate: number
+  scale ↔ scale: number
+  scaleX ↔ scaleX: number
+  scaleY ↔ scaleY: number
+  opacity ↔ opacity: number
+  visible ↔ visible: bool
+  width ↔ w: number (required)
+  height ↔ h: number (required)
+  rx ↔ rx: number
+  x0 ↔ x0: number (required)
+  y0 ↔ y0: number (required)
+  corners ↔ corners: [number, number, number, number] [paint|corners]
+  fill ↔ fill: { color, rule, type, x1, y1, x2, … }; details: anima schema rect.fill
+  stroke ↔ stroke: { color, width, cap, join, trimStart, trimEnd, … }; details: anima schema rect.stroke
+  knockout ↔ knockout: number
+  focus ↔ focus: { enabled, enabledInput, tabStops, pointer, order, scope, … } [focus]; details: anima schema rect.focus
+  pointerEnabled ↔ pointerEnabled: bool [input]
+  opaque ↔ opaque: bool [input]
+  cursor ↔ cursor: "arrow" | "hidden" | "pointer" | "resize-horizontal" | "resize-vertical" | "text" [input]
+  collapsed ↔ collapsed: bool [input]
+  mesh ↔ mesh: { grid, vertices[], triangles[] } [mesh]; details: anima schema rect.mesh
+  pivotX ↔ pivotX: number [motion]
+  pivotY ↔ pivotY: number [motion]
+  channels ↔ channels: map<{ type, value }> [motion]
+  mix-blend-mode ↔ blend: "normal" | "multiply" | "screen" | "overlay" | "darken" | "lighten" | "color-dodge" | "color-burn" | "hard-light" | "soft-light" | "difference" | "exclusion" | "hue" | "saturation" | "color" | "luminosity" [composite]
+  mask ↔ mask: { source, mode, sourceDraws } [composite]; details: anima schema rect.mask
+  clip ↔ clip: { source, rule } [composite]; details: anima schema rect.clip
+  draw-order ↔ drawOrder: { target, position, active } [composite]; details: anima schema rect.drawOrder
+  paints ↔ paints: { fill, stroke }[] [composite]; details: anima schema rect.paints
+  properties ↔ properties: map<any> [data]
+  a11y ↔ a11y: { role, label, hint, value, valueText, level, … } [a11y]; details: anima schema rect.a11y
+  slice ↔ slice: { x[], y[], width, height, modes[] } [surface]; details: anima schema rect.slice
+  mix ↔ mix: { mode, strength } [mix]; details: anima schema rect.mix
+  (no attribute; use layout-* attributes) ↔ layout: { width, height, minWidth, maxWidth, minHeight, maxHeight, … } [layout]; details: anima schema rect.layout
+  constraints ↔ constraints: array<any> [rig]
+  skin ↔ skin: { bones[], weights[] } [skin]; details: anima schema rect.skin
+ animatable (address: <id>.<property>)
+  x            number  default 0
+  y            number  default 0
+  rotate       number  default 0
+  scale        number  default 1
+  scaleX       number  default 1
+  scaleY       number  default 1
+  opacity      number  default 1  range [0, 1]
+  visible      bool    default true
+  w            number  default null  range [0, ∞]
+  h            number  default null  range [0, ∞]
+  rx           number  default 0  range [0, ∞]
+  pointerEnabled bool    default true [input]
+  collapsed    bool    default false [input]
+  pivotX       number  default 0 [motion]
+  pivotY       number  default 0 [motion]
+ not animatable: id, type, pivot, x0, y0, corners, focus, opaque, cursor, mesh, channels, blend, mask, clip, drawOrder, paints, properties, a11y, slice, mix, layout, constraints, skin, fill, stroke, knockout
+ markup ↔ .ani
+  mix-blend-mode ↔ blend
+  width ↔ w
+  height ↔ h
+  fill ↔ fill.color
+  fill-rule ↔ fill.rule
+  fill-visible ↔ fill.visible
+  fill-winding ↔ fill.winding
+  fill-blend ↔ fill.blend
+  fill-blend-amount ↔ fill.blendAmount
+  paint ↔ fill.paint
+  stroke ↔ stroke.color
+  stroke-width ↔ stroke.width
+  stroke-linecap ↔ stroke.cap
+  stroke-linejoin ↔ stroke.join
+  trimStart ↔ stroke.trimStart
+  trimEnd ↔ stroke.trimEnd
+  trimOffset ↔ stroke.trimOffset
+  stroke-dasharray ↔ stroke.dash
+  stroke-dashoffset ↔ stroke.dashOffset
+  stroke-scale ↔ stroke.scale
+  stroke-visible ↔ stroke.visible
+  stroke-position ↔ stroke.position
+  trim ↔ stroke.trim
+  effects ↔ stroke.effects
+  stroke-blend ↔ stroke.blend
+  stroke-blend-amount ↔ stroke.blendAmount
+  layout-width ↔ layout.width
+  layout-height ↔ layout.height
+  min-width ↔ layout.minWidth
+  max-width ↔ layout.maxWidth
+  min-height ↔ layout.minHeight
+  max-height ↔ layout.maxHeight
+  align-self ↔ layout.alignSelf
+  margin ↔ layout.margin
+  display ↔ layout.display
+  reflow ↔ layout.reflow
+ module fields
+  corners [paint|corners]
+  focus [focus]
+  pointerEnabled [input]
+  opaque [input]
+  cursor [input]
+  collapsed [input]
+  mesh [mesh]
+  pivotX [motion]
+  pivotY [motion]
+  channels [motion]
+  blend [composite]
+  mask [composite]
+  clip [composite]
+  drawOrder [composite]
+  paints [composite]
+  properties [data]
+  a11y [a11y]
+  slice [surface]
+  mix [mix]
+  layout [layout]
+  constraints [rig]
+  skin [skin]
+Requires: core
+Docs: anima docs rect
+Examples: examples/composite.animl, examples/feather.animl, examples/image-paints.animl
+
+$ anima docs ik | head -20
+## ik
+
+<!-- capability: rigging.ik -->
+### Inverse kinematics
+
+The optional `ik` module registers the `ik` constraint kind with `rig`. In JSON an IK constraint is
+an item in a bone's `constraints` array:
+
+```json
+{"kind":"ik","target":"aim","bones":2,"bend":"cw","strength":1}
+```
+
+AniML writes the same object as a child element:
+
+```xml
+<ik target="aim" bones="2" bend="cw" strength="1"/>
+```
+
+`target` is a required node id and the target point is that node's world pivot. `bones` is a static
+integer of at least 1, defaults to 1, and counts the entire solved chain including the bone carrying
+
+$ anima docs skin | head -10
+## skin
+
+The optional `skin` module deforms authored geometry from bone rest frames. Documents using it declare
+`skin` and `rig` in `requires`, plus the ordinary feature modules needed by the host geometry. A
+`skin` is valid on a `path` backed by inline `d` or a glyph, a `contour`, or an `image` that also has
+a `mesh`. Any other host reports `rig-skin-host` at the node's `/skin` pointer with a hint to move the
+skin to supported geometry. A path whose `d` is animated or posed while skinned reports
+`rig-skin-morph`; bone animation is the supported way to deform a skinned path.
+
+<!-- capability: rigging.skin -->
+
+$ anima docs constraint | head -10
+## rig
+
+`requires: ["rig"]` adds bones and ordered transform constraints. The browser imports
+`@anima-format/web/rig`; distance constraints also import the optional
+`@anima-format/web/rig-distance`. Both entries are heavy and dependency-free.
+AniML uses `<bone>` and constraint child elements; JSON uses `type: "bone"` and an
+ordered `constraints: [{kind, ...}]` array. Generic JSON-valued constraint attributes
+are deliberately absent; structural children preserve authored order.
+
+### Bone frames and rigid art
+
+$ anima docs semantic | head -10
+## a11y
+
+Node `a11y` supports `progressbar`, `meter`, `status`, and a local semantic-node
+`controls` relation (Anima extensions without inventory rows). Progressbar/meter use
+numeric bound `value`, min/max (defaults 0/100); omit progressbar value for indeterminate
+progress. Status defaults to polite live announcements. `controls` maps to `aria-controls`.
+Dialog `modal` and button/link/group/list-item `expanded` already accept bool literals,
+inputs or data paths. `anima docs a11y` includes recipes; `anima schema a11y`
+shows the complete registry vocabulary. These are node fields, separate from root §10 a11y.
+
+
+$ anima docs rigging.ik | head -10
+## ik
+
+<!-- capability: rigging.ik -->
+### Inverse kinematics
+
+The optional `ik` module registers the `ik` constraint kind with `rig`. In JSON an IK constraint is
+an item in a bone's `constraints` array:
+
+```json
+{"kind":"ik","target":"aim","bones":2,"bend":"cw","strength":1}
+
+$ anima docs copy-position | head -10
+### Constraint fields and evaluation
+
+All five kinds accept numeric `strength` in 0..1, default 1, animatable and
+bindable. Fields are addressed `<id>.constraints.<index>.<field>`; arrays are
+zero-based, ordered, and later full-strength constraints override earlier ones.
+All fields shown as numbers below are animatable/bindable. Static controls are
+booleans, references, enumerations and space choices.
+
+| JSON / AniML | Fields and defaults |
+| --- | --- |
+
+$ anima docs ikk
+no docs topic "ikk"; did you mean "ik"? Try anima docs ik
+See 'anima docs --list'.
+
+$ node tools/cli-docs.ts --check

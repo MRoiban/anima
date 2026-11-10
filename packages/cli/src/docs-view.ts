@@ -121,14 +121,14 @@ function resolver() {
     const alias = aliases[word] ?? aliases[compact(word)];
     if (alias && alias !== word) return resolve(alias);
 
+    const module = canonicalModule(word);
+    if (module) return { kind: 'module', topic: module };
+
     const guideHeading = guideHeadings.find(
       (entry) => compact(entry.slug) === compact(word) || compact(entry.title) === compact(word),
     );
     if (guideHeading)
       return { kind: 'guide-section', topic: guideHeading.slug, heading: guideHeading };
-
-    const module = canonicalModule(word);
-    if (module) return { kind: 'module', topic: module };
 
     const specHeading = specHeadings.find(
       (entry) => compact(entry.slug) === compact(word) || compact(entry.title) === compact(word),
@@ -310,11 +310,15 @@ function docsImpl(
 
   let text: string;
   switch (resolved.kind) {
-    case 'authoring':
-      text = full
-        ? state.guide
-        : contents(state.guide.split('\n')[0]!, 'anima docs authoring', state.guideHeadings);
+    case 'authoring': {
+      const index = contents(
+        state.guide.split('\n')[0]!,
+        'anima docs authoring',
+        state.guideHeadings,
+      );
+      text = full ? state.guide : index + '\n\n' + state.guide;
       break;
+    }
     case 'spec':
       text = full
         ? state.spec

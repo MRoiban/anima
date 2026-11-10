@@ -63,10 +63,12 @@ function generate(): string {
 
 const expected = generate();
 if (process.argv.includes('--check')) {
-  let actual = '';
+  let actual: string;
   try {
     actual = readFileSync(TARGET, 'utf8');
-  } catch {}
+  } catch {
+    actual = '';
+  }
   if (actual !== expected) {
     console.error('docs/CLI.md is stale; run node tools/cli-docs.ts');
     process.exitCode = 1;
