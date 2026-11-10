@@ -1,6 +1,8 @@
 export const after = ['assets'];
 export default {
   name: 'media',
+  summary:
+    'Media: icon.asset(name) loads any declared asset (audio, fonts, files) as bytes or text for page scripts.',
   after,
   core: { entry: 'core/index.ts', export: 'media' },
   web: [{ name: 'media', budget: 3072 }],

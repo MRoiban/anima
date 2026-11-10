@@ -438,7 +438,9 @@ describe('anima inspect, schema, docs', () => {
       expect(text.code).toBe(0);
       for (const [key, value] of Object.entries(shape.p)) {
         const field = fields.find((f: { ani: string }) => f.ani === key);
-        expect(field.markup).toBe(markupName(value, key));
+        expect(field.markup).toBe(
+          markupName(value, key) || expect.stringContaining('(no attribute'),
+        );
         expect(field.type.length).toBeGreaterThan(0);
         expect(field.required).toBe(shape.req?.includes(key) ?? false);
         expect(text.out).toContain(`${field.markup} ↔ ${key}: ${field.type}`);
@@ -459,10 +461,10 @@ describe('anima inspect, schema, docs', () => {
 
   it('docs serves the authoring guide, its sections and the spec', async () => {
     expect((await cli('docs')).out).toMatch(/^# Authoring/);
-    expect((await cli('docs', 'spec')).out).toMatch(/^# The `.ani` format/);
+    expect((await cli('docs', 'spec')).out).toContain('Contents (anima docs spec <section>)');
     const topics = (await cli('docs', '--list')).out.split('\n');
     expect(topics.length).toBeGreaterThan(5);
-    expect((await cli('docs', topics[2]!)).out).toMatch(/^## /);
+    expect((await cli('docs', topics[2]!)).out).toMatch(/^#{1,3} /);
   });
 
   it('docs resolves rigging entry points and suggests close aliases', async () => {

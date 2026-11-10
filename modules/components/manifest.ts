@@ -1,6 +1,8 @@
 export const after = [];
 export default {
   name: 'components',
+  summary:
+    'Reusable components: named sub-scenes placed as instances, with their own inputs, libraries and nested animation.',
   after,
   core: {
     entry: 'core/index.ts',

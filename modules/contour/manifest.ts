@@ -2,6 +2,8 @@ export const after = ['paint', 'composite'];
 export default {
   ...{
     name: 'contour',
+    summary:
+      'Contours: shapes built from straight, smooth and rounded vertices, with path operations.',
     after: [],
     core: {
       entry: 'core/index.ts',

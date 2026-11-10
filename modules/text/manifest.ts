@@ -2,6 +2,7 @@ export const after = ['paint', 'data', 'components', 'lists'];
 export default {
   ...{
     name: 'text',
+    summary: 'Text: styled, data-bound text with fonts, wrapping, alignment and measured layout.',
     after: [],
     core: { entry: 'core/index.ts', export: 'text', svg: 'core/svg.ts', svgExport: 'textSVG' },
     web: [

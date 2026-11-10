@@ -1,6 +1,8 @@
 export const after = ['paint', 'composite', 'surface'];
 export default {
   name: 'colormix',
+  summary:
+    'Colour mixing: a fill or stroke colour that mixes two colours or slots by an animatable amount.',
   after,
   core: {
     entry: 'core/index.ts',

@@ -1,6 +1,8 @@
 export const after = ['bind', 'components'];
 export default {
   name: 'assets',
+  summary:
+    'Images and other assets: an assets map, image nodes, fit and alignment, and image draw data.',
   after,
   core: {
     entry: 'core/index.ts',

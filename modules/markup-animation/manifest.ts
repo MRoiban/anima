@@ -1,6 +1,7 @@
 export const after = [];
 export default {
   name: 'markup-animation',
+  summary: 'Authoring: AniML spellings for timelines, tracks and keyframes.',
   after,
   core: null,
   web: [{ name: 'markup-animation', over: 'markup', budget: 1536, authoring: true }],

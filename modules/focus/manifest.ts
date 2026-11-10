@@ -3,6 +3,8 @@ export const after = ['components'];
 export default {
   ...{
     name: 'focus',
+    summary:
+      'Keyboard focus: focusable nodes, focus order, focus states and focus-driven listeners.',
     after: [],
     core: { entry: 'core/index.ts', export: 'focus', svg: 'core/svg.ts', svgExport: 'focusSVG' },
     web: [{ name: 'focus', budget: 3456 }],

@@ -1,5 +1,6 @@
 export default {
   name: 'tooling',
+  summary: 'Authoring tool: shared CLI and headless helpers (not loaded by pages).',
   after: [],
   web: [],
   adapters: {},

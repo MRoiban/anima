@@ -16,9 +16,7 @@ Pick the entry point that fits what you want to do.
 
 ## I'm a coding agent
 
-Start with [FOR-AGENTS.md](FOR-AGENTS.md): how to look things up (`anima docs`, `anima schema`),
-the validate → sample → render loop, and the JSON output formats. Then use AUTHORING.md through
-`npx anima docs <topic>` as you go.
+Start with [`../llms.txt`](../llms.txt) for the compact agent entry point, then [FOR-AGENTS.md](FOR-AGENTS.md). Use `anima help`, `anima features`, `anima search <words>`, `anima examples`, `anima schema <topic>` and `anima docs <topic>` to discover commands, capabilities, examples and exact spellings. Machine-readable command metadata is available through `anima help --json`; the generated full reference is [CLI.md](CLI.md).
 
 ## I want to work on Anima itself
 

@@ -2,6 +2,8 @@ export const after = ['components', 'bind', 'events', 'input', 'focus', 'paint']
 export default {
   ...{
     name: 'data',
+    summary:
+      'Data: typed view models, $ paths, named instances, lists of models and two-way binding.',
     after: [],
     core: { entry: 'core/index.ts', export: 'data' },
     web: [{ name: 'data', budget: 7040 }],

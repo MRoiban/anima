@@ -1,0 +1,313 @@
+// Contract between the command table (D-A) and the capability index (D-B); design/discovery/DESIGN.md
+// D6–D7. D-B replaces the stub bodies; the types change only through the orchestrator.
+
+export type EntryKind =
+  | 'feature' // a `requires` name (module), e.g. rig, ik, input
+  | 'type' // a node or object type, e.g. rect, ik, scroll-thumb
+  | 'field' // a type's field, e.g. ik.bend (markup and .ani spellings)
+  | 'element' // an AniML element, e.g. <copy-position>
+  | 'address' // an animatable or bindable address pattern, e.g. <id>.rotate
+  | 'ease' // a named ease or ease function, e.g. inOut, cubic(...)
+  | 'function' // an expression function, e.g. contains(a, b)
+  | 'event' // a listener event, e.g. enter, drag
+  | 'script' // a `sample`/`session` script command, e.g. semantic
+  | 'diagnostic' // a diagnostic code, e.g. undeclared-feature
+  | 'doc' // a docs section (spec, authoring guide, module SPEC)
+  | 'example' // an example scene file
+  | 'capability' // a done parity row, e.g. rigging.ik
+  | 'command'; // an `anima` CLI command
+
+export interface Entry {
+  kind: EntryKind;
+  /** Canonical name, unique within its kind (`ik.bend`, `rigging.ik`, `examples/bell.animl`). */
+  name: string;
+  /** One line, plain text. */
+  summary: string;
+  /** Other spellings and concept words it answers to (AniML spelling, synonyms). */
+  aliases?: string[];
+  /** The `requires` feature that provides it, when there is one. */
+  feature?: string;
+  /** Parity row ids it implements or documents. */
+  rows?: string[];
+  /** Where to go next: `anima docs <topic>` topics. */
+  docs?: string[];
+  /** Example files (repo-relative) that use it. */
+  examples?: string[];
+  /** `anima schema <topic>` topic, when it has one. */
+  schema?: string;
+}
+
+export interface SearchOptions {
+  kinds?: EntryKind[];
+  /** Default 10. */
+  limit?: number;
+}
+
+export interface Hit {
+  entry: Entry;
+  /** Higher is better; only the order is meaningful. */
+  score: number;
+}
+
+import { buildIndex, featureAfter, exampleDetails, requirableFeatures } from './build.ts';
+import { suggest as suggestWords } from '../suggest.ts';
+let CACHE: Entry[] | undefined;
+const idx = () => (CACHE ??= buildIndex());
+
+/** Every entry, built from the sources of truth (cached per process). */
+export function index(): Entry[] {
+  return idx();
+}
+
+const norm = (s: string) =>
+  s
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .toLowerCase()
+    .replace(/[-_.<>/]+/g, ' ')
+    .replace(/[^a-z0-9 ]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+const STOP = new Set([
+  'a',
+  'an',
+  'the',
+  'my',
+  'it',
+  'i',
+  'on',
+  'to',
+  'of',
+  'for',
+  'with',
+  'when',
+  'is',
+  'does',
+  'and',
+  'or',
+  'change',
+  'make',
+  'add',
+  'use',
+  'create',
+  'show',
+  'do',
+  'get',
+  'want',
+  'how',
+  'please',
+  'can',
+  'draw',
+  'press',
+  'user',
+]);
+type SearchEntry = {
+  entry: Entry;
+  name: string;
+  aliases: string[];
+  summary: string;
+  nameTokens: string[];
+  aliasTokens: string[];
+  summaryTokens: string[];
+};
+let SEARCH_DATA:
+  | {
+      entries: SearchEntry[];
+      candidates: string[];
+      exact: Set<string>;
+      documentFrequency: Map<string, number>;
+    }
+  | undefined;
+function searchData() {
+  if (SEARCH_DATA) return SEARCH_DATA;
+  const entries = idx().map((entry) => {
+    const name = norm(entry.name);
+    const aliases = (entry.aliases || []).map(norm);
+    const summary = norm(entry.summary);
+    return {
+      entry,
+      name,
+      aliases,
+      summary,
+      nameTokens: name.split(' '),
+      aliasTokens: aliases.flatMap((alias) => alias.split(' ')),
+      summaryTokens: summary.split(' '),
+    };
+  });
+  const exact = new Set<string>();
+  const documentFrequency = new Map<string, number>();
+  for (const item of entries) {
+    for (const token of [...item.nameTokens, ...item.aliasTokens]) exact.add(token);
+    const seen = new Set([...item.nameTokens, ...item.aliasTokens, ...item.summaryTokens]);
+    for (const token of seen) documentFrequency.set(token, (documentFrequency.get(token) || 0) + 1);
+  }
+  SEARCH_DATA = { entries, candidates: [...exact], exact, documentFrequency };
+  return SEARCH_DATA;
+}
+
+const KIND_BONUS: Partial<Record<EntryKind, number>> = {
+  event: 65,
+  ease: 60,
+  function: 60,
+  address: 58,
+  field: 55,
+  script: 45,
+  element: 48,
+  type: 48,
+  feature: 45,
+  command: 45,
+  diagnostic: 40,
+};
+/** Ranked search over `index()`; empty when nothing is relevant (never pads with noise). */
+export function search(query: string, options: SearchOptions = {}): Hit[] {
+  const q = norm(query);
+  if (!q) return [];
+  const allTokens = q.split(' ');
+  const tokens = allTokens.filter((t) => !STOP.has(t));
+  if (!tokens.length) return [];
+  const data = searchData();
+  const entries = options.kinds
+    ? data.entries.filter((item) => options.kinds!.includes(item.entry.kind))
+    : data.entries;
+  const exactTokens = options.kinds
+    ? new Set(entries.flatMap((item) => [...item.nameTokens, ...item.aliasTokens]))
+    : data.exact;
+  const candidates = options.kinds ? [...exactTokens] : data.candidates;
+  const fuzzy = new Map<string, Set<string>>();
+  if (tokens.length === 1) {
+    const token = tokens[0]!;
+    if (token.length > 5 && !exactTokens.has(token))
+      fuzzy.set(token, new Set(suggestWords(token, candidates)));
+  }
+  const rarity = (token: string) => {
+    const frequency = data.documentFrequency.get(token) || 1;
+    return Math.min(2, 1 + Math.log((data.entries.length + 1) / (frequency + 1)) / 8);
+  };
+  const hits: Hit[] = [];
+  for (const item of entries) {
+    const e = item.entry,
+      n = item.name,
+      aliases = item.aliases,
+      sum = item.summary,
+      nameTokens = item.nameTokens,
+      aliasTokens = item.aliasTokens,
+      sumTokens = item.summaryTokens;
+    let score = 0,
+      matched = 0;
+    if (n === q) {
+      score = 140;
+      matched = tokens.length;
+    } else if (aliases.includes(q)) {
+      score = 125;
+      matched = tokens.length;
+    } else if (sum === q || sum.startsWith(`${q} `)) {
+      score = e.kind === 'capability' ? (sum === q ? 400 : 108) : 90;
+      matched = tokens.length;
+    } else
+      for (const t of tokens) {
+        let s = 0;
+        if (nameTokens.includes(t)) s = e.kind === 'capability' ? 45 : 58;
+        else if (aliasTokens.includes(t))
+          s = e.kind === 'capability' ? 55 : e.kind === 'feature' ? 90 : 52;
+        // Substrings only for words of 3+ letters: `if` must not match `modifiers` or `justify`.
+        else if (t.length >= 3 && n.includes(t)) s = 38;
+        else if (t.length >= 3 && aliases.some((a) => a.includes(t))) s = 34;
+        else if (sumTokens.includes(t)) s = 17;
+        else if (
+          fuzzy.get(t)?.has(nameTokens.find((x) => fuzzy.get(t)?.has(x)) || '') ||
+          aliasTokens.some((x) => fuzzy.get(t)?.has(x))
+        )
+          s = 22;
+        if (s) {
+          matched++;
+          score += s * rarity(t);
+        }
+      }
+    if (!matched) continue;
+    const phraseAlias = aliases.some((alias) => alias.includes(' ') && q.includes(alias));
+    if (phraseAlias) score += 100;
+    if (
+      (e.kind === 'type' || e.kind === 'element' || e.kind === 'feature') &&
+      nameTokens.length === 1 &&
+      tokens.includes(nameTokens[0]!)
+    )
+      score += 60;
+    if (e.kind === 'capability') {
+      const need = tokens.length >= 3 ? 2 : 1;
+      if (matched < need) continue;
+      score += matched * 5;
+    } else score += KIND_BONUS[e.kind] || (e.kind === 'doc' ? 6 : 0);
+    if (score >= 22) hits.push({ entry: e, score });
+  }
+  return hits
+    .sort((a, b) => b.score - a.score || a.entry.name.localeCompare(b.entry.name))
+    .slice(0, options.limit ?? 10);
+}
+
+export interface FeatureInfo {
+  entry: Entry;
+  /** Everything the feature provides: types, fields, elements, addresses, events, eases, functions. */
+  provides: Entry[];
+  /** Features it needs loaded first (manifest `after`). */
+  after: string[];
+}
+
+/** All features, or one by name (`undefined` when unknown). */
+export function features(): FeatureInfo[];
+export function features(name: string): FeatureInfo | undefined;
+export function features(name?: string): FeatureInfo[] | FeatureInfo | undefined {
+  const after = featureAfter();
+  const entries = idx();
+  const provided = new Map<string, Entry[]>();
+  for (const e of entries)
+    if (e.feature) provided.set(e.feature, [...(provided.get(e.feature) || []), e]);
+  const all = entries
+    .filter((e) => e.kind === 'feature')
+    .map((entry) => ({
+      entry,
+      provides: (provided.get(entry.name) || []).filter((e) => e !== entry),
+      after: after.get(entry.name) || [],
+    }));
+  // The list is what a document can `requires`; browser and authoring entries stay findable by name.
+  const requirable = requirableFeatures();
+  return name === undefined
+    ? all.filter((f) => requirable.has(f.entry.name))
+    : all.find((x) => x.entry.name === name || x.entry.aliases?.includes(name));
+}
+
+export interface ExampleInfo {
+  entry: Entry;
+  /** Repo-relative path. */
+  path: string;
+  /** Its `requires` features. */
+  requires: string[];
+}
+
+/** All examples, or those matching a feature, a file name or words (ranked). */
+export function examples(filter?: string): ExampleInfo[] {
+  const entries = idx();
+  const byPath = new Map(
+    entries.filter((e) => e.kind === 'example').map((e) => [e.name, e] as const),
+  );
+  const rows = exampleDetails().map((d) => ({
+    entry: byPath.get(d.path)!,
+    path: d.path,
+    requires: d.requires,
+  }));
+  if (!filter) return rows;
+  const q = norm(filter);
+  return rows
+    .map((x) => ({
+      x,
+      s: Math.max(
+        x.requires.some((r) => norm(r) === q) ? 100 : 0,
+        norm(x.path).includes(q) ? 70 : 0,
+        norm(x.entry.summary).includes(q) ? 40 : 0,
+      ),
+    }))
+    .filter((y) => y.s > 0)
+    .sort((a, b) => b.s - a.s)
+    .map((y) => y.x);
+}
+
+/** Names close to `word` among `candidates` (D3 weighting), best first; empty below the cutoff. */
+export type Suggest = (word: string, candidates: readonly string[]) => string[];

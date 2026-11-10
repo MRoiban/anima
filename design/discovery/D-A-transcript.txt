@@ -1,0 +1,412 @@
+$ node_modules/.bin/anima
+anima — check, see, and build .animl and .ani animations
+
+Usage:
+  anima <command> [options]
+
+Write
+  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
+      scaffold an animation from a glyph, Glyphy project, or bundled sample
+  anima fmt <file> [--write | --check]      format AniML or .ani canonically
+  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features as AniML
+  anima decompile <file.ani> [-o out.animl]  write canonical AniML from a .ani document
+  anima flatten <file> [--node id] [-o out.ani] [--font name=path]
+      convert text to outlines
+  anima library update <file.animl> [--check]  maintain vendored AniML library imports
+
+Check
+  anima validate <file> [--font name=path]  validate a document and print every diagnostic
+  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]
+      compare two PNG files by RGBA pixels
+  anima bench <file> [-s script | -e "cmds"] [--frames N] [--font name=path]
+      measure compile and frame costs
+  anima doctor                              check Node, browsers, cache, and module wiring
+
+See
+  anima inspect <file> [--summary] [--font name=path]  inspect document structure, animation,
+                                                       inputs, and wiring
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
+    [--font name=path]
+      run a script and print snapshots as JSON lines
+  anima session <file> [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
+      run a persistent JSON-line script session
+  anima render <file> -o out.svg|png|webm [--font name=path] [--at t] [-s script | -e "cmds"]
+    [--size px]
+      render frames, sheets, sequences, components, probes, or comparisons
+  anima playground [file.animl] [--port 4519]  open the local live editor
+  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
+      read the authoring guide, format spec, markup spec, or module docs
+  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition |
+    listener | input] [--json-schema]
+      inspect registry fields, types, spellings, and JSON Schema
+
+Find
+  anima features [name]                     list capabilities provided by Anima features
+  anima search <words…> [--kind k] [--limit n]  search the capability index
+  anima examples [topic|name] [--print | -o dir]  find, print, or copy example scenes
+  anima help [command] [--all] [--json]     show overview, command help, or the command table
+
+Ship
+  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]
+      compile AniML or export a self-contained local web build
+  anima bundle [--modules paint,bind] [-o anima.js] [--verbose]
+      bundle selected browser runtime modules
+  anima completion bash|zsh|fish            generate shell completion from the command table
+  anima version                             print the CLI package version
+
+Fonts and assets
+  anima import-font <font> -o local.ttf [--chars "ABC"]  store, subset, or fetch a font at build
+                                                         time
+
+Every command accepts --format <text|json> and -h/--help. Exit codes: 0 ok, 1 diagnostics or a
+failed check, 2 usage.
+
+  anima features                 what Anima can do
+  anima search <words>           find a capability
+  anima docs authoring the-loop  follow the authoring loop
+[exit 0]
+
+$ node_modules/.bin/anima help
+anima — check, see, and build .animl and .ani animations
+
+Usage:
+  anima <command> [options]
+
+Write
+  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
+      scaffold an animation from a glyph, Glyphy project, or bundled sample
+  anima fmt <file> [--write | --check]      format AniML or .ani canonically
+  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features as AniML
+  anima decompile <file.ani> [-o out.animl]  write canonical AniML from a .ani document
+  anima flatten <file> [--node id] [-o out.ani] [--font name=path]
+      convert text to outlines
+  anima library update <file.animl> [--check]  maintain vendored AniML library imports
+
+Check
+  anima validate <file> [--font name=path]  validate a document and print every diagnostic
+  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]
+      compare two PNG files by RGBA pixels
+  anima bench <file> [-s script | -e "cmds"] [--frames N] [--font name=path]
+      measure compile and frame costs
+  anima doctor                              check Node, browsers, cache, and module wiring
+
+See
+  anima inspect <file> [--summary] [--font name=path]  inspect document structure, animation,
+                                                       inputs, and wiring
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
+    [--font name=path]
+      run a script and print snapshots as JSON lines
+  anima session <file> [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
+      run a persistent JSON-line script session
+  anima render <file> -o out.svg|png|webm [--font name=path] [--at t] [-s script | -e "cmds"]
+    [--size px]
+      render frames, sheets, sequences, components, probes, or comparisons
+  anima playground [file.animl] [--port 4519]  open the local live editor
+  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
+      read the authoring guide, format spec, markup spec, or module docs
+  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition |
+    listener | input] [--json-schema]
+      inspect registry fields, types, spellings, and JSON Schema
+
+Find
+  anima features [name]                     list capabilities provided by Anima features
+  anima search <words…> [--kind k] [--limit n]  search the capability index
+  anima examples [topic|name] [--print | -o dir]  find, print, or copy example scenes
+  anima help [command] [--all] [--json]     show overview, command help, or the command table
+
+Ship
+  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]
+      compile AniML or export a self-contained local web build
+  anima bundle [--modules paint,bind] [-o anima.js] [--verbose]
+      bundle selected browser runtime modules
+  anima completion bash|zsh|fish            generate shell completion from the command table
+  anima version                             print the CLI package version
+
+Fonts and assets
+  anima import-font <font> -o local.ttf [--chars "ABC"]  store, subset, or fetch a font at build
+                                                         time
+
+Every command accepts --format <text|json> and -h/--help. Exit codes: 0 ok, 1 diagnostics or a
+failed check, 2 usage.
+
+  anima features                 what Anima can do
+  anima search <words>           find a capability
+  anima docs authoring the-loop  follow the authoring loop
+[exit 0]
+
+$ node_modules/.bin/anima help render
+anima render — render frames, sheets, sequences, components, probes, or comparisons
+
+Usage:
+  anima render <file> -o out.svg|png|webm [--font name=path] [--at t] [-s script | -e "cmds"]
+    [--size px]
+  anima render <file> --compare glyph.svg [--size px] [--tolerance 0..255] [-o diff.png]
+  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH] [--frames
+    N] [--fps N] [--scale k] [--probe "x,y;x,y"] [--preset name] [--audio out.wav]
+
+Options:
+  --font <name=path>    install a local font for text measurement and rendering
+  --browser-text        render text through the browser font path
+  --component <name>    render one component as the root
+  --fit <mode>          fit the frame into the viewport (default: contain)
+  --viewport <WxH>      set output viewport dimensions
+  --scale <k>           scale inside the viewport, from 0 to 1 (default: 1)
+  --probe <x,y;x,y>     sample final PNG pixels at coordinates
+  --preset <name>       apply a project render preset
+  --fps <N>             sequence frame rate (default: 60)
+  --audio <out.wav>     mix captured audio events to WAV
+  -s, --script <file>   read script commands from a file
+  -e, --eval <cmds>     run semicolon-separated script commands
+  --reduced-motion      run with reduced motion enabled
+  --all                 include all values in snapshots
+  --semantics           include semantic state in snapshots
+  --seed <N>            set the uint32 script random seed
+  --frames <N>          render a frame sequence
+  -o, --out <file>      write output to a file
+  --at <seconds>        advance to a nonnegative time before rendering
+  --size <px>           square render size (default: 240)
+  --sheet <N>           render a labelled contact sheet
+  --over <seconds>      contact-sheet time span
+  --dark                use the dark render look
+  --color <slot=#hex>   override a paint slot
+  --current <#hex>      override currentColor
+  --background <#hex>   set the output background
+  --compare <file.svg>  compare one rendered frame with an SVG glyph
+  --tolerance <0..255>  comparison channel tolerance (default: 0)
+  --format <text|json>  output format (default: text)
+  -h, --help            show this command’s help
+
+Examples:
+  anima render examples/bell.animl -o /tmp/bell.svg
+    render the bell to SVG
+  anima render examples/bell.animl -o /tmp/bell.png --size 256
+    render a 256px PNG
+  anima render examples/bell.animl --compare fixtures/glyphs/bell.svg
+    compare the rest frame with the source glyph
+
+See also:
+  anima inspect, anima compare, anima docs authoring
+[exit 0]
+
+$ node_modules/.bin/anima render --help
+anima render — render frames, sheets, sequences, components, probes, or comparisons
+
+Usage:
+  anima render <file> -o out.svg|png|webm [--font name=path] [--at t] [-s script | -e "cmds"]
+    [--size px]
+  anima render <file> --compare glyph.svg [--size px] [--tolerance 0..255] [-o diff.png]
+  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH] [--frames
+    N] [--fps N] [--scale k] [--probe "x,y;x,y"] [--preset name] [--audio out.wav]
+
+Options:
+  --font <name=path>    install a local font for text measurement and rendering
+  --browser-text        render text through the browser font path
+  --component <name>    render one component as the root
+  --fit <mode>          fit the frame into the viewport (default: contain)
+  --viewport <WxH>      set output viewport dimensions
+  --scale <k>           scale inside the viewport, from 0 to 1 (default: 1)
+  --probe <x,y;x,y>     sample final PNG pixels at coordinates
+  --preset <name>       apply a project render preset
+  --fps <N>             sequence frame rate (default: 60)
+  --audio <out.wav>     mix captured audio events to WAV
+  -s, --script <file>   read script commands from a file
+  -e, --eval <cmds>     run semicolon-separated script commands
+  --reduced-motion      run with reduced motion enabled
+  --all                 include all values in snapshots
+  --semantics           include semantic state in snapshots
+  --seed <N>            set the uint32 script random seed
+  --frames <N>          render a frame sequence
+  -o, --out <file>      write output to a file
+  --at <seconds>        advance to a nonnegative time before rendering
+  --size <px>           square render size (default: 240)
+  --sheet <N>           render a labelled contact sheet
+  --over <seconds>      contact-sheet time span
+  --dark                use the dark render look
+  --color <slot=#hex>   override a paint slot
+  --current <#hex>      override currentColor
+  --background <#hex>   set the output background
+  --compare <file.svg>  compare one rendered frame with an SVG glyph
+  --tolerance <0..255>  comparison channel tolerance (default: 0)
+  --format <text|json>  output format (default: text)
+  -h, --help            show this command’s help
+
+Examples:
+  anima render examples/bell.animl -o /tmp/bell.svg
+    render the bell to SVG
+  anima render examples/bell.animl -o /tmp/bell.png --size 256
+    render a 256px PNG
+  anima render examples/bell.animl --compare fixtures/glyphs/bell.svg
+    compare the rest frame with the source glyph
+
+See also:
+  anima inspect, anima compare, anima docs authoring
+[exit 0]
+
+$ node_modules/.bin/anima validate -h
+anima validate — validate a document and print every diagnostic
+
+Usage:
+  anima validate <file> [--font name=path]
+
+Options:
+  --font <name=path>    install a local font for text measurement and rendering
+  --format <text|json>  output format (default: text)
+  -h, --help            show this command’s help
+
+Examples:
+  anima validate examples/bell.animl
+    validate the reference AniML scene
+  anima validate examples/bell.ani --format=json
+    emit machine-readable diagnostics
+
+See also:
+  anima inspect, anima schema
+[exit 0]
+
+$ node_modules/.bin/anima rendr
+anima: 'rendr' is not an anima command. See 'anima help'.
+The most similar command is
+  render
+[exit 2]
+
+$ node_modules/.bin/anima valdate x
+anima: 'valdate' is not an anima command. See 'anima help'.
+The most similar command is
+  validate
+[exit 2]
+
+$ node_modules/.bin/anima render examples/bell.animl --sze 4
+anima: unknown option '--sze'
+Did you mean '--size'?
+See 'anima help render'.
+[exit 2]
+
+$ node_modules/.bin/anima render examples/bell.animl --fit covr
+anima: 'covr' is not a valid value for '--fit'
+Did you mean 'cover'?
+See 'anima help render'.
+[exit 2]
+
+$ node_modules/.bin/anima library updte
+anima: 'updte' is not an anima library subcommand
+Did you mean 'update'?
+See 'anima help library'.
+[exit 2]
+
+$ node_modules/.bin/anima version
+0.1.0
+[exit 0]
+
+$ node_modules/.bin/anima --version
+0.1.0
+[exit 0]
+
+$ node_modules/.bin/anima help --json | head -c 400
+{
+  "groups": {
+    "write": "Write",
+    "check": "Check",
+    "see": "See",
+    "find": "Find",
+    "ship": "Ship",
+    "assets": "Fonts and assets"
+  },
+  "global": [
+    {
+      "name": "format",
+      "value": "text|json",
+      "choices": [
+        "text",
+        "json"
+      ],
+      "summary": "output format",
+      "default": "text"
+    },
+    {
+      "name": "help",
+      "short": "h",
+[exit 0]
+
+$ node_modules/.bin/anima schema --hlep
+anima: unknown option '--hlep'
+Did you mean '--help'?
+See 'anima help schema'.
+[exit 2]
+
+$ node_modules/.bin/anima docs ik
+## ik
+
+<!-- capability: rigging.ik -->
+### Inverse kinematics
+
+The optional `ik` module registers the `ik` constraint kind with `rig`. In JSON an IK constraint is
+an item in a bone's `constraints` array:
+
+```json
+{"kind":"ik","target":"aim","bones":2,"bend":"cw","strength":1}
+```
+
+AniML writes the same object as a child element:
+
+```xml
+<ik target="aim" bones="2" bend="cw" strength="1"/>
+```
+
+`target` is a required node id and the target point is that node's world pivot. `bones` is a static
+integer of at least 1, defaults to 1, and counts the entire solved chain including the bone carrying
+the constraint. Thus `bones=1` aims only the host bone and `bones=2` solves the host plus its parent.
+This intentionally differs from Rive's parent-count field. `strength` is the common rig constraint
+strength: it is animatable and bindable at `<bone>.constraints.<k>.strength`, defaults to 1, and is
+clamped to 0..1. `target`, `bones`, and `bend` are structural fields.
+
+The solve uses scaled world-space bone lengths and never changes a length. For one bone, the bone's
+direction aims from its start toward the target. For two bones, an analytic law-of-cosines solve
+places the joint on the selected bend side. When the target is farther away than the sum of the
+chain lengths, every bone straightens toward the target. A target coincident with the chain start
+leaves the current pose unchanged.
+
+For chains longer than two bones, Anima independently reimplements the multi-link strategy in
+Rive's MIT runtime `src/constraints/ik_constraint.cpp`: in FK order, each of the first `n-1` links
+performs one analytic two-link solve against the final tip, with the downstream subchain rotated as
+a rigid remainder. The iteration count is therefore fixed by the chain length (`n-1`) and has no
+convergence test or early exit. No Rive source text or binary format is used. This choice fixes the
+otherwise non-unique multi-link solution while keeping results deterministic across runtimes.
+
+The IK kind declares every solved ancestor bone through `writes()`, so rig dependency ordering runs
+the target first and the chain's descendants after the rewritten bones. The solver executes in the
+normal rig stage described in `## rig`. IK strength mixes only each chain bone's local rotation from
+its unconstrained value toward the fully solved value, using the shortest angular arc. The chain is
+then rebuilt in parent-to-child order from those mixed local rotations, so every child start remains
+at its parent's tip for every strength from 0 through 1. Bone lengths, local scale and local
+translation are unchanged. Strength 0 is the unconstrained pose and strength 1 is the full IK solve.
+
+Validation adds two IK-specific errors in addition to rig's shared `rig-target` for an unknown
+target. `rig-ik-host` points at `/nodes/.../constraints/<k>` when `ik` is attached to a non-bone and
+hints to move it to the chain tip. `rig-ik-chain` points at the constraint's `/bones` field when the
+requested count is longer than the available parent-bone chain and hints to reduce the count or add
+parent bones. Using an IK constraint without declaring `ik` in `requires` is `undeclared-feature`.
+`anima schema ik` exposes `target`, `bones`, `bend`, and `strength` through the registered AniML
+element descriptor.
+
+
+<!-- capability: rigging.ik-bend -->
+### IK bend direction
+
+`bend` is `cw` (the default) or `ccw`. For an unmirrored chain, `cw` places the two-link joint on
+the screen-clockwise side of the directed line from the chain start to the target; `ccw` selects the
+opposite analytic solution. A negative-determinant ancestor mirrors that side so authored bend
+direction follows the mirrored chain. The same side choice is used for each deterministic pair solve
+in a chain longer than two bones.
+
+Examples (AniML sources with built .ani siblings):
+- modules/ik/examples/reach.animl
+[exit 0]
+
+$ node_modules/.bin/anima completion bash | head -5
+# bash completion for anima
+_anima_completion() {
+  local cur prev cmd
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+[exit 0]
+

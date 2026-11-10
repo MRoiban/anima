@@ -1,6 +1,8 @@
 export const after = ['contour', 'mesh', 'paint', 'rig'];
 export default {
   name: 'skin',
+  summary:
+    'Skinning: deform paths, contours and meshes from bones with explicit or automatic weights.',
   after,
   core: { entry: 'core/all.ts', export: 'skin', svg: 'core/svg.ts', svgExport: 'skinSVG' },
   web: [

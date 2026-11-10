@@ -1,6 +1,8 @@
 export const after = ['host', 'data', 'assets', 'input'];
 export default {
   name: 'data-host',
+  summary:
+    'Data: read and write page-provided data (nested models, lists, fonts, images) from the host.',
   after,
   core: { entry: 'core/index.ts', export: 'dataHost' },
   web: [{ name: 'data-host', budget: 1088 }],

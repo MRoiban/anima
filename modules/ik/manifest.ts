@@ -2,6 +2,8 @@ export const after: string[] = ['rig'];
 export default {
   ...{
     name: 'ik',
+    summary:
+      'Inverse kinematics: bend a bone chain so its tip reaches a target (one, two or more bones, bend side, strength).',
     after: [],
     core: { entry: 'core/index.ts', export: 'ik', svg: 'core/svg.ts', svgExport: 'ikSVG' },
     web: [{ name: 'ik', budget: 896, heavy: true, over: 'rig' }],

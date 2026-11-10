@@ -19,32 +19,18 @@ import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
 
-import { mkdirSync, cpSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { parseArgs } from 'node:util';
+import { mkdirSync, cpSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import {
   Player,
   type Diagnostic,
   type Model,
-  type Shape,
-  DOC,
-  markupName,
-  COMMON,
-  NODE_TYPES,
-  ELEMENTS,
-  OWN,
-  PAINT,
-  PAINTED,
-  nodeShape,
-  STATIC,
   ScriptError,
-  jsonSchema,
   load,
   runScript,
   staticSlots,
 } from '@anima-format/core';
 import { formatAni as format } from '@anima-format/core';
 import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
-import { nodeAttrs } from '../../markup/src/names.ts';
 import { session } from './session.ts';
 import { bench } from './bench.ts';
 import { startPlayground } from './playground.ts';
@@ -68,6 +54,14 @@ import {
   toPNG,
 } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
+import { COMMANDS, GLOBAL, type Command, type Option } from './commands.ts';
+import { commandByName, commandHelp, helpJSON, overview } from './help.ts';
+import { resolveAlias, suggest } from './suggest.ts';
+import { completion, type Shell } from './completion.ts';
+import * as discover from './discover/api.ts';
+import type { EntryKind, ExampleInfo, FeatureInfo, Hit, SearchOptions } from './discover/api.ts';
+import { filteredSchema, schema, schemaAll, schemaSearch, schemaTopic } from './schema-view.ts';
+import { docs, docsFull } from './docs-view.ts';
 
 export interface IO {
   out(s: string): void;
@@ -77,129 +71,600 @@ export interface IO {
   input?: AsyncIterable<string>;
 }
 
-class Usage extends Error {}
+class Usage extends Error {
+  readonly issue?: {
+    kind: 'command' | 'flag' | 'value' | 'subcommand';
+    word: string;
+    suggestions: string[];
+    help: string;
+  };
+
+  constructor(
+    message: string,
+    issue?: {
+      kind: 'command' | 'flag' | 'value' | 'subcommand';
+      word: string;
+      suggestions: string[];
+      help: string;
+    },
+  ) {
+    super(message);
+    this.issue = issue;
+  }
+}
+
+interface CLIOptions extends Record<string, unknown> {
+  format?: string;
+  help?: boolean;
+  json?: boolean;
+  all?: boolean;
+  modules?: string;
+  verbose?: boolean;
+  font?: string[];
+  'browser-text'?: boolean;
+  google?: string;
+  chars?: string;
+  node?: string;
+  component?: string;
+  fit?: string;
+  viewport?: string;
+  scale?: string;
+  probe?: string;
+  preset?: string[];
+  fps?: string;
+  animatable?: boolean;
+  bindable?: boolean;
+  inherited?: boolean;
+  'editor-only'?: boolean;
+  audio?: string;
+  search?: string;
+  summary?: boolean;
+  sample?: string;
+  'out-dir'?: string;
+  port?: string;
+  script?: string;
+  eval?: string;
+  'reduced-motion'?: boolean;
+  semantics?: boolean;
+  seed?: string;
+  frames?: string;
+  out?: string;
+  at?: string;
+  size?: string;
+  sheet?: string;
+  over?: string;
+  dark?: boolean;
+  color?: string[];
+  current?: string;
+  background?: string;
+  compare?: string;
+  tolerance?: string;
+  write?: boolean;
+  check?: boolean;
+  glyph?: string;
+  glyphy?: string;
+  force?: boolean;
+  ani?: boolean;
+  embed?: boolean;
+  'json-schema'?: boolean;
+  list?: boolean;
+  kind?: string[];
+  limit?: string;
+  print?: boolean;
+}
+
+interface DiscoveryAPI {
+  search(query: string, options?: SearchOptions): Hit[];
+  features(name?: string): FeatureInfo[] | FeatureInfo | undefined;
+  examples(filter?: string): ExampleInfo[];
+}
+
+export interface RunDeps {
+  discover?: Partial<DiscoveryAPI>;
+}
 
 const ROOT = new URL('../../../', import.meta.url);
+const CLI_VERSION = (
+  JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
+    version: string;
+  }
+).version;
+const DEFAULT_DISCOVERY: DiscoveryAPI = {
+  search: discover.search,
+  features: discover.features as DiscoveryAPI['features'],
+  examples: discover.examples,
+};
 
-const HELP = `anima — check, see and scaffold .animl and .ani animations
+function wantsJSON(argv: readonly string[]): boolean {
+  return argv.some(
+    (arg, index) => arg === '--format=json' || (arg === '--format' && argv[index + 1] === 'json'),
+  );
+}
 
-  anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
-  anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
-  anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
-  anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
-  anima validate <file> [--font name=path]  all diagnostics, with JSON pointers, lines and hints
-  anima inspect <file> [--font name=path]  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
-                                        run a script (spec §11.2), print snapshots as JSON lines
-  anima session <file> [--font name=path]  persistent JSON-line script session (reload, quit)
-  anima bench <file> [-s script] [--frames N] [--format=json] [--font name=path]  compile and frame costs
-  anima render <file> -o out.svg|png [--font name=path] [--at t] [-s script | -e "cmds"] [--size px]
-               [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
-               [--background #hex] [--browser-text] draw a frame or a labelled contact sheet
-  anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
-               [--size px] [--tolerance 0..255] [-o diff.png]
-                                        compare RGBA pixels (default 256px, black currentColor,
-                                        transparent background); exit 1 beyond tolerance (default 0)
-  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
-  anima bundle [--modules paint,bind] [-o anima.js] [--verbose]  chosen browser modules; min+gzip sizes
-  anima doctor                          check Node, browsers, cache and module wiring
-  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
-               [--frames N] [--fps N] [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
-  anima inspect [file] --summary         wiring diagnostics table
-  anima schema --search <words> | <type>.<field>
-               [--animatable] [--bindable] [--inherited] [--editor-only]
-  anima new <directory> --sample bell|moon|progress
-  anima build [file] --out-dir <directory> [--font name=path]  local HTML and runtime export
-  anima fmt <file> [--write | --check]  canonical formatting
-  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
-                                        scaffold AniML whose rest frame is the glyph (--ani for JSON)
-  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]  compile AniML to canonical .ani or inline JSON
-  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
-  anima library update <file.animl> [--check]  refresh vendored imports from local source paths
-  anima decompile <file.ani> [-o out.animl]    write canonical AniML
-  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
-                                        registry fields, types and markup/.ani spellings
-  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
-    Default: contents only; request a section to read it. Topics accept camelCase or kebab-case.
-                                        the authoring guide and the spec
+function usageHelp(command?: Command): string {
+  return command ? `anima help ${command.name}` : 'anima help';
+}
 
-Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
+function usageIssue(
+  command: Command | undefined,
+  kind: NonNullable<Usage['issue']>['kind'],
+  word: string,
+  candidates: readonly string[],
+  message: string,
+): Usage {
+  return new Usage(message, {
+    kind,
+    word,
+    suggestions: suggest(word, candidates),
+    help: usageHelp(command),
+  });
+}
 
-Authoring commands accept .animl and .ani. Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.`;
-
-export async function run(argv: string[], io: IO): Promise<number> {
-  let args;
-  try {
-    args = parseArgs({
-      args: argv,
-      allowPositionals: true,
-      options: {
-        modules: { type: 'string' },
-        verbose: { type: 'boolean' },
-        font: { type: 'string', multiple: true },
-        'browser-text': { type: 'boolean' },
-        google: { type: 'string' },
-        chars: { type: 'string' },
-        node: { type: 'string' },
-        component: { type: 'string' },
-        fit: { type: 'string' },
-        viewport: { type: 'string' },
-        scale: { type: 'string' },
-        probe: { type: 'string' },
-        preset: { type: 'string', multiple: true },
-        fps: { type: 'string' },
-        animatable: { type: 'boolean' },
-        bindable: { type: 'boolean' },
-        inherited: { type: 'boolean' },
-        'editor-only': { type: 'boolean' },
-        audio: { type: 'string' },
-        search: { type: 'string' },
-        summary: { type: 'boolean' },
-        sample: { type: 'string' },
-        'out-dir': { type: 'string' },
-        port: { type: 'string' },
-        format: { type: 'string', default: 'text' },
-        script: { type: 'string', short: 's' },
-        eval: { type: 'string', short: 'e' },
-        'reduced-motion': { type: 'boolean' },
-        all: { type: 'boolean' },
-        semantics: { type: 'boolean' },
-        seed: { type: 'string' },
-        frames: { type: 'string' },
-        out: { type: 'string', short: 'o' },
-        at: { type: 'string' },
-        size: { type: 'string' },
-        sheet: { type: 'string' },
-        over: { type: 'string' },
-        dark: { type: 'boolean' },
-        color: { type: 'string', multiple: true },
-        current: { type: 'string' },
-        background: { type: 'string' },
-        compare: { type: 'string' },
-        tolerance: { type: 'string' },
-        write: { type: 'boolean' },
-        check: { type: 'boolean' },
-        glyph: { type: 'string' },
-        glyphy: { type: 'string' },
-        force: { type: 'boolean' },
-        ani: { type: 'boolean' },
-        embed: { type: 'boolean' },
-        'json-schema': { type: 'boolean' },
-        list: { type: 'boolean' },
-        help: { type: 'boolean', short: 'h' },
-      },
-    });
-  } catch (e) {
-    io.err(`${(e as Error).message}\n\n${HELP}`);
+function emitUsage(error: Usage, command: Command | undefined, json: boolean, io: IO): number {
+  const suggestions = error.issue?.suggestions ?? [];
+  const help = error.issue?.help ?? usageHelp(command);
+  if (json) {
+    io.err(JSON.stringify({ error: error.message, suggestions, help }));
     return 2;
   }
-  const { values: o, positionals: pos } = args;
-  const [cmd, ...rest] = pos;
-  const json = o.format === 'json';
-  if (o.format !== 'text' && !json) return (io.err('--format is text or json'), 2);
-  if (!cmd || o.help) return (io.out(HELP), cmd || o.help ? 0 : 2);
-  const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
+  io.err(`anima: ${error.message}`);
+  if (suggestions.length) {
+    if (error.issue?.kind === 'command') {
+      io.err(
+        `${suggestions.length === 1 ? 'The most similar command is' : 'The most similar commands are'}\n${suggestions.map((item) => `  ${item}`).join('\n')}`,
+      );
+    } else if (suggestions.length === 1) io.err(`Did you mean '${suggestions[0]}'?`);
+    else io.err(`Did you mean one of these?\n${suggestions.map((item) => `  ${item}`).join('\n')}`);
+  }
+  if (!error.message.includes(`See '${help}'`)) io.err(`See '${help}'.`);
+  return 2;
+}
+
+function optionsFor(command: Command): Option[] {
+  return [...command.options, ...GLOBAL];
+}
+
+function setOption(values: CLIOptions, option: Option, value: string | boolean): void {
+  if (option.multiple) {
+    const current = values[option.name];
+    values[option.name] = [...(Array.isArray(current) ? current : []), String(value)];
+  } else values[option.name] = value;
+}
+
+function parseCommandArgs(
+  argv: string[],
+  command: Command,
+): { values: CLIOptions; positionals: string[] } {
+  const options = optionsFor(command);
+  const byLong = new Map(options.map((option) => [option.name, option]));
+  const byShort = new Map(
+    options.flatMap((option) => (option.short ? [[option.short, option] as const] : [])),
+  );
+  const longCandidates = options.map((option) => `--${option.name}`);
+  const shortCandidates = options.flatMap((option) => (option.short ? [`-${option.short}`] : []));
+  const values: CLIOptions = { format: 'text' };
+  const positionals: string[] = [];
+  let positionalOnly = false;
+
+  const accept = (option: Option, raw: string | undefined, spelling: string) => {
+    if (!option.value) {
+      if (raw !== undefined)
+        throw new Usage(`option '${spelling}' does not take a value`, {
+          kind: 'flag',
+          word: spelling,
+          suggestions: [],
+          help: usageHelp(command),
+        });
+      setOption(values, option, true);
+      return;
+    }
+    if (raw === undefined)
+      throw new Usage(`option '${spelling}' needs <${option.value}>`, {
+        kind: 'flag',
+        word: spelling,
+        suggestions: [],
+        help: usageHelp(command),
+      });
+    if (option.choices && !option.choices.includes(raw))
+      throw usageIssue(
+        command,
+        'value',
+        raw,
+        option.choices,
+        `'${raw}' is not a valid value for '${spelling}'`,
+      );
+    setOption(values, option, raw);
+  };
+
+  for (let index = 0; index < argv.length; index++) {
+    const token = argv[index]!;
+    if (positionalOnly) {
+      positionals.push(token);
+      continue;
+    }
+    if (token === '--') {
+      positionalOnly = true;
+      continue;
+    }
+    if (token.startsWith('--')) {
+      const equals = token.indexOf('=');
+      const name = token.slice(2, equals < 0 ? undefined : equals);
+      const option = byLong.get(name);
+      if (!option)
+        throw usageIssue(command, 'flag', token, longCandidates, `unknown option '${token}'`);
+      const inline = equals < 0 ? undefined : token.slice(equals + 1);
+      if (option.value && inline === undefined) {
+        const next = argv[index + 1];
+        if (next === undefined)
+          throw new Usage(`option '--${name}' needs <${option.value}>`, {
+            kind: 'flag',
+            word: token,
+            suggestions: [],
+            help: usageHelp(command),
+          });
+        index++;
+        accept(option, next, `--${name}`);
+      } else accept(option, inline, `--${name}`);
+      continue;
+    }
+    if (token.startsWith('-') && token !== '-') {
+      const short = token[1]!;
+      const option = byShort.get(short);
+      if (!option)
+        throw usageIssue(
+          command,
+          'flag',
+          token,
+          [...shortCandidates, ...longCandidates],
+          `unknown option '${token}'`,
+        );
+      const attached = token.length > 2 ? token.slice(token[2] === '=' ? 3 : 2) : undefined;
+      if (option.value && attached === undefined) {
+        const next = argv[index + 1];
+        if (next === undefined)
+          throw new Usage(`option '-${short}' needs <${option.value}>`, {
+            kind: 'flag',
+            word: token,
+            suggestions: [],
+            help: usageHelp(command),
+          });
+        index++;
+        accept(option, next, `-${short}`);
+      } else accept(option, attached, `-${short}`);
+      continue;
+    }
+    positionals.push(token);
+  }
+  if (command.subcommands?.length && positionals[0]) {
+    const candidates = command.subcommands.map(({ name }) => name);
+    if (!candidates.includes(positionals[0]))
+      throw usageIssue(
+        command,
+        'subcommand',
+        positionals[0],
+        candidates,
+        `'${positionals[0]}' is not an anima ${command.name} subcommand`,
+      );
+  }
+  return { values, positionals };
+}
+
+function unavailable(error: unknown, json: boolean, io: IO): number | undefined {
+  if (!(error instanceof Error) || !/discover\..*not implemented/.test(error.message))
+    return undefined;
+  if (json) io.err(JSON.stringify({ error: 'not available yet' }));
+  else io.err('not available yet');
+  return 1;
+}
+
+function featureText(info: FeatureInfo): string {
+  const groups = new Map<EntryKind, typeof info.provides>();
+  for (const entry of info.provides)
+    groups.set(entry.kind, [...(groups.get(entry.kind) ?? []), entry]);
+  const lines = [`${info.entry.name} — ${info.entry.summary}`];
+  if (groups.size) {
+    lines.push('Provides:');
+    for (const [kind, entries] of groups)
+      lines.push(`  ${kind}:`, ...entries.map((entry) => `    ${entry.name} — ${entry.summary}`));
+  }
+  lines.push(
+    `Docs: ${info.entry.docs?.join(', ') || 'none'}`,
+    `Examples: ${info.entry.examples?.join(', ') || 'none'}`,
+    `After: ${info.after.join(', ') || 'none'}`,
+  );
+  return lines.join('\n');
+}
+
+async function runFeatures(
+  rest: string[],
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  if (rest.length > 1) throw new Usage('features takes at most one name');
   try {
+    if (!rest[0]) {
+      const infos = discovery.features() as FeatureInfo[];
+      if (json) io.out(JSON.stringify({ features: infos }));
+      else for (const info of infos) io.out(`${info.entry.name} — ${info.entry.summary}`);
+      return 0;
+    }
+    const info = discovery.features(rest[0]) as FeatureInfo | undefined;
+    if (!info)
+      throw usageIssue(
+        commandByName('features'),
+        'value',
+        rest[0]!,
+        (discovery.features() as FeatureInfo[]).map((f) => f.entry.name),
+        `unknown feature '${rest[0]}'`,
+      );
+    if (json) io.out(JSON.stringify(info));
+    else io.out(featureText(info));
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+async function runSearch(
+  rest: string[],
+  options: CLIOptions,
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  const query = rest.join(' ').trim();
+  if (!query) throw new Usage('search needs <words…>');
+  const limit = options.limit === undefined ? 10 : Number(options.limit);
+  if (!Number.isInteger(limit) || limit < 1) throw new Usage('--limit needs a positive integer');
+  try {
+    const results = discovery.search(query, {
+      kinds: options.kind as EntryKind[] | undefined,
+      limit,
+    });
+    if (json) io.out(JSON.stringify({ results }));
+    else if (!results.length) io.out('No results.');
+    else {
+      for (const hit of results)
+        io.out(`${hit.entry.kind}  ${hit.entry.name}  ${hit.entry.summary}`);
+      const top = results[0]!.entry;
+      const next = top.docs?.[0]
+        ? `anima docs ${top.docs[0]}`
+        : top.schema
+          ? `anima schema ${top.schema}`
+          : undefined;
+      if (next) io.out(`Next: ${next}`);
+    }
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+async function runExamples(
+  rest: string[],
+  options: CLIOptions,
+  json: boolean,
+  io: IO,
+  discovery: DiscoveryAPI,
+): Promise<number> {
+  if (rest.length > 1) throw new Usage('examples takes at most one topic or name');
+  if (options.print && options.out) throw new Usage('examples uses --print or -o dir, not both');
+  try {
+    const examples = discovery.examples(rest[0]);
+    if (!options.print && !options.out) {
+      if (json) io.out(JSON.stringify({ examples }));
+      else
+        for (const example of examples)
+          io.out(
+            `${example.path} — ${example.entry.summary} (requires ${example.requires.join(', ') || 'none'})`,
+          );
+      return 0;
+    }
+    // A source and its built sibling (`bell.animl`, `bell.ani`) count as one example: print the source.
+    if (
+      examples.length === 2 &&
+      examples[0]!.path.replace(/\.ani(ml)?$/, '') === examples[1]!.path.replace(/\.ani(ml)?$/, '')
+    )
+      examples.splice(0, 2, examples.find((e) => e.path.endsWith('.animl')) ?? examples[0]!);
+    if (examples.length !== 1)
+      throw new Usage(
+        examples.length
+          ? 'examples output needs one match; refine the topic or name'
+          : 'no matching example',
+      );
+    const example = examples[0]!;
+    const source = new URL(example.path, ROOT);
+    if (options.print) {
+      const text = readFileSync(source, 'utf8');
+      if (json) io.out(JSON.stringify({ example, text }));
+      else if (io.write) io.write(text);
+      else io.out(text.trimEnd());
+      return 0;
+    }
+    const dir = String(options.out);
+    mkdirSync(dir, { recursive: true });
+    const wrote = resolve(dir, basename(example.path));
+    cpSync(source, wrote);
+    if (json) io.out(JSON.stringify({ example, wrote }));
+    else io.out(`wrote ${wrote}`);
+    return 0;
+  } catch (error) {
+    const code = unavailable(error, json, io);
+    if (code !== undefined) return code;
+    throw error;
+  }
+}
+
+export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<number> {
+  const jsonRequested = wantsJSON(argv);
+  // Options may come before the command (as on main: `anima --summary inspect f`, `-e snapshot sample f`).
+  // Find the command by skipping leading options, using every command's declarations to know which
+  // options take a value; the skipped tokens are then validated against the resolved command.
+  const takesValue = new Map<string, boolean>();
+  for (const option of [...GLOBAL, ...COMMANDS.flatMap((c) => c.options)]) {
+    takesValue.set('--' + option.name, !!option.value);
+    if (option.short) takesValue.set('-' + option.short, !!option.value);
+  }
+  const leading: string[] = [];
+  let index = 0;
+  while (index < argv.length) {
+    const token = argv[index]!;
+    if (token === '--help' || token === '-h') {
+      io.out(overview());
+      return 0;
+    }
+    if (token === '--version') {
+      io.out(jsonRequested ? JSON.stringify({ version: CLI_VERSION }) : CLI_VERSION);
+      return 0;
+    }
+    if (!token.startsWith('-') || token === '-' || token === '--') break;
+    // `-eVALUE`: a value-taking short option with its value attached.
+    if (!token.startsWith('--') && token.length > 2 && takesValue.get(token.slice(0, 2))) {
+      leading.push(token);
+      index++;
+      continue;
+    }
+    const name = token.split('=')[0]!;
+    if (!takesValue.has(name)) break;
+    leading.push(token);
+    if (takesValue.get(name) && !token.includes('=')) {
+      const value = argv[index + 1];
+      if (value === undefined)
+        return emitUsage(new Usage(`option '${name}' needs a value`), undefined, jsonRequested, io);
+      leading.push(value);
+      index++;
+    }
+    index++;
+  }
+  const formats = leading.flatMap((t, i) =>
+    t === '--format' ? [leading[i + 1]!] : t.startsWith('--format=') ? [t.slice(9)] : [],
+  );
+  for (const value of formats)
+    if (value !== 'text' && value !== 'json')
+      return emitUsage(
+        usageIssue(
+          undefined,
+          'value',
+          value,
+          ['text', 'json'],
+          `'${value}' is not a valid value for '--format'`,
+        ),
+        undefined,
+        jsonRequested,
+        io,
+      );
+  if (index >= argv.length) {
+    // Without a command only the global --format may lead (`anima -oops` is a usage error, as on main).
+    const stray = leading.find(
+      (token, i) =>
+        token.startsWith('-') &&
+        token !== '--format' &&
+        !token.startsWith('--format=') &&
+        leading[i - 1] !== '--format',
+    );
+    if (stray)
+      return emitUsage(
+        usageIssue(
+          undefined,
+          'flag',
+          stray,
+          ['--help', '--version', '--format'],
+          `option '${stray}' needs a command`,
+        ),
+        undefined,
+        jsonRequested,
+        io,
+      );
+    io.out(overview());
+    return 0;
+  }
+  const rawCommand = argv[index]!;
+  if (rawCommand.startsWith('-')) {
+    const error = usageIssue(
+      undefined,
+      'flag',
+      rawCommand,
+      ['--help', '-h', '--version', '--format'],
+      `unknown option '${rawCommand}'`,
+    );
+    return emitUsage(error, undefined, jsonRequested, io);
+  }
+  const canonical = resolveAlias(rawCommand) ?? rawCommand;
+  const command = commandByName(canonical);
+  if (!command) {
+    const error = usageIssue(
+      undefined,
+      'command',
+      rawCommand,
+      COMMANDS.map(({ name }) => name),
+      `'${rawCommand}' is not an anima command. See 'anima help'.`,
+    );
+    return emitUsage(error, undefined, jsonRequested, io);
+  }
+
+  let parsed: { values: CLIOptions; positionals: string[] };
+  try {
+    parsed = parseCommandArgs([...leading, ...argv.slice(index + 1)], command);
+  } catch (error) {
+    return emitUsage(error as Usage, command, jsonRequested, io);
+  }
+  const o = parsed.values;
+  const rest = parsed.positionals;
+  const json = o.format === 'json';
+  if (o.help) {
+    io.out(commandHelp(command));
+    return 0;
+  }
+  const cmd = command.name;
+  const emit = (value: unknown) => io.out(JSON.stringify(value, null, json ? undefined : 2));
+  const discovery: DiscoveryAPI = { ...DEFAULT_DISCOVERY, ...deps.discover };
+
+  try {
+    if (cmd === 'help') {
+      if (o.json || json) return (io.out(helpJSON()), 0);
+      if (rest.length > 1) throw new Usage('help takes at most one command');
+      if (!rest[0]) return (io.out(overview(!!o.all)), 0);
+      const target = commandByName(resolveAlias(rest[0]) ?? rest[0]);
+      if (!target)
+        throw usageIssue(
+          command,
+          'command',
+          rest[0],
+          COMMANDS.map(({ name }) => name),
+          `'${rest[0]}' is not an anima command`,
+        );
+      io.out(commandHelp(target));
+      return 0;
+    }
+    if (cmd === 'version') {
+      if (rest.length) throw new Usage('version takes no positional arguments');
+      io.out(json ? JSON.stringify({ version: CLI_VERSION }) : CLI_VERSION);
+      return 0;
+    }
+    if (cmd === 'completion') {
+      if (rest.length !== 1 || !['bash', 'zsh', 'fish'].includes(rest[0]!)) {
+        const word = rest[0] ?? '';
+        throw usageIssue(
+          command,
+          'value',
+          word,
+          ['bash', 'zsh', 'fish'],
+          word ? `'${word}' is not a supported shell` : 'completion needs bash, zsh, or fish',
+        );
+      }
+      const script = completion(rest[0] as Shell);
+      io.out(json ? JSON.stringify({ shell: rest[0], script }) : script.trimEnd());
+      return 0;
+    }
+    if (cmd === 'features') return await runFeatures(rest, json, io, discovery);
+    if (cmd === 'search') return await runSearch(rest, o, json, io, discovery);
+    if (cmd === 'examples') return await runExamples(rest, o, json, io, discovery);
+
     let fonts = { measurer: new ToolMeasurer(), diagnostics: [] as Diagnostic[] };
     const prepareFonts = async () => {
       fonts = { measurer: new ToolMeasurer(), diagnostics: [] };
@@ -268,7 +733,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         return result.ok ? 0 : 1;
       }
       case 'compare': {
-        if (rest.length !== 2 || !rest.every((p) => p.endsWith('.png')))
+        if (rest.length !== 2 || !rest.every((path) => path.endsWith('.png')))
           throw new Usage('compare needs two PNG files');
         const tolerance = Number(o.tolerance ?? 0);
         if (!Number.isInteger(tolerance) || tolerance < 0 || tolerance > 255)
@@ -372,7 +837,9 @@ export async function run(argv: string[], io: IO): Promise<number> {
           if (!preset) throw new Usage('unknown render preset ' + name);
           return preset;
         });
-        const explicit = Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined));
+        const explicit = Object.fromEntries(
+          Object.entries(o).filter(([, value]) => value !== undefined),
+        );
         for (let i = 0; i < Math.max(1, presets.length); i++) {
           const output =
             presets.length > 1 && o.out
@@ -414,7 +881,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'build': {
         const dir = o['out-dir'] ?? (!o.out ? findProject()?.out : undefined);
         if (dir) return await exportProject(file(rest), dir, json, io);
-        return await build(file(rest), o.out, json, io, o.embed);
+        return await build(file(rest), o.out, json, io, !!o.embed);
       }
       case 'import': {
         const f = file(rest);
@@ -468,9 +935,9 @@ export async function run(argv: string[], io: IO): Promise<number> {
       }
       case 'decompile': {
         const f = file(rest);
-        const r = loaded(f, io, json);
-        if (!r.model) return 1;
-        const text = decompile(r.text);
+        const result = loaded(f, io, json);
+        if (!result.model) return 1;
+        const text = decompile(result.text);
         if (o.out) writeFileSync(o.out, text);
         else io.out(text.trimEnd());
         return 0;
@@ -478,81 +945,88 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'fmt': {
         const f = file(rest);
         const text = readFileSync(f, 'utf8');
-        let out: string;
+        let output: string;
         if (f.endsWith('.animl')) {
-          const r = formatMarkup(text);
-          const diagnostics = r.diagnostics.map((d) => ({ ...d, file: f }));
-          if (!r.text) {
+          const result = formatMarkup(text);
+          const diagnostics = result.diagnostics.map((d) => ({ ...d, file: f }));
+          if (!result.text) {
             if (json) emit({ file: f, ok: false, diagnostics });
             else report(f, diagnostics, io);
             return 1;
           }
-          out = r.text;
+          output = result.text;
         } else {
           let doc;
           try {
             doc = JSON.parse(text);
-          } catch (e) {
-            io.err(`${f}: not JSON: ${(e as Error).message}`);
+          } catch (error) {
+            io.err(`${f}: not JSON: ${(error as Error).message}`);
             return 1;
           }
-          out = format(doc);
+          output = format(doc);
         }
         if (o.check) {
-          if (json) emit({ file: f, formatted: out === text });
+          if (json) emit({ file: f, formatted: output === text });
           else
             io.out(
-              out === text ? `${f}: formatted` : `${f}: not formatted (run anima fmt --write)`,
+              output === text ? `${f}: formatted` : `${f}: not formatted (run anima fmt --write)`,
             );
-          return out === text ? 0 : 1;
+          return output === text ? 0 : 1;
         }
         if (o.write) {
-          writeFileSync(f, out);
+          writeFileSync(f, output);
           if (json) emit({ wrote: f });
           return 0;
         }
-        io.out(out.trimEnd());
+        io.out(output.trimEnd());
         return 0;
       }
       case 'new':
         return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
         if (rest[0]) rest[0] = schemaTopic(rest[0])!;
+        if (o.all && o['json-schema'])
+          throw new Usage('schema takes --all or --json-schema, not both');
+        if (o.search !== undefined && !String(o.search).trim())
+          throw new Usage('--search needs at least one word');
         if (o.animatable || o.bindable || o.inherited || o['editor-only'])
           return filteredSchema(rest[0], o, json, io);
+        if (o.all && !rest[0] && !o.search) return schemaAll(json, io);
         return o.search
           ? schemaSearch(o.search, json, io)
           : schema(rest[0], !!o['json-schema'], json, io);
       case 'docs':
-        return docs(rest[0], !!o.list, json, io, rest[1]);
+        return (o.full ? docsFull : docs)(rest[0], !!o.list, json, io, rest[1]);
       default:
-        throw new Usage(`unknown command "${cmd}"`);
+        throw new Usage(`command '${cmd}' has no dispatcher`);
     }
-  } catch (e) {
-    if (e instanceof Usage) {
-      io.err(`${e.message}\n\n${HELP}`);
-      return 2;
-    }
-    if (e instanceof ScriptError) {
+  } catch (error) {
+    if (error instanceof Usage) return emitUsage(error, command, json, io);
+    if (error instanceof ScriptError) {
       io.err(
-        JSON.stringify({ code: e.code, pointer: e.pointer, message: e.message, hint: e.hint }),
+        JSON.stringify({
+          code: error.code,
+          pointer: error.pointer,
+          message: error.message,
+          hint: error.hint,
+        }),
       );
       return 2;
     }
-    const error = e as Error & { code?: string; pointer?: string; hint?: string };
-    if (error.code) {
+    const detail = error as Error & { code?: string; pointer?: string; hint?: string };
+    if (detail.code) {
       const diagnostic = {
-        code: error.code,
-        pointer: error.pointer ?? '',
-        message: error.message,
-        hint: error.hint ?? 'check local files and browser installation',
+        code: detail.code,
+        pointer: detail.pointer ?? '',
+        message: detail.message,
+        hint: detail.hint ?? 'check local files and browser installation',
       };
       if (json) emit({ diagnostics: [diagnostic] });
       else
         io.err(
           `${diagnostic.code} ${diagnostic.pointer}: ${diagnostic.message}; hint: ${diagnostic.hint}`,
         );
-    } else io.err(error.message);
+    } else io.err(detail.message);
     return 1;
   }
 }
@@ -1217,427 +1691,6 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
   return 0;
 }
 
-// ---------------------------------------------------------------- schema and docs
-
-// Resolve spelling variants against the same registry/topics used to serve the output.
-function lookupTopic(topic: string | undefined, topics: string[], command: string) {
-  if (!topic) return topic;
-  const compact = (s: string) => s.replace(/-/g, '').toLowerCase();
-  if (topics.includes(topic)) return topic;
-  const exact = [...topics]
-    .sort((a, b) => Number(b.includes('-')) - Number(a.includes('-')))
-    .find((t) => compact(t) === compact(topic));
-  if (exact) return exact;
-  const distance = (a: string, b: string) => {
-    let row = Array.from({ length: b.length + 1 }, (_, i) => i);
-    for (let i = 0; i < a.length; i++) {
-      const next = [i + 1];
-      for (let j = 0; j < b.length; j++)
-        next.push(Math.min(next[j]! + 1, row[j + 1]! + 1, row[j]! + Number(a[i] !== b[j])));
-      row = next;
-    }
-    return row[b.length]!;
-  };
-  const nearest = topics
-    .map((t) => ({ t, d: distance(compact(topic), compact(t)) }))
-    .sort((a, b) => a.d - b.d || a.t.localeCompare(b.t))[0];
-  if (nearest && nearest.d <= 2)
-    throw new Usage(
-      `no ${command} topic "${topic}"; did you mean "${nearest.t}"? Try anima ${command} ${nearest.t}`,
-    );
-  return topic;
-}
-
-function schemaTopic(topic: string | undefined) {
-  if (!topic) return topic;
-  // seam(P8-1): JSON discriminators are aliases for their structural AniML schema topics.
-  const form = Object.entries(ELEMENTS).find(([, f]) => f.values?.kind === topic);
-  if (form) topic = form[0];
-  const [head, ...tail] = topic.split('.');
-  const topics = [
-    ...new Set([
-      ...NODE_TYPES,
-      ...Object.keys(ELEMENTS),
-      ...[nodeShape('path').p, (DOC as Extract<Shape, { k: 'obj' }>).p].flatMap((fields) =>
-        Object.entries(fields)
-          .filter(([, v]) => v.k === 'obj' || (v.k === 'arr' && v.of.k === 'obj'))
-          .map(([k, v]) => markupName(v, k)),
-      ),
-      'fill',
-      'stroke',
-      'anima',
-      'meta',
-      'color',
-      'glyph',
-      'hit',
-      'timeline',
-      'track',
-      'event',
-      'layer',
-      'state',
-      'pose',
-      'ease',
-      'on',
-      'bool',
-      'number',
-      'trigger',
-      'transition',
-      'listener',
-      'input',
-    ]),
-  ];
-  return [lookupTopic(head, topics, 'schema'), ...tail].join('.');
-}
-
-function schema(topic: string | undefined, full: boolean, json: boolean, io: IO): number {
-  if (full) return (io.out(JSON.stringify(jsonSchema(), null, 2)), 0);
-  if (topic?.includes('.')) {
-    const [type, ...path] = topic.split('.');
-    const lines: string[] = [];
-    schema(type, false, true, { out: (s) => lines.push(s), err: (s) => io.err(s) });
-    const data = JSON.parse(lines[0]!);
-    const key = path.join('.');
-    const field = data.fields?.find(
-      (f: { ani: string; markup: string }) => f.ani === key || f.markup === key,
-    );
-    if (!field) throw new Usage('unknown schema field ' + topic);
-    io.out(JSON.stringify({ topic, ...field }));
-    return 0;
-  }
-  const props = (
-    rec: Record<
-      string,
-      { type: string; def?: unknown; min?: number; max?: number; feature?: string }
-    >,
-  ) =>
-    Object.entries(rec).map(([k, p]) => ({
-      name: k,
-      type: p.type,
-      default: p.def ?? null,
-      ...(p.min !== undefined ? { min: p.min } : {}),
-      ...(p.max !== undefined ? { max: p.max } : {}),
-      animatable: true,
-      ...(p.feature ? { feature: p.feature } : {}),
-    }));
-  const spellings = (t: (typeof NODE_TYPES)[number], paint?: string) =>
-    nodeAttrs(t)
-      .filter((a) => (!paint || a.path[0] === paint) && a.attr !== a.path.join('.'))
-      .map((a) => ({ markup: a.attr, ani: a.path.join('.') }));
-  const typeInfo = (t: (typeof NODE_TYPES)[number]) => ({
-    type: t,
-    fields: fields([], nodeShape(t)),
-    spellings: spellings(t),
-    animatable: props({ ...COMMON, ...OWN[t] } as never),
-    static: [
-      'id',
-      'type',
-      'pivot',
-      ...Object.keys(STATIC[t]),
-      ...(PAINTED.includes(t) ? ['fill', 'stroke', 'knockout'] : []),
-    ],
-  });
-  const objectPaths: Record<string, string[]> = {
-    fill: [],
-    stroke: [],
-    anima: [],
-    meta: ['meta'],
-    color: ['colors', '*'],
-    glyph: ['glyphs', '*'],
-    hit: ['hit'],
-    timeline: ['timelines', '*'],
-    track: ['timelines', '*', 'tracks'],
-    event: ['timelines', '*', 'events', '*'],
-    layer: ['machine', 'layers', '*'],
-    state: ['machine', 'layers', '*', 'states', '*'],
-    pose: ['machine', 'layers', '*', 'states', '*', 'pose'],
-    ease: ['machine', 'layers', '*', 'states', '*', 'on', '*', 'ease'],
-    on: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
-    bool: ['inputs', '*'],
-    number: ['inputs', '*'],
-    trigger: ['inputs', '*'],
-    transition: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
-    listener: ['listeners', '*'],
-    input: ['inputs', '*'],
-  };
-  const fields = (path: string[], root: Shape = DOC) => {
-    let shape = root;
-    for (const key of path) {
-      if (shape.k === 'obj') shape = shape.p[key]!;
-      else if (shape.k === 'map' || shape.k === 'arr') shape = shape.of;
-      else throw new Error('invalid schema registry path');
-    }
-    // Maps (poses/tracks), tuples (events) and scalar declarations are registry shapes too.
-    if (shape.k !== 'obj') {
-      const p =
-        shape.k === 'map'
-          ? { '<address>': shape.of }
-          : shape.k === 'tup'
-            ? Object.fromEntries(shape.of.map((s, i) => [i === 0 ? 'at' : 'name', s]))
-            : { [topic === 'ease' ? 'curve' : 'value']: shape };
-      shape = { k: 'obj', p };
-    }
-    const describe = (s: Shape): string => {
-      switch (s.k) {
-        case 'str':
-          return s.of ? s.of.map((v) => JSON.stringify(v)).join(' | ') : 'string';
-        case 'num':
-          return 'number';
-        case 'bool':
-          return 'bool';
-        case 'alt':
-          return s.of.map(describe).join(' | ');
-        case 'arr':
-          return `array<${describe(s.of)}>`;
-        case 'map':
-          return `map<${describe(s.of)}>`;
-        case 'tup':
-          return `[${s.of.map(describe).join(', ')}]`;
-        default:
-          return s.k;
-      }
-    };
-    return Object.entries(shape.p).map(([key, value]) => ({
-      markup: markupName(value, key),
-      ani: key,
-      type: describe(value),
-      required: shape.req?.includes(key) ?? false,
-      ...(value.default !== undefined ? { default: value.default } : {}),
-      ...((value.feature ?? shape.feature) ? { feature: value.feature ?? shape.feature } : {}),
-      ...(value.description ? { description: value.description } : {}),
-      ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
-    }));
-  };
-  const nodeField =
-    topic &&
-    (Object.entries(nodeShape('path').p).find(
-      ([key, value]) => key === topic || markupName(value, key) === topic,
-    )?.[1] ??
-      (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
-  const compositeField =
-    nodeField &&
-    (nodeField.k === 'arr' ? { ...nodeField.of, feature: nodeField.feature } : nodeField);
-  const objectFields =
-    topic && Object.hasOwn(objectPaths, topic)
-      ? fields(
-          objectPaths[topic]!,
-          topic === 'fill' || topic === 'stroke' ? nodeShape('path').p[topic]! : DOC,
-        )
-      : topic && ELEMENTS[topic]
-        ? fields([], ELEMENTS[topic]!.shape)
-        : compositeField && compositeField.k === 'obj' && !NODE_TYPES.includes(topic as never)
-          ? fields([], compositeField)
-          : undefined;
-  let data: unknown;
-  if (topic === 'a11y')
-    data = {
-      topic,
-      scope: 'node.a11y',
-      fields: fields([], nodeShape('path').p.a11y),
-      actions: ['tap', 'increase', 'decrease', 'focus'],
-      root: { scope: 'doc.a11y (root icon semantics)', fields: fields(['a11y']) },
-    };
-  else if (objectFields)
-    data = {
-      topic,
-      fields: objectFields,
-      ...(topic === 'fill' || topic === 'stroke'
-        ? {
-            [topic]: props(PAINT[topic] as never),
-            spellings: spellings('path', topic),
-            static: objectFields.filter((f) => !(f.ani in PAINT[topic])).map((f) => f.ani),
-          }
-        : {}),
-    };
-  else if (!topic)
-    data = {
-      nodeTypes: NODE_TYPES.map(typeInfo),
-      paint: { fill: props(PAINT.fill as never), stroke: props(PAINT.stroke as never) },
-      paintFields: {
-        fill: fields([], nodeShape('path').p.fill),
-        stroke: fields([], nodeShape('path').p.stroke),
-      },
-    };
-  else if ((NODE_TYPES as readonly string[]).includes(topic))
-    data = typeInfo(topic as (typeof NODE_TYPES)[number]);
-  else if (topic === 'fill' || topic === 'stroke')
-    data = {
-      [topic]: props(PAINT[topic] as never),
-      spellings: spellings('path', topic),
-      static: topic === 'fill' ? ['rule'] : ['cap', 'join'],
-    };
-  else
-    throw new Usage(
-      `no schema topic "${topic}" (try a node type, fill, stroke, a11y, timeline, layer, state, pose, transition, listener or input)`,
-    );
-  if (json) return (io.out(JSON.stringify(data)), 0);
-  const table = (
-    rows: {
-      name: string;
-      type: string;
-      default: unknown;
-      min?: number;
-      max?: number;
-      feature?: string;
-    }[],
-  ) =>
-    rows
-      .map(
-        (r) =>
-          `  ${r.name.padEnd(12)} ${r.type.padEnd(7)} default ${JSON.stringify(r.default)}${r.min !== undefined || r.max !== undefined ? `  range [${r.min ?? '-∞'}, ${r.max ?? '∞'}]` : ''}${r.feature ? ` [${r.feature}]` : ''}`,
-      )
-      .join('\n');
-  const mapping = (rows: { markup: string; ani: string }[]) =>
-    rows.map((r) => `  ${r.markup} ↔ ${r.ani}`).join('\n');
-  const show = (d: ReturnType<typeof typeInfo>) =>
-    `${d.type}\n attributes (markup ↔ .ani: type)\n${d.fields.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`).join('\n')}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
-      .filter((f) => f.feature)
-      .map((f) => '  ' + f.ani + ' [' + f.feature + ']')
-      .join('\n')}`;
-  const paint = (k: 'fill' | 'stroke') =>
-    `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}\n module fields\n${fields(
-      [],
-      nodeShape('path').p[k],
-    )
-      .filter((f) => f.feature)
-      .map((f) => `  ${f.markup} ↔ ${k}.${f.ani}: ${f.type} [${f.feature}]`)
-      .join('\n')}`;
-  if (topic === 'a11y') {
-    const showFields = (rows: ReturnType<typeof fields>) =>
-      rows
-        .map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`)
-        .join('\n');
-    io.out(
-      `node.a11y (node semantics; markup ↔ .ani: type)\n${showFields(fields([], nodeShape('path').p.a11y))}\nActions: tap, increase, decrease, focus\n\ndoc.a11y (root icon semantics; markup ↔ .ani: type)\n${showFields(fields(['a11y']))}`,
-    );
-  } else if (objectFields)
-    io.out(
-      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${'default' in f ? ` (default ${JSON.stringify(f.default)})` : ''}${f.feature ? ` [${f.feature}]` : ''}${f.description ? ` — ${f.description}` : ''}`).join('\n')}`,
-    );
-  else if (!topic)
-    io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));
-  else if (topic === 'fill' || topic === 'stroke') io.out(paint(topic));
-  else io.out(show(data as ReturnType<typeof typeInfo>));
-  return 0;
-}
-
-function docs(
-  topic: string | undefined,
-  list: boolean,
-  json: boolean,
-  io: IO,
-  section?: string,
-): number {
-  const read = (p: string) => readFileSync(new URL(p, ROOT), 'utf8');
-  const fontHelp = read('packages/cli/src/font/README.md');
-  const guide = read('docs/AUTHORING.md') + '\n\n' + fontHelp;
-  const sections = [...guide.matchAll(/^## (.+)$/gm)].map((m) => ({
-    title: m[1]!,
-    slug: m[1]!
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, ''),
-    at: m.index!,
-  }));
-  const spec = read('spec/SPEC.md');
-  const chapters = [...spec.matchAll(/^## (.+)$/gm)];
-  // Module chapters are the one-word lower-case headings (`## paint`); web-only modules such as
-  // `canvas` have a chapter but nothing registered in core.
-  const moduleTopics = chapters.filter((m) => /^[a-z]+(?:-[a-z]+)*$/.test(m[1]!));
-  const moduleDocs = new Map(
-    readdirSync(new URL('modules/', ROOT), { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
-      .map(
-        (entry) =>
-          [
-            entry.name,
-            ['AUTHORING.md', 'SPEC.md']
-              .map((file) => `modules/${entry.name}/${file}`)
-              .filter((file) => existsSync(new URL(file, ROOT))),
-          ] as const,
-      )
-      .filter(([, files]) => files.length),
-  );
-  const aliases: Record<string, string> = { constraint: 'rig' };
-  const topics = [
-    'authoring',
-    'spec',
-    'markup',
-    ...sections.map((s) => s.slug),
-    ...moduleTopics.map((m) => m[1]!),
-    ...moduleDocs.keys(),
-  ];
-  topic = lookupTopic(topic, [...topics, ...Object.keys(aliases)], 'docs');
-  topic = topic ? (aliases[topic] ?? topic) : topic;
-  if ((topic === 'spec' && (list || section)) || (topic === 'authoring' && section)) {
-    const source = topic === 'spec' ? spec : guide;
-    const entries = [...source.matchAll(/^#{2,3} (.+)$/gm)].map((m) => ({
-      title: m[1]!,
-      slug: m[1]!
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, ''),
-      at: m.index!,
-    }));
-    if (list)
-      return (
-        io.out(
-          json
-            ? JSON.stringify(entries.map(({ title, slug }) => ({ title, slug })))
-            : entries.map((e) => e.slug + '\t' + e.title).join('\n'),
-        ),
-        0
-      );
-    const i = entries.findIndex((e) => e.slug === section);
-    if (i < 0) throw new Usage('unknown docs section ' + section);
-    const text = source.slice(entries[i]!.at, entries[i + 1]?.at ?? source.length).trim();
-    return (io.out(json ? JSON.stringify({ topic, section, text }) : text), 0);
-  }
-  if (list) {
-    const listed = [
-      ...new Set([
-        'authoring',
-        'spec',
-        ...sections.map((s) => s.slug),
-        'markup',
-        ...moduleTopics.map((m) => m[1]!),
-        ...moduleDocs.keys(),
-      ]),
-    ];
-    return (io.out(json ? JSON.stringify(listed) : listed.join('\n')), 0);
-  }
-  let text: string;
-  if (!topic || topic === 'authoring')
-    text =
-      guide.split('\n')[0] +
-      '\n\nContents (anima docs authoring <section>):\n' +
-      sections.map((s) => '- ' + s.slug + ': ' + s.title).join('\n') +
-      (topic === 'authoring' ? '\n\n' + guide : '');
-  else if (topic === 'spec') text = spec;
-  else if (topic === 'markup') text = read('spec/ANIML.md');
-  else if (moduleDocs.has(topic) || moduleTopics.some((m) => m[1] === topic)) {
-    const i = chapters.findIndex((m) => m[1] === topic);
-    text =
-      i < 0 ? '' : spec.slice(chapters[i]!.index, chapters[i + 1]?.index ?? spec.length).trim();
-    for (const file of moduleDocs.get(topic) ?? [])
-      text += '\n\n' + (i < 0 ? read(file).trim() : read(file).trim().replace(/^#/gm, '###'));
-    const examples = new URL(`modules/${topic}/examples/`, ROOT);
-    if (existsSync(examples))
-      text +=
-        '\n\nExamples (AniML sources with built .ani siblings):\n' +
-        readdirSync(examples)
-          .filter((f) => f.endsWith('.animl'))
-          .sort()
-          .map((f) => `- modules/${topic}/examples/${f}`)
-          .join('\n');
-  } else {
-    const i = sections.findIndex((s) => s.slug === topic || s.slug.startsWith(topic));
-    if (i < 0) throw new Usage(`no docs topic "${topic}" (anima docs --list)`);
-    text = guide.slice(sections[i]!.at, sections[i + 1]?.at ?? guide.length).trim();
-  }
-  io.out(json ? JSON.stringify({ topic: topic ?? 'authoring', text }) : text);
-  return 0;
-}
-
 async function build(
   f: string,
   out: string | undefined,
@@ -1708,75 +1761,6 @@ async function build(
   if (out) writeFileSync(out, text);
   else if (io.write) io.write(text);
   else io.out(text);
-  return 0;
-}
-
-function schemaSearch(words: string, json: boolean, io: IO): number {
-  if (!words.trim()) throw new Usage('--search needs at least one word');
-  const topics = [
-    ...new Set([
-      ...NODE_TYPES,
-      ...Object.keys(ELEMENTS),
-      'fill',
-      'stroke',
-      'anima',
-      'a11y',
-      'timeline',
-      'layer',
-      'state',
-      'transition',
-      'listener',
-      'input',
-    ]),
-  ];
-  const entries: { name: string; description: string; kind: string }[] = [];
-  for (const topic of topics) {
-    const lines: string[] = [];
-    try {
-      schema(topic, false, true, { out: (s) => lines.push(s), err: () => {} });
-    } catch {
-      continue;
-    }
-    const data = JSON.parse(lines[0]!);
-    entries.push({ name: topic, description: 'registry type ' + topic, kind: 'type' });
-    for (const f of data.fields ?? []) {
-      if (f.markup !== f.ani)
-        entries.push({
-          name: topic + '.' + f.markup,
-          description: [f.description, f.type, f.ani].filter(Boolean).join(' '),
-          kind: 'field',
-        });
-      entries.push({
-        name: topic + '.' + f.ani,
-        description: [f.description, f.type, f.markup].filter(Boolean).join(' '),
-        kind: 'field',
-      });
-    }
-  }
-  const spec = readFileSync(new URL('spec/SPEC.md', ROOT), 'utf8');
-  for (const match of spec.matchAll(/^\| `([^`]+)` \| (?:error|warning) \| (.+) \|$/gm))
-    entries.push({ name: match[1]!, description: match[2]!, kind: 'diagnostic' });
-  const terms = words.toLowerCase().trim().split(/\s+/);
-  const results = entries
-    .map((e) => ({
-      ...e,
-      score: terms.reduce(
-        (s, t) =>
-          s +
-          (e.name.toLowerCase() === t
-            ? 100
-            : e.name.toLowerCase().includes(t)
-              ? 10
-              : e.description.toLowerCase().includes(t)
-                ? 1
-                : 0),
-        0,
-      ),
-    }))
-    .filter((e) => e.score > 0)
-    .sort((a, b) => b.score - a.score || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
-  if (json) io.out(JSON.stringify({ results }));
-  else io.out(results.map((e) => `${e.name}\t${e.kind}\t${e.description}`).join('\n'));
   return 0;
 }
 
@@ -1853,78 +1837,5 @@ async function exportProject(file: string, dir: string, json: boolean, io: IO): 
   );
   if (json) io.out(JSON.stringify({ wrote: dir, files: [name, 'anima.js', 'index.html'] }));
   else io.out('wrote ' + dir);
-  return 0;
-}
-
-function filteredSchema(
-  topic: string | undefined,
-  options: Record<string, unknown>,
-  json: boolean,
-  io: IO,
-): number {
-  if (options['editor-only']) {
-    const result = { applicable: false, reason: 'Anima has no editor-only entries', fields: [] };
-    io.out(json ? JSON.stringify(result) : result.reason);
-    return 0;
-  }
-  const lines: string[] = [];
-  schema(topic, false, true, { out: (s) => lines.push(s), err: (s) => io.err(s) });
-  type Row = {
-    ani: string;
-    name?: string;
-    animatable: boolean;
-    bindable: boolean;
-    inherited: boolean;
-    type: string;
-  };
-  const data = JSON.parse(lines[0]!);
-  const nodeRows = (
-    t: (typeof NODE_TYPES)[number],
-    info: { fields: { ani: string; type: string }[] },
-  ) =>
-    info.fields.map((f) => {
-      const prop = COMMON[f.ani] ?? OWN[t][f.ani];
-      return {
-        ...f,
-        animatable: !!prop,
-        bindable: !!prop,
-        inherited: Object.hasOwn(COMMON, f.ani),
-      };
-    });
-  let rows: Row[];
-  if (!topic)
-    rows = data.nodeTypes.flatMap(
-      (info: { type: (typeof NODE_TYPES)[number]; fields: { ani: string; type: string }[] }) =>
-        nodeRows(info.type, info).map((f) => ({ ...f, ani: info.type + '.' + f.ani })),
-    );
-  else if (NODE_TYPES.includes(topic as never)) rows = nodeRows(topic as never, data);
-  else {
-    const [type, key] = topic.split('.');
-    if (key && NODE_TYPES.includes(type as never))
-      rows = nodeRows(type as never, { fields: [data] });
-    else
-      rows = (data.fields ?? []).map((f: Row) => ({
-        ...f,
-        animatable: !!PAINT[topic as 'fill']?.[f.ani],
-        bindable: !!PAINT[topic as 'fill']?.[f.ani],
-        inherited: false,
-      }));
-  }
-  const fields = rows.filter(
-    (f) =>
-      (!options.animatable || f.animatable) &&
-      (!options.bindable || f.bindable) &&
-      (!options.inherited || f.inherited),
-  );
-  io.out(
-    json
-      ? JSON.stringify({ topic, fields })
-      : fields
-          .map(
-            (f) =>
-              `${f.ani}: ${f.type}; animatable=${f.animatable} bindable=${f.bindable} inherited=${f.inherited}`,
-          )
-          .join('\n'),
-  );
   return 0;
 }

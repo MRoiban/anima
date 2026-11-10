@@ -2,6 +2,8 @@ export const after = ['paint', 'text', 'assets', 'components', 'data', 'bind', '
 export default {
   ...{
     name: 'layout',
+    summary:
+      'Layout: row and column containers, hug, fill and fixed sizing, padding, gaps and animated reflow.',
     after: [],
     core: { entry: 'core/index.ts', export: 'layout', svg: 'core/svg.ts', svgExport: 'layoutSVG' },
     web: [

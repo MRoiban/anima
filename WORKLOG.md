@@ -8,9 +8,11 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 ## Now
 
-- Goal: a smaller, agent-native Rive for animated web UI. Phase: **P8 rigging** on `p8-rigging`
-  (26 rows: bones, constraints, IK, skin, meshes, pose pads, path follow, scroll, tree bounds) plus
-  carry-overs R4-02 (hits follow `drawOrder`) and the pre-player `toggle()` queue, both merged.
+- **CLI discovery done on `cli-discovery`** (owner request 2026-11-10; Bedrock-style CLI): command
+  table, help, did-you-mean, completion, `features`/`search`/`examples`, schema/docs fixes, llms.txt.
+  Metric `node tools/discovery.ts` (mine): quiz 53/56, rows 886/886, docs 886/886, examples 779/886.
+  Rottweiler 3 rounds, 18 findings fixed (`design/rottweiler/DISCOVERY-LEDGER.md`). Now: PR → main.
+  Held-out query set is private (not in the repo) so ranking fixes generalise.
 - Main is 3ef59c62 (P8 merged, PR #43). No open issues or PRs.
 - **P8 complete (2026-11-10): 26/26 rows**, in scope 886/886. Closure `docs/parity/P8-closure.md`,
   PLAN ticked, LOG entry, parity phase lists (P8 finished, nothing in progress). Benchmark: AniML
@@ -38,8 +40,8 @@ carry (2026-11-06 → 2026-11-08) is at `git show 39ab6837:WORKLOG.md`.
 
 - Coders: **only Codex Web subagents** (provider instance `codexWeb`, model `chatgpt-web/gpt-5.6-sol`,
   medium), **at most 3 at a time** (owner, 2026-11-10; was 2). No Terra or other `codex` models.
-- Still to ask before doing: going public, publishing packages (npm scope not chosen), other Glyphy
-  changes. Licence is MIT (owner, 2026-11-08).
+- Still to ask before doing: publishing packages (npm scope not chosen), other Glyphy changes. The repo is public.
+  Licence is MIT (owner, 2026-11-08).
 - 2026-11-09 the owner handed me the open decisions ("I believe in your trust"). Decided, owner may
   revisit: P4 R4-02 — pointer hits and pointer focus follow the painted order (`drawOrder`), as one
   coordinated input + focus + composite change in P8; `a11y.tree-bounds` stays in P8.

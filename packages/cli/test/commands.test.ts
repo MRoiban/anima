@@ -321,3 +321,104 @@ it('reports each static wiring category with a pointer and hint', async () => {
     expect(finding.hint.length).toBeGreaterThan(0);
   }
 });
+
+describe('D-A discovery command dispatch', () => {
+  const feature = {
+    entry: {
+      kind: 'feature' as const,
+      name: 'paint',
+      summary: 'paint fills and strokes',
+      docs: ['paint'],
+      examples: ['examples/paint.animl'],
+    },
+    provides: [
+      {
+        kind: 'element' as const,
+        name: 'fill',
+        summary: 'fill paint',
+        feature: 'paint',
+        docs: ['paint'],
+      },
+      { kind: 'field' as const, name: 'fill.color', summary: 'fill colour', feature: 'paint' },
+    ],
+    after: ['core'],
+  };
+  const hit = { entry: feature.provides[0]!, score: 10 };
+  const example = {
+    entry: {
+      kind: 'example' as const,
+      name: 'examples/bell.animl',
+      summary: 'interactive bell',
+      feature: 'paint',
+    },
+    path: 'examples/bell.animl',
+    requires: ['paint'],
+  };
+  const discovery = {
+    features: (name?: string) => (name ? (name === 'paint' ? feature : undefined) : [feature]),
+    search: () => [hit],
+    examples: () => [example],
+  };
+  const call = async (...args: string[]) => {
+    const out: string[] = [],
+      err: string[] = [];
+    const code = await run(
+      args,
+      {
+        out: (text) => out.push(text),
+        err: (text) => err.push(text),
+        write: (text) => out.push(text),
+      },
+      { discover: discovery },
+    );
+    return { code, out: out.join('\n'), err: err.join('\n') };
+  };
+
+  it('lists features and groups one feature by provided kind', async () => {
+    expect((await call('features')).out).toContain('paint — paint fills and strokes');
+    const one = await call('features', 'paint');
+    expect(one.code).toBe(0);
+    expect(one.out).toContain('element:');
+    expect(one.out).toContain('field:');
+    expect(one.out).toContain('Docs: paint');
+    expect(one.out).toContain('Examples: examples/paint.animl');
+    expect(one.out).toContain('After: core');
+  });
+
+  it('searches the injected index and gives a next action', async () => {
+    const result = await call('search', 'fill', '--kind', 'element', '--limit', '5');
+    expect(result.code).toBe(0);
+    expect(result.out).toContain('element  fill  fill paint');
+    expect(result.out).toContain('Next:');
+  });
+
+  it('lists, prints, and copies one injected example', async () => {
+    expect((await call('examples', 'bell')).out).toContain(
+      'examples/bell.animl — interactive bell (requires paint)',
+    );
+    expect((await call('examples', 'bell', '--print')).out).toContain('<anima');
+    const dir = temp();
+    const copied = await call('examples', 'bell', '-o', dir);
+    expect(copied.code).toBe(0);
+    expect(existsSync(resolve(dir, 'bell.animl'))).toBe(true);
+  });
+
+  it('rejects command-specific flags and emits JSON usage errors', async () => {
+    const bad = await call('validate', bell, '--size', '10', '--format=json');
+    expect(bad.code).toBe(2);
+    expect(JSON.parse(bad.err)).toMatchObject({
+      error: expect.stringContaining('--size'),
+      suggestions: expect.any(Array),
+      help: 'anima help validate',
+    });
+  });
+
+  it('supports command aliases, version, and typo suggestions', async () => {
+    expect((await call('check', bell)).code).toBe(0);
+    expect((await call('version')).out).toBe('0.1.0');
+    expect((await call('rendr')).err).toContain('render');
+    expect((await call('render', bell, '--sze', '4')).err).toContain('--size');
+    expect((await call('render', bell, '--fit', 'covr')).err).toContain('cover');
+    expect((await call('library', 'updte')).err).toContain('update');
+  });
+});

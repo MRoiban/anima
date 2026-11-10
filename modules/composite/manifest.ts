@@ -1,6 +1,7 @@
 export const after = ['paint'];
 export default {
   name: 'composite',
+  summary: 'Compositing: blend modes, masks, clips, knockout and draw order.',
   after,
   core: {
     entry: 'core/index.ts',

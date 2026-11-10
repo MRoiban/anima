@@ -3,6 +3,7 @@ export const after: string[] = ['components', 'bind', 'motion'];
 export default {
   ...{
     name: 'machine',
+    summary: 'State machines: layers, states, transitions with conditions, blending and actions.',
     after: [],
     core: {
       entry: 'core/index.ts',

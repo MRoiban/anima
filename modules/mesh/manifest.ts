@@ -1,6 +1,8 @@
 export const after = ['assets', 'bind'];
 export default {
   name: 'mesh',
+  summary:
+    'Meshes: deform an image with a grid or explicit triangle mesh whose vertices can be animated or bound.',
   after,
   core: { entry: 'core/index.ts', export: 'mesh', svg: 'core/svg.ts', svgExport: 'meshSVG' },
   web: [

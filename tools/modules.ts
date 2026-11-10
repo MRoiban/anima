@@ -7,6 +7,8 @@ import { format } from 'prettier';
 
 export interface Manifest {
   name: string;
+  /** One line for `anima features`: what the module lets a scene do (browser/authoring entries say so). */
+  summary?: string;
   after: string[];
   core?: { entry: string; export: string; svg?: string; svgExport?: string } | null;
   web: {

@@ -1,6 +1,7 @@
 export const after = ['composite'];
 export default {
   name: 'surface',
+  summary: 'Surfaces: image paints, nine-slice patches and paint feathering.',
   after,
   core: {
     entry: 'core/index.ts',

@@ -1,6 +1,7 @@
 export const after = ['data', 'host-values'];
 export default {
   name: 'host',
+  summary: 'Host data API: read scene data and values from page scripts.',
   after,
   core: { entry: 'core/index.ts', export: 'host' },
   web: [{ name: 'host', budget: 3968, over: 'host-values' }],

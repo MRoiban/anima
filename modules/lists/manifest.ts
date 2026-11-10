@@ -2,6 +2,8 @@ export const after = ['components', 'data', 'bind', 'convert', 'derive'];
 export default {
   ...{
     name: 'lists',
+    summary:
+      'Lists: repeat a component for each item of a data list, keeping each row’s state across edits.',
     after: [],
     core: { entry: 'core/index.ts', export: 'lists', svg: 'core/svg.ts', svgExport: 'listsSVG' },
     web: [{ name: 'lists', budget: 5120 }],

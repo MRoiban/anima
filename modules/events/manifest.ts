@@ -3,6 +3,8 @@ export const after: string[] = ['components', 'bind', 'assets', 'motion'];
 export default {
   ...{
     name: 'events',
+    summary:
+      'Events: named events with payloads that scenes emit to the page (and URL, audio and state events).',
     after: [],
     core: { entry: 'core/index.ts', export: 'events', svg: 'core/svg.ts', svgExport: 'eventsSVG' },
     web: [{ name: 'events', budget: 3264 }],

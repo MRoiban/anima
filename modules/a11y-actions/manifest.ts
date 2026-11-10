@@ -1,6 +1,8 @@
 export const after = ['a11y'];
 export default {
   name: 'a11y-actions',
+  summary:
+    'Accessibility actions (tap, increase, decrease, focus) that drive listeners like real input.',
   after,
   core: { entry: 'core/index.ts', export: 'a11yActions' },
   web: [{ name: 'a11y-actions', budget: 1216, over: 'a11y' }],

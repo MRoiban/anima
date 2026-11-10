@@ -2,6 +2,7 @@ export const after = ['assets', 'host', 'host-edit'];
 export default {
   ...{
     name: 'fonts',
+    summary: 'Fonts: font assets, font formats, glyph subsets and fallback for text.',
     after: [],
     core: { entry: 'core/index.ts', export: 'fonts', svg: 'core/svg.ts', svgExport: 'fontsSVG' },
     web: [
