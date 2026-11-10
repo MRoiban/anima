@@ -18,6 +18,7 @@ export const SYNONYMS: Record<string, string[]> = {
   ease: ['inOut', 'cubic', 'linear'],
   skeleton: ['rig', 'bone'],
   bones: ['rig', 'bone'],
+  chain: ['ik', 'rig', 'bone'],
   mesh: ['mesh'],
   inverse: ['ik'],
   kinematics: ['ik'],

@@ -458,6 +458,12 @@ async function runExamples(
           );
       return 0;
     }
+    // A source and its built sibling (`bell.animl`, `bell.ani`) count as one example: print the source.
+    if (
+      examples.length === 2 &&
+      examples[0]!.path.replace(/\.ani(ml)?$/, '') === examples[1]!.path.replace(/\.ani(ml)?$/, '')
+    )
+      examples.splice(0, 2, examples.find((e) => e.path.endsWith('.animl')) ?? examples[0]!);
     if (examples.length !== 1)
       throw new Usage(
         examples.length
@@ -489,6 +495,14 @@ async function runExamples(
 
 export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<number> {
   const jsonRequested = wantsJSON(argv);
+  // Options may come before the command (as on main: `anima --summary inspect f`, `-e snapshot sample f`).
+  // Find the command by skipping leading options, using every command's declarations to know which
+  // options take a value; the skipped tokens are then validated against the resolved command.
+  const takesValue = new Map<string, boolean>();
+  for (const option of [...GLOBAL, ...COMMANDS.flatMap((c) => c.options)]) {
+    takesValue.set('--' + option.name, !!option.value);
+    if (option.short) takesValue.set('-' + option.short, !!option.value);
+  }
   const leading: string[] = [];
   let index = 0;
   while (index < argv.length) {
@@ -501,25 +515,36 @@ export async function run(argv: string[], io: IO, deps: RunDeps = {}): Promise<n
       io.out(jsonRequested ? JSON.stringify({ version: CLI_VERSION }) : CLI_VERSION);
       return 0;
     }
-    if (token === '--format' || token.startsWith('--format=')) {
-      leading.push(token);
-      if (token === '--format') {
-        const value = argv[index + 1];
-        if (value === undefined)
-          return emitUsage(
-            new Usage("option '--format' needs <text|json>"),
-            undefined,
-            jsonRequested,
-            io,
-          );
-        leading.push(value);
-        index++;
-      }
+    if (!token.startsWith('-') || token === '-' || token === '--') break;
+    const name = token.split('=')[0]!;
+    if (!takesValue.has(name)) break;
+    leading.push(token);
+    if (takesValue.get(name) && !token.includes('=')) {
+      const value = argv[index + 1];
+      if (value === undefined)
+        return emitUsage(new Usage(`option '${name}' needs a value`), undefined, jsonRequested, io);
+      leading.push(value);
       index++;
-      continue;
     }
-    break;
+    index++;
   }
+  const formats = leading.flatMap((t, i) =>
+    t === '--format' ? [leading[i + 1]!] : t.startsWith('--format=') ? [t.slice(9)] : [],
+  );
+  for (const value of formats)
+    if (value !== 'text' && value !== 'json')
+      return emitUsage(
+        usageIssue(
+          undefined,
+          'value',
+          value,
+          ['text', 'json'],
+          `'${value}' is not a valid value for '--format'`,
+        ),
+        undefined,
+        jsonRequested,
+        io,
+      );
   if (index >= argv.length) {
     io.out(overview());
     return 0;

@@ -9,7 +9,8 @@
     ".": "./src/index.ts"
   },
   "files": [
-    "src"
+    "src",
+    "llms.txt"
   ],
   "bin": {
     "anima": "./src/main.ts"

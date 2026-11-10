@@ -437,8 +437,19 @@ function showObject(topic: string, data: { fields: Field[] }): string {
   return text + '\n' + metadata(topic, data);
 }
 
-function schemaMiss(topic: string, io: IO): number {
+function schemaMiss(topic: string, io: IO, json = false): number {
   const suggestion = nearestTopic(topic.split('.')[0]!, schemaTopics());
+  if (json) {
+    const suggestions = suggestion ? [suggestion] : [];
+    io.err(
+      JSON.stringify({
+        error: `no schema topic "${topic}"`,
+        suggestions,
+        help: 'anima help schema',
+      }),
+    );
+    return 2;
+  }
   io.err(
     suggestion
       ? 'no schema topic "' +
@@ -487,14 +498,22 @@ export function schema(topic: string | undefined, full: boolean, json: boolean, 
     const [head, ...path] = topic.split('.');
     const canonical = schemaTopic(head)!;
     const data = schemaData(canonical) as { fields?: Field[] } | undefined;
-    if (!data) return schemaMiss(topic, io);
+    if (!data) return schemaMiss(topic, io, json);
     const key = path.join('.');
     const field = data.fields?.find(
       (candidate: { ani: string; markup: string }) =>
         candidate.ani === key || candidate.markup === key,
     );
     if (!field) {
-      io.err('unknown schema field ' + topic + "\nSee 'anima schema " + canonical + "'.");
+      if (json)
+        io.err(
+          JSON.stringify({
+            error: `unknown schema field ${topic}`,
+            suggestions: [],
+            help: `anima schema ${canonical}`,
+          }),
+        );
+      else io.err('unknown schema field ' + topic + "\nSee 'anima schema " + canonical + "'.");
       return 2;
     }
     io.out(JSON.stringify({ topic, ...field }));
@@ -503,7 +522,7 @@ export function schema(topic: string | undefined, full: boolean, json: boolean, 
 
   topic = schemaTopic(topic);
   const data = topic ? schemaData(topic) : undefined;
-  if (!topic || !data) return schemaMiss(topic ?? '', io);
+  if (!topic || !data) return schemaMiss(topic ?? '', io, json);
   if (json) {
     io.out(JSON.stringify(data));
     return 0;
@@ -646,16 +665,16 @@ export function filteredSchema(
     rows = nodeRows(topic as never, typeInfo(topic as never));
   else if (topic.includes('.')) {
     const [type, key] = topic.split('.');
-    if (!NODE_TYPES.includes(type as never)) return schemaMiss(topic, io);
+    if (!NODE_TYPES.includes(type as never)) return schemaMiss(topic, io, json);
     const data = schemaData(type) as ReturnType<typeof typeInfo>;
     const field = data.fields.find(
       (candidate) => candidate.ani === key || candidate.markup === key,
     );
-    if (!field) return schemaMiss(topic, io);
+    if (!field) return schemaMiss(topic, io, json);
     rows = nodeRows(type as never, { fields: [field] });
   } else {
     const data = schemaData(topic) as { fields?: Row[] } | undefined;
-    if (!data) return schemaMiss(topic, io);
+    if (!data) return schemaMiss(topic, io, json);
     rows = (data.fields ?? []).map((field: Row) => ({
       ...field,
       animatable: !!PAINT[topic as 'fill']?.[field.ani],

@@ -108,7 +108,7 @@ _anima "$@"
 
 function fishOption(command: Command, option: Option): string {
   const pieces = [
-    `complete -c anima -n '__fish_seen_subcommand_from ${command.name}'`,
+    `complete -c anima -n '__fish_seen_subcommand_from ${[command.name, ...(command.aliases ?? [])].join(' ')}'`,
     `-l ${option.name}`,
   ];
   if (option.short) pieces.push(`-s ${option.short}`);
@@ -119,15 +119,18 @@ function fishOption(command: Command, option: Option): string {
 }
 
 function fish(): string {
-  const commandLines = COMMANDS.map(
-    (command) =>
-      `complete -c anima -f -n '__fish_use_subcommand' -a '${command.name}' -d '${command.summary.replaceAll("'", "\\'")}'`,
+  // Aliases complete like their command (`anima check --f` offers validate's flags).
+  const commandLines = COMMANDS.flatMap((command) =>
+    [command.name, ...(command.aliases ?? [])].map(
+      (name) =>
+        `complete -c anima -f -n '__fish_use_subcommand' -a '${name}' -d '${command.summary.replaceAll("'", "\\'")}'`,
+    ),
   );
   const detailLines = COMMANDS.flatMap((command) => [
     ...[...command.options, ...GLOBAL].map((option) => fishOption(command, option)),
     ...(values(command).length
       ? [
-          `complete -c anima -f -n '__fish_seen_subcommand_from ${command.name}' -a '${values(command).join(' ')}'`,
+          `complete -c anima -f -n '__fish_seen_subcommand_from ${[command.name, ...(command.aliases ?? [])].join(' ')}' -a '${values(command).join(' ')}'`,
         ]
       : []),
   ]);

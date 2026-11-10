@@ -18,7 +18,7 @@ const slug = (title: string) =>
 type Heading = { level: number; title: string; slug: string; at: number };
 
 function headings(source: string, levels = [2, 3]): Heading[] {
-  return [...source.matchAll(/^(#{2,3}) (.+)$/gm)]
+  return [...source.matchAll(/^(#{2,6}) (.+)$/gm)]
     .map((match) => ({
       level: match[1]!.length,
       title: match[2]!,
@@ -221,8 +221,15 @@ function contents(title: string, command: string, entries: Heading[]): string {
   );
 }
 
-function miss(topic: string, candidates: readonly string[], io: IO): number {
+function miss(topic: string, candidates: readonly string[], io: IO, json = false): number {
   const suggestion = nearest(topic, candidates);
+  if (json) {
+    const suggestions = suggestion ? [suggestion] : [];
+    io.err(
+      JSON.stringify({ error: `no docs topic "${topic}"`, suggestions, help: 'anima docs --list' }),
+    );
+    return 2;
+  }
   io.err(
     suggestion
       ? 'no docs topic "' +
@@ -263,6 +270,7 @@ function docsImpl(
         requestedSection!,
         entries.map((entry) => entry.slug),
         io,
+        json,
       );
     const text = section(state.spec, found, entries);
     io.out(json ? JSON.stringify({ topic: 'spec', section: found.slug, text }) : text);
@@ -278,6 +286,7 @@ function docsImpl(
         requestedSection,
         state.guideHeadings.map((entry) => entry.slug),
         io,
+        json,
       );
     const text = section(state.guide, found, state.guideHeadings);
     io.out(json ? JSON.stringify({ topic: 'authoring', section: found.slug, text }) : text);
@@ -306,7 +315,7 @@ function docsImpl(
   }
 
   const resolved = state.resolve(topic);
-  if (!resolved) return miss(topic, state.candidates, io);
+  if (!resolved) return miss(topic, state.candidates, io, json);
 
   let text: string;
   switch (resolved.kind) {
@@ -336,6 +345,20 @@ function docsImpl(
     case 'module':
       text = moduleText(resolved.topic, state.spec, state.modules);
       break;
+  }
+
+  // A second word narrows the page to one of its sections (`docs a11y <section>`); unknown ones miss.
+  if (requestedSection) {
+    const entries = headings(text, [2, 3, 4, 5, 6]);
+    const found = entries.find((entry) => compact(entry.slug) === compact(requestedSection));
+    if (!found)
+      return miss(
+        requestedSection,
+        entries.map((entry) => entry.slug),
+        io,
+        json,
+      );
+    text = section(text, found, entries);
   }
 
   io.out(json ? JSON.stringify({ topic: resolved.topic, text }) : text);
