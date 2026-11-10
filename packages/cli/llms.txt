@@ -18,5 +18,13 @@ Discovery commands:
 - `anima docs <topic>` — docs by module, feature, capability row, element or section.
 - `anima help --json` — machine-readable command metadata.
 
-Agent guide: ../../docs/FOR-AGENTS.md
-Generated CLI reference: ../../docs/CLI.md
+All commands (`anima help <command>` for each):
+- Write: `anima new`, `anima fmt`, `anima import`, `anima decompile`, `anima flatten`, `anima library`
+- Check: `anima validate`, `anima compare`, `anima bench`, `anima doctor`
+- See: `anima inspect`, `anima sample`, `anima session`, `anima render`, `anima playground`, `anima docs`, `anima schema`
+- Find: `anima features`, `anima search`, `anima examples`, `anima help`
+- Ship: `anima build`, `anima bundle`, `anima completion`, `anima version`
+- Fonts and assets: `anima import-font`
+
+Agent guide: https://github.com/MRoiban/anima/blob/main/docs/FOR-AGENTS.md
+Generated CLI reference: https://github.com/MRoiban/anima/blob/main/docs/CLI.md
